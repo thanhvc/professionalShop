@@ -3,13 +3,36 @@
 Install Node.js latest version and then:
 
 ```sh
-$ git clone git://github.com/edosoft/mo-shopclientmo-shopclient.git
-$ cd ng-boilerplate
+$ git clone https://github.com/edosoft/mo-shopclient.git cd ng-boilerplate
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
 $ bower install
-$ grunt watch
+$ grunt watch --force
 ```
+##Development server
+
+I've provide a virtual with nginx webserver, with a host only network interface and a virtual host preconfigured.
+
+Install VirtualBox
+Install Vagrant
+
+```sh
+clone https://github.com/aitorcarrera/vagrant-nginx.git
+```
+Take into consideration that this is a public repository managed by Aitor Carrera, there is not any company information,
+or specific software related stuff, just Open source code and some configuracion magic, mostly provided by
+https://puphpet.com
+
+```sh
+$sudo sh -c "mkdir /opt/mo-shopclient-deployment && chmod 777 /opt/mo-shopclient-deployment"
+cd vagrant-nginx
+vagrant up
+vagrant provision
+$sudo sh -c 'echo "192.168.56.101 mo-shopclient.development.com" >> /etc/hosts'
+```
+Then you can configure your ide to deploy to /opt/mo-shopclient-deployment and you can see your results at
+
+[http://mo-shopclient.development.com/](http://mo-shopclient.development.com/)
 
 
 ## Learn
@@ -20,28 +43,46 @@ At a high level, the structure looks roughly like this:
 
 ```
 mo-shopclient/
-  |- grunt-tasks/
-  |- karma/
-  |- src/
-  |  |- app/
-  |  |  |- <app logic>
-  |  |- assets/
-  |  |  |- <static files>
-  |  |- common/
-  |  |  |- <reusable code>
-  |  |- less/
-  |  |  |- main.less
-  |- vendor/
-  |  |- angular-bootstrap/
-  |  |- bootstrap/
-  |  |- placeholders/
-  |- .bowerrc
-  |- bower.json
-  |- build.config.js
-  |- Gruntfile.js
-  |- module.prefix
-  |- module.suffix
-  |- package.json
+├── CHANGELOG.md
+├── Gruntfile.js
+├── LICENSE
+├── README.md
+├── bower.json
+├── build.config.js
+├── changelog.tpl
+├── karma
+│   └── karma-unit.tpl.js
+├── module.prefix
+├── module.suffix
+├── package.json
+├── src
+│   ├── README.md
+│   ├── app
+│   │   ├── README.md
+│   │   ├── app.js
+│   │   ├── app.spec.js
+│   │   ├── home
+│   │   │   ├── README.md
+│   │   │   ├── home.js
+│   │   │   ├── home.less
+│   │   │   ├── home.spec.js
+│   │   │   └── home.tpl.html
+│   │   └── in18
+│   ├── assets
+│   │   └── README.md
+│   ├── common
+│   │   ├── README.md
+│   │   └── plusOne
+│   │       └── plusOne.js
+│   ├── i18n
+│   │   └── lang-es.json
+│   ├── index.html
+│   └── less
+│       ├── README.md
+│       ├── main.less
+│       └── variables.less
+├── tools.md
+└── vendor
 ```
 
 What follows is a brief description of each entry, but most directories contain
