@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="ngMo" ng-controller="AppCtrl">
+<head>
+    <title ng-bind="pageTitle"></title>
+
+    <!-- TODO:social media tags -->
+
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>"/>
+    <% }); %>
+
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script>
+    <% }); %>
+
+</head>
+<body>
+<div class="container">
+
+
+    <div class="container" ui-view="main"></div>
+
+</div>
+</body>
+</html>
