@@ -20,7 +20,7 @@ Install Vagrant
 clone https://github.com/aitorcarrera/vagrant-nginx.git
 ```
 Take into consideration that this is a public repository managed by Aitor Carrera, there is not any company information,
-or specific software related stuff, just Open source code and some configuracion magic, mostly provided by
+or specific software related stuff, just Open source code and some configuration magic, mostly provided by
 https://puphpet.com
 
 ```sh
