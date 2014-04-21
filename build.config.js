@@ -31,7 +31,6 @@ module.exports = {
 
         html: [ 'src/index.html' ],
         less: 'src/less/main.less',
-        lang: ['src/i18n/*.json', 'src/i18n/**/*.json']
     },
 
     /**
@@ -65,12 +64,9 @@ module.exports = {
         js: [
             'vendor/angular/angular.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
             'vendor/angular-ui-router/release/angular-ui-router.js',
             'vendor/angular-ui-utils/modules/route/route.js',
-            'vendor/angular-translate/angular-translate.min.js',
-            'vendor/angular-translate-loader-partial/angular-translate-loader-partial.min.js',
-            'vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
+            '/vendor/angular-gettext/dist/angular-gettext.min.js'
 
         ],
         css: [

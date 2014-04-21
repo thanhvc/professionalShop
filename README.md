@@ -34,6 +34,10 @@ Then you can configure your ide to deploy to /opt/mo-shopclient-deployment and y
 
 [http://mo-shopclient.development.com/](http://mo-shopclient.development.com/)
 
+## Translations
+
+The translation libraries are [angular-gettext](https://github.com/rubenv/angular-gettext)
+TODO: Add translations.js to the project.
 
 ## Learn
 
@@ -43,46 +47,80 @@ At a high level, the structure looks roughly like this:
 
 ```
 mo-shopclient/
-├── CHANGELOG.md
-├── Gruntfile.js
-├── LICENSE
-├── README.md
-├── bower.json
-├── build.config.js
-├── changelog.tpl
-├── karma
-│   └── karma-unit.tpl.js
-├── module.prefix
-├── module.suffix
-├── package.json
-├── src
-│   ├── README.md
-│   ├── app
-│   │   ├── README.md
-│   │   ├── app.js
-│   │   ├── app.spec.js
-│   │   ├── home
-│   │   │   ├── README.md
-│   │   │   ├── home.js
-│   │   │   ├── home.less
-│   │   │   ├── home.spec.js
-│   │   │   └── home.tpl.html
-│   │   └── in18
-│   ├── assets
-│   │   └── README.md
-│   ├── common
-│   │   ├── README.md
-│   │   └── plusOne
-│   │       └── plusOne.js
-│   ├── i18n
-│   │   └── lang-es.json
-│   ├── index.html
-│   └── less
-│       ├── README.md
-│       ├── main.less
-│       └── variables.less
-├── tools.md
-└── vendor
+|-- CHANGELOG.md
+|-- Gruntfile.js
+|-- LICENSE
+|-- README.md
+|-- bower.json
+|-- build.config.js
+|-- changelog.tpl
+|-- karma
+|   `-- karma-unit.tpl.js
+|-- module.prefix
+|-- module.suffix
+|-- package.json
+|-- src
+|   |-- README.md
+|   |-- app
+|   |   |-- README.md
+|   |   |-- app.js
+|   |   |-- app.spec.js
+|   |   |-- contact
+|   |   |   |-- business
+|   |   |   |-- job
+|   |   |   |-- localization
+|   |   |   `-- support
+|   |   |-- home
+|   |   |   |-- README.md
+|   |   |   |-- catalog
+|   |   |   |-- home.js
+|   |   |   |-- home.less
+|   |   |   |-- home.spec.js
+|   |   |   `-- home.tpl.html
+|   |   |-- investor_tools
+|   |   |   |-- articles
+|   |   |   |-- mo_template_collections
+|   |   |   |-- resources
+|   |   |   `-- symbols_and_exchanges
+|   |   |-- market_observatory
+|   |   |   |-- data_protection
+|   |   |   |-- organization
+|   |   |   |-- service_conditions
+|   |   |   `-- what_is_and_what_is_not
+|   |   |-- service_applications
+|   |   |   |-- advanced
+|   |   |   |-- diversification
+|   |   |   |-- etf_cfd
+|   |   |   |-- funds
+|   |   |   |-- futures
+|   |   |   |-- pairs
+|   |   |   `-- stocks
+|   |   |-- services
+|   |   |   |-- detailed_description
+|   |   |   |-- fundamentals
+|   |   |   |-- products_and_exchanges
+|   |   |   `-- summary
+|   |   |-- sign_in
+|   |   |-- sign_up
+|   |   `-- subscriptions_and_prices
+|   |       |-- free_subscription
+|   |       |-- prices
+|   |       |-- products
+|   |       |-- purchase
+|   |       |-- shopping_guide
+|   |       `-- subscription_types
+|   |-- assets
+|   |   `-- README.md
+|   |-- common
+|   |   |-- README.md
+|   |   `-- services
+|   |-- index.html
+|   `-- less
+|       |-- README.md
+|       |-- main.less
+|       `-- variables.less
+|-- tools.md
+`-- vendor
 ```
 
 What follows is a brief description of each entry, but most directories contain

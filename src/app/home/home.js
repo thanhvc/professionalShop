@@ -13,8 +13,7 @@
  * specified, as shown below.
  */
 angular.module('ngMo.home', [
-        'ui.state',
-        'pascalprecht.translate'
+        'ui.state'
     ])
 
 /**
@@ -34,21 +33,13 @@ angular.module('ngMo.home', [
             data: { pageTitle: 'Home' }
         });
     })
-
-    .config(['$translateProvider', function ($translateProvider) {
-        $translateProvider.useStaticFilesLoader({
-            prefix: 'src/i18n/lang-',
-            suffix: '.json'
-        });
-        $translateProvider.preferredLanguage('es');
-
-
-    }])
 /**
  * And of course we define a controller for our route.
  */
+
     .controller('HomeCtrl', function HomeController($scope) {
-    })
+
+})
 
 ;
 
