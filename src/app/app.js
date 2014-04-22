@@ -2,8 +2,7 @@ angular.module('ngMo', [
         'templates-app',
         'templates-common',
         'ngMo.home',
-        'ui.state',
-        'ui.route',
+        'ui.router',
         'gettext'
     ])
 
@@ -18,7 +17,14 @@ angular.module('ngMo', [
 
     .controller('AppCtrl', function AppCtrl($scope, $location) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
         });
     })
+
+
+
+
+
 ;
