@@ -99,6 +99,51 @@ h2 {
 }
 
 /**
+Flags styles
+*/
+
+.flag {
+  width: 25px;
+  height: 15px;
+  padding: 0px;
+  margin-left: 1px;
+  background: url(../assets/img/flags.png) no-repeat;
+  list-style: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.flag.flag-cn {
+  background-position: -25px 0;
+}
+
+.flag.flag-de {
+  background-position: -50px 0;
+}
+
+.flag.flag-es {
+  background-position: 0 -15px;
+}
+
+.flag.flag-fr {
+  background-position: -25px -15px;
+}
+
+.flag.flag-gb {
+  background-position: -50px -15px;
+}
+
+.flag.flag-jp {
+  background-position: 0 -30px;
+}
+
+.flag-menu {
+  display: inline-block;
+  list-style: none;
+
+}
+
+/**
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using. 
  *
