@@ -15,10 +15,37 @@
 
 </head>
 <body>
-<div class="container">
+    <header>
+        <div id="menuId" class="menu blackHead">
+            <div id="MOHeader" class="MOHeader">
+                <a href="#/home">
+                    <div class="headerImg logoHeader"></div>
+                    <div class="headerImg centralHeader"></div>
+                </a>
+            </div>
+        </div>
 
-    <div class="container" ui-view="main"></div>
+        <div id="menuFull">
+            <div id="menuNavId" class="menuNav">
+                <div>
+                    <div id="navegContId" class="navegCont" ng-controller="AppCtrl">
+                        <nav public-menu id="menu-not-logged" class="navbar fontVerdanaB"></nav>
+                        <nav public-sub-menu id="sub-menu-public" class="fontVerdanaB"></nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container "  ui-view="main" style="display:block;">
 
-</div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

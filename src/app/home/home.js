@@ -13,7 +13,7 @@
  * specified, as shown below.
  */
 angular.module('ngMo.home', [
-        'ui.router'
+    'ui.router'
     ])
 
 /**
@@ -22,16 +22,7 @@ angular.module('ngMo.home', [
  * this way makes each module more "self-contained".
  */
     .config(function config($stateProvider) {
-        $stateProvider.state('home', {
-            url: '/home',
-            views: {
-                "main": {
-                    controller: 'HomeCtrl',
-                    templateUrl: 'home/home.tpl.html'
-                }
-            },
-            data: { pageTitle: 'Home' }
-        });
+
     })
 /**
  * And of course we define a controller for our route.
