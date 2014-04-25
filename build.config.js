@@ -66,7 +66,7 @@ module.exports = {
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'vendor/angular-ui-router/release/angular-ui-router.js',
             'vendor/angular-ui-utils/modules/route/route.js',
-            '/vendor/angular-gettext/dist/angular-gettext.min.js'
+            'vendor/angular-gettext/dist/angular-gettext.min.js'
 
         ],
         css: [
