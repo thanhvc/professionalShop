@@ -1,7 +1,7 @@
 <!-- Menú que se muestra en la parte pública cuando el usuario no está logueado -->
 
-<ul id="submenu1" ng-controller="AppCtrl"
-    ng-class="{'displayBlock': actualSubmenu == 'submenu1', 'displayNone': actualSubmenu != 'submenu1'}">
+<ul id="submenu1"
+    ng-class="{'display-block': actualSubmenu == 'submenu1', 'display-none': actualSubmenu != 'submenu1'}">
     <li id="organization-nav"
         ng-click="onClickSubmenu('organization-nav')"
         ng-mouseenter="onMouseEnterSubmenu('market-observatory-nav','submenu1','organization-nav')"
@@ -36,241 +36,216 @@
         </a>
 </ul>
 
-<ul id="submenu2" ng-controller="AppCtrl"
-    ng-class="{'displayBlock': actualSubmenu == 'submenu2', 'displayNone': actualSubmenu != 'submenu2'}">
+<ul id="submenu2"
+    ng-class="{'display-block': actualSubmenu == 'submenu2', 'display-none': actualSubmenu != 'submenu2'}">
     <li id="summary-nav" ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','summary-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'summary-nav',
-            'item-nav-hover': actualItemSubmenu == 'summary-nav'}">
+        <a href="#/summary" ng-class="{'item-nav-hover': selectItemSubmenu == 'summary-nav' || actualItemSubmenu == 'summary-nav'}">
             Resumen
         </a>
-    </li>
     <li id="products-and-markets-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','products-and-markets-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1"  ng-class="{'item-nav-hover': selectItemSubmenu == 'products-and-markets-nav',
-            'item-nav-hover': actualItemSubmenu == 'products-and-markets-nav'}">
+        <a href="#/products_and_exchanges"  ng-class="{'item-nav-hover': selectItemSubmenu == 'products-and-markets-nav'
+            || actualItemSubmenu == 'products-and-markets-nav'}">
             Productos y Mercados
         </a>
-    </li>
+
     <li id="details-description-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','details-description-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'details-description-nav',
-            'item-nav-hover': actualItemSubmenu == 'details-description-nav'}">
+        <a href="#/detailed_description" ng-class="{'item-nav-hover': selectItemSubmenu == 'details-description-nav'
+            || actualItemSubmenu == 'details-description-nav'}">
             Descripci&oacute;n Detallada
         </a>
-    </li>
+
     <li id="fundaments-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','fundaments-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'fundaments-nav',
-            'item-nav-hover': actualItemSubmenu == 'fundaments-nav'}">
+        <a href="#/fundamentals" ng-class="{'item-nav-hover': selectItemSubmenu == 'fundaments-nav'
+            || actualItemSubmenu == 'fundaments-nav'}">
             Fundamentos
         </a>
-    </li>
 </ul>
-<ul id="submenu3" class="displayNone" ng-controller="AppCtrl"
-    ng-class="{'displayBlock': actualSubmenu == 'submenu3', 'displayNone': actualSubmenu != 'submenu3'}">
+<ul id="submenu3"
+    ng-class="{'display-block': actualSubmenu == 'submenu3', 'display-none': actualSubmenu != 'submenu3'}">
     <li id="actions-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('application-services-nav','submenu3','actions-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'actions-nav' || actualItemSubmenu == 'actions-nav'}">
+        <a href="#/stocks" ng-class="{'item-nav-hover': selectItemSubmenu == 'actions-nav' || actualItemSubmenu == 'actions-nav'}">
             Acci&oacute;n
         </a>
-    </li>
     <li id="funds-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('application-services-nav','submenu3','funds-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'funds-nav',
-            'item-nav-hover': actualItemSubmenu == 'funds-nav'}">
+        <a href="#/funds" ng-class="{'item-nav-hover': selectItemSubmenu == 'funds-nav'
+            || actualItemSubmenu == 'funds-nav'}">
             Fondos
         </a>
-    </li>
     <li id="etfcfd-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('application-services-nav','submenu3','etfcfd-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'etfcfd-nav',
-            'item-nav-hover': actualItemSubmenu == 'etfcfd-nav'}">
+        <a href="#/etf_cfd" ng-class="{'item-nav-hover': selectItemSubmenu == 'etfcfd-nav' || actualItemSubmenu == 'etfcfd-nav'}">
             ETF's CFD's
         </a>
-    </li>
     <li id="futures-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('application-services-nav','submenu3','futures-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'futures-nav',
-            'item-nav-hover': actualItemSubmenu == 'futures-nav'}">
+        <a href="#/futures" ng-class="{'item-nav-hover': selectItemSubmenu == 'futures-nav'
+            || actualItemSubmenu == 'futures-nav'}">
             Futuros
         </a>
     <li id="pairs-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('application-services-nav','submenu3','pairs-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'pairs-nav',
-            'item-nav-hover': actualItemSubmenu == 'pairs-nav'}">
+        <a href="#/pairs" ng-class="{'item-nav-hover': selectItemSubmenu == 'pairs-nav'
+            || actualItemSubmenu == 'pairs-nav'}">
             Pares
         </a>
-    </li>
     <li id="advanced-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('application-services-nav','submenu3','advanced-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'advanced-nav',
-            'item-nav-hover': actualItemSubmenu == 'advanced-nav'}">
+        <a href="#/advanced" ng-class="{'item-nav-hover': selectItemSubmenu == 'advanced-nav'
+            || actualItemSubmenu == 'advanced-nav'}">
             Avanzado
         </a>
-    </li>
     <li id="diversify-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('application-services-nav','submenu3','diversify-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'diversify-nav',
-            'item-nav-hover': actualItemSubmenu == 'diversify-nav'}">
+        <a href="#/diversification" ng-class="{'item-nav-hover': selectItemSubmenu == 'diversify-nav'
+            || actualItemSubmenu == 'diversify-nav'}">
             Diversificaci&oacute;n
         </a>
-    </li>
-    </li>
 </ul>
-<ul id="submenu4" class="displayNone" ng-controller="AppCtrl"
-    ng-class="{'displayBlock': actualSubmenu == 'submenu4', 'displayNone': actualSubmenu != 'submenu4'}">
+<ul id="submenu4"
+    ng-class="{'display-block': actualSubmenu == 'submenu4', 'display-none': actualSubmenu != 'submenu4'}">
     <li id="prices-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('suscriptions-and-prices-nav','submenu4','prices-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'prices-nav',
-            'item-nav-hover': actualItemSubmenu == 'prices-nav'}">
+        <a href="#/prices" ng-class="{'item-nav-hover': selectItemSubmenu == 'prices-nav'
+            || actualItemSubmenu == 'prices-nav'}">
             Precios
         </a>
-    </li>
     <li id="products-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('suscriptions-and-prices-nav','submenu4','products-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'products-nav',
-            'item-nav-hover': actualItemSubmenu == 'products-nav'}">
+        <a href="#/products" ng-class="{'item-nav-hover': selectItemSubmenu == 'products-nav'
+            || actualItemSubmenu == 'products-nav'}">
             Productos
         </a>
-    </li>
     <li id="type-suscriptions-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('suscriptions-and-prices-nav','submenu4','type-suscriptions-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'type-suscriptions-nav',
-            'item-nav-hover': actualItemSubmenu == 'type-suscriptions-nav'}">
+        <a href="#/type-suscriptions" ng-class="{'item-nav-hover': selectItemSubmenu == 'type-suscriptions-nav'
+            || actualItemSubmenu == 'type-suscriptions-nav'}">
             Tipos Suscripci&oacute;n
         </a>
-    </li>
     <li id="buy-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('suscriptions-and-prices-nav','submenu4','buy-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'buy-nav',
-            'item-nav-hover': actualItemSubmenu == 'buy-nav'}">
+        <a href="#/buy" ng-class="{'item-nav-hover': selectItemSubmenu == 'buy-nav'
+            || actualItemSubmenu == 'buy-nav'}">
             Comprar
         </a>
-    </li>
     <li id="free-suscription-By-15-days-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('suscriptions-and-prices-nav','submenu4','free-suscription-By-15-days-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'free-suscription-By-15-days-nav',
-            'item-nav-hover': actualItemSubmenu == 'free-suscription-By-15-days-nav'}">
+        <a href="#/free_subscriptions" ng-class="{'item-nav-hover': selectItemSubmenu == 'free-suscription-By-15-days-nav'
+            || actualItemSubmenu == 'free-suscription-By-15-days-nav'}">
             Suscripci&oacute;n Gratis 15 d&iacute;as
         </a>
-    </li>
     <li id="buy-guide-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('suscriptions-and-prices-nav','submenu4','buy-guide-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'buy-guide-nav',
-            'item-nav-hover': actualItemSubmenu == 'buy-guide-nav'}">
+        <a href="#/buy_guide" ng-class="{'item-nav-hover': selectItemSubmenu == 'buy-guide-nav'
+            || actualItemSubmenu == 'buy-guide-nav'}">
             Gu&iacute;a Comprar
         </a>
-    </li>
 </ul>
-<ul id="submenu5" class="displayNone float-right" ng-controller="AppCtrl"
-    ng-class="{'displayBlock': actualSubmenu == 'submenu5', 'displayNone': actualSubmenu != 'submenu5'}">
+<ul id="submenu5" class="float-right"
+    ng-class="{'display-block': actualSubmenu == 'submenu5', 'display-none': actualSubmenu != 'submenu5'}">
     <li id="resources-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','resources-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'resources-nav',
-            'item-nav-hover': actualItemSubmenu == 'resources-nav'}">
+        <a href="#/resources" ng-class="{'item-nav-hover': selectItemSubmenu == 'resources-nav'
+            || actualItemSubmenu == 'resources-nav'}">
             Recursos
         </a>
-    </li>
     <li id="articles-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','articles-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'articles-nav',
-            'item-nav-hover': actualItemSubmenu == 'articles-nav'}">
+        <a href="#/articles" ng-class="{'item-nav-hover': selectItemSubmenu == 'articles-nav'
+            || actualItemSubmenu == 'articles-nav'}">
             Art&iacute;culos
         </a>
-    </li>
     <li id="symbols-and-markets-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','symbols-and-markets-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'symbols-and-markets-nav',
-            'item-nav-hover': actualItemSubmenu == 'symbols-and-markets-nav'}">
+        <a href="#/symbols_and_exchanges" ng-class="{'item-nav-hover': selectItemSubmenu == 'symbols-and-markets-nav'
+            || actualItemSubmenu == 'symbols-and-markets-nav'}">
             S&iacute;mbolos y Mercados
         </a>
-    </li>
     <li id="templates-MO-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','templates-MO-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'templates-MO-nav',
-            'item-nav-hover': actualItemSubmenu == 'templates-MO-nav'}">
+        <a href="#/mo_template_collections" ng-class="{'item-nav-hover': selectItemSubmenu == 'templates-MO-nav'
+            || actualItemSubmenu == 'templates-MO-nav'}">
             Colecci&oacute;n Plantillas MO
         </a>
-    </li>
 </ul>
-<ul id="submenu6" class="displayNone float-right" ng-controller="AppCtrl"
-    ng-class="{'displayBlock': actualSubmenu == 'submenu6', 'displayNone': actualSubmenu != 'submenu6'}">
+<ul id="submenu6" class="float-right"
+    ng-class="{'display-block': actualSubmenu == 'submenu6', 'display-none': actualSubmenu != 'submenu6'}">
     <li id="support-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('contact-nav','submenu6','support-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'support-nav',
-            'item-nav-hover': actualItemSubmenu == 'support-nav'}">
+        <a href="#/support" ng-class="{'item-nav-hover': selectItemSubmenu == 'support-nav'
+            || actualItemSubmenu == 'support-nav'}">
             Soporte
         </a>
-    </li>
     <li id="companies-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('contact-nav','submenu6','companies-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'companies-nav',
-            'item-nav-hover': actualItemSubmenu == 'companies-nav'}">
+        <a href="#/business" ng-class="{'item-nav-hover': selectItemSubmenu == 'companies-nav'
+            || actualItemSubmenu == 'companies-nav'}">
             Empresas
         </a>
-    </li>
     <li id="employ-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('contact-nav','submenu6','employ-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'employ-nav',
-            'item-nav-hover': actualItemSubmenu == 'employ-nav'}">
+        <a href="#/job" ng-class="{'item-nav-hover': selectItemSubmenu == 'employ-nav'
+            || actualItemSubmenu == 'employ-nav'}">
             Empleo
         </a>
-    </li>
     <li id="location-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('contact-nav','submenu6','location-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a href="#/prueba1" ng-class="{'item-nav-hover': selectItemSubmenu == 'location-nav',
-            'item-nav-hover': actualItemSubmenu == 'location-nav'}">
+        <a href="#/localization" ng-class="{'item-nav-hover': selectItemSubmenu == 'location-nav'
+            || actualItemSubmenu == 'location-nav'}">
             Localizaci&oacute;n
         </a>
-    </li>
 </ul>
