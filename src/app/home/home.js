@@ -83,7 +83,7 @@ angular.module('ngMo.home', [
 // It is not the same as the $modal service used above.
 .directive('carouselControllerProvider', function($timeout,$modal){
     return {
-        link:function($scope, elem){
+        link:function(scope, elem){
             $timeout(function() {
                 var carousel = elem.find('div')[1];
                 var carouselCtrl = angular.element(carousel).isolateScope();
@@ -91,16 +91,16 @@ angular.module('ngMo.home', [
                 var origNext = carouselCtrl.next;
                 carouselCtrl.open = function ($scope) {
                     $scope.publi_views = [];
-                    for (var i = 1; i <= 8; i++) {
+                    for (var i = 1; i <= $scope.publi_views.length; i++) {
                         $scope.publi_views.push({src: 'home/publi/publi' + i + '.tpl.html'});
                     }
                     var modalInstance = $modal.open({
                         templateUrl: 'home/publi_modal.tpl.html',
                         controller: ModalInstanceCtrl,
                         resolve: {
-                            /*publi_views: function () {
+                            publi_views: function () {
                              return $scope.publi_views;
-                             },*/
+                             },
                             publiSelected: function () {
                                 var items = elem.find('li');
                                 var i = 0;
@@ -117,7 +117,13 @@ angular.module('ngMo.home', [
             });
         }
     };
-})
+});
 
-;
+var ModalInstanceCtrl = function ($scope, $modalInstance, publiSelected) {
+    $scope.publiSelected = publiSelected;
+
+    $scope.close = function () {
+        $modalInstance.close();
+    };
+};
 
