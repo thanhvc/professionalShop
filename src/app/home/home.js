@@ -84,28 +84,28 @@ angular.module('ngMo.home', [
 .directive('carouselControllerProvider', function($timeout,$modal){
     return {
         link:function($scope, elem){
-            $timeout(function(){
+            $timeout(function() {
                 var carousel = elem.find('div')[1];
                 var carouselCtrl = angular.element(carousel).isolateScope();
                 var _modal_ = $modal;
                 var origNext = carouselCtrl.next;
-                carouselCtrl.open = function($scope){
+                carouselCtrl.open = function ($scope) {
                     $scope.publi_views = [];
-                    for (var i = 1;i<=8;i++){
-                        $scope.publi_views.push({src: 'home/publi/publi'+i+'.tpl.html'});
+                    for (var i = 1; i <= 8; i++) {
+                        $scope.publi_views.push({src: 'home/publi/publi' + i + '.tpl.html'});
                     }
                     var modalInstance = $modal.open({
                         templateUrl: 'home/publi_modal.tpl.html',
                         controller: ModalInstanceCtrl,
                         resolve: {
                             /*publi_views: function () {
-                                return $scope.publi_views;
-                            },*/
+                             return $scope.publi_views;
+                             },*/
                             publiSelected: function () {
                                 var items = elem.find('li');
                                 var i = 0;
-                                while(item = items[i]) {
-                                    if (item.className.indexOf('active') >= 0){
+                                while (item = items[i]) {
+                                    if (item.className.indexOf('active') >= 0) {
                                         return $scope.publi_views[i].src;
                                     }
                                     i++;
@@ -114,6 +114,10 @@ angular.module('ngMo.home', [
                         }
                     });
                 };
+            });
+        }
+    };
+})
 
 ;
 
