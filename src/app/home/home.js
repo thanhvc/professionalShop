@@ -69,7 +69,7 @@ angular.module('ngMo.home', [
                 "");
 
         $scope.tooltipFact = "<div style='width:780px'>Hecho:<br>Algo basado en datos verificables. Si adem&aacute;s el hecho es objetivo, la informaci&oacute;n debe ser completa y revelar todos los detalles.</div>";
-        $scope.tooltipReliability = "<div style='width:780px'>En Market Observatory, una <strong>Fiabilidad o Frecuencia 90%</strong> de aciertos significa:<br><ul class='public-list-first-level'>"+
+        $scope.tooltipReliability = "<div style='width:640px'>En Market Observatory, una <strong>Fiabilidad o Frecuencia 90%</strong> de aciertos significa:<br><ul class='public-list-first-level'>"+
             "<li class='listadoFlechas textoEstaticoPublicidad'>La mayor parte de los Patrones o Estrategias publicadas en la Web tienen 0 fallos en 15 a&ntilde;os -fiabilidad 100%- o 1 fallo en 15 a&ntilde;os -fiabilidad del 93%-</li>"+
             "<li class='listadoFlechas textoEstaticoPublicidad'>El resto de Patrones tienen 2 fallos en 15 a&ntilde;os -fiabilidad del 87%-.</li>"+
         "</ul></div>";
@@ -82,45 +82,68 @@ angular.module('ngMo.home', [
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 .directive('carouselControllerProvider', function($timeout,$modal){
-    return {
-        link:function(scope, elem){
-            $timeout(function() {
-                var carousel = elem.find('div')[1];
-                var carouselCtrl = angular.element(carousel).isolateScope();
-                var _modal_ = $modal;
-                var origNext = carouselCtrl.next;
-                carouselCtrl.open = function ($scope) {
-                    $scope.publi_views = [];
-                    for (var i = 1; i <= $scope.publi_views.length; i++) {
-                        $scope.publi_views.push({src: 'home/publi/publi' + i + '.tpl.html'});
-                    }
-                    var modalInstance = $modal.open({
-                        templateUrl: 'home/publi_modal.tpl.html',
-                        controller: ModalInstanceCtrl,
-                        resolve: {
-                            publi_views: function () {
-                             return $scope.publi_views;
-                             },
-                            publiSelected: function () {
-                                var items = elem.find('li');
-                                var i = 0;
-                                while (item = items[i]) {
-                                    if (item.className.indexOf('active') >= 0) {
-                                        return $scope.publi_views[i].src;
+        return {
+            link:function(scope, elem){
+                $timeout(function(){
+                    var carousel = elem.find('div')[1];
+                    var carouselCtrl = angular.element(carousel).isolateScope();
+                    var _modal_ = $modal;
+                    var origNext = carouselCtrl.next;
+                    carouselCtrl.open = function($scope){
+                        $scope.advertisingViews = [
+                            {
+                                src: 'home/advertising/majufuri_no_advantages.tpl.html'
+                            },
+                            {
+                                src: 'home/advertising/syp_investment_funds.tpl.html'
+                            },
+                            {
+                                src: 'home/advertising/shoprite_brics_and_emerging.tpl.html'
+                            },
+                            {
+                                src: 'home/advertising/century_etf_cfd.tpl.html'
+                            },
+                            {
+                                src: 'home/advertising/platinum_pension_fund.tpl.html'
+                            },
+                            {
+                                src: 'home/advertising/hitachi_hedge_fund.tpl.html'
+                            },
+                            {
+                                src: 'home/advertising/nyse_low_risk.tpl.html'
+                            },
+                            {
+                                src: 'home/advertising/british_futures.tpl.html'
+                            }
+
+                        ];
+                        var modalInstance = $modal.open({
+                            templateUrl: 'home/advertising_modal.tpl.html',
+                            controller: ModalInstanceCtrl,
+                            resolve: {
+                                advertisingViews: function () {
+                                    return $scope.advertising_views;
+                                },
+                                advertisingSelected: function () {
+                                    var items = elem.find('li');
+                                    var i = 0;
+                                    while(item = items[i]) {
+                                        if (item.className.indexOf('active') >= 0){
+                                            return $scope.advertisingViews[i].src;
+                                        }
+                                        i++;
                                     }
-                                    i++;
                                 }
                             }
-                        }
-                    });
-                };
-            });
-        }
-    };
-});
+                        });
+                    };
 
-var ModalInstanceCtrl = function ($scope, $modalInstance, publiSelected) {
-    $scope.publiSelected = publiSelected;
+                });
+            }
+        };
+    });
+var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
+    $scope.advertisingSelected = advertisingSelected;
 
     $scope.close = function () {
         $modalInstance.close();
