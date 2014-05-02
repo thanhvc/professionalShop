@@ -12,7 +12,8 @@ angular.module('ngMo', [
         'gettext'
     ])
 
- .config(function config($stateProvider) {
+ .config(function config( $stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/home');
         $stateProvider.state('home', {
             url: '/home',
             views: {
@@ -22,8 +23,8 @@ angular.module('ngMo', [
                 }
             },
             data: { pageTitle: 'Home' }
-        })
-        .state("otherwise", { url : '/home'});
+        });
+
 
     })
 

@@ -346,32 +346,129 @@ Flags styles
 }
 
 .footer-body {
+  font-family: "fontpo", "verdana";
+  padding-top:10px;
   background-color: #3d3d3f;
   height: 170px;
   color: #fff;
-  font-size: 11px;
+  font-size: 10px;
   .footer-title-text{
     font-weight: bold;
   }
   a{
     color: #fff;
-    font-size: 11px;
+    font-size: 10px;
   }
 }
 
 .footer-bottom {
+  font-family: "fontpo", "verdana";
   background-color: #b0b2b3;
   height: 40px;
-  font-size: 11px;
   color: #3d3d3f;
+  font-size: 11px;
+  padding-top: 14px;
+  a{
+    color: #3d3d3f;
+    &:hover{
+      text-decoration: none;
+    }
+  }
 }
 
-
-
-
+.url-footer-container{
+  float:left;
+  line-height: 1.7;
+  &.first-footer-container{
+    width:180px;
+    margin-left: 13px;
+  }
+  &.second-footer-container{
+    width:137px;
+  }
+  &.third-footer-container{
+    width:160px;
+  }
+  &.fourth-footer-container{
+    width:170px;
+  }
+  &.fifth-footer-container{
+    width:170px;
+  }
+  &.sixth-footer-container{
+    width:125px;
+  }
+  a{
+    margin-left: 15px;
+  }
+}
+.footer-bottom-text{
+  float: right;
+  &:last-child{
+    margin-right: 5px;
+  }
+}
 
 /********** end footer classes  ****/
 
+/********* Tabs classes  ****/
+.nav-tabs{
+  border:none;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+  background-color: @orangeColor;
+  border-radius: 0;
+  color: #fff;
+  font-family: "fontpo-bold", "verdana";
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 3px -2px 8px #000;
+  border: none;
+  z-index: 10;
+}
+
+.nav-tabs > li{
+  color: #fff;
+  font-family: "fontpo-bold", "verdana";
+  font-weight: bold;
+  font-size: 12px;
+
+  a{
+    margin-right:0px;
+    background-color: @greyColor;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid #6D6E70;
+    color: #fff;
+    width: 177px;
+    text-align: center;
+    &:hover{
+      background-color: @orangeColor;
+      border-right: 1px solid #6D6E70;
+
+    }
+  }
+}
+
+.header-table-pack{
+  font-family: "fontpo-bold", "verdana";
+  background-color: #000000;
+  height:40px;
+  font-weight: bold;
+  font-size: 12px;
+  color:#ffffff;
+  td{
+    padding-left: 20px;
+  }
+}
+
+/******** end Tabs Classes ****/
+.home-text-container{
+  width: 960px;
+  height: 350px;
+  overflow: hidden;
+}
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for

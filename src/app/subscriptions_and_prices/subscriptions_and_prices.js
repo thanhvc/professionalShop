@@ -26,22 +26,22 @@ angular.module('ngMo.subscriptions_and_prices', [
             },
             data: { pageTitle: 'Productos y Mercados' }
         })
-        .state('subscriptions_types', {
-            url: '/subscriptions_types',
+        .state('subscription_types', {
+            url: '/subscription_types',
             views: {
                 "main": {
                     controller: 'Subscriptions_And_PricesCtrl',
-                    templateUrl: 'subscriptions_and_prices/subscriptions_types/subscriptions_types.tpl.html'
+                    templateUrl: 'subscriptions_and_prices/subscription_types/subscription_types.tpl.html'
                 }
             },
             data: { pageTitle: 'Tipos Suscripcion' }
         })
-        .state('buy', {
-            url: '/buy',
+        .state('purchase', {
+            url: '/purchase',
             views: {
                 "main": {
                     controller: 'Subscriptions_And_PricesCtrl',
-                    templateUrl: 'subscriptions_and_prices/buy/buy.tpl.html'
+                    templateUrl: 'subscriptions_and_prices/purchase/purchase.tpl.html'
                 }
             },
             data: { pageTitle: 'Comprar' }

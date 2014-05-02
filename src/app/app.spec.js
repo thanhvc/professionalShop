@@ -1,3 +1,12 @@
+describe( 'ngMo', function() {
+
+    beforeEach(module('ngMo'));
+    it("Dummy Test", function(){
+
+    });
+
+});
+
 /*describe( 'publicMenu directive', function() {
     var elm, scope ;
     beforeEach(module('ngMo'));

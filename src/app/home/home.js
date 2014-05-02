@@ -18,7 +18,7 @@ angular.module('ngMo.home', [
 ])
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope) {
         $scope.myInterval = 6000;
 
         $scope.myslides = [
@@ -76,6 +76,19 @@ angular.module('ngMo.home', [
         $scope.tooltipPeriods = "<div style='width:780px'>En Market Observatory, un Periodo &oacute;ptimo para invertir supone:<br>"+
          "Maximizar la rentabilidad, con la mayor frecuencia de aciertos, reduciendo las p&eacute;rdidas en los a&ntilde;os con fallo y exponi&eacute;ndose al riesgo de mercado durante el menor tiempo posible.</div>";
         $scope.tooltipOpinions = "<div style='width:780px'>Opini&oacute;n:<br>Algo \"personal\" que se expresa y no se puede garantizar que sea verdad. Una opini&oacute;n es similar a una predicci&oacute;n.</div>";
+
+        //Tabs home table Pack's
+        $rootScope.homeTablePacks = [
+            {title: 'Acciones',
+                content: 'tabla Acciones'},
+            {title: 'Pares',
+                content: 'tabla Pares'},
+            {title: 'Indices',
+                content: 'tabla Indices'},
+            {title: 'Futuros',
+                content: 'tabla Futuros'}
+        ];
+
     })
 
 
@@ -141,7 +154,26 @@ angular.module('ngMo.home', [
                 });
             }
         };
-    });
+    })
+
+    //home texts that change when change product type tab
+    .directive('homeTexts',function (){
+        return {
+            controller: function($scope){
+                /*$scope.urlTemplatesHomeTexts = [
+                    {url: 'home/home_texts/stock_text.tpl.html'},
+                    {url: 'home/home_texts/pairs_text.tpl.html'},
+                    {url: 'home/home_texts/indices_text.tpl.html'},
+                    {url: 'home/home_texts/futures_text.tpl.html'}
+                ]*/
+            },
+            link: function($scope) {
+            },
+            templateUrl: 'home/home_texts/stock_text.tpl.html'
+        };
+    })
+
+;
 var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
     $scope.advertisingSelected = advertisingSelected;
 
