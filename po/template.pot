@@ -1,0 +1,147 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Laura aleman <laura.aleman@edosoftfactory.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+
+#: src/app/layout_templates/publicMenuNotLogged.tpl.html
+msgid "Services"
+msgstr "Servicios"
+
+#: src/app/layout_templates/publicMenuNotLogged.tpl.html
+msgid "public.aplicationService"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.aplicationService.actions"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.aplicationService.advanced"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.aplicationService.diversify"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.aplicationService.etfcfd"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.aplicationService.funds"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.aplicationService.futures"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.aplicationService.pairs"
+msgstr ""
+
+#: src/app/layout_templates/publicMenuNotLogged.tpl.html
+msgid "public.contact"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.contact.companies"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.contact.employ"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.contact.location"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.contact.support"
+msgstr ""
+
+#: src/app/layout_templates/publicMenuNotLogged.tpl.html
+msgid "public.investmentTools"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.investmentTools.articles"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.investmentTools.resources"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.investmentTools.symbolsAndMarkets"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.investmentTools.templatesMO"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.market.dataProtection"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.market.organization"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.market.serviceConditions"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.market.whois"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.services.detailsDescription"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.services.fundaments"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.services.productsAndMarkets"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.services.summary"
+msgstr ""
+
+#: src/app/layout_templates/publicMenuNotLogged.tpl.html
+msgid "public.suscriptionsAndPrices"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.suscriptionsAndPrices.buy"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.suscriptionsAndPrices.buyGuide"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.suscriptionsAndPrices.freeSuscriptionBy15days"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.suscriptionsAndPrices.prices"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.suscriptionsAndPrices.products"
+msgstr ""
+
+#: src/app/layout_templates/publicSubMenuNotLogged.tpl.html
+msgid "public.suscriptionsAndPrices.typesSuscription"
+msgstr ""
+
