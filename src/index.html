@@ -16,11 +16,11 @@
 </head>
 <body>
     <header>
-        <div id="menuId" class="menu blackHead">
-            <div id="MOHeader" class="MOHeader">
+        <div id="menu-id" class="menu black-head">
+            <div id="mo-header" class="mo-header">
                 <a href="#/home">
-                    <div class="headerImg logoHeader"></div>
-                    <div class="headerImg centralHeader"></div>
+                    <div class="header-img logo-header"></div>
+                    <div class="header-img central-header"></div>
                 </a>
 
                 <div class="menu-widget-right">
@@ -31,26 +31,36 @@
             </div>
         </div>
 
-        <div id="menuFull">
-            <div id="menuNavId" class="menuNav">
+        <div id="menu-full">
+            <div id="menu-nav-id" class="menu-nav">
                 <div>
-                    <div id="navegContId" class="navegCont" ng-controller="AppCtrl">
-                        <nav public-menu id="menu-not-logged" class="navbar fontVerdanaB"></nav>
-                        <nav public-sub-menu id="sub-menu-public" class="fontVerdanaB"></nav>
+                    <div id="nav-cont-id" class="nav-cont" ng-controller="AppCtrl">
+                        <nav public-menu id="menu-not-logged" class="navbar font-verdana-bold"></nav>
+                        <nav public-sub-menu id="sub-menu-public" class="font-verdana-bold"></nav>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    <div class="container "  ui-view="main" style="display:block;">
+    <div class="container"  ui-view="main" style="display:block;">
 
     </div>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-inner">
-            </div>
+        <div class="footer-top">Preguntas frecuentes FAQ</div>
+        <div class="footer-body">
+            <footer class="container">
+                <div class="url-footer-container">
+                    <a href="#/organization" class="footer-title-text">Market Observatory</a><br>
+                    <a href="#/what_is_and_what_is_not">Qu&eacute; Es y Qu&eacute; No Es</a><br>
+                    <a href="#/service_conditions">Condiciones del Servicio</a><br>
+                    <a href="#/data_protection"> Protecci&oacute;n de Datos</a>
+                </div>
+            </footer>
+
+
         </div>
+        <div class="footer-bottom"></div>
     </footer>
 
 </body>

@@ -25,10 +25,14 @@
   font-weight: 400;
   src: local('fontpo'), local('fontpo');
 }
+body{
+  color:#000;
+  font-family: 'fontpo';
+}
 
 /***************/
 
-.centralHeader {
+.central-header {
   height: 103px;
   margin-left: 35px;
   float: left;
@@ -39,7 +43,7 @@
   background-size: 520px 208px;
 }
 
-.logoHeader {
+.logo-header {
   height: 60px;
   width: 180px;
   float: left;
@@ -51,17 +55,17 @@
   z-index: 7;
   position: relative;
 }
-.blackHead {
+.black-head {
   background-color: #1A171B;
 }
 
-.MOHeader{
+.mo-header{
   width: 960px;
   height: 103px;
   margin: 0 auto;
 }
 
-.naveg_li {
+.nav-li {
   font-size: 11px;
   height: 24px;
   color: #FF8200;
@@ -74,17 +78,13 @@
     text-decoration: none;
     color:inherit;
   }
-  /*&:hover {
-    background-color: #FF8200;
-    color: #FFF;
-  }*/
 }
 
-#menuFull{
+#menu-full{
   height:48px;
 }
 
-.menuNav {
+.menu-nav {
   height: 24px;
   background-color: #3D3D3F;
   z-index: 10;
@@ -95,42 +95,50 @@
   float: right;
 }
 
-.navegCont {
+.nav-cont {
   width: 961px;
   height: 24px;
   margin: 0 auto;
 }
 
-.fontVerdanaB {
+.font-verdana-bold {
   font-family: "fontpo-bold", "verdana" !important;
   font-weight: bold;
 }
 
-.subMenuNav {
+.submenu-nav {
   height: 24px;
   background-color: white;
 }
 
-.width95{
-  width: 95px;
-}
-
-.width189{
-  width: 189px;
-}
-
-.firstItemMenu{
+.first-item-menu{
   width: 161px;
 }
 
-.width198{
+.second-item-menu{
+  width: 95px;
+}
+
+.third-item-menu{
+  width: 189px;
+}
+
+.fourth-item-menu{
+  width: 189px;
+}
+
+.fifth-item-menu{
   width: 198px;
 }
-.displayNone{
+
+.sixth-item-menu{
+  width: 95px;
+}
+.display-none{
   display:none;
 }
 
-.displayBlock{
+.display-block{
   display:block;
 }
 
@@ -161,13 +169,107 @@
   float:right;
 }
 
-#navegContId{
+#nav-cont-id{
   ul{
     li {
       list-style-type: none;
       display: inline-block;
     }
   }
+}
+
+#menu-not-logged, #sub-menu-public{
+  ul{
+    padding-left:8px;
+    margin-bottom:0px;
+  }
+}
+
+.container{
+  max-width: @screen-md-max
+}
+
+.navbar{
+  min-height: 0px;
+  margin-bottom: 0px;
+  border:none;
+  border-radius:0px;
+}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+
+.orangeTitle{
+  font-family: Verdana, Geneva, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  font-style: normal !important;
+  line-height: 120% !important;
+  color: @orangeColor !important;
+  margin-bottom: 1.5em !important;
+  margin-top: 1em;
+  float: left;
+  width: 100%;
+}
+
+.public-zone-text p {
+  text-align: justify;
+  margin-bottom: 1em;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 130%;
+  clear: left;
+}
+
+a{
+  color: @linkColor;
+  text-decoration: none;
+  cursor:pointer;
+  &:hover{
+    color: @linkColor;
+    text-decoration: underline;
+  }
+}
+.public-list-first-level{
+  li{
+    list-style-image: url('../assets/img/public-list-li.png') !important;
+    margin-bottom: 0.5em;
+    //margin-left: 25px;
+    padding-left: 1px;
+    clear: left;
+  }
+}
+
+.tooltip-inner{
+  background-color: rgb(255, 243, 192);
+  font-family: Verdana;
+  font-size: 12px;
+  line-height: 1.2em;
+  text-align: left;
+  color:#000000;
+  padding: 3px 20px;
+  max-width: none;
+  opacity: 1;
+  border:1px solid #E5973E;
+  border-radius: 0;
+  left: auto !important;
+}
+
+.tooltip.in{
+  opacity:1;
+  left: auto !important;
+}
+
+.tooltip.top .tooltip-arrow{
+  border-top:none;
+}
+
+.element-with-tooltip{
+  border-bottom: 1px dashed #999;
+  cursor: help;
+  font-weight: bold;
 }
 
 #menu-not-logged, #sub-menu-public{
@@ -237,6 +339,48 @@ Flags styles
   margin: 5px 50px 0 0;
 
 }
+
+/******************    end flags selector ***************/
+
+/******** footer classes *******/
+.footer-top {
+  background-color: @orangeColor;
+  height: 40px;
+  color:#fff;
+  font-size: 11px;
+  text-align: right;
+  font-family: "fontpo", "verdana";
+  padding-right: 125px;
+  padding-top: 11px;
+}
+
+.footer-body {
+  background-color: #3d3d3f;
+  height: 170px;
+  color: #fff;
+  font-size: 11px;
+  .footer-title-text{
+    font-weight: bold;
+  }
+  a{
+    color: #fff;
+    font-size: 11px;
+  }
+}
+
+.footer-bottom {
+  background-color: #b0b2b3;
+  height: 40px;
+  font-size: 11px;
+  color: #3d3d3f;
+}
+
+
+
+
+
+/********** end footer classes  ****/
+
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for

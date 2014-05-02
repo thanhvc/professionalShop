@@ -3,6 +3,11 @@ angular.module('ngMo', [
         'templates-common',
         'ngMo.home',
         'ngMo.market_observatory',
+        'ngMo.services',
+        'ngMo.service_applications',
+        'ngMo.subscriptions_and_prices',
+        'ngMo.investor_tools',
+        'ngMo.contact',
         'ui.router',
         'gettext'
     ])
@@ -17,15 +22,10 @@ angular.module('ngMo', [
                 }
             },
             data: { pageTitle: 'Home' }
-        });
+        })
+        .state("otherwise", { url : '/home'});
 
     })
-
-
-    /*.config(function myAppConfig($stateProvider, $urlRouterProvider, $locationProvider) {
-        $urlRouterProvider.otherwise('/home');
-        $locationProvider.html5Mode(true);
-    })*/
 
 
     .run(function run() {

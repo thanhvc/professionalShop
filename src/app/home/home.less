@@ -1,0 +1,163 @@
+//Classes for advertising carousel
+.carousel-indicators{
+  bottom: -10px;
+  left: 888px;
+  width: 355px !important;
+  li {
+    text-align: left;
+    display: block;
+    width: 355px;
+    height: 42px;
+    margin: 0px;
+    padding-left: 80px;
+    text-indent: 0px;
+    border-radius: 0px;
+    border: 0px;
+    border-bottom: 2px solid #ff6f00;
+    cursor: pointer;
+    padding-top: 3px;
+    background: #ffb154; /* Old browsers */
+    background-image: url('../assets/img/home/flecha1.png');
+    background-repeat: no-repeat;
+    background-position: 25px;
+    &:last-child{
+      border-bottom:none;
+      height:41px;
+    }
+    &:nth-child(1):after{
+      content: "\00BFTodav\00ED a se atreve a Invertir en Bolsa SIN VENTAJAS?";
+    }
+    &:nth-child(2):after{
+      content: "\00BFSon POCO Rentables sus Fondos de Inversi\00F3n?";
+    }
+    &:nth-child(3):after{
+      content: "\00BFNo Sabe invertir en mercados BRICS y EMERGENTES?";
+    }
+    &:nth-child(4):after{
+      content: "\00BFQuiere ser Experto inversor en ETF's o CFD's?";
+    }
+    &:nth-child(5):after{
+      content: "\00BF Descontento con su FONDO de PENSIONES?";
+    }
+    &:nth-child(6):after{
+      content: "\00A1 APRENDA a invertir como un Hedge Fund!";
+    }
+    &:nth-child(7):after{
+      content: "\00BF Busca estrategias rentables de BAJO RIESGO?";
+    }
+    &:nth-child(8):after{
+      content: "\00BFOpera en Futuros SIN Informaci\00F3n PROFESIONAL?";
+    }
+  }
+  .active {
+    color:black;
+    background: orange;
+    width: 355px;
+    height: 42px;
+    margin: 0px;
+    background-image: url('../assets/img/home/flecha1.png');
+    background-repeat: no-repeat;
+    background-position: 25px;
+  }
+}
+
+.carousel-inner{
+  img{
+    margin:0px !important;
+  }
+}
+
+.carousel-control.left, .carousel-control.right{
+  display: none;
+}
+
+.vertical .carousel-inner {
+  height: 100%;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+    padding-left: 0px;
+  }
+}
+.copyright_carousel {
+  float: right;
+  color: hsl(240, 2%, 24%);
+  font-size: 11px;
+  margin-right: 40px;
+  text-shadow: none;
+
+}
+
+.carousel-caption-copyright{
+  z-index: 16;
+  height: 33px;
+  border-top: 2px solid #000;
+  bottom: 0px;
+  left: -1px;
+  width: 602px;
+  position: absolute;
+  background: #FFFFFF;
+  padding-top: 6px;
+  padding-bottom: 0px;
+  border-bottom: 1px solid #9b9c9e;
+  border-left: 1px solid #9b9c9e;
+}
+
+.carousel-inner > .active{
+  height:334px;
+}
+
+@-webkit-keyframes change-opacity {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes change-opacity {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes change-opacity {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes change-opacity {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.carousel-inner > .item{
+  //-webkit-animation: change-opacity 3s; /* Safari 4+ */
+  //-moz-animation:    change-opacity 3s; /* Fx 5+ */
+  //-o-animation:      change-opacity 3s; /* Opera 12+ */
+  //animation:         change-opacity 3s; /* IE 10+ */
+
+  -webkit-transition: 0.0001s ease left;
+  transition: 0.0001s ease left;
+}
+
+.advertising-carousel-texts{
+  color:#ffffff;
+  font-weight: bold;
+  font-family: fontpo-bold, verdana;
+  font-size:12px;
+}
+
+.btn-close{
+  float:right;
+  background-color: transparent;
+  border: none;
+  &:hover{
+    font-weight: bold;
+  }
+  &:focus{
+    border:none;
+    outline-color:transparent;
+  }
+}
+
+.carousel-container{
+  margin-bottom: 20px;
+  margin-top:30px;
+}
+/************************** End Classes for advertising carousel  *********************/
