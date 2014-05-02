@@ -4,11 +4,15 @@
  * build process will exclude all `.spec.js` files from the build
  * automatically.
  */
-//describe( 'home section', function() {
-//  beforeEach( module( 'ngMo.home' ) );
-//
-//  it( 'should have a dummy test', inject( function() {
-//    expect( true ).toBeTruthy();
-//  }));
-//});
+/*describe( 'home section', function() {
+  beforeEach( module( 'ngMo.home' ) );
+
+  it("should render the menu as passed in by scope",
+  inject(function(){
+      var template = $compile("div public-menu></div>")($scope);
+  }))
+
+
+
+});*/
 
