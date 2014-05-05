@@ -4,7 +4,7 @@ module.exports = function ( karma ) {
          * From where to look for files, starting with the location of this file.
          */
         basePath: '../',
-        logLevel: karma.LOG_DEBUG,
+        logLevel: karma.LOG_INFO,
 
         /**
          * This is the list of file patterns to load into the browser during testing.
