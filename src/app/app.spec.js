@@ -1,36 +1,23 @@
-/*describe( 'publicMenu directive', function() {
-    var elm, scope ;
-    beforeEach(module('ngMo'));
-    beforeEach(module('layout_templates/publicSubMenuNotLogged.tpl.html'));
+describe('The publicMenu directive', function () {
+    beforeEach(angular.mock.module("ngMo"));
+    describe('template', function () {
+        var $compile;
+        var $scope;
 
-    beforeEach(inject(function($rootScope) {
-        scope = $rootScope;
-    }));
+        beforeEach(module('templates-app'));
 
-    function compileDirective() {
-        inject(function($compile) {
-            var tpl = angular.element('<nav public-menu></nav>');
-            var menu = $compile(tpl)(scope);
-            elm = menu.find('nav');
-            scope.$digest();
-        });
+        beforeEach(inject(function (_$compile_, _$rootScope_) {
+            $compile = _$compile_;
+            $scope = _$rootScope_.$new();
+        }));
+        it('should produce 6 menu items', inject(function () {
+            var template = $compile("<nav public-menu></nav>")($scope);
+            $scope.$digest();
+            expect(template.find('li').length).toEqual(6);
+        }));
 
-    }
-
-    describe('inicialization', function() {
-        beforeEach(function() {
-            compileDirective();
-        });
-
-        it('should produce 6 items menu', function() {
-            expect(elm.find('<li>').length).toEqual(6);
-        });
     });
-
-});*/
-
-
-
+});
 
 
 
