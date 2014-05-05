@@ -97,4 +97,15 @@ angular.module('ngMo', [
             templateUrl:'layout_templates/publicSubMenuNotLogged.tpl.html'
         };
     })
+
+/**
+ * The flagbox directive is included in the header in order to change the language of the page.
+ * TODO: Match functionality with selected i18n lib
+ * */
+    .directive('flagBox', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'layout_templates/flags.tpl.html'
+        };
+    })
 ;
