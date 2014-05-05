@@ -7,6 +7,8 @@ AngularJS client for Market Observatory Project
 * Devel
 [![Build Status](http://katana.edosoftfactory.com:8080/job/MoShopClient%20-%20devel%20branch/badge/icon)](http://katana.edosoftfactory.com:8080/job/MoShopClient%20-%20devel%20branch/)
 
+##Quickstart
+
 Install Node.js latest version and then:
 
 ```sh
