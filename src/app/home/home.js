@@ -73,19 +73,27 @@ angular.module('ngMo.home', [
             "<li class='listadoFlechas textoEstaticoPublicidad'>La mayor parte de los Patrones o Estrategias publicadas en la Web tienen 0 fallos en 15 a&ntilde;os -fiabilidad 100%- o 1 fallo en 15 a&ntilde;os -fiabilidad del 93%-</li>"+
             "<li class='listadoFlechas textoEstaticoPublicidad'>El resto de Patrones tienen 2 fallos en 15 a&ntilde;os -fiabilidad del 87%-.</li>"+
         "</ul></div>";
-        $scope.tooltipPeriods = "<div style='width:780px'>En Market Observatory, un Periodo &oacute;ptimo para invertir supone:<br>"+
+        $scope.tooltipPeriods = "<div style='width:780px'>En Market Observatory, un <strong>Periodo &oacute;ptimo</strong> para invertir supone:<br>"+
          "Maximizar la rentabilidad, con la mayor frecuencia de aciertos, reduciendo las p&eacute;rdidas en los a&ntilde;os con fallo y exponi&eacute;ndose al riesgo de mercado durante el menor tiempo posible.</div>";
         $scope.tooltipOpinions = "<div style='width:780px'>Opini&oacute;n:<br>Algo \"personal\" que se expresa y no se puede garantizar que sea verdad. Una opini&oacute;n es similar a una predicci&oacute;n.</div>";
 
         //Tabs home table Pack's
         $rootScope.homeTablePacks = [
-            {title: 'Acciones',
+            {
+                title: 'Acciones',
+                value: 0,
                 content: 'tabla Acciones'},
-            {title: 'Pares',
+            {
+                title: 'Pares',
+                value: 1,
                 content: 'tabla Pares'},
-            {title: 'Indices',
+            {
+                title: 'Indices',
+                value: 2,
                 content: 'tabla Indices'},
-            {title: 'Futuros',
+            {
+                title: 'Futuros',
+                value: 3,
                 content: 'tabla Futuros'}
         ];
 
@@ -158,18 +166,25 @@ angular.module('ngMo.home', [
 
     //home texts that change when change product type tab
     .directive('homeTexts',function (){
+        urlTemplatesHomeTexts = [
+            {url: 'home/home_texts/stock_text.tpl.html'},
+            {url: 'home/home_texts/pairs_text.tpl.html'},
+            {url: 'home/home_texts/indices_text.tpl.html'},
+            {url: 'home/home_texts/futures_text.tpl.html'}
+        ];
+        selectedTab = 0;
         return {
             controller: function($scope){
-                /*$scope.urlTemplatesHomeTexts = [
-                    {url: 'home/home_texts/stock_text.tpl.html'},
-                    {url: 'home/home_texts/pairs_text.tpl.html'},
-                    {url: 'home/home_texts/indices_text.tpl.html'},
-                    {url: 'home/home_texts/futures_text.tpl.html'}
-                ]*/
+                $scope.onClickTab = function(idTab){
+                    selectedTab = idTab;
+                };
             },
             link: function($scope) {
+                $scope.getContentUrl = function() {
+                    return urlTemplatesHomeTexts[selectedTab].url;
+                };
             },
-            templateUrl: 'home/home_texts/stock_text.tpl.html'
+            template: '<div ng-include="getContentUrl()"></div>'
         };
     })
 

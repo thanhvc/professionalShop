@@ -31,10 +31,17 @@ angular.module('ngMo', [
 
     .run(function run() {
     })
-
-    .controller('AppCtrl', function AppCtrl($scope) {
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+            $scope.initiation = function (idMenu, idSubmenu, idItemSubmenu){
+               /* $rootScope.actualMenu ='';
+                $rootScope.actualSubmenu ='';
+                $rootScope.actualItemSubmenu ='';*/
+                $rootScope.actualMenu = $rootScope.selectMenu = idMenu;
+                $rootScope.actualSubmenu = $rootScope.selectSubmenu = idSubmenu;
+                $rootScope.actualItemSubmenu = $rootScope.selectItemSubmenu = idItemSubmenu;
+            };
         });
     })
 
@@ -43,49 +50,49 @@ angular.module('ngMo', [
  */
     .directive('publicMenu',function (){
         return {
-            //transclude: false,
-            controller: function($scope){
+            controller: function($scope, $rootScope){
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
-                    $scope.actualMenu = idMenu;
-                    $scope.actualSubmenu = idSubmenu;
+                    $rootScope.actualMenu = idMenu;
+                    $rootScope.actualSubmenu = idSubmenu;
                 };
                 $scope.onMouseLeaveMenu = function() {
-                    if ($scope.selectMenu !== '' && $scope.actualMenu !== $scope.selectMenu) {
-                        $scope.actualMenu = $scope.selectMenu;
-                        $scope.actualSubmenu = $scope.selectSubmenu;
-                        $scope.actualItemSubmenu = $scope.selectItemSubmenu;
+                    if ($rootScope.selectMenu !== '' && $rootScope.actualMenu !== $rootScope.selectMenu) {
+                        $rootScope.actualMenu = $rootScope.selectMenu;
+                        $rootScope.actualSubmenu = $rootScope.selectSubmenu;
+                        $rootScope.actualItemSubmenu = $rootScope.selectItemSubmenu;
                     }
                 };
             },
-            link: function($scope) {
-                $scope.$watch('actualSubmenu', function() {});
+            link: function($rootScope) {
+               $rootScope.$watch('actualSubmenu', function(){});
+
             },
             templateUrl:'layout_templates/publicMenuNotLogged.tpl.html'
         };
     })
     .directive('publicSubMenu',function (){
         return {
-            controller: function($scope){
+            controller: function($scope, $rootScope){
                 $scope.onMouseEnterSubmenu = function(idMenu, idSubmenu, idItemSubmenu) {
-                    $scope.actualMenu = idMenu;
-                    $scope.actualSubmenu = idSubmenu;
-                    $scope.actualItemSubmenu = idItemSubmenu;
+                    $rootScope.actualMenu = idMenu;
+                    $rootScope.actualSubmenu = idSubmenu;
+                    $rootScope.actualItemSubmenu = idItemSubmenu;
                 };
                 $scope.onMouseLeaveSubmenu = function () {
-                    $scope.actualItemSubmenu = '';
-                    if ($scope.selectMenu !== '' && $scope.actualMenu !== $scope.selectMenu) {
-                        $scope.actualMenu = $scope.selectMenu;
-                        $scope.actualSubmenu = $scope.selectSubmenu;
-                        $scope.actualItemSubmenu = $scope.selectItemSubmenu;
+                    $rootScope.actualItemSubmenu = '';
+                    if ($rootScope.selectMenu !== '' && $rootScope.actualMenu !== $rootScope.selectMenu) {
+                        $rootScope.actualMenu = $rootScope.selectMenu;
+                        $rootScope.actualSubmenu = $rootScope.selectSubmenu;
+                        $rootScope.actualItemSubmenu = $rootScope.selectItemSubmenu;
                     }
                 };
                 $scope.onClickSubmenu = function () {
-                    $scope.selectMenu = $scope.actualMenu;
-                    $scope.selectSubmenu = $scope.actualSubmenu;
-                    $scope.selectItemSubmenu = $scope.actualItemSubmenu;
+                    $rootScope.selectMenu = $rootScope.actualMenu;
+                    $rootScope.selectSubmenu = $rootScope.actualSubmenu;
+                    $rootScope.selectItemSubmenu = $rootScope.actualItemSubmenu;
                 };
             },
-            link: function($scope) {
+            link: function($scope, $rootScope) {
             },
             templateUrl:'layout_templates/publicSubMenuNotLogged.tpl.html'
         };

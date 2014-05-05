@@ -1,42 +1,43 @@
-<!-- Advertising carousel -->
-<div ng-controller="HomeCtrl" carousel-controller-provider class="carousel-container">
-    <div>
-        <carousel interval="myInterval">
-            <slide ng-repeat="slide in myslides" active="slide.active">
-                <img ng-src="{{slide.image}}" style="margin:auto;">
-            </slide>
-            <div class="carousel-caption-copyright">
-                <p class="copyright_carousel">Copyright &copy; 2014 Market Observatory</p>
-            </div>
-        </carousel>
+<div ng-init="initiation('','','')">
+    <!-- Advertising carousel -->
+    <div ng-controller="HomeCtrl" carousel-controller-provider class="carousel-container" >
+        <div>
+            <carousel interval="myInterval">
+                <slide ng-repeat="slide in myslides" active="slide.active">
+                    <img ng-src="{{slide.image}}" style="margin:auto;">
+                </slide>
+                <div class="carousel-caption-copyright">
+                    <p class="copyright_carousel">Copyright &copy; 2014 Market Observatory</p>
+                </div>
+            </carousel>
+        </div>
     </div>
+    <!-- Texts Home -->
+    <div class="home-text-container">
+        <div home-texts></div>
+    </div>
+    <!-- tabs product's type -->
+    <tabset>
+        <tab ng-click="onClickTab(homeTablePack.value)" ng-repeat="homeTablePack in homeTablePacks" heading="{{homeTablePack.title}}" active="tab.active" disabled="tab.disabled">
+            <table style="border:1px solid #808080;width:960px;">
+                <tr class="header-table-pack">
+                    <td colspan="2">
+                       MAYO 2014
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3" style="background-color: #ff8200;color:white; font-weight: bold;text-align: center;width:130px;">
+                      Am&eacute;rica
+                    </td>
+                    <td>{{homeTablePack.content}}</td>
+                </tr>
+                <tr>
+                    <td>{{homeTablePack.content}} 2</td>
+                </tr>
+                <tr>
+                    <td>{{homeTablePack.content}} 3</td>
+                </tr>
+            </table>
+        </tab>
+    </tabset>
 </div>
-<!-- Texts Home -->
-<div class="home-text-container">
-    <div home-texts></div>
-</div>
-<!-- tabs product's type -->
-<tabset>
-    <tab ng-repeat="homeTablePack in homeTablePacks" heading="{{homeTablePack.title}}" active="tab.active" disabled="tab.disabled">
-        <table style="border:1px solid #808080;width:960px;">
-            <tr class="header-table-pack">
-                <td colspan="2">
-                   MAYO 2014
-                </td>
-            </tr>
-            <tr>
-                <td rowspan="3" style="background-color: orange">
-                  Region
-                </td>
-                <td>{{homeTablePack.content}}</td>
-            </tr>
-            <tr>
-                <td>{{homeTablePack.content}} 2</td>
-            </tr>
-            <tr>
-                <td>{{homeTablePack.content}} 3</td>
-            </tr>
-        </table>
-    </tab>
-</tabset>
-

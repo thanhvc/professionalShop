@@ -256,6 +256,7 @@ a{
 .tooltip.in{
   opacity:1;
   left: auto !important;
+  right: 0px !important;
 }
 
 .tooltip.top .tooltip-arrow{
@@ -416,6 +417,10 @@ Flags styles
   border:none;
 }
 
+.nav > li > a{
+  padding:6px 15px;
+}
+
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
   background-color: @orangeColor;
   border-radius: 0;
@@ -426,6 +431,7 @@ Flags styles
   box-shadow: 3px -2px 8px #000;
   border: none;
   z-index: 10;
+  height: 28px;
 }
 
 .nav-tabs > li{
@@ -443,6 +449,7 @@ Flags styles
     color: #fff;
     width: 177px;
     text-align: center;
+    height:28px;
     &:hover{
       background-color: @orangeColor;
       border-right: 1px solid #6D6E70;
@@ -468,6 +475,28 @@ Flags styles
   width: 960px;
   height: 350px;
   overflow: hidden;
+
+}
+
+.infoSelected{
+  position:relative;
+  animation:texthomedelay 2s;
+  animation-delay:0s;
+  /*Safari and Chrome*/
+  -webkit-animation:texthomedelay 2s;
+  -webkit-animation-delay:0s;
+}
+
+@keyframes texthomedelay
+{
+  from {left:-100px;}
+  to {left:0px;}
+}
+
+@-webkit-keyframes texthomedelay
+{
+  from {left:-100px;}
+  to {left:0px;}
 }
 
 /**

@@ -1,26 +1,17 @@
-describe( 'ngMo', function() {
 
+describe( 'publicMenu directive', function() {
+    var tpl, scope ;
     beforeEach(module('ngMo'));
-    it("Dummy Test", function(){
-
-    });
-
-});
-
-/*describe( 'publicMenu directive', function() {
-    var elm, scope ;
-    beforeEach(module('ngMo'));
-    beforeEach(module('layout_templates/publicSubMenuNotLogged.tpl.html'));
+    beforeEach(module('templates-app'));
 
     beforeEach(inject(function($rootScope) {
         scope = $rootScope;
+        //compile = $compile;
     }));
 
     function compileDirective() {
         inject(function($compile) {
-            var tpl = angular.element('<nav public-menu></nav>');
-            var menu = $compile(tpl)(scope);
-            elm = menu.find('nav');
+            tpl = $compile('<nav public-menu></nav>')(scope);
             scope.$digest();
         });
 
@@ -32,11 +23,11 @@ describe( 'ngMo', function() {
         });
 
         it('should produce 6 items menu', function() {
-            expect(elm.find('<li>').length).toEqual(6);
+            expect(tpl.find('li').length).toEqual(6);
         });
     });
 
-});*/
+});
 
 
 
