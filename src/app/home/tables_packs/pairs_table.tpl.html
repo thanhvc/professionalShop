@@ -1,0 +1,65 @@
+<table class="tables-pack-home">
+    <thead>
+    <tr class="header-table-pack">
+        <td colspan="4">
+            {{actualDate | date:'MMMM yyyy'}}
+        </td>
+    </tr>
+    <tr class="subheader-table-pack">
+        <td></td>
+        <td>Regi&oacute;n</td>
+        <td>Mercados</td>
+        <td>N&uacute;mero de Patrones</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="area-cell">AM&Eacute;RICA</td>
+        <td colspan="3">
+            <table class="table-pack">
+                <tbody>
+                <tr ng-repeat="pack in homeTablePack.americaContent track by $index">
+                    <td>{{pack.region}}</td>
+                    <td>{{pack.market}}</td>
+                    <td>{{pack.numberPatterns}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="separator"></td>
+    </tr>
+    <tr>
+        <td class="area-cell">ASIA</td>
+        <td colspan="3">
+            <table class="table-pack">
+                <tbody>
+                <tr ng-repeat="pack in homeTablePack.asiaContent track by $index">
+                    <td>{{pack.region}}</td>
+                    <td>{{pack.market}}</td>
+                    <td>{{pack.numberPatterns}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="separator"></td>
+    </tr>
+    <tr>
+        <td class="area-cell">EUROPA</td>
+        <td colspan="3">
+            <table class="table-pack">
+                <tbody>
+                <tr ng-repeat="pack in homeTablePack.europeContent track by $index">
+                    <td>{{pack.region}}</td>
+                    <td>{{pack.market}}</td>
+                    <td>{{pack.numberPatterns}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>

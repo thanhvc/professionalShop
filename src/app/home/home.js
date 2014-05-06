@@ -17,8 +17,64 @@ angular.module('ngMo.home', [
     'ui.bootstrap'
 ])
 
+    .service('PacksService', function (){
+
+        //Dummies Packs
+        var americanPacks = [
+            {"region": "Canada", "market": "Toronto Stock", "numberPatterns": "77"},
+            {"region": "Estados Unidos Pack I", "market": "AMEX, NASDAQ", "numberPatterns": "83"},
+            {"region": "Estados Unidos Pack II", "market": "AMEX, NASDAQ", "numberPatterns": "83"}
+        ];
+
+        var asiaPacks = [
+            {"region": "Australia", "market": "Australian SE, New Zealand SE", "numberPatterns": "68"},
+            {"region": "China", "market": "Shanghai SE, Shenzhen SE", "numberPatterns": "100"},
+            {"region": "Corea", "market": "Korea SE, KOSDAQ", "numberPatterns": "100"},
+            {"region": "Hong-Kong + Singapur", "market": "Hong Kong SE, Singapore SE, Singapore Securities", "numberPatterns": "100"}
+        ];
+
+        var europePacks = [
+            {"region": "EURO Zona Pack I", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"},
+            {"region": "EURO Zona Pack II", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"},
+            {"region": "EURO Zona Pack III", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"},
+            {"region": "EURO Zona Pack IV", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"},
+            {"region": "EURO Zona Pack V", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"}
+        ];
+
+        var indicesPacks = [
+            {"region": "Bolsa, Financieros, Materias Primas", "market": "Global, Regional, Pais, Sectorial, Industrial. Tipos de Interés. Materias Primas", "numberPatterns": "100"}
+        ];
+
+        var pairs_indicesPacks = [
+            {"region": "Bolsa", "market": "Global, Regional, Pais, Sectorial, Industrial", "numberPatterns": "100"}
+        ];
+
+        var futuresPacks = [
+            {"region": "Energía, Metales, Agrícolas, Carnes, Softs, Divisas, Tipos de Interés", "market": "EUREX, Hong Kong Futures Exchanges, ICE Canada, ICE US, Korean Futures Exchange, Montreal Options Exchange, NYSE Euronext, Singapore Monetary Exchange, Sydney Futures Exchange, Chicago Board of Trade Futures, Chicago Board Options Exchange, Chicago Mercantile Exchange Futures, Kansas City Board of Trade Futures, Minneapolis Grain Exchange Futures, New York Mercantile Exchange Futures, ICE Europe", "numberPatterns": "100"}
+        ];
+        //******
+
+        this.obtainPacks = function (area) {
+            switch (area){
+                case 'america':
+                    return americanPacks;
+                case 'asia':
+                    return asiaPacks;
+                case 'europe':
+                    return europePacks;
+                case 'indices':
+                    return indicesPacks;
+                case 'pairs_indices':
+                    return pairs_indicesPacks;
+                case 'futures':
+                    return futuresPacks;
+            }
+            futuresPacks.j
+        };
+    })
+
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService) {
         $scope.myInterval = 6000;
 
         $scope.myslides = [
@@ -78,27 +134,56 @@ angular.module('ngMo.home', [
         $scope.tooltipOpinions = "<div style='width:780px'>Opini&oacute;n:<br>Algo \"personal\" que se expresa y no se puede garantizar que sea verdad. Una opini&oacute;n es similar a una predicci&oacute;n.</div>";
 
         //Tabs home table Pack's
-        $rootScope.homeTablePacks = [
+        $scope.homeTablePacks = [
             {
                 title: 'Acciones',
                 value: 0,
-                content: 'tabla Acciones'},
+                americaContent: 'tabla Acciones',
+                asiaContent: 'tabla Acciones',
+                europeContent: 'tabla Acciones',
+                url: 'home/tables_packs/stock_table.tpl.html'
+            },
             {
                 title: 'Pares',
                 value: 1,
-                content: 'tabla Pares'},
+                americaContent: 'tabla Pares',
+                asiaContent: 'tabla Pares',
+                europeContent: 'tabla Pares',
+                url: 'home/tables_packs/pairs_table.tpl.html'
+            },
             {
                 title: 'Indices',
                 value: 2,
-                content: 'tabla Indices'},
+                indicesContent: 'tabla Indices',
+                pairsIndicesContent: 'tabla Indices',
+                url: 'home/tables_packs/indices_table.tpl.html'
+            },
             {
                 title: 'Futuros',
                 value: 3,
-                content: 'tabla Futuros'}
+                futuresContent: 'tabla Futuros',
+                url: 'home/tables_packs/futures_table.tpl.html'
+            }
         ];
 
-    })
+        //obtainPacks(area)
+        $scope.homeTablePacks[0].americaContent = PacksService.obtainPacks('america');
+        $scope.homeTablePacks[0].asiaContent = PacksService.obtainPacks('asia');
+        $scope.homeTablePacks[0].europeContent = PacksService.obtainPacks('europe');
 
+        $scope.homeTablePacks[1].americaContent = PacksService.obtainPacks('america');
+        $scope.homeTablePacks[1].asiaContent = PacksService.obtainPacks('asia');
+        $scope.homeTablePacks[1].europeContent = PacksService.obtainPacks('europe');
+
+        $scope.homeTablePacks[2].indicesContent = PacksService.obtainPacks('indices');
+        $scope.homeTablePacks[2].pairsIndicesContent = PacksService.obtainPacks('pairs_indices');
+
+        $scope.homeTablePacks[3].futuresContent = PacksService.obtainPacks('futures');
+
+        $scope.actualDate = new Date();
+
+
+    })
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.

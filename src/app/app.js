@@ -35,9 +35,6 @@ angular.module('ngMo', [
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
             $scope.initiation = function (idMenu, idSubmenu, idItemSubmenu){
-               /* $rootScope.actualMenu ='';
-                $rootScope.actualSubmenu ='';
-                $rootScope.actualItemSubmenu ='';*/
                 $rootScope.actualMenu = $rootScope.selectMenu = idMenu;
                 $rootScope.actualSubmenu = $rootScope.selectSubmenu = idSubmenu;
                 $rootScope.actualItemSubmenu = $rootScope.selectItemSubmenu = idItemSubmenu;
