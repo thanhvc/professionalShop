@@ -458,7 +458,7 @@ Flags styles
   }
   a{
     margin-right:0px;
-    background-color: @greyColor;
+    background-color: @lightGrey;
     border-radius: 0;
     border: none;
     border-right: 1px solid #6D6E70;
@@ -483,14 +483,15 @@ table{
 .tables-pack-home {
   font-family: "fontpo-bold", "verdana";
   width: 960px;
-  font-size: 10px;
+  font-size: 11px;
   color: #ffffff;
-  margin-bottom: 5px;
+  margin-bottom: 9px;
 }
 
 .area-cell{
   color: #ffffff;
   background-color: @orangeColor;
+  border-top: 1px solid @orangeColor;
   text-align: center;
   font-weight: bold;
 }
@@ -508,17 +509,19 @@ table{
   tbody {
     tr {
       &:nth-child(odd) {
-        background-color: #ffffff !important;
+        background-color: #ECECED;
+        border: 1px solid silver !important;
       }
       &:nth-child(even) {
-        background-color: #ECECED;
+        background-color: #ffffff !important;
+        border: 1px solid silver !important;
       }
       td{
         border-right: 1px solid silver !important;
         padding: 3px 4px 3px 4px;
         &:nth-child(1){
           color: #0663D7;
-          width: 211px;
+          width: 198px;
         }
         &:nth-child(2){
           color: #000000;
@@ -526,7 +529,7 @@ table{
         }
         &:nth-child(3){
           color: #000000;
-          width: 128px;
+          width: 138px;
           text-align: center;
         }
       }
@@ -535,7 +538,7 @@ table{
 }
 
 .separator{
-  height: 10px;
+  height: 8px;
 }
 
 .header-table-pack{
@@ -551,7 +554,7 @@ table{
   font-weight: bold;
   font-size: 11px;
   background-color: @greyColor !important;
-  height:40px;
+  height:24px;
   td{
     text-align: center;
     border-right: 1px solid silver;
@@ -562,8 +565,7 @@ table{
       width: 492px;
     }
     &:nth-child(4) {
-      width: 128px;
-      padding: 0px 4px;
+      width: 140px;
       border-right: 0px;
     }
   }
@@ -599,6 +601,7 @@ table{
   from {left:-100px;}
   to {left:0px;}
 }
+
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for

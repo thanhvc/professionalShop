@@ -88,6 +88,60 @@ angular.module('ngMo.home', [
             }
         ];
 
+        var americanPairsPacks = [
+            {
+                "region": "Estados Unidos Pack I",
+                "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
+                "numberPatterns": "100"
+            },
+            {
+                "region": "Estados Unidos Pack II",
+                "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
+                "numberPatterns": "100"
+            },
+            {
+                "region": "Estados Unidos Pack III",
+                "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
+                "numberPatterns": "100"
+            }
+        ];
+
+        var asiaPairsPacks = [
+            {
+                "region": $sce.trustAsHtml("Jap&oacute;n Pack I"),
+                "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
+                "numberPatterns": "100"
+            },
+            {
+                "region": $sce.trustAsHtml("Jap&oacute;n Pack II"),
+                "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
+                "numberPatterns": "100"
+            },
+            {
+                "region": $sce.trustAsHtml("Jap&oacute;n Pack III"),
+                "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
+                "numberPatterns": "100"
+            }
+        ];
+
+        var europePairsPacks = [
+            {
+                "region": "EURO Zona Pack I",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack II",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack III",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            }
+        ];
+
         var indicesPacks = [
             {
                 "region": "Bolsa, Financieros, Materias Primas",
@@ -121,6 +175,12 @@ angular.module('ngMo.home', [
                     return asiaPacks;
                 case 'europe':
                     return europePacks;
+                case 'americaPairs':
+                    return americanPairsPacks;
+                case 'asiaPairs':
+                    return asiaPairsPacks;
+                case 'europePairs':
+                    return europePairsPacks;
                 case 'indices':
                     return indicesPacks;
                 case 'pairs_indices':
@@ -204,9 +264,9 @@ angular.module('ngMo.home', [
             {
                 title: 'Pares',
                 value: 1,
-                americaContent: PacksService.obtainPacks('america'),
-                asiaContent: PacksService.obtainPacks('asia'),
-                europeContent: PacksService.obtainPacks('europe'),
+                americaContent: PacksService.obtainPacks('americaPairs'),
+                asiaContent: PacksService.obtainPacks('asiaPairs'),
+                europeContent: PacksService.obtainPacks('europePairs'),
                 url: 'home/tables_packs/pairs_table.tpl.html'
             },
             {
