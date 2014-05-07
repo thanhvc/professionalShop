@@ -54,7 +54,7 @@
                 <tbody>
                 <tr ng-repeat="pack in homeTablePack.europeContent track by $index ">
                     <td>{{pack.region}}</td>
-                    <td>{{pack.market}}</td>
+                    <td ng-bind-html="pack.market"></td>
                     <td>{{pack.numberPatterns}}</td>
                 </tr>
                 </tbody>

@@ -31,13 +31,13 @@ angular.module('ngMo', [
 
     .run(function run() {
     })
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope) {
+    .controller('AppCtrl', function AppCtrl($scope) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
             $scope.initiation = function (idMenu, idSubmenu, idItemSubmenu){
-                $rootScope.actualMenu = $rootScope.selectMenu = idMenu;
-                $rootScope.actualSubmenu = $rootScope.selectSubmenu = idSubmenu;
-                $rootScope.actualItemSubmenu = $rootScope.selectItemSubmenu = idItemSubmenu;
+                $scope.actualMenu = $scope.selectMenu = idMenu;
+                $scope.actualSubmenu = $scope.selectSubmenu = idSubmenu;
+                $scope.actualItemSubmenu = $scope.selectItemSubmenu = idItemSubmenu;
             };
         });
     })
@@ -47,21 +47,21 @@ angular.module('ngMo', [
  */
     .directive('publicMenu',function (){
         return {
-            controller: function($scope, $rootScope){
+            controller: function($scope){
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
-                    $rootScope.actualMenu = idMenu;
-                    $rootScope.actualSubmenu = idSubmenu;
+                    $scope.actualMenu = idMenu;
+                    $scope.actualSubmenu = idSubmenu;
                 };
                 $scope.onMouseLeaveMenu = function() {
-                    if ($rootScope.selectMenu !== '' && $rootScope.actualMenu !== $rootScope.selectMenu) {
-                        $rootScope.actualMenu = $rootScope.selectMenu;
-                        $rootScope.actualSubmenu = $rootScope.selectSubmenu;
-                        $rootScope.actualItemSubmenu = $rootScope.selectItemSubmenu;
+                    if ($scope.selectMenu !== '' && $scope.actualMenu !== $scope.selectMenu) {
+                        $scope.actualMenu = $scope.selectMenu;
+                        $scope.actualSubmenu = $scope.selectSubmenu;
+                        $scope.actualItemSubmenu = $scope.selectItemSubmenu;
                     }
                 };
             },
-            link: function($rootScope) {
-               $rootScope.$watch('actualSubmenu', function(){});
+            link: function($scope) {
+               $scope.$watch('actualSubmenu', function(){});
 
             },
             templateUrl:'layout_templates/publicMenuNotLogged.tpl.html'
@@ -69,27 +69,27 @@ angular.module('ngMo', [
     })
     .directive('publicSubMenu',function (){
         return {
-            controller: function($scope, $rootScope){
+            controller: function($scope){
                 $scope.onMouseEnterSubmenu = function(idMenu, idSubmenu, idItemSubmenu) {
-                    $rootScope.actualMenu = idMenu;
-                    $rootScope.actualSubmenu = idSubmenu;
-                    $rootScope.actualItemSubmenu = idItemSubmenu;
+                    $scope.actualMenu = idMenu;
+                    $scope.actualSubmenu = idSubmenu;
+                    $scope.actualItemSubmenu = idItemSubmenu;
                 };
                 $scope.onMouseLeaveSubmenu = function () {
-                    $rootScope.actualItemSubmenu = '';
-                    if ($rootScope.selectMenu !== '' && $rootScope.actualMenu !== $rootScope.selectMenu) {
-                        $rootScope.actualMenu = $rootScope.selectMenu;
-                        $rootScope.actualSubmenu = $rootScope.selectSubmenu;
-                        $rootScope.actualItemSubmenu = $rootScope.selectItemSubmenu;
+                    $scope.actualItemSubmenu = '';
+                    if ($scope.selectMenu !== '' && $scope.actualMenu !== $scope.selectMenu) {
+                        $scope.actualMenu = $scope.selectMenu;
+                        $scope.actualSubmenu = $scope.selectSubmenu;
+                        $scope.actualItemSubmenu = $scope.selectItemSubmenu;
                     }
                 };
                 $scope.onClickSubmenu = function () {
-                    $rootScope.selectMenu = $rootScope.actualMenu;
-                    $rootScope.selectSubmenu = $rootScope.actualSubmenu;
-                    $rootScope.selectItemSubmenu = $rootScope.actualItemSubmenu;
+                    $scope.selectMenu = $scope.actualMenu;
+                    $scope.selectSubmenu = $scope.actualSubmenu;
+                    $scope.selectItemSubmenu = $scope.actualItemSubmenu;
                 };
             },
-            link: function($scope, $rootScope) {
+            link: function($scope) {
             },
             templateUrl:'layout_templates/publicSubMenuNotLogged.tpl.html'
         };

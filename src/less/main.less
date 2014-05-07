@@ -437,7 +437,6 @@ Flags styles
   font-family: "fontpo-bold", "verdana";
   font-size: 12px;
   font-weight: bold;
-  box-shadow: 3px -2px 8px #000;
   border: none;
   z-index: 10;
   height: 28px;
@@ -448,7 +447,15 @@ Flags styles
   font-family: "fontpo-bold", "verdana";
   font-weight: bold;
   font-size: 12px;
-
+  margin-bottom: 0px;
+  &:last-child{
+    a {
+      -webkit-box-shadow: inset -2px -1px 6px -4px rgba(50, 50, 50, 0.5);
+      -moz-box-shadow: inset -2px -1px 6px -4px rgba(50, 50, 50, 0.5);
+      box-shadow: inset -2px -1px 6px -4px rgba(50, 50, 50, 0.5);
+      border-right: 0px;
+    }
+  }
   a{
     margin-right:0px;
     background-color: @greyColor;
@@ -459,6 +466,9 @@ Flags styles
     width: 177px;
     text-align: center;
     height:28px;
+    -webkit-box-shadow: inset -2px -1px 6px -1px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: inset -2px -1px 6px -1px rgba(50, 50, 50, 0.5);
+    box-shadow: inset -2px -1px 6px -1px rgba(50, 50, 50, 0.5);
     &:hover{
       background-color: @orangeColor;
       border-right: 1px solid #6D6E70;
@@ -544,7 +554,7 @@ table{
   height:40px;
   td{
     text-align: center;
-    border-right: 1px solid silver !important;
+    border-right: 1px solid silver;
     &:nth-child(1) {
       width: 130px;
     }
@@ -554,6 +564,7 @@ table{
     &:nth-child(4) {
       width: 128px;
       padding: 0px 4px;
+      border-right: 0px;
     }
   }
 }

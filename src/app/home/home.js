@@ -17,40 +17,99 @@ angular.module('ngMo.home', [
     'ui.bootstrap'
 ])
 
-    .service('PacksService', function (){
+    .service('PacksService', function ($sce){
 
         //Dummies Packs
         var americanPacks = [
-            {"region": "Canada", "market": "Toronto Stock", "numberPatterns": "77"},
-            {"region": "Estados Unidos Pack I", "market": "AMEX, NASDAQ", "numberPatterns": "83"},
-            {"region": "Estados Unidos Pack II", "market": "AMEX, NASDAQ", "numberPatterns": "83"}
+            {
+                "region": "Canada",
+                "market": "Toronto Stock",
+                "numberPatterns": "77"
+            },
+            {
+                "region": "Estados Unidos Pack I",
+                "market": "AMEX, NASDAQ",
+                "numberPatterns": "83"
+            },
+            {
+                "region": "Estados Unidos Pack II",
+                "market": "AMEX, NASDAQ",
+                "numberPatterns": "83"}
         ];
 
         var asiaPacks = [
-            {"region": "Australia", "market": "Australian SE, New Zealand SE", "numberPatterns": "68"},
-            {"region": "China", "market": "Shanghai SE, Shenzhen SE", "numberPatterns": "100"},
-            {"region": "Corea", "market": "Korea SE, KOSDAQ", "numberPatterns": "100"},
-            {"region": "Hong-Kong + Singapur", "market": "Hong Kong SE, Singapore SE, Singapore Securities", "numberPatterns": "100"}
+            {
+                "region": "Australia",
+                "market": "Australian SE, New Zealand SE",
+                "numberPatterns": "68"
+            },
+            {
+                "region": "China",
+                "market": "Shanghai SE, Shenzhen SE",
+                "numberPatterns": "100"
+            },
+            {
+                "region": "Corea",
+                "market": "Korea SE, KOSDAQ",
+                "numberPatterns": "100"
+            },
+            {
+                "region": "Hong-Kong + Singapur",
+                "market": "Hong Kong SE, Singapore SE, Singapore Securities",
+                "numberPatterns": "100"
+            }
         ];
 
         var europePacks = [
-            {"region": "EURO Zona Pack I", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"},
-            {"region": "EURO Zona Pack II", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"},
-            {"region": "EURO Zona Pack III", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"},
-            {"region": "EURO Zona Pack IV", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"},
-            {"region": "EURO Zona Pack V", "market": "Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal", "numberPatterns": "100"}
+            {
+                "region": "EURO Zona Pack I",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack II",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack III",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack IV",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack V",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            }
         ];
 
         var indicesPacks = [
-            {"region": "Bolsa, Financieros, Materias Primas", "market": "Global, Regional, Pais, Sectorial, Industrial. Tipos de Interés. Materias Primas", "numberPatterns": "100"}
+            {
+                "region": "Bolsa, Financieros, Materias Primas",
+                "market": $sce.trustAsHtml("Global, Regional, Pais, Sectorial, Industrial. Tipos de Inter&eacute;s. Materias Primas"),
+                "numberPatterns": "100"
+            }
         ];
 
         var pairs_indicesPacks = [
-            {"region": "Bolsa", "market": "Global, Regional, Pais, Sectorial, Industrial", "numberPatterns": "100"}
+            {
+                "region": "Bolsa",
+                "market": "Global, Regional, Pais, Sectorial, Industrial",
+                "numberPatterns": "100"
+            }
         ];
 
         var futuresPacks = [
-            {"region": "Energía, Metales, Agrícolas, Carnes, Softs, Divisas, Tipos de Interés", "market": "EUREX, Hong Kong Futures Exchanges, ICE Canada, ICE US, Korean Futures Exchange, Montreal Options Exchange, NYSE Euronext, Singapore Monetary Exchange, Sydney Futures Exchange, Chicago Board of Trade Futures, Chicago Board Options Exchange, Chicago Mercantile Exchange Futures, Kansas City Board of Trade Futures, Minneapolis Grain Exchange Futures, New York Mercantile Exchange Futures, ICE Europe", "numberPatterns": "100"}
+            {
+                "region": $sce.trustAsHtml("Energ&iacute;a, Metales, Agr&iacute;colas, Carnes, Softs, Divisas, Tipos de Inter&eacute;s"),
+                "market": "EUREX, Hong Kong Futures Exchanges, ICE Canada, ICE US, Korean Futures Exchange, Montreal Options Exchange, NYSE Euronext, Singapore Monetary Exchange, Sydney Futures Exchange, Chicago Board of Trade Futures, Chicago Board Options Exchange, Chicago Mercantile Exchange Futures, Kansas City Board of Trade Futures, Minneapolis Grain Exchange Futures, New York Mercantile Exchange Futures, ICE Europe",
+                "numberPatterns": "100"
+            }
         ];
         //******
 
@@ -69,12 +128,11 @@ angular.module('ngMo.home', [
                 case 'futures':
                     return futuresPacks;
             }
-            futuresPacks.j
         };
     })
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, $sce) {
         $scope.myInterval = 6000;
 
         $scope.myslides = [
@@ -138,47 +196,33 @@ angular.module('ngMo.home', [
             {
                 title: 'Acciones',
                 value: 0,
-                americaContent: 'tabla Acciones',
-                asiaContent: 'tabla Acciones',
-                europeContent: 'tabla Acciones',
+                americaContent: PacksService.obtainPacks('america'),
+                asiaContent: PacksService.obtainPacks('asia'),
+                europeContent: PacksService.obtainPacks('europe'),
                 url: 'home/tables_packs/stock_table.tpl.html'
             },
             {
                 title: 'Pares',
                 value: 1,
-                americaContent: 'tabla Pares',
-                asiaContent: 'tabla Pares',
-                europeContent: 'tabla Pares',
+                americaContent: PacksService.obtainPacks('america'),
+                asiaContent: PacksService.obtainPacks('asia'),
+                europeContent: PacksService.obtainPacks('europe'),
                 url: 'home/tables_packs/pairs_table.tpl.html'
             },
             {
                 title: 'Indices',
                 value: 2,
-                indicesContent: 'tabla Indices',
-                pairsIndicesContent: 'tabla Indices',
+                indicesContent: PacksService.obtainPacks('indices'),
+                pairsIndicesContent: PacksService.obtainPacks('pairs_indices'),
                 url: 'home/tables_packs/indices_table.tpl.html'
             },
             {
                 title: 'Futuros',
                 value: 3,
-                futuresContent: 'tabla Futuros',
+                futuresContent: PacksService.obtainPacks('futures'),
                 url: 'home/tables_packs/futures_table.tpl.html'
             }
         ];
-
-        //obtainPacks(area)
-        $scope.homeTablePacks[0].americaContent = PacksService.obtainPacks('america');
-        $scope.homeTablePacks[0].asiaContent = PacksService.obtainPacks('asia');
-        $scope.homeTablePacks[0].europeContent = PacksService.obtainPacks('europe');
-
-        $scope.homeTablePacks[1].americaContent = PacksService.obtainPacks('america');
-        $scope.homeTablePacks[1].asiaContent = PacksService.obtainPacks('asia');
-        $scope.homeTablePacks[1].europeContent = PacksService.obtainPacks('europe');
-
-        $scope.homeTablePacks[2].indicesContent = PacksService.obtainPacks('indices');
-        $scope.homeTablePacks[2].pairsIndicesContent = PacksService.obtainPacks('pairs_indices');
-
-        $scope.homeTablePacks[3].futuresContent = PacksService.obtainPacks('futures');
 
         $scope.actualDate = new Date();
 
