@@ -14,7 +14,12 @@ angular.module('ngMo.services', [
                     templateUrl: 'services/summary/summary.tpl.html'
                 }
             },
-            data: { pageTitle: 'Resumen' }
+            data: {
+                pageTitle: 'Resumen',
+                selectMenu: 'services-nav',
+                selectSubmenu: 'submenu2',
+                selectItemSubmenu: 'summary-nav'
+            }
         })
         .state('products_and_exchanges', {
             url: '/products_and_exchanges',
@@ -24,7 +29,12 @@ angular.module('ngMo.services', [
                     templateUrl: 'services/products_and_exchanges/products_and_exchanges.tpl.html'
                 }
             },
-            data: { pageTitle: 'Productos y Mercados' }
+            data: {
+                pageTitle: 'Productos y Mercados',
+                selectMenu: 'services-nav',
+                selectSubmenu: 'submenu2',
+                selectItemSubmenu: 'products-and-exchanges-nav'
+            }
         })
         .state('detailed_description', {
             url: '/detailed_description',
@@ -34,7 +44,12 @@ angular.module('ngMo.services', [
                     templateUrl: 'services/detailed_description/detailed_description.tpl.html'
                 }
             },
-            data: { pageTitle: 'Descripcion Detallada' }
+            data: {
+                pageTitle: 'Descripcion Detallada',
+                selectMenu: 'services-nav',
+                selectSubmenu: 'submenu2',
+                selectItemSubmenu: 'detailed-description-nav'
+            }
         })
         .state('fundamentals', {
             url: '/fundamentals',
@@ -44,7 +59,12 @@ angular.module('ngMo.services', [
                     templateUrl: 'services/fundamentals/fundamentals.tpl.html'
                 }
             },
-            data: { pageTitle: 'Fundamentos' }
+            data: {
+                pageTitle: 'Fundamentos',
+                selectMenu: 'services-nav',
+                selectSubmenu: 'submenu2',
+                selectItemSubmenu: 'fundamentals-nav'
+            }
         });
 
     })

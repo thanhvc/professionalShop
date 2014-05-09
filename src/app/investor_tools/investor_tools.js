@@ -14,7 +14,12 @@ angular.module('ngMo.investor_tools', [
                     templateUrl: 'investor_tools/resources/resources.tpl.html'
                 }
             },
-            data: { pageTitle: 'Recursos' }
+            data: {
+                pageTitle: 'Recursos',
+                selectMenu: 'investor-tools-nav',
+                selectSubmenu: 'submenu5',
+                selectItemSubmenu: 'resources-nav'
+            }
         })
             .state('articles', {
                 url: '/articles',
@@ -24,7 +29,12 @@ angular.module('ngMo.investor_tools', [
                         templateUrl: 'investor_tools/articles/articles.tpl.html'
                     }
                 },
-                data: { pageTitle: 'Articulos' }
+                data: {
+                    pageTitle: 'Articulos',
+                    selectMenu: 'investor-tools-nav',
+                    selectSubmenu: 'submenu5',
+                    selectItemSubmenu: 'articles-nav'
+                }
             })
             .state('symbols_and_exchanges', {
                 url: '/symbols_and_exchanges',
@@ -34,7 +44,12 @@ angular.module('ngMo.investor_tools', [
                         templateUrl: 'investor_tools/symbols_and_exchanges/symbols_and_exchanges.tpl.html'
                     }
                 },
-                data: { pageTitle: 'Simbolos y Mercados' }
+                data: {
+                    pageTitle: 'Simbolos y Mercados',
+                    selectMenu: 'investor-tools-nav',
+                    selectSubmenu: 'submenu5',
+                    selectItemSubmenu: 'symbols-and-exchanges-nav'
+                }
             })
             .state('mo_template_collections', {
                 url: '/mo_template_collections',
@@ -44,7 +59,12 @@ angular.module('ngMo.investor_tools', [
                         templateUrl: 'investor_tools/mo_template_collections/mo_template_collections.tpl.html'
                     }
                 },
-                data: { pageTitle: 'Coleccion Plantillas MO' }
+                data: {
+                    pageTitle: 'Coleccion Plantillas MO',
+                    selectMenu: 'investor-tools-nav',
+                    selectSubmenu: 'submenu5',
+                    selectItemSubmenu: 'mo_template-collections-nav'
+                }
             });
 
     })

@@ -14,7 +14,12 @@ angular.module('ngMo.service_applications', [
                     templateUrl: 'service_applications/stocks/stocks.tpl.html'
                 }
             },
-            data: { pageTitle: 'Acciones' }
+            data: {
+                pageTitle: 'Acciones',
+                selectMenu: 'service-applications-nav',
+                selectSubmenu: 'submenu3',
+                selectItemSubmenu: 'stocks-nav'
+            }
         })
         .state('funds', {
             url: '/funds',
@@ -24,7 +29,12 @@ angular.module('ngMo.service_applications', [
                     templateUrl: 'service_applications/funds/funds.tpl.html'
                 }
             },
-            data: { pageTitle: 'Fondos' }
+            data: {
+                pageTitle: 'Fondos',
+                selectMenu: 'service-applications-nav',
+                selectSubmenu: 'submenu3',
+                selectItemSubmenu: 'funds-nav'
+            }
         })
         .state('etf_cfd', {
             url: '/etf_cfd',
@@ -34,7 +44,12 @@ angular.module('ngMo.service_applications', [
                     templateUrl: 'service_applications/etf_cfd/etf_cfd.tpl.html'
                 }
             },
-            data: { pageTitle: 'ETF\'s, CFD\'s' }
+            data: {
+                pageTitle: 'ETF\'s, CFD\'s',
+                selectMenu: 'service-applications-nav',
+                selectSubmenu: 'submenu3',
+                selectItemSubmenu: 'etfcfd-nav'
+            }
         })
         .state('futures', {
             url: '/futures',
@@ -44,7 +59,12 @@ angular.module('ngMo.service_applications', [
                     templateUrl: 'service_applications/futures/futures.tpl.html'
                 }
             },
-            data: { pageTitle: 'Futuros' }
+            data: {
+                pageTitle: 'Futuros',
+                selectMenu: 'service-applications-nav',
+                selectSubmenu: 'submenu3',
+                selectItemSubmenu: 'futures-nav'
+            }
         })
         .state('pairs', {
             url: '/pairs',
@@ -54,7 +74,12 @@ angular.module('ngMo.service_applications', [
                     templateUrl: 'service_applications/pairs/pairs.tpl.html'
                 }
             },
-            data: { pageTitle: 'Pares' }
+            data: {
+                pageTitle: 'Pares',
+                selectMenu: 'service-applications-nav',
+                selectSubmenu: 'submenu3',
+                selectItemSubmenu: 'pairs-nav'
+            }
         })
         .state('advanced', {
             url: '/advanced',
@@ -64,7 +89,12 @@ angular.module('ngMo.service_applications', [
                     templateUrl: 'service_applications/advanced/advanced.tpl.html'
                 }
             },
-            data: { pageTitle: 'Avanzado' }
+            data: {
+                pageTitle: 'Avanzado',
+                selectMenu: 'service-applications-nav',
+                selectSubmenu: 'submenu3',
+                selectItemSubmenu: 'advanced-nav'
+            }
         })
         .state('diversification', {
             url: '/diversification',
@@ -74,7 +104,12 @@ angular.module('ngMo.service_applications', [
                     templateUrl: 'service_applications/diversification/diversification.tpl.html'
                 }
             },
-            data: { pageTitle: 'Diversificacion' }
+            data: {
+                pageTitle: 'Diversificacion',
+                selectMenu: 'service-applications-nav',
+                selectSubmenu: 'submenu3',
+                selectItemSubmenu: 'diversification-nav'
+            }
         });
 
     })

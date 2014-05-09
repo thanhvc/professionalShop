@@ -14,7 +14,12 @@ angular.module('ngMo.subscriptions_and_prices', [
                     templateUrl: 'subscriptions_and_prices/prices/prices.tpl.html'
                 }
             },
-            data: { pageTitle: 'Precios' }
+            data: {
+                pageTitle: 'Precios',
+                selectMenu: 'subscriptions-and-prices-nav',
+                selectSubmenu: 'submenu4',
+                selectItemSubmenu: 'prices-nav'
+            }
         })
         .state('products', {
             url: '/products',
@@ -24,7 +29,12 @@ angular.module('ngMo.subscriptions_and_prices', [
                     templateUrl: 'subscriptions_and_prices/products/products.tpl.html'
                 }
             },
-            data: { pageTitle: 'Productos y Mercados' }
+            data: {
+                pageTitle: 'Productos y Mercados',
+                selectMenu: 'subscriptions-and-prices-nav',
+                selectSubmenu: 'submenu4',
+                selectItemSubmenu: 'products-nav'
+            }
         })
         .state('subscription_types', {
             url: '/subscription_types',
@@ -34,7 +44,12 @@ angular.module('ngMo.subscriptions_and_prices', [
                     templateUrl: 'subscriptions_and_prices/subscription_types/subscription_types.tpl.html'
                 }
             },
-            data: { pageTitle: 'Tipos Suscripcion' }
+            data: {
+                pageTitle: 'Tipos Suscripcion',
+                selectMenu: 'subscriptions-and-prices-nav',
+                selectSubmenu: 'submenu4',
+                selectItemSubmenu: 'subscription-types-nav'
+            }
         })
         .state('purchase', {
             url: '/purchase',
@@ -44,7 +59,12 @@ angular.module('ngMo.subscriptions_and_prices', [
                     templateUrl: 'subscriptions_and_prices/purchase/purchase.tpl.html'
                 }
             },
-            data: { pageTitle: 'Comprar' }
+            data: {
+                pageTitle: 'Comprar',
+                selectMenu: 'subscriptions-and-prices-nav',
+                selectSubmenu: 'submenu4',
+                selectItemSubmenu: 'purchase-nav'
+            }
         })
         .state('free_subscription', {
             url: '/free_subscription',
@@ -54,7 +74,12 @@ angular.module('ngMo.subscriptions_and_prices', [
                     templateUrl: 'subscriptions_and_prices/free_subscription/free_subscription.tpl.html'
                 }
             },
-            data: { pageTitle: 'Suscripcion Gratis 15 dias' }
+            data: {
+                pageTitle: 'Suscripcion Gratis 15 dias',
+                selectMenu: 'subscriptions-and-prices-nav',
+                selectSubmenu: 'submenu4',
+                selectItemSubmenu: 'free-subscription-nav'
+            }
         })
         .state('shopping_guide', {
             url: '/shopping_guide',
@@ -64,7 +89,12 @@ angular.module('ngMo.subscriptions_and_prices', [
                     templateUrl: 'subscriptions_and_prices/shopping_guide/shopping_guide.tpl.html'
                 }
             },
-            data: { pageTitle: 'Guia Compras' }
+            data: {
+                pageTitle: 'Guia Compras',
+                selectMenu: 'subscriptions-and-prices-nav',
+                selectSubmenu: 'submenu4',
+                selectItemSubmenu: 'shopping-guide-nav'
+            }
         });
 
     })
