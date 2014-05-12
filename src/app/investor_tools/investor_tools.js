@@ -63,7 +63,7 @@ angular.module('ngMo.investor_tools', [
                     pageTitle: 'Coleccion Plantillas MO',
                     selectMenu: 'investor-tools-nav',
                     selectSubmenu: 'submenu5',
-                    selectItemSubmenu: 'mo_template-collections-nav'
+                    selectItemSubmenu: 'mo-template-collections-nav'
                 }
             });
 

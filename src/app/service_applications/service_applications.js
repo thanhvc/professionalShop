@@ -48,7 +48,7 @@ angular.module('ngMo.service_applications', [
                 pageTitle: 'ETF\'s, CFD\'s',
                 selectMenu: 'service-applications-nav',
                 selectSubmenu: 'submenu3',
-                selectItemSubmenu: 'etfcfd-nav'
+                selectItemSubmenu: 'etf-cfd-nav'
             }
         })
         .state('futures', {

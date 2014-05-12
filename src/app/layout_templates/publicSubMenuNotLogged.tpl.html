@@ -37,7 +37,7 @@
 </ul>
 
 <ul id="submenu2"
-    ng-class="{'display-block': actualSubmenu == 'submenu2' || selectSubmenu == 'submenu2' && actualSubmenu == selectSubmenu, 'display-none': actualSubmenu != 'submenu2' || selectSubmenu != 'submenu2'}">
+    ng-class="{'display-block': actualSubmenu == 'submenu2' || selectSubmenu == 'submenu2', 'display-none': actualSubmenu != 'submenu2' || selectSubmenu!= 'submenu2'}">
     <li id="summary-nav" ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','summary-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
@@ -72,7 +72,7 @@
         </a>
 </ul>
 <ul id="submenu3"
-    ng-class="{'display-block': actualSubmenu == 'submenu3' || selectSubmenu == 'submenu3' && actualSubmenu == selectSubmenu, 'display-none': actualSubmenu != 'submenu3' || selectSubmenu != 'submenu3'}">
+    ng-class="{'display-block': actualSubmenu == 'submenu3' || selectSubmenu == 'submenu3', 'display-none': actualSubmenu != 'submenu3' || selectSubmenu!= 'submenu3'}">
     <li id="stocks-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('service-applications-nav','submenu3','stocks-nav')"
@@ -129,7 +129,7 @@
         </a>
 </ul>
 <ul id="submenu4"
-    ng-class="{'display-block': actualSubmenu == 'submenu4' || selectSubmenu == 'submenu4' && actualSubmenu == selectSubmenu, 'display-none': actualSubmenu != 'submenu4' || selectSubmenu != 'submenu4'}">
+    ng-class="{'display-block': actualSubmenu == 'submenu4' || selectSubmenu == 'submenu4', 'display-none': actualSubmenu != 'submenu4' || selectSubmenu!= 'submenu4'}">
     <li id="prices-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','prices-nav')"
@@ -146,12 +146,12 @@
             || actualItemSubmenu == 'products-nav'}">
             Productos
         </a>
-    <li id="subscription_types-nav"
+    <li id="subscription-types-nav"
         ng-click="onClickSubmenu()"
-        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','subscription_types-nav')"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','subscription-types-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a ui-sref="subscription_types" ng-class="{'item-nav-hover': selectItemSubmenu == 'subscription_types-nav'
-            || actualItemSubmenu == 'subscription_types-nav'}">
+        <a ui-sref="subscription_types" ng-class="{'item-nav-hover': selectItemSubmenu == 'subscription-types-nav'
+            || actualItemSubmenu == 'subscription-types-nav'}">
             Tipos Suscripci&oacute;n
         </a>
     <li id="purchase-nav"
@@ -180,7 +180,7 @@
         </a>
 </ul>
 <ul id="submenu5" class="float-right"
-    ng-class="{'display-block': actualSubmenu == 'submenu5' || selectSubmenu == 'submenu5' && actualSubmenu == selectSubmenu, 'display-none': actualSubmenu != 'submenu5' || selectSubmenu != 'submenu5'}">
+    ng-class="{'display-block': actualSubmenu == 'submenu5' || selectSubmenu == 'submenu5', 'display-none': actualSubmenu != 'submenu5' || selectSubmenu!= 'submenu5'}">
     <li id="resources-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','resources-nav')"
@@ -215,7 +215,7 @@
         </a>
 </ul>
 <ul id="submenu6" class="float-right"
-    ng-class="{'display-block': actualSubmenu == 'submenu6' || selectSubmenu == 'submenu6' && actualSubmenu == selectSubmenu, 'display-none': actualSubmenu != 'submenu6' || selectSubmenu != 'submenu6'}">
+    ng-class="{'display-block': actualSubmenu == 'submenu6' || selectSubmenu == 'submenu6', 'display-none': actualSubmenu != 'submenu6' || selectSubmenu!= 'submenu6'}">
     <li id="support-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('contact-nav','submenu6','support-nav')"
