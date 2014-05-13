@@ -17,8 +17,182 @@ angular.module('ngMo.home', [
     'ui.bootstrap'
 ])
 
+    .service('PacksService', function ($sce){
+
+        //Dummies Packs
+        var americanPacks = [
+            {
+                "region": "Canada",
+                "market": "Toronto Stock",
+                "numberPatterns": "77"
+            },
+            {
+                "region": "Estados Unidos Pack I",
+                "market": "AMEX, NASDAQ",
+                "numberPatterns": "83"
+            },
+            {
+                "region": "Estados Unidos Pack II",
+                "market": "AMEX, NASDAQ",
+                "numberPatterns": "83"}
+        ];
+
+        var asiaPacks = [
+            {
+                "region": "Australia",
+                "market": "Australian SE, New Zealand SE",
+                "numberPatterns": "68"
+            },
+            {
+                "region": "China",
+                "market": "Shanghai SE, Shenzhen SE",
+                "numberPatterns": "100"
+            },
+            {
+                "region": "Corea",
+                "market": "Korea SE, KOSDAQ",
+                "numberPatterns": "100"
+            },
+            {
+                "region": "Hong-Kong + Singapur",
+                "market": "Hong Kong SE, Singapore SE, Singapore Securities",
+                "numberPatterns": "100"
+            }
+        ];
+
+        var europePacks = [
+            {
+                "region": "EURO Zona Pack I",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack II",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack III",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack IV",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack V",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            }
+        ];
+
+        var americanPairsPacks = [
+            {
+                "region": "Estados Unidos Pack I",
+                "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
+                "numberPatterns": "100"
+            },
+            {
+                "region": "Estados Unidos Pack II",
+                "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
+                "numberPatterns": "100"
+            },
+            {
+                "region": "Estados Unidos Pack III",
+                "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
+                "numberPatterns": "100"
+            }
+        ];
+
+        var asiaPairsPacks = [
+            {
+                "region": $sce.trustAsHtml("Jap&oacute;n Pack I"),
+                "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
+                "numberPatterns": "100"
+            },
+            {
+                "region": $sce.trustAsHtml("Jap&oacute;n Pack II"),
+                "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
+                "numberPatterns": "100"
+            },
+            {
+                "region": $sce.trustAsHtml("Jap&oacute;n Pack III"),
+                "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
+                "numberPatterns": "100"
+            }
+        ];
+
+        var europePairsPacks = [
+            {
+                "region": "EURO Zona Pack I",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack II",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            },
+            {
+                "region": "EURO Zona Pack III",
+                "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
+                "numberPatterns": "100"
+            }
+        ];
+
+        var indicesPacks = [
+            {
+                "region": "Bolsa, Financieros, Materias Primas",
+                "market": $sce.trustAsHtml("Global, Regional, Pais, Sectorial, Industrial. Tipos de Inter&eacute;s. Materias Primas"),
+                "numberPatterns": "100"
+            }
+        ];
+
+        var pairs_indicesPacks = [
+            {
+                "region": "Bolsa",
+                "market": "Global, Regional, Pais, Sectorial, Industrial",
+                "numberPatterns": "100"
+            }
+        ];
+
+        var futuresPacks = [
+            {
+                "region": $sce.trustAsHtml("Energ&iacute;a, Metales, Agr&iacute;colas, Carnes, Softs, Divisas, Tipos de Inter&eacute;s"),
+                "market": "EUREX, Hong Kong Futures Exchanges, ICE Canada, ICE US, Korean Futures Exchange, Montreal Options Exchange, NYSE Euronext, Singapore Monetary Exchange, Sydney Futures Exchange, Chicago Board of Trade Futures, Chicago Board Options Exchange, Chicago Mercantile Exchange Futures, Kansas City Board of Trade Futures, Minneapolis Grain Exchange Futures, New York Mercantile Exchange Futures, ICE Europe",
+                "numberPatterns": "100"
+            }
+        ];
+        //******
+
+        this.obtainPacks = function (area) {
+            switch (area){
+                case 'america':
+                    return americanPacks;
+                case 'asia':
+                    return asiaPacks;
+                case 'europe':
+                    return europePacks;
+                case 'americaPairs':
+                    return americanPairsPacks;
+                case 'asiaPairs':
+                    return asiaPairsPacks;
+                case 'europePairs':
+                    return europePairsPacks;
+                case 'indices':
+                    return indicesPacks;
+                case 'pairs_indices':
+                    return pairs_indicesPacks;
+                case 'futures':
+                    return futuresPacks;
+            }
+        };
+    })
+
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, $sce) {
         $scope.myInterval = 6000;
 
         $scope.myslides = [
@@ -73,11 +247,47 @@ angular.module('ngMo.home', [
             "<li class='listadoFlechas textoEstaticoPublicidad'>La mayor parte de los Patrones o Estrategias publicadas en la Web tienen 0 fallos en 15 a&ntilde;os -fiabilidad 100%- o 1 fallo en 15 a&ntilde;os -fiabilidad del 93%-</li>"+
             "<li class='listadoFlechas textoEstaticoPublicidad'>El resto de Patrones tienen 2 fallos en 15 a&ntilde;os -fiabilidad del 87%-.</li>"+
         "</ul></div>";
-        $scope.tooltipPeriods = "<div style='width:780px'>En Market Observatory, un Periodo &oacute;ptimo para invertir supone:<br>"+
-         "Maximizar la rentabilidad, con la mayor frecuencia de aciertos, reduciendo las p&eacute;rdidas en los a&ntilde;os con fallo y exponi&eacute;ndose al riesgo de mercado durante el menor tiempo posible.</div>";
+        $scope.tooltipPeriods = "<div style='width:780px'>En Market Observatory, un <strong>Periodo &oacute;ptimo</strong> para invertir supone:<br>"+
+         "<ul class='public-list-first-level'><li class='listadoFlechas textoEstaticoPublicidad'>Maximizar la rentabilidad, con la mayor frecuencia de aciertos, reduciendo las p&eacute;rdidas en los a&ntilde;os con fallo y exponi&eacute;ndose al riesgo de mercado durante el menor tiempo posible.</li></ul></div>";
         $scope.tooltipOpinions = "<div style='width:780px'>Opini&oacute;n:<br>Algo \"personal\" que se expresa y no se puede garantizar que sea verdad. Una opini&oacute;n es similar a una predicci&oacute;n.</div>";
-    })
 
+        //Tabs home table Pack's
+        $scope.homeTablePacks = [
+            {
+                title: 'Acciones',
+                value: 0,
+                americaContent: PacksService.obtainPacks('america'),
+                asiaContent: PacksService.obtainPacks('asia'),
+                europeContent: PacksService.obtainPacks('europe'),
+                url: 'home/tables_packs/stock_table.tpl.html'
+            },
+            {
+                title: 'Pares',
+                value: 1,
+                americaContent: PacksService.obtainPacks('americaPairs'),
+                asiaContent: PacksService.obtainPacks('asiaPairs'),
+                europeContent: PacksService.obtainPacks('europePairs'),
+                url: 'home/tables_packs/pairs_table.tpl.html'
+            },
+            {
+                title: 'Indices',
+                value: 2,
+                indicesContent: PacksService.obtainPacks('indices'),
+                pairsIndicesContent: PacksService.obtainPacks('pairs_indices'),
+                url: 'home/tables_packs/indices_table.tpl.html'
+            },
+            {
+                title: 'Futuros',
+                value: 3,
+                futuresContent: PacksService.obtainPacks('futures'),
+                url: 'home/tables_packs/futures_table.tpl.html'
+            }
+        ];
+
+        $scope.actualDate = new Date();
+
+
+    })
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
@@ -141,7 +351,33 @@ angular.module('ngMo.home', [
                 });
             }
         };
-    });
+    })
+
+    //home texts that change when change product type tab
+    .directive('homeTexts',function (){
+        urlTemplatesHomeTexts = [
+            {url: 'home/home_texts/stock_text.tpl.html'},
+            {url: 'home/home_texts/pairs_text.tpl.html'},
+            {url: 'home/home_texts/indices_text.tpl.html'},
+            {url: 'home/home_texts/futures_text.tpl.html'}
+        ];
+        selectedTab = 0;
+        return {
+            controller: function($scope){
+                $scope.onClickTab = function(idTab){
+                    selectedTab = idTab;
+                };
+            },
+            link: function($scope) {
+                $scope.getContentUrl = function() {
+                    return urlTemplatesHomeTexts[selectedTab].url;
+                };
+            },
+            template: '<div ng-include="getContentUrl()"></div>'
+        };
+    })
+
+;
 var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
     $scope.advertisingSelected = advertisingSelected;
 

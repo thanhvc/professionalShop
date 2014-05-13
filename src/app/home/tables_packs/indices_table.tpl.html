@@ -1,0 +1,48 @@
+<table class="tables-pack-home">
+    <thead>
+    <tr class="header-table-pack">
+        <td colspan="4">
+            {{actualDate | date:'MMMM yyyy' | uppercase}}
+        </td>
+    </tr>
+    <tr class="subheader-table-pack">
+        <td></td>
+        <td>Clase</td>
+        <td>Alcance</td>
+        <td>N&uacute;mero de Patrones</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="area-cell">&Iacute;NDICES</td>
+        <td colspan="3">
+            <table class="table-pack">
+                <tbody>
+                <tr ng-repeat="pack in homeTablePack.indicesContent track by $index">
+                    <td>{{pack.region}}</td>
+                    <td ng-bind-html="pack.market"></td>
+                    <td>{{pack.numberPatterns}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="separator"></td>
+    </tr>
+    <tr>
+        <td class="area-cell">PAR &Iacute;NDICES</td>
+        <td colspan="3">
+            <table class="table-pack">
+                <tbody>
+                <tr ng-repeat="pack in homeTablePack.pairsIndicesContent track by $index">
+                    <td>{{pack.region}}</td>
+                    <td>{{pack.market}}</td>
+                    <td>{{pack.numberPatterns}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>

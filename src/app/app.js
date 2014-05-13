@@ -12,7 +12,8 @@ angular.module('ngMo', [
         'gettext'
     ])
 
- .config(function config($stateProvider) {
+ .config(function config( $stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/home');
         $stateProvider.state('home', {
             url: '/home',
             views: {
@@ -21,19 +22,29 @@ angular.module('ngMo', [
                     templateUrl: 'home/home.tpl.html'
                 }
             },
-            data: { pageTitle: 'Home' }
-        })
-        .state("otherwise", { url : '/home'});
-
+            data: {
+                pageTitle: 'Home',
+                selectMenu: '',
+                selectSubmenu: '',
+                selectItemSubmenu: ''
+            }
+        });
     })
-
 
     .run(function run() {
     })
-
     .controller('AppCtrl', function AppCtrl($scope) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+
+            $scope.selectMenu = toState.data.selectMenu;
+            $scope.selectSubmenu = toState.data.selectSubmenu;
+            $scope.selectItemSubmenu = toState.data.selectItemSubmenu;
+            $scope.actualMenu = '';
+            $scope.actualSubmenu = '';
+
+            $scope.$watch('actualSubmenu', function(){});
+            $scope.$watch('selectSubmenu', function(){});
         });
     })
 
@@ -42,29 +53,30 @@ angular.module('ngMo', [
  */
     .directive('publicMenu',function (){
         return {
-            //transclude: false,
-            controller: function($scope){
+            controller: function($scope, $state){
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
                     $scope.actualMenu = idMenu;
                     $scope.actualSubmenu = idSubmenu;
+                    $scope.selectSubmenu = '';
                 };
                 $scope.onMouseLeaveMenu = function() {
-                    if ($scope.selectMenu !== '' && $scope.actualMenu !== $scope.selectMenu) {
-                        $scope.actualMenu = $scope.selectMenu;
-                        $scope.actualSubmenu = $scope.selectSubmenu;
-                        $scope.actualItemSubmenu = $scope.selectItemSubmenu;
+                    if ($state.current.data.selectMenu !== '' && $scope.actualMenu !== $state.current.data.selectMenu) {
+                        $scope.actualMenu = $state.current.data.selectMenu;
+                        $scope.actualSubmenu = $state.current.data.selectSubmenu;
+                        $scope.actualItemSubmenu = $state.current.data.selectItemSubmenu;
                     }
                 };
             },
             link: function($scope) {
-                $scope.$watch('actualSubmenu', function() {});
+               $scope.$watch('actualSubmenu', function(){});
+               $scope.$watch('selectSubmenu', function(){});
             },
             templateUrl:'layout_templates/publicMenuNotLogged.tpl.html'
         };
     })
     .directive('publicSubMenu',function (){
         return {
-            controller: function($scope){
+            controller: function($scope, $state){
                 $scope.onMouseEnterSubmenu = function(idMenu, idSubmenu, idItemSubmenu) {
                     $scope.actualMenu = idMenu;
                     $scope.actualSubmenu = idSubmenu;
@@ -72,16 +84,16 @@ angular.module('ngMo', [
                 };
                 $scope.onMouseLeaveSubmenu = function () {
                     $scope.actualItemSubmenu = '';
-                    if ($scope.selectMenu !== '' && $scope.actualMenu !== $scope.selectMenu) {
-                        $scope.actualMenu = $scope.selectMenu;
-                        $scope.actualSubmenu = $scope.selectSubmenu;
-                        $scope.actualItemSubmenu = $scope.selectItemSubmenu;
+                    if ($state.current.data.selectMenu !== '' && $scope.actualMenu !== $state.current.data.selectMenu) {
+                        $scope.actualMenu = $state.current.data.selectMenu;
+                        $scope.actualSubmenu = $state.current.data.selectSubmenu;
+                        $scope.actualItemSubmenu = $state.current.data.selectItemSubmenu;
                     }
                 };
                 $scope.onClickSubmenu = function () {
-                    $scope.selectMenu = $scope.actualMenu;
-                    $scope.selectSubmenu = $scope.actualSubmenu;
-                    $scope.selectItemSubmenu = $scope.actualItemSubmenu;
+                    $scope.actualMenu = '';
+                    $scope.actualSubmenu = '';
+                    $scope.actualItemSubmenu = '';
                 };
             },
             link: function($scope) {
