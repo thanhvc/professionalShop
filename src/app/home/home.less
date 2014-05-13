@@ -212,3 +212,35 @@
     outline-color:transparent;
   }
 }
+
+//********************* end modal selectors   *****************************/
+
+/*****  home text Classes  *************/
+.home-text-container{
+  width: 960px;
+  height: 300px;
+  overflow: hidden;
+
+}
+
+.info-selected{
+  position:relative;
+  animation:texthomedelay 2s;
+  animation-delay:2s;
+  /*Safari and Chrome*/
+  -webkit-animation:texthomedelay 2s;
+  -webkit-animation-delay:2s;
+}
+
+@keyframes texthomedelay
+{
+  from {left:-100px;}
+  to {left:0px;}
+}
+
+@-webkit-keyframes texthomedelay
+{
+  from {left:-100px;}
+  to {left:0px;}
+}
+/******* end home text classes ********/

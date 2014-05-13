@@ -16,22 +16,39 @@ angular.module('ngMo.home', [
     'ui.router',
     'ui.bootstrap'
 ])
+    .config(function config($stateProvider) {
+        $stateProvider.state('catalog', {
+            url: '/catalog/:packId',
+            views: {
+                "main": {
+                    controller: 'HomeCtrl',
+                    templateUrl: 'home/catalog/catalog.tpl.html'
+                }
+            },
+            data: {
+                pageTitle: 'Catalog'
+            }
+        });
+    })
 
     .service('PacksService', function ($sce){
 
         //Dummies Packs
         var americanPacks = [
             {
+                "id": 1,
                 "region": "Canada",
                 "market": "Toronto Stock",
                 "numberPatterns": "77"
             },
             {
+                "id": 2,
                 "region": "Estados Unidos Pack I",
                 "market": "AMEX, NASDAQ",
                 "numberPatterns": "83"
             },
             {
+                "id": 3,
                 "region": "Estados Unidos Pack II",
                 "market": "AMEX, NASDAQ",
                 "numberPatterns": "83"}
@@ -39,21 +56,25 @@ angular.module('ngMo.home', [
 
         var asiaPacks = [
             {
+                "id": 4,
                 "region": "Australia",
                 "market": "Australian SE, New Zealand SE",
                 "numberPatterns": "68"
             },
             {
+                "id": 5,
                 "region": "China",
                 "market": "Shanghai SE, Shenzhen SE",
                 "numberPatterns": "100"
             },
             {
+                "id": 6,
                 "region": "Corea",
                 "market": "Korea SE, KOSDAQ",
                 "numberPatterns": "100"
             },
             {
+                "id": 7,
                 "region": "Hong-Kong + Singapur",
                 "market": "Hong Kong SE, Singapore SE, Singapore Securities",
                 "numberPatterns": "100"
@@ -62,26 +83,31 @@ angular.module('ngMo.home', [
 
         var europePacks = [
             {
+                "id": 8,
                 "region": "EURO Zona Pack I",
                 "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
                 "numberPatterns": "100"
             },
             {
+                "id": 9,
                 "region": "EURO Zona Pack II",
                 "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
                 "numberPatterns": "100"
             },
             {
+                "id": 10,
                 "region": "EURO Zona Pack III",
                 "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
                 "numberPatterns": "100"
             },
             {
+                "id": 11,
                 "region": "EURO Zona Pack IV",
                 "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
                 "numberPatterns": "100"
             },
             {
+                "id": 12,
                 "region": "EURO Zona Pack V",
                 "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
                 "numberPatterns": "100"
@@ -90,16 +116,19 @@ angular.module('ngMo.home', [
 
         var americanPairsPacks = [
             {
+                "id": 13,
                 "region": "Estados Unidos Pack I",
                 "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
                 "numberPatterns": "100"
             },
             {
+                "id": 14,
                 "region": "Estados Unidos Pack II",
                 "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
                 "numberPatterns": "100"
             },
             {
+                "id": 15,
                 "region": "Estados Unidos Pack III",
                 "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
                 "numberPatterns": "100"
@@ -108,16 +137,19 @@ angular.module('ngMo.home', [
 
         var asiaPairsPacks = [
             {
+                "id": 16,
                 "region": $sce.trustAsHtml("Jap&oacute;n Pack I"),
                 "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
                 "numberPatterns": "100"
             },
             {
+                "id": 17,
                 "region": $sce.trustAsHtml("Jap&oacute;n Pack II"),
                 "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
                 "numberPatterns": "100"
             },
             {
+                "id": 18,
                 "region": $sce.trustAsHtml("Jap&oacute;n Pack III"),
                 "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
                 "numberPatterns": "100"
@@ -126,16 +158,19 @@ angular.module('ngMo.home', [
 
         var europePairsPacks = [
             {
+                "id": 19,
                 "region": "EURO Zona Pack I",
                 "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
                 "numberPatterns": "100"
             },
             {
+                "id": 20,
                 "region": "EURO Zona Pack II",
                 "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
                 "numberPatterns": "100"
             },
             {
+                "id": 21,
                 "region": "EURO Zona Pack III",
                 "market": $sce.trustAsHtml("Alemania, Austria, B&eacute;lgica, Espa&ntilde;a, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Pa&iacute;ses Bajos, Portugal"),
                 "numberPatterns": "100"
@@ -144,6 +179,7 @@ angular.module('ngMo.home', [
 
         var indicesPacks = [
             {
+                "id": 22,
                 "region": "Bolsa, Financieros, Materias Primas",
                 "market": $sce.trustAsHtml("Global, Regional, Pais, Sectorial, Industrial. Tipos de Inter&eacute;s. Materias Primas"),
                 "numberPatterns": "100"
@@ -152,6 +188,7 @@ angular.module('ngMo.home', [
 
         var pairs_indicesPacks = [
             {
+                "id": 23,
                 "region": "Bolsa",
                 "market": "Global, Regional, Pais, Sectorial, Industrial",
                 "numberPatterns": "100"
@@ -160,6 +197,7 @@ angular.module('ngMo.home', [
 
         var futuresPacks = [
             {
+                "id": 24,
                 "region": $sce.trustAsHtml("Energ&iacute;a, Metales, Agr&iacute;colas, Carnes, Softs, Divisas, Tipos de Inter&eacute;s"),
                 "market": "EUREX, Hong Kong Futures Exchanges, ICE Canada, ICE US, Korean Futures Exchange, Montreal Options Exchange, NYSE Euronext, Singapore Monetary Exchange, Sydney Futures Exchange, Chicago Board of Trade Futures, Chicago Board Options Exchange, Chicago Mercantile Exchange Futures, Kansas City Board of Trade Futures, Minneapolis Grain Exchange Futures, New York Mercantile Exchange Futures, ICE Europe",
                 "numberPatterns": "100"
@@ -371,6 +409,29 @@ angular.module('ngMo.home', [
             link: function($scope) {
                 $scope.getContentUrl = function() {
                     return urlTemplatesHomeTexts[selectedTab].url;
+                };
+            },
+            template: '<div ng-include="getContentUrl()"></div>'
+        };
+    })
+    //pack selected catalog
+    .directive('selectedPackCatalog',function (){
+        urlTemplatesCatalogTexts = [
+            {url: 'home/catalog/stocks_catalog.tpl.html'},
+            {url: 'home/catalog/pairs_catalog.tpl.html'},
+            {url: 'home/catalog/indices_catalog.tpl.html'},
+            {url: 'home/catalog/futures_catalog.tpl.html'}
+        ];
+
+        return {
+            controller: function($scope, ShoppingCartService){
+                $scope.addItemCart = function(item){
+                    ShoppingCartService.addItemCart(item);
+                };
+            },
+            link: function($scope) {
+                $scope.getContentUrl = function() {
+                    return urlTemplatesCatalogTexts[selectedTab].url;
                 };
             },
             template: '<div ng-include="getContentUrl()"></div>'

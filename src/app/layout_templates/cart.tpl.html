@@ -1,0 +1,133 @@
+<div class="shopping-cart-container" ng-show="numItemsCart > 0">
+    <div class="shopping-cart-summary" ng-class="{'show-summary-cart': showCart, 'hide-summary-cart': !showCart}">
+        <span class="title-cart">Carro de Compra</span>
+        <table class="cart-summary-table" ng-show="stockItems.length > 0">
+            <tr>
+                <th>Acciones</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="stockItem in stockItems">
+                <td>{{stockItem.packName}}</td>
+                <td>{{stockItem.startDate}}</td>
+                <td>{{stockItem.duration}}</td>
+                <td>{{stockItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('stocks', stockItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalStock | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="cart-summary-table" ng-show="pairsItems.length > 0">
+            <tr>
+                <th>Pares Acciones</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="pairsItem in pairsItems">
+                <td>{{pairsItem.packName}}</td>
+                <td>{{pairsItem.startDate}}</td>
+                <td>{{pairsItem.duration}}</td>
+                <td>{{pairsItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('pairs', pairsItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalPairs | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="cart-summary-table"  ng-show="indicesItems.length > 0">
+            <tr>
+                <th>&Iacute;ndices</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="indicesItem in indicesItems">
+                <td>{{indicesItem.packName}}</td>
+                <td>{{indicesItem.startDate}}</td>
+                <td>{{indicesItem.duration}}</td>
+                <td>{{indicesItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('indices', indicesItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalIndices | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="cart-summary-table"  ng-show="pairsIndicesItems.length > 0">
+            <tr>
+                <th>Par &Iacute;ndices</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr  ng-repeat="pairsIndicesItem in pairsIndicesItems">
+                <td>{{pairsIndicesItem.packName}}</td>
+                <td>{{pairsIndicesItem.startDate}}</td>
+                <td>{{pairsIndicesItem.duration}}</td>
+                <td>{{pairsIndicesItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('pairsIndices', pairsIndicesItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalPairsIndices | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="cart-summary-table"  ng-show="futuresItems.length > 0">
+            <tr>
+                <th>Futuros</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="futuresItem in futuresItems">
+                <td>{{futuresItem.packName}}</td>
+                <td>{{futuresItem.startDate}}</td>
+                <td>{{futuresItem.duration}}</td>
+                <td>{{futuresItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('futures', futuresItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalFutures | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="total-cart">Total: {{totalCart}} EUR</div>
+        <div class="buttons-cart-container">
+            <button class="mo-cancel-button">Cancelar</button>
+            <button class="mo-button">A&ntilde;adir m&aacute;s</button>
+            <button class="mo-button">Proceder Pago</button>
+        </div>
+    </div>
+    <div class="shopping-cart-tab" ng-click="toggleCart()">
+        <div  class="icon-cart">
+            <span>{{numItemsCart}}</span>
+        </div>
+        <div ng-show="showCart">&gt;&gt;</div>
+        <div ng-show="!showCart">&lt;&lt;</div>
+    </div>
+</div>
