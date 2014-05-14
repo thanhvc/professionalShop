@@ -30,7 +30,11 @@ angular.module('ngMo.home', [
             }
         });
     })
-
+    .service('ActualDateService', function (){
+        this.actualDate = function(){
+            return new Date();
+        };
+    })
     .service('PacksService', function ($sce){
 
         //Dummies Packs
@@ -229,6 +233,60 @@ angular.module('ngMo.home', [
         };
     })
 
+    .service('SelectedPackService', function ($sce){
+
+        //Dummies Patterns Pack
+        var patternsPack =
+            {
+                "id": 1,
+                "region": "Canada",
+                "startDate": "Mayo 2014",
+                "numberPatterns": 77,
+                "patterns": [
+                    {
+                        "name": "ABACUS MINING & EXPLORATION CORPO",
+                        "market": "TSXV",
+                        "sector_industry": "",
+                        "gain": 15,
+                        "lost": 0,
+                        "accumulated": 298,
+                        "average": 19.88,
+                        "duration": "De 1 a 3",
+                        "volatility": 109,
+                        "state": "Sin Comenzar"
+                    },
+                    {
+                        "name": "ABCOURT MINES INC.",
+                        "market": "TSXV",
+                        "sector_industry": "",
+                        "gain": 15,
+                        "lost": 0,
+                        "accumulated": 235,
+                        "average": 15.64,
+                        "duration": "De 1 a 3",
+                        "volatility": 106,
+                        "state": "Comenzado"
+                    },
+                    {
+                        "name": "ABEN RESOURCES LTD.",
+                        "market": "TSXV",
+                        "sector_industry": "",
+                        "gain": 14,
+                        "lost": 1,
+                        "accumulated": 379,
+                        "average": 25.27,
+                        "duration": "Mas de 3",
+                        "volatility": 406,
+                        "state": "Finalizado"
+                    }
+                ]
+            };
+
+        this.obtainselectedPack = function () {
+            return patternsPack;
+        };
+    })
+
     //carousel functions
     .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, $sce) {
         $scope.myInterval = 6000;
@@ -392,18 +450,18 @@ angular.module('ngMo.home', [
     })
 
     //home texts that change when change product type tab
-    .directive('homeTexts',function (){
+    .directive('homeTexts',function (ActiveTabService){
         urlTemplatesHomeTexts = [
             {url: 'home/home_texts/stock_text.tpl.html'},
             {url: 'home/home_texts/pairs_text.tpl.html'},
             {url: 'home/home_texts/indices_text.tpl.html'},
             {url: 'home/home_texts/futures_text.tpl.html'}
         ];
-        selectedTab = 0;
+        selectedTab = ActiveTabService.activeTab();
         return {
             controller: function($scope){
                 $scope.onClickTab = function(idTab){
-                    selectedTab = idTab;
+                    selectedTab =ActiveTabService.changeActiveTab(idTab);
                 };
             },
             link: function($scope) {
@@ -415,7 +473,7 @@ angular.module('ngMo.home', [
         };
     })
     //pack selected catalog
-    .directive('selectedPackCatalog',function (){
+    .directive('selectedPackCatalog',function (ActiveTabService){
         urlTemplatesCatalogTexts = [
             {url: 'home/catalog/stocks_catalog.tpl.html'},
             {url: 'home/catalog/pairs_catalog.tpl.html'},
@@ -424,10 +482,14 @@ angular.module('ngMo.home', [
         ];
 
         return {
-            controller: function($scope, ShoppingCartService){
-                $scope.addItemCart = function(item){
-                    ShoppingCartService.addItemCart(item);
-                };
+            controller: function($scope, ShoppingCartService, SelectedPackService){
+
+                $scope.selectedPack = SelectedPackService.obtainselectedPack();
+                /**
+                 * TODO: selectedTab should be obtained for the selectedPack (productType)
+                 * @type {number}
+                 */
+                selectedTab = ActiveTabService.activeTab();
             },
             link: function($scope) {
                 $scope.getContentUrl = function() {

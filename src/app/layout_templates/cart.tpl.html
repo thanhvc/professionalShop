@@ -118,8 +118,8 @@
         </table>
         <div class="total-cart">Total: {{totalCart}} EUR</div>
         <div class="buttons-cart-container">
-            <button class="mo-cancel-button">Cancelar</button>
-            <button class="mo-button">A&ntilde;adir m&aacute;s</button>
+            <button class="mo-cancel-button" ng-click="removeAllItemsCart()">Cancelar</button>
+            <button class="mo-button" ui-sref="home">A&ntilde;adir m&aacute;s</button>
             <button class="mo-button">Proceder Pago</button>
         </div>
     </div>

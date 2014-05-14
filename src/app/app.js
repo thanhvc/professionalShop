@@ -33,10 +33,20 @@ angular.module('ngMo', [
 
     .run(function run() {
     })
-    .service('ShoppingCartService', function (){
+    .service('ActiveTabService', function (){
+        var activeTab = 0;
+        this.activeTab = function (){
+          return  activeTab;
+        };
+        this.changeActiveTab = function (tab) {
+          activeTab =   tab;
+          return activeTab;
+        };
+    })
+    .service('ShoppingCartService', function (ActiveTabService){
 
         var stockItems =  [
-            {
+            /*{
                 "id": 1,
                 "packName": "Canada",
                 "startDate": "May 14",
@@ -49,50 +59,65 @@ angular.module('ngMo', [
                 "startDate": "May 14",
                 "duration": "Trimestral",
                 "price": 82
-            }
+            }*/
         ];
 
         var pairsItems  =  [
-            {
+           /* {
                 "id": 13,
                 "packName": "Estados Unidos Pack I",
                 "startDate": "May 14",
                 "duration": "Anual",
                 "price": 313
-            }
+            }*/
         ];
 
         var indicesItems = [
-            {
+            /*{
                 "id": 22,
                 "packName": "Indices Pack I",
                 "startDate": "May 14",
                 "duration": "Anual",
                 "price": 313
-            }
+            }*/
         ];
 
         var pairsIndicesItems = [
-            {
+          /*  {
                 "id": 23,
                 "packName": "Pares Indices Pack I",
                 "startDate": "May 14",
                 "duration": "Anual",
                 "price": 313
-            }
+            }*/
         ] ;
         var futuresItems =  [
-            {
+           /* {
                 "id": 24,
                 "packName": "Futures Pack I",
                 "startDate": "May 14",
                 "duration": "Mensual",
                 "price": 29
-            }
+            }*/
         ];
 
-        var numItemsCart = 6;
-        var totalCart = 1079;
+        var numItemsCart = 0;
+        var totalCart = 0;
+        var stockSubtotal = 0;
+        var pairsSubtotal = 0;
+        var indicesSubtotal = 0;
+        var pairsIndicesSubtotal = 0;
+        var futuresSubtotal = 0;
+
+        var showCart = false;
+        this.changeShowCart = function (){
+            if (showCart === false) {
+                showCart = true;
+            }else{
+                showCart = false;
+            }
+            return showCart;
+        };
 
         this.obtainCartItems = function (typePack) {
             switch (typePack){
@@ -109,17 +134,47 @@ angular.module('ngMo', [
             }
         };
 
-        this.addItemCart = function () {
-           var itemr =  {
-                "id": 25,
-                "packName": "Nuevo",
-                "startDate": "May 14",
-                "duration": "Mensual",
-                "price": 29
-            };
-            stockItems.push(itemr);
+        this.addItemCart = function (item) {
+            var activeTab = ActiveTabService.activeTab();
+            switch (activeTab){
+                case 0:
+                    stockItems.push(item);
+                    stockSubtotal += item.price;
+                    break;
+                case 1:
+                    pairsItems.push(item);
+                    pairsSubtotal += item.price;
+                    break;
+                case 2:
+                    indicesItems.push(item);
+                    indicesSubtotal += item.price;
+                    break;
+                case 3:
+                    pairsIndicesItems.push(item);
+                    pairsIndicesSubtotal += item.price;
+                    break;
+                case 4:
+                    futuresItems.push(item);
+                    futuresSubtotal += item.price;
+            }
+            showCart = true;
             numItemsCart++;
-            totalCart+=itemr.price;
+            totalCart+=item.price;
+        };
+
+        this.obtainSubtotal = function(productType){
+            switch (productType){
+                case 'stocks':
+                    return stockSubtotal;
+                case 'pairs':
+                    return pairsSubtotal;
+                case 'indices':
+                    return indicesSubtotal;
+                case 'pairsIndices':
+                    return pairsIndicesSubtotal;
+                case 'futures':
+                    return futuresSubtotal;
+            }
         };
 
         this.removeItemCart = function (productType, item) {
@@ -150,6 +205,21 @@ angular.module('ngMo', [
             totalCart-=item.price;
         };
 
+        this.removeAllItemsCart = function () {
+            stockItems = stockItems.slice(0, pairsItems.length);
+            pairsItems = pairsItems.slice(0, pairsItems.length);
+            indicesItems = indicesItems.slice(0, pairsItems.length);
+            pairsIndicesItems = pairsIndicesItems.slice(0, pairsItems.length);
+            futuresItems = futuresItems.slice(0, pairsItems.length);
+            stockSubtotal = 0;
+            pairsSubtotal = 0;
+            indicesSubtotal = 0;
+            pairsIndicesSubtotal = 0;
+            futuresSubtotal = 0;
+            totalCart = 0;
+            numItemsCart = 0;
+        };
+
         this.obtainNumItemsCart = function () {
             return numItemsCart;
         };
@@ -157,6 +227,9 @@ angular.module('ngMo', [
         this.obtainTotalCart = function () {
             return totalCart;
         };
+
+
+
     })
 
     .controller('AppCtrl', function AppCtrl($scope) {
@@ -242,11 +315,6 @@ angular.module('ngMo', [
     .directive('cart', function( ) {
         return{
             controller: function($scope, ShoppingCartService) {
-                $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
-                $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
-                $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
-                $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
-                $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                 $scope.totalCart = ShoppingCartService.obtainTotalCart();
                 $scope.showCart = false;
@@ -260,7 +328,7 @@ angular.module('ngMo', [
                  * TODO: remove this code
                  ***************/
 
-                angular.forEach($scope.stockItems, function(item){
+                /*angular.forEach($scope.stockItems, function(item){
                     $scope.subtotalStock+= item.price;
                 }) ;
                 angular.forEach( $scope.pairsItems, function(item){
@@ -274,14 +342,10 @@ angular.module('ngMo', [
                 });
                 angular.forEach($scope.futuresItems, function(item){
                     $scope.subtotalFutures+= item.price;
-                });
+                });*/
                 /************/
                 $scope.toggleCart = function () {
-                    if ($scope.showCart === false) {
-                        $scope.showCart = true;
-                    }else{
-                        $scope.showCart = false;
-                    }
+                   $scope.showCart = ShoppingCartService.changeShowCart();
                 };
                 $scope.removeItemCart =  function (productType,item){
                     ShoppingCartService.removeItemCart(productType, item);
@@ -289,14 +353,42 @@ angular.module('ngMo', [
                     $scope.subtotalStock -= item.price;
                     $scope.totalCart -= item.price;
                 };
-                $scope.addItemCart = function (){
-                    ShoppingCartService.addItemCart();
+                $scope.addNewItemCart = function(item){
+                    item =  {
+                        "id": 25,
+                        "packName": "Nuevo",
+                        "startDate": "May 14",
+                        "duration": "Mensual",
+                        "price": 29
+                    };
+                    ShoppingCartService.addItemCart(item);
+                    $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                    $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                    $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                    $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                    $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                    $scope.showCart = true;
+                    $scope.totalCart = ShoppingCartService.obtainTotalCart();
                     $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
-                    /*$scope.subtotalStock += item.price;
-                    $scope.totalCart += item.price;*/
+                    $scope.subtotalStock =  ShoppingCartService.obtainSubtotal('stocks');
+                };
+                $scope.removeAllItemsCart = function () {
+                    ShoppingCartService.removeAllItemsCart();
+                    $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                    $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                    $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                    $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                    $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                    $scope.totalCart = 0;
+                    $scope.numItemsCart = 0;
                 };
             },
             link: function ($scope) {
+                $scope.$watch('stockItems', function(){});
+                $scope.$watch('pairsItems', function(){});
+                $scope.$watch('indicesItems', function(){});
+                $scope.$watch('pairsIndicesItems', function(){});
+                $scope.$watch('futuresItems', function(){});
                 $scope.$watch('showCart', function(){});
                 $scope.$watch('numItemsCart', function(){});
                 $scope.$watch('totalCart', function(){});
