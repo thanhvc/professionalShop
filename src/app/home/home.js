@@ -240,37 +240,41 @@ angular.module('ngMo.home', [
             {
                 "id": 1,
                 "region": "Canada",
+                "productType": 0,
                 "startDate": "Mayo 2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
                         "name": "ABACUS MINING & EXPLORATION CORPO",
                         "market": "TSXV",
-                        "sector_industry": "",
+                        "sector": "",
+                        "industry": "",
                         "gain": 15,
                         "lost": 0,
                         "accumulated": 298,
                         "average": 19.88,
                         "duration": "De 1 a 3",
-                        "volatility": 109,
+                        "volatility": 40,
                         "state": "Sin Comenzar"
                     },
                     {
                         "name": "ABCOURT MINES INC.",
                         "market": "TSXV",
-                        "sector_industry": "",
+                        "sector": "",
+                        "industry": "",
                         "gain": 15,
                         "lost": 0,
                         "accumulated": 235,
                         "average": 15.64,
                         "duration": "De 1 a 3",
-                        "volatility": 106,
+                        "volatility": 10,
                         "state": "Comenzado"
                     },
                     {
                         "name": "ABEN RESOURCES LTD.",
                         "market": "TSXV",
-                        "sector_industry": "",
+                        "sector": "",
+                        "industry": "",
                         "gain": 14,
                         "lost": 1,
                         "accumulated": 379,
@@ -278,17 +282,52 @@ angular.module('ngMo.home', [
                         "duration": "Mas de 3",
                         "volatility": 406,
                         "state": "Finalizado"
+                    },
+                    {
+                        "name": "TOTAL TELCOM INC.",
+                        "market": "TSXV",
+                        "sector": "Information Technology",
+                        "industry": "Communication",
+                        "gain": 15,
+                        "lost": 0,
+                        "accumulated": 422,
+                        "average": 28.1,
+                        "duration": "Mas de 3",
+                        "volatility": 302,
+                        "state": "Comenzado"
                     }
                 ]
             };
+        var totalItems = patternsPack.patterns.length;
 
-        this.obtainselectedPack = function () {
-            return patternsPack;
+        this.obtainTotalItems = function () {
+          return totalItems;
+        };
+
+        this.obtainselectedPack = function (page, numItemsPerPage) {
+            var to = page*numItemsPerPage;
+            var from = to-numItemsPerPage;
+            /**
+             * TODO: replace return patternsPack by http call
+             */
+            //return patternsPack;
+            var tempPatternPack = {
+                "id": patternsPack.id,
+                "region": patternsPack.region,
+                "productType": patternsPack.productType,
+                "startDate": patternsPack.startDate,
+                "numberPatterns": patternsPack.numberPatterns,
+                "patterns": []
+            };
+            for(from;from<to;from++){
+                tempPatternPack.patterns.push(patternsPack.patterns[from]);
+            }
+            return tempPatternPack;
         };
     })
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, $sce) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, $sce, ActiveTabService) {
         $scope.myInterval = 6000;
 
         $scope.myslides = [
@@ -351,6 +390,7 @@ angular.module('ngMo.home', [
         $scope.homeTablePacks = [
             {
                 title: 'Acciones',
+                active: ActiveTabService.activeTab() === 0,
                 value: 0,
                 americaContent: PacksService.obtainPacks('america'),
                 asiaContent: PacksService.obtainPacks('asia'),
@@ -359,6 +399,7 @@ angular.module('ngMo.home', [
             },
             {
                 title: 'Pares',
+                active: ActiveTabService.activeTab() === 1,
                 value: 1,
                 americaContent: PacksService.obtainPacks('americaPairs'),
                 asiaContent: PacksService.obtainPacks('asiaPairs'),
@@ -367,6 +408,7 @@ angular.module('ngMo.home', [
             },
             {
                 title: 'Indices',
+                active: ActiveTabService.activeTab() === 2,
                 value: 2,
                 indicesContent: PacksService.obtainPacks('indices'),
                 pairsIndicesContent: PacksService.obtainPacks('pairs_indices'),
@@ -374,6 +416,7 @@ angular.module('ngMo.home', [
             },
             {
                 title: 'Futuros',
+                active: ActiveTabService.activeTab() === 3,
                 value: 3,
                 futuresContent: PacksService.obtainPacks('futures'),
                 url: 'home/tables_packs/futures_table.tpl.html'
@@ -384,6 +427,7 @@ angular.module('ngMo.home', [
 
 
     })
+
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
@@ -472,6 +516,7 @@ angular.module('ngMo.home', [
             template: '<div ng-include="getContentUrl()"></div>'
         };
     })
+
     //pack selected catalog
     .directive('selectedPackCatalog',function (ActiveTabService){
         urlTemplatesCatalogTexts = [
@@ -482,21 +527,71 @@ angular.module('ngMo.home', [
         ];
 
         return {
-            controller: function($scope, ShoppingCartService, SelectedPackService){
 
-                $scope.selectedPack = SelectedPackService.obtainselectedPack();
+            controller: function($scope, ShoppingCartService, SelectedPackService){
+                $scope.currentPage = 1;
+                $scope.totalItems = SelectedPackService.obtainTotalItems();
+                $scope.selectedPack = SelectedPackService.obtainselectedPack(1,2);
+
+                $scope.changeSelectedPackPatterns = function (page, numItemsPerPage) {
+                    $scope.selectedPack = SelectedPackService.obtainselectedPack(page, numItemsPerPage);
+                };
                 /**
                  * TODO: selectedTab should be obtained for the selectedPack (productType)
                  * @type {number}
                  */
-                selectedTab = ActiveTabService.activeTab();
+                selectedTab = $scope.selectedPack.productType;
+
             },
-            link: function($scope) {
+            link: function($scope, SelectedPackService) {
                 $scope.getContentUrl = function() {
                     return urlTemplatesCatalogTexts[selectedTab].url;
                 };
+                /*$scope.$watch('currentPage', function () {
+                    $scope.selectedPack = $scope.changeSelectedPackPatterns(1,2);
+                    console.log('ok');
+                });*/
+
             },
             template: '<div ng-include="getContentUrl()"></div>'
+        };
+    })
+
+    //filter catalog volatility by range
+    .filter('VolatilityCatalogFilter', function () {
+        return function (items, option) {
+            var tempPatterns = [];
+            switch (option){
+                case "<25":
+                    angular.forEach(items, function (item) {
+                        if (item.volatility < 25){
+                            tempPatterns.push(item);
+                        }
+                    });
+                    return tempPatterns;
+                case ">25<50":
+                    angular.forEach(items, function (item) {
+                        if (item.volatility >= 25 && item.volatility < 50){
+                            tempPatterns.push(item);
+                        }
+                    });
+                    return tempPatterns;
+                case ">50<75":
+                    angular.forEach(items, function (item) {
+                        if (item.volatility >= 50 && item.volatility < 75){
+                            tempPatterns.push(item);
+                        }
+                    });
+                    return tempPatterns;
+                case ">75":
+                    angular.forEach(items, function (item) {
+                        if (item.volatility > 75){
+                            tempPatterns.push(item);
+                        }
+                    });
+                    return tempPatterns;
+            }
+            return items;
         };
     })
 

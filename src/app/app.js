@@ -397,4 +397,6 @@ angular.module('ngMo', [
             templateUrl: 'layout_templates/cart.tpl.html'
         };
     })
+
+
 ;

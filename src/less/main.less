@@ -365,7 +365,6 @@ Flags styles
 }
 
 .footer-body {
-  font-family: "fontpo", "verdana";
   padding-top:10px;
   background-color: #3d3d3f;
   height: 170px;
@@ -381,7 +380,6 @@ Flags styles
 }
 
 .footer-bottom {
-  font-family: "fontpo", "verdana";
   background-color: #b0b2b3;
   height: 40px;
   color: #3d3d3f;
@@ -510,11 +508,11 @@ table{
 }
 
 .table-pack {
-  font-family: "fontpo", "verdana";
   border: 1px solid silver !important;
   width: 830px;
   font-size: 10px;
   color: #ffffff;
+  font-family: fontpo;
   tbody {
     tr {
       cursor: pointer;
@@ -551,6 +549,7 @@ table{
   td{
     background-color: #C0C0C0 !important;
     color: #000000;
+    border:none;
     &:nth-child(3){
       border: none;
       font-weight: bold;
@@ -766,8 +765,8 @@ table{
   text-align: center;
   color: darkblue !important;
   border: 1px solid #9C9C9C !important;
-  border: 1px solid rgba(0, 0, 0, 0.5) !important;
-  text-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  text-shadow: 0px 0px 0px rgba(0,0,0,0.4);
   box-shadow: 0 0 .05em rgba(0,0,0,0.4);
   -moz-box-shadow: 0 0 .05em rgba(0,0,0,0.4);
   -webkit-box-shadow: 0 0 .05em rgba(0,0,0,0.4);
@@ -789,8 +788,8 @@ table{
   text-align: center;
   color: darkblue !important;
   border: 1px solid #9C9C9C !important;
-  border: 1px solid rgba(0, 0, 0, 0.5) !important;
-  text-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  text-shadow: 0px 0px 0px rgba(0,0,0,0.4);
   box-shadow: 0 0 .05em rgba(0,0,0,0.4);
   -moz-box-shadow: 0 0 .05em rgba(0,0,0,0.4);
   -webkit-box-shadow: 0 0 .05em rgba(0,0,0,0.4);
@@ -818,6 +817,66 @@ table{
     background-position: 0px 16px;
   }
 }
+
+.pagination-container {
+  text-align: center;
+  padding: 0px 8px;
+  font-size: 11px;
+  .pagination {
+    margin: 0px;
+    li {
+      &:nth-last-child(1), &:nth-last-child(2) {
+        a{
+          background-color: @orangeColor;
+          color: #ffffff;
+          border-radius: 0px;
+          padding: 0px 9px;
+          border: none;
+        }
+      }
+      &:nth-child(1) {
+        a{
+          background-color: @orangeColor !important;
+          color: #ffffff !important;
+          border-radius: 0px !important;
+          padding: 0px 9px !important;
+          border: none !important;
+        }
+      }
+      a {
+        color: #6F7072;
+        background-color: #ffffff;
+        border: none;
+        border-top: 2px solid @orangeColor;
+        padding: 0px 9px;
+        margin-left: 1px;
+      }
+      &.active {
+        a {
+          border-top: 2px solid @orangeColor;
+          background-color: @orangeColor !important;
+          color: #ffffff;
+          border: none;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .disabled {
+    &:first-child{
+      display: none;
+    }
+    a{
+      border-top: 2px solid #C5C6C8;
+      background-color: #C5C6C8 !important;
+      border: none !important;
+      color: #ffffff !important;
+      font-size: 12px;
+    }
+  }
+}
+
+
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
