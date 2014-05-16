@@ -1,0 +1,79 @@
+<div class="panel">
+
+    <div class="cuerpoDivFree" ng-controller="SignUpController">
+        <div id="descriptionText" class="margin-top-header">
+            <div id="headerText"><span class="black-title-bold super-border">ACCESO SERVICIO ONLINE</span>
+            </div>
+            <div id="bodyText" class="sign-text default-format-text prices-font12">Lorem ipsum dolor sit amet,
+                consectetur adipisicing
+                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+            </div>
+        </div>
+        <div id="divFree" class="prices-font11">
+            <form id="form-sign-up" name="form" method="post" action="/freeSubscription"
+                  enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="form" value="form">
+
+                <div id="block-sign-up" class="sign-up-block">
+                    <div class=" orange-border" style="font-size:12px; margin-bottom:15px;">
+                        <table class="signup-table">
+                            <tbody>
+                            <tr>
+                                <td><span class="grey-label">Email</span></td>
+                                <td><input id="username1" class="signup-input" ng-model="user.email" type="email"
+                                           name="uEmail" style="width:200px;"  ng-required="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="grey-label">Repetir email</span></td>
+                                <td><input id="username2" class="signup-input" type="email" ng-model="user.email2"
+                                           name="username2" style="width:200px;"  ng-required="" match="user.email">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="grey-label">Contrase&ntilde;a</span></td>
+                                <td><input id="password1" class="signup-input" ng-model="user.password" type="password"
+                                           name="password1" ng-required=""
+                                           style="width:200px;" ng-minlength="8"></td>
+                            </tr>
+                            <tr>
+                                <td><span class="grey-label">Repetir contrase&ntilde;a</span></td>
+                                <td><input id="password2" class="signup-input" ng-model="user.password2" type="password"
+                                           name="password2"  ng-required=""  match="user.password"
+                                           style="width:200px;">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <input class="buttonGPO3" id="continue" name="continue" ng-disabled="form.$invalid"
+                           value="Continuar" style="float:right;" type="button">
+
+                    <div id="errorJS" class="red-color-form prices-font12" ng-show="form.password2.$error.mismatch">Las
+                        contrase&ntilde;as no coinciden
+                    </div>
+                    <div id="errorJSInvalidMail" ng-show="form.uEmail.$error.email"
+                         class="red-color-form prices-font12">
+                        Email inv&aacute;lido
+                    </div>
+                    <div id="errorJS1" class="red-color-form prices-font12" ng-show="form.username2.$error.mismatch">Los
+                        emails no coinciden
+                    </div>
+                    <div id="errorJS2" class="red-color-form prices-font12" style=" display: none;">El
+                        e-mail ya est&acute; siendo usado
+                    </div>
+                    <div id="errorJS3" class="red-color-form prices-font12" ng-show="form.password1.$error.minlength">La
+                        contrase&ntilde;a requiere de un m&iacute;nimo 8 caracteres
+                    </div>
+                    <div id="form:errorJSInvalidPass" class="red-color-form prices-font12"
+                         style=" display: none;">Caracteres inv&acute;lidos en la contrase&ntilde;a
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -350,7 +350,7 @@ module.exports = function ( grunt ) {
                 background: true
             },
             continuous: {
-                singleRun: false
+                singleRun: true
             }
         },
 
