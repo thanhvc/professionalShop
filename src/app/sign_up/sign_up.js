@@ -18,7 +18,20 @@ angular.module('singUp', [])
                 pageTitle: '',
                 selectMenu: '',
                 selectSubmenu: '',
-                selectItemSubmenu: ''
+                selectItemSubmenu: '',
+                user : {
+                    email: 'test@test.com',
+                    email2: 'test2@test.com',
+                    password: '11111111111',
+                    password2: '222222222',
+                    name: '',
+                    surname: '',
+                    address: '',
+                    city: '',
+                    postal: '',
+                    country: '',
+                    conditions: ''
+                 }
 
             }})
             .state('signup2', {
@@ -34,7 +47,20 @@ angular.module('singUp', [])
                     pageTitle: '',
                     selectMenu: '',
                     selectSubmenu: '',
-                    selectItemSubmenu: ''
+                    selectItemSubmenu: '',
+                    user : {
+                        email: 'test@test.com',
+                        email2: 'test2@test.com',
+                        password: '11111111111',
+                        password2: '222222222',
+                        name: '',
+                        surname: '',
+                        address: '',
+                        city: '',
+                        postal: '',
+                        country: '',
+                        conditions: ''
+                    }
                 }
             })
             .state('signupSuccessful', {
@@ -50,18 +76,37 @@ angular.module('singUp', [])
                     pageTitle: '',
                     selectMenu: '',
                     selectSubmenu: '',
-                    selectItemSubmenu: ''
+                    selectItemSubmenu: '',
+                    user : {
+                        email: 'test@test.com',
+                        email2: 'test2@test.com',
+                        password: '11111111111',
+                        password2: '222222222',
+                        name: '',
+                        surname: '',
+                        address: '',
+                        city: '',
+                        postal: '',
+                        country: '',
+                        conditions: ''
+                    }
                 }
             });
     })
     .run(function run() {
     })
 
-    .controller('SignUpController', function ($scope) {
+    .controller('SignUpController', function ($scope, $state,SignUpService) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
 
-            $scope.user = {
+            //password Pattern, note that to not allow spaces must use ng-trim="false" in the input
+            $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
+            //user model
+            $scope.user = toState.data.user;
+           /* {
                 email: 'test@test.com',
                 email2: 'test2@test.com',
                 password: '11111111111',
@@ -73,8 +118,27 @@ angular.module('singUp', [])
                 postal: '',
                 country: '',
                 conditions: ''
+            };*/
+            //result of form submit -- just for test for now, the final results must be checked
+            $scope.result = {
+                result: "unknown",
+                username: "unknown"
             };
 
+
+            //function to send the first step form
+            //Calls firstStep of the SignUpService and takes result=ok / error
+            $scope.sendFirstStep = function () {
+                var result = SignUpService.firstStep($scope.user);
+                $scope.result = result;
+                if ($scope.result.result == "ok"){
+                    //if the results are OK, we save the model in the state (in case of press back button)
+                    //and go to step2
+                    $state.user= $scope.user;
+                    $state.go('signup2');
+                }
+
+            };
 
         });
     })
@@ -95,16 +159,23 @@ angular.module('singUp', [])
             }
         };
     })
-    .factory('sign-up-step1Service',function(user){
-        var respond = {
-          result: "ok",
-            username: "not-used"
+    .factory('SignUpService',function(){
+        var signUpService = {};
+        signUpService.firstStep = function(user) {
+            var response = {
+                result: "ok",
+                username: "not-used"
+            };
+            if (user.email == "test@test") {
+                response.result = "error";
+                response.username = "used";
+            }
+            return response;
         };
-        if (user.email == "test@test") {
-            respond.result= "error";
-            respond.username="used";
-        }
-        return result;
+        signUpService.secondStep = function(user){
+            return "ok";
+        };
+        return signUpService;
 
     })
 
