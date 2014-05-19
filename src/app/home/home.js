@@ -422,6 +422,25 @@ angular.module('ngMo.home', [
 
         $scope.actualDate = new Date();
 
+        $scope.generateSearchUrl = function (provider, input) {
+            if (typeof input === 'undefined'){
+                input = '';
+            }
+            switch (provider){
+                case 'Google':
+                    $scope.urlSearchCatalog = 'https://www.google.com/finance?q='+input;
+                    break;
+                case 'Yahoo':
+                    $scope.urlSearchCatalog = 'http://finance.yahoo.com/?q='+input;
+                    break;
+                case 'Bloomberg':
+                    $scope.urlSearchCatalog = 'http://www.bloomberg.com/markets/symbolsearch?query='+input;
+                    break;
+            }
+            $scope.$watch('urlSearchCatalog', function () {
+
+            });
+        };
 
     })
 
