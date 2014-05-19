@@ -1,0 +1,97 @@
+<div>
+    <span class="catalog-title">Cat&aacute;logo Acciones</span>
+
+    <p>El siguiente cuadro es un resumen de contenidos del Pack a Comprar mediante suscripci&oacute;n. Contiene una lista de hasta 100 Compa&ntilde;&iacute;as con las mejores Estrategias durante el Mes indicado.</p>
+    <p>
+    La tabla muestra un avance de par&aacute;metros de las diferentes estrategias, que permite valorar las ventajas de Comprar el Pack.
+    <ul class="public-list-first-level">
+    <li>Nombre de la Compa&ntilde;&iacute;a, Mercado cotizaci&oacute;n y clasificaci&oacute;n Sectorial.</li>
+    <li>N&uacute;mero de a&ntilde;os &ndash;o frecuencia de aciertos&ndash; que la estrategia gener&oacute; Beneficios y P&eacute;rdidas.</li>
+    <li>Rentabilidad Acumulada durante 15 a&ntilde;os y Rentabilidad Media asociada al periodo de la operaci&oacute;n &ndash;no es rentabilidad anual&ndash;. </li>
+    <li>Duraci&oacute;n de la operaci&oacute;n (Holding days) para planificar la disponibilidad del dinero. </li>
+    <li>Volatilidad hist&oacute;rica para estimar perfil de riesgo. </li>
+    <li>El &ldquo;Estado&rdquo; de la Estrategia se indica mediante un sem&aacute;foro: Color naranja si a d&iacute;a de hoy est&aacute; en curso. Color rojo si ya termin&oacute;. Color verde cuando en la fecha actual todav&iacute;a est&aacute; sin comenzar.</li>
+    <li>Informaci&oacute;n de los datos Fundamentales de la Compa&ntilde;&iacute;a</li>
+    </ul>
+    Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y herramientas de evaluaci&oacute;n.
+    </p>
+    <div class="start-date-catalog-container">{{selectedPack.startDate | uppercase}}</div>
+    <div class="region-catalog-container">{{selectedPack.region}}</div>
+    <button id="purchase-button" ng-click="addNewItemCart()" class="mo-button">Al carro</button>
+    <span class="actual-date-catalog">DATE: {{actualDate | date:'dd MMMM'}}. (CET)</span>
+
+    <div class="header-catalog-table">
+        <div class="catalog-filter">
+            <input placeholder="Nombre" ng-model="namePattern">
+            <select ng-model="sectorPattern">
+                <option selected="selected" value="">-  Elegir Sector -</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Materials">Materials</option>
+            </select>
+            <select ng-model="industryPattern">
+                <option selected="selected" value="">-  Elegir industria -</option>
+                <option value="{{'Communications Equipment' | limitTo: 10}}">Communications Equipment</option>
+                <option>Metals & Mining</option>
+            </select>
+            <select ng-model="durationPattern">
+                <option selected="selected" value="">-  Elegir duraci&oacute;n -</option>
+                <option value="Hasta 1">Hasta 1 mes</option>
+                <option value="De 1 a 3">De 1 a 3 meses</option>
+                <option value="Mas de 3">Mas de 3 meses</option>
+            </select>
+            <select ng-model="volatilityPattern">
+                <option selected="selected" value="">-  Elegir volatilidad -</option>
+                <option value="<25">Menos de 25%</option>
+                <option value=">25<50">Entre 25% y 50%</option>
+                <option value=">50<75">Entre 50% y 75%</option>
+                <option value=">75">Mas de 75%</option>
+            </select>
+        </div>
+        <div class="number-patterns-catalog">
+            N&uacute;mero total de patrones: {{selectedPack.numberPatterns}}; Patrones encontrados: {{selectedPack.numberPatterns}}
+        </div>
+    </div>
+    <table class="patterns-table-catalog">
+        <tr>
+            <th>Patr&oacute;n Acciones</th>
+            <th>Mercado</th>
+            <th>Sector / Industria</th>
+            <th colspan="2">N&uacute;mero de A&ntilde;os</th>
+            <th colspan="2">Rentabilidad (%)</th>
+            <th>Duraci&oacute;n</th>
+            <th>Vol.</th>
+            <th>Estado</th>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <th>C&oacute;digo</th>
+            <th></th>
+            <th>Ganancia</th>
+            <th>P&eacute;rdida</th>
+            <th>Acumulada</th>
+            <th>Promedio</th>
+            <th>Meses</th>
+            <th>(%)</th>
+            <th></th>
+        </tr>
+        <!-- filter: {name: namePattern, sector: sectorPattern, industry: industryPattern, duration: durationPattern, volatility: volatilityPattern} -->
+        <tr ng-repeat="pattern in selectedPack.patterns | VolatilityCatalogFilter: volatilityPattern | filter: {name: namePattern, sector: sectorPattern, industry: industryPattern, duration: durationPattern}">
+            <td>{{pattern.name | limitTo: 33}}</td>
+            <td>{{pattern.market}}</td>
+            <td>{{pattern.sector}} <span ng-show="pattern.sector != '' && pattern.industry != ''">/</span> {{pattern.industry}}</td>
+            <td>{{pattern.gain}}</td>
+            <td>{{pattern.lost}}</td>
+            <td>{{pattern.accumulated}}</td>
+            <td>{{pattern.average}}</td>
+            <td>{{pattern.duration}}</td>
+            <td>{{pattern.volatility}}</td>
+            <td><div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div></td>
+        </tr>
+    </table>
+    <div class="pagination-container">
+        <pagination boundary-links="true" total-items="totalItems" items-per-page="2" page="currentPage" class="pagination-sm" previous-text="&lt;" next-text="&gt;" first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+    </div>
+
+
+
+</div>
