@@ -19,6 +19,8 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks('grunt-ngmin');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-angular-gettext');
+    grunt.loadNpmTasks('grunt-lesslint')
+
 
     /**
      * Load in our build configuration file.
@@ -259,7 +261,12 @@ module.exports = function ( grunt ) {
                 }
             }
         },
-
+        /**
+         * Less Lint
+         */
+        lesslint:{
+            src: '<%= app_files.less %>'
+        },
         /**
          * `jshint` defines the rules of our linter as well as which files we
          * should check. This file, all javascript sources, and all our unit tests
@@ -350,7 +357,7 @@ module.exports = function ( grunt ) {
                 background: true
             },
             continuous: {
-                singleRun: false
+                singleRun: true
             }
         },
 
