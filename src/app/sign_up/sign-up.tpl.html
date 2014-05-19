@@ -24,26 +24,26 @@
                             <tr>
                                 <td><span class="grey-label">Email</span></td>
                                 <td><input id="username1" class="signup-input" ng-model="user.email" type="email"
-                                           name="uEmail" style="width:200px;"  ng-required="">
+                                           name="uEmail" style="width:200px;" required="true">
                                 </td>
                             </tr>
                             <tr>
                                 <td><span class="grey-label">Repetir email</span></td>
                                 <td><input id="username2" class="signup-input" type="email" ng-model="user.email2"
-                                           name="username2" style="width:200px;"  ng-required="" match="user.email">
+                                           name="username2" style="width:200px;" required="true" match="user.email">
                                 </td>
                             </tr>
                             <tr>
                                 <td><span class="grey-label">Contrase&ntilde;a</span></td>
                                 <td><input id="password1" class="signup-input" ng-model="user.password" type="password"
-                                           name="password1" ng-required=""
+                                           name="password1" required="true"
                                            ng-pattern="passwordPatten" ng-trim="false"
                                            style="width:200px;" ng-minlength="8"></td>
                             </tr>
                             <tr>
                                 <td><span class="grey-label">Repetir contrase&ntilde;a</span></td>
                                 <td><input id="password2" class="signup-input" ng-model="user.password2" type="password"
-                                           name="password2"  ng-required=""  match="user.password"
+                                           name="password2" required="true" match="user.password"
                                            style="width:200px;">
                                 </td>
                             </tr>
@@ -51,7 +51,8 @@
                         </table>
                     </div>
                     <button class="buttonGPO3" id="continue" name="continue" ng-disabled="form.$invalid"
-                     ng-click="sendFirstStep()" style="float:right;" type="button">Continuar</button>
+                            ng-click="sendFirstStep()" style="float:right;" type="button">Continuar
+                    </button>
 
                     <div id="errorJS" class="red-color-form prices-font12" ng-show="form.password2.$error.mismatch">Las
                         contrase&ntilde;as no coinciden
@@ -71,6 +72,10 @@
                     </div>
                     <div id="form:errorJSInvalidPass" class="red-color-form prices-font12"
                          ng-show="form.password1.$error.pattern">Caracteres inv&aacute;lidos en la contrase&ntilde;a
+                    </div>
+                    <div id="errorJS4" class="red-color-form prices-font12"
+                         ng-show="form.$error.required">
+                        Faltan campos obligatorios
                     </div>
                 </div>
             </form>
