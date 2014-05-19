@@ -22,25 +22,25 @@
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
-            <input placeholder="Nombre" ng-model="namePattern">
-            <select ng-model="sectorPattern">
-                <option selected="selected" value="">-  Elegir Sector -</option>
+            <input placeholder="Nombre" ng-model="namePattern" ng-change="changeFilter(namePattern)">
+            <select ng-model="sectorPattern" ng-change="changeFilter(sectorPattern)">
+                <option selected="selected" value="">- Elegir Sector -</option>
                 <option value="Information Technology">Information Technology</option>
                 <option value="Materials">Materials</option>
             </select>
-            <select ng-model="industryPattern">
-                <option selected="selected" value="">-  Elegir industria -</option>
+            <select ng-model="industryPattern" ng-change="changeFilter(industryPattern)">
+                <option selected="selected" value="">- Elegir industria -</option>
                 <option value="{{'Communications Equipment' | limitTo: 10}}">Communications Equipment</option>
                 <option>Metals & Mining</option>
             </select>
-            <select ng-model="durationPattern">
-                <option selected="selected" value="">-  Elegir duraci&oacute;n -</option>
+            <select ng-model="durationPattern" ng-change="changeFilter(durationPattern)">
+                <option selected="selected" value="">- Elegir duraci&oacute;n -</option>
                 <option value="Hasta 1">Hasta 1 mes</option>
                 <option value="De 1 a 3">De 1 a 3 meses</option>
                 <option value="Mas de 3">Mas de 3 meses</option>
             </select>
-            <select ng-model="volatilityPattern">
-                <option selected="selected" value="">-  Elegir volatilidad -</option>
+            <select ng-model="volatilityPattern" ng-change="changeFilter(volatilityPattern, 'VolatilityCatalogFilter')">
+                <option selected="selected" value="">- Elegir volatilidad -</option>
                 <option value="<25">Menos de 25%</option>
                 <option value=">25<50">Entre 25% y 50%</option>
                 <option value=">50<75">Entre 50% y 75%</option>
@@ -74,8 +74,7 @@
             <th>(%)</th>
             <th></th>
         </tr>
-        <!-- filter: {name: namePattern, sector: sectorPattern, industry: industryPattern, duration: durationPattern, volatility: volatilityPattern} -->
-        <tr ng-repeat="pattern in selectedPack.patterns | VolatilityCatalogFilter: volatilityPattern | filter: {name: namePattern, sector: sectorPattern, industry: industryPattern, duration: durationPattern}">
+        <tr ng-repeat="pattern in selectedPack.patterns | startFrom: (currentPage-1)*pageSize | limitTo: pageSize | filter: {name: namePattern, sector: sectorPattern, industry: industryPattern, duration: durationPattern} | VolatilityCatalogFilter: volatilityPattern">
             <td>{{pattern.name | limitTo: 33}}</td>
             <td>{{pattern.market}}</td>
             <td>{{pattern.sector}} <span ng-show="pattern.sector != '' && pattern.industry != ''">/</span> {{pattern.industry}}</td>
@@ -89,7 +88,7 @@
         </tr>
     </table>
     <div class="pagination-container">
-        <pagination boundary-links="true" total-items="totalItems" items-per-page="2" page="currentPage" class="pagination-sm" previous-text="&lt;" next-text="&gt;" first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+        <pagination boundary-links="true" on-select-page="setPage(page)" total-items="totalItems" items-per-page="pageSize" max-size="maxSize" page="currentPage" class="pagination-sm" previous-text="&lt;" next-text="&gt;" first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
     </div>
 
 

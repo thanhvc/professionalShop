@@ -834,13 +834,13 @@ table{
           border: none;
         }
       }
-      &:nth-child(1) {
+      &:nth-child(1), &:nth-child(2) {
         a{
-          background-color: @orangeColor !important;
-          color: #ffffff !important;
-          border-radius: 0px !important;
-          padding: 0px 9px !important;
-          border: none !important;
+          background-color: @orangeColor;
+          color: #ffffff;
+          border-radius: 0px;
+          padding: 0px 9px;
+          border: none;
         }
       }
       a {
@@ -863,8 +863,8 @@ table{
     }
   }
   .disabled {
-    &:first-child{
-      display: none;
+    &:first-child, &:last-child{
+      visibility: hidden;
     }
     a{
       border-top: 2px solid #C5C6C8;
@@ -875,8 +875,6 @@ table{
     }
   }
 }
-
-
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
