@@ -79,12 +79,10 @@ describe('The publicSubmenu directive', function () {
                 var log = [];
                 angular.forEach(vSubmenuList, function (item) {
                         if (item.id === selectedItem) {
-                            console.log(item.id);
                             this.push(item.children[0].className);
                         }
                     },
                     log);
-                console.log("tiene: "+log[0]);
                 expect(log[0].indexOf('item-nav-hover')).toNotEqual(-1);
             });
         }));
