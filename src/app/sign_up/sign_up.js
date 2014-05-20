@@ -20,7 +20,7 @@ angular.module('singUp', [])
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 user: {
-                    email: 'aa@aa22222',
+                    email: '',
                     email2: '',
                     password: '',
                     password2: '',
@@ -204,6 +204,7 @@ angular.module('singUp', [])
                 result: "ok",
                 username: "not-used"
             };
+            //testing used mail
             if (user.email == "test@test") {
                 response.result = "error";
                 response.username = "used";
