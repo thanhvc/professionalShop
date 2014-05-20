@@ -20,7 +20,7 @@ angular.module('singUp', [])
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 user: {
-                    email: '',
+                    email: 'aa@aa22222',
                     email2: '',
                     password: '',
                     password2: '',
