@@ -2,16 +2,9 @@
 /**
 *Sign up Page classes
 **/
-.black-title-bold{
-  font-size: 14px;
-  font-family: verdana;
-  margin-bottom: 20px;
-  font-weight: bold;
-  height: 20px;
-  margin-top: 20px;
-}
+
 .super-border {
-  border-top: 1px solid #1A171B;
+  border-top: 1px solid black;
 }
 .margin-top-header{
   margin-top: 20px;
@@ -38,10 +31,10 @@
   margin-bottom: 15px;
 }
 .orange-border{
-  border: 3px solid #FF8200;
+  border: 3px solid @orangeColor;
 }
 .grey-label{
-  color: #6F7072;
+  color: @greyLabel;
 }
 .prices-font11{
   font-family: fontpo, verdana !important;
@@ -52,40 +45,17 @@
   font-family: fontpo, verdana !important;
   font-size: 12px;
 }
-
-/*SignUp step 2*/
-.sign-up2-body{
-  width: 400px;
-  margin: 0 auto;
-  height: 500px;
-  margin-top: 20px;
+.signup-table{
+  width: 100%;
+  height: 130px;
+  margin: 10px;
 }
-
-.signup-table-step2{
-  width: 485px;
-  font-family: fontpo;
-  font-size: 12px;
-  color: black !important;
-  font-weight: 100;
-  height: 255px;
-}
-.signup-table-step2 td {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-weight: normal;
-  font-size: 100%;
-  font-family: inherit;
+.signup-table td{
   vertical-align: baseline;
 }
 
-.signup-table-step2 tr {
-  height: 21px;
-}
-.red-color-form{
-  color: #C30;
-}
+
+
 
 .signup-input{
   margin: 0 !important;
@@ -112,11 +82,11 @@
 .signup-form-warning{
   text-align: left !important;
   font-size: 10px !important;
-  color: #C30;
+  color: @darkRed;
   padding-top: 20px !important;
 }
 
-.signup-succesful-message{
+.signup-successful-message{
   width:900px;
   margin:0px 20px 20px 148px;
   padding-bottom:20px;
@@ -131,14 +101,7 @@
   line-height: 17px;
 }
 
-.signup-table{
-  width: 100%;
-  height: 130px;
-  margin: 10px;
-}
-.signup-table td{
-  vertical-align: baseline;
-}
+
 .captcha-img{
   position:relative;
   top:5px;
@@ -153,5 +116,39 @@
 
 }
 .warningInput{
-  background-color: rgb(255, 192, 203);
+  background-color: @pinkWarning;
+}
+
+/*SignUp step 2*/
+.sign-up-body-step2{
+  width: 400px;
+  margin: 0 auto;
+  height: 500px;
+  margin-top: 20px;
+}
+
+.signup-table-step2{
+  width: 485px;
+  font-family: fontpo;
+  font-size: 12px;
+  color: black !important;
+  font-weight: 100;
+  height: 255px;
+}
+.signup-table-step2 td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: normal;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+.signup-table-step2 tr {
+  height: 22px;
+}
+.red-color-form{
+  color: @darkRed;
 }

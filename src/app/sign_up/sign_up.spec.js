@@ -13,7 +13,7 @@ describe('General Test',function(){
             //create an empty scope
             scope = $rootScope.$new();
             //declare the controller and inject our empty scope
-            $controller('SignUpController', {$scope: scope});
+            $controller('SignupCtrl', {$scope: scope});
             state =$state;
             compile= $compile;
             template= $templateCache;

@@ -1,10 +1,10 @@
 <div class="panel">
 
-    <div class="cuerpoDivFree" ng-controller="SignUpController">
-        <div id="descriptionText" class="margin-top-header">
-            <div id="headerText"><span class="black-title-bold super-border">ACCESO SERVICIO ONLINE</span>
+    <div ng-controller="SignupCtrl">
+        <div  class="margin-top-header">
+            <div ><span class="black-title-bold super-border">ACCESO SERVICIO ONLINE</span>
             </div>
-            <div id="bodyText" class="sign-text default-format-text prices-font12">Lorem ipsum dolor sit amet,
+            <div class="sign-text default-format-text prices-font12">Lorem ipsum dolor sit amet,
                 consectetur adipisicing
                 elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
                 nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
@@ -13,36 +13,34 @@
 
             </div>
         </div>
-        <div id="divFree" class="prices-font11">
-            <form id="form-sign-up" name="form" ng-submit="test1()">
-                <input type="hidden" name="form" value="form">
-
-                <div id="block-sign-up" class="sign-up-block">
-                    <div class=" orange-border" style="font-size:12px; margin-bottom:15px;">
+        <div  class="prices-font11">
+            <form name="form" >
+                <div class="sign-up-block">
+                    <div class="orange-border" style="font-size:12px; margin-bottom:15px;">
                         <table class="signup-table">
                             <tbody>
                             <tr>
                                 <td><span class="grey-label">Email</span></td>
-                                <td><input id="username1" class="signup-input" ng-model="user.email" type="email"
+                                <td><input  class="signup-input" ng-model="user.email" type="email"
                                            name="uEmail" style="width:200px;" required="true">
                                 </td>
                             </tr>
                             <tr>
                                 <td><span class="grey-label">Repetir email</span></td>
-                                <td><input id="username2" class="signup-input" type="email" ng-model="user.email2"
+                                <td><input  class="signup-input" type="email" ng-model="user.email2"
                                            name="username2" style="width:200px;" required="true" match="user.email">
                                 </td>
                             </tr>
                             <tr>
                                 <td><span class="grey-label">Contrase&ntilde;a</span></td>
-                                <td><input id="password1" class="signup-input" ng-model="user.password" type="password"
+                                <td><input  class="signup-input" ng-model="user.password" type="password"
                                            name="password1" required="true"
                                            ng-pattern="passwordPatten" ng-trim="false"
                                            style="width:200px;" ng-minlength="8"></td>
                             </tr>
                             <tr>
                                 <td><span class="grey-label">Repetir contrase&ntilde;a</span></td>
-                                <td><input id="password2" class="signup-input" ng-model="user.password2" type="password"
+                                <td><input  class="signup-input" ng-model="user.password2" type="password"
                                            name="password2" required="true" match="user.password"
                                            style="width:200px;">
                                 </td>
@@ -50,30 +48,30 @@
                             </tbody>
                         </table>
                     </div>
-                    <button class="mo-button" id="continue" name="continue" ng-disabled="form.$invalid"
+                    <button class="mo-button"  name="continue" ng-disabled="form.$invalid"
                             ng-click="sendFirstStep()" style="float:right;" type="button">Continuar
                     </button>
 
-                    <div id="errorJS" class="red-color-form prices-font12" ng-show="form.password2.$error.mismatch">Las
+                    <div class="red-color-form prices-font12" ng-show="form.password2.$error.mismatch">Las
                         contrase&ntilde;as no coinciden
                     </div>
-                    <div id="errorJSInvalidMail" ng-show="form.uEmail.$error.email"
+                    <div ng-show="form.uEmail.$error.email"
                          class="red-color-form prices-font12">
                         Email inv&aacute;lido
                     </div>
-                    <div id="errorJS1" class="red-color-form prices-font12" ng-show="form.username2.$error.mismatch">Los
+                    <div class="red-color-form prices-font12" ng-show="form.username2.$error.mismatch">Los
                         emails no coinciden
                     </div>
-                    <div id="errorJS2" class="red-color-form prices-font12" ng-show="result.username == 'used'">El
+                    <div class="red-color-form prices-font12" ng-show="result.username == 'used'">El
                         e-mail ya est&aacute; siendo usado
                     </div>
-                    <div id="errorJS3" class="red-color-form prices-font12" ng-show="form.password1.$error.minlength">La
+                    <div  class="red-color-form prices-font12" ng-show="form.password1.$error.minlength">La
                         contrase&ntilde;a requiere de un m&iacute;nimo 8 caracteres
                     </div>
-                    <div id="form:errorJSInvalidPass" class="red-color-form prices-font12"
+                    <div  class="red-color-form prices-font12"
                          ng-show="form.password1.$error.pattern">Caracteres inv&aacute;lidos en la contrase&ntilde;a
                     </div>
-                    <div id="errorJS4" class="red-color-form prices-font12"
+                    <div  class="red-color-form prices-font12"
                          ng-show="form.$error.required">
                         Faltan campos obligatorios
                     </div>

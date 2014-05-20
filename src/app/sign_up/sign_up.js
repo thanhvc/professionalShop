@@ -39,7 +39,6 @@ angular.module('singUp', [])
                 url: '/sign-up-step2',
                 views: {
                     "main": {
-                        /*controller: 'SignUpController',*/
                         templateUrl: 'sign_up/sign-up2.tpl.html'
                     }
                 },
@@ -69,7 +68,6 @@ angular.module('singUp', [])
                 url: '/sign-up-successful',
                 views: {
                     "main": {
-                        /*controller: 'SignUpController',*/
                         templateUrl: 'sign_up/sign-up-successful.tpl.html'
                     }
                 },
@@ -99,7 +97,7 @@ angular.module('singUp', [])
     .run(function run() {
     })
 
-    .controller('SignUpController', function ($scope, $state, SignUpService,$modal) {
+    .controller('SignupCtrl', function ($scope, $state, SignUpService,$modal) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
