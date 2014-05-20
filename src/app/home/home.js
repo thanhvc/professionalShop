@@ -253,7 +253,7 @@ angular.module('ngMo.home', [
                         "lost": 0,
                         "accumulated": 298,
                         "average": 19.88,
-                        "duration": "De 1 a 3",
+                        "duration": "Hasta 1",
                         "volatility": 40,
                         "state": "Sin Comenzar"
                     },
@@ -279,7 +279,7 @@ angular.module('ngMo.home', [
                         "lost": 1,
                         "accumulated": 379,
                         "average": 25.27,
-                        "duration": "Mas de 3",
+                        "duration": "De 1 a 3",
                         "volatility": 406,
                         "state": "Finalizado"
                     },
@@ -298,13 +298,8 @@ angular.module('ngMo.home', [
                     }
                 ]
             };
-        var totalItems = patternsPack.patterns.length;
 
-        this.obtainTotalItems = function () {
-          return totalItems;
-        };
-
-        this.obtainselectedPack = function (page, numItemsPerPage) {
+        this.obtainSelectedPack = function (page, numItemsPerPage) {
             var to = page*numItemsPerPage;
             var from = to-numItemsPerPage;
             /**
@@ -319,10 +314,12 @@ angular.module('ngMo.home', [
                 "numberPatterns": patternsPack.numberPatterns,
                 "patterns": []
             };
-            for(from;from<to;from++){
-                tempPatternPack.patterns.push(patternsPack.patterns[from]);
-            }
+
             return tempPatternPack;
+        };
+
+        this.obtainSelectedPatternsPack = function () {
+          return patternsPack;
         };
     })
 
@@ -425,6 +422,25 @@ angular.module('ngMo.home', [
 
         $scope.actualDate = new Date();
 
+        $scope.generateSearchUrl = function (provider, input) {
+            if (typeof input === 'undefined'){
+                input = '';
+            }
+            switch (provider){
+                case 'Google':
+                    $scope.urlSearchCatalog = 'https://www.google.com/finance?q='+input;
+                    break;
+                case 'Yahoo':
+                    $scope.urlSearchCatalog = 'http://finance.yahoo.com/?q='+input;
+                    break;
+                case 'Bloomberg':
+                    $scope.urlSearchCatalog = 'http://www.bloomberg.com/markets/symbolsearch?query='+input;
+                    break;
+            }
+            $scope.$watch('urlSearchCatalog', function () {
+
+            });
+        };
 
     })
 
@@ -528,30 +544,39 @@ angular.module('ngMo.home', [
 
         return {
 
-            controller: function($scope, ShoppingCartService, SelectedPackService){
-                $scope.currentPage = 1;
-                $scope.totalItems = SelectedPackService.obtainTotalItems();
-                $scope.selectedPack = SelectedPackService.obtainselectedPack(1,2);
+            controller: function($scope, ShoppingCartService, SelectedPackService, $filter){
 
-                $scope.changeSelectedPackPatterns = function (page, numItemsPerPage) {
-                    $scope.selectedPack = SelectedPackService.obtainselectedPack(page, numItemsPerPage);
+                $scope.selectedAllPatternPack = SelectedPackService.obtainSelectedPatternsPack();
+
+                $scope.selectedPack=SelectedPackService.obtainSelectedPack();
+
+
+                /**
+                 * TODO: Change pageSize to 10
+                 */
+                $scope.pageSize = 2;
+                $scope.maxSize = 8;
+
+                //filterName is used for pass custom filter name. Default undefined
+                $scope.changeFilter = function (item,filterName) {
+                    if (typeof filterName === 'undefined'){
+                        filterName = 'filter';
+                    }
+                    $scope.currentPage = 1;
+                    $scope.selectedPack.patterns = $filter(filterName)($scope.selectedAllPatternPack.patterns, item);
+                    $scope.totalItems = $scope.selectedPack.patterns.length;
                 };
+
                 /**
                  * TODO: selectedTab should be obtained for the selectedPack (productType)
-                 * @type {number}
                  */
                 selectedTab = $scope.selectedPack.productType;
-
             },
-            link: function($scope, SelectedPackService) {
+            link: function($scope) {
                 $scope.getContentUrl = function() {
                     return urlTemplatesCatalogTexts[selectedTab].url;
                 };
-                /*$scope.$watch('currentPage', function () {
-                    $scope.selectedPack = $scope.changeSelectedPackPatterns(1,2);
-                    console.log('ok');
-                });*/
-
+                $scope.changeFilter('');
             },
             template: '<div ng-include="getContentUrl()"></div>'
         };
@@ -594,6 +619,15 @@ angular.module('ngMo.home', [
             return items;
         };
     })
+
+    //filter for offset items
+.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    };
+})
+
 
 ;
 var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {

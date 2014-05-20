@@ -381,6 +381,7 @@ angular.module('ngMo', [
                     $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
                     $scope.totalCart = 0;
                     $scope.numItemsCart = 0;
+                    $scope.subtotalStock = 0;
                 };
             },
             link: function ($scope) {
