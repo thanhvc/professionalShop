@@ -178,6 +178,8 @@ angular.module('singUp', [])
                 });
             };
 
+
+
         });
     })
 /**
