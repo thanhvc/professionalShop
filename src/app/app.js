@@ -9,7 +9,8 @@ angular.module('ngMo', [
         'ngMo.investor_tools',
         'ngMo.contact',
         'ui.router',
-        'gettext'
+        'gettext' ,
+        'singUp'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
