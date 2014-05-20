@@ -29,6 +29,13 @@
   src: url("../assets/fonts/verdanab.ttf") format("truetype");
 }
 
+
+a{
+  &:hover{
+    text-decoration: none;
+  }
+}
+
 body{
   color:#000;
   font-family: 'fontpo';
@@ -98,6 +105,8 @@ body{
 
 .menu-widget-right {
   float: right;
+  padding-left: 50px;
+  margin-top: 5px;
 }
 
 .nav-cont {
@@ -205,7 +214,6 @@ body{
 
 
 .orange-title{
-  font-family: Verdana, Geneva, sans-serif !important;
   font-size: 12px !important;
   font-weight: bold !important;
   font-style: normal !important;
@@ -220,7 +228,6 @@ body{
 .public-zone-text p {
   text-align: justify;
   margin-bottom: 1em;
-  font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -249,7 +256,6 @@ a{
 
 .tooltip-inner{
   background-color: rgb(255, 243, 192);
-  font-family: Verdana;
   font-size: 12px;
   line-height: 1.2em;
   text-align: left;
@@ -344,15 +350,68 @@ Flags styles
 .flag-menu {
   display: inline-block;
   list-style: none;
+  padding: 0px;
 
 }
 
 .flag-container {
-  margin: 5px 50px 0 0;
 
 }
 
 /******************    end flags selector ***************/
+
+
+
+.signin-signup-box{
+  font-family: Verdana;
+  border: 1px solid @greyBorderColor;
+  font-size: 11px;
+  width: 180px;
+  height: 45px;
+  color: white;
+  padding: 10px 0px 0px 13px;
+  background: rgb(0,0,0); /* Old browsers */
+  background: -moz-linear-gradient(left,  rgba(0,0,0,1) 0%, rgba(84,84,86,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(100%,rgba(84,84,86,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* IE10+ */
+  background: linear-gradient(to right,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#545456',GradientType=0 ); /* IE6-9 */
+  a{
+    color:white;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+  .sign-in{
+    background: url('../assets/img/sign-icons.png') no-repeat scroll 0px -15px transparent !important;
+    float: left;
+    height: 14px;
+    margin-bottom: 6px !important;
+    text-decoration: none;
+    text-indent: 25px;
+    font-weight: 100 !important;
+    cursor: pointer;
+    margin-top: 2px;
+  }
+  .sign-up{
+    background: url('../assets/img/sign-icons.png') no-repeat scroll 0px -30px transparent !important;
+    float: left;
+    height: 14px;
+    margin-bottom: 6px !important;
+    text-decoration: none;
+    text-indent: 25px;
+    font-weight: 100 !important;
+    cursor: pointer;
+    margin-top: 2px;
+  }
+
+}
+
+
+
+
 
 /******** footer classes *******/
 .footer-top {
