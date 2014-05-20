@@ -146,18 +146,23 @@ angular.module('singUp', [])
             //only numbers
             $scope.captchaPattern = /[0-9]+/;
             $scope.formSubmited = false; //variable that is true when the form is submited to check the inputs
-
+            $scope.validCaptcha = true; //set the captcha to true (correct by default, when the server responses with the valid/invalid captcha we change it)
             //send the second step submit
             $scope.sendSecondStep = function () {
-
+                $scope.validCaptcha= true;
                 $scope.formSubmited = true; //set the second form as submited (to check the inputs)
                 if ($scope.formReg.$valid) {
                     //if the form is correct, we go to the service
                     var result = SignUpService.secondStep($scope.user);
                     if (result == "ok") {
+                        $scope.validCaptcha = true;
                         $state.user = $scope.user;
                         $state.go('signupSuccessful');
 
+                    } else if (result == "incorrectCaptcha") {
+                        $scope.validCaptcha=false;
+                    } else  {
+                        $scope.validCaptcha= true;
                     }
                 }
             };
@@ -214,7 +219,11 @@ angular.module('singUp', [])
             return response;
         };
         signUpService.secondStep = function (user) {
-            return "ok";
+            if (user.captcha =="4") {
+                return "ok";
+            } else {
+                return "incorrectCaptcha";
+            }
         };
 
         //countries get by json (extract from server)
@@ -477,7 +486,7 @@ angular.module('singUp', [])
         return signUpService;
 
     });
-
+//modalPanel
 var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
     $scope.advertisingSelected = advertisingSelected;
 

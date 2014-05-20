@@ -73,8 +73,14 @@ describe('General Test',function(){
             expect(state.$current.url.source).toEqual("/sign-up-step2");
             //now we accept the form
             scope.formReg.$valid= true; // the form must be valid to go to successful sign up
+            scope.user.captcha="22";//the only valid captcha is 4 in this moment
             scope.sendSecondStep();
             scope.$apply();
+            expect(state.$current.url.source).toEqual("/sign-up-step2");
+            scope.user.captcha="4";//the only valid captcha is 4 in this moment
+            scope.sendSecondStep();
+            scope.$apply();
+
             expect(state.$current.url.source).toEqual("/sign-up-successful");
 
         });

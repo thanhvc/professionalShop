@@ -86,11 +86,11 @@
                                 <div id="bodyCaptcha">
                                 <span class="accountLabelCaptcha">
                                 Pregunta de seguridad:</span>
-                                    <img id="captchaImg" src="/seam/resource/captcha" class="captcha-img">
+                                    <img id="captchaImg" src="assets/img/captcha.png/captcha.png" class="captcha-img">
                                     <input id="verifyCaptcha" type="text" name="verifyCaptcha" style="width:65px;"
                                            class="signup-input"
                                            ng-model="user.captcha" required="true" ng-pattern="captchaPattern"
-                                           ng-class="{warningInput: (formReg.verifyCaptcha.$error.required && (formReg.signupBtn.$dirty|| formSubmited))}">
+                                           ng-class="{warningInput: (formReg.verifyCaptcha.$error.required && (formReg.signupBtn.$dirty|| formSubmited))||(!validCaptcha && formSubmited)}">
                                 </div>
                             </td>
                         </tr>
@@ -129,7 +129,10 @@
                                     Debe aceptar las condiciones del servicio
                                     </span>
                                 </div>
-                                <div id="captchaError" class="text-warning-form">
+                                <div id="captchaError" class="text-warning-form"
+                                        ><span ng-show="!validCaptcha && formSubmited">
+                                    captcha incorrecto
+                                    </span>
                                 </div>
                             </td>
                         </tr>
