@@ -1,6 +1,6 @@
 <!-- Menú que se muestra en la parte pública cuando el usuario no está logueado -->
 
-<ul id="submenu1"
+<ul id="submenu1" class="submenu"
     ng-class="{'display-block': actualSubmenu == 'submenu1' || selectSubmenu == 'submenu1', 'display-none': actualSubmenu != 'submenu1' || selectSubmenu!= 'submenu1'}">
     <li id="organization-nav"
         ng-click="onClickSubmenu('organization-nav')"
@@ -36,7 +36,7 @@
         </a>
 </ul>
 
-<ul id="submenu2"
+<ul id="submenu2" class="submenu"
     ng-class="{'display-block': actualSubmenu == 'submenu2' || selectSubmenu == 'submenu2', 'display-none': actualSubmenu != 'submenu2' || selectSubmenu!= 'submenu2'}">
     <li id="summary-nav" ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','summary-nav')"
@@ -71,7 +71,7 @@
             Fundamentos
         </a>
 </ul>
-<ul id="submenu3"
+<ul id="submenu3" class="submenu"
     ng-class="{'display-block': actualSubmenu == 'submenu3' || selectSubmenu == 'submenu3', 'display-none': actualSubmenu != 'submenu3' || selectSubmenu!= 'submenu3'}">
     <li id="stocks-nav"
         ng-click="onClickSubmenu()"
@@ -128,7 +128,7 @@
             Diversificaci&oacute;n
         </a>
 </ul>
-<ul id="submenu4"
+<ul id="submenu4" class="submenu"
     ng-class="{'display-block': actualSubmenu == 'submenu4' || selectSubmenu == 'submenu4', 'display-none': actualSubmenu != 'submenu4' || selectSubmenu!= 'submenu4'}">
     <li id="prices-nav"
         ng-click="onClickSubmenu()"
@@ -179,7 +179,7 @@
             Gu&iacute;a Comprar
         </a>
 </ul>
-<ul id="submenu5" class="float-right"
+<ul id="submenu5" class="float-right submenu"
     ng-class="{'display-block': actualSubmenu == 'submenu5' || selectSubmenu == 'submenu5', 'display-none': actualSubmenu != 'submenu5' || selectSubmenu!= 'submenu5'}">
     <li id="resources-nav"
         ng-click="onClickSubmenu()"
@@ -214,7 +214,7 @@
             Colecci&oacute;n Plantillas MO
         </a>
 </ul>
-<ul id="submenu6" class="float-right"
+<ul id="submenu6" class="float-right submenu"
     ng-class="{'display-block': actualSubmenu == 'submenu6' || selectSubmenu == 'submenu6', 'display-none': actualSubmenu != 'submenu6' || selectSubmenu!= 'submenu6'}">
     <li id="support-nav"
         ng-click="onClickSubmenu()"
