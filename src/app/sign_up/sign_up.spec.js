@@ -20,7 +20,7 @@ describe('General Test',function(){
         }));
         // tests start here
 
-        it('test1 - SIGNUP', function () {
+        it('test - SIGNUP', function () {
             state.go('signup');
             scope.$apply();
             //testing the user initialization
@@ -49,6 +49,12 @@ describe('General Test',function(){
             var captcha = "123";
             expect(scope.captchaPattern.test(captcha)).toBe(true);
             captcha = "abc";
+            expect(scope.captchaPattern.test(captcha)).toBe(false);
+            captcha = "1 2";
+            expect(scope.captchaPattern.test(captcha)).toBe(false);
+            captcha = "2abc";
+            expect(scope.captchaPattern.test(captcha)).toBe(false);
+            captcha = "ab2";
             expect(scope.captchaPattern.test(captcha)).toBe(false);
 
             //testing steps
