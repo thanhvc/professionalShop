@@ -125,7 +125,9 @@
     </div>
     <div class="shopping-cart-tab" ng-click="toggleCart()">
         <div  class="icon-cart">
-            <span>{{numItemsCart}}</span>
+            <div>
+                {{numItemsCart}}
+            </div>
         </div>
         <div ng-show="showCart">&gt;&gt;</div>
         <div ng-show="!showCart">&lt;&lt;</div>
