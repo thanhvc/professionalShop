@@ -50,7 +50,6 @@ describe('General Test',function(){
             expect(scope.captchaPattern.test(captcha)).toBe(true);
             captcha = "abc";
             expect(scope.captchaPattern.test(captcha)).toBe(false);
-            console.log(scope.countries[0].name + "countries");
 
             //testing steps
             expect(scope.countries.length > 0).toBe(true);
