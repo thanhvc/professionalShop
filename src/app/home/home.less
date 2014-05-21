@@ -153,7 +153,6 @@
 
 .advertising-carousel-texts{
   color:#ffffff;
-  font-weight: bold;
   font-family: fontpo-bold, verdana;
   font-size:12px;
 }
@@ -172,48 +171,6 @@
 
 }
 /************************** End Classes for advertising carousel  *********************/
-
-
-/******* modal selectors  *******/
-
-.modal-content{
-  border-radius: 0px;
-  width: 1000px;
-  left:-190px;
-  border: 5px outset gray;
-}
-
-.modal-header{
-  border-bottom:0px;
-  margin-bottom: 25px;
-}
-
-.modal-body{
-  width: 946px;
-  height: 640px;
-  overflow-y: scroll;
-  text-align: justify;
-  margin-left: 25px;
-  margin-bottom: 40px;
-}
-
-.btn-close{
-  float:right;
-  background-image: url('../assets/img/close_modal.png');
-  background-color: transparent;
-  height: 22px;
-  width: 22px;
-  border: none;
-  &:hover{
-    font-weight: bold;
-  }
-  &:focus{
-    border:none;
-    outline-color:transparent;
-  }
-}
-
-//********************* end modal selectors   *****************************/
 
 /*****  home text Classes  *************/
 .home-text-container{
@@ -294,7 +251,7 @@
     border: none;
   }
   select{
-    background-color: #DDDDDD;
+    width: 147px;
   }
 }
 
@@ -332,6 +289,12 @@
         padding-left:5px;
         text-align: left;
         width: 221px;
+      }
+      &:nth-child(2){
+        width: 67px;
+      }
+      &:nth-child(3){
+        width: 223px;
       }
       &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(9) {
         font-family: fontpo-bold;
