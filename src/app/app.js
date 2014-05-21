@@ -325,26 +325,6 @@ angular.module('ngMo', [
                 $scope.subtotalPairsIndices = 0;
                 $scope.subtotalFutures = 0;
 
-                /**************
-                 * TODO: remove this code
-                 ***************/
-
-                /*angular.forEach($scope.stockItems, function(item){
-                    $scope.subtotalStock+= item.price;
-                }) ;
-                angular.forEach( $scope.pairsItems, function(item){
-                    $scope.subtotalPairs+= item.price;
-                });
-                angular.forEach($scope.indicesItems,  function(item){
-                    $scope.subtotalIndices+= item.price;
-                });
-                angular.forEach($scope.pairsIndicesItems, function(item){
-                    $scope.subtotalPairsIndices+= item.price;
-                });
-                angular.forEach($scope.futuresItems, function(item){
-                    $scope.subtotalFutures+= item.price;
-                });*/
-                /************/
                 $scope.toggleCart = function () {
                    $scope.showCart = ShoppingCartService.changeShowCart();
                 };

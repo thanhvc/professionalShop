@@ -90,7 +90,9 @@ describe('The publicSubmenu directive', function () {
     });
 });
 
-
+/**
+ * TODO: add items of differents types for a greater coverage test
+ */
 describe('The cart directive', function () {
     beforeEach(angular.mock.module("ngMo"));
     describe('template', function () {
@@ -126,7 +128,6 @@ describe('The cart directive', function () {
         };
 
         obtainSubtotal = function (items, log){
-            var cont = true;
             angular.forEach(items,function(item) {
                         if (typeof item.attributes[0] != 'undefined') {
                             if (item.attributes[0].textContent === "subtotal-cart") {
@@ -222,5 +223,3 @@ describe('The cart directive', function () {
 
     });
 });
-
-
