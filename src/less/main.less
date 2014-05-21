@@ -52,6 +52,28 @@ body{
   margin-top: 20px;
 }
 
+.organizationImg {
+  float: left;
+  margin-right: 10px;
+}
+
+.public-list-second-level {
+  clear: left;
+  margin-bottom: 0.5em !important;
+  margin-top: 0.5em !important;
+  li{
+  //  list-style-image: url('../assets/img/circuloLi.png') !important;
+    margin-bottom: 0.5em !important;
+    padding-left: 5px !important;
+  }
+}
+
+.link {
+  color: #0663D7;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .central-header {
   height: 103px;
   margin-left: 35px;
@@ -268,6 +290,13 @@ body{
   width: 100%;
 }
 
+.text-block-title{
+  font-size: 18px !important;
+  margin-bottom: 20px !important;
+  clear: both !important;
+  float: left !important;
+}
+
 .public-zone-text p {
   text-align: justify;
   margin-bottom: 1em;
@@ -345,6 +374,68 @@ a{
   border:none;
   border-radius: 0;
 }
+
+.table-page-index{
+  width: 200px;
+  float: left;
+  min-height: 10px;
+  margin-right: 10px;
+  position: relative;
+  z-index: 0;
+  margin-top: 35px;
+}
+
+.page-index-resource{
+  width: 110px;
+  border-top: 1px solid #9B9D9E;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.page-index-font{
+  font-size: 11px;
+  color: #6F7072 !important;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submenu-content{
+  width: 740px;
+  float: left;
+  line-height: 150%;
+  margin-top: 35px;
+}
+
+.header-orange-background{
+  background-color: #FF8200;
+  color: white;
+  font-size: 12px;
+  vertical-align: middle;
+  text-align: left;
+  padding-left: 10px;
+  font-family: "fontpo-bold", "verdana" !important;
+ // font-weight: bold	9 !important;
+  padding-left: 5px;
+}
+
+.header-vertical{
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  writing-mode: lr-tb;
+}
+
+.lat-menu-home-nav{
+  width: 200px;
+  float: left;
+  min-height: 10px;
+  margin-right: 10px;
+  position: relative;
+  z-index: 0;
+  margin-top: 35px;
+}
+
+
 
 /**
 Flags styles
@@ -625,6 +716,123 @@ table{
   }
 }
 
+
+.advanced-table{
+  margin-bottom:30px;
+  td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #C0C0C0;
+  }
+
+  .resources-table-size{
+    margin-bottom: 40px;
+    width: 100%;
+  }
+}
+
+.orange-td-brackground{
+  background-color: #FF8200;
+  color: white;
+  font-size: 12px;
+  vertical-align: middle;
+  text-align: left;
+  padding-left: 10px;
+  font-family: "fontpo-bold", "verdana" !important;
+  //  font-weight: bold	9 !important;
+  padding-left: 5px;
+}
+
+.grey-row {
+  background-color: #ECECED;
+  td{
+    padding-left: 10px;
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    padding-right: 5px;
+  }
+}
+
+.dark-grey-row {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  background-color: #9B9C9E;
+  font-size: 12px;
+  color: white;
+  text-align: left;
+  padding-left: 5px;
+  font-family: "fontpo-bold", "verdana" !important;
+  // font-weight: bold	9 !important;
+}
+
+.white-row{
+  background-color: #ffffff;
+  td{
+    padding-left: 10px;
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    padding-right: 5px;
+  }
+}
+
+
+.advanced-table{
+  margin-bottom:30px;
+  td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #C0C0C0;
+  }
+
+.resources-table-size{
+    margin-bottom: 40px;
+    width: 100%;
+  }
+}
+
+.orange-td-brackground{
+  background-color: #FF8200;
+  color: white;
+  font-size: 12px;
+  vertical-align: middle;
+  text-align: left;
+  padding-left: 10px;
+  font-family: "fontpo-bold", "verdana" !important;
+//  font-weight: bold	9 !important;
+  padding-left: 5px;
+}
+
+.grey-row {
+  background-color: #ECECED;
+  td{
+    padding-left: 10px;
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    padding-right: 5px;
+  }
+}
+
+.dark-grey-row {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  background-color: #9B9C9E;
+  font-size: 12px;
+  color: white;
+  text-align: left;
+  padding-left: 5px;
+  font-family: "fontpo-bold", "verdana" !important;
+ // font-weight: bold	9 !important;
+}
+
+.white-row{
+  background-color: #ffffff;
+  td{
+    padding-left: 10px;
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    padding-right: 5px;
+  }
+}
 .subtotal-cart{
   td{
     background-color: #C0C0C0;
@@ -671,7 +879,12 @@ table{
   }
 }
 
-/******** end Tabs Classes ****/
+.history-back-cont{
+  width: 960px;
+  float: left;
+  height: 30px;
+  margin-top: 20px;
+}
 
 /******* cart classes  ******/
 .shopping-cart-container{
@@ -695,6 +908,13 @@ table{
   padding: 5px 10px;
 }
 
+/******** end Tabs Classes ****/
+.home-text-container {
+  width: 960px;
+  height: 350px;
+  overflow: hidden;
+}
+
 .hide-summary-cart{
   animation: hide-cart 0.5s;
   -webkit-animation: hide-cart 0.5s;
@@ -713,19 +933,16 @@ table{
   to {margin-right: -460px;}
 }
 
-.show-summary-cart{
-  animation:cart 0.5s;
-  -webkit-animation:cart 0.5s;
-  -moz-animation: cart 0.5s;
-  -o-animation: cart 0.5s;
-
+@-webkit-keyframes texthomedelay
+{
+  from {left:-100px;}
+  to {left:0px;}
 }
 
 @keyframes cart{
   from {margin-right:-460px;}
   to {margin-right: 0;}
 }
-
 @-webkit-keyframes cart{
   from {margin-right:-460px;}
   to {margin-right: 0;}
@@ -758,6 +975,15 @@ table{
     text-align: center;
   }
 }
+
+
+  .show-summary-cart{
+    animation:cart 0.5s;
+    -webkit-animation:cart 0.5s;
+    -moz-animation: cart 0.5s;
+    -o-animation: cart 0.5s;
+
+  }
 
 .title-cart{
   font-family:Verdana;
@@ -979,6 +1205,68 @@ table{
   position: initial;
 
 }
+
+
+
+  /**
+  * Style classes
+  */
+
+  .underline-text {
+    text-decoration: underline;
+  }
+
+  .upper-underlined-title{
+    float: left;
+    font-size: 18px;
+    margin-bottom: 0.4em;
+    border-top: 1px solid #1A171B;
+    font-weight: bold !important;
+  }
+
+  .underlined-title{
+    font-size: 18px;
+    margin-bottom: 0.4em;
+    text-decoration: underline;
+    font-weight: bold !important;
+  }
+
+  .submenu-img{
+    width: 740px;
+  }
+
+  .text-align-center{
+    text-align: center;
+  }
+
+  .resource-text{
+    line-height: 1.2em;
+    font-size: 12px;
+    font-family: Verdana;
+    text-align: left;
+  }
+
+  .clear_both{
+    clear: both;
+  }
+
+  .table-diary-links {
+    cursor: pointer;
+    color: #808080 !important;
+  }
+
+  /**
+  * Image classes
+  */
+  .image-public-zone {
+    margin: 0 auto;
+  }
+
+  .black-background-header {
+    background-color: #000000;
+    padding: 3px;
+    color: #ffffff;
+  }
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using.
