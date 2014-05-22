@@ -431,9 +431,11 @@ a{
 }
 
 .header-vertical{
+  transform: rotate(270deg);
   -webkit-transform: rotate(270deg);
   -moz-transform: rotate(270deg);
   -o-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
   writing-mode: lr-tb;
 }
 
@@ -762,10 +764,11 @@ table{
 .grey-row {
   background-color: #ECECED;
   td{
-    padding-left: 10px;
+    padding: 0.8em 5px 0.8pm 10px;
+ /*   padding-left: 10px;
     padding-top: 0.8em;
     padding-bottom: 0.8em;
-    padding-right: 5px;
+    padding-right: 5px;*/
     line-height: 1.2em;
     vertical-align: top;
   }
@@ -787,10 +790,11 @@ table{
 .white-row{
   background-color: #ffffff;
   td{
-    padding-left: 10px;
+    padding: 0.8em 5px 0.8em 10px;
+/*    padding-left: 10px;
     padding-top: 0.8em;
     padding-bottom: 0.8em;
-    padding-right: 5px;
+    padding-right: 5px;*/
     line-height: 1.2em;
     vertical-align: top;
   }
