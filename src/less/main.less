@@ -65,7 +65,7 @@ b , strong {
   margin-bottom: 0.5em !important;
   margin-top: 0.5em !important;
   li{
-  //  list-style-image: url('../assets/img/circuloLi.png') !important;
+    list-style-image: url('../assets/img/circle-list-li.png') !important;
     margin-bottom: 0.5em !important;
     padding-left: 5px !important;
   }
@@ -728,63 +728,6 @@ table{
 }
 
 
-.advanced-table{
-  margin-bottom:30px;
-  td {
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #C0C0C0;
-  }
-
-  .resources-table-size{
-    margin-bottom: 40px;
-    width: 100%;
-  }
-}
-
-.orange-td-brackground{
-  background-color: #FF8200;
-  color: white;
-  font-size: 12px;
-  vertical-align: middle;
-  text-align: left;
-  padding-left: 10px;
-  font-family: "fontpo-bold", "verdana" !important;
-  //  font-weight: bold	9 !important;
-  padding-left: 5px;
-}
-
-.grey-row {
-  background-color: #ECECED;
-  td{
-    padding-left: 10px;
-    padding-top: 0.8em;
-    padding-bottom: 0.8em;
-    padding-right: 5px;
-  }
-}
-
-.dark-grey-row {
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-  background-color: #9B9C9E;
-  font-size: 12px;
-  color: white;
-  text-align: left;
-  padding-left: 5px;
-  font-family: "fontpo-bold", "verdana" !important;
-  // font-weight: bold	9 !important;
-}
-
-.white-row{
-  background-color: #ffffff;
-  td{
-    padding-left: 10px;
-    padding-top: 0.8em;
-    padding-bottom: 0.8em;
-    padding-right: 5px;
-  }
-}
 
 
 .advanced-table{
@@ -801,7 +744,7 @@ table{
   }
 }
 
-.orange-td-brackground{
+.orange-tr-brackground{
   background-color: #FF8200;
   color: white;
   font-size: 12px;
@@ -810,7 +753,9 @@ table{
   padding-left: 10px;
   font-family: "fontpo-bold", "verdana" !important;
 //  font-weight: bold	9 !important;
-  padding-left: 5px;
+  td {
+    padding-left: 5px;
+  }
 }
 
 .grey-row {
@@ -820,6 +765,7 @@ table{
     padding-top: 0.8em;
     padding-bottom: 0.8em;
     padding-right: 5px;
+    line-height: 1.2em;
   }
 }
 
@@ -842,6 +788,7 @@ table{
     padding-top: 0.8em;
     padding-bottom: 0.8em;
     padding-right: 5px;
+    line-height: 1.2em;
   }
 }
 .subtotal-cart{
@@ -1359,6 +1306,18 @@ select{
     padding-left: 5px;
     list-style: decimal;
   }
+}
+
+.list-left-first-level {
+  padding-left: 25px; /*to move to the left the <ul><ol>*/
+}
+
+.img-width-public {
+  width: 910px !important;
+}
+
+.sub-list-spacing {
+  padding-top: 10px;
 }
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
