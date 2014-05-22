@@ -23,15 +23,17 @@
                     <div class="header-img header-size logo-header"></div>
                     <div class="header-img header-size central-header"></div>
                 </a>
-
-                <div class="menu-widget-right">
-                    <div class="flag-container">
-                        <flag-box></flag-box>
+                <div>
+                    <div class="menu-widget-left">
+                        <div class="flag-container">
+                            <flag-box></flag-box>
+                        </div>
                     </div>
+                    <div class="menu-widget-right" ng-include src="'layout_templates/login-box.tpl.html'"></div>
                 </div>
             </div>
         </div>
-
+        <sign-in-form ng-class="{'sign-in-box-open': stateSignInForm, 'sign-in-box-close': !stateSignInForm}"></sign-in-form>
         <div class="menu-full">
             <div id="menu-nav-id" class="menu-nav">
                 <div>

@@ -75,7 +75,7 @@ body{
 }
 
 .menu {
-  z-index: 7;
+  z-index: 20;
   position: relative;
 }
 .black-head {
@@ -109,14 +109,18 @@ body{
 .menu-nav {
   height: 24px;
   background-color: #3D3D3F;
-  z-index: 10;
+  z-index: 20;
   position: relative;
 }
 
 .menu-widget-right {
   float: right;
   padding-left: 50px;
-  margin-top: 5px;
+}
+.menu-widget-left {
+  float: left;
+  padding-left: 105px;
+  margin-top: 10px;
 }
 
 .nav-cont {
@@ -391,56 +395,105 @@ Flags styles
 
 /******************    end flags selector ***************/
 
-.signin-signup-box{
-  font-family: Verdana;
+.signin-signup-box {
   border: 1px solid @greyBorderColor;
   font-size: 11px;
-  //width: 180px; replace with padding
-  //height: 45px;
   color: white;
-  padding: 10px 0 0 13px;
-  background: rgb(0,0,0); /* Old browsers */
-  background: -moz-linear-gradient(left,  rgba(0,0,0,1) 0%, rgba(84,84,86,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(100%,rgba(84,84,86,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* IE10+ */
-  background: linear-gradient(to right,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#545456',GradientType=0 ); /* IE6-9 */
-  a{
-    color:white;
-    &:hover{
-      text-decoration: none;
+  text-indent: 25px;
+  padding: 10px 55px 25px 15px;
+  background: rgb(0, 0, 0); /* Old browsers */
+  background: -moz-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(84, 84, 86, 1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(84, 84, 86, 1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(84, 84, 86, 1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(84, 84, 86, 1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(84, 84, 86, 1) 100%); /* IE10+ */
+  background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(84, 84, 86, 1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#545456', GradientType=0); /* IE6-9 */
+  a {
+    color: white;
+  }
+
+  .sign-background {
+    background: url('../assets/img/sign-icons.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-attachment: scroll;
+    &.logout-box {
+      background-position: 0 -15px;
+      margin-bottom: 5px;
+      &:hover {
+        color: #FF8200;
+        background-position: 0 0;
+        cursor: pointer;
+      }
+    }
+    &.subscribe-free-link {
+      float: left;
+      text-indent: 25px;
+      background-position: 0 -32px;
+      &:hover {
+        background-position: 0 -46px;
+        color: #FF8200;
+        text-decoration: none;
+      }
     }
   }
+}
 
-  .sign-background{
-    background: url('../assets/img/sign-icons.png');
-  }
+.sign-in-box-open{
+  width: 248px;
+  height: 135px;
+  border: 1px solid #868789;
+  padding: 0px 0px 0px 8px;
+  background-image: url('../assets/img/background-login-form.png');
+  background-repeat: repeat-y;
+  color: white;
+  position: absolute;
+  z-index: 19;
+  right: 280px;
+  animation: show-login-box 1s;
+  -webkit-animation: show-login-box 1s;
+  -moz-animation: show-login-box 1s;
+  -o-animation: show-login-box 1s;
+  top:127px;
+}
 
-  .sign-in{
-    background: no-repeat scroll 0 -15px transparent;
-    float: left;
-    height: 14px;
-    margin-bottom: 6px;
-    text-decoration: none;
-    text-indent: 25px;
-    font-weight: 100;
-    cursor: pointer;
-    margin-top: 2px;
-  }
+@keyframes show-login-box{
+  from {top: -8px;}
+  to {top: 127px;}
+}
 
-  .sign-up{
-    background: no-repeat scroll 0 -30px transparent;
-    float: left;
-    height: 14px;
-    margin-bottom: 6px;
-    text-decoration: none;
-    text-indent: 25px;
-    font-weight: 100;
-    cursor: pointer;
-    margin-top: 2px;
-  }
+@-webkit-keyframes show-login-box{
+  from {top: -8px;}
+  to {top: 127px;}
+}
+
+.sign-in-box-close{
+  width: 248px;
+  height: 135px;
+  border: 1px solid #868789;
+  padding: 0px 0px 0px 8px;
+  background-image: url('../assets/img/background-login-form.png');
+  background-repeat: repeat-y;
+  color: white;
+  position: absolute;
+  z-index: 19;
+  right: 280px;
+  animation: hide-login-box 1s;
+  -webkit-animation: hide-login-box 1s;
+  -moz-animation: hide-login-box 1s;
+  -o-animation: hide-login-box 1s;
+  top: -8px;
+}
+
+@keyframes hide-login-box{
+  from {top: 127px;}
+  to {top: -8px;}
+}
+
+@-webkit-keyframes hide-login-box{
+  from {top: 127px;z-index:18;}
+  to {top: -8px;z-index: 0}
 }
 
 /******** footer classes *******/

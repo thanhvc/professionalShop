@@ -10,7 +10,8 @@ angular.module('ngMo', [
         'ngMo.contact',
         'ui.router',
         'gettext' ,
-        'singUp'
+        'singUp',
+        'auth'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
@@ -29,6 +30,7 @@ angular.module('ngMo', [
                 selectSubmenu: '',
                 selectItemSubmenu: ''
             }
+
         });
     })
 
