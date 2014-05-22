@@ -17,7 +17,7 @@
     </p>
     <div class="start-date-catalog-container">{{selectedPack.startDate | uppercase}}</div>
     <div class="region-catalog-container">{{selectedPack.region}}</div>
-    <button id="purchase-button" ng-click="addNewItemCart()" class="mo-button">Al carro</button>
+    <button id="purchase-button" ng-click="addNewItemCart(selectedPack.id)" class="mo-button">Al carro</button>
     <span class="actual-date-catalog">DATE: {{actualDate | date:'dd MMMM'}}. (CET)</span>
 
     <div class="header-catalog-table">
@@ -26,12 +26,10 @@
             <select ng-model="sectorPattern" ng-change="changeFilter(sectorPattern)">
                 <option selected="selected" value="">- Elegir Sector -</option>
                 <option value="Information Technology">Information Technology</option>
-                <option value="Materials">Materials</option>
             </select>
             <select ng-model="industryPattern" ng-change="changeFilter(industryPattern)">
                 <option selected="selected" value="">- Elegir industria -</option>
                 <option value="{{'Communications Equipment' | limitTo: 10}}">Communications Equipment</option>
-                <option>Metals & Mining</option>
             </select>
             <select ng-model="durationPattern" ng-change="changeFilter(durationPattern)">
                 <option selected="selected" value="">- Elegir duraci&oacute;n -</option>
@@ -48,7 +46,7 @@
             </select>
         </div>
         <div class="number-patterns-catalog">
-            N&uacute;mero total de patrones: {{selectedPack.numberPatterns}}; Patrones encontrados: {{selectedPack.numberPatterns}}
+            N&uacute;mero total de patrones: {{selectedAllPatternPack.patterns.length}}; Patrones encontrados: {{selectedPack.patterns.length}}
         </div>
     </div>
     <table class="patterns-table-catalog">
@@ -59,7 +57,7 @@
             <th colspan="2">N&uacute;mero de A&ntilde;os</th>
             <th colspan="2">Rentabilidad (%)</th>
             <th>Duraci&oacute;n</th>
-            <th>Vol.</th>
+            <th><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
             <th>Estado</th>
         </tr>
         <tr>
@@ -88,7 +86,7 @@
         </tr>
     </table>
     <div class="pagination-container">
-        <pagination boundary-links="true" on-select-page="setPage(page)" total-items="totalItems" items-per-page="pageSize" max-size="maxSize" page="currentPage" class="pagination-sm" previous-text="&lt;" next-text="&gt;" first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+        <pagination ng-show="selectedPack.patterns.length > pageSize" boundary-links="true" on-select-page="setPage(page)" total-items="totalItems" items-per-page="pageSize" max-size="maxSize" page="currentPage" class="pagination-sm" previous-text="&lt;" next-text="&gt;" first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
     </div>
 
 

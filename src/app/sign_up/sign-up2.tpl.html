@@ -1,6 +1,6 @@
 <div class="panel">
     <div>
-        <form name="formReg">
+        <form name="formReg" novalidate>
             <div class="sign-up-body-step2" ng-controller="SignupCtrl">
                 <div class="orange-border prices-font11" style="padding: 10px; margin-bottom:20px;">
                     <table class="signup-table-step2 prices-font12">
@@ -89,7 +89,9 @@
                                     <input type="text" name="captcha" style="width:65px;"
                                            class="signup-input"
                                            ng-model="user.captcha" required="true" ng-pattern="captchaPattern"
-                                           ng-class="{warningInput: (formReg.captcha.$error.required && (formReg.button-submit.$dirty|| formSubmited))||(!validCaptcha && formSubmited)}">
+                                           ng-class="{warningInput: ((formReg.captcha.$error.required &&
+                                            (formReg.button-submit.$dirty|| formSubmited))||(!validCaptcha && formSubmited))
+                                            || (formReg.captcha.$error.pattern && (formReg.captcha.$dirty || formSubmited))}">
                                 </div>
                             </td>
                         </tr>
