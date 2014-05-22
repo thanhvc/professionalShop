@@ -142,7 +142,7 @@ angular.module('singUp', [])
             //only numbers, letters and spaces
             $scope.zipPattern = /[a-z0-9\s]+/ig;
             //only numbers
-            $scope.captchaPattern = /[0-9]+/;
+            $scope.captchaPattern = /^\d+$/;
             $scope.formSubmited = false; //variable that is true when the form is submited to check the inputs
             $scope.validCaptcha = true; //set the captcha to true (correct by default, when the server responses with the valid/invalid captcha we change it)
             //send the second step submit
