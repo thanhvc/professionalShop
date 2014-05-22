@@ -233,12 +233,12 @@ angular.module('ngMo.home', [
         };
     })
 
-    .service('SelectedPackService', function ($sce){
+    .service('SelectedPackService', function ($sce, $state){
 
         //Dummies Patterns Pack
         var patternsPack =
             {
-                "id": 1,
+                "id": $state.params.packId,
                 "region": "Canada",
                 "productType": 0,
                 "startDate": "Mayo 2014",
@@ -280,7 +280,7 @@ angular.module('ngMo.home', [
                         "accumulated": 379,
                         "average": 25.27,
                         "duration": "De 1 a 3",
-                        "volatility": 406,
+                        "volatility": 70,
                         "state": "Finalizado"
                     },
                     {
@@ -307,7 +307,7 @@ angular.module('ngMo.home', [
              */
             //return patternsPack;
             var tempPatternPack = {
-                "id": patternsPack.id,
+                "id": $state.params.packId,
                 "region": patternsPack.region,
                 "productType": patternsPack.productType,
                 "startDate": patternsPack.startDate,
