@@ -437,7 +437,7 @@ a{
 }
 
 .lat-menu-home-nav{
-  width: 200px;
+  /*width: 200px;*/
   float: left;
   min-height: 10px;
   margin-right: 10px;
@@ -1346,7 +1346,20 @@ select{
   * Public zone
   */
 
+.remember-final-text {
+  font-family: fontpo-bold;
+  font-style: italic !Important;
+  text-align: center !important;
+}
 
+.ordered-list-first-level {
+  padding-left: 25px;
+  li {
+    margin-bottom: 0.5em;
+    padding-left: 5px;
+    list-style: decimal;
+  }
+}
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using.
@@ -1356,4 +1369,4 @@ select{
 
 @import '../app/home/home.less';
 @import '../app/sign_up/sign-up.less';
-
+@import '../app/services/services.less';

@@ -1,80 +1,80 @@
-<div class="public-zone-text container">
+<div class="public-zone-text container" ng-controller="HomeCtrl">
 
     <div class="lat-menu-home-nav">
-        <table id="details_descriptionMenuId" class="indice-details-description" style="margin-bottom: 40px; display: table;">
+        <table class="indice-details-description">
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Descripci&oacute;n</a>
+                    <a href="" >Descripci&oacute;n</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Informaci&oacute;n B&aacute;sica de un Patr&oacute;n</a>
+                    <a href="" >Informaci&oacute;n B&aacute;sica de un Patr&oacute;n</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Fases Principales del Servicio</a>
+                    <a href="" >Fases Principales del Servicio</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Publicaci&oacute;n Mensual</a>
+                    <a href="" >Publicaci&oacute;n Mensual</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Comprar Suscripci&oacute;n</a>
+                    <a href="" >Comprar Suscripci&oacute;n</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Mis Patrones</a>
+                    <a href="" >Mis Patrones</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Seguimiento Diario</a>
+                    <a href="" >Seguimiento Diario</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Hist&oacute;ricos</a>
+                    <a href="" >Hist&oacute;ricos</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Herramientas. Cartera</a>
+                    <a href="" >Herramientas. Cartera</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Herramientas. Correlaci&oacute;n</a>
+                    <a href="" >Herramientas. Correlaci&oacute;n</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Herramientas. Volatilidad Hist&oacute;rica</a>
+                    <a href="" >Herramientas. Volatilidad Hist&oacute;rica</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">La Semana, Estad&iacute;sticas</a>
+                    <a href="" >La Semana, Estad&iacute;sticas</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Calendario</a>
+                    <a href="" >Calendario</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Mis Suscripciones</a>
+                    <a href="" >Mis Suscripciones</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" class="table-diary-links">Mi Cuenta</a>
+                    <a href="" >Mi Cuenta</a>
                 </td>
             </tr>
         </table>
@@ -106,7 +106,7 @@
     <p>
         La<strong>misi&oacute;n</strong> de Market Observatory es ofrecer a un Inversor informaci&oacute;n VENTAJOSA, imparcial, objetiva,
         basada exclusivamente en Hechos verificables para extraer la m&aacute;xima rentabilidad al mercado.
-        El servicio proporciona los ingredientes imprescindibles para realizar la mayor&iacute;a de inversiones
+        El servicio proporciona los <em>ingredientes imprescindibles</em> para realizar la mayor&iacute;a de inversiones
         exitosas de un modo sencillo o como complemento para mejorar sus propios m&eacute;todos de inversi&oacute;n.
     </p>
 
@@ -120,13 +120,18 @@
     <p>
         Como <strong>resumen</strong> el servicio se alinea con el arriba citado &ldquo;aforismo de Bolsa&rdquo;, entre otras cosas identifica en
         <strong>Qu&eacute;</strong> invertir seleccionando &uacute;nicamente Activos con
-        <span class="element-with-tooltip" tooltip-html-unsafe="{{tooltipReliability}}">Fiabilidad 90%</span>,
-        <strong>Cu&aacute;ndo</strong> especificando el Periodo &oacute;ptimo o apertura y cierre de la operaci&oacute;n de compra-venta y
+        <span class="element-with-tooltip" style="text-decoration: underline;" tooltip-html-unsafe="{{tooltipReliability}}"><b>Fiabilidad 90%</b></span>,
+        <strong>Cu&aacute;ndo</strong> especificando el
+        <span class="element-with-tooltip" style="text-decoration: underline;" tooltip-html-unsafe="{{tooltipPeriods}}"><b>Periodo &oacute;ptimo</b></span>
+        o apertura y cierre de la operaci&oacute;n de compra-venta y
         <strong>Cantidad</strong> o proporci&oacute;n de efectivo a asignar en cada posici&oacute;n.
     </p>
 
     <p>
-        Nota: Los datos publicados en la Web se basan en Hechos objetivos y verificables. No hay opiniones..
+        Nota: Los datos publicados en la Web se basan en
+         <span class="element-with-tooltip" style="text-decoration: underline;" tooltip-html-unsafe="{{tooltipFact}}"><b>Hechos</b></span>
+        objetivos y verificables. No hay
+         <span class="element-with-tooltip" style="text-decoration: underline;" tooltip-html-unsafe="{{tooltipOpinions}}"><b>opiniones.</b></span>
     </p>
 
     <p class="orange-title">Base del An&aacute;lisis</p>
