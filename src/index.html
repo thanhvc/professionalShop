@@ -33,7 +33,9 @@
                 </div>
             </div>
         </div>
-        <sign-in-form ng-class="{'sign-in-box-open': stateSignInForm, 'sign-in-box-close': !stateSignInForm}"></sign-in-form>
+        <div class="sign-in-form-container">
+            <sign-in-form ng-show="firstTime" class="sign-in-box" ng-class="{'sign-in-box-open': stateSignInForm, 'sign-in-box-close': !stateSignInForm}"></sign-in-form>
+        </div>
         <div class="menu-full">
             <div id="menu-nav-id" class="menu-nav">
                 <div>

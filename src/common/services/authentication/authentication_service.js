@@ -22,14 +22,16 @@ angular.module('auth',[])
             restrict: "E",
             controller: function($scope, SignInFormState){
                 $scope.stateSignInForm = false;
+                $scope.firstTime = false;
 
                 $scope.toggleSignInForm = function () {
                     $scope.stateSignInForm = SignInFormState.toggleSignInState();
-                    console.log('pasa por aquí');
+                    $scope.firstTime = true;
                 };
             },
             link: function($scope) {
                 $scope.$watch('stateSignInForm');
+                $scope.$watch('firstTime');
             },
             templateUrl:'layout_templates/sign-in-box.tpl.html'
         };
