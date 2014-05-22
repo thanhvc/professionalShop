@@ -62,9 +62,9 @@
   padding: 0 !important;
   width: 178px;
   height: 19px !important;
-  border: 1px solid #AAA !important;
-  border-top: 1px solid #888 !important;
-  border-left: 1px solid #888 !important;
+  border: 1px solid @lightGrey !important;
+  border-top: 1px solid @mediumGrey !important;
+  border-left: 1px solid @mediumGrey !important;
   font-size: 11px;
   box-shadow: none;
 }
@@ -87,7 +87,7 @@
 
 .signup-successful-message{
   width:900px;
-  margin:0px 20px 20px 148px;
+  margin: 0 20px 20px 148px;
   padding-bottom:20px;
   margin-left: 50%;
   left: -450px;
@@ -133,21 +133,20 @@
   color: black !important;
   font-weight: 100;
   height: 255px;
-}
-.signup-table-step2 td {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-weight: normal;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline;
+  tr {
+    height: 22px;
+  }
+  td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: normal;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+  }
 }
 
-.signup-table-step2 tr {
-  height: 22px;
-}
 .red-color-form{
   color: @darkRed;
 }
