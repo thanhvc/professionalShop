@@ -72,7 +72,7 @@ b , strong {
 }
 
 .link {
-  color: #0663D7;
+  color: @linkColor;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -104,7 +104,7 @@ b , strong {
   position: relative;
 }
 .black-head {
-  background-color: #1A171B;
+  background-color: @black;
 }
 
 .mo-header{
@@ -116,7 +116,7 @@ b , strong {
 .nav-li {
   font-size: 11px;
   height: 24px;
-  color: #FF8200;
+  color: @orangeColor;
   text-align: center;
   position:relative;
   a {
@@ -202,7 +202,7 @@ b , strong {
 .submenu{
   li {
     padding: 1px 0 10px 0;
-    color: #6F7072;
+    color: @greyLabel;
       a{
         padding: 5px 20px 6px 20px;
         cursor: pointer;
@@ -212,15 +212,15 @@ b , strong {
         border-bottom: 1px solid #CECECE;
       }
     .item-nav-hover {
-      background-color: #FF8200;
-      color: #FFF;
+      background-color: @orangeColor;
+      color: @white;
       text-decoration: none;
     }
   }
 }
 .item-nav-hover {
-  background-color: #FF8200;
-  color: #FFF;
+  background-color: @orangeColor;
+  color: @white;
   text-decoration: none;
 }
 
@@ -450,7 +450,6 @@ a{
 }
 
 
-
 /**
 Flags styles
 */
@@ -508,7 +507,7 @@ Flags styles
   background: -o-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* IE10+ */
   background: linear-gradient(to right,  rgba(0,0,0,1) 0%,rgba(84,84,86,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#545456',GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@black', endColorstr='#545456',GradientType=0 ); /* IE6-9 */
   a{
     color:white;
     &:hover{
@@ -548,7 +547,7 @@ Flags styles
 /******** footer classes *******/
 .footer-top {
   background-color: @orangeColor;
-  color:#fff;
+  color:@white;
   font-size: 11px;
   text-align: right;
   padding: 12px 0;
@@ -557,13 +556,13 @@ Flags styles
 .footer-body {
   padding:10px 0 24px 0;
   background-color: #3d3d3f;
-  color: #fff;
+  color: @white;
   font-size: 10px;
   .footer-title-text{
     font-family: "fontpo-bold";
   }
   a{
-    color: #fff;
+    color: @white;
     font-size: 10px;
   }
 }
@@ -629,7 +628,7 @@ Flags styles
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
   background-color: @orangeColor;
   border-radius: 0;
-  color: #fff;
+  color: @white;
   font-family: "fontpo-bold", "verdana";
   font-size: 12px;
   font-weight: bold;
@@ -638,7 +637,7 @@ Flags styles
 }
 
 .nav-tabs > li{
-  color: #fff;
+  color: @white;
   font-family: "fontpo-bold", "verdana";
   font-weight: bold;
   font-size: 12px;
@@ -657,7 +656,7 @@ Flags styles
     border-radius: 0;
     border: none;
     border-right: 1px solid #6D6E70;
-    color: #fff;
+    color: @white;
     padding: 6px 64px 5px 64px;
     text-align: center;
     -webkit-box-shadow: inset -2px -1px 6px -1px rgba(50, 50, 50, 0.5);
@@ -677,12 +676,12 @@ table{
 .tables-pack-home {
   font-family: "fontpo-bold", "verdana";
   font-size: 11px;
-  color: #ffffff;
+  color: @white;
   margin-bottom: 9px;
 }
 
 .area-cell{
-  color: #ffffff;
+  color: @white;
   background-color: @orangeColor;
   border-top: 1px solid @orangeColor;
   text-align: center;
@@ -696,7 +695,7 @@ table{
 .table-pack {
   border: 1px solid silver;
   font-size: 10px;
-  color: #ffffff;
+  color: @white;
   font-family: fontpo;
   tbody {
     tr {
@@ -706,7 +705,7 @@ table{
         border: 1px solid silver ;
       }
       &:nth-child(even) {
-        background-color: #ffffff;
+        background-color: @white;
         border: 1px solid silver;
       }
       td{
@@ -717,11 +716,11 @@ table{
           width: 198px;
         }
         &:nth-child(2){
-          color: #000000;
+          color: @black;
           width: 492px;
         }
         &:nth-child(3){
-          color: #000000;
+          color: @black;
           width: 138px;
           text-align: center;
         }
@@ -788,7 +787,7 @@ table{
 }
 
 .white-row{
-  background-color: #ffffff;
+  background-color: @white;
   td{
     padding: 0.8em 5px 0.8em 10px;
 /*    padding-left: 10px;
@@ -802,7 +801,7 @@ table{
 .subtotal-cart{
   td{
     background-color: #C0C0C0;
-    color: #000000;
+    color: @black;
     border:none !important;
     &:nth-child(3){
       border: none;
@@ -818,7 +817,7 @@ table{
 .header-table-pack{
   font-weight: bold;
   font-size: 11px;
-  background-color: #000000;
+  background-color: @black;
   height:40px;
   td{
     padding-left: 20px;
@@ -967,7 +966,7 @@ table{
       background-color: @smokeGrey;
     }
     &:nth-child(odd) {
-      background-color: #ffffff;
+      background-color: @white;
     }
     th{
       background: @orangeColor;
@@ -1011,9 +1010,9 @@ table{
 
 .total-cart{
   font-size: 16px;
-  color: #FFFFFF;
-  background-color: #000000;
-  border: 1px solid #FFFFFF;
+  color: @white;
+  background-color: @black;
+  border: 1px solid @white;
   text-align: center;
   float: right;
   padding: 9px 32px;
@@ -1055,20 +1054,20 @@ table{
   font-family: "fontpo-bold";
   padding: 4px 8px 4px 8px;
   width: auto;
-  background: #dddbbc;
+  background: @darkGreyGradient;
   background-image: -webkit-gradient(
     linear,
     left top,
     left bottom,
-    color-stop(0, #F6F5E5),
-    color-stop(1, #DDDBBC)
+    color-stop(0, @lightGreyGradient),
+    color-stop(1, @darkGreyGradient)
   );
-  background-image: -o-linear-gradient(bottom, #F6F5E5 0%, #DDDBBC 100%);
-  background-image: -moz-linear-gradient(bottom, #F6F5E5 0%, #DDDBBC 100%);
-  background-image: -webkit-linear-gradient(bottom, #F6F5E5 0%, #DDDBBC 100%);
-  background-image: -ms-linear-gradient(bottom, #F6F5E5 0%, #DDDBBC 100%);
-  background-image: linear-gradient(to bottom, #F6F5E5 0%, #DDDBBC 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f6f5e5', endColorstr='#dddbbc');
+  background-image: -o-linear-gradient(bottom, @lightGreyGradient 0%, @darkGreyGradient 100%);
+  background-image: -moz-linear-gradient(bottom, @lightGreyGradient 0%, @darkGreyGradient 100%);
+  background-image: -webkit-linear-gradient(bottom, @lightGreyGradient 0%, @darkGreyGradient 100%);
+  background-image: -ms-linear-gradient(bottom, @lightGreyGradient 0%, @darkGreyGradient 100%);
+  background-image: linear-gradient(to bottom, @lightGreyGradient 0%, @darkGreyGradient 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='@lightGreyGradient', endColorstr='@darkGreyGradient');
   text-decoration: none;
   text-align: center;
   color: darkblue;
@@ -1113,7 +1112,7 @@ table{
       &:nth-last-child(1), &:nth-last-child(2) {
         a{
           background-color: @orangeColor;
-          color: #ffffff;
+          color: @white;
           border-radius: 0;
           padding: 0 9px;
           border: none;
@@ -1122,15 +1121,15 @@ table{
       &:nth-child(1), &:nth-child(2) {
         a{
           background-color: @orangeColor;
-          color: #ffffff;
+          color: @white;
           border-radius: 0;
           padding: 0 9px;
           border: none;
         }
       }
       a {
-        color: #6F7072;
-        background-color: #ffffff;
+        color: @greyLabel;
+        background-color: @white;
         border: none;
         border-top: 2px solid @orangeColor;
         padding: 0 9px;
@@ -1140,7 +1139,7 @@ table{
         a {
           border-top: 2px solid @orangeColor;
           background-color: @orangeColor;
-          color: #ffffff;
+          color: @white;
           border: none;
           font-size: 12px;
         }
@@ -1152,8 +1151,8 @@ table{
       visibility: hidden;
     }
     a{
-      border-top: 2px solid #C5C6C8;
-      background-color: #C5C6C8 !important;
+      border-top: 2px solid @greyPaginator;
+      background-color: @greyPaginator !important;
     }
   }
 }
@@ -1248,7 +1247,7 @@ select{
     float: left;
     font-size: 18px;
     margin-bottom: 0.4em;
-    border-top: 1px solid #1A171B;
+    border-top: 1px solid @black;
     font-weight: bold !important;
   }
 
@@ -1291,9 +1290,9 @@ select{
   }
 
   .black-background-header {
-    background-color: #000000;
+    background-color: @black;
     padding: 3px;
-    color: #ffffff;
+    color: @white;
   }
 
 
