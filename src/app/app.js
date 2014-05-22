@@ -44,6 +44,23 @@ angular.module('ngMo', [
           return activeTab;
         };
     })
+
+    .service('ArrayContainItemService', function () {
+        this.containItem = function (array, itemArray) {
+            var contain = false;
+            angular.forEach(array, function (item) {
+                    if (item.id === itemArray.id) {
+                        contain = true;
+                    }
+                });
+            if (contain){
+                return true;
+            }else {
+                return false;
+            }
+        };
+    })
+
     .service('ShoppingCartService', function (ActiveTabService){
 
         var stockItems =  [
@@ -183,23 +200,28 @@ angular.module('ngMo', [
             switch (productType){
                 case 'stocks':
                     index = stockItems.indexOf(item);
-                    stockItems.splice(index);
+                    stockItems.splice(index,1);
+                    stockSubtotal -= item.price;
                     break;
                 case 'pairs':
                     index = pairsItems.indexOf(item);
-                    pairsItems.splice(index);
+                    pairsItems.splice(index,1);
+                    pairsSubtotal -= item.price;
                     break;
                 case 'indices':
                     index = indicesItems.indexOf(item);
-                    indicesItems.splice(index);
+                    indicesItems.splice(index,1);
+                    indicesSubtotal -= item.price;
                     break;
                 case 'pairsIndices':
                     index = pairsIndicesItems.indexOf(item);
-                    pairsIndicesItems.splice(index);
+                    pairsIndicesItems.splice(index,1);
+                    pairsIndicesSubtotal -= item.price;
                     break;
                 case 'futures':
                     index = futuresItems.indexOf(item);
-                    futuresItems.splice(index);
+                    futuresItems.splice(index,1);
+                    futuresSubtotal -= item.price;
                     break;
             }
             numItemsCart--;
@@ -207,11 +229,11 @@ angular.module('ngMo', [
         };
 
         this.removeAllItemsCart = function () {
-            stockItems = stockItems.slice(0, pairsItems.length);
-            pairsItems = pairsItems.slice(0, pairsItems.length);
-            indicesItems = indicesItems.slice(0, pairsItems.length);
-            pairsIndicesItems = pairsIndicesItems.slice(0, pairsItems.length);
-            futuresItems = futuresItems.slice(0, pairsItems.length);
+            stockItems = stockItems.splice(0, pairsItems.length);
+            pairsItems = pairsItems.splice(0, pairsItems.length);
+            indicesItems = indicesItems.splice(0, pairsItems.length);
+            pairsIndicesItems = pairsIndicesItems.splice(0, pairsItems.length);
+            futuresItems = futuresItems.splice(0, pairsItems.length);
             stockSubtotal = 0;
             pairsSubtotal = 0;
             indicesSubtotal = 0;
@@ -315,7 +337,7 @@ angular.module('ngMo', [
 
     .directive('cart', function( ) {
         return{
-            controller: function($scope, ShoppingCartService) {
+            controller: function($scope, ShoppingCartService, ArrayContainItemService) {
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                 $scope.totalCart = ShoppingCartService.obtainTotalCart();
                 $scope.showCart = false;
@@ -334,24 +356,32 @@ angular.module('ngMo', [
                     $scope.subtotalStock -= item.price;
                     $scope.totalCart -= item.price;
                 };
-                $scope.addNewItemCart = function(item){
-                    item =  {
-                        "id": 25,
-                        "packName": "Nuevo",
+
+                /**
+                 * TODO: replace enter parameter 'id' for 'item'
+                 * @param id
+                 */
+                $scope.addNewItemCart = function(id){
+                    $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                    item = {
+                        "id": id,
+                        "packName": "Nuevo "+id,
                         "startDate": "May 14",
                         "duration": "Mensual",
                         "price": 29
                     };
-                    ShoppingCartService.addItemCart(item);
-                    $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
-                    $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
-                    $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
-                    $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
-                    $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
-                    $scope.showCart = true;
-                    $scope.totalCart = ShoppingCartService.obtainTotalCart();
-                    $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
-                    $scope.subtotalStock =  ShoppingCartService.obtainSubtotal('stocks');
+                    if (!ArrayContainItemService.containItem($scope.stockItems, item)) {
+                        ShoppingCartService.addItemCart(item);
+                        $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                        $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                        $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                        $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                        $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                        $scope.showCart = true;
+                        $scope.totalCart = ShoppingCartService.obtainTotalCart();
+                        $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
+                        $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
+                    }
                 };
                 $scope.removeAllItemsCart = function () {
                     ShoppingCartService.removeAllItemsCart();

@@ -110,7 +110,7 @@ describe('The cart directive', function () {
 
         addItemsToCart = function (numItems) {
             for (var i=0;i<numItems;i++){
-                $scope.addNewItemCart(1);
+                $scope.addNewItemCart(i);
                 $scope.$apply();
             }
         };
@@ -202,7 +202,7 @@ describe('The cart directive', function () {
         }));
 
         //remove All items to cart
-        it('should have 0 items and total and subtotal equals 0', inject(function () {
+       it('should have 0 items and total and subtotal equals 0', inject(function () {
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(3);

@@ -118,3 +118,5 @@ describe('The homeText directive', function () {
 
     });
 });
+
+
