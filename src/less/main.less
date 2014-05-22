@@ -283,7 +283,7 @@ b , strong {
 
 
 .orange-title{
-  font-family: Verdana, Geneva, sans-serif;
+  /*font-family: Verdana, Geneva, sans-serif;*/
   font-size: 12px ;
   font-weight: bold;
   font-style: normal;
@@ -418,15 +418,16 @@ a{
 }
 
 .header-orange-background{
-  background-color: #FF8200;
+  background-color: @orangeColor;
   color: white;
   font-size: 12px;
   vertical-align: middle;
   text-align: left;
-  padding-left: 10px;
+  /*padding-left: 10px;*/
   font-family: "fontpo-bold", "verdana" !important;
  // font-weight: bold	9 !important;
   padding-left: 5px;
+  line-height: 15px;
 }
 
 .header-vertical{
@@ -745,7 +746,7 @@ table{
 }
 
 .orange-tr-brackground{
-  background-color: #FF8200;
+  background-color: @orangeColor;
   color: white;
   font-size: 12px;
   vertical-align: middle;
@@ -766,18 +767,20 @@ table{
     padding-bottom: 0.8em;
     padding-right: 5px;
     line-height: 1.2em;
+    vertical-align: top;
   }
 }
 
 .dark-grey-row {
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   background-color: #9B9C9E;
   font-size: 12px;
   color: white;
   text-align: left;
   padding-left: 5px;
   font-family: "fontpo-bold", "verdana" !important;
+  vertical-align: top;
  // font-weight: bold	9 !important;
 }
 
@@ -789,6 +792,7 @@ table{
     padding-bottom: 0.8em;
     padding-right: 5px;
     line-height: 1.2em;
+    vertical-align: top;
   }
 }
 .subtotal-cart{
@@ -894,7 +898,7 @@ table{
 @-webkit-keyframes texthomedelay
 {
   from {left:-100px;}
-  to {left:0px;}
+  to {left:0;}
 }
 
 @keyframes cart{
@@ -1017,7 +1021,7 @@ table{
   font-family: "fontpo-bold";
   padding: 4px 8px 4px 8px;
   width: auto;
-  background: #FF8200;
+  background: @orangeColor;
   background-image: -webkit-gradient(
     linear,
     left top,
@@ -1030,7 +1034,7 @@ table{
   background-image: -webkit-linear-gradient(bottom, #FFCC80 0%, #FF8400 100%);
   background-image: -ms-linear-gradient(bottom, #FFCC80 0%, #FF8400 100%);
   background-image: linear-gradient(to bottom, #FFCC80 0%, #FF8400 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFCC80', endColorstr='#FF8200');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFCC80', endColorstr='@orangeColor');
   text-decoration: none;
   text-align: center;
   color: darkblue;
@@ -1162,14 +1166,14 @@ table{
 /******* modal selectors  *******/
 
 .modal-content{
-  border-radius: 0px;
+  border-radius: 0;
   width: 1010px;
   left:-190px;
   border: 5px outset gray;
 }
 
 .modal-header{
-  border-bottom:0px;
+  border-bottom:0;
   margin-bottom: 25px;
 }
 
@@ -1222,7 +1226,7 @@ select{
 
 //fixes the tooltip overflow
 .modal-body {
-  position: initial;
+  position: static;
 
 }
 
@@ -1329,3 +1333,4 @@ select{
 @import '../app/home/home.less';
 @import '../app/sign_up/sign-up.less';
 @import '../app/services/services.less';
+@import '../app/contact/contact.less';
