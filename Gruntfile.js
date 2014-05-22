@@ -264,7 +264,9 @@ module.exports = function ( grunt ) {
          * Less Lint
          */
         lesslint:{
-            src: '<%= app_files.less %>'
+            src: ['<%= app_files.less %>'],
+            options: {
+                imports: ['src/app/**/*.less']}
         },
         /**
          * `jshint` defines the rules of our linter as well as which files we
