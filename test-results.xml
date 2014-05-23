@@ -1,20 +1,26 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="PhantomJS 1.9.7 (Mac OS X)" package="" timestamp="2014-05-23T09:08:44" id="0" hostname="Roberto.local" tests="11" errors="0" failures="0" time="2.382">
+  <testsuite name="PhantomJS 1.9.7 (Linux)" package="" timestamp="2014-05-23T11:21:20" id="0" hostname="laura-Latitude-E6440">
     <properties>
-      <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
+      <property name="browser.fullName" value="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
     </properties>
-    <testcase name="should produce 6 menu items" time="0.086" classname="PhantomJS 1.9.7 (Mac OS X).The publicMenu directive template"/>
-    <testcase name="should have &apos;item-nav-hover&apos; class" time="0.026" classname="PhantomJS 1.9.7 (Mac OS X).The publicMenu directive template"/>
-    <testcase name="should have &apos;item-nav-hover&apos; class" time="1.836" classname="PhantomJS 1.9.7 (Mac OS X).The publicSubmenu directive template"/>
-    <testcase name="should have 3 items and total and subtotal equals 87" time="0.055" classname="PhantomJS 1.9.7 (Mac OS X).The cart directive template"/>
-    <testcase name="should have 2 item and total and subtotal equals 58" time="0.06" classname="PhantomJS 1.9.7 (Mac OS X).The cart directive template"/>
-    <testcase name="should have 0 items and total and subtotal equals 0" time="0.056" classname="PhantomJS 1.9.7 (Mac OS X).The cart directive template"/>
-    <testcase name="should have 1 item into table after apply name filter" time="0.086" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
-    <testcase name="should have 1 item into table after apply volatility filter" time="0.071" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
-    <testcase name="should have 3 selectors" time="0.047" classname="PhantomJS 1.9.7 (Mac OS X).The carousel directive template"/>
-    <testcase name="should have 2 text container" time="0.036" classname="PhantomJS 1.9.7 (Mac OS X).The homeText directive template"/>
-    <testcase name="test - SIGNUP" time="0.023" classname="PhantomJS 1.9.7 (Mac OS X).General Test Sign Up Steps"/>
+  </testsuite>
+  <testsuite name="PhantomJS 1.9.7 (Linux)" package="" timestamp="2014-05-23T11:21:20" id="0" hostname="laura-Latitude-E6440" tests="12" errors="0" failures="0" time="1.797">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
+    </properties>
+    <testcase name="should produce 6 menu items" time="0.141" classname="PhantomJS 1.9.7 (Linux).The publicMenu directive template"/>
+    <testcase name="should have &apos;item-nav-hover&apos; class" time="0.033" classname="PhantomJS 1.9.7 (Linux).The publicMenu directive template"/>
+    <testcase name="should have &apos;item-nav-hover&apos; class" time="1.306" classname="PhantomJS 1.9.7 (Linux).The publicSubmenu directive template"/>
+    <testcase name="should have 3 items and total and subtotal equals 87" time="0.036" classname="PhantomJS 1.9.7 (Linux).The cart directive template"/>
+    <testcase name="should have 2 item and total and subtotal equals 58" time="0.027" classname="PhantomJS 1.9.7 (Linux).The cart directive template"/>
+    <testcase name="should have 0 items and total and subtotal equals 0" time="0.031" classname="PhantomJS 1.9.7 (Linux).The cart directive template"/>
+    <testcase name="should have 1 item into table after apply name filter" time="0.049" classname="PhantomJS 1.9.7 (Linux).The catalog table directive template"/>
+    <testcase name="should have 1 item into table after apply volatility filter" time="0.036" classname="PhantomJS 1.9.7 (Linux).The catalog table directive template"/>
+    <testcase name="should have 3 selectors" time="0.022" classname="PhantomJS 1.9.7 (Linux).The carousel directive template"/>
+    <testcase name="should have 2 text container" time="0.023" classname="PhantomJS 1.9.7 (Linux).The homeText directive template"/>
+    <testcase name="should have 1 item per table" time="0.078" classname="PhantomJS 1.9.7 (Linux).The homeTablePack template"/>
+    <testcase name="test - SIGNUP" time="0.015" classname="PhantomJS 1.9.7 (Linux).General Test Sign Up Steps"/>
     <system-out><![CDATA[
 ]]></system-out>
     <system-err/>

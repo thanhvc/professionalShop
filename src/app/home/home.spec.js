@@ -25,14 +25,45 @@ describe('The catalog table directive', function () {
             expect(trs.length).toEqual(3);
         }));
 
-        it('should have 1 item into table after apply volatility filter', inject(function () {
+        it('should have 1 item into table after apply volatility filter (<25)', inject(function () {
             var template = $compile("<div selected-pack-catalog></div>")($scope);
             $scope.$apply();
-            //var input = template.find('input');
-            $scope.volatilityPattern = "<25";
+            $scope. changeFilter("<25", 'VolatilityCatalogFilter');
+
             $scope.$apply();
             var trs = template.find('tr');
-            //two <tr> for header more one result
+            //two <tr> for header more the results
+            expect(trs.length).toEqual(3);
+        }));
+
+        it('should have 1 item into table after apply volatility filter (>25<50)', inject(function () {
+            var template = $compile("<div selected-pack-catalog></div>")($scope);
+            $scope.$apply();
+            $scope. changeFilter(">25<50", 'VolatilityCatalogFilter');
+            $scope.$apply();
+            var trs = template.find('tr');
+            //two <tr> for header more the results
+            expect(trs.length).toEqual(3);
+        }));
+
+        it('should have 1 item into table after apply volatility filter (>50<75)', inject(function () {
+            var template = $compile("<div selected-pack-catalog></div>")($scope);
+            $scope.$apply();
+            $scope. changeFilter(">50<75", 'VolatilityCatalogFilter');
+            $scope.$apply();
+            var trs = template.find('tr');
+            //two <tr> for header more the results
+            expect(trs.length).toEqual(3);
+        }));
+
+
+        it('should have 1 item into table after apply volatility filter (>75)', inject(function () {
+            var template = $compile("<div selected-pack-catalog></div>")($scope);
+            $scope.$apply();
+            $scope. changeFilter(">75", 'VolatilityCatalogFilter');
+            $scope.$apply();
+            var trs = template.find('tr');
+            //two <tr> for header more the results
             expect(trs.length).toEqual(3);
         }));
     });
@@ -132,3 +163,172 @@ describe('The homeText directive', function () {
 });
 
 
+describe('The homeTablePack', function () {
+    beforeEach(angular.mock.module("ngMo"));
+    describe('template', function () {
+        var $compile;
+        var $scope;
+        var $state;
+        var $sce;
+        var ActiveTabService;
+        var PacksService;
+
+        beforeEach(module('templates-app'));
+
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_ , _$sce_, _ActiveTabService_, _PacksService_) {
+            $compile = _$compile_;
+            $scope = _$rootScope_.$new();
+            $state =  _$state_;
+            $sce = _$sce_;
+            ActiveTabService = _ActiveTabService_;
+            PacksService = _PacksService_;
+        }));
+
+        it('should have 1 item per table', inject(function () {
+            $scope.homeTablePacks = [
+                {
+                    title: 'Acciones',
+                    active: ActiveTabService.activeTab() === 0,
+                    value: 0,
+                    americaContent: PacksService.obtainPacks('america'),
+                    asiaContent: PacksService.obtainPacks('asia'),
+                    europeContent: PacksService.obtainPacks('europe'),
+                    url: 'home/tables_packs/stock_table.tpl.html'
+                },
+                {
+                    title: 'Pares',
+                    active: ActiveTabService.activeTab() === 1,
+                    value: 1,
+                    americaContent: PacksService.obtainPacks('americaPairs'),
+                    asiaContent: PacksService.obtainPacks('asiaPairs'),
+                    europeContent: PacksService.obtainPacks('europePairs'),
+                    url: 'home/tables_packs/pairs_table.tpl.html'
+                },
+                {
+                    title: 'Indices',
+                    active: ActiveTabService.activeTab() === 2,
+                    value: 2,
+                    indicesContent: PacksService.obtainPacks('indices'),
+                    pairsIndicesContent: PacksService.obtainPacks('pairs_indices'),
+                    url: 'home/tables_packs/indices_table.tpl.html'
+                },
+                {
+                    title: 'Futuros',
+                    active: ActiveTabService.activeTab() === 3,
+                    value: 3,
+                    futuresContent: PacksService.obtainPacks('futures'),
+                    url: 'home/tables_packs/futures_table.tpl.html'
+                }
+            ];
+            $scope.homeTablePacks = [
+                {
+                    title: 'Acciones',
+                    active: ActiveTabService.activeTab() === 0,
+                    value: 0,
+                    americaContent: PacksService.obtainPacks('america'),
+                    asiaContent: PacksService.obtainPacks('asia'),
+                    europeContent: PacksService.obtainPacks('europe'),
+                    url: 'home/tables_packs/stock_table.tpl.html'
+                },
+                {
+                    title: 'Pares',
+                    active: ActiveTabService.activeTab() === 1,
+                    value: 1,
+                    americaContent: PacksService.obtainPacks('americaPairs'),
+                    asiaContent: PacksService.obtainPacks('asiaPairs'),
+                    europeContent: PacksService.obtainPacks('europePairs'),
+                    url: 'home/tables_packs/pairs_table.tpl.html'
+                },
+                {
+                    title: 'Indices',
+                    active: ActiveTabService.activeTab() === 2,
+                    value: 2,
+                    indicesContent: PacksService.obtainPacks('indices'),
+                    pairsIndicesContent: PacksService.obtainPacks('pairs_indices'),
+                    url: 'home/tables_packs/indices_table.tpl.html'
+                },
+                {
+                    title: 'Futuros',
+                    active: ActiveTabService.activeTab() === 3,
+                    value: 3,
+                    futuresContent: PacksService.obtainPacks('futures'),
+                    url: 'home/tables_packs/futures_table.tpl.html'
+                }
+            ];
+
+
+            var template = $compile("<tabset>"+
+                "<tab ng-click='onClickTab(homeTablePack.value)' ng-repeat='homeTablePack in homeTablePacks' heading='{{homeTablePack.title}}' active='homeTablePack.active' disabled='tab.disabled'>"+
+                "<div ng-include='homeTablePack.url'></div>"+
+                "</tab>"+
+                "</tabset>")($scope);
+            $scope.$apply();
+            $scope.selectedTab = 0;
+            $scope.$apply();
+
+            var trs = template.find('tr');
+            var log = [];
+            angular.forEach(trs, function (item) {
+                    if (item.attributes.length > 0) {
+                        var attributes = item.attributes;
+                        angular.forEach(attributes, function (attr) {
+                            if (attr.name === "ng-repeat") {
+                                this.push(item);
+                            }
+                        },
+                        log);
+                    }
+                },
+                log);
+            expect(log.length).toEqual(24);
+        }));
+
+    });
+});
+
+/**
+ * TODO: correct equals href and url
+ */
+/*describe('The search external catalog', function () {
+    beforeEach(angular.mock.module("ngMo"));
+    describe('template', function () {
+        var $compile;
+        var $scope;
+        var $state;
+        var $sce;
+        var ActiveTabService;
+        var PacksService;
+
+        beforeEach(module('templates-app'));
+
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_ , _$sce_, _ActiveTabService_, _PacksService_) {
+            $compile = _$compile_;
+            $scope = _$rootScope_.$new();
+            $state =  _$state_;
+            $sce = _$sce_;
+            ActiveTabService = _ActiveTabService_;
+            PacksService = _PacksService_;
+        }));
+
+        it('should ', inject(function () {
+
+            var template = $compile("<div class=\"browser-data-catalog\">"+
+            "<p class=\"orange-title\" >&iquest;Desea informaci&oacute;n sobre los datos Fundamentales de una Compa&ntilde;&iacute;a?</p>"+
+                "<p>Introducir Nombre de la Compa&ntilde;&iacute;a (para acciones de Asia tambi&eacute;n C&oacute;digo Num&eacute;rico)</p>"+
+                "<input placeholder=\"Nombre\" ng-model=\"searchExternCatalog\">"+
+                    "<a ng-href=\"{{urlSearchCatalog}}\" ng-click=\"generateSearchUrl('Google', searchExternCatalog)\">Buscar en Google</a><img ng-src=\"assets/img/home/google-icon.png\">"+
+                    "<a ng-href=\"{{urlSearchCatalog}}\" ng-click=\"generateSearchUrl('Yahoo', searchExternCatalog)\">Buscar en Yahoo</a><img ng-src=\"assets/img/home/yahoo-icon.png\">"+
+                        "<a ng-href=\"{{urlSearchCatalog}}\" ng-click=\"generateSearchUrl('Bloomberg', searchExternCatalog)\">Buscar en Bloomberg</a><img ng-src=\"assets/img/home/bloomberg-icon.png\">"+
+                        "</div>")($scope);
+            $scope.$apply();
+            $scope.urlSearchCatalog = "https://www.google.com/finance?q=prueba";
+            $scope.$apply();
+            var links = template.find('a');
+            var href = links[0].attributes[0].firstChild;
+            expect(href).toEqual("https://www.google.com/finance?q=prueba");
+        }));
+
+    });
+});
+
+*/
