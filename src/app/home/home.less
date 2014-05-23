@@ -1,7 +1,5 @@
 //Classes for advertising carousel
 .carousel-indicators{
-  /*bottom: -10px;
-  left: 93%;*/
   width: 355px !important;
   border-left: 1px solid @greyColor;
   float: right;
@@ -15,15 +13,12 @@
     height: 42px;
     margin: 0;
     padding: 3px 8px 0 62px;
-    /*
-    padding-top: 3px;
-    padding-left: 62px;
-    padding-right: 8px;*/
     text-indent: 0;
     border-radius: 0;
     border: 0;
     border-bottom: 2px solid @darkOrange;
     cursor: pointer;
+    padding-top: 3px;
 
     background-image: url('../assets/img/home/flecha1.png'), rgb(252,181,101); /* Old browsers */
     background-image: url('../assets/img/home/flecha1.png'), -moz-linear-gradient(right,  rgba(252,181,101,1) 0%, rgba(255,158,43,1) 46%, rgba(254,132,0,1) 100%); /* FF3.6+ */
@@ -103,7 +98,7 @@
   float: right;
   color: hsl(240, 2%, 24%);
   font-size: 11px;
-  margin-right: 40;
+  margin-right: 40px;
   text-shadow: none;
   font-family:'fontpo', 'verdana';
 
@@ -116,8 +111,6 @@
   margin-top: -33px;
   width: 602px;
   background: @white;
-  /*padding-top: 6px;
-  padding-bottom: 0;*/
   padding: 6px 0 0 0;
   border-bottom: 1px solid @greyColor;
   border-left: 1px solid @greyColor;
@@ -145,11 +138,6 @@
 }
 
 .carousel-inner > .item{
-  //-webkit-animation: change-opacity 3s; /* Safari 4+ */
-  //-moz-animation:    change-opacity 3s; /* Fx 5+ */
-  //-o-animation:      change-opacity 3s; /* Opera 12+ */
-  //animation:         change-opacity 3s; /* IE 10+ */
-
   -webkit-transition: 0.0001s ease left;
   -o-transition: 0.0001s ease left;
   -moz-transition: 0.0001s ease left;
@@ -163,6 +151,9 @@
 }
 
 .carousel-container{
+  position: relative;
+  z-index:5;
+  margin-bottom: 20px;
   margin-bottom: 20;
   margin-top:30px;
   -webkit-box-shadow: 2px 8px 10px -3px rgba(50, 50, 50, 0.75);
@@ -187,7 +178,6 @@
   position:relative;
   animation:texthomedelay 2s;
   animation-delay:2s;
-  /*Safari and Chrome*/
   -webkit-animation:texthomedelay 2s;
   -moz-animation: texthomedelay 2s;
   -webkit-animation-delay:2s;
