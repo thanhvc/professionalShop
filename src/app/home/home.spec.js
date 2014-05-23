@@ -100,6 +100,18 @@ describe('The homeText directive', function () {
             $state =  _$state_;
         }));
 
+        var searchClass = function(classname, classExpected) {
+            classname=classname.split(" ");
+            var found = false;
+            angular.forEach(classname, function(item){
+                if (item === classExpected ) {
+                    found = true;
+                }
+
+            });
+            return found;
+        };
+
         it('should have 2 text container', inject(function () {
             var template = $compile("<div home-texts></div>")($scope);
             $scope.$apply();
@@ -108,7 +120,7 @@ describe('The homeText directive', function () {
             var divs = template.find('div');
             var log = [];
             angular.forEach(divs, function (item) {
-                        if (item.className === "public-zone-text") {
+                   if (searchClass(item.className,"public-zone-text")) {
                             this.push(item);
                         }
                 },
