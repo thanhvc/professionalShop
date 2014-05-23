@@ -34,7 +34,13 @@ angular.module('ngMo', [
         });
     })
 
-    .run(function run() {
+    .run(function run($rootScope,$location, $anchorScroll) {
+        $rootScope.scrollTo = function(id) {
+
+                $location.hash(id);
+                $anchorScroll();
+
+        };
     })
     .service('ActiveTabService', function (){
         var activeTab = 0;

@@ -3,19 +3,19 @@
     <table class="table-page-index" style="width:110px; margin-top: 0px; margin-right: 15px;">
         <tr>
             <td>
-                <div class="page-index-resource">
+                <div class="page-index-resource" ng-click="scrollTo('brokers')">
                         Brokers
                 </div>
             </td>
         </tr>
         <td>
-            <div class="page-index-resource">
+            <div class="page-index-resource" ng-click="scrollTo('financial-services')">
                         Financial Services
             </div>
         </td>
         <tr>
             <td>
-                <div class="page-index-resource">
+                <div class="page-index-resource" ng-click="scrollTo('training')">
 
                         Training
                 </div>
@@ -23,28 +23,28 @@
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource">
+                <div class="page-index-resource" ng-click="scrollTo('conferences')">
                         Conferences
                 </div>
             </td>
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource">
+                <div class="page-index-resource" ng-click="scrollTo('providers')">
                         Data Provider
                 </div>
             </td>
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource">
+                <div class="page-index-resource" ng-click="scrollTo('software')">
                         Software
                 </div>
             </td>
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource">
+                <div class="page-index-resource" ng-click="scrollTo('books')">
                         Books, Journals
                 </div>
             </td>
@@ -65,7 +65,7 @@
 
         <div style="position: relative">
 
-            <table border="0">
+            <table border="0" id="brokers">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
@@ -88,7 +88,7 @@
                 </tbody>
             </table><br>
 
-            <table border="0">
+            <table border="0" id="financial-services">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
@@ -144,7 +144,7 @@
                 </tbody>
             </table><br>
 
-            <table id="tableTraining" border="0">
+            <table id="training" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background">TRAINING</td>
@@ -297,11 +297,11 @@
                 </tbody>
             </table><br>
 
-            <table id="tableDataProviders"border="0">
+            <table id="providers"border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
-                        <div id="dataP">DATA PROVIDERS</div>
+                        <div>DATA PROVIDERS</div>
                     </td>
                     <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
                     <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
@@ -314,80 +314,81 @@
                 </tbody>
             </table><br>
 
-            <table id="tableSoftware" border="0">
+            <table id="software" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
-                        <div id="j_id230">SOFTWARE</div>
+                        <div>SOFTWARE</div>
                     </td>
                     <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
                     <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
                 </tr>
                 <tr class="grey-row">
                     <td>
-                        <div id="j_id395" class="resource-text">AmiBroker</div>
+                        <div  class="resource-text">AmiBroker</div>
                     </td>
                     <td>
-                        <div id="j_id398" class="resource-text">All features for Technical Analysis. The best Backtesting and Optimization software for discover Strategies</div>
+                        <div class="resource-text">All features for Technical Analysis. The best Backtesting and Optimization software for discover Strategies</div>
                     </td>
                     <td>
-                        <div id="j_id401" class="resource-text"><a href="http://www.amibroker.com" target="_blank">www.amibroker.com </a></div>
+                        <div class="resource-text"><a href="http://www.amibroker.com" target="_blank">www.amibroker.com </a></div>
                     </td>
                 </tr>
                 </tbody>
             </table><br>
 
-            <table id="tableBooks" border="0">
+            <table id="books" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
-                        <div id="books">BOOKS, JOURNALS, MAGAZINES</div>
+                        <div  >BOOKS, JOURNALS, MAGAZINES</div>
                     </td>
                     <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
                     <td class="header-orange-background text-align-center" style="width: 150px;">&nbsp;</td>
                 </tr>
                 <tr class="grey-row">
                     <td colspan="3">
-                        <div id="book1" class="resource-text">A Trader's Money Management System: How to Ensure Profit and Avoid the Risk of Ruin. (Ed. Wiley Trading). Bennett A. McDowell (2008)</div>
+                        <div  class="resource-text">A Trader's Money Management System: How to Ensure Profit and Avoid the Risk of Ruin. (Ed. Wiley Trading). Bennett A. McDowell (2008)</div>
                     </td>
                 </tr>
                 <tr class="white-row">
                     <td colspan="3">
-                        <div id="book2" class="resource-text">Mercados de Futuros. Commodities y Coberturas. (Ed. Agr&iacute;cola Espa&ntilde;ola). Jes&uacute;s Sim&oacute;n (1993)</div>
+                        <div  class="resource-text">Mercados de Futuros. Commodities y Coberturas. (Ed. Agr&iacute;cola Espa&ntilde;ola). Jes&uacute;s Sim&oacute;n (1993)</div>
                     </td>
                 </tr>
                 </tbody>
             </table><br>
 
-            <table id="tableConferences" border="0">
+            <table id="conferences" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
-                        <div id="books">CONFERENCES, MEETINGS</div>
+                        <div id="conferences">CONFERENCES, MEETINGS</div>
                     </td>
                     <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
                     <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
                 </tr>
                 <tr class="grey-row">
                     <td colspan="3">
-                        <div id="book1" class="resource-text">&nbsp;</div>
+                        <div   class="resource-text">&nbsp;</div>
                     </td>
                 </tr>
                 </tbody>
             </table><br>
 
-            <table id="tableBooks" border="0">
+
+            <table id="books2" name="books2" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
-                        <div id="books">INFORMATION TECH. COMPANIES</div>
+                        <div  >INFORMATION TECH. COMPANIES</div>
                     </td>
                     <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
                     <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
                 </tr>
                 <tr class="grey-row">
                     <td colspan="3">
-                        <div id="book1" class="resource-text">&nbsp;</div>
+                        <div   class="resource-text">&nbsp;</div>
                     </td>
                 </tr>
                 </tbody>
