@@ -29,6 +29,9 @@
   src: url("../assets/fonts/verdanab.ttf") format("truetype");
 }
 
+input[type="text"]{
+  border-radius: 0;
+}
 
 a{
   &:hover{
@@ -518,18 +521,18 @@ Flags styles
     background-color: transparent;
     background-attachment: scroll;
     &.logout-box {
-      background-position: 0 -15px;
+      background-position: 0 -14px;
       margin-bottom: 5px;
       &:hover {
         color: @orangeColor;
-        background-position: 0 0;
+        background-position: 0 1px;
         cursor: pointer;
       }
     }
     &.subscribe-free-link {
       float: left;
       text-indent: 25px;
-      background-position: 0 -32px;
+      background-position: 0 -31px;
       &:hover {
         background-position: 0 -46px;
         color: @orangeColor;
@@ -542,6 +545,8 @@ Flags styles
 .sign-in-form-container{
   position: relative;
   z-index:9;
+  width: 960px;
+  margin: 0 auto;
 }
 .sign-in-box{
   width: 258px;
@@ -552,7 +557,7 @@ Flags styles
   background-repeat: repeat-y;
   color: white;
   position: absolute;
-  left: 840px;
+  left: 702px;
 }
 .sign-in-box-open{
   animation: show-login-box 1s;
