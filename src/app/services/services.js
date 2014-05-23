@@ -12,6 +12,9 @@ angular.module('ngMo.services', [
                 "main": {
                     controller: 'ServicesCtrl',
                     templateUrl: 'services/summary/summary.tpl.html'
+                },
+                'sum-view@summary': {
+                    templateUrl: 'services/summary/sub-summary.tpl.html'
                 }
             },
             data: {
@@ -19,6 +22,23 @@ angular.module('ngMo.services', [
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
                 selectItemSubmenu: 'summary-nav'
+            }
+        })
+        //substates of summary
+        .state('summary.basic-info', {
+            url: '/basic-info',
+            views: {
+                "sum-view": {
+                    templateUrl: 'services/summary/basic-info.tpl.html'
+                }
+            }
+        })
+        .state('summary.diary', {
+            url: '/diary',
+            views: {
+                "sum-view": {
+                    templateUrl: 'services/summary/diary.tpl.html'
+                }
             }
         })
         .state('products_and_exchanges', {
