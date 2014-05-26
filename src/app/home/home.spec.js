@@ -289,7 +289,7 @@ describe('The homeTablePack', function () {
 /**
  * TODO: correct equals href and url
  */
-/*describe('The search external catalog', function () {
+describe('The search external catalog', function () {
     beforeEach(angular.mock.module("ngMo"));
     describe('template', function () {
         var $compile;
@@ -310,25 +310,47 @@ describe('The homeTablePack', function () {
             PacksService = _PacksService_;
         }));
 
-        it('should ', inject(function () {
-
-            var template = $compile("<div class=\"browser-data-catalog\">"+
-            "<p class=\"orange-title\" >&iquest;Desea informaci&oacute;n sobre los datos Fundamentales de una Compa&ntilde;&iacute;a?</p>"+
+        var obtainTemplate = function(){
+            return $compile("<div class=\"browser-data-catalog\">"+
+                "<p class=\"orange-title\" >&iquest;Desea informaci&oacute;n sobre los datos Fundamentales de una Compa&ntilde;&iacute;a?</p>"+
                 "<p>Introducir Nombre de la Compa&ntilde;&iacute;a (para acciones de Asia tambi&eacute;n C&oacute;digo Num&eacute;rico)</p>"+
                 "<input placeholder=\"Nombre\" ng-model=\"searchExternCatalog\">"+
-                    "<a ng-href=\"{{urlSearchCatalog}}\" ng-click=\"generateSearchUrl('Google', searchExternCatalog)\">Buscar en Google</a><img ng-src=\"assets/img/home/google-icon.png\">"+
-                    "<a ng-href=\"{{urlSearchCatalog}}\" ng-click=\"generateSearchUrl('Yahoo', searchExternCatalog)\">Buscar en Yahoo</a><img ng-src=\"assets/img/home/yahoo-icon.png\">"+
-                        "<a ng-href=\"{{urlSearchCatalog}}\" ng-click=\"generateSearchUrl('Bloomberg', searchExternCatalog)\">Buscar en Bloomberg</a><img ng-src=\"assets/img/home/bloomberg-icon.png\">"+
-                        "</div>")($scope);
+                "<a ng-href=\"{{urlSearchCatalog}}\" ng-click=\"generateSearchUrl('Google', searchExternCatalog)\">Buscar en Google</a>"+
+                "<a ng-href=\"{{urlSearchCatalog}}\" ng-click=\"generateSearchUrl('Yahoo', searchExternCatalog)\">Buscar en Yahoo</a>"+
+                "<a ng-href=\"{{urlSearchCatalog}}\" ng-click=\"generateSearchUrl('Bloomberg', searchExternCatalog)\">Buscar en Bloomberg</a>"+
+                "</div>")($scope);
+        };
+
+        it('should have the correct url of google', inject(function () {
+            var template = obtainTemplate();
             $scope.$apply();
             $scope.urlSearchCatalog = "https://www.google.com/finance?q=prueba";
             $scope.$apply();
             var links = template.find('a');
             var href = links[0].attributes[0].firstChild;
-            expect(href).toEqual("https://www.google.com/finance?q=prueba");
+            expect(href.data).toEqual("https://www.google.com/finance?q=prueba");
+        }));
+
+        it('should have the correct url of yahoo', inject(function () {
+            var template = obtainTemplate();
+            $scope.$apply();
+            $scope.urlSearchCatalog = "http://finance.yahoo.com/?q=prueba";
+            $scope.$apply();
+            var links = template.find('a');
+            var href = links[0].attributes[0].firstChild;
+            expect(href.data).toEqual("http://finance.yahoo.com/?q=prueba");
+        }));
+
+        it('should have the correct url of bloomberg', inject(function () {
+            var template = obtainTemplate();
+            $scope.$apply();
+            $scope.urlSearchCatalog = "http://www.bloomberg.com/markets/symbolsearch?query=prueba";
+            $scope.$apply();
+            var links = template.find('a');
+            var href = links[0].attributes[0].firstChild;
+            expect(href.data).toEqual("http://www.bloomberg.com/markets/symbolsearch?query=prueba");
         }));
 
     });
 });
 
-*/
