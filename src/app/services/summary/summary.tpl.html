@@ -3,7 +3,7 @@
     <table class="table-page-index">
         <tr>
             <td>
-                  <span><a ui-sref="summary.basic-info">
+                  <span><a ui-sref="summary.basic" ng-class="{'orange-text': subPage == 'basic'}">
                         Informaci&oacute;n b&aacute;sica de un patr&oacute;n
                   </a>
                     </span>
@@ -11,7 +11,7 @@
         </tr>
         <tr>
             <td>
-                <span><a ui-sref="summary.diary">
+                <span><a ui-sref="summary.diary" ng-class="{'orange-text': subPage == 'diary'}">
                     Seguimiento Diario
                     </a>
                  </span>

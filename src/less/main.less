@@ -76,6 +76,24 @@ b , strong {
   }
 }
 
+.public-list-third-level {
+  clear: left;
+  margin-bottom: 0.5em !important;
+  margin-top: 0.5em !important;
+  li{
+    list-style-image: none !important;
+    list-style-type: disc !important;
+    margin-bottom: 0.5em !important;
+    padding-left: 5px !important;
+  }
+}
+.public-list-fourth-level {
+  li{
+    list-style-image: none !important;
+    list-style-type: square !important;
+  }
+}
+
 .link {
   color: @linkColor;
   text-decoration: underline;
@@ -414,6 +432,9 @@ a{
   }
   a{
     color: @greyLabel;
+  }
+  a:hover {
+    text-decoration: none;
   }
 }
 
@@ -1401,6 +1422,10 @@ select{
 
 .sub-list-spacing {
   padding-top: 10px;
+}
+
+.orange-text {
+  color: @orangeColor !important;
 }
 /**
  * Now that all app-wide styles have been applied, we can load the styles for

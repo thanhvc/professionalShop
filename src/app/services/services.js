@@ -21,17 +21,21 @@ angular.module('ngMo.services', [
                 pageTitle: 'Resumen',
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
-                selectItemSubmenu: 'summary-nav'
+                selectItemSubmenu: 'summary-nav',
+                subPage: 'none'
             }
         })
         //substates of summary
-        .state('summary.basic-info', {
-            url: '/basic-info',
+        .state('summary.basic', {
+            url: '/basic',
             views: {
                 "sum-view": {
                     templateUrl: 'services/summary/basic-info.tpl.html'
                 }
-            }
+            },
+                data: {
+                    subPage: 'basic'
+                }
         })
         .state('summary.diary', {
             url: '/diary',
@@ -39,7 +43,10 @@ angular.module('ngMo.services', [
                 "sum-view": {
                     templateUrl: 'services/summary/diary.tpl.html'
                 }
-            }
+            },
+                data: {
+                    subPage: 'diary'
+                }
         })
         .state('products_and_exchanges', {
             url: '/products_and_exchanges',
@@ -62,6 +69,9 @@ angular.module('ngMo.services', [
                 "main": {
                     controller: 'ServicesCtrl',
                     templateUrl: 'services/detailed_description/detailed_description.tpl.html'
+                },
+                "subPage@detailed_description": {
+                    templateUrl: 'services/detailed_description/description.tpl.html'
                 }
             },
             data: {
@@ -71,6 +81,48 @@ angular.module('ngMo.services', [
                 selectItemSubmenu: 'detailed-description-nav'
             }
         })
+            //subpages of detailed_description
+            .state('detailed_description.basic', {
+                url: '/basic',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/basic.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.phases', {
+                url: '/phases',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/phases.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.monthly', {
+                url: '/monthly',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/monthly.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.buy', {
+                url: '/buy',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/buy.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.patterns', {
+                url: '/patterns',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/patterns.tpl.html'
+                    }
+                }
+            })
+            //end of subpages
         .state('fundamentals', {
             url: '/fundamentals',
             views: {
@@ -95,5 +147,6 @@ angular.module('ngMo.services', [
     .controller('ServicesCtrl', function ServicesCtrl($scope) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+            if ( (typeof toState.data.subPage !== 'undefined')) {$scope.subPage = toState.data.subPage; }
         });
     }) ;
