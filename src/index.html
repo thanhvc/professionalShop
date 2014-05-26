@@ -15,7 +15,7 @@
 
 
 </head>
-<body>
+<body ng-click="hideSignInForm()">
     <header>
         <div id="menu-id" class="menu black-head">
             <div id="mo-header" class="mo-header">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <div class="sign-in-form-container">
+        <div class="sign-in-form-container" ng-click="$event.stopPropagation();">
             <sign-in-form ng-show="firstTime" class="sign-in-box" ng-class="{'sign-in-box-open': stateSignInForm, 'sign-in-box-close': !stateSignInForm}"></sign-in-form>
         </div>
         <div class="menu-full">

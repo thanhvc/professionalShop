@@ -15,7 +15,7 @@ angular.module('ngMo', [
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/home');
+
         $stateProvider.state('home', {
             url: '/home',
             views: {
@@ -30,8 +30,23 @@ angular.module('ngMo', [
                 selectSubmenu: '',
                 selectItemSubmenu: ''
             }
-
+        })
+        .state('forgotten-password', {
+            url: '/forgotten-password',
+            views: {
+                "main": {
+                    controller: 'AppCtrl',
+                    templateUrl: 'forgotten_password/forgotten-password.tpl.html'
+                }
+            },
+            data: {
+                pageTitle: 'forgotten-password',
+                selectMenu: '',
+                selectSubmenu: '',
+                selectItemSubmenu: ''
+             }
         });
+        $urlRouterProvider.otherwise('/home');
     })
 
     .run(function run() {
@@ -257,7 +272,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope) {
+    .controller('AppCtrl', function AppCtrl($scope, SignInFormState) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
 
