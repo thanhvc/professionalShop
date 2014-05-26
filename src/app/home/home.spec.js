@@ -185,41 +185,7 @@ describe('The homeTablePack', function () {
         }));
 
         it('should have 1 item per table', inject(function () {
-            $scope.homeTablePacks = [
-                {
-                    title: 'Acciones',
-                    active: ActiveTabService.activeTab() === 0,
-                    value: 0,
-                    americaContent: PacksService.obtainPacks('america'),
-                    asiaContent: PacksService.obtainPacks('asia'),
-                    europeContent: PacksService.obtainPacks('europe'),
-                    url: 'home/tables_packs/stock_table.tpl.html'
-                },
-                {
-                    title: 'Pares',
-                    active: ActiveTabService.activeTab() === 1,
-                    value: 1,
-                    americaContent: PacksService.obtainPacks('americaPairs'),
-                    asiaContent: PacksService.obtainPacks('asiaPairs'),
-                    europeContent: PacksService.obtainPacks('europePairs'),
-                    url: 'home/tables_packs/pairs_table.tpl.html'
-                },
-                {
-                    title: 'Indices',
-                    active: ActiveTabService.activeTab() === 2,
-                    value: 2,
-                    indicesContent: PacksService.obtainPacks('indices'),
-                    pairsIndicesContent: PacksService.obtainPacks('pairs_indices'),
-                    url: 'home/tables_packs/indices_table.tpl.html'
-                },
-                {
-                    title: 'Futuros',
-                    active: ActiveTabService.activeTab() === 3,
-                    value: 3,
-                    futuresContent: PacksService.obtainPacks('futures'),
-                    url: 'home/tables_packs/futures_table.tpl.html'
-                }
-            ];
+
             $scope.homeTablePacks = [
                 {
                     title: 'Acciones',
