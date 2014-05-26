@@ -324,7 +324,7 @@ angular.module('ngMo.home', [
     })
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, $sce, ActiveTabService) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, $sce, ActiveTabService, ActualDateService) {
         $scope.myInterval = 6000;
 
         $scope.myslides = [
@@ -420,7 +420,7 @@ angular.module('ngMo.home', [
             }
         ];
 
-        $scope.actualDate = new Date();
+        $scope.actualDate = ActualDateService.actualDate();
 
         $scope.generateSearchUrl = function (provider, input) {
             if (typeof input === 'undefined'){
