@@ -1,31 +1,26 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="PhantomJS 1.9.7 (Mac OS X)" package="" timestamp="2014-05-26T14:10:17" id="0" hostname="Roberto.local">
+  <testsuite name="PhantomJS 1.9.7 (Mac OS X)" package="" timestamp="2014-05-26T15:13:32" id="0" hostname="Roberto.local" tests="18" errors="0" failures="0" time="2.685">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
     </properties>
-  </testsuite>
-  <testsuite name="PhantomJS 1.9.7 (Mac OS X)" package="" timestamp="2014-05-26T14:10:23" id="0" hostname="Roberto.local" tests="18" errors="0" failures="0" time="2.735">
-    <properties>
-      <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
-    </properties>
-    <testcase name="should produce 6 menu items" time="0.115" classname="PhantomJS 1.9.7 (Mac OS X).The publicMenu directive template"/>
+    <testcase name="should produce 6 menu items" time="0.089" classname="PhantomJS 1.9.7 (Mac OS X).The publicMenu directive template"/>
     <testcase name="should have &apos;item-nav-hover&apos; class" time="0.031" classname="PhantomJS 1.9.7 (Mac OS X).The publicMenu directive template"/>
-    <testcase name="should have &apos;item-nav-hover&apos; class" time="1.832" classname="PhantomJS 1.9.7 (Mac OS X).The publicSubmenu directive template"/>
-    <testcase name="should have 3 items and total and subtotal equals 87" time="0.056" classname="PhantomJS 1.9.7 (Mac OS X).The cart directive template"/>
-    <testcase name="should have 2 item and total and subtotal equals 58" time="0.044" classname="PhantomJS 1.9.7 (Mac OS X).The cart directive template"/>
-    <testcase name="should have 0 items and total and subtotal equals 0" time="0.046" classname="PhantomJS 1.9.7 (Mac OS X).The cart directive template"/>
-    <testcase name="should have 1 item into table after apply name filter" time="0.081" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
-    <testcase name="should have 1 item into table after apply volatility filter (&lt;25)" time="0.068" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
-    <testcase name="should have 1 item into table after apply volatility filter (&gt;25&lt;50)" time="0.069" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
-    <testcase name="should have 1 item into table after apply volatility filter (&gt;50&lt;75)" time="0.067" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
-    <testcase name="should have 1 item into table after apply volatility filter (&gt;75)" time="0.064" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
-    <testcase name="should have 3 selectors" time="0.039" classname="PhantomJS 1.9.7 (Mac OS X).The carousel directive template"/>
-    <testcase name="should have 2 text container" time="0.034" classname="PhantomJS 1.9.7 (Mac OS X).The homeText directive template"/>
-    <testcase name="should have 1 item per table" time="0.089" classname="PhantomJS 1.9.7 (Mac OS X).The homeTablePack template"/>
+    <testcase name="should have &apos;item-nav-hover&apos; class" time="1.781" classname="PhantomJS 1.9.7 (Mac OS X).The publicSubmenu directive template"/>
+    <testcase name="should have 3 items and total and subtotal equals 87" time="0.055" classname="PhantomJS 1.9.7 (Mac OS X).The cart directive template"/>
+    <testcase name="should have 2 item and total and subtotal equals 58" time="0.042" classname="PhantomJS 1.9.7 (Mac OS X).The cart directive template"/>
+    <testcase name="should have 0 items and total and subtotal equals 0" time="0.062" classname="PhantomJS 1.9.7 (Mac OS X).The cart directive template"/>
+    <testcase name="should have 1 item into table after apply name filter" time="0.074" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
+    <testcase name="should have 1 item into table after apply volatility filter (&lt;25)" time="0.062" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
+    <testcase name="should have 1 item into table after apply volatility filter (&gt;25&lt;50)" time="0.061" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
+    <testcase name="should have 1 item into table after apply volatility filter (&gt;50&lt;75)" time="0.064" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
+    <testcase name="should have 1 item into table after apply volatility filter (&gt;75)" time="0.089" classname="PhantomJS 1.9.7 (Mac OS X).The catalog table directive template"/>
+    <testcase name="should have 3 selectors" time="0.048" classname="PhantomJS 1.9.7 (Mac OS X).The carousel directive template"/>
+    <testcase name="should have 2 text container" time="0.037" classname="PhantomJS 1.9.7 (Mac OS X).The homeText directive template"/>
+    <testcase name="should have 1 item per table" time="0.087" classname="PhantomJS 1.9.7 (Mac OS X).The homeTablePack template"/>
     <testcase name="should have the correct url of google" time="0.023" classname="PhantomJS 1.9.7 (Mac OS X).The search external catalog template"/>
-    <testcase name="should have the correct url of yahoo" time="0.021" classname="PhantomJS 1.9.7 (Mac OS X).The search external catalog template"/>
-    <testcase name="should have the correct url of bloomberg" time="0.021" classname="PhantomJS 1.9.7 (Mac OS X).The search external catalog template"/>
+    <testcase name="should have the correct url of yahoo" time="0.023" classname="PhantomJS 1.9.7 (Mac OS X).The search external catalog template"/>
+    <testcase name="should have the correct url of bloomberg" time="0.022" classname="PhantomJS 1.9.7 (Mac OS X).The search external catalog template"/>
     <testcase name="test - SIGNUP" time="0.035" classname="PhantomJS 1.9.7 (Mac OS X).General Test Sign Up Steps"/>
     <system-out><![CDATA[
 ]]></system-out>
