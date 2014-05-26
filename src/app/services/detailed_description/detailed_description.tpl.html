@@ -1,80 +1,80 @@
 <div class="public-zone-text container" ng-controller="HomeCtrl">
 
-    <div class="lat-menu-home-nav">
+    <div id="top" class="lat-menu-home-nav">
         <table class="indice-details-description">
             <tr>
                 <td>
-                    <a href="" >Descripci&oacute;n</a>
+                    <a ui-sref="detailed_description" >Descripci&oacute;n</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Informaci&oacute;n B&aacute;sica de un Patr&oacute;n</a>
+                    <a ui-sref="detailed_description.basic" >Informaci&oacute;n B&aacute;sica de un Patr&oacute;n</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Fases Principales del Servicio</a>
+                    <a ui-sref="detailed_description.phases" >Fases Principales del Servicio</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Publicaci&oacute;n Mensual</a>
+                    <a ui-sref="detailed_description.monthly" >Publicaci&oacute;n Mensual</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Comprar Suscripci&oacute;n</a>
+                    <a ui-sref="detailed_description.buy" >Comprar Suscripci&oacute;n</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Mis Patrones</a>
+                    <a ui-sref="detailed_description.patterns" >Mis Patrones</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Seguimiento Diario</a>
+                    <a ui-sref="detailed_description.diary" >Seguimiento Diario</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Hist&oacute;ricos</a>
+                    <a ui-sref="detailed_description.historic" >Hist&oacute;ricos</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Herramientas. Cartera</a>
+                    <a ui-sref="detailed_description.drawdown" >Herramientas. Cartera</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Herramientas. Correlaci&oacute;n</a>
+                    <a ui-sref="detailed_description.correlation" >Herramientas. Correlaci&oacute;n</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Herramientas. Volatilidad Hist&oacute;rica</a>
+                    <a ui-sref="detailed_description.volatility" >Herramientas. Volatilidad Hist&oacute;rica</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >La Semana, Estad&iacute;sticas</a>
+                    <a ui-sref="detailed_description.week" >La Semana, Estad&iacute;sticas</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Calendario</a>
+                    <a ui-sref="detailed_description.calendar" >Calendario</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Mis Suscripciones</a>
+                    <a ui-sref="detailed_description.suscriptions" >Mis Suscripciones</a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="" >Mi Cuenta</a>
+                    <a ui-sref="detailed_description.account">Mi Cuenta</a>
                 </td>
             </tr>
         </table>
@@ -87,6 +87,6 @@
 
 </div>
     <div style="height: 20px; display: inline-block">
-        <a class="link" onclick="goToAnchorLink('top');">Subir</a>
+        <a ng-click="scrollTo('top')"  >Subir</a>
     </div>
 </div>

@@ -122,6 +122,78 @@ angular.module('ngMo.services', [
                     }
                 }
             })
+            .state('detailed_description.diary', {
+                url: '/diary',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/diary.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.historic', {
+                url: '/historic',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/historic.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.drawdown', {
+                url: '/drawdown',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/drawdown.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.correlation', {
+                url: '/correlation',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/correlation.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.volatility', {
+                url: '/volatility',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/volatility.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.week', {
+                url: '/week',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/week.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.calendar', {
+                url: '/calendar',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/calendar.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.suscriptions', {
+                url: '/suscriptions',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/suscriptions.tpl.html'
+                    }
+                }
+            })
+            .state('detailed_description.account', {
+                url: '/account',
+                views: {
+                    "subPage": {
+                        templateUrl: 'services/detailed_description/account.tpl.html'
+                    }
+                }
+            })
             //end of subpages
         .state('fundamentals', {
             url: '/fundamentals',
