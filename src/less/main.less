@@ -39,6 +39,10 @@ a{
   }
 }
 
+label{
+  font-weight: normal;
+}
+
 body{
   color:@black;
   font-family: 'fontpo';
@@ -428,13 +432,8 @@ a{
     padding-top: 7px;
     padding-bottom: 7px;
     font-size: 11px;
-    cursor: pointer;
-  }
-  a{
     color: @greyLabel;
-  }
-  a:hover {
-    text-decoration: none;
+    cursor: pointer;
   }
 }
 
@@ -574,7 +573,7 @@ Flags styles
 }
 .sign-in-box{
   width: 258px;
-  height: 135px;
+  min-height: 135px;
   border: 1px solid @greyBorderColor;
   padding: 4px 16px 0px 6px;
   background-image: url('../assets/img/background-login-form.png');
@@ -592,12 +591,12 @@ Flags styles
 }
 
 @keyframes show-login-box{
-  from {top: -111px;}
+  from {top: -130px;}
   to {top: 24px;}
 }
 
 @-webkit-keyframes show-login-box{
-  from {top: -111px;}
+  from {top: -130px;}
   to {top: 24px;}
 }
 
@@ -606,24 +605,25 @@ Flags styles
   -webkit-animation: hide-login-box 1s;
   -moz-animation: hide-login-box 1s;
   -o-animation: hide-login-box 1s;
-  top: -111px;
+  top: -130px;
 }
 
 @keyframes hide-login-box{
   from {top: 24px;}
-  to {top: -111px;}
+  to {top: -130px;}
 }
 
 @-webkit-keyframes hide-login-box{
   from {top: 24px;}
-  to {top: -111px;}
+  to {top: -130px;}
 }
 
 .login-panel{
-  input[type="text"]{
+  input[type="text"], input[type="password"]{
     width: 137px;
     height: 19px;
     margin-top: 3px;
+    color: @black;
   }
   input[type="checkbox"]{
     float: left;
@@ -660,6 +660,20 @@ Flags styles
     clear: both;
     float: left;
     height: 15px;
+  }
+  .warning-login-text{
+    color:white;
+    font-size: 10px;
+    font-family: fontpo;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .login-bottom-panel{
+    margin:0;
+  }
+  .forget-password{
+    margin-bottom:8px;
+    margin-top: 0;
   }
 }
 
@@ -1430,6 +1444,33 @@ select{
 .blue-text {
   color: @linkColor;
 }
+
+.text-warning-form{
+  color: @red;
+  font-size: 11px;
+  font-family: fontpo, verdana;
+}
+
+.warning-input{
+  background-color: @pinkWarning;
+}
+
+.forget-password-container{
+  div {
+    clear: both;
+    float: left;
+    margin-bottom: 30px;
+  }
+  label{
+    color: @greyLabel;
+  }
+  input[type="text"]{
+    margin-left: 5px;
+    width: 200px;
+    height: 17px;
+  }
+}
+
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using.

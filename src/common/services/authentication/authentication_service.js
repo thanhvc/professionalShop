@@ -1,5 +1,5 @@
 
-angular.module('auth',[])
+angular.module('auth',['http-auth-interceptor'])
 
     .service('SignInFormState', function () {
         var stateSignInBox = false;
@@ -11,6 +11,10 @@ angular.module('auth',[])
             }
             return stateSignInBox;
         };
+        this.hideSignInState = function(){
+          stateSignInBox = false;
+          return stateSignInBox;
+        };
     })
 
     .controller('AuthCtrl', function AuthCtrl($scope, SignInFormState) {
@@ -20,7 +24,7 @@ angular.module('auth',[])
     .directive('signInForm', function (){
         return {
             restrict: "E",
-            controller: function($scope, SignInFormState){
+            controller: function($scope, SignInFormState, $http, authService){
                 $scope.stateSignInForm = false;
                 $scope.firstTime = false;
 
@@ -28,6 +32,21 @@ angular.module('auth',[])
                     $scope.stateSignInForm = SignInFormState.toggleSignInState();
                     $scope.firstTime = true;
                 };
+                $scope.hideSignInForm = function () {
+                    $scope.stateSignInForm = SignInFormState.hideSignInState();
+                };
+
+                $scope.submit = function() {
+                    $http.post('auth/login').success(function() {
+                        authService.loginConfirmed();
+                    });
+                };
+
+                /*$scope.logout = function() {
+                    $http.post('auth/logout').success(function () {
+                        $scope.restrictedContent = [];
+                    });
+                };*/
             },
             link: function($scope) {
                 $scope.$watch('stateSignInForm');
