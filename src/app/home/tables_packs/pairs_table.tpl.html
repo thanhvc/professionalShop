@@ -36,7 +36,7 @@
             <table class="table-pack">
                 <tbody>
                 <tr ng-repeat="pack in homeTablePack.asiaContent track by $index" ui-sref="catalog({packId: pack.id})">
-                    <td ng-bind-html="pack.region"></td>
+                    <td>{{pack.region}}</td>
                     <td>{{pack.market}}</td>
                     <td>{{pack.numberPatterns}}</td>
                 </tr>
@@ -54,7 +54,7 @@
                 <tbody>
                 <tr ng-repeat="pack in homeTablePack.europeContent track by $index" ui-sref="catalog({packId: pack.id})">
                     <td>{{pack.region}}</td>
-                    <td ng-bind-html="pack.market"></td>
+                    <td>{{pack.market}}</td>
                     <td>{{pack.numberPatterns}}</td>
                 </tr>
                 </tbody>

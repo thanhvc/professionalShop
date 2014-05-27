@@ -90,7 +90,9 @@ describe('The publicSubmenu directive', function () {
     });
 });
 
-
+/**
+ * TODO: add items of differents types for a greater coverage test
+ */
 describe('The cart directive', function () {
     beforeEach(angular.mock.module("ngMo"));
     describe('template', function () {
@@ -108,7 +110,7 @@ describe('The cart directive', function () {
 
         addItemsToCart = function (numItems) {
             for (var i=0;i<numItems;i++){
-                $scope.addNewItemCart(1);
+                $scope.addNewItemCart(i);
                 $scope.$apply();
             }
         };
@@ -126,7 +128,6 @@ describe('The cart directive', function () {
         };
 
         obtainSubtotal = function (items, log){
-            var cont = true;
             angular.forEach(items,function(item) {
                         if (typeof item.attributes[0] != 'undefined') {
                             if (item.attributes[0].textContent === "subtotal-cart") {
@@ -201,7 +202,7 @@ describe('The cart directive', function () {
         }));
 
         //remove All items to cart
-        it('should have 0 items and total and subtotal equals 0', inject(function () {
+       it('should have 0 items and total and subtotal equals 0', inject(function () {
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(3);
@@ -222,5 +223,3 @@ describe('The cart directive', function () {
 
     });
 });
-
-

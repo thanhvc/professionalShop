@@ -1,7 +1,5 @@
 //Classes for advertising carousel
 .carousel-indicators{
-  /*bottom: -10px;
-  left: 93%;*/
   width: 355px !important;
   border-left: 1px solid @greyColor;
   float: right;
@@ -13,13 +11,12 @@
     display: block;
     width: 355px;
     height: 42px;
-    margin: 0px;
-    padding-left: 62px;
-    padding-right: 8px;
-    text-indent: 0px;
-    border-radius: 0px;
-    border: 0px;
-    border-bottom: 2px solid #ff6f00;
+    margin: 0;
+    padding: 3px 8px 0 62px;
+    text-indent: 0;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid @darkOrange;
     cursor: pointer;
     padding-top: 3px;
 
@@ -66,7 +63,7 @@
     color:black;
     width: 355px;
     height: 42px;
-    margin: 0px;
+    margin: 0;
     background-image: url('../assets/img/home/flecha1.png'), rgb(255,203,155); /* Old browsers */
     background-image: url('../assets/img/home/flecha1.png'), -moz-linear-gradient(right,  rgba(255,203,155,1) 0%, rgba(254,190,119,1) 46%, rgba(255,174,83,1) 100%); /* FF3.6+ */
     background-image: url('../assets/img/home/flecha1.png'), -webkit-gradient(linear, right top, left bottom, color-stop(0%,rgba(255,203,155,1)), color-stop(46%,rgba(254,190,119,1)), color-stop(100%,rgba(255,174,83,1))); /* Chrome,Safari4+ */
@@ -83,8 +80,8 @@
 .carousel-inner{
   width:auto;
   img{
-    margin:0px !important;
-    border-left:1px solid #9b9c9e;
+    margin:0 !important;
+    border-left:1px solid @greyColor;
 
   }
 }
@@ -110,12 +107,11 @@
 .carousel-caption-copyright{
   z-index: 16;
   height: 34px;
-  border-top: 2px solid #000;
+  border-top: 2px solid @black;
   margin-top: -33px;
   width: 602px;
-  background: #FFFFFF;
-  padding-top: 6px;
-  padding-bottom: 0px;
+  background: @white;
+  padding: 6px 0 0 0;
   border-bottom: 1px solid @greyColor;
   border-left: 1px solid @greyColor;
 }
@@ -142,24 +138,23 @@
 }
 
 .carousel-inner > .item{
-  //-webkit-animation: change-opacity 3s; /* Safari 4+ */
-  //-moz-animation:    change-opacity 3s; /* Fx 5+ */
-  //-o-animation:      change-opacity 3s; /* Opera 12+ */
-  //animation:         change-opacity 3s; /* IE 10+ */
-
   -webkit-transition: 0.0001s ease left;
+  -o-transition: 0.0001s ease left;
+  -moz-transition: 0.0001s ease left;
   transition: 0.0001s ease left;
 }
 
 .advertising-carousel-texts{
-  color:#ffffff;
-  font-weight: bold;
+  color:@white;
   font-family: fontpo-bold, verdana;
   font-size:12px;
 }
 
 .carousel-container{
+  position: relative;
+  z-index:5;
   margin-bottom: 20px;
+  margin-bottom: 20;
   margin-top:30px;
   -webkit-box-shadow: 2px 8px 10px -3px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    2px 8px 10px -3px rgba(50, 50, 50, 0.75);
@@ -173,48 +168,6 @@
 }
 /************************** End Classes for advertising carousel  *********************/
 
-
-/******* modal selectors  *******/
-
-.modal-content{
-  border-radius: 0px;
-  width: 1000px;
-  left:-190px;
-  border: 5px outset gray;
-}
-
-.modal-header{
-  border-bottom:0px;
-  margin-bottom: 25px;
-}
-
-.modal-body{
-  width: 946px;
-  height: 640px;
-  overflow-y: scroll;
-  text-align: justify;
-  margin-left: 25px;
-  margin-bottom: 40px;
-}
-
-.btn-close{
-  float:right;
-  background-image: url('../assets/img/close_modal.png');
-  background-color: transparent;
-  height: 22px;
-  width: 22px;
-  border: none;
-  &:hover{
-    font-weight: bold;
-  }
-  &:focus{
-    border:none;
-    outline-color:transparent;
-  }
-}
-
-//********************* end modal selectors   *****************************/
-
 /*****  home text Classes  *************/
 .home-text-container{
   width: 960px;
@@ -225,52 +178,53 @@
   position:relative;
   animation:texthomedelay 2s;
   animation-delay:2s;
-  /*Safari and Chrome*/
   -webkit-animation:texthomedelay 2s;
+  -moz-animation: texthomedelay 2s;
   -webkit-animation-delay:2s;
+  -moz-animation-delay:2s;
 }
 
 @keyframes texthomedelay
 {
   from {left:-100px;}
-  to {left:0px;}
+  to {left:0;}
 }
 
 @-webkit-keyframes texthomedelay
 {
   from {left:-100px;}
-  to {left:0px;}
+  to {left:0;}
 }
 /******* end home text classes ********/
 
 /************ catalog classes  *********/
 .catalog-title{
-  border-top:1px solid #1A171B;
+  border-top:1px solid @black;
   font-family: fontpo-bold;
   font-size: 14px;
 }
 
 .start-date-catalog-container{
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: @black;
+  color: @white;
   float: left;
   height: 35px;
-  padding: 5px 10px 0px 10px;
-  margin: 0px 5px 5px 0px;
+  padding: 5px 10px 0 10px;
+  margin: 0 5px 5px 0;
   font-size: 18px;
 }
 
 .region-catalog-container{
-  padding: 5px 10px 0px 10px;
-  margin: 0px 75px 5px 0px;
+  padding: 5px 10px 0 10px;
+  margin: 0 75px 5px 0;
   background-color: @orangeColor;
-  color: #FFFFFF;
+  color: @white;
   font-size: 18px;
   float:left;
   height: 35px;
 }
 
-#purchase-button{
+.purchase-button{
   position: relative;
   top:10px;
 }
@@ -279,7 +233,7 @@
   height: 70px;
   clear:both;
   background-color: @greyColor;
-  color: #FFFFFF;
+  color: @white;
   padding: 5px;
   margin-bottom: 5px;
 }
@@ -287,14 +241,14 @@
 .catalog-filter{
   height: 30px;
   padding: 5px;
-  color: #000000;
+  color: @black;
   input{
     width: 157px;
     height: 17px;
     border: none;
   }
   select{
-    background-color: #DDDDDD;
+    width: 147px;
   }
 }
 
@@ -308,30 +262,36 @@
   font-size: 11px;
   width: 100%;
   margin-bottom: 10px;
-  border: 1px solid #6F7072;
+  border: 1px solid @greyLabel;
   tr{
     height: 24px;
     &:nth-child(even) {
-      background-color: #ECECED;
+      background-color: @smokeGrey;
     }
     &:nth-child(odd) {
-      background-color: #ffffff !important;
+      background-color: @white !important;
     }
     &:nth-child(1){
-      color: #ffffff;
+      color: @white;
       background-color: @greyColor !important;
     }
     &:nth-child(2){
-      background-color: #C5C6C8 !important;
+      background-color: @greyPaginator !important;
     }
     td{
       font-size: 10px;
-      border-left: 1px solid #6F7072 !important;
-      border-right: 1px solid #6F7072 !important;
+      border-left: 1px solid @greyLabel !important;
+      border-right: 1px solid @greyLabel !important;
       &:nth-child(1){
         padding-left:5px;
         text-align: left;
         width: 221px;
+      }
+      &:nth-child(2){
+        width: 67px;
+      }
+      &:nth-child(3){
+        width: 223px;
       }
       &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(9) {
         font-family: fontpo-bold;
@@ -339,8 +299,8 @@
     }
     th{
       text-align: center;
-      border-left: 1px solid #6F7072 !important;
-      border-right: 1px solid #6F7072 !important;
+      border-left: 1px solid @greyLabel !important;
+      border-right: 1px solid @greyLabel !important;
     }
   }
 }
@@ -354,7 +314,7 @@
   a{
     font-size: 12px;
     font-family: fontpo-bold;
-    color: #083380;
+    color: @darkBlue;
     &:hover{
       text-decoration: none;
     }
@@ -380,4 +340,16 @@
   right: 8px;
 }
 /************** end catalog classes   **********/
+/**home texts*/
+.home-text-left{
+  width:48%;
+  float:left;
+  margin-right:20px;
+  text-align:justify;
+}
 
+.home-text-right{
+  width:49%;
+  float:left;
+  text-align:justify;
+}

@@ -12,7 +12,13 @@
             <tr ng-repeat="stockItem in stockItems">
                 <td>{{stockItem.packName}}</td>
                 <td>{{stockItem.startDate}}</td>
-                <td>{{stockItem.duration}}</td>
+                <td>
+                    <select ng-model="stockItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
                 <td>{{stockItem.price | number:2}} EUR</td>
                 <td><div class="delete-item-cart-button" ng-click="removeItemCart('stocks', stockItem)"></div></td>
             </tr>
@@ -35,7 +41,13 @@
             <tr ng-repeat="pairsItem in pairsItems">
                 <td>{{pairsItem.packName}}</td>
                 <td>{{pairsItem.startDate}}</td>
-                <td>{{pairsItem.duration}}</td>
+                <td>
+                    <select ng-model="pairsItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
                 <td>{{pairsItem.price | number:2}} EUR</td>
                 <td><div class="delete-item-cart-button" ng-click="removeItemCart('pairs', pairsItem)"></div></td>
             </tr>
@@ -58,7 +70,13 @@
             <tr ng-repeat="indicesItem in indicesItems">
                 <td>{{indicesItem.packName}}</td>
                 <td>{{indicesItem.startDate}}</td>
-                <td>{{indicesItem.duration}}</td>
+                <td>
+                    <select ng-model="indicesItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
                 <td>{{indicesItem.price | number:2}} EUR</td>
                 <td><div class="delete-item-cart-button" ng-click="removeItemCart('indices', indicesItem)"></div></td>
             </tr>
@@ -81,7 +99,13 @@
             <tr  ng-repeat="pairsIndicesItem in pairsIndicesItems">
                 <td>{{pairsIndicesItem.packName}}</td>
                 <td>{{pairsIndicesItem.startDate}}</td>
-                <td>{{pairsIndicesItem.duration}}</td>
+                <td>
+                    <select ng-model="pairsIndicesItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
                 <td>{{pairsIndicesItem.price | number:2}} EUR</td>
                 <td><div class="delete-item-cart-button" ng-click="removeItemCart('pairsIndices', pairsIndicesItem)"></div></td>
             </tr>
@@ -104,7 +128,13 @@
             <tr ng-repeat="futuresItem in futuresItems">
                 <td>{{futuresItem.packName}}</td>
                 <td>{{futuresItem.startDate}}</td>
-                <td>{{futuresItem.duration}}</td>
+                <td>
+                    <select ng-model="futuresItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
                 <td>{{futuresItem.price | number:2}} EUR</td>
                 <td><div class="delete-item-cart-button" ng-click="removeItemCart('futures', futuresItem)"></div></td>
             </tr>
