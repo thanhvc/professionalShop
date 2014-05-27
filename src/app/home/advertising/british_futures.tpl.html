@@ -1,4 +1,4 @@
-<div class="title-block-advertising">
+<div class="title-block-advertising" ng-controller="AppCtrl">
     <p class="text-block-title title-position-advertising">
         &iquest;Opera en Futuros SIN Informaci&oacute;n PROFESIONAL?
     </p>
@@ -56,10 +56,10 @@
         proporciona cada mes 100 Patrones –o estrategias- de los principales Productos y respectivos vencimientos
         que cotizan a Futuro, identificando las mejores fechas para operar. La informaci&oacute;n que publica el servicio
         NO son
-        <span   class="element-with-tooltip" tooltip-html-unsafe="{{tooltipOpinions}}"><b>Opiniones</b></span>
+        <span   class="element-with-tooltip"  ng-controller="HomeCtrl" tooltip-html-unsafe="{{tooltipOpinions}}"><b>Opiniones</b></span>
         y por tanto subjetivas, se usan datos de los
         &uacute;ltimos 15 a&ntilde;os y son
-        <span    class="element-with-tooltip" tooltip-html-unsafe="{{tooltipFact}}"><b>Hechos</b></span> verificables. Puede ampliar
+        <span    class="element-with-tooltip"  ng-controller="HomeCtrl" tooltip-html-unsafe="{{tooltipFact}}"><b>Hechos</b></span> verificables. Puede ampliar
         informaci&oacute;n en <a ui-sref="fundamentals" ng-mouseup="close()">Fundamentos</a></p>
 
     <p>La informaci&oacute;n de un Patr&oacute;n de Futuros es  <strong>sencilla</strong> de entender. Un ejemplo, Market

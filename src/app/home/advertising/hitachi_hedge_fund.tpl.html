@@ -1,4 +1,4 @@
-<div class="title-block-advertising">
+<div class="title-block-advertising" ng-controller="AppCtrl">
     <p class="text-block-title title-position-advertising">
         &iexcl;APRENDA a invertir como un Hedge Fund!
     </p>
@@ -31,10 +31,10 @@
         patrones -o estrategias- sobre PAR de Acciones identificando la Compa&ntilde;&iacute;a fuerte -a comprar-, y d&eacute;bil -a
         vender-, durante el periodo de tiempo &oacute;ptimo de mejor rentabilidad y mayor frecuencia de ganancias. La
         informaci&oacute;n que publica el servicio NO son
-        <span class="element-with-tooltip" tooltip-html-unsafe="{{tooltipOpinions}}"><b>Opiniones</b></span>&nbsp;y por
+        <span class="element-with-tooltip" ng-controller="HomeCtrl" tooltip-html-unsafe="{{tooltipOpinions}}"><b>Opiniones</b></span>&nbsp;y por
         tanto
         subjetivas, se usan datos de los &uacute;ltimos 15 a&ntilde;os y son
-        <span class="element-with-tooltip" tooltip-html-unsafe="{{tooltipFact}}"><b>Hechos</b></span>
+        <span class="element-with-tooltip" ng-controller="HomeCtrl" tooltip-html-unsafe="{{tooltipFact}}"><b>Hechos</b></span>
         verificables. Puede ampliar informaci&oacute;n en
         <a ui-sref="fundamentals" ng-mouseup="close()">Fundamentos</a>.</p>
 

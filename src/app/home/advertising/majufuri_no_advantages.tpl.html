@@ -1,4 +1,4 @@
-<div class="title-block-advertising" ng-controller="HomeCtrl">
+<div class="title-block-advertising"  ng-controller="AppCtrl">
     <p class="text-block-title title-position-advertising">
         &iquest;Todav&iacute;a se atreve a Invertir en Bolsa SIN VENTAJAS?
     </p>
@@ -47,9 +47,9 @@
         mes 100 patrones -o estrategias- de las Compa&ntilde;&iacute;as que han demostrado mejor rentabilidad, mayor
         frecuencia de
         ganancias y el periodo &oacute;ptimo para invertir. La informaci&oacute;n que publica el servicio NO
-        son&nbsp; <span id="opinion2" class="element-with-tooltip" tooltip-html-unsafe="{{tooltipOpinions}}"><b>Opiniones</b></span>&nbsp;
+        son&nbsp; <span id="opinion2" class="element-with-tooltip" ng-controller="HomeCtrl" tooltip-html-unsafe="{{tooltipOpinions}}"><b>Opiniones</b></span>&nbsp;
         y por tanto subjetivas, se usan datos de los &uacute;ltimos
-        15 a&ntilde;os y son&nbsp;<span id="hechos2"  class="element-with-tooltip" tooltip-html-unsafe="{{tooltipFact}}"><b>Hechos</b></span>&nbsp;
+        15 a&ntilde;os y son&nbsp;<span id="hechos2"  ng-controller="HomeCtrl" class="element-with-tooltip" tooltip-html-unsafe="{{tooltipFact}}"><b>Hechos</b></span>&nbsp;
         verificables. Puede ampliar
         informaci&oacute;n en&nbsp;<a ui-sref="fundamentals" ng-mouseup="close()">Fundamentos.</a></p>
 
