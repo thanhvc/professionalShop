@@ -324,8 +324,14 @@ angular.module('ngMo.home', [
     })
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, ActualDateService) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, ActualDateService, AnchorLinkService) {
         $scope.myInterval = 6000;
+
+        $scope.scrollTo = AnchorLinkService.scrollTo;
+        $scope.tooltipOpinions= $templateCache.get("tooltips/opinion.tpl.html");
+        $scope.tooltipReliability = $templateCache.get("tooltips/reliatibility.tpl.html");
+        $scope.tooltipPeriods = $templateCache.get("tooltips/period.tpl.html");
+        $scope.tooltipFact = $templateCache.get("tooltips/fact.tpl.html");
 
         $scope.myslides = [
             {
@@ -374,15 +380,7 @@ angular.module('ngMo.home', [
                 "</div>\n" +
                 "");
 
-        $scope.tooltipFact = "<div style='width:780px'>Hecho:<br>Algo basado en datos verificables. Si además el hecho es objetivo, la información debe ser completa y revelar todos los detalles.</div>";
-        $scope.tooltipReliability = "<div style='width:640px'>En Market Observatory, una <strong>Fiabilidad o Frecuencia 90%</strong> de aciertos significa:<br><ul class='public-list-first-level'>"+
-            "<li class='listadoFlechas textoEstaticoPublicidad'>La mayor parte de los Patrones o Estrategias publicadas en la Web tienen 0 fallos en 15 años -fiabilidad 100%- o 1 fallo en 15 años -fiabilidad del 93%-</li>"+
-            "<li class='listadoFlechas textoEstaticoPublicidad'>El resto de Patrones tienen 2 fallos en 15 años -fiabilidad del 87%-.</li>"+
-        "</ul></div>";
-        $scope.tooltipPeriods = "<div style='width:640px'>En Market Observatory, un <strong>Periodo óptimo</strong> para invertir supone:<br>"+
-         "<ul class='public-list-first-level'><li class='listadoFlechas textoEstaticoPublicidad'>Maximizar la rentabilidad, con la mayor frecuencia de aciertos, reduciendo las pérdidas en los años con fallo y exponiéndose al riesgo de mercado durante el menor tiempo posible.</li></ul></div>";
-        $scope.tooltipOpinions = "<div style='width:780px'>Opinión:<br>Algo \"personal\" que se expresa y no se puede garantizar que sea verdad. Una opinión es similar a una predicción.</div>";
-
+       
         //Tabs home table Pack's
         $scope.homeTablePacks = [
             {
