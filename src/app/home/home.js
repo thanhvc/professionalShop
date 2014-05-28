@@ -325,8 +325,14 @@ angular.module('ngMo.home', [
     })
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, ActualDateService) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, ActualDateService, AnchorLinkService) {
         $scope.myInterval = 6000;
+
+        $scope.scrollTo = AnchorLinkService.scrollTo;
+        $scope.tooltipOpinions= $templateCache.get("tooltips/opinion.tpl.html");
+        $scope.tooltipReliability = $templateCache.get("tooltips/reliatibility.tpl.html");
+        $scope.tooltipPeriods = $templateCache.get("tooltips/period.tpl.html");
+        $scope.tooltipFact = $templateCache.get("tooltips/fact.tpl.html");
 
         $scope.myslides = [
             {

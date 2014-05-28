@@ -64,7 +64,12 @@ angular.module('ngMo', [
           return activeTab;
         };
     })
-
+    .service('AnchorLinkService', function ($location, $anchorScroll){
+        this.scrollTo = function(id){
+            $location.hash(id);
+            $anchorScroll();
+        };
+    })
     .service('ArrayContainItemService', function () {
         this.containItem = function (array, itemArray) {
             var contain = false;
@@ -288,7 +293,6 @@ angular.module('ngMo', [
 
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
-
         });
     })
 
