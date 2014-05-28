@@ -40,9 +40,9 @@
             <div id="menu-nav-id" class="menu-nav">
                 <div>
                     <div id="nav-cont-id" class="nav-cont" ng-controller="AppCtrl">
-                        <nav ng-show="moMenuType == 'publicMenu'" public-menu id="menu-not-logged" class="navbar font-verdana-bold menu-not-logged"></nav>
-                        <nav public-sub-menu id="sub-menu-public" class="font-verdana-bold sub-menu-public"></nav>
-                        <nav ng-show="moMenuType == 'privateMenu'" private-menu id="menu-logged" class="navbar font-verdana-bold private-menu"></nav>
+                        <nav ng-show="moMenuType == 'privateMenu'" private-menu id="menu-logged" class="font-verdana-bold private-menu"></nav>
+                        <nav public-menu ng-show="moMenuType == 'publicMenu'" id="menu-not-logged" class="navbar font-verdana-bold menu-not-logged"></nav>
+                        <nav ng-show="moMenuType == 'publicMenu'"  public-sub-menu id="sub-menu-public" class="font-verdana-bold sub-menu-public"></nav>
                     </div>
                 </div>
             </div>

@@ -280,7 +280,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, SignInFormState) {
+    .controller('AppCtrl', function AppCtrl($scope) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
 
@@ -357,6 +357,8 @@ angular.module('ngMo', [
                 };
             },
             link: function($scope) {
+                $scope.$watch('actualSubmenu', function(){});
+                $scope.$watch('selectSubmenu', function(){});
             },
             templateUrl:'layout_templates/public-submenu.tpl.html'
         };
