@@ -213,23 +213,23 @@
 .info-selected{
   position:relative;
   animation:texthomedelay 2s;
-  animation-delay:2s;
+  /*animation-delay:2s;*/
   -webkit-animation:texthomedelay 2s;
   -moz-animation: texthomedelay 2s;
-  -webkit-animation-delay:2s;
-  -moz-animation-delay:2s;
+/*  -webkit-animation-delay:2s;
+  -moz-animation-delay:2s;*/
 }
 
 @keyframes texthomedelay
 {
-  from {left:-100px;}
-  to {left:0;}
+  from {left:-100px; opacity:0; }
+  to {left:0; opacity: 1}
 }
 
 @-webkit-keyframes texthomedelay
 {
-  from {left:-100px;}
-  to {left:0;}
+  from {left:-100px; opacity: 0; }
+  to {left:0;  opacity: 1;}
 }
 /******* end home text classes ********/
 
