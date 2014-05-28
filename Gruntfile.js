@@ -581,7 +581,7 @@ module.exports = function ( grunt ) {
      * The default task is to build and compile.
      */
     grunt.registerTask( 'default', [ 'build', 'compile' ] );
-    grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e'])
+    grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e']);
     /**
      * The `build` task gets your app ready to run for development and testing.
      */
