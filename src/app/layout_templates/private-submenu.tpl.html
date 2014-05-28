@@ -1,0 +1,29 @@
+<!-- SubMenu que se muestra en la parte privada cuando el usuario está logueado -->
+
+<ul id="submenu1" class="private-submenu"
+    ng-class="{'display-block': actualSubmenu == 'submenu1' || selectSubmenu == 'submenu1', 'display-none': actualSubmenu != 'submenu1' || selectSubmenu!= 'submenu1'}">
+    <li id="portfolio-nav"
+        ng-click="onClickSubmenu('portfolio-nav')"
+        ng-mouseenter="onMouseEnterSubmenu('tools-nav','submenu1','portfolio-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a
+           ng-class="{'item-nav-hover': selectItemSubmenu == 'portfolio-nav' || actualItemSubmenu == 'portfolio-nav'}">
+            Cartera
+        </a>
+    <li id="correlation-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('tools-nav','submenu1','correlation-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a  ng-class="{'item-nav-hover': selectItemSubmenu == 'correlation-nav'
+            || actualItemSubmenu == 'correlation-nav'}">
+            Correlación
+        </a>
+    <li id="volatility-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('tools-nav','submenu1','volatility-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a  ng-class="{'item-nav-hover': selectItemSubmenu == 'volatility-nav'
+            || actualItemSubmenu == 'volatility-nav'}">
+            Volatilidad
+        </a>
+</ul>
