@@ -35,8 +35,9 @@
     "karma-coffee-preprocessor": "^0.2.1",
     "karma": "^0.12.9",
     "grunt-lesslint": "0",
-      "karma-coverage": "0",
-      "karma-junit-reporter": "0"
-
+    "karma-coverage": "0",
+    "karma-junit-reporter": "0",
+    "grunt-protractor-runner": "0",
+    "grunt-protractor-webdriver": "0"
   }
 }
