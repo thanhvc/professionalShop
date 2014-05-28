@@ -18,7 +18,8 @@ angular.module('ngMo.contact', [
                 pageTitle: 'Soporte',
                 selectMenu: 'contact-nav',
                 selectSubmenu: 'submenu6',
-                selectItemSubmenu: 'support-nav'
+                selectItemSubmenu: 'support-nav',
+                moMenuType: 'publicMenu'
             }
         })
             .state('business', {
@@ -33,7 +34,8 @@ angular.module('ngMo.contact', [
                     pageTitle: 'Empresas',
                     selectMenu: 'contact-nav',
                     selectSubmenu: 'submenu6',
-                    selectItemSubmenu: 'business-nav'
+                    selectItemSubmenu: 'business-nav',
+                    moMenuType: 'publicMenu'
                 }
             })
             .state('job', {
@@ -48,7 +50,8 @@ angular.module('ngMo.contact', [
                     pageTitle: 'Empleo',
                     selectMenu: 'contact-nav',
                     selectSubmenu: 'submenu6',
-                    selectItemSubmenu: 'job-nav'
+                    selectItemSubmenu: 'job-nav',
+                    moMenuType: 'publicMenu'
                 }
             })
             .state('localization', {
@@ -63,7 +66,8 @@ angular.module('ngMo.contact', [
                     pageTitle: 'Localizacion',
                     selectMenu: 'contact-nav',
                     selectSubmenu: 'submenu6',
-                    selectItemSubmenu: 'localization-nav'
+                    selectItemSubmenu: 'localization-nav',
+                    moMenuType: 'publicMenu'
                 }
             });
 

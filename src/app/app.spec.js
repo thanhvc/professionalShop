@@ -12,10 +12,10 @@ describe('The publicMenu directive', function () {
             $scope = _$rootScope_.$new();
             $state =  _$state_;
         }));
-        it('should produce 6 menu items', inject(function () {
+        it('should produce 7 menu items', inject(function () {
             var template = $compile("<nav public-menu></nav>")($scope);
             $scope.$apply();
-            expect(template.find('li').length).toEqual(6);
+            expect(template.find('li').length).toEqual(7);
         }));
         it('should have \'item-nav-hover\' class', inject(function () {
             $state.go('organization');
