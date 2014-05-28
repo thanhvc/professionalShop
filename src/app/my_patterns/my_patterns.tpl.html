@@ -1,0 +1,42 @@
+<div>
+    <div>
+        <p>Mis Patrones</p></div>
+    <div>
+        La tabla muestra las estrategias clasificadas por mes de publicación ordenadas por Fecha de Entrada.<img
+            src="assets/img/textdown.png"><a>Mostrar m&aacute;s</a>
+    </div>
+    <div>
+        <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<<' y
+            '>>'. Para cambiar de grupo de
+            Productos haga click sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
+
+        <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
+
+        <p>Haciendo clic en la celda de la columna izquierda 'Id'. puede ver:</p>
+        <ul class="public-list-first-level list-left-first-level">
+            <li>Tablas de Detalle del Patrón.</li>
+            <li>Evolución gráfica de la cotización en curso superpuesta sobre Patrón.</li>
+        </ul>
+        <p>La marca de Favorito 'Fav.', se usa para diferenciar las estrategias preferidas, facilitar la gestión y
+            análisis. Más información.</p>
+
+        <p>
+            <img src="assets/img/textup.png"> <a>Mostrar menos</a>
+        </p>
+    </div>
+
+    <div>
+
+        <tabset>
+            <tab ng-click="onClickTab(homeTablePack.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}" active="ctab.active" disabled="tab.disabled">
+                <div class="black-head header-month-filter">
+                    Mayo
+                </div>
+                <div class="filter-container">
+                    <!--filters-->
+                </div>
+            </tab>
+        </tabset>
+    </div>
+
+</div>
