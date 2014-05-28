@@ -8,6 +8,7 @@ angular.module('ngMo', [
         'ngMo.subscriptions_and_prices',
         'ngMo.investor_tools',
         'ngMo.contact',
+        'ngMo.my_patterns',
         'ui.router',
         'gettext' ,
         'singUp',
