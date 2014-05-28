@@ -18,7 +18,8 @@ angular.module('ngMo.services', [
                 pageTitle: 'Resumen',
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
-                selectItemSubmenu: 'summary-nav'
+                selectItemSubmenu: 'summary-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('products_and_exchanges', {
@@ -33,7 +34,8 @@ angular.module('ngMo.services', [
                 pageTitle: 'Productos y Mercados',
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
-                selectItemSubmenu: 'products-and-exchanges-nav'
+                selectItemSubmenu: 'products-and-exchanges-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('detailed_description', {
@@ -48,7 +50,8 @@ angular.module('ngMo.services', [
                 pageTitle: 'Descripcion Detallada',
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
-                selectItemSubmenu: 'detailed-description-nav'
+                selectItemSubmenu: 'detailed-description-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('fundamentals', {
@@ -63,7 +66,8 @@ angular.module('ngMo.services', [
                 pageTitle: 'Fundamentos',
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
-                selectItemSubmenu: 'fundamentals-nav'
+                selectItemSubmenu: 'fundamentals-nav',
+                moMenuType: 'publicMenu'
             }
         });
 

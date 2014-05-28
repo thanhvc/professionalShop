@@ -18,7 +18,8 @@ angular.module('ngMo.subscriptions_and_prices', [
                 pageTitle: 'Precios',
                 selectMenu: 'subscriptions-and-prices-nav',
                 selectSubmenu: 'submenu4',
-                selectItemSubmenu: 'prices-nav'
+                selectItemSubmenu: 'prices-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('products', {
@@ -33,7 +34,8 @@ angular.module('ngMo.subscriptions_and_prices', [
                 pageTitle: 'Productos y Mercados',
                 selectMenu: 'subscriptions-and-prices-nav',
                 selectSubmenu: 'submenu4',
-                selectItemSubmenu: 'products-nav'
+                selectItemSubmenu: 'products-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('subscription_types', {
@@ -48,7 +50,8 @@ angular.module('ngMo.subscriptions_and_prices', [
                 pageTitle: 'Tipos Suscripcion',
                 selectMenu: 'subscriptions-and-prices-nav',
                 selectSubmenu: 'submenu4',
-                selectItemSubmenu: 'subscription-types-nav'
+                selectItemSubmenu: 'subscription-types-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('purchase', {
@@ -63,7 +66,8 @@ angular.module('ngMo.subscriptions_and_prices', [
                 pageTitle: 'Comprar',
                 selectMenu: 'subscriptions-and-prices-nav',
                 selectSubmenu: 'submenu4',
-                selectItemSubmenu: 'purchase-nav'
+                selectItemSubmenu: 'purchase-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('free_subscription', {
@@ -78,7 +82,8 @@ angular.module('ngMo.subscriptions_and_prices', [
                 pageTitle: 'Suscripcion Gratis 15 dias',
                 selectMenu: 'subscriptions-and-prices-nav',
                 selectSubmenu: 'submenu4',
-                selectItemSubmenu: 'free-subscription-nav'
+                selectItemSubmenu: 'free-subscription-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('shopping_guide', {
@@ -93,7 +98,8 @@ angular.module('ngMo.subscriptions_and_prices', [
                 pageTitle: 'Guia Compras',
                 selectMenu: 'subscriptions-and-prices-nav',
                 selectSubmenu: 'submenu4',
-                selectItemSubmenu: 'shopping-guide-nav'
+                selectItemSubmenu: 'shopping-guide-nav',
+                moMenuType: 'publicMenu'
             }
         });
 
