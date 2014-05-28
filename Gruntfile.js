@@ -581,14 +581,14 @@ module.exports = function ( grunt ) {
      * The default task is to build and compile.
      */
     grunt.registerTask( 'default', [ 'build', 'compile' ] );
-    grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e'])
+    grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e']);
     /**
      * The `build` task gets your app ready to run for development and testing.
      */
     grunt.registerTask( 'build', [
         'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
         'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-        'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig', 'e2e',
+        'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
         'karma:continuous'
     ]);
 

@@ -16,6 +16,7 @@ $ git clone https://github.com/edosoft/mo-shopclient.git cd ng-boilerplate
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
 $ bower install
+$ node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update
 $ grunt watch --force
 ```
 ##Development server
