@@ -3,9 +3,9 @@
         <p>Mis Patrones</p></div>
     <div>
         La tabla muestra las estrategias clasificadas por mes de publicación ordenadas por Fecha de Entrada.<img
-            src="assets/img/textdown.png"><a>Mostrar m&aacute;s</a>
+            src="assets/img/textdown.png"><a ng-click="show=!show" ng-show="!show">Mostrar m&aacute;s</a>
     </div>
-    <div>
+    <div ng-show="show">
         <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<<' y
             '>>'. Para cambiar de grupo de
             Productos haga click sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
@@ -21,19 +21,36 @@
             análisis. Más información.</p>
 
         <p>
-            <img src="assets/img/textup.png"> <a>Mostrar menos</a>
+            <img src="assets/img/textup.png"> <a ng-click="show=!show">Mostrar menos</a>
         </p>
     </div>
 
     <div>
 
         <tabset>
-            <tab ng-click="onClickTab(homeTablePack.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}" active="ctab.active" disabled="tab.disabled">
+            <tab ng-click="onClickTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+                 active="ctab.active" disabled="tab.disabled">
                 <div class="black-head header-month-filter">
                     Mayo
                 </div>
                 <div class="filter-container">
                     <!--filters-->
+                </div>
+                <div>
+                    <!--headerTable-->
+                    <div style="height: 25px; border-top: 3px solid white;">
+                        <div class="table-header-private">Id</div>
+                        <div class="table-header-private">Acci&oacute;</div>
+                        <div class="table-header-private">Sector / Industria</div>
+                        <div class="table-header-private">Merc</div>
+                        <div class="table-header-private">Fechas</div>
+                        <div class="table-header-private">Rentabilidad (%)</div>
+                        <div class="table-header-private">Dur.</div>
+                        <div class="table-header-private">Vol.</div>
+                        <div class="table-header-private">Fav.</div>
+                        <div class="table-header-private">Est.</div>
+                    </div>
+                    <div ng-grid="gridOptions" class="grid-private"></div>
                 </div>
             </tab>
         </tabset>

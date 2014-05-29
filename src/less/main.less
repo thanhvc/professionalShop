@@ -1658,7 +1658,39 @@ select{
   margin-bottom: 3px;
   background-color: @greyBorderColor;
 }
-/**
+//table general config
+.grid-private {
+    border: 1px solid rgb(212,212,212);
+    width: 950px;
+    height: 340px;
+    font-size: 10px;
+    font-family: fontpo, Verdana;
+}
+
+.orange-cell {
+  background-color: #FF8200;
+  color: white !important;
+  border-bottom: 3px solid white !important;
+  font-size: 11px !important;
+  text-align: center;
+  font-family: fontpo-bold, verdana;
+}
+.table-header-private {
+  border-right: 1px solid #6f7072;
+  background-color: #868789;
+  color: white;
+  font-weight: 100;
+  font-size: 11px;
+  float: left;
+  height: 25px;
+}
+
+.cell-table-private {
+  padding: 2px;
+  vertical-align: middle;
+}
+/*
+*
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using.
  *
