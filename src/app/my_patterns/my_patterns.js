@@ -125,7 +125,7 @@ angular.module('ngMo.my_patterns', [
 
 
         //template de header
-        var templateHeader1 = "<div>Años</div><div>Gan.</div>";
+        var templateHeader1 = "<div>1 {{row.getProperty('name')}}</div><div>2 {{row.getProperty('type')}}</div>";
         var templateHeader2 = "<div>Años</div><div>Per.</div>";
 
         $scope.gridOptions = {
@@ -137,7 +137,7 @@ angular.module('ngMo.my_patterns', [
             filterOptions: $scope.filterOptions,
             columnDefs: [
                 { field: 'Id',  displayName: 'Id', width: 30, cellClass: "orange-cell"  },
-                { field: 'name', displayName: 'Nombre', width: 230, cellClass: 'cell-table-private' },
+                { field: 'name', cellTemplate: templateHeader1, displayName: 'Nombre', width: 230, cellClass: 'cell-table-private' },
                 { field: 'Sector_Industria', displayName: " ", width: 150, cellClass: 'cell-table-private' },
                 { field: 'merc', displayName: "merc", width: 45, cellClass: 'cell-table-private'},
                 { field: 'Year', displayName: "Gan.",  width:30, cellClass: 'cell-table-private'},
