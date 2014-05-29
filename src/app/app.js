@@ -9,6 +9,7 @@ angular.module('ngMo', [
         'ngMo.investor_tools',
         'ngMo.contact',
         'ngMo.my_patterns',
+        'ngMo.the_week',
         'ui.router',
         'gettext' ,
         'singUp',
@@ -29,7 +30,8 @@ angular.module('ngMo', [
                 pageTitle: 'Home',
                 selectMenu: '',
                 selectSubmenu: '',
-                selectItemSubmenu: ''
+                selectItemSubmenu: '',
+                moMenuType: 'publicMenu'
             }
         })
         .state('forgotten-password', {
@@ -44,7 +46,8 @@ angular.module('ngMo', [
                 pageTitle: 'forgotten-password',
                 selectMenu: '',
                 selectSubmenu: '',
-                selectItemSubmenu: ''
+                selectItemSubmenu: '',
+                moMenuType: 'publicMenu'
              }
         });
         $urlRouterProvider.otherwise('/home');
@@ -278,7 +281,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, SignInFormState) {
+    .controller('AppCtrl', function AppCtrl($scope) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
 
@@ -287,20 +290,20 @@ angular.module('ngMo', [
             $scope.selectItemSubmenu = toState.data.selectItemSubmenu;
             $scope.actualMenu = '';
             $scope.actualSubmenu = '';
+            $scope.moMenuType = toState.data.moMenuType;
 
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
-
-
         });
     })
 
 /**
  * Directive for public nav
  */
-    .directive('publicMenu',function (){
+    .directive('publicMenu',function ($compile){
         return {
             controller: function($scope, $state){
+                $scope.isLogged = true;
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
                     $scope.actualMenu = idMenu;
                     $scope.actualSubmenu = idSubmenu;
@@ -314,11 +317,22 @@ angular.module('ngMo', [
                     }
                 };
             },
-            link: function($scope) {
+            link: function($scope, element) {
                $scope.$watch('actualSubmenu', function(){});
                $scope.$watch('selectSubmenu', function(){});
+                if ($scope.isLogged) {
+                    var itemPublicMenu = angular.element("<ul class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
+                        "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
+                        "ng-mouseleave=\"onMouseLeaveMenu()\"" +
+                        "ng-class=\"{'item-nav-hover':actualMenu == 'my-patterns-nav'}\">" +
+                        "<a ui-sref=\"my-patterns\">" +
+                        "Mis Patrones" +
+                        "</a></ul>");
+                    element.append(itemPublicMenu);
+                    $compile(element.contents())($scope);
+                }
             },
-            templateUrl:'layout_templates/publicMenuNotLogged.tpl.html'
+            templateUrl:'layout_templates/public-menu.tpl.html'
         };
     })
     .directive('publicSubMenu',function (){
@@ -344,8 +358,33 @@ angular.module('ngMo', [
                 };
             },
             link: function($scope) {
+                $scope.$watch('actualSubmenu', function(){});
+                $scope.$watch('selectSubmenu', function(){});
             },
-            templateUrl:'layout_templates/publicSubMenuNotLogged.tpl.html'
+            templateUrl:'layout_templates/public-submenu.tpl.html'
+        };
+    })
+
+    .directive('privateMenu',function (){
+        return {
+            controller: function($scope, $state){
+                $scope.onMouseEnterMenu = function(idMenu) {
+                    $scope.actualMenu = idMenu;
+                };
+                $scope.onMouseLeaveMenu = function() {
+                    if ($state.current.data.selectMenu !== '' && $scope.actualMenu !== $state.current.data.selectMenu) {
+                        $scope.actualMenu = $state.current.data.selectMenu;
+                    }
+                };
+                $scope.onClickMenu = function () {
+                    $scope.actualMenu = '';
+                    $scope.actualSubmenu = '';
+                    $scope.actualItemSubmenu = '';
+                };
+            },
+            link: function($scope) {
+            },
+            templateUrl:'layout_templates/private-menu.tpl.html'
         };
     })
 

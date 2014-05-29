@@ -15,7 +15,8 @@ angular.module('ngMo.market_observatory', [
                 pageTitle: 'Organizacion',
                 selectMenu: 'market-observatory-nav',
                 selectSubmenu: 'submenu1',
-                selectItemSubmenu: 'organization-nav'
+                selectItemSubmenu: 'organization-nav',
+                typeMenu: 'publicMenu'
 
             }
         })
@@ -31,7 +32,8 @@ angular.module('ngMo.market_observatory', [
                     pageTitle: 'Qué Es y Qué No Es',
                     selectMenu: 'market-observatory-nav',
                     selectSubmenu: 'submenu1',
-                    selectItemSubmenu: 'what-is-and-what-is-not-nav'
+                    selectItemSubmenu: 'what-is-and-what-is-not-nav',
+                    typeMenu: 'publicMenu'
                 }
             })
             .state('service_conditions', {
@@ -46,7 +48,8 @@ angular.module('ngMo.market_observatory', [
                     pageTitle: 'service_conditions',
                     selectMenu: 'market-observatory-nav',
                     selectSubmenu: 'submenu1',
-                    selectItemSubmenu: 'service-conditions-nav'
+                    selectItemSubmenu: 'service-conditions-nav',
+                    typeMenu: 'publicMenu'
                 }
             })
             .state('data_protection', {
@@ -61,7 +64,8 @@ angular.module('ngMo.market_observatory', [
                     pageTitle: 'Protecció;n de Datos',
                     selectMenu: 'market-observatory-nav',
                     selectSubmenu: 'submenu1',
-                    selectItemSubmenu: 'data-protection-nav'
+                    selectItemSubmenu: 'data-protection-nav',
+                    typeMenu: 'publicMenu'
                 }
             });
 

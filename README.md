@@ -16,6 +16,7 @@ $ git clone https://github.com/edosoft/mo-shopclient.git cd ng-boilerplate
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
 $ bower install
+$ node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update
 $ grunt watch --force
 ```
 ##Development server
@@ -154,7 +155,15 @@ learn more.
   self-executing anonymous function to ensure no clashes with other libraries.
 - `package.json` - metadata about the app, used by NPM and our build script. Our
   NPM dependencies are listed here.
+  
+##E2E Test
 
+Run 
+
+´´´
+grunt e2e
+´´´
+in order to execute End to End Tests. (Google Chrome needed)
 ### Detailed Installation
 
 This section provides a little more detailed understanding of what goes into

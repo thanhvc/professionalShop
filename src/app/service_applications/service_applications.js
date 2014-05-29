@@ -18,7 +18,8 @@ angular.module('ngMo.service_applications', [
                 pageTitle: 'Acciones',
                 selectMenu: 'service-applications-nav',
                 selectSubmenu: 'submenu3',
-                selectItemSubmenu: 'stocks-nav'
+                selectItemSubmenu: 'stocks-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('funds', {
@@ -33,7 +34,8 @@ angular.module('ngMo.service_applications', [
                 pageTitle: 'Fondos',
                 selectMenu: 'service-applications-nav',
                 selectSubmenu: 'submenu3',
-                selectItemSubmenu: 'funds-nav'
+                selectItemSubmenu: 'funds-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('etf_cfd', {
@@ -48,7 +50,8 @@ angular.module('ngMo.service_applications', [
                 pageTitle: 'ETF\'s, CFD\'s',
                 selectMenu: 'service-applications-nav',
                 selectSubmenu: 'submenu3',
-                selectItemSubmenu: 'etf-cfd-nav'
+                selectItemSubmenu: 'etf-cfd-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('futures', {
@@ -63,7 +66,8 @@ angular.module('ngMo.service_applications', [
                 pageTitle: 'Futuros',
                 selectMenu: 'service-applications-nav',
                 selectSubmenu: 'submenu3',
-                selectItemSubmenu: 'futures-nav'
+                selectItemSubmenu: 'futures-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('pairs', {
@@ -78,7 +82,8 @@ angular.module('ngMo.service_applications', [
                 pageTitle: 'Pares',
                 selectMenu: 'service-applications-nav',
                 selectSubmenu: 'submenu3',
-                selectItemSubmenu: 'pairs-nav'
+                selectItemSubmenu: 'pairs-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('advanced', {
@@ -93,7 +98,8 @@ angular.module('ngMo.service_applications', [
                 pageTitle: 'Avanzado',
                 selectMenu: 'service-applications-nav',
                 selectSubmenu: 'submenu3',
-                selectItemSubmenu: 'advanced-nav'
+                selectItemSubmenu: 'advanced-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('diversification', {
@@ -108,7 +114,8 @@ angular.module('ngMo.service_applications', [
                 pageTitle: 'Diversificacion',
                 selectMenu: 'service-applications-nav',
                 selectSubmenu: 'submenu3',
-                selectItemSubmenu: 'diversification-nav'
+                selectItemSubmenu: 'diversification-nav',
+                moMenuType: 'publicMenu'
             }
         });
 

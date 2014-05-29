@@ -22,6 +22,7 @@ angular.module('ngMo.services', [
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
                 selectItemSubmenu: 'summary-nav',
+                moMenuType: 'publicMenu',
                 subPage: 'none'
             }
         })
@@ -60,7 +61,8 @@ angular.module('ngMo.services', [
                 pageTitle: 'Productos y Mercados',
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
-                selectItemSubmenu: 'products-and-exchanges-nav'
+                selectItemSubmenu: 'products-and-exchanges-nav',
+                moMenuType: 'publicMenu'
             }
         })
         .state('detailed_description', {
@@ -78,7 +80,8 @@ angular.module('ngMo.services', [
                 pageTitle: 'Descripcion Detallada',
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
-                selectItemSubmenu: 'detailed-description-nav'
+                selectItemSubmenu: 'detailed-description-nav',
+                moMenuType: 'publicMenu'
             }
         })
             //subpages of detailed_description
@@ -207,7 +210,8 @@ angular.module('ngMo.services', [
                 pageTitle: 'Fundamentos',
                 selectMenu: 'services-nav',
                 selectSubmenu: 'submenu2',
-                selectItemSubmenu: 'fundamentals-nav'
+                selectItemSubmenu: 'fundamentals-nav',
+                moMenuType: 'publicMenu'
             }
         });
 
@@ -219,6 +223,5 @@ angular.module('ngMo.services', [
     .controller('ServicesCtrl', function ServicesCtrl($scope) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
-            if ( (typeof toState.data.subPage !== 'undefined')) {$scope.subPage = toState.data.subPage; }
         });
     }) ;
