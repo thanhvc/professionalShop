@@ -1,1 +1,41 @@
-La Semana
+
+<div class="super-border private-black-title">La Semana. Estadísticas</div>
+<div class="private-container-text">
+    <p>
+        Muestra datos de probabilidades de la semana en curso y cada sesión diaria, de los principales indicadores de
+        mercados desglosados en tres grupos:
+
+        <ul class="public-list-first-level">
+            <li>Índices de Bolsa.</li>
+            <li>Índices de Materias Primas.</li>
+            <li>Radiografía del Índice S&P 500, composición Sectorial e Industrial.</li>
+        </ul>
+    </p>
+    <p>Los datos se leen como sigue: <span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
+    <div ng-show="show">
+        <img ng-src="assets/img/semana.png"/>
+        <p>
+            Durante la semana comprendida entre los días 18 y 22 del mes, el Índice Dow Jones Industrial Average ha tenido
+            una Rentabilidad promedio negativa de 0,77 %, resultado de 6 años alcistas –en verde- y 11 bajistas –en marrón-
+            en los últimos 17 años. Cuando la frecuencia estadística es superior al 85% se incluye el símbolo de un Toro si
+            predominan resultados Alcistas y de un Oso si son Bajistas.
+        </p>
+        <img ng-src="assets/img/semana-leyenda.png"/>
+        <p>La interpretación de estadística diaria es similar a la semanal. <a ui-sref="detailed_description.week">Más información.</a></p>
+        <br/>
+        <br/>
+        <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
+    </div>
+
+</div>
+
+<div class="the-week-header">
+    {{mondayDay}} {{month}} / {{mondayDay+4}} {{month}}. Año {{year}} (semana {{weekOfYear}})
+</div>
+
+<tabset>
+    <tab ng-click="onClickTab(the_week_table.value)" ng-repeat="the_week_table in the_week_tables" heading="{{the_week_table.title}}" active="tab.active" disabled="tab.disabled">
+        <div ng-include="the_week_table.url"></div>
+    </tab>
+</tabset>
+<span class="copyright">Copyright © 2014 Market Observatory</span>

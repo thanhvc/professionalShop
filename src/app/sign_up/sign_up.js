@@ -19,6 +19,7 @@ angular.module('singUp', [])
                 selectMenu: '',
                 selectSubmenu: '',
                 selectItemSubmenu: '',
+                moMenuType: 'publicMenu',
                 user: {
                     email: '',
                     email2: '',

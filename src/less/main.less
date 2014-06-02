@@ -66,6 +66,23 @@ b , strong {
   margin-top: 20px;
 }
 
+.private-black-title{
+  float: left;
+  font-size: 18px;
+  margin-bottom: 0.4em;
+  font-weight: bold;
+}
+
+.private-container-text{
+  clear: both;
+  float: left;
+  margin-bottom: 20px;
+  img{
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
 .organization-image {
   float: left;
   margin-right: 10px;
@@ -104,6 +121,23 @@ b , strong {
   color: @linkColor;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.show-more{
+  background: url('../assets/img/textdown.png');
+}
+
+.show-less{
+  background: url('../assets/img/textup.png');
+}
+
+.toggle-link{
+  color: @darkLink;
+  text-decoration: underline;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  padding-left: 12px;
+  background-position: 0 2px;
 }
 
 .central-header {
@@ -480,7 +514,7 @@ a{
   opacity: 1;
   border:1px solid #E5973E;
   border-radius: 0;
-
+  font-family: fontpo;
 }
 
 .tooltip {
@@ -880,6 +914,9 @@ Flags styles
   line-height: 1.7;
   a{
     margin-left: 15px;
+    &:hover{
+      text-decoration: none;
+    }
   }
 }
 .first-footer-container{
@@ -1640,6 +1677,13 @@ select{
   }
 }
 
+.copyright{
+  float: right;
+  color: #3d3d3f;
+  margin: 10px 20px;
+  font-size: 11px;
+}
+
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using.
@@ -1651,3 +1695,4 @@ select{
 @import '../app/sign_up/sign-up.less';
 @import '../app/services/services.less';
 @import '../app/contact/contact.less';
+@import '../app/the_week/the-week.less';
