@@ -302,6 +302,10 @@ angular.module('ngMo', [
     .directive('publicMenu',function ($compile){
         return {
             controller: function($scope, $state){
+                /**
+                 * TODO: Replace this variable for a service
+                 * @type {boolean}
+                 */
                 $scope.isLogged = true;
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
                     $scope.actualMenu = idMenu;
