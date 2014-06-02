@@ -86,6 +86,10 @@ angular.module('ngMo.my_patterns', [
         $scope.setPagingData = function (data, page, pageSize) {
             var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
             $scope.myData = pagedData;
+            $scope.pages = 20; /*mocked*/
+            $scope.results= 236;
+            $scope.found= 230;
+            $scope.currentPage = 1;
             $scope.totalServerItems = data.length;
             if (!$scope.$$phase) {
                 $scope.$apply();
