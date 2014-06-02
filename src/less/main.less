@@ -1660,28 +1660,32 @@ select{
 }
 //table general config
 .grid-private {
-    border: 1px solid rgb(212,212,212);
+
     width: 950px;
-    height: 340px;
+    height: 274px;
     font-size: 10px;
     font-family: fontpo, Verdana;
+    padding: 0;
+  .ngViewport{
+    overflow: visible;
+  }
 }
 
 .orange-cell {
   background-color: #FF8200;
   color: white !important;
-  border-bottom: 3px solid white !important;
+  border-bottom: 2px solid white !important;
+  border-right: 3px solid white !important;
+  border-top: 2px solid white;
   font-size: 8px !important;
   text-align: center;
   font-family: fontpo-bold, verdana;
-  border-right: 3px solid white !important;
   padding-left: 0px !important;
   padding-right: 0 !important;
-  height: 30px !important;
+  height: 27px !important;
   display: table-cell;
   width: 39px;
   vertical-align: middle;
-  border-top: 1px solid white;
 }
 .table-header-private {
   border-right: 1px solid #6f7072;
@@ -1699,13 +1703,14 @@ select{
   line-height: 10px;
   height: 25px !important;
   display: table-cell;
+  width: inherit;
 }
 
 .border-right-table {
   border-right: 2px solid @greyLabel /*#6f7072*/;
 }
 .sub-border-right-table {
-  border-right: 1px solid @greyLabel   ;
+  border-right: 1px solid @greyLabel;
 }
 .div-name-table{
   height: 25px;
@@ -1717,6 +1722,45 @@ select{
 .buy-color {
   color: @buy-green !important;
 }
+
+/*psheres status*/
+.spheres {
+  background-image: url('../assets/img/spheres.png') !important;
+  background-size: 15px 50px;
+  margin: auto;
+  height: 15px;
+  width: 15px;
+}
+.sphere-Orange {
+  background-position: 0px -17px;
+}
+
+.sphere-Green {
+  background-position: 0px 0px;
+}
+
+.sphere-Red {
+  background-position: 0px -35px;
+}
+
+/* favourites */
+.current-favourite {
+  width: 18px !important;
+  height: 17px !important;
+  border: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  background: url('../assets/img/favourites.png') scroll !important;
+  color: transparent !important;
+}
+.current-favourite:hover{
+  background-position: 0px 37px !important;
+}
+
+.favourite-added {
+  background-position: 0px 18px !important;
+}
+
   /**override ng-grid classes to work as a table*/
 .ngVerticalBar {
   position: absolute;
@@ -1745,11 +1789,15 @@ select{
   padding: 0px;
 }
 
-.ngRow.even {
+.ngRow-even {
   background-color: @white;
 }
-.ngRow.odd {
+.ngRow-odd {
   background-color: @smokeGrey;
+}
+
+.ngTopPanel {
+  border: none;
 }
 /*
 *
@@ -1763,3 +1811,4 @@ select{
 @import '../app/sign_up/sign-up.less';
 @import '../app/services/services.less';
 @import '../app/contact/contact.less';
+@import '../app/my_patterns/my_patterns.less';

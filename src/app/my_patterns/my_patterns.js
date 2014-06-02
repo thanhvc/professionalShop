@@ -125,31 +125,18 @@ angular.module('ngMo.my_patterns', [
 
 
         //template de header
-        //sizes of cells
-        $scope.sizes = {
-            "Sector_Ind" : "180px",
-            "Merc":"45px",
-            "Year":"35px",
-            "Year-Perd":"35px",
-            "Enter":"65px",
-            "Exit":"60px",
-            "Rent_acum":"35px",
-            "Rent_average":"35px",
-            "Rent_Diary":"30px",
-            "Days":"30px",
-            "Vol":"25px",
-            "Fav":"30px",
-            "Est":"25px"
-        };
+
         var templateId= "<div> <div class='orange-cell'>{{row.getProperty(col.field)}}</div></div>";
         var templateName = "<div style='width:230px;' class='div-name-table'>{{row.getProperty('type')}}<br/><div ng-class='{\"buy-color\": row.getProperty(\"type\") == \"buy\"}'>{{row.getProperty('name')}}</div></div>";
-        var templateCell = '<div class="ngCellText" style="border-right: none; width: {{sizes[col.field]}}" ng-class="col.colIndex()">' +
+        var templateCell = '<div class="ngCellText" style="border-right: none;" ng-class="col.colIndex()">' +
             '<div class="cell-table-private">{{row.getProperty(col.field)}}</div> </div>';
+
         $scope.gridOptions = {
             data: 'myData',
             enablePaging: true,
             headerRowHeight:0,
-            showFooter: true,
+            rowHeight: 25,
+            showFooter: false,
             totalServerItems: 'totalServerItems',
             pagingOptions: $scope.pagingOptions,
             filterOptions: $scope.filterOptions,
@@ -157,7 +144,7 @@ angular.module('ngMo.my_patterns', [
                 { field: 'Id', cellTemplate: templateId, width: 40/*, cellClass: "orange-cell"*/},
                 { field: 'name', cellTemplate: templateName, minWidth: 230, cellClass: 'cell-table-private border-right-table'  },
                 { field: 'Sector_Ind', cellTemplate: templateCell, width: 180, cellClass: 'cell-table-private border-right-table'},
-                { field: 'Merc', cellTemplate: templateCell,width: 45, cellClass: 'cell-table-private border-right-table text-align-center'},
+                { field: 'Merc', cellTemplate: templateCell,width: 50, cellClass: 'cell-table-private border-right-table text-align-center'},
                 { field: 'Year', cellTemplate: templateCell, width:35, cellClass: 'cell-table-private sub-border-right-table text-align-center font-verdana-bold'},
                 { field: 'Year-Perd',cellTemplate: templateCell, width:35, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
                 { field: 'Enter', cellTemplate: templateCell, width:65, cellClass: 'cell-table-private sub-border-right-table text-align-center'},
@@ -165,10 +152,10 @@ angular.module('ngMo.my_patterns', [
                 { field: 'Rent_acum', cellTemplate: templateCell,width:40, cellClass: 'cell-table-private sub-border-right-table text-align-center font-verdana-bold'},
                 { field: 'Rent_average', cellTemplate: templateCell, width:40, cellClass: 'cell-table-private sub-border-right-table text-align-center font-verdana-bold'},
                 { field: 'Rent_Diary', cellTemplate: templateCell, width:40, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
-                { field: 'Days', cellTemplate: templateCell, width:30, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
-                { field: 'Vol', cellTemplate: templateCell, width:25, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
-                { field: 'Fav', cellTemplate: templateCell, width:30, cellClass: 'cell-table-private border-right-table text-align-center'},
-                { field: 'Est', cellTemplate: templateCell, width:25, cellClass: 'cell-table-private border-right-table text-align-center'}
+                { field: 'Days', cellTemplate: templateCell, width:35, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
+                { field: 'Vol', cellTemplate: templateCell, width:30, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
+                { field: 'Fav', cellTemplate: templateCell, width:35, cellClass: 'cell-table-private border-right-table text-align-center'},
+                { field: 'Est', cellTemplate: templateCell, width:30, cellClass: 'cell-table-private sub-border-right-table text-align-center'}
 
             ]
         };

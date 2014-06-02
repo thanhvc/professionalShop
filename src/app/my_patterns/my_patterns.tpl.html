@@ -1,60 +1,295 @@
+<div style="height: 650px;">
 <div>
-    <div>
-        <p>Mis Patrones</p></div>
-    <div>
-        La tabla muestra las estrategias clasificadas por mes de publicación ordenadas por Fecha de Entrada.<div style="display: inline-block;"
-                                                                                                                 ng-click="show=!show" ng-show="!show"><img
-            src="assets/img/textdown.png"><a >Mostrar m&aacute;s</a></div>
-    </div>
-    <div ng-show="show">
-        <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<<' y
-            '>>'. Para cambiar de grupo de
-            Productos haga click sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
+    <p>Mis Patrones</p></div>
+<div>
+    La tabla muestra las estrategias clasificadas por mes de publicación ordenadas por Fecha de Entrada.
+    <div style="display: inline-block;"
+         ng-click="show=!show" ng-show="!show"><img
+            src="assets/img/textdown.png"><a>Mostrar m&aacute;s</a></div>
+</div>
+<div ng-show="show">
+    <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<<' y
+        '>>'. Para cambiar de grupo de
+        Productos haga click sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
 
-        <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
+    <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
 
-        <p>Haciendo clic en la celda de la columna izquierda 'Id'. puede ver:</p>
-        <ul class="public-list-first-level list-left-first-level">
-            <li>Tablas de Detalle del Patrón.</li>
-            <li>Evolución gráfica de la cotización en curso superpuesta sobre Patrón.</li>
-        </ul>
-        <p>La marca de Favorito 'Fav.', se usa para diferenciar las estrategias preferidas, facilitar la gestión y
-            análisis. Más información.</p>
+    <p>Haciendo clic en la celda de la columna izquierda 'Id'. puede ver:</p>
+    <ul class="public-list-first-level list-left-first-level">
+        <li>Tablas de Detalle del Patrón.</li>
+        <li>Evolución gráfica de la cotización en curso superpuesta sobre Patrón.</li>
+    </ul>
+    <p>La marca de Favorito 'Fav.', se usa para diferenciar las estrategias preferidas, facilitar la gestión y
+        análisis. Más información.</p>
 
-        <p>
-            <img src="assets/img/textup.png"> <a ng-click="show=!show">Mostrar menos</a>
-        </p>
-    </div>
+    <p>
+        <img src="assets/img/textup.png"> <a ng-click="show=!show">Mostrar menos</a>
+    </p>
+</div>
 
-    <div>
+<div>
 
-        <tabset>
-            <tab ng-click="onClickTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
-                 active="ctab.active" disabled="tab.disabled">
-                <div class="black-head header-month-filter">
-                    Mayo
-                </div>
-                <div class="filter-container">
-                    <!--filters-->
-                </div>
-                <div>
-                    <!--headerTable-->
-                    <div style="height: 25px; border-top: 3px solid white;">
-                        <div class="table-header-private">Id</div>
-                        <div class="table-header-private">Acci&oacute;</div>
-                        <div class="table-header-private">Sector / Industria</div>
-                        <div class="table-header-private">Merc</div>
-                        <div class="table-header-private">Fechas</div>
-                        <div class="table-header-private">Rentabilidad (%)</div>
-                        <div class="table-header-private">Dur.</div>
-                        <div class="table-header-private">Vol.</div>
-                        <div class="table-header-private">Fav.</div>
-                        <div class="table-header-private">Est.</div>
-                    </div>
-                    <div ng-grid="gridOptions" class="grid-private"></div>
-                </div>
-            </tab>
-        </tabset>
-    </div>
+<tabset>
+<tab ng-click="onClickTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+     active="ctab.active" disabled="tab.disabled">
+<div class="black-head header-month-filter">
+    Mayo
+</div>
+<div class="filter-container">
+    <!--filters-->
+</div>
+<div>
+<!--headerTable
+
+<table style="width: 950px;">
+<tr class="table-header-top-patterns">
+    <td rowspan="2" style="width: 38px !important;">
+        Id
+    </td>
+    <td style="width: 231px;" class="border-right-table">
+        Acción
+    </td>
+    <td style="width: 174px;" class="border-right-table">
+        Sector / Industria
+    </td>
+    <td style="width: 49px;" class="border-right-table"
+        title="Mercado">
+        <span class="toolTipObj" tooltip-html-unsafe="Mercado">Merc.</span>
+    </td>
+    <td style="width: 66px;" class="border-right-table"
+        colspan="2" title="Número de Años">
+        <span tooltip-html-unsafe="Número de Años">Años</span>
+    </td>
+    <td style="width: 128px;" class="border-right-table"
+        colspan="2">
+        Fechas
+    </td>
+    <td style="width:114px;" class="border-right-table"
+        colspan="3">
+        Rentabilidad (%)
+    </td>
+    <td style="width: 34px;" class="border-right-table"
+        title="Duración">
+        <span tooltip-html-unsafe="Duración">Dur.</span>
+    </td>
+    <td style="width: 30px;" class="border-right-table"
+        title="Volatilidad">
+        <span tooltip-html-unsafe="Volatilidad">Vol.</span>
+    </td>
+    <td style="width: 34px;" class="border-right-table"
+        title="Favorito">
+        <span tooltip-html-unsafe="Favorito">Fav.</span>
+    </td>
+    <td style="width: 34px;" class="sub-border-right-table"
+        title="Estado">
+        <span  tooltip-html-unsafe="Estado">Est.</span>
+    </td>
+</tr>
+<tr class="table-header-bottom-patterns">
+    <td class="border-right-table"
+        width="231px;">
+        Nombre
+    </td>
+    <td class="border-right-table"
+        style="width: 174px;">
+       </td>
+    <td style="width:47px; " class="border-right-table" >
+         </td>
+    <td style="width:34px; " class="sub-border-right-table"
+         title="Ganancia">
+        <span  tooltip-html-unsafe="Ganancia">Gan.</span>
+    </td>
+    <td style="width:35px;" class="border-right-table"
+         title="Pérdida">
+        <span tooltip-html-unsafe="Pérdida">Pér.</span>
+    </td>
+    <td class="sub-border-right-table"
+         style="width:65px !important">
+        Entrada
+    </td>
+    <td class="border-right-table"
+         style=" width:64px !important">
+        Salida
+    </td>
+    <td style="width: 39px;" class="sub-border-right-table"
+         title="Acumulada">
+       <span tooltip-html-unsafe="Acumulada">Acum.</span>
+    </td>
+    <td style="width: 40px;" class="sub-border-right-table">
+        Media
+    </td>
+    <td style="width: 40px;" class="border-right-table">
+        Diaria
+    </td>
+    <td style="width: 34px;" class="border-right-table">Días
+    </td>
+    <td style="width: 30px;" class="border-right-table">
+        (%)
+    </td>
+    <td style="width: 34px;" class="border-right-table" > </td>
+    <td style="width: 34px;" class="sub-border-right-table" > </td>
+</tr>
+</table>
+table content
+<div ng-grid="gridOptions" class="grid-private"></div>
+-->
+
+
+<table style="width: 950px;">
+    <!--HEADER-->
+    <tr class="table-header-top-patterns">
+        <td class="table-id-header" rowspan="2"  >
+            Id
+        </td>
+        <td  class="border-right-table">
+            Acción
+        </td>
+        <td   class="border-right-table">
+            Sector / Industria
+        </td>
+        <td  class="border-right-table"
+            title="Mercado">
+            <span class="cursor-help" tooltip-html-unsafe="Mercado">Merc.</span>
+        </td>
+        <td   class="border-right-table"
+            colspan="2" title="Número de Años">
+            <span class="cursor-help" tooltip-html-unsafe="Número de Años">Años</span>
+        </td>
+        <td  class="border-right-table"
+            colspan="2">
+            Fechas
+        </td>
+        <td  class="border-right-table"
+            colspan="3">
+            Rentabilidad (%)
+        </td>
+        <td  class="border-right-table"
+            title="Duración">
+            <span class="cursor-help" tooltip-html-unsafe="Duración">Dur.</span>
+        </td>
+        <td  class="border-right-table"
+            title="Volatilidad">
+            <span class="cursor-help" tooltip-html-unsafe="Volatilidad">Vol.</span>
+        </td>
+        <td  class="border-right-table"
+            title="Favorito">
+            <span class="cursor-help" tooltip-html-unsafe="Favorito">Fav.</span>
+        </td>
+        <td  class="sub-border-right-table"
+            title="Estado">
+            <span class="cursor-help" tooltip-html-unsafe="Estado">Est.</span>
+        </td>
+    </tr>
+    <tr class="table-header-bottom-patterns">
+        <td class="border-right-table" >
+            Nombre
+        </td>
+        <td class="border-right-table" >
+        </td>
+        <td class="border-right-table">
+        </td>
+        <td class="sub-border-right-table"
+            title="Ganancia">
+            <span class="cursor-help" tooltip-html-unsafe="Ganancia">Gan.</span>
+        </td>
+        <td class="border-right-table"
+            title="Pérdida">
+            <span class="cursor-help" tooltip-html-unsafe="Pérdida">Pér.</span>
+        </td>
+        <td class="sub-border-right-table" >
+            Entrada
+        </td>
+        <td class="border-right-table" >
+            Salida
+        </td>
+        <td class="sub-border-right-table"
+            title="Acumulada">
+            <span class="cursor-help" tooltip-html-unsafe="Acumulada">Acum.</span>
+        </td>
+        <td class="sub-border-right-table">
+            Media
+        </td>
+        <td class="border-right-table">
+            Diaria
+        </td>
+        <td class="border-right-table">Días
+        </td>
+        <td class="border-right-table">
+            (%)
+        </td>
+        <td class="border-right-table"></td>
+        <td class="sub-border-right-table"></td>
+    </tr>
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
+        <td width="30" class="table-id-orange">
+            {{data.Id}}
+        </td>
+        <td style="text-align: left; width: 230px;" class="table-cell-patterns border-right-table">{{data.type}}<br/>
+
+            <div    class="cursor-help"
+                    tooltip-html-unsafe="{{data.name_tooltip}}"
+                    ng-class="{'buy-color': data.type == 'buy', 'sell-color': data.type == 'sell'}">{{data.name}}</div>
+        </td>
+        <td style="text-align: left; width: 180px; vertical-align: top;"
+            class="table-cell-patterns border-right-table"
+                ng-class="{'buy-color': data.type == 'buy',
+                            'sell-color': data.type == 'sell'}">
+           <!--sector/industry-->
+            <span class="cursor-help" tooltip-html-unsafe="{{data.Sector}}">{{data.Sector}}</span>
+            <span ng-show="{{(data.Sector != '' && data.Industry != '')}}"> / </span>
+            <br>
+            <span class="cursor-help" tooltip="{{data.Industry}}">{{data.Industry}}</span>
+        </td>
+        <td style="width: 48px;" class="table-cell-patterns border-right-table">
+            {{data.Merc}}
+        </td>
+        <td style="width: 32px;" class="table-cell-patterns sub-border-right-table">
+            <b>{{data.Year}}</b>
+        </td>
+        <td style="width: 32px;" class="table-cell-patterns border-right-table">
+            <b>{{data.Year_Perd}}</b>
+        </td>
+        <td style="width: 68px;" class="table-cell-patterns sub-border-right-table">
+            {{data.Enter}}
+        </td>
+        <td style="width: 68px;" class="table-cell-patterns border-right-table">
+            {{data.Exit}}
+        </td>
+        <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
+           <b> {{data.Rent_acum}}</b>
+        </td>
+        <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
+            <b>  {{data.Rent_average}}</b>
+        </td>
+        <td style="width: 44px;" class="table-cell-patterns border-right-table">
+            <b>  {{data.Rent_Diary}}</b>
+        </td>
+        <td style="width: 30px;" class="table-cell-patterns border-right-table">
+            <b>  {{data.Days}}</b>
+        </td>
+        <td style="width: 30px;" class="table-cell-patterns border-right-table">
+          <b> {{data.Vol}}</b>
+        </td>
+        <td style="width: 32px;" class="table-cell-patterns border-right-table">
+            <div class="current-favourite"
+                     g-class="{'favourite-added': data.Fav == 'true'}"></div>{{data.Fav}}
+        </td>
+        <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
+           <div class="spheres cursor-help" ng-class="{
+           'sphere-Orange':data.Est == 'started',
+            'sphere-Green': data.Est == 'new' ,
+            'sphere-Red': data.Est == 'closed'}"
+            tooltip-html-unsafe="{{data.Est}}"
+                   ></div>
+        </td>
+
+    </tr>
+
+
+</table>
+</div>
+</tab>
+</tabset>
+</div>
 
 </div>
