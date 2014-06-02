@@ -1671,9 +1671,17 @@ select{
   background-color: #FF8200;
   color: white !important;
   border-bottom: 3px solid white !important;
-  font-size: 11px !important;
+  font-size: 8px !important;
   text-align: center;
   font-family: fontpo-bold, verdana;
+  border-right: 3px solid white !important;
+  padding-left: 0px !important;
+  padding-right: 0 !important;
+  height: 30px !important;
+  display: table-cell;
+  width: 39px;
+  vertical-align: middle;
+  border-top: 1px solid white;
 }
 .table-header-private {
   border-right: 1px solid #6f7072;
@@ -1684,10 +1692,64 @@ select{
   float: left;
   height: 25px;
 }
-
+/*classes for cells config*/
 .cell-table-private {
-  padding: 2px;
+  /*padding: 2px;*/
   vertical-align: middle;
+  line-height: 10px;
+  height: 25px !important;
+  display: table-cell;
+}
+
+.border-right-table {
+  border-right: 2px solid @greyLabel /*#6f7072*/;
+}
+.sub-border-right-table {
+  border-right: 1px solid @greyLabel   ;
+}
+.div-name-table{
+  height: 25px;
+}
+
+.sell-color {
+  color: @sell-brown !important;
+}
+.buy-color {
+  color: @buy-green !important;
+}
+  /**override ng-grid classes to work as a table*/
+.ngVerticalBar {
+  position: absolute;
+  right: 0;
+  width: 0 !important;
+}
+
+.ngCell  {
+  /*display : table-cell; --moved to private-cell*/
+  height: auto !important;
+  overflow:visible;
+  position: static;
+}
+
+.ngRow {
+  display : table-row;
+ /* height: auto !important;*/
+  position: static;
+  height: 27px;
+}
+
+.ngCellText{
+  /*height: auto !important;*/
+  white-space: normal;
+  overflow:visible;
+  padding: 0px;
+}
+
+.ngRow.even {
+  background-color: @white;
+}
+.ngRow.odd {
+  background-color: @smokeGrey;
 }
 /*
 *

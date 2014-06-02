@@ -125,42 +125,53 @@ angular.module('ngMo.my_patterns', [
 
 
         //template de header
-        var templateHeader1 = "<div>1 {{row.getProperty('name')}}</div><div>2 {{row.getProperty('type')}}</div>";
-        var templateHeader2 = "<div>Años</div><div>Per.</div>";
-
+        //sizes of cells
+        $scope.sizes = {
+            "Sector_Ind" : "180px",
+            "Merc":"45px",
+            "Year":"35px",
+            "Year-Perd":"35px",
+            "Enter":"65px",
+            "Exit":"60px",
+            "Rent_acum":"35px",
+            "Rent_average":"35px",
+            "Rent_Diary":"30px",
+            "Days":"30px",
+            "Vol":"25px",
+            "Fav":"30px",
+            "Est":"25px"
+        };
+        var templateId= "<div> <div class='orange-cell'>{{row.getProperty(col.field)}}</div></div>";
+        var templateName = "<div style='width:230px;' class='div-name-table'>{{row.getProperty('type')}}<br/><div ng-class='{\"buy-color\": row.getProperty(\"type\") == \"buy\"}'>{{row.getProperty('name')}}</div></div>";
+        var templateCell = '<div class="ngCellText" style="border-right: none; width: {{sizes[col.field]}}" ng-class="col.colIndex()">' +
+            '<div class="cell-table-private">{{row.getProperty(col.field)}}</div> </div>';
         $scope.gridOptions = {
             data: 'myData',
             enablePaging: true,
+            headerRowHeight:0,
             showFooter: true,
             totalServerItems: 'totalServerItems',
             pagingOptions: $scope.pagingOptions,
             filterOptions: $scope.filterOptions,
             columnDefs: [
-                { field: 'Id',  displayName: 'Id', width: 30, cellClass: "orange-cell"  },
-                { field: 'name', cellTemplate: templateHeader1, displayName: 'Nombre', width: 230, cellClass: 'cell-table-private' },
-                { field: 'Sector_Industria', displayName: " ", width: 150, cellClass: 'cell-table-private' },
-                { field: 'merc', displayName: "merc", width: 45, cellClass: 'cell-table-private'},
-                { field: 'Year', displayName: "Gan.",  width:30, cellClass: 'cell-table-private'},
-                { field: 'Year-Perd', displayName: "Pér.", width:25, cellClass: 'cell-table-private'},
-                { field: 'Entrada', displayName: "Entrada", width:65, cellClass: 'cell-table-private'},
-                { field: 'Salida', displayName: "Salida", width:60, cellClass: 'cell-table-private'},
-                { field: 'Rent_acum', displayName: "Acum.", width:35, cellClass: 'cell-table-private'},
-                { field: 'Rent_media', displayName: "Media", width:35, cellClass: 'cell-table-private'},
-                { field: 'Rent_Diaria', displayName: "Diaria", width:30, cellClass: 'cell-table-private'},
-                { field: 'Dias', displayName: "Días", width:30, cellClass: 'cell-table-private'},
-                { field: 'Vol', displayName: "(%)", width:25, cellClass: 'cell-table-private'},
-                { field: 'Fav', displayName: " ", width:30, cellClass: 'cell-table-private'},
-                { field: 'Est', displayName: " ", width:25, cellClass: 'cell-table-private'}
+                { field: 'Id', cellTemplate: templateId, width: 40/*, cellClass: "orange-cell"*/},
+                { field: 'name', cellTemplate: templateName, minWidth: 230, cellClass: 'cell-table-private border-right-table'  },
+                { field: 'Sector_Ind', cellTemplate: templateCell, width: 180, cellClass: 'cell-table-private border-right-table'},
+                { field: 'Merc', cellTemplate: templateCell,width: 45, cellClass: 'cell-table-private border-right-table text-align-center'},
+                { field: 'Year', cellTemplate: templateCell, width:35, cellClass: 'cell-table-private sub-border-right-table text-align-center font-verdana-bold'},
+                { field: 'Year-Perd',cellTemplate: templateCell, width:35, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
+                { field: 'Enter', cellTemplate: templateCell, width:65, cellClass: 'cell-table-private sub-border-right-table text-align-center'},
+                { field: 'Exit', cellTemplate: templateCell, width:65, cellClass: 'cell-table-private border-right-table text-align-center'},
+                { field: 'Rent_acum', cellTemplate: templateCell,width:40, cellClass: 'cell-table-private sub-border-right-table text-align-center font-verdana-bold'},
+                { field: 'Rent_average', cellTemplate: templateCell, width:40, cellClass: 'cell-table-private sub-border-right-table text-align-center font-verdana-bold'},
+                { field: 'Rent_Diary', cellTemplate: templateCell, width:40, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
+                { field: 'Days', cellTemplate: templateCell, width:30, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
+                { field: 'Vol', cellTemplate: templateCell, width:25, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
+                { field: 'Fav', cellTemplate: templateCell, width:30, cellClass: 'cell-table-private border-right-table text-align-center'},
+                { field: 'Est', cellTemplate: templateCell, width:25, cellClass: 'cell-table-private border-right-table text-align-center'}
 
             ]
         };
 
 
-        /* $scope.myData = [{name: "Moroni", age: 50},
-         {name: "Tiancum", age: 43},
-         {name: "Jacob", age: 27},
-         {name: "Nephi", age: 29},
-         {name: "Enos", age: 34}];
-
-         $scope.gridOptions = { data: 'myData' };*/
     });
