@@ -8,8 +8,7 @@
         "angular-bootstrap": "~0.10.0",
         "angular-ui-router": "~0.2",
         "angular-ui-utils": "~0.0.3",
-        "angular-gettext": "~0.2.8",
-        "angular-animate": "~1.2"
+        "angular-gettext": "~0.2.8"
     },
     "dependencies": {}
 }
