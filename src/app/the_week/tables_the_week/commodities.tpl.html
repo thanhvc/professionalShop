@@ -25,7 +25,7 @@
             <td rowspan="2" class="index-name"><span tooltip="{{indice.name}}">{{indice.name}}</span></td>
             <td ng-class="{'positive-percent': indice.global_daily_return >= 0, 'negative-percent': indice.global_daily_return < 0}"><span tooltip="Rentabilidad">{{indice.global_daily_return}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.global_bullish_years}}</span></td>
-            <td rowspan="2" class="graphic-image-cell"><a ng-href="indice.daily_return_graphic"><img ng-src="assets/img/graphic-image.png" class="graphic-image"/></a></td>
+            <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,indice.name, indice.daily_return_graphic)"/></td>
             <td ng-class="{'positive-percent': indice.returns.L >= 0, 'negative-percent': indice.returns.L < 0}"><span tooltip="Rentabilidad">{{indice.returns.L}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.L}}</span></td>
             <td ng-class="{'positive-percent': indice.returns.M >= 0, 'negative-percent': indice.returns.M < 0}"><span tooltip="Rentabilidad">{{indice.returns.M}}%</span></td>
@@ -72,3 +72,4 @@
         </tbody>
     </table>
 </div>
+<div selected-graphic-panel ng-hide="firstTime"></div>

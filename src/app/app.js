@@ -10,6 +10,7 @@ angular.module('ngMo', [
         'ngMo.contact',
         'ngMo.my_patterns',
         'ngMo.the_week',
+        'ngMo.calendar',
         'ui.router',
         'gettext' ,
         'singUp',
