@@ -1693,10 +1693,11 @@ select{
 /*tables css*/
 
 .header-month-filter{
-  height: 20px;
+  height: 40px;
   width: 950px;
   padding: 5px 5px 5px 5px;
   color: white;
+  font-size: 18px;
 }
 .filter-container {
   height: 55px;
@@ -1706,35 +1707,8 @@ select{
   background-color: @greyBorderColor;
 }
 //table general config
-.grid-private {
 
-  width: 950px;
-  height: 274px;
-  font-size: 10px;
-  font-family: fontpo, Verdana;
-  padding: 0;
-  .ngViewport{
-    overflow: visible;
-  }
-}
-/*
-.orange-cell {
-  background-color: #FF8200;
-  color: white !important;
-  border-bottom: 2px solid white !important;
-  border-right: 3px solid white !important;
-  border-top: 2px solid white;
-  font-size: 8px !important;
-  text-align: center;
-  font-family: fontpo-bold, verdana;
-  padding-left: 0px !important;
-  padding-right: 0 !important;
-  height: 27px !important;
-  display: table-cell;
-  width: 39px;
-  vertical-align: middle;
-}
-*/
+
 
 .table-header-private {
   border-right: 1px solid #6f7072;
@@ -1761,10 +1735,6 @@ select{
 .sub-border-right-table {
   border-right: 1px solid @greyLabel;
 }
-.div-name-table{
-  height: 25px;
-}
-
 .sell-color {
   color: @lightBrown !important;
 }
@@ -1772,118 +1742,17 @@ select{
   color: @lightGreen !important;
 }
 
-/*psheres status*/
-.spheres {
-  background-image: url('../assets/img/spheres.png') !important;
-  background-size: 15px 50px;
-  margin: auto;
-  height: 15px;
-  width: 15px;
-}
-.sphere-Orange {
-  background-position: 0px -17px;
-}
-
-.sphere-Green {
-  background-position: 0px 0px;
-}
-
-.sphere-Red {
-  background-position: 0px -35px;
-}
-
-/* favourites */
-.current-favourite {
-  width: 18px ;
-  height: 17px ;
-  border: 0px ;
-  margin: auto;
-  padding: 0px ;
-  background: url('../assets/img/favourites.png') scroll !important;
-  color: transparent ;
-}
-.current-favourite:hover{
-  background-position: 0px 37px !important;
-}
-
-.favourite-added {
-  background-position: 0px 18px !important;
-}
-
-/**override ng-grid classes to work as a table*/
-.ngVerticalBar {
-  position: absolute;
-  right: 0;
-  width: 0 !important;
-}
-
-.ngCell  {
-  /*display : table-cell; --moved to private-cell*/
-  height: auto !important;
-  overflow:visible;
-  position: static;
-}
-
-.ngRow {
-  display : table-row;
-  /* height: auto !important;*/
-  position: static;
-  height: 27px;
-  cursor: pointer;
-}
-
-
-
-.ngCellText{
-  /*height: auto !important;*/
-  white-space: normal;
-  overflow:visible;
-  padding: 0px;
-}
-
 .ngRow-even {
   background-color: @white;
   cursor: pointer;
 }
 
-.ngRow-even:hover {
-  background-color: @greyOver;
-}
 .ngRow-odd {
   background-color: @smokeGrey;
   cursor: pointer;
 }
 
-.ngRow-odd:hover {
-  background-color: @greyOver;
-}
 
-.ngTopPanel {
-  border: none;
-}
-
-.private-zone-tittle {
-  float: left;
-  font-size: 18px;
-  margin-bottom: 0.4em;
-  border-top: 1px solid @black;
-  font-family: fontpo, verdana !important;
-  height: 22px;
-}
-
-.footer-table-private {
-  height: 38px;
-  position: relative;
-  float: left;
-  top: 2px;
-  padding: 8px 25px 8px 25px;
-  width: 950px;
-  margin-bottom: 3px;
-  background-color: @greyBorderColor;
-  color: @white;
-  font-family: fontpo-bold;
-  font-size: 11px;
-}
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
