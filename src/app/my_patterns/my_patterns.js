@@ -65,7 +65,7 @@ angular.module('ngMo.my_patterns', [
             activeTab = active;
         };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $templateCache, $rootScope, TabsService, ActualDateService) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, TabsService, ActualDateService) {
         //tabs and variables
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
