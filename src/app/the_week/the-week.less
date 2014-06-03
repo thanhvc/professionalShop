@@ -138,6 +138,9 @@
   border-right: 2px solid @greyLabel;
   border-left: 2px solid @greyLabel;
   width: 55px;
+  img{
+    cursor: pointer;
+  }
 }
 
 .toggle-tables-link{
@@ -259,4 +262,62 @@
       }
     }
   }
+}
+
+.graphic-panel{
+  border:1px solid @black;
+  position: absolute;
+  line-height: 1.5;
+  text-align: center;
+  left: 705px;
+  background-color: @white;
+  padding: 3px 3px 3px 0;
+  overflow: hidden;
+  .selected-graphic-image, span{
+    width: 100%;
+  }
+}
+
+.open-graphic-panel{
+  width: 455px;
+  height: 275px;
+  animation: show-graphic 1s;
+  -webkit-animation: show-graphic 1s;
+  -moz-animation: show-graphic 1s;
+  -o-animation: show-graphic 1s;
+}
+
+@keyframes show-graphic{
+  from {width: 0px; height: 0px;}
+  to {width: 455px; height: 275px;}
+}
+
+@-webkit-keyframes show-graphic{
+  from {width: 0; height: 0;}
+  to {width: 455px; height: 275px;}
+}
+
+.close-graphic-panel{
+  width: 0;
+  height: 0;
+  animation: hide-graphic 1s;
+  -webkit-animation: hide-graphic 1s;
+  -moz-animation: hide-graphic 1s;
+  -o-animation: hide-graphic 1s;
+  border: 0;
+}
+
+@keyframes hide-graphic{
+  from {width: 455px; height: 275px;border: 1px;}
+  to {width: 0; height: 0;border: 0;}
+}
+
+@-webkit-keyframes hide-graphic{
+  from {width: 455px; height: 275px;border: 1px;}
+  to {width: 0; height: 0;border: 0px;}
+}
+
+.graphic-image-close{
+  width: 5%;
+  height: 8%;
 }
