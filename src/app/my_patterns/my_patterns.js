@@ -8,7 +8,7 @@ angular.module('ngMo.my_patterns', [
     'ui.bootstrap'
 ])
     .config(function config($stateProvider) {
-        $stateProvider.state('my_patterns', {
+        $stateProvider.state('my-patterns', {
             url: '/patterns',
             views: {
                 "main": {
@@ -17,7 +17,11 @@ angular.module('ngMo.my_patterns', [
                 }
             },
             data: {
-                pageTitle: 'My Patterns'
+                pageTitle: 'My patterns',
+                selectMenu: 'my-patterns-nav',
+                selectSubmenu: '',
+                selectItemSubmenu: '',
+                moMenuType: 'privateMenu'
             }
         });
     })
