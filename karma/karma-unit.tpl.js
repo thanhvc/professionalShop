@@ -16,7 +16,8 @@ module.exports = function ( karma ) {
       'src/**/*.coffee',
     ],
     exclude: [
-      'src/assets/**/*.js'
+      'src/assets/**/*.js',
+      'src/**/*.protractor.js'
     ],
     frameworks: [ 'jasmine' ],
     plugins: [ 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coffee-preprocessor','karma-coverage', 'karma-junit-reporter' ],

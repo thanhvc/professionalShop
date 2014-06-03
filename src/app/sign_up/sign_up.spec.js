@@ -1,6 +1,6 @@
-describe('General Test',function(){
+describe('The SignUp ',function(){
     beforeEach(angular.mock.module("ngMo"));
-    describe('Sign Up Steps', function(){
+    describe('form ', function(){
 
         var compile;
         var scope;
@@ -20,7 +20,7 @@ describe('General Test',function(){
         }));
         // tests start here
 
-        it('test - SIGNUP', function () {
+        it(' ', function () {
             state.go('signup');
             scope.$apply();
             //testing the user initialization

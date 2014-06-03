@@ -22,6 +22,7 @@ module.exports = {
     app_files: {
         js: [ 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**/*.js' ],
         jsunit: [ 'src/**/*.spec.js' ],
+        protractor:['src/**/*.protractor.js'],
 
         coffee: [ 'src/**/*.coffee', '!src/**/*.spec.coffee' ],
         coffeeunit: [ 'src/**/*.spec.coffee' ],
@@ -67,7 +68,6 @@ module.exports = {
             'vendor/angular-ui-router/release/angular-ui-router.js',
             'vendor/angular-ui-utils/modules/route/route.js',
             'vendor/angular-gettext/dist/angular-gettext.min.js'
-
         ],
         css: [
         ],

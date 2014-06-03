@@ -48,7 +48,8 @@ body{
   color:@black;
   font-family: 'fontpo';
   font-size: 12px;
-  -webkit-font-smoothing: antialiased;
+  /*-webkit-font-smoothing: antialiased; -- this change the font */
+  -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.4285;
 }
@@ -1063,8 +1064,8 @@ table{
 .advanced-table{
   margin-bottom:30px;
   td {
-    text-align: center;
-    padding: 10px;
+    text-align: left;
+    padding: 10px 10px 10px 5px;
     border: 1px solid #C0C0C0;
   }
 
@@ -1640,6 +1641,10 @@ select{
   padding-top: 10px;
 }
 
+.disc-list {
+  list-style-type: disc !important;
+}
+
 .orange-text {
   color: @orangeColor !important;
 }
@@ -1680,6 +1685,75 @@ select{
   font-size: 11px;
 }
 
+
+
+/**private zone general **/
+
+
+/*tables css*/
+
+.header-month-filter{
+  height: 40px;
+  width: 950px;
+  padding: 5px 5px 5px 5px;
+  color: white;
+  font-size: 18px;
+}
+.filter-container {
+  height: 55px;
+  padding: 8px 25px 8px 25px;
+  width: 950px;
+  margin-bottom: 3px;
+  background-color: @greyBorderColor;
+}
+//table general config
+
+
+
+.table-header-private {
+  border-right: 1px solid #6f7072;
+  background-color: #868789;
+  color: white;
+  font-weight: 100;
+  font-size: 11px;
+  float: left;
+  height: 25px;
+}
+/*classes for cells config*/
+.cell-table-private {
+  /*padding: 2px;*/
+  vertical-align: middle;
+  line-height: 10px;
+  height: 25px !important;
+  display: table-cell;
+  width: inherit;
+}
+
+.border-right-table {
+  border-right: 2px solid @greyLabel /*#6f7072*/;
+}
+.sub-border-right-table {
+  border-right: 1px solid @greyLabel;
+}
+.sell-color {
+  color: @lightBrown !important;
+}
+.buy-color {
+  color: @lightGreen !important;
+}
+
+.ngRow-even {
+  background-color: @white;
+  cursor: pointer;
+}
+
+.ngRow-odd {
+  background-color: @smokeGrey;
+  cursor: pointer;
+}
+
+
+
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using.
@@ -1692,3 +1766,4 @@ select{
 @import '../app/services/services.less';
 @import '../app/contact/contact.less';
 @import '../app/the_week/the-week.less';
+@import '../app/my_patterns/my_patterns.less';
