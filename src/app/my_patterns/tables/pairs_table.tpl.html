@@ -91,13 +91,15 @@
             {{data.Id}}
         </td>
         <td style="text-align: left; width: 230px; vertical-align: top;" class="table-cell-patterns border-right-table">
-            <span>{{data.type}}</span>
+            <div class="text-limitator">
+                <span>{{data.type}}</span>
             <span class="cursor-help"
                   tooltip-html-unsafe="{{data.name_tooltip}}"
                   ng-class="{'buy-color': data.type == 'buy', 'sell-color': data.type == 'sell'}">
                 {{data.name}}
             </span>
-            <br/>
+            </div>
+            <div class="text-limitator">
             <span>
                 {{data.type2}}
             </span>
@@ -106,19 +108,21 @@
                   ng-class="{'buy-color': data.type2 == 'buy', 'sell-color': data.type2 == 'sell'}">
                 {{data.name2}}
             </span>
+            </div>
 
         </td>
         <td style="text-align: left; width: 180px; vertical-align: top;"
             class="table-cell-patterns border-right-table"
                 >
             <!--sector/industry-->
-            <div tooltip="{{data.Sector}} / {{data.Industry}}" class="max-length-pairs-sector" ng-class="{'buy-color': data.type == 'buy',
+            <div tooltip="{{data.Sector}} / {{data.Industry}}" class="max-length-pairs-sector text-limitator" ng-class="{'buy-color': data.type == 'buy',
                             'sell-color': data.type == 'sell'}">
-                <span class="cursor-help"  >{{data.Sector}}</span>
+                <span class="cursor-help">{{data.Sector}}</span>
                 <span ng-show="{{(data.Sector != '' && data.Industry != '')}}"> / </span>
-                <span class="cursor-help" >{{data.Industry}}</span>
+                <span class="cursor-help">{{data.Industry}}</span>
             </div>
-            <div tooltip="{{data.Sector2}} / {{data.Industry2}}" class="max-length-pairs-sector" ng-class="{'buy-color': data.type2 == 'buy',
+            <div tooltip="{{data.Sector2}} / {{data.Industry2}}" class="max-length-pairs-sector text-limitator"
+                 ng-class="{'buy-color': data.type2 == 'buy',
                             'sell-color': data.type2 == 'sell'}">
                 <span class="cursor-help" tooltip-html-unsafe="{{data.Sector2}}">{{data.Sector2}}</span>
                 <span ng-show="{{(data.Sector2 != '' && data.Industry2 != '')}}"> / </span>
@@ -154,11 +158,11 @@
             <b> {{data.Rent_average}}</b>
         </td>
         <td style="width: 44px;" class="table-cell-patterns border-right-table">
-           <div  ng-class="{'buy-color': data.type == 'buy',
+            <div ng-class="{'buy-color': data.type == 'buy',
                             'sell-color': data.type == 'sell'}">
-               <b>{{data.Side}}</b>
-           </div>
-            <div  ng-class="{'buy-color': data.type2 == 'buy',
+                <b>{{data.Side}}</b>
+            </div>
+            <div ng-class="{'buy-color': data.type2 == 'buy',
                             'sell-color': data.type2 == 'sell'}">
                 <b>{{data.Side2}}</b>
             </div>
