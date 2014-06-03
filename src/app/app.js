@@ -9,6 +9,7 @@ angular.module('ngMo', [
         'ngMo.investor_tools',
         'ngMo.contact',
         'ngMo.the_week',
+        'ngMo.calendar',
         'ui.router',
         'gettext' ,
         'singUp',

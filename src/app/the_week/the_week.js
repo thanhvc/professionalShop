@@ -24,7 +24,7 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function Investor_ToolsCtrl($scope, ActualDateService) {
+    .controller('TheWeekCtrl', function ($scope, ActualDateService) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });
@@ -49,26 +49,6 @@ angular.module('ngMo.the_week', [
         $scope.mondayDay = $scope.obtainDateMondaythisWeek();
 
         $scope.showIndices = true;
-
-        /*$scope.openGraph = false;
-
-        $scope.showSelectedGraphic = function (e, name, url) {
-            $scope.hideSelectedGraphic();
-            $scope.selectedGraphic = {
-                indiceName:  name,
-                url: url
-            };
-
-            if(e !== 'undefined') {
-                $scope.myTop = e.srcElement.y + e.srcElement.height + 'px';
-            }
-
-            $scope.openGraph = true;
-        };
-
-        $scope.hideSelectedGraphic = function () {
-            $scope.openGraph = false;
-        };*/
 
         //Tabs the-week tables
         $scope.the_week_tables =
@@ -701,11 +681,22 @@ angular.module('ngMo.the_week', [
 
     .directive('selectedGraphicPanel', function () {
         return {
-            controller: function ($scope){
+            controller: function ($scope, $timeout){
                 $scope.openGraph = false;
+                $scope.firstTime = true;
 
                 $scope.showSelectedGraphic = function (e, name, url) {
-                    $scope.hideSelectedGraphic();
+
+                    if ($scope.openGraph === true){
+                        $scope.hideSelectedGraphic();
+                        $timeout( function(){
+                            $scope.openGraph = true;
+                        },800);
+                    }else{
+                        $scope.firstTime = false;
+                        $scope.openGraph = true;
+                    }
+
                     $scope.selectedGraphic = {
                         indiceName:  name,
                         url: url
@@ -714,18 +705,22 @@ angular.module('ngMo.the_week', [
                     if(e !== 'undefined') {
                         $scope.myTop = e.srcElement.y + e.srcElement.height + 'px';
                     }
-
-                    $scope.openGraph = true;
                 };
 
                 $scope.hideSelectedGraphic = function () {
-                    $scope.openGraph = false;
+                    $scope.selectedGraphic = {
+                        indiceName:  '',
+                        url: ''
+                    };
+                    if ($scope.openGraph === true) {
+                        $scope.openGraph = false;
+                    }
                 };
             },
-            link: function() {
-
+            link: function($scope) {
             },
-            template: "<div class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph}\"  ng-style=\"{'top': myTop}\">"+
+
+            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph}\"  ng-style=\"{'top': myTop}\">"+
                 "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>"+
                 "<br/>"+
                 "<span>{{selectedGraphic.indiceName}}</span>"+

@@ -20,6 +20,7 @@
         background-color: @black !important;
         color: @white;
         height: 10px;
+        font-size: 12px;
         th {
           &:nth-child(1){
             border-left: 1px solid #6F7072;
@@ -59,6 +60,7 @@
         background-color: @orangeColor !important;
         color: @white;
         height: 20px;
+        font-size: 12px;
         td{
           padding-left: 4px;
           &:nth-child(1){
@@ -80,6 +82,7 @@
         border-left: 1px solid @greyLabel;
         border-right: 2px solid @greyLabel;
         text-transform: uppercase;
+        cursor: help;
       }
       td{
         &:last-child{
@@ -97,10 +100,12 @@
   text-align: center;
   padding: 2px;
   border-left: 1px solid @greyLabel;
+  cursor: help;
 }
 .bullish-year{
   border-right: 2px solid @greyLabel;
   width: 30px;
+  cursor: help;
 }
 
 .negative-percent{
@@ -109,6 +114,7 @@
   vertical-align: top;
   text-align: center;
   border-left: 1px solid @greyLabel;
+  cursor: help;
 }
 
 .bearish-year{
@@ -117,6 +123,7 @@
   text-align: center;
   border-left: 1px solid @greyLabel;
   border-right: 2px solid @greyLabel;
+  cursor: help;
 }
 
 //bull or bear
@@ -318,6 +325,10 @@
 }
 
 .graphic-image-close{
-  width: 5%;
-  height: 8%;
+  &:hover{
+    background-image: url('../assets/img/close_modal_hover.png');
+    background-color: transparent;
+    height: 22px;
+    width: 22px;
+  }
 }
