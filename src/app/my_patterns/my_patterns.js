@@ -23,7 +23,7 @@ angular.module('ngMo.my_patterns', [
     })
     .service('TabsService', function () {
 
-
+        /**Tabs services for private zone**/
         var tabs = [
             {
                 title: 'Acciones',
@@ -63,20 +63,17 @@ angular.module('ngMo.my_patterns', [
     })
     .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $templateCache, $rootScope, TabsService, ActualDateService) {
         //tabs and variables
-
+        /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
         $scope.actualDate = ActualDateService.actualDate();
-        $scope.onClickTab = function (idTab) {
-            selectedTab = TabsService.changeActiveTab(idTab);
-        };
         $scope.tabs = TabsService.getTabs();
         $scope.filterOptions = {
             filterText: "",
             useExternalFilter: true
         };
         $scope.totalServerItems = 0;
+        /*paging options*/
         $scope.pagingOptions = {
-            /*pageSizes: [250, 500, 1000],*/
             pageSize: 10,
             currentPage: 1
         };
@@ -85,6 +82,7 @@ angular.module('ngMo.my_patterns', [
         $scope.filters = {
             indexType: 'index'
         };
+        /** templates of filters/tables for each tab**/
         var templateTables = [
             {"table": 'my_patterns/tables/stocks_table.tpl.html',
                 "filter": 'my_patterns/filters/stocks_filters.tpl.html'},
@@ -102,6 +100,7 @@ angular.module('ngMo.my_patterns', [
                 "filter": 'my_patterns/filters/futures_filters.tpl.html'}
         ];
 
+        /*load the table template*/
         $scope.getTemplateTable = function () {
             switch (TabsService.getActiveTab()) {
                 case 2:
@@ -111,7 +110,7 @@ angular.module('ngMo.my_patterns', [
             }
 
         };
-
+        /*load the filter template*/
         $scope.getTemplateFilter = function () {
             switch (TabsService.getActiveTab()) {
                 case 2:
@@ -120,7 +119,7 @@ angular.module('ngMo.my_patterns', [
                     return templateTables[TabsService.getActiveTab()].filter;
             }
         };
-
+        /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
@@ -130,13 +129,14 @@ angular.module('ngMo.my_patterns', [
 
         $scope.setPagingData = function (data) {
             $scope.myData = data;
-            /*mocked*/
+            /*mocked, this info is loaded from data*/
             $scope.results = 100;
             $scope.found = 100;
             if (!$scope.$$phase) {
                 $scope.$apply();
             }
         };
+        /*Function to load info from server*/
         $scope.getPagedDataAsync = function (pageSize, page, searchText) {
             setTimeout(function () {
                 var data;
@@ -167,13 +167,13 @@ angular.module('ngMo.my_patterns', [
 
             }, 100);
         };
-        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-
+        /*watch for pages*/
         $scope.$watch('pagingOptions', function (newVal, oldVal) {
             if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
                 $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
             }
         }, true);
+        /**FOR FUTURES FILTERS**/
         $scope.$watch('filterOptions', function (newVal, oldVal) {
             if (newVal !== oldVal) {
                 $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
@@ -184,4 +184,9 @@ angular.module('ngMo.my_patterns', [
             $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
         };
 
+
+
+        /*First load*/
+
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
     });
