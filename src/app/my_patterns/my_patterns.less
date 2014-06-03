@@ -5,7 +5,7 @@
   color: @white;
   font-weight: lighter !important;
   background-color: @greyBorderColor;
-  td {
+  th {
     padding: 4px 4px 4px 4px;
     height: 20px;
     text-align: center;
@@ -18,7 +18,7 @@
   font-family: "fontpo";
   font-weight: lighter !important;
   font-size: 11px;
-  td {
+  th {
     padding: 4px 4px 4px 4px;
     height: 15px;
     text-align: center;
@@ -49,6 +49,10 @@
   padding: 7px 3px 7px;
   text-align: center;
 }
+.table-id-orange-hover {
+    background-color: #3D3D3F;
+    color: #FF8200 !important;
+}
 
 .table-cell-patterns {
   font-size: 10px;
@@ -68,4 +72,22 @@
   height: 12px !important;
   overflow: hidden !important;
   word-break: break-all !important;
+}
+
+.table-pattern {
+
+  tr {
+    &:hover {
+
+      td{
+        &:nth-child(1) {
+          background-color: #3D3D3F;
+          color: #FF8200 !important;
+        }
+        background-color: @greyOver;
+      }
+    }
+
+
+  }
 }

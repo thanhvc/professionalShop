@@ -1717,7 +1717,7 @@ select{
     overflow: visible;
   }
 }
-
+/*
 .orange-cell {
   background-color: #FF8200;
   color: white !important;
@@ -1734,6 +1734,8 @@ select{
   width: 39px;
   vertical-align: middle;
 }
+*/
+
 .table-header-private {
   border-right: 1px solid #6f7072;
   background-color: #868789;
@@ -1827,7 +1829,10 @@ select{
   /* height: auto !important;*/
   position: static;
   height: 27px;
+  cursor: pointer;
 }
+
+
 
 .ngCellText{
   /*height: auto !important;*/
@@ -1838,9 +1843,19 @@ select{
 
 .ngRow-even {
   background-color: @white;
+  cursor: pointer;
+}
+
+.ngRow-even:hover {
+  background-color: @greyOver;
 }
 .ngRow-odd {
   background-color: @smokeGrey;
+  cursor: pointer;
+}
+
+.ngRow-odd:hover {
+  background-color: @greyOver;
 }
 
 .ngTopPanel {

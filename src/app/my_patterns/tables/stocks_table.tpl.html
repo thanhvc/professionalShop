@@ -1,89 +1,89 @@
-<table style="width: 950px;">
+<table style="width: 950px;" class="table-pattern">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
-        <td class="table-id-header" rowspan="2">
+        <th class="table-id-header" rowspan="2">
             Id
-        </td>
-        <td class="border-right-table">
+        </th>
+        <th class="border-right-table">
             Acción
-        </td>
-        <td class="border-right-table">
+        </th>
+        <th class="border-right-table">
             Sector / Industria
-        </td>
-        <td class="border-right-table"
+        </th>
+        <th class="border-right-table"
             title="Mercado">
             <span class="cursor-help" tooltip-html-unsafe="Mercado">Merc.</span>
-        </td>
-        <td class="border-right-table"
+        </th>
+        <th class="border-right-table"
             colspan="2" title="Número de Años">
             <span class="cursor-help" tooltip-html-unsafe="Número de Años">Años</span>
-        </td>
-        <td class="border-right-table"
+        </th>
+        <th class="border-right-table"
             colspan="2">
             Fechas
-        </td>
-        <td class="border-right-table"
+        </th>
+        <th class="border-right-table"
             colspan="3">
             Rentabilidad (%)
-        </td>
-        <td class="border-right-table"
+        </th>
+        <th class="border-right-table"
             title="Duración">
             <span class="cursor-help" tooltip-html-unsafe="Duración">Dur.</span>
-        </td>
-        <td class="border-right-table"
+        </th>
+        <th class="border-right-table"
             title="Volatilidad">
             <span class="cursor-help" tooltip-html-unsafe="Volatilidad">Vol.</span>
-        </td>
-        <td class="border-right-table"
+        </th>
+        <th class="border-right-table"
             title="Favorito">
             <span class="cursor-help" tooltip-html-unsafe="Favorito">Fav.</span>
-        </td>
-        <td class="sub-border-right-table"
+        </th>
+        <th class="sub-border-right-table"
             title="Estado">
             <span class="cursor-help" tooltip-html-unsafe="Estado">Est.</span>
-        </td>
+        </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <td class="border-right-table">
+        <th class="border-right-table">
             Nombre
-        </td>
-        <td class="border-right-table">
-        </td>
-        <td class="border-right-table">
-        </td>
-        <td class="sub-border-right-table"
+        </th>
+        <th class="border-right-table">
+        </th>
+        <th class="border-right-table">
+        </th>
+        <th class="sub-border-right-table"
             title="Ganancia">
             <span class="cursor-help" tooltip-html-unsafe="Ganancia">Gan.</span>
-        </td>
-        <td class="border-right-table"
+        </th>
+        <th class="border-right-table"
             title="Pérdida">
             <span class="cursor-help" tooltip-html-unsafe="Pérdida">Pér.</span>
-        </td>
-        <td class="sub-border-right-table">
+        </th>
+        <th class="sub-border-right-table">
             Entrada
-        </td>
-        <td class="border-right-table">
+        </th>
+        <th class="border-right-table">
             Salida
-        </td>
-        <td class="sub-border-right-table"
+        </th>
+        <th class="sub-border-right-table"
             title="Acumulada">
             <span class="cursor-help" tooltip-html-unsafe="Acumulada">Acum.</span>
-        </td>
-        <td class="sub-border-right-table">
+        </th>
+        <th class="sub-border-right-table">
             Media
-        </td>
-        <td class="border-right-table">
+        </th>
+        <th class="border-right-table">
             Diaria
-        </td>
-        <td class="border-right-table">Días
-        </td>
-        <td class="border-right-table">
+        </th>
+        <th class="border-right-table">Días
+        </th>
+        <th class="border-right-table">
             (%)
-        </td>
-        <td class="border-right-table"></td>
-        <td class="sub-border-right-table"></td>
+        </th>
+        <th class="border-right-table"></th>
+        <th class="sub-border-right-table"></th>
     </tr>
-    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" >
         <td width="30" class="table-id-orange">
             {{data.Id}}
         </td>
@@ -91,8 +91,8 @@
             {{data.type}}<br/>
 
             <span class="cursor-help"
-                 tooltip-html-unsafe="{{data.name_tooltip}}"
-                 ng-class="{'buy-color': data.type == 'buy', 'sell-color': data.type == 'sell'}">
+                  tooltip-html-unsafe="{{data.name_tooltip}}"
+                  ng-class="{'buy-color': data.type == 'buy', 'sell-color': data.type == 'sell'}">
                 {{data.name}}
             </span>
         </td>
@@ -107,7 +107,7 @@
             <span class="cursor-help" tooltip="{{data.Industry}}">{{data.Industry}}</span>
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table">
-           <span tooltip-html-unsafe="{{data.Merc_tooltip}}" class="cursor-help">{{data.Merc}}</span>
+            <span tooltip-html-unsafe="{{data.Merc_tooltip}}" class="cursor-help">{{data.Merc}}</span>
         </td>
         <td style="width: 32px;" class="table-cell-patterns sub-border-right-table">
             <b>{{data.Year}}</b>
