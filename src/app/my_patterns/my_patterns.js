@@ -145,13 +145,19 @@ angular.module('ngMo.my_patterns', [
                  *       BUT THE TYPE IS PASSED AS A PARAM IN THE FINAL CODE, NOT WILL CALL DIFERENTS URL..
                  */
                 var url_pattern;
-                if (TabsService.getActiveTab() === 0) {
+                if (TabsService.getActiveTab() === 0) {//stock
                     url_pattern = 'src/app/my_patterns/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
 
-                } else if (TabsService.getActiveTab() === 1) {
+                } else if (TabsService.getActiveTab() === 1) {//pairs
                     url_pattern = 'src/app/my_patterns/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
-                } else if (TabsService.getActiveTab() === 2) {
-                    url_pattern = 'src/app/my_patterns/testdataIndex.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+                } else if (TabsService.getActiveTab() === 2) {//index
+                    if ($scope.filters.indexType === 'index') {
+                        url_pattern = 'src/app/my_patterns/testdataIndex.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+                    } else {
+                        url_pattern = 'src/app/my_patterns/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+                    }
+                } else {//futures
+                    url_pattern = 'src/app/my_patterns/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
                 }
 
                 //loads the url

@@ -16,7 +16,7 @@ angular.module('ngMo.market_observatory', [
                 selectMenu: 'market-observatory-nav',
                 selectSubmenu: 'submenu1',
                 selectItemSubmenu: 'organization-nav',
-                typeMenu: 'publicMenu'
+                moMenuType: 'publicMenu'
 
             }
         })
@@ -33,7 +33,7 @@ angular.module('ngMo.market_observatory', [
                     selectMenu: 'market-observatory-nav',
                     selectSubmenu: 'submenu1',
                     selectItemSubmenu: 'what-is-and-what-is-not-nav',
-                    typeMenu: 'publicMenu'
+                    moMenuType: 'publicMenu'
                 }
             })
             .state('service_conditions', {
@@ -49,7 +49,7 @@ angular.module('ngMo.market_observatory', [
                     selectMenu: 'market-observatory-nav',
                     selectSubmenu: 'submenu1',
                     selectItemSubmenu: 'service-conditions-nav',
-                    typeMenu: 'publicMenu'
+                    moMenuType: 'publicMenu'
                 }
             })
             .state('data_protection', {
@@ -65,7 +65,7 @@ angular.module('ngMo.market_observatory', [
                     selectMenu: 'market-observatory-nav',
                     selectSubmenu: 'submenu1',
                     selectItemSubmenu: 'data-protection-nav',
-                    typeMenu: 'publicMenu'
+                    moMenuType: 'publicMenu'
                 }
             });
 
