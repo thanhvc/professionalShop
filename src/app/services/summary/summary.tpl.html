@@ -1,3 +1,29 @@
-<div class="panel" ng-init="initiation('services-nav','submenu2','summary-nav')">
-    summary
+<div class="public-zone-text container" ng-controller="HomeCtrl">
+
+    <table class="table-page-index">
+        <tr>
+            <td>
+                  <span><a ui-sref="summary.basic" ng-class="{'orange-text': subPage == 'basic'}">
+                        Informaci&oacute;n b&aacute;sica de un patr&oacute;n
+                  </a>
+                    </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span><a ui-sref="summary.diary" ng-class="{'orange-text': subPage == 'diary'}">
+                    Seguimiento Diario
+                    </a>
+                 </span>
+
+            </td>
+        </tr>
+    </table>
+
+    <div class="submenu-content" ui-view="sum-view">
+
+    </div>
+
 </div>
+
+

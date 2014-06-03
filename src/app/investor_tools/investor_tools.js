@@ -18,7 +18,8 @@ angular.module('ngMo.investor_tools', [
                 pageTitle: 'Recursos',
                 selectMenu: 'investor-tools-nav',
                 selectSubmenu: 'submenu5',
-                selectItemSubmenu: 'resources-nav'
+                selectItemSubmenu: 'resources-nav',
+                moMenuType: 'publicMenu'
             }
         })
             .state('articles', {
@@ -33,7 +34,8 @@ angular.module('ngMo.investor_tools', [
                     pageTitle: 'Articulos',
                     selectMenu: 'investor-tools-nav',
                     selectSubmenu: 'submenu5',
-                    selectItemSubmenu: 'articles-nav'
+                    selectItemSubmenu: 'articles-nav',
+                    moMenuType: 'publicMenu'
                 }
             })
             .state('symbols_and_exchanges', {
@@ -48,7 +50,8 @@ angular.module('ngMo.investor_tools', [
                     pageTitle: 'Simbolos y Mercados',
                     selectMenu: 'investor-tools-nav',
                     selectSubmenu: 'submenu5',
-                    selectItemSubmenu: 'symbols-and-exchanges-nav'
+                    selectItemSubmenu: 'symbols-and-exchanges-nav',
+                    moMenuType: 'publicMenu'
                 }
             })
             .state('mo_template_collections', {
@@ -63,7 +66,8 @@ angular.module('ngMo.investor_tools', [
                     pageTitle: 'Coleccion Plantillas MO',
                     selectMenu: 'investor-tools-nav',
                     selectSubmenu: 'submenu5',
-                    selectItemSubmenu: 'mo-template-collections-nav'
+                    selectItemSubmenu: 'mo-template-collections-nav',
+                    moMenuType: 'publicMenu'
                 }
             });
 

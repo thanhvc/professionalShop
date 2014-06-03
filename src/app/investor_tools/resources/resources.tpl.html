@@ -1,3 +1,406 @@
-<div class="panel" ng-init="initiation('investor-tools-nav','submenu5','resources-nav')">
-    resources
+<div class="public-zone-text container" style="padding-top:40px;" ng-controller="HomeCtrl">
+
+    <table class="table-page-index" style="width:110px; margin-top: 0px; margin-right: 15px;">
+        <tr>
+            <td>
+                <div class="page-index-resource" ng-click="scrollTo('brokers')">
+                        Brokers
+                </div>
+            </td>
+        </tr>
+        <td>
+            <div class="page-index-resource" ng-click="scrollTo('financial-services')">
+                        Financial Services
+            </div>
+        </td>
+        <tr>
+            <td>
+                <div class="page-index-resource" ng-click="scrollTo('training')">
+
+                        Training
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="page-index-resource" ng-click="scrollTo('conferences')">
+
+                        Conferences
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="page-index-resource" ng-click="scrollTo('providers')" >
+
+                        Data Provider
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="page-index-resource" ng-click="scrollTo('software')">
+                        Software
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="page-index-resource" ng-click="scrollTo('books')">
+                        Books, Journals
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <div class="submenu-content" style="width: 830px;">
+
+       <p>
+           Esta p&aacute;gina est&aacute; dedicada a la publicidad sobre diferentes recursos y herramientas que pretenden facilitar las
+           operaciones de ahorradores, inversores profesionales y operadores comerciales. Intenta recoger una amplia oferta
+           para atender a las muy variadas y diferentes necesidades, desde los que se acercan al mercado para colocar una
+           parte peque&ntilde;a de su capital hasta los que operan a gran escala con los m&aacute;s sofisticados instrumentos y estrategias.
+       </p>
+
+
+        <div style="position: relative">
+
+            <table border="0" id="brokers">
+                <tbody>
+                <tr>
+                    <td class="header-orange-background" style="width: 200px;">
+                        <div >BROKERS</div>
+                    </td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                </tr>
+                <tr class="grey-row">
+                    <td>
+                        <div   class="resource-text">Options Xpress International</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">All Types of Trading, One Account for options, futures, stocks and more.</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text"><a href="http://www.optionsxpress.com" target="_blank">www.optionsxpress.com </a></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table><br>
+
+            <table border="0" id="financial-services">
+                <tbody>
+                <tr>
+                    <td class="header-orange-background" style="width: 200px;">
+                        <div >FINANCIAL SERVICES</div>
+                    </td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                </tr>
+                <tr class="grey-row">
+                    <td>
+                        <div   class="resource-text">Vanguard</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Index mutual fund leader. Low cost funds provider.  ETF's, brokerage services, actively managed funds</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text"><a href="http://www.vanguard.com" target="_blank">www.vanguard.com </a></div>
+                    </td>
+                </tr>
+                <tr class="white-row">
+                    <td>
+                        <div   class="resource-text">Pictet</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Index Funds proprietary. Global investments with first-class services across the whole product</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text"><a href="http://www.pictet.com" target="_blank">www.pictet.com </a></div>
+                    </td>
+                </tr>
+                <tr class="grey-row">
+                    <td>
+                        <div   class="resource-text">HSBC</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Trading the world,developed and emerging markets. Broad range of investments and products</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text"><a href="http://www.hsbcnet.com" target="_blank">www.hsbcnet.com </a></div>
+                    </td>
+                </tr>
+                <tr class="white-row">
+                    <td>
+                        <div   class="resource-text">ING Direct</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Indexed Pension - Retirement Funds. Index Mutual Funds. Retail banking leader in more than 40 countries.</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text"><a href="http://www.ing.com" target="_blank">www.ing.com </a></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table><br>
+
+            <table id="training" border="0">
+                <tbody>
+                <tr>
+                    <td class="header-orange-background">TRAINING</td>
+                    <td class="header-orange-background">&nbsp;</td>
+                    <td class="header-orange-background">&nbsp;</td>
+                    <td class="header-orange-background">&nbsp;</td>
+                    <td class="header-orange-background">&nbsp;</td>
+                    <td class="header-orange-background">&nbsp;</td>
+                </tr>
+                <tr >
+                    <td class="dark-grey-row" style="width: 200px;">
+                        <div   class="text-align-center">Description</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 400px;">
+                        <div   class="text-align-center">Content</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 180px;">
+                        <div   class="text-align-center">Venue, dates &amp; contact</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 53px;">
+                        <div  class="text-align-center">Price (EUR)</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 80px;">
+                        <div   class="text-align-center">Note</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 80px;">
+                        <div  class="text-align-center">Language</div>
+                    </td>
+                </tr>
+                <tr class="grey-row">
+                    <td>
+                        <div  class="resource-text">Precious Metals: Commercial &amp; Investment Operations</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Patterns Identificaction. Preciosus Metals (PM) Fundamentals and Commercial Operations. PM World Indexes. Investable Instruments linked to PM Indexes. PM Futures Contracts Spec. World Stocks related PM. PM Stocks Patterns. PM Commodities Patterns.</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Las Palmas. PO office, 5 a 7 may.   +3492654239</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text text-align-center">800</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Completed</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">English</div>
+                    </td>
+                </tr>
+                <tr class="white-row">
+                    <td>
+                        <div   class="resource-text">Summer AgroIndustry Outlook</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Patterns Identificaction. AgroIndustry (AI) Fundamentals and Commercial Hedging. AI World Indexes. Instruments to Invest in AI. AI Futures Contracts Specification. World Stocks related AI. AI Stocks Patterns. June / July  Crops. Barley, Wheat, Oat.</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Las Palmas. PO office, 8 a 11 jun.   +3492654239</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text text-align-center">800</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Completed</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">English</div>
+                    </td>
+                </tr>
+                <tr class="grey-row">
+                    <td>
+                        <div   class="resource-text">Oil &amp; Gas Industry Radiography</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Oil &amp; Gas (O&amp;G) Sectors &amp; Subsectors. O&amp;G Fundamentals and Commercial Hedging. World Energy Indexes. O&amp;G Emerging markets, O&amp;G Europe and O&amp;G NorthAmerica. O&amp;G Subsectors performance : Drilling, Equip. &amp; Services, Explorat. &amp; Product., Refining &amp; Marketing, Storage &amp; Transport., Holders. Investing in O or in G?. Instruments to Invest in O&amp;G. Futures Contracts Specification. Trading Crack 3-2-1, Crack 2-1-1 and Spreads through Patterns. World O&amp;G Subsector stocks Patterns.</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Las Palmas. PO office, 8 a 11 jun.   +3492654239</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text text-align-center">900</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Completed</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">English</div>
+                    </td>
+                </tr>
+                <tr class="white-row">
+                    <td>
+                        <div   class="resource-text">Soybean Patterns for Commercial Purposes</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Soybean, Soy Oil and Soy Meal patterns. The crop. Fundamentals of Soybean, supply &amp; demand. Crushing ratio.  Speculation &amp; Hedging. Commercial operations roles: Patterns for Producers, Elevators, Terminal Warehouses, Transportation, Proccesors and Food manufacturers.</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Las Palmas. PO office, 12 a 15 jul.   +3492654239</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text text-align-center">900</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Completed</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">English</div>
+                    </td>
+                </tr>
+                <tr class="grey-row">
+                    <td>
+                        <div   class="resource-text">Asian Emerging Markets</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Countries. Best Sectors and Local industries. Emerging Pan Asian Indexes. When to invest. Instruments to use. Top 30 performance stocks. Best periods to trade. World Industrial / emerging performance comparative.</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Las Palmas. PO office, 4 a 6 sep. +3492654239</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text text-align-center">800</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Completed</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">English</div>
+                    </td>
+                </tr>
+                <tr class="white-row">
+                    <td>
+                        <div   class="resource-text">Wheat for Whealth. Low Risk Strategies with Wheat Arbitrage and Spread Futures</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Chicago, Kansas, London &amp; Paris Wheat Futures: Product Spec. Crop cycle fundamentals difference. Arbitrage &amp; Spread Patterns. When and How, contract ratio &amp; deliverable months. Performance and expected drawdowns.</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Las Palmas. PO office, 14 a 17 oct. +3492654239</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text text-align-center">1900</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Completed</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">English</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table><br>
+
+            <table id="providers"border="0">
+                <tbody>
+                <tr>
+                    <td class="header-orange-background" style="width: 200px;">
+                        <div>DATA PROVIDERS</div>
+                    </td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                </tr>
+                <tr class="grey-row">
+                    <td colspan="3">
+                        <div id="dataP1" class="resource-text">&nbsp;</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table><br>
+
+            <table id="software" border="0">
+                <tbody>
+                <tr>
+                    <td class="header-orange-background" style="width: 200px;">
+                        <div>SOFTWARE</div>
+                    </td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                </tr>
+                <tr class="grey-row">
+                    <td>
+                        <div  class="resource-text">AmiBroker</div>
+                    </td>
+                    <td>
+                        <div class="resource-text">All features for Technical Analysis. The best Backtesting and Optimization software for discover Strategies</div>
+                    </td>
+                    <td>
+                        <div class="resource-text"><a href="http://www.amibroker.com" target="_blank">www.amibroker.com </a></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table><br>
+
+            <table id="books" border="0">
+                <tbody>
+                <tr>
+                    <td class="header-orange-background" style="width: 200px;">
+                        <div  >BOOKS, JOURNALS, MAGAZINES</div>
+                    </td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;">&nbsp;</td>
+                </tr>
+                <tr class="grey-row">
+                    <td colspan="3">
+                        <div  class="resource-text">A Trader's Money Management System: How to Ensure Profit and Avoid the Risk of Ruin. (Ed. Wiley Trading). Bennett A. McDowell (2008)</div>
+                    </td>
+                </tr>
+                <tr class="white-row">
+                    <td colspan="3">
+                        <div  class="resource-text">Mercados de Futuros. Commodities y Coberturas. (Ed. Agr&iacute;cola Espa&ntilde;ola). Jes&uacute;s Sim&oacute;n (1993)</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table><br>
+
+            <table id="conferences" border="0">
+                <tbody>
+                <tr>
+                    <td class="header-orange-background" style="width: 200px;">
+                        <div>CONFERENCES, MEETINGS</div>
+                    </td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                </tr>
+                <tr class="grey-row">
+                    <td colspan="3">
+                        <div   class="resource-text">&nbsp;</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table><br>
+
+
+            <table id="books2" name="books2" border="0">
+                <tbody>
+                <tr>
+                    <td class="header-orange-background" style="width: 200px;">
+                        <div  >INFORMATION TECH. COMPANIES</div>
+                    </td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                </tr>
+                <tr class="grey-row">
+                    <td colspan="3">
+                        <div   class="resource-text">&nbsp;</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table><br>
+
+        </div>
+    </div>
+
+
+
 </div>

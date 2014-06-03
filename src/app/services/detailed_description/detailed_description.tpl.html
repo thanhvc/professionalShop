@@ -1,3 +1,92 @@
-<div class="panel" ng-init="initiation('services-nav','submenu2','detailed-description-nav')">
-    detailed description
+<div class="public-zone-text container" ng-controller="HomeCtrl">
+
+    <div id="top" class="lat-menu-home-nav">
+        <table class="indice-details-description">
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description" >Descripci&oacute;n</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.basic" >Informaci&oacute;n B&aacute;sica de un Patr&oacute;n</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.phases" >Fases Principales del Servicio</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.monthly" >Publicaci&oacute;n Mensual</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.buy" >Comprar Suscripci&oacute;n</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.patterns" >Mis Patrones</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.diary" >Seguimiento Diario</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.historic" >Hist&oacute;ricos</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.drawdown" >Herramientas. Cartera</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.correlation" >Herramientas. Correlaci&oacute;n</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.volatility" >Herramientas. Volatilidad Hist&oacute;rica</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.week" >La Semana, Estad&iacute;sticas</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.calendar" >Calendario</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.suscriptions" >Mis Suscripciones</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a ui-sref="detailed_description.account">Mi Cuenta</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div style="margin-top: 20px" id="spacer"></div>
+
+<div ui-view="subPage">
+
+</div>
+    <div style="height: 20px; display: inline-block">
+        <a ng-click="scrollTo('top')"  >Subir</a>
+    </div>
 </div>

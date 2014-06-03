@@ -52,27 +52,27 @@
                             ng-click="sendFirstStep()" style="float:right;" type="button">Continuar
                     </button>
 
-                    <div class="red-color-form prices-font12" ng-show="form.password2.$error.mismatch">Las
+                    <div class="red-color-form prices-font12" ng-show="form.password2.$error.mismatch && (form.password2.$dirty &&form.password1.$dirty)">Las
                         contrase&ntilde;as no coinciden
                     </div>
-                    <div ng-show="form.uEmail.$error.email"
+                    <div ng-show="form.uEmail.$error.email && (form.uEmail.$dirty)"
                          class="red-color-form prices-font12">
                         Email inv&aacute;lido
                     </div>
-                    <div class="red-color-form prices-font12" ng-show="form.username2.$error.mismatch">Los
+                    <div class="red-color-form prices-font12" ng-show="form.username2.$error.mismatch && (form.uEmail.$dirty && form.username2.$dirty )">Los
                         emails no coinciden
                     </div>
-                    <div class="red-color-form prices-font12" ng-show="result.username == 'used'">El
+                    <div class="red-color-form prices-font12" ng-show="result.username == 'used' && form.uEmail.$dirty">El
                         e-mail ya est&aacute; siendo usado
                     </div>
-                    <div  class="red-color-form prices-font12" ng-show="form.password1.$error.minlength">La
+                    <div  class="red-color-form prices-font12" ng-show="form.password1.$error.minlength && form.password1.$dirty">La
                         contrase&ntilde;a requiere de un m&iacute;nimo 8 caracteres
                     </div>
                     <div  class="red-color-form prices-font12"
-                         ng-show="form.password1.$error.pattern">Caracteres inv&aacute;lidos en la contrase&ntilde;a
+                         ng-show="form.password1.$error.pattern && (form.password1.$dirty && form.password2.$dirty)">Caracteres inv&aacute;lidos en la contrase&ntilde;a
                     </div>
                     <div  class="red-color-form prices-font12"
-                         ng-show="form.$error.required">
+                         ng-show="form.$error.required && form.$dirty">
                         Faltan campos obligatorios
                     </div>
                 </div>

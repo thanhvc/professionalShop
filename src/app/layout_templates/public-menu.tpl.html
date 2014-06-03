@@ -1,5 +1,6 @@
 <!-- Menú que se muestra en la parte pública cuando el usuario no está logueado -->
-<ul>
+<!-- TODO: conditional class for logged users  class="public-menu-logged" -->
+<ul ng-class="{'public-menu-logged': isLogged}">
     <li id="market-observatory-nav" class="nav-li first-item-menu"
         ng-mouseenter="onMouseEnterMenu('market-observatory-nav','submenu1')"
         ng-mouseleave="onMouseLeaveMenu()"
@@ -16,7 +17,7 @@
         ng-mouseenter="onMouseEnterMenu('service-applications-nav','submenu3')"
         ng-mouseleave="onMouseLeaveMenu()"
         ng-class="{'item-nav-hover':actualMenu == 'service-applications-nav' || selectMenu == 'service-applications-nav'}">
-        <span>Aplicaci&oacute;n del Servicio</span>
+        <span>Aplicación del Servicio</span>
 
     <li id="subscriptions-and-prices-nav" class="nav-li fourth-item-menu"
         ng-mouseenter="onMouseEnterMenu('subscriptions-and-prices-nav','submenu4')"
