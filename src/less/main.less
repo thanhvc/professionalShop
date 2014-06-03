@@ -48,7 +48,8 @@ body{
   color:@black;
   font-family: 'fontpo';
   font-size: 12px;
-  -webkit-font-smoothing: antialiased;
+  /*-webkit-font-smoothing: antialiased; -- this change the font */
+  -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.4285;
 }
@@ -199,7 +200,7 @@ b , strong {
 
 .menu-nav {
   height: 24px;
-  background-color: #3D3D3F;
+  background-color: @darkGrey;
   position: relative;
 }
 
@@ -295,16 +296,16 @@ b , strong {
     li {
       display: inline-block;
       color: @orangeColor;
-      padding: 3px 0 4px 0;
       text-align: center;
-      a {
+      a, a:hover{
         cursor: pointer;
         color: inherit;
         font-size: 11px;
-        &:hover {
-          color: @white;
-          text-decoration: none;
-        }
+        height: 23px;
+        width: 123px;
+        padding-top: 3px;
+        display: inline-block;
+        text-decoration: none;
       }
     }
   }
@@ -787,12 +788,12 @@ Flags styles
 }
 
 @keyframes show-login-box{
-  from {top: -130px;}
+  from {top: -140px;}
   to {top: 24px;}
 }
 
 @-webkit-keyframes show-login-box{
-  from {top: -130px;}
+  from {top: -140px;}
   to {top: 24px;}
 }
 
@@ -801,17 +802,17 @@ Flags styles
   -webkit-animation: hide-login-box 1s;
   -moz-animation: hide-login-box 1s;
   -o-animation: hide-login-box 1s;
-  top: -130px;
+  top: -140px;
 }
 
 @keyframes hide-login-box{
   from {top: 24px;}
-  to {top: -130px;}
+  to {top: -140px;}
 }
 
 @-webkit-keyframes hide-login-box{
   from {top: 24px;}
-  to {top: -130px;}
+  to {top: -140px;}
 }
 
 .login-panel{
@@ -884,7 +885,7 @@ Flags styles
 
 .footer-body {
   padding:10px 0 24px 0;
-  background-color: #3d3d3f;
+  background-color: @darkGrey;
   color: @white;
   font-size: 10px;
   .footer-title-text{
@@ -898,11 +899,11 @@ Flags styles
 
 .footer-bottom {
   background-color: #b0b2b3;
-  color: #3d3d3f;
+  color: @darkGrey;
   font-size: 11px;
   padding: 13px 0;
   a{
-    color: #3d3d3f;
+    color: @darkGrey;
     &:hover{
       text-decoration: none;
     }
@@ -1679,10 +1680,79 @@ select{
 
 .copyright{
   float: right;
-  color: #3d3d3f;
+  color: @darkGrey;
   margin: 10px 20px;
   font-size: 11px;
 }
+
+
+
+/**private zone general **/
+
+
+/*tables css*/
+
+.header-month-filter{
+  height: 40px;
+  width: 950px;
+  padding: 5px 5px 5px 5px;
+  color: white;
+  font-size: 18px;
+}
+.filter-container {
+  height: 55px;
+  padding: 8px 25px 8px 25px;
+  width: 950px;
+  margin-bottom: 3px;
+  background-color: @greyBorderColor;
+}
+//table general config
+
+
+
+.table-header-private {
+  border-right: 1px solid #6f7072;
+  background-color: #868789;
+  color: white;
+  font-weight: 100;
+  font-size: 11px;
+  float: left;
+  height: 25px;
+}
+/*classes for cells config*/
+.cell-table-private {
+  /*padding: 2px;*/
+  vertical-align: middle;
+  line-height: 10px;
+  height: 25px !important;
+  display: table-cell;
+  width: inherit;
+}
+
+.border-right-table {
+  border-right: 2px solid @greyLabel /*#6f7072*/;
+}
+.sub-border-right-table {
+  border-right: 1px solid @greyLabel;
+}
+.sell-color {
+  color: @lightBrown !important;
+}
+.buy-color {
+  color: @lightGreen !important;
+}
+
+.ngRow-even {
+  background-color: @white;
+  cursor: pointer;
+}
+
+.ngRow-odd {
+  background-color: @smokeGrey;
+  cursor: pointer;
+}
+
+
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
@@ -1696,3 +1766,4 @@ select{
 @import '../app/services/services.less';
 @import '../app/contact/contact.less';
 @import '../app/the_week/the-week.less';
+@import '../app/my_patterns/my_patterns.less';
