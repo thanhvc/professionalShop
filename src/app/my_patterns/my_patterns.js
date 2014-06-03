@@ -62,7 +62,7 @@ angular.module('ngMo.my_patterns', [
         };
     })
     .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $templateCache, $rootScope, TabsService, ActualDateService) {
-        //tabs
+        //tabs and variables
 
         $scope.selectedTab = TabsService.getActiveTab();
         $scope.actualDate = ActualDateService.actualDate();
@@ -70,9 +70,6 @@ angular.module('ngMo.my_patterns', [
             selectedTab = TabsService.changeActiveTab(idTab);
         };
         $scope.tabs = TabsService.getTabs();
-        //Grid Controller
-
-        /* */
         $scope.filterOptions = {
             filterText: "",
             useExternalFilter: true
@@ -83,14 +80,59 @@ angular.module('ngMo.my_patterns', [
             pageSize: 10,
             currentPage: 1
         };
-        $scope.setPagingData = function (data, page, pageSize) {
-            var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-            $scope.myData = pagedData;
-            $scope.pages = 20; /*mocked*/
-            $scope.results= 236;
-            $scope.found= 230;
-            $scope.currentPage = 1;
-            $scope.totalServerItems = data.length;
+
+
+        $scope.filters = {
+            indexType: 'index'
+        };
+        var templateTables = [
+            {"table": 'my_patterns/tables/stocks_table.tpl.html',
+                "filter": 'my_patterns/filters/stocks_filters.tpl.html'},
+
+            {"table": 'my_patterns/tables/pairs_table.tpl.html',
+                "filter": 'my_patterns/filters/pairs_filters.tpl.html'},
+
+            {"index": {"table": 'my_patterns/tables/index_table.tpl.html',
+                        "filter": 'my_patterns/filters/index_filters.tpl.html'},
+            "pair_index": {"table": 'my_patterns/tables/pairs_index_table.tpl.html',
+                            "filter": 'my_patterns/filters/index_filters.tpl.html'}
+            },
+
+            {"table": 'my_patterns/tables/futures_table.tpl.html',
+                "filter": 'my_patterns/filters/futures_filters.tpl.html'}
+        ];
+
+        $scope.getTemplateTable = function () {
+            switch (TabsService.getActiveTab()) {
+                case 2:
+                   return templateTables[TabsService.getActiveTab()][$scope.filters.indexType].table;
+                default:
+                    return templateTables[TabsService.getActiveTab()].table;
+            }
+
+        };
+
+        $scope.getTemplateFilter = function () {
+            switch (TabsService.getActiveTab()) {
+                case 2:
+                    return templateTables[TabsService.getActiveTab()][$scope.filters.indexType].filter;
+                default:
+                    return templateTables[TabsService.getActiveTab()].filter;
+            }
+        };
+
+        $scope.changeTab = function (idTab) {
+            //we change the page to 1, to load the new tab
+            TabsService.changeActiveTab(idTab);
+            $scope.pagingOptions.currentPage = 1;
+            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+        };
+
+        $scope.setPagingData = function (data) {
+            $scope.myData = data;
+            /*mocked*/
+            $scope.results = 100;
+            $scope.found = 100;
             if (!$scope.$$phase) {
                 $scope.$apply();
             }
@@ -98,22 +140,27 @@ angular.module('ngMo.my_patterns', [
         $scope.getPagedDataAsync = function (pageSize, page, searchText) {
             setTimeout(function () {
                 var data;
-                if (searchText) {
-                    var ft = searchText.toLowerCase();
-                    $http.get('src/app/my_patterns/testdataStock.json.js').success(function (largeLoad) {
-                        data = largeLoad.filter(function (item) {
-                            return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
-                        });
-                        $scope.setPagingData(data, page, pageSize);
-                    });
-                } else {
-                    $http.get('src/app/my_patterns/testdataStock.json.js').success(function (largeLoad) {
-                        $scope.setPagingData(largeLoad, page, pageSize);
-                    });
+                /**
+                 *TODO: THIS IS A MOCKED HTTP REQUEST, THERE ARE A LOT OF JSON DEPENDING ON TYPE, IN THIS CASE WE CHANGE THE JSON TO LOAD
+                 *       BUT THE TYPE IS PASSED AS A PARAM IN THE FINAL CODE, NOT WILL CALL DIFERENTS URL..
+                 */
+                var url_pattern;
+                if (TabsService.getActiveTab() === 0) {
+                    url_pattern = 'src/app/my_patterns/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+
+                } else if (TabsService.getActiveTab() === 1) {
+                    url_pattern = 'src/app/my_patterns/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+                } else if (TabsService.getActiveTab() === 2) {
+                    url_pattern = 'src/app/my_patterns/testdataIndex.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
                 }
+
+                //loads the url
+                $http.get(url_pattern).success(function (largeLoad) {
+                    $scope.setPagingData(largeLoad, page, pageSize);
+                });
+
             }, 100);
         };
-
         $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
 
         $scope.$watch('pagingOptions', function (newVal, oldVal) {
@@ -126,43 +173,9 @@ angular.module('ngMo.my_patterns', [
                 $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
             }
         }, true);
-
-
-        //template de header
-
-        var templateId= "<div> <div class='orange-cell'>{{row.getProperty(col.field)}}</div></div>";
-        var templateName = "<div style='width:230px;' class='div-name-table'>{{row.getProperty('type')}}<br/><div ng-class='{\"buy-color\": row.getProperty(\"type\") == \"buy\"}'>{{row.getProperty('name')}}</div></div>";
-        var templateCell = '<div class="ngCellText" style="border-right: none;" ng-class="col.colIndex()">' +
-            '<div class="cell-table-private">{{row.getProperty(col.field)}}</div> </div>';
-
-        $scope.gridOptions = {
-            data: 'myData',
-            enablePaging: true,
-            headerRowHeight:0,
-            rowHeight: 25,
-            showFooter: false,
-            totalServerItems: 'totalServerItems',
-            pagingOptions: $scope.pagingOptions,
-            filterOptions: $scope.filterOptions,
-            columnDefs: [
-                { field: 'Id', cellTemplate: templateId, width: 40/*, cellClass: "orange-cell"*/},
-                { field: 'name', cellTemplate: templateName, minWidth: 230, cellClass: 'cell-table-private border-right-table'  },
-                { field: 'Sector_Ind', cellTemplate: templateCell, width: 180, cellClass: 'cell-table-private border-right-table'},
-                { field: 'Merc', cellTemplate: templateCell,width: 50, cellClass: 'cell-table-private border-right-table text-align-center'},
-                { field: 'Year', cellTemplate: templateCell, width:35, cellClass: 'cell-table-private sub-border-right-table text-align-center font-verdana-bold'},
-                { field: 'Year-Perd',cellTemplate: templateCell, width:35, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
-                { field: 'Enter', cellTemplate: templateCell, width:65, cellClass: 'cell-table-private sub-border-right-table text-align-center'},
-                { field: 'Exit', cellTemplate: templateCell, width:65, cellClass: 'cell-table-private border-right-table text-align-center'},
-                { field: 'Rent_acum', cellTemplate: templateCell,width:40, cellClass: 'cell-table-private sub-border-right-table text-align-center font-verdana-bold'},
-                { field: 'Rent_average', cellTemplate: templateCell, width:40, cellClass: 'cell-table-private sub-border-right-table text-align-center font-verdana-bold'},
-                { field: 'Rent_Diary', cellTemplate: templateCell, width:40, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
-                { field: 'Days', cellTemplate: templateCell, width:35, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
-                { field: 'Vol', cellTemplate: templateCell, width:30, cellClass: 'cell-table-private border-right-table text-align-center font-verdana-bold'},
-                { field: 'Fav', cellTemplate: templateCell, width:35, cellClass: 'cell-table-private border-right-table text-align-center'},
-                { field: 'Est', cellTemplate: templateCell, width:30, cellClass: 'cell-table-private sub-border-right-table text-align-center'}
-
-            ]
+        /*function that is fired when the indexType filter is changed, it loads the table of index/pair index*/
+        $scope.changeIndexType = function () {
+            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
         };
-
 
     });

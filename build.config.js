@@ -31,7 +31,7 @@ module.exports = {
         ctpl: [ 'src/common/**/*.tpl.html' ],
 
         html: [ 'src/index.html' ],
-        less: 'src/less/main.less',
+        less: 'src/less/main.less'
     },
 
     /**
@@ -69,14 +69,12 @@ module.exports = {
             'vendor/angular-ui-utils/modules/route/route.js',
             'vendor/angular-gettext/dist/angular-gettext.min.js',
             'vendor/angular-animate/angular-animate.min.js',
-            'vendor/jquery/dist/jquery.min.js',
-            'vendor/ng-grid/build/ng-grid.min.js'
+            'vendor/jquery/dist/jquery.min.js'
 
 
 
         ],
         css: [
-            'vendor/ng-grid/ng-grid.min.css'
         ],
         assets: [
         ]

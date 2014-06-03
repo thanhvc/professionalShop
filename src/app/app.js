@@ -13,8 +13,7 @@ angular.module('ngMo', [
         'ui.router',
         'gettext' ,
         'singUp',
-        'auth',
-        'ngGrid'
+        'auth'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
