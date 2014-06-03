@@ -24,7 +24,7 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function Investor_ToolsCtrl($scope, ActualDateService) {
+    .controller('TheWeekCtrl', function ($scope, ActualDateService) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });
@@ -43,7 +43,8 @@ angular.module('ngMo.the_week', [
          */
         $scope.weekOfYear = 23;
         $scope.year = ActualDateService.actualDate().getFullYear();
-        $scope.month = ActualDateService.actualDate().getMonth();
+        var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        $scope.month = months[ActualDateService.actualDate().getMonth()];
 
         $scope.mondayDay = $scope.obtainDateMondaythisWeek();
 
@@ -346,7 +347,7 @@ angular.module('ngMo.the_week', [
                 name: 'Materias Primas',
                 regions: [
                     {
-                        name: 'Composite',
+                        name: 'COMPOSITE',
                         indices: [
                             {
                                 name: 'DEUTSCHE BANK LIQUID COMMODITY',
@@ -676,7 +677,63 @@ angular.module('ngMo.the_week', [
         ];
 
 
-    }) ;
+    })
+
+    .directive('selectedGraphicPanel', function () {
+        return {
+            controller: function ($scope, $timeout){
+                $scope.openGraph = false;
+                $scope.firstTime = true;
+
+                $scope.showSelectedGraphic = function (e, name, url) {
+
+                    if ($scope.openGraph === true){
+                        $scope.hideSelectedGraphic();
+                        $timeout( function(){
+                            $scope.openGraph = true;
+                        },800);
+                    }else{
+                        $scope.firstTime = false;
+                        $scope.openGraph = true;
+                    }
+
+                    $scope.selectedGraphic = {
+                        indiceName:  name,
+                        url: url
+                    };
+
+                    if(e !== 'undefined') {
+                        $scope.myTop = e.srcElement.y + e.srcElement.height + 'px';
+                    }
+                };
+
+                $scope.hideSelectedGraphic = function () {
+                    $scope.selectedGraphic = {
+                        indiceName:  '',
+                        url: ''
+                    };
+                    if ($scope.openGraph === true) {
+                        $scope.openGraph = false;
+                    }
+                };
+            },
+            link: function($scope) {
+            },
+
+            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph}\"  ng-style=\"{'top': myTop}\">"+
+                "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>"+
+                "<br/>"+
+                "<span>{{selectedGraphic.indiceName}}</span>"+
+                "<br/>"+
+                "<span>Rentabilidad Diaria Acumulada (%)</span>"+
+                "<br/>"+
+                "<!-- TODO: replace img line for commited line -->"+
+                "<!--<img src=\"selectedGraphic.url\"/>-->"+
+                "<img class=\"selected-graphic-image\" src=\"assets/img/graphic_example.png\"/>"+
+                "</div>"
+        };
+    })
+;
 
 
 

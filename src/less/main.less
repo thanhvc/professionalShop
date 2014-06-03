@@ -200,7 +200,7 @@ b , strong {
 
 .menu-nav {
   height: 24px;
-  background-color: #3D3D3F;
+  background-color: @darkGrey;
   position: relative;
 }
 
@@ -296,16 +296,16 @@ b , strong {
     li {
       display: inline-block;
       color: @orangeColor;
-      padding: 3px 0 4px 0;
       text-align: center;
-      a {
+      a, a:hover{
         cursor: pointer;
         color: inherit;
         font-size: 11px;
-        &:hover {
-          color: @white;
-          text-decoration: none;
-        }
+        height: 23px;
+        width: 123px;
+        padding-top: 3px;
+        display: inline-block;
+        text-decoration: none;
       }
     }
   }
@@ -788,12 +788,12 @@ Flags styles
 }
 
 @keyframes show-login-box{
-  from {top: -130px;}
+  from {top: -140px;}
   to {top: 24px;}
 }
 
 @-webkit-keyframes show-login-box{
-  from {top: -130px;}
+  from {top: -140px;}
   to {top: 24px;}
 }
 
@@ -802,17 +802,17 @@ Flags styles
   -webkit-animation: hide-login-box 1s;
   -moz-animation: hide-login-box 1s;
   -o-animation: hide-login-box 1s;
-  top: -130px;
+  top: -140px;
 }
 
 @keyframes hide-login-box{
   from {top: 24px;}
-  to {top: -130px;}
+  to {top: -140px;}
 }
 
 @-webkit-keyframes hide-login-box{
   from {top: 24px;}
-  to {top: -130px;}
+  to {top: -140px;}
 }
 
 .login-panel{
@@ -885,7 +885,7 @@ Flags styles
 
 .footer-body {
   padding:10px 0 24px 0;
-  background-color: #3d3d3f;
+  background-color: @darkGrey;
   color: @white;
   font-size: 10px;
   .footer-title-text{
@@ -899,11 +899,11 @@ Flags styles
 
 .footer-bottom {
   background-color: #b0b2b3;
-  color: #3d3d3f;
+  color: @darkGrey;
   font-size: 11px;
   padding: 13px 0;
   a{
-    color: #3d3d3f;
+    color: @darkGrey;
     &:hover{
       text-decoration: none;
     }
@@ -1680,7 +1680,7 @@ select{
 
 .copyright{
   float: right;
-  color: #3d3d3f;
+  color: @darkGrey;
   margin: 10px 20px;
   font-size: 11px;
 }
