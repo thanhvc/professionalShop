@@ -1,6 +1,6 @@
 /**
  * Created by Aitor on 28/05/14.
- */
+
 describe('The login box', function() {
     beforeEach(function () {
         browser.get('http://46.51.174.51/moshopclient/');
@@ -11,3 +11,4 @@ describe('The login box', function() {
         expect(browser.isElementPresent(by.css('.sign-in-box'))).toBe(true);
     });
 });
+ */
