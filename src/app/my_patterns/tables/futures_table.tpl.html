@@ -102,10 +102,13 @@
             ng-class="{'buy-color': data.type == 'buy',
                             'sell-color': data.type == 'sell'}">
             <!--sector/industry-->
-            <span class="cursor-help" tooltip-html-unsafe="{{data.Sector}}">{{data.Sector}}</span>
-            <span ng-show="{{(data.Sector != '' && data.Industry != '')}}"> / </span>
-            <br>
-            <span class="cursor-help" tooltip="{{data.Industry}}">{{data.Industry}}</span>
+            <div class="text-limitator">
+                <span class="cursor-help" tooltip-html-unsafe="{{data.Sector}}">{{data.Sector}}</span>
+                <span ng-show="{{(data.Sector != '' && data.Industry != '')}}"> / </span>
+            </div>
+            <div class="text-limitator">
+                <span class="cursor-help" tooltip="{{data.Industry}}">{{data.Industry}}</span>
+            </div>
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table">
             <span tooltip-html-unsafe="{{data.Merc_tooltip}}" class="cursor-help">{{data.Merc}}</span>

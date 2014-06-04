@@ -1,10 +1,139 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div>
+    <table>
+        <tr>
+            <td>
+                <input class="border-filters input-filter" placeholder="Nombre" ng-model="filterOptions.filterName">
+            </td>
+            <td>
+                <select class="border-filters select-filter" data-ng-model="filterOptions.selectedRegion">
+                    <option value="">- región -</option>
+                    <option ng-repeat="item in filterOptions.regions" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedRegion}}">
+                        {{item.description}}
+                    </option>
+                </select>
+            </td>
+            <td>
+                <select class="border-filters select-filter" data-ng-model="filterOptions.selectedMarket">
+                    <option value="">- Mercado -</option>
+                    <option ng-repeat="item in filterOptions.markets" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedMarket}}">
+                        {{item.description}}
+                    </option>
+                </select>
+            </td>
+            <td>
+                <select class="border-filters select-filter" data-ng-model="filterOptions.selectedSector">
+                    <option value="">- Sector -</option>
+                    <option ng-repeat="item in filterOptions.sectors" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedSector}}">
+                        {{item.description}}
+                    </option>
+                </select>
+            </td>
+            <td>
+                <select class="border-filters select-filter" data-ng-model="filterOptions.selectedIndustry">
+                    <option value="">- Industria -</option>
+                    <option ng-repeat="item in filterOptions.industries" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedIndustry}}">
+                        {{item.description}}
+                    </option>
+                </select>
+            </td>
+            <td>
+                <select style="width: 100px;" class="border-filters select-filter"
+                        data-ng-model="filterOptions.selectedOperation">
+                    <option value="">- Operacion -</option>
+                    <option ng-repeat="item in filterOptions.operations" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedOperation}}">
+                        {{item.description}}
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="filter-label-select">Renta Acumulada</span><br>
+                <select class="border-filters select-filter small-select-filter"
+                        data-ng-model="filterOptions.selectedRent">
+                    <option value="">- Elegir -</option>
+                    <option ng-repeat="item in filterOptions.comparators" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedRent}}">
+                        {{item.description}}
+                    </option>
+                </select>
+                <input class="border-filters input-filter small-input-filter" placeholder="%"
+                       data-ng-model="filterOptions.rentInput">
+            </td>
+            <td>
+                <span class="filter-label-select">Renta media</span><br>
+                <select class="border-filters select-filter small-select-filter"
+                        data-ng-model="filterOptions.selectedAverage">
+                    <option value="">- Elegir -</option>
+                    <option ng-repeat="item in filterOptions.comparators" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedAverage}}">
+                        {{item.description}}
+                    </option>
+                </select>
+                <input class="border-filters input-filter small-input-filter" placeholder="%"
+                       data-ng-model="filterOptions.rentAverageInput">
+            </td>
+            <td>
+                <span class="filter-label-select">Renta diaria</span><br>
+                <select class="border-filters select-filter small-select-filter"
+                        data-ng-model="filterOptions.selectedRentDiary">
+                    <option value="">- Elegir -</option>
+                    <option ng-repeat="item in filterOptions.comparators" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedRentDiary}}">
+                        {{item.description}}
+                    </option>
+                </select>
+                <input class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
+                       data-ng-model="filterOptions.rentDiaryInput">
+            </td>
+            <td>
+                <span class="filter-label-select">Volatilidad (%)</span><br>
+                <select class="border-filters select-filter small-select-filter"
+                        data-ng-model="filterOptions.selectedVolatility">
+                    <option value="">- Elegir -</option>
+                    <option ng-repeat="item in filterOptions.comparators" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedVolatility}}">
+                        {{item.description}}
+                    </option>
+                </select>
+                <input class="border-filters input-filter small-input-filter" placeholder="%"
+                       data-ng-model="filterOptions.volatilityInput">
+            </td>
+            <td>
+                <span class="filter-label-select">Duración (Días)</span><br>
+                <select class="border-filters select-filter small-select-filter"
+                        data-ng-model="filterOptions.selectedDuration">
+                    <option value="">- Elegir -</option>
+                    <option ng-repeat="item in filterOptions.comparators" value="{{item.id}}"
+                            ng-selected="{{item.id == filterOptions.selectedDuration}}">
+                        {{item.description}}
+                    </option>
+                </select>
+                <input class="border-filters input-filter small-input-filter" placeholder="días"
+                       data-ng-model="filterOptions.durationInput">
+            </td>
+            <td>
+                <table style="position: relative; left: -15px;">
+                    <tr>
+                        <td style="text-align: center;">  <span class="filter-label-select">Favoritos</span><br>
+                            <input type="checkbox"
+                                   ng-model="filterOptions.favourite">
+                        </td>
 
-</body>
-</html>
+                        <td style="vertical-align: bottom; text-align: center;">
+                            <button class="mo-button">Buscar</button>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </td>
+        </tr>
+
+    </table>
+</div>
