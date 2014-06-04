@@ -71,31 +71,7 @@ angular.module('ngMo.my_patterns', [
         $scope.selectedTab = TabsService.getActiveTab();
         $scope.actualDate = ActualDateService.actualDate();
         $scope.tabs = TabsService.getTabs();
-        $scope.filterOptions = {
-            filterName: "",
-            selectedRegion: "",
-            regions: [{"id":1,"description":"America"},{"id":2,"description":"Europa"},{"id":3,"description":"China"}],
-            selectedMarket: "",
-            markets: [{"id":1,"description":"Bombay Stock Exchange"},{"id":2,"description":"American Stock Exchange"},{"id":3,"description":"Toronto Stock Exchange"}],
-            selectedSector: "",
-            sectors: [{"id":1,"description":"Sector1"},{"id":2,"description":"Sector2"} ],
-            selectedIndustry: "",
-            industries: [{"id":1,"description":"Industry1"},{"id":2,"description":"Industry2"} ],
-            selectedOperation: "",
-            operations: [{"id":"1","description":"buy"},{"id":"2","description":"sell"}],
-            comparators: [{"id":"1","description":"Menor que"},{"id":"2","description":"Mayor que"}],
-            selectedRent: "",
-            rentInput:"",
-            selectedAverage:"",
-            rentAverageInput: "",
-            selectedRentDiary:"",
-            rentDiaryInput:"",
-            selectedVolatility:"",
-            volatilityInput:"",
-            selectedDuration:"",
-            durationInput:"",
-            favourite: false
-        };
+        $scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
         $scope.totalServerItems = 0;
         /*paging options*/
         $scope.pagingOptions = {
@@ -125,6 +101,49 @@ angular.module('ngMo.my_patterns', [
                 "filter": 'my_patterns/filters/futures_filters.tpl.html'}
         ];
 
+        /*loads the default filters*/
+        $scope.restartFilter = function() {
+            $scope.filterOptions = {
+                filterName: "",
+                selectedRegion: "",
+                regions: [{"id":1,"description":"America"},{"id":2,"description":"Europa"},{"id":3,"description":"China"}],
+                selectedMarket: "",
+                markets: [{"id":1,"description":"Bombay Stock Exchange"},{"id":2,"description":"American Stock Exchange"},{"id":3,"description":"Toronto Stock Exchange"}],
+                selectedSector: "",
+                sectors: [{"id":1,"description":"Sector1"},{"id":2,"description":"Sector2"} ],
+                selectedIndustry: "",
+                industries: [{"id":1,"description":"Industry1"},{"id":2,"description":"Industry2"} ],
+                selectedOperation: "",
+                operations: [{"id":"1","description":"buy"},{"id":"2","description":"sell"}],
+                comparators: [{"id":"1","description":"Menor que"},{"id":"2","description":"Mayor que"}],
+                selectedRent: "",
+                rentInput:"",
+                selectedAverage:"",
+                rentAverageInput: "",
+                selectedRentDiary:"",
+                rentDiaryInput:"",
+                selectedVolatility:"",
+                volatilityInput:"",
+                selectedDuration:"",
+                durationInput:"",
+                favourite: false
+            };
+        };
+
+
+        /*make the string with the params for all the properties of the filter*/
+        $scope.createParamsFromFilter = function(filtering) {
+            var urlParams = "";
+            for (var property in filtering) {
+                if (filtering.hasOwnProperty(property)) {
+                    // create the params
+                    urlParams = "&"+property+"="+filtering[property];
+                }
+            }
+            return urlParams;
+        };
+
+
         /*load the table template*/
         $scope.getTemplateTable = function () {
             switch (TabsService.getActiveTab()) {
@@ -149,9 +168,10 @@ angular.module('ngMo.my_patterns', [
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.pagingOptions.currentPage = 1;
+            $scope.restartFilter();
             $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage,null);
         };
-
+        /*paginData sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.setPagingData = function (data) {
             $scope.myData = data;
             /*mocked, this info is loaded from data*/
@@ -161,7 +181,7 @@ angular.module('ngMo.my_patterns', [
                 $scope.$apply();
             }
         };
-        /*Function to load info from server*/
+        /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
         $scope.getPagedDataAsync = function (pageSize, page, filtering) {
            // setTimeout(function () { //change setTimeOut for $timeOut
                 var data;
@@ -170,6 +190,8 @@ angular.module('ngMo.my_patterns', [
                  *       BUT THE TYPE IS PASSED AS A PARAM IN THE FINAL CODE, NOT WILL CALL DIFERENTS URL..
                  */
 
+
+                var urlParam = $scope.createParamsFromFilter(filtering);
                 var url_pattern;
                 if (TabsService.getActiveTab() === 0) {//stock
                     url_pattern = 'src/app/my_patterns/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
@@ -213,6 +235,6 @@ angular.module('ngMo.my_patterns', [
 
 
         /*First load*/
-
+        $scope.restartFilter();
         $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage,null);
     });
