@@ -24,3 +24,10 @@
     <a ui-sref="detailed_description.calendar">Más información</a>
 </p>
 </div>
+
+<tabset class="float-left">
+    <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}" active="ctab.active" disabled="tab.disabled">
+        <div class="pdf-icon"></div>
+        <div ng-include="urlSelected"></div>
+    </tab>
+</tabset>
