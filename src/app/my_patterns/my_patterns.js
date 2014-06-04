@@ -72,8 +72,29 @@ angular.module('ngMo.my_patterns', [
         $scope.actualDate = ActualDateService.actualDate();
         $scope.tabs = TabsService.getTabs();
         $scope.filterOptions = {
-            filterText: "",
-            useExternalFilter: true
+            filterName: "",
+            selectedRegion: "",
+            regions: [{"id":1,"description":"America"},{"id":2,"description":"Europa"},{"id":3,"description":"China"}],
+            selectedMarket: "",
+            markets: [{"id":1,"description":"Bombay Stock Exchange"},{"id":2,"description":"American Stock Exchange"},{"id":3,"description":"Toronto Stock Exchange"}],
+            selectedSector: "",
+            sectors: [{"id":1,"description":"Sector1"},{"id":2,"description":"Sector2"} ],
+            selectedIndustry: "",
+            industries: [{"id":1,"description":"Industry1"},{"id":2,"description":"Industry2"} ],
+            selectedOperation: "",
+            operations: [{"id":"1","description":"buy"},{"id":"2","description":"sell"}],
+            comparators: [{"id":"1","description":"Menor que"},{"id":"2","description":"Mayor que"}],
+            selectedRent: "",
+            rentInput:"",
+            selectedAverage:"",
+            rentAverageInput: "",
+            selectedRentDiary:"",
+            rentDiaryInput:"",
+            selectedVolatility:"",
+            volatilityInput:"",
+            selectedDuration:"",
+            durationInput:"",
+            favourite: false
         };
         $scope.totalServerItems = 0;
         /*paging options*/
@@ -128,7 +149,7 @@ angular.module('ngMo.my_patterns', [
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.pagingOptions.currentPage = 1;
-            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage,null);
         };
 
         $scope.setPagingData = function (data) {
@@ -141,13 +162,14 @@ angular.module('ngMo.my_patterns', [
             }
         };
         /*Function to load info from server*/
-        $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-            setTimeout(function () {
+        $scope.getPagedDataAsync = function (pageSize, page, filtering) {
+           // setTimeout(function () { //change setTimeOut for $timeOut
                 var data;
                 /**
                  *TODO: THIS IS A MOCKED HTTP REQUEST, THERE ARE A LOT OF JSON DEPENDING ON TYPE, IN THIS CASE WE CHANGE THE JSON TO LOAD
                  *       BUT THE TYPE IS PASSED AS A PARAM IN THE FINAL CODE, NOT WILL CALL DIFERENTS URL..
                  */
+
                 var url_pattern;
                 if (TabsService.getActiveTab() === 0) {//stock
                     url_pattern = 'src/app/my_patterns/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
@@ -169,28 +191,28 @@ angular.module('ngMo.my_patterns', [
                     $scope.setPagingData(largeLoad, page, pageSize);
                 });
 
-            }, 100);
+          //  }, 100);
         };
         /*watch for pages*/
         $scope.$watch('pagingOptions', function (newVal, oldVal) {
             if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-                $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+                $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions,null);
             }
         }, true);
         /**FOR FUTURES FILTERS**/
         $scope.$watch('filterOptions', function (newVal, oldVal) {
             if (newVal !== oldVal) {
-                $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+                $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions,null);
             }
         }, true);
         /*function that is fired when the indexType filter is changed, it loads the table of index/pair index*/
         $scope.changeIndexType = function () {
-            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage,null);
         };
 
 
 
         /*First load*/
 
-        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage,null);
     });
