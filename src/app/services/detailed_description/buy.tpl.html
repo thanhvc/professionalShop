@@ -63,13 +63,13 @@
     <p>
     <ul class="list-left-first-level list-left-first-level">
         <li>
-            Suscripción mensual: 29 EUR al mes
+            Suscripción mensual: {{month_price}} EUR al mes
         </li>
         <li>
-            Suscripción trimestral: 27,55 EUR al mes (incluido 5 % descuento)
+            Suscripción trimestral: {{three_months_price}} EUR al mes (incluido 5 % descuento)
         </li>
         <li>
-            Suscripción anual: 26,10 EUR al mes (incluido 10 % descuento)
+            Suscripción anual: {{one_year_price}} EUR al mes (incluido 10 % descuento)
         </li>
 
     </ul>
@@ -116,7 +116,7 @@
         </li>
     </ul>
     <p>
-        <img src="assets/img/services/detailed_description/buy_2.png" width="900px">
+        <img src="assets/img/services/detailed_description/buy_2.png" width="800px">
     </p>
 
     <p>
@@ -125,7 +125,7 @@
     </p>
 
     <p>
-        <img src="assets/img/services/detailed_description/buy_3.png">
+        <img src="assets/img/services/detailed_description/buy_3.png" width="400px">
     </p>
     <ul class="list-left-first-level public-list-first-level">
         <li>Desde el Carro de Compra podría “Añadir más” Pack’s o “Proceder al Pago”.
@@ -196,11 +196,11 @@
 
     <ul class="list-left-first-level public-list-third-level">
         <li>
-            Caso 1. Cancelación antes de publicado el mes 3 (se han consumido 2 meses). El coste es 2 meses x 29 EUR/mes
-            = 58 EUR. Se devuelve (313 – 58) EUR.
+            Caso 1. Cancelación antes de publicado el mes 3 (se han consumido 2 meses). El coste es 2 meses x {{month_price}} EUR/mes
+            = {{month_price * 2}} EUR. Se devuelve (313 – {{month_price * 2}}) EUR.
         </li>
         <li>Caso 2. Cancelación antes de publicado mes 8, se aplica tarifa base trimestral con un 5% descuento. El coste
-            es 7 meses x 27,55 EUR/mes = 192,85 EUR. Se devuelve (313 – 192,85) EUR.
+            es 7 meses x {{three_months_price}} EUR/mes = {{three_months_price * 7}} EUR. Se devuelve (313 – {{three_months_price * 7}}) EUR.
         </li>
     </ul>
 
