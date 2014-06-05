@@ -383,6 +383,13 @@ module.exports = function ( grunt ) {
                     configFile: "protractor/protractor-conf.js", // Target-specific config file
                     args: {} // Target-specific arguments
                 }
+            },
+            e2edebug: {
+                options: {
+                    configFile: "protractor/protractor-conf.js", // Target-specific config file
+                    debug:true,
+                    args: {} // Target-specific arguments
+                }
             }
         },
         protractor_webdriver: {
@@ -589,6 +596,8 @@ module.exports = function ( grunt ) {
      */
     grunt.registerTask( 'default', [ 'build', 'compile' ] );
     grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e']);
+    grunt.registerTask('e2edebug',['protractor_webdriver:run','protractor:e2edebug']);
+
     /**
      * The `build` task gets your app ready to run for development and testing.
      */
