@@ -368,7 +368,7 @@ angular.module('ngMo.home', [
 
                         ];
                         var modalInstance = $modal.open({
-                            templateUrl: 'home/advertising_modal.tpl.html',
+                            templateUrl: 'modal.tpl.html',
                             controller: ModalInstanceCtrl,
                             resolve: {
                                 advertisingViews: function () {
