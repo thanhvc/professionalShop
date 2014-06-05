@@ -2,6 +2,7 @@ angular.module('ngMo', [
         'templates-app',
         'templates-common',
         'ngMo.home',
+        'ngMo.catalog',
         'ngMo.market_observatory',
         'ngMo.services',
         'ngMo.service_applications',
