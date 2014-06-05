@@ -49,6 +49,7 @@ angular.module('singUp', [])
                     selectMenu: '',
                     selectSubmenu: '',
                     selectItemSubmenu: '',
+                    moMenuType: 'publicMenu',
                     user: {
                         email: '',
                         email2: '',
@@ -78,6 +79,7 @@ angular.module('singUp', [])
                     selectMenu: '',
                     selectSubmenu: '',
                     selectItemSubmenu: '',
+                    moMenuType: 'publicMenu',
                     user: {
                         email: '',
                         email2: '',
@@ -98,7 +100,7 @@ angular.module('singUp', [])
     .run(function run() {
     })
 
-    .controller('SignupCtrl', function ($scope, $state, SignUpService,$modal) {
+    .controller('SignupCtrl', function ($scope, $state, SignUpService) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -165,25 +167,6 @@ angular.module('singUp', [])
                     }
                 }
             };
-
-
-            $scope.openModalInstance = function() {
-                $modal.open({
-                    templateUrl: 'home/advertising_modal.tpl.html',
-                    controller: ModalInstanceCtrl,
-                    resolve: {
-                        advertisingViews: function () {
-                            return "aa";
-                        },
-                        advertisingSelected: function () {
-                            return "sign_up/terms-and-conditions.tpl.html";
-                        }
-                    }
-                });
-            };
-
-
-
         });
     })
 /**
@@ -485,14 +468,7 @@ angular.module('singUp', [])
         return signUpService;
 
     });
-//modalPanel
-var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
-    $scope.advertisingSelected = advertisingSelected;
 
-    $scope.close = function () {
-        $modalInstance.close();
-    };
-};
 
 
 

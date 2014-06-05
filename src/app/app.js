@@ -283,7 +283,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, ActualDateService) {
+    .controller('AppCtrl', function AppCtrl($scope, ActualDateService, $modal) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
 
@@ -298,6 +298,18 @@ angular.module('ngMo', [
             $scope.$watch('selectSubmenu', function(){});
         });
         $scope.actualDate = ActualDateService.actualDate();
+
+        $scope.openModalInstance = function(url) {
+            $modal.open({
+                templateUrl: 'home/modal.tpl.html',
+                controller: ModalInstanceCtrl,
+                resolve: {
+                    advertisingSelected: function () {
+                        return url+".tpl.html";
+                    }
+                }
+            });
+        };
     })
 
 /**
@@ -483,3 +495,10 @@ angular.module('ngMo', [
 
 
 ;
+//modalPanel
+ var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
+     $scope.advertisingSelected = advertisingSelected;
+     $scope.close = function () {
+        $modalInstance.close();
+    };
+ };
