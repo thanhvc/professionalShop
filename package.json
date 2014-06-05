@@ -22,7 +22,7 @@
     "grunt-contrib-concat": "^0.3.0",
     "grunt-contrib-watch": "^0.4.4",
     "grunt-contrib-uglify": "^0.2.7",
-    "grunt-ngmin": "0.0.2",
+    "grunt-ngmin": "*",
     "grunt-html2js": "^0.1.9",
     "grunt-contrib-coffee": "^0.7.0",
     "grunt-coffeelint": "~0.0.10",
@@ -34,10 +34,11 @@
     "grunt-karma": "^0.8.2",
     "karma-coffee-preprocessor": "^0.2.1",
     "karma": "^0.12.9",
-    "grunt-lesslint": "0",
-    "karma-coverage": "0",
-    "karma-junit-reporter": "0",
-    "grunt-protractor-runner": "0",
-    "grunt-protractor-webdriver": "0"
+    "grunt-lesslint": "*",
+    "karma-coverage": "*",
+    "karma-junit-reporter": "*",
+    "grunt-protractor-runner": "*",
+    "grunt-protractor-webdriver": "*",
+    "protractor":"*"
   }
 }
