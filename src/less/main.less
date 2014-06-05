@@ -1638,6 +1638,21 @@ select{
   padding-left: 25px; /*to move to the left the <ul><ol>*/
 }
 
+.ordered-list-letters {
+  counter-reset: list;
+  margin: 0;
+}
+.ordered-list-letters > li {
+  list-style: none;
+  position: relative;
+}
+.ordered-list-letters > li:before {
+  counter-increment: list;
+  content: counter(list, lower-alpha) ") ";
+  position: absolute;
+  left: -1.4em;
+}
+
 .img-width-public {
   width: 910px !important;
 }
