@@ -55,7 +55,7 @@ describe('The signup menu is ok', function(){
          var input1 = element(by.css('.signup-input'));
          input1.sendKeys('user@gmail.com');
 
-         var matcher = new RegExp('[\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]b.]');
+         var matcher = new RegExp('[\b[a-z0-9._%+-]+@[a-z0-9.-]+\/.[a-z]b.]');
          matcher.test(input1.getAttribute('value'));
 
 
@@ -64,7 +64,7 @@ describe('The signup menu is ok', function(){
     it('should have identical passwords', function(){
 
         var items = element.all(by.css('.signup-input'));
-        var input3 = items.get(2)
+        var input3 = items.get(2);
         var input4 = items.last();
         input3.sendKeys('password');
         input4.sendKeys('password');
@@ -146,7 +146,7 @@ describe('The signup step 2 is ok', function() {
         expect(invalid.getText()).toBe('');
 
 
-    })
+    });
 
     it('should have a country selected', function() {
 
@@ -154,9 +154,9 @@ describe('The signup step 2 is ok', function() {
         country.sendKeys('Albania');
         country.getAttribute('value').then(function(result){
             expect(result).toBe('1');
-        })
+        });
 
-    })
+    });
     it('should have a captcha selected', function() {
 
         var items = element.all(by.css('.signup-input'));
@@ -164,7 +164,7 @@ describe('The signup step 2 is ok', function() {
         captcha.sendKeys('4');
         expect(captcha.getAttribute('value')).toBe('4');
 
-    })
+    });
 
     it('should have a postal code', function() {
 
@@ -175,14 +175,14 @@ describe('The signup step 2 is ok', function() {
         var invalid = error.get(1);
         expect(invalid.getText()).toBe('');
 
-    })
+    });
 
     it('should have the conditions accepted', function() {
         var error = element.all(by.css('.text-warning-form'));
         var conditions = error.last();
         expect(conditions.getText()).toBeDefined();
 
-    })
+    });
 
 
 });

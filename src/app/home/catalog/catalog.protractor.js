@@ -77,4 +77,4 @@ describe('The cart functionality is corret', function() {
 
 
     });
-})
+});
