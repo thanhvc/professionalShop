@@ -18,7 +18,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": false,
-                "Est": "started"
+                "Est": "Comenzado"
             },
             {
                 "Id": "20000",
@@ -39,7 +39,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": false,
-                "Est": "new"
+                "Est": "Sin Comenzar"
             },
             {
                 "Id": "30000",
@@ -60,7 +60,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": false,
-                "Est": "closed"
+                "Est": "Finalizado"
             },
             {
                 "Id": "40000",
@@ -81,7 +81,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": true,
-                "Est": "started"
+                "Est": "Comenzado"
             },
             {
                 "Id": "50000",
@@ -102,7 +102,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": false,
-                "Est": "started"
+                "Est": "Comenzado"
             },
             {
                 "Id": "60000",
@@ -123,7 +123,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": false,
-                "Est": "started"
+                "Est": "Comenzado"
             },
             {
                 "Id": "70000",
@@ -144,7 +144,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": false,
-                "Est": "started"
+                "Est": "Comenzado"
             },
             {
                 "Id": "80000",
@@ -165,7 +165,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": false,
-                "Est": "started"
+                "Est": "Comenzado"
             },
             {
                 "Id": "90000",
@@ -186,7 +186,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": false,
-                "Est": "started"
+                "Est": "Comenzado"
             },
             {
                 "Id": "100000",
@@ -207,7 +207,7 @@
                 "Days": "100",
                 "Vol": "13",
                 "Fav": false,
-                "Est": "started"
+                "Est": "Comenzado"
             }
 
         ]
