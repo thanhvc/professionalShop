@@ -220,8 +220,28 @@ angular.module('ngMo.services', [
     .run(function run() {
     })
 
-    .controller('ServicesCtrl', function ServicesCtrl($scope) {
+    .controller('ServicesCtrl', function ServicesCtrl($scope,PricesService) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });
-    }) ;
+        var prices = PricesService.getPrices();
+        $scope.month_price = prices.one_month;
+        $scope.three_months_price=prices.three_months;
+        $scope.one_year_price = prices.one_year;
+        $scope.pack_month = prices.pack_month;
+        $scope.pack_trimestral = prices.pack_trimestral;
+        $scope.pack_year = prices.pack_year;
+    })
+    .service("PricesService", function() {
+        this.getPrices = function(){
+            /*mocked*/
+            return  {
+                one_month: "29",
+                three_months: "27.55",
+                one_year: "26.10",
+                pack_month:"29",
+                pack_trimestral:"82",
+                pack_year:"313"
+            };
+        };
+    });
