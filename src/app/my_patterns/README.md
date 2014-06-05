@@ -1,0 +1,1 @@
+The Tabs Service respond to a service that save the state of the active tab (to get the same tab in all private views)

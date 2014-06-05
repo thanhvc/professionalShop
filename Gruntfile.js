@@ -266,7 +266,14 @@ module.exports = function ( grunt ) {
         lesslint:{
             src: ['<%= app_files.less %>'],
             options: {
-                imports: ['src/app/**/*.less']}
+                csslint:
+                {   'important' : false,
+                    'box-model' : false
+                },
+    imports: ['src/app/**/*.less']}
+
+
+
         },
         /**
          * `jshint` defines the rules of our linter as well as which files we
@@ -388,7 +395,7 @@ module.exports = function ( grunt ) {
         protractor_webdriver: {
             run: {
                 options: {
-                    path: './node_modules/grunt-protractor-runner/node_modules/protractor/bin/',
+                    path: './node_modules/protractor/bin/',
                     command: 'webdriver-manager start'
                 }
             }

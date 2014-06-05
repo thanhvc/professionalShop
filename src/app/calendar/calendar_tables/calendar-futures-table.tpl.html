@@ -1,0 +1,54 @@
+<div class="calendar-filters-container">
+    <select data-ng-model="selectedMonth">
+        <option ng-repeat="month in calendarMonths" value="{{month.value}}">{{month.description}}</option>
+    </select>
+    <select data-ng-model="selectedOperation">
+        <option selected value="">- Operación -</option>
+        <option value="0">Compra</option>
+        <option value="1">Venta</option>
+    </select>
+    <input type="checkbox" ng-model="favouriteCalendar"><label>Favoritos</label>
+    <input type="text" placeholder="Día">
+    <select data-ng-model="selectedOrder" class="select-order">
+        <option selected="selected" value="0">Ordenar por Fecha Entrada</option>
+        <option value="1">Ordenar por Fecha Salida</option>
+    </select>
+</div>
+<table class="calendar-table">
+    <thead>
+    <tr>
+        <th>Compañía</th>
+        <th ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">{{day.dayOfWeek}}<br/>{{day.dayOfMonth}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="pattern in futures_calendar.patterns">
+        <td>
+            <span tooltip="{{pattern.product_name}} ({{pattern.market}}) {{pattern.code}}">{{pattern.product_name}}</span>
+        </td>
+        <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
+            <span ng-show="pattern.bullish_pattern && day.dayOfMonth >= pattern.start_day && day.dayOfMonth <= pattern.finish_day" class="bearish-year calendar-letter">S</span>
+            <span ng-show="!pattern.bullish_pattern && day.dayOfMonth >= pattern.start_day && day.dayOfMonth <= pattern.finish_day" class="bullish-year calendar-letter">L</span>
+        </td>
+    </tr>
+
+    </tbody>
+
+
+</table>
+<div class="copyright">
+    Copyright © 2014 Market Observatory
+</div>
+<!--pagination-->
+<div class="pagination-container" style="margin-top:72px; clear:both;">
+    <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                next-text="&gt;"
+                first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+</div>
+
+<div class="calendar-caption">
+    <span class="bullish-year calendar-letter">L: </span> Long (Compra)
+    <span class="bearish-year calendar-letter">S: </span> Short (Venta)
+</div>

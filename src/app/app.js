@@ -8,7 +8,9 @@ angular.module('ngMo', [
         'ngMo.subscriptions_and_prices',
         'ngMo.investor_tools',
         'ngMo.contact',
+        'ngMo.my_patterns',
         'ngMo.the_week',
+        'ngMo.calendar',
         'ui.router',
         'gettext' ,
         'singUp',
@@ -302,6 +304,10 @@ angular.module('ngMo', [
     .directive('publicMenu',function ($compile){
         return {
             controller: function($scope, $state){
+                /**
+                 * TODO: Replace this variable for a service
+                 * @type {boolean}
+                 */
                 $scope.isLogged = true;
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
                     $scope.actualMenu = idMenu;

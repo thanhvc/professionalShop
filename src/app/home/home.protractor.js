@@ -1,7 +1,5 @@
-/**
- * Created by Aitor on 28/05/14.
- */
-describe('The login box', function() {
+
+ describe('The login box', function() {
     beforeEach(function () {
         browser.get('http://46.51.174.51/moshopclient/');
         browser.ignoreSynchronization = true;
