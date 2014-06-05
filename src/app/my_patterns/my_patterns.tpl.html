@@ -1,15 +1,15 @@
-<div style="height: 650px;">
+<div>
     <div class="super-border private-black-title">Mis Patrones</div>
 
     <div style="clear: both">
         La tabla muestra las estrategias clasificadas por mes de publicación ordenadas por Fecha de Entrada.
         <div style="display: inline-block;"
              ng-click="show=!show" ng-show="!show"><img
-                src="assets/img/textdown.png"><a> Mostrar m&aacute;s</a></div>
+                src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar m&aacute;s</a></div>
     </div>
     <div ng-show="show">
-        <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<<' y
-            '>>'. Para cambiar de grupo de
+        <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<span class="dark-link-color" ><<</span>' y
+            '<span class="dark-link-color" >>></span>'. Para cambiar de grupo de
             Productos haga click sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
 
         <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
@@ -23,7 +23,7 @@
             análisis. Más información.</p>
 
         <p>
-            <img src="assets/img/textup.png"> <a ng-click="show=!show">Mostrar menos</a>
+            <img src="assets/img/textup.png"> <a  style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar menos</a>
         </p>
     </div>
 
@@ -58,10 +58,10 @@
                     </div>
                 </div>
                 <div class="copyright">
-                    Copyright © 2014 Market Observatory
+                    Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
                 </div>
                 <!--pagination-->
-                <div class="pagination-container" style="margin-top:72px; clear:both;">
+                <div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;">
                     <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                                 items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                                 page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"

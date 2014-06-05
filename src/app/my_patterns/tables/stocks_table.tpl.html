@@ -83,28 +83,31 @@
         <th class="border-right-table"></th>
         <th class="sub-border-right-table"></th>
     </tr>
-    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" >
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
         <td width="30" class="table-id-orange">
             {{data.Id}}
         </td>
         <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
             {{data.type}}<br/>
-
+            <div class="text-limitator">
             <span class="cursor-help"
                   tooltip-html-unsafe="{{data.name_tooltip}}"
                   ng-class="{'buy-color': data.type == 'buy', 'sell-color': data.type == 'sell'}">
                 {{data.name}}
             </span>
+            </div>
         </td>
         <td style="text-align: left; width: 180px; vertical-align: top;"
             class="table-cell-patterns border-right-table"
             ng-class="{'buy-color': data.type == 'buy',
                             'sell-color': data.type == 'sell'}">
             <!--sector/industry-->
-            <span class="cursor-help" tooltip-html-unsafe="{{data.Sector}}">{{data.Sector}}</span>
-            <span ng-show="{{(data.Sector != '' && data.Industry != '')}}"> / </span>
-            <br>
-            <span class="cursor-help" tooltip="{{data.Industry}}">{{data.Industry}}</span>
+            <div class="text-limitator"><span class="cursor-help" tooltip-html-unsafe="{{data.Sector}}">{{data.Sector}}</span>
+                <span ng-show="{{(data.Sector != '' && data.Industry != '')}}"> / </span>
+            </div>
+            <div class="text-limitator">
+                <span class="cursor-help" tooltip="{{data.Industry}}">{{data.Industry}}</span>
+            </div>
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table">
             <span tooltip-html-unsafe="{{data.Merc_tooltip}}" class="cursor-help">{{data.Merc}}</span>
@@ -141,10 +144,10 @@
                  g-class="{'favourite-added': data.Fav == 'true'}"></div>
         </td>
         <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
-            <div class="spheres cursor-help" ng-class="{
-           'sphere-Orange':data.Est == 'started',
-            'sphere-Green': data.Est == 'new' ,
-            'sphere-Red': data.Est == 'closed'}"
+            <div class="state-sphere cursor-help" ng-class="{
+           'started-state':data.Est == 'Comenzado',
+            'no-started-state': data.Est == 'Sin Comenzar' ,
+            'finished-state': data.Est == 'Finalizado'}"
                  tooltip-html-unsafe="{{data.Est}}"
                     ></div>
         </td>

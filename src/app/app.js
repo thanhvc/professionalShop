@@ -2,6 +2,7 @@ angular.module('ngMo', [
         'templates-app',
         'templates-common',
         'ngMo.home',
+        'ngMo.catalog',
         'ngMo.market_observatory',
         'ngMo.services',
         'ngMo.service_applications',
@@ -282,7 +283,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope) {
+    .controller('AppCtrl', function AppCtrl($scope, ActualDateService) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
 
@@ -296,6 +297,7 @@ angular.module('ngMo', [
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
         });
+        $scope.actualDate = ActualDateService.actualDate();
     })
 
 /**

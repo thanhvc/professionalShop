@@ -266,7 +266,14 @@ module.exports = function ( grunt ) {
         lesslint:{
             src: ['<%= app_files.less %>'],
             options: {
-                imports: ['src/app/**/*.less']}
+                csslint:
+                {   'important' : false,
+                    'box-model' : false
+                },
+    imports: ['src/app/**/*.less']}
+
+
+
         },
         /**
          * `jshint` defines the rules of our linter as well as which files we
@@ -376,12 +383,19 @@ module.exports = function ( grunt ) {
                     configFile: "protractor/protractor-conf.js", // Target-specific config file
                     args: {} // Target-specific arguments
                 }
+            },
+            e2edebug: {
+                options: {
+                    configFile: "protractor/protractor-conf.js", // Target-specific config file
+                    debug:true,
+                    args: {} // Target-specific arguments
+                }
             }
         },
         protractor_webdriver: {
             run: {
                 options: {
-                    path: './node_modules/grunt-protractor-runner/node_modules/protractor/bin/',
+                    path: './node_modules/protractor/bin/',
                     command: 'webdriver-manager start'
                 }
             }
@@ -582,6 +596,8 @@ module.exports = function ( grunt ) {
      */
     grunt.registerTask( 'default', [ 'build', 'compile' ] );
     grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e']);
+    grunt.registerTask('e2edebug',['protractor_webdriver:run','protractor:e2edebug']);
+
     /**
      * The `build` task gets your app ready to run for development and testing.
      */

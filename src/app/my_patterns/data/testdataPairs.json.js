@@ -3,7 +3,7 @@
         "Id": "10000",
         "name": "CANADIAN NATIONAL",
         "name_tooltip": "CANADIAN NATIONAL (NASDAQ)",
-        "type": "sell",
+        "type": "buy",
         "Sector": "Industrial",
         "Industry": "Commercial Services & Supplies ",
         "Merc": "TSX",
@@ -18,7 +18,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": false,
-        "Est": "started"
+        "Est": "Comenzado",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     },
     {
         "Id": "20000",
@@ -39,7 +48,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": false,
-        "Est": "new"
+        "Est": "Sin Comenzar",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     },
     {
         "Id": "30000",
@@ -60,7 +78,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": false,
-        "Est": "closed"
+        "Est": "Finalizado",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     },
     {
         "Id": "40000",
@@ -81,7 +108,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": true,
-        "Est": "started"
+        "Est": "Comenzado",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     },
     {
         "Id": "50000",
@@ -102,7 +138,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": false,
-        "Est": "started"
+        "Est": "Comenzado",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     },
     {
         "Id": "60000",
@@ -123,7 +168,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": false,
-        "Est": "started"
+        "Est": "Comenzado",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     },
     {
         "Id": "70000",
@@ -144,7 +198,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": false,
-        "Est": "started"
+        "Est": "Comenzado",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     },
     {
         "Id": "80000",
@@ -165,7 +228,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": false,
-        "Est": "started"
+        "Est": "Comenzado",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     },
     {
         "Id": "90000",
@@ -186,7 +258,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": false,
-        "Est": "started"
+        "Est": "Comenzado",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     },
     {
         "Id": "100000",
@@ -207,7 +288,16 @@
         "Days": "100",
         "Vol": "13",
         "Fav": false,
-        "Est": "started"
+        "Est": "Comenzado",
+        "name2": "DOVER DOWNS ENTERTAINMENT",
+        "name_tooltip2":"DOVER DOWNS ENTERTAINMENT (NYSE)",
+        "type2": "sell",
+        "Sector2": "Consumeer Discretionary",
+        "Industry2": "Hotels & Restaurants",
+        "Side":"30",
+        "Side2":"40",
+        "Merc2": "TSE",
+        "Merc2_tooltip":"Tokio SE"
     }
 
 ]

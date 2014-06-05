@@ -223,3 +223,121 @@ describe('The cart directive', function () {
 
     });
 });
+
+/* Count how many items the private menu has*/
+
+describe('The privateMenu directive', function () {
+
+    beforeEach(angular.mock.module("ngMo"));
+
+    describe('template', function () {
+        var $compile;
+        var $scope;
+        var $state;
+
+    beforeEach(module('templates-app'));
+
+    beforeEach(inject(function (_$compile_, _$rootScope_, _$state_) {
+        $compile = _$compile_;
+        $scope = _$rootScope_.$new();
+        $state =  _$state_;
+    }));
+
+    it('should produce 7 menu items', inject(function () {
+        var template = $compile("<nav private-menu></nav>")($scope);
+        $scope.$apply();
+        expect(template.find('li').length).toEqual(7);
+    }));
+
+    });
+});
+
+
+/* Check if login  - logout panel fades in*/
+
+describe('The signin-signup-box ng-scope div', function(){
+
+
+    beforeEach(angular.mock.module("ngMo"));
+
+    beforeEach(module('templates-app'));
+
+    describe('template', function () {
+        var $compile;
+        var $scope;
+        var $state;
+
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_) {
+            $scope = _$rootScope_.$new();
+            $compile = _$compile_;
+        }));
+
+            it('should fade in', function () {
+
+                var template = $compile("<div class=\"signin-signup-box ng-scope\" ng-controller=\"AuthCtrl\">" +
+                    "<div class=\"no-logged-box sign-background\" ng-click=\"toggleSignInForm(); $event.stopPropagation();\">Login</div>" +
+                    "<a ui-sref=\"signup\" class=\"subscribe-free-link sign-background\">" +
+                    "<span>Suscr&iacute;bete Gratis</span>" +
+                    "</a></div>")($scope);
+                $scope.$apply();
+               // expect(template.children.length).toEqual(3);
+                expect(template.children('span, div').length).toEqual(2);
+            });
+
+
+    });
+});
+
+
+/*Check if the sigin box fades in*/
+describe('The signin box fades in',function(){
+    beforeEach(angular.mock.module("ngMo"));
+
+    beforeEach(module('templates-app'));
+
+
+
+    describe('template', function () {
+        var $compile;
+        var $scope;
+        var $state;
+
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_) {
+            $scope = _$rootScope_.$new();
+            $compile = _$compile_;
+        }));
+
+        beforeEach(function() {
+            var template = $compile("<a ui-sref=\"signup\" class=\"subscribe-free-link sign-background\">" +
+                "<span>Suscr&iacute;bete Gratis</span>" +
+                "</a>")($scope);
+            $scope.$apply();
+
+
+            expect(template.children('span').length).toEqual(1);
+
+            template.click();
+            expect(element("<div class=\"login-panel\">"+
+            "<span>Acceso</span>"+
+            "<label>Email</label><input type=\"text\" class=\"float-right\" ng-class=\"{'warning-input' : errorSignIn}\"/>"+
+                "<label>Contrase&ntilde;a</label><input type=\"password\" class=\"float-right\" ng-class=\"{'warning-input' : errorSignIn}\"/>"+
+                "<div>"+
+                    "<label>Recordar</label> <input type = \"checkbox\" />"+
+                    "<button class=\"mo-button float-right\" ng-click=\"submit()\">Entrar</button>"+
+                    "<div ng-show=\"errorSignIn\" class=\"login-bottom-panel\">"+
+                        "<img  ng-src=\"assets/img/warning-icon.png\">"+
+                            "<span class=\"warning-login-text\">Usuario o contrase&ntilde;a incorrecta.</span>"+
+                        "</div>"+
+                        "<div class=\"forget-password\">"+
+                            "<img ng-src=\"assets/img/question-mark.png\">"+
+                                "<a ui-sref=\"forgotten-password\" ng-click=\"hideSignInForm()\">&iquest;Ha olvidado su contrase&ntilde;a?</a>"+
+                                "<div>"+
+                                "</div>"+
+                            "</div>").is(':visible')).toBe(true);
+        });
+
+
+    });
+});
+
+/* Check if login - logout panel fades out*/
