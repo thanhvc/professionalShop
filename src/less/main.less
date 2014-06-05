@@ -364,6 +364,7 @@ b , strong {
   width: 10px;
   background-position: -494px 208px;
   background-size: 520px 208px;
+  margin-bottom: 7px;
 }
 
 .display-none{
@@ -773,7 +774,7 @@ Flags styles
   width: 258px;
   min-height: 135px;
   border: 1px solid @greyBorderColor;
-  padding: 4px 16px 0 6px;
+  padding: 4px 16px 0px 6px;
   background-image: url('../assets/img/background-login-form.png');
   background-repeat: repeat-y;
   color: white;
@@ -1417,7 +1418,7 @@ table{
 }
 
 .no-started-state {
-  background-position: 0 0;
+  background-position: 0 -17px;
 }
 .started-state {
   background-position: 0 34px;
@@ -1634,21 +1635,6 @@ select{
   padding-left: 25px; /*to move to the left the <ul><ol>*/
 }
 
-.ordered-list-letters {
-  counter-reset: list;
-  margin: 0;
-}
-.ordered-list-letters > li {
-  list-style: none;
-  position: relative;
-}
-.ordered-list-letters > li:before {
-  counter-increment: list;
-  content: counter(list, lower-alpha) ") ";
-  position: absolute;
-  left: -1.4em;
-}
-
 .img-width-public {
   width: 910px !important;
 }
@@ -1711,7 +1697,7 @@ select{
 .header-month-filter{
   height: 40px;
   width: 950px;
-  padding: 5px;
+  padding: 5px 5px 5px 5px;
   color: white;
   font-size: 18px;
 }
@@ -1748,12 +1734,14 @@ select{
 
 .input-filter {
   width: 140px;
+  display: inline;
   font-size: 11px;
   padding: 0;
   height: 19px;
 }
 .small-input-filter {
   width: 35px;
+  display: inline;
   height: 19px;
   position: relative;
   top: -1px;
