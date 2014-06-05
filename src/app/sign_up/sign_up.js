@@ -167,25 +167,6 @@ angular.module('singUp', [])
                     }
                 }
             };
-
-
-            /*$scope.openModalInstance = function() {
-                $modal.open({
-                    templateUrl: '../home/modal.tpl.html',
-                    controller: ModalInstanceCtrl,
-                    resolve: {
-                        advertisingViews: function () {
-                            return "aa";
-                        },
-                        advertisingSelected: function () {
-                            return "sign_up/terms-and-conditions.tpl.html";
-                        }
-                    }
-                });
-            };*/
-
-
-
         });
     })
 /**
@@ -487,14 +468,7 @@ angular.module('singUp', [])
         return signUpService;
 
     });
-/*//modalPanel
-var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
-    $scope.advertisingSelected = advertisingSelected;
 
-    $scope.close = function () {
-        $modalInstance.close();
-    };
-};*/
 
 
 
