@@ -225,7 +225,7 @@ angular.module('ngMo.home', [
 
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, ActualDateService, AnchorLinkService) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, AnchorLinkService) {
         $scope.myInterval = 6000;
 
         $scope.scrollTo = AnchorLinkService.scrollTo;
@@ -326,9 +326,6 @@ angular.module('ngMo.home', [
                 url: 'home/tables_packs/futures_table.tpl.html'
             }
         ];
-
-        $scope.actualDate = ActualDateService.actualDate();
-
     })
 
 
