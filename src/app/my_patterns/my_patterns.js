@@ -291,6 +291,11 @@ angular.module('ngMo.my_patterns', [
             $scope.applyFilters();
         };
 
+        //when we change index type (pairs_index, or index)
+        $scope.selectIndexType = function() {
+            $scope.applyFilters();
+        };
+
         /**
          * watch for pages
          * */
