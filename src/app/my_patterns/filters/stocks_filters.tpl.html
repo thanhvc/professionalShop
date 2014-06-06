@@ -8,7 +8,7 @@
                 <select ng-change="search()"  class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedRegion">
                     <option value="">- región -</option>
                     <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
+                           ><!-- ng-selected="{{item.id == filterOptions.filters.selectedRegion}}"-->
                         {{item.description}}
                     </option>
                 </select>
@@ -17,7 +17,7 @@
                 <select ng-change="selectMarket()" class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedMarket">
                     <option value="">- Mercado -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
+                           ><!-- ng-selected="{{item.id == filterOptions.filters.selectedMarket}}"-->
                         {{item.description}}
                     </option>
                 </select>
@@ -26,7 +26,7 @@
                 <select ng-change="selectSector()" class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedSector">
                     <option value="">- Sector -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
+                        ><!--    ng-selected="{{item.id == filterOptions.filters.selectedSector}}"-->
                         {{item.description}}
                     </option>
                 </select>
@@ -35,7 +35,7 @@
                 <select ng-change="applyFilters()" class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedIndustry">
                     <option value="">- Industria -</option>
                     <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}">
+                            ><!--ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}"-->
                         {{item.description}}
                     </option>
                 </select>
@@ -45,7 +45,7 @@
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- Operacion -</option>
                     <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedOperation}}">
+                            ><!--ng-selected="{{item.id == filterOptions.filters.selectedOperation}}"-->
                         {{item.description}}
                     </option>
                 </select>
@@ -58,7 +58,7 @@
                         data-ng-model="filterOptions.filters.selectedRent">
                     <option value="">- Elegir -</option>
                     <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedRent}}">
+                          ><!--  ng-selected="{{item.id == filterOptions.filters.selectedRent}}"-->
                         {{item.description}}
                     </option>
                 </select>
@@ -71,7 +71,7 @@
                         data-ng-model="filterOptions.filters.selectedAverage">
                     <option value="">- Elegir -</option>
                     <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedAverage}}">
+                            ><!--ng-selected="{{item.id == filterOptions.filters.selectedAverage}}"-->
                         {{item.description}}
                     </option>
                 </select>
@@ -84,7 +84,7 @@
                         data-ng-model="filterOptions.filters.selectedRentDiary">
                     <option value="">- Elegir -</option>
                     <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedRentDiary}}">
+                            ><!--ng-selected="{{item.id == filterOptions.filters.selectedRentDiary}}"-->
                         {{item.description}}
                     </option>
                 </select>
@@ -97,7 +97,7 @@
                         data-ng-model="filterOptions.filters.selectedVolatility">
                     <option value="">- Elegir -</option>
                     <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedVolatility}}">
+                           ><!-- ng-selected="{{item.id == filterOptions.filters.selectedVolatility}}"-->
                         {{item.description}}
                     </option>
                 </select>
@@ -110,7 +110,7 @@
                         data-ng-model="filterOptions.filters.selectedDuration">
                     <option value="">- Elegir -</option>
                     <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedDuration}}">
+                            "><!--ng-selected="{{item.id == filterOptions.filters.selectedDuration}}-->
                         {{item.description}}
                     </option>
                 </select>

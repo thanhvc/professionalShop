@@ -97,6 +97,7 @@ angular.module('ngMo.my_patterns', [
                 "filter": 'my_patterns/filters/futures_filters.tpl.html'}
         ];
 
+
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
         $scope.restartFilter = function () {
             $scope.filterOptions = {
@@ -118,6 +119,7 @@ angular.module('ngMo.my_patterns', [
                     selectedDuration: "",
                     durationInput: "",
                     index_type: "index",
+                    tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     favourite: false},
                 selectors: {
                     regions: [
@@ -155,7 +157,7 @@ angular.module('ngMo.my_patterns', [
                     $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
                     break;
                 case 1:     //pairs
-                    $scope.refreshSelectors(['regions',  'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions', 'industries', 'sectors']);
                     break;
                 case 2:     //index (pair and index)
                     break;
@@ -220,18 +222,22 @@ angular.module('ngMo.my_patterns', [
          */
         $scope.refreshSelectors = function (selectors) {
             PatternsService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
-                //checks the data received
+                //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
                     $scope.filterOptions.selectors.markets = data.markets;
+                    $scope.filterOptions.filters.selectedMarket = "";
                 }
                 if (data.hasOwnProperty("regions")) {
                     $scope.filterOptions.selectors.regions = data.regions;
+                    $scope.filterOptions.filters.selectedRegion = "";
                 }
                 if (data.hasOwnProperty("industries")) {
                     $scope.filterOptions.selectors.industries = data.industries;
+                    $scope.filterOptions.filters.selectedIndustry = "";
                 }
                 if (data.hasOwnProperty("sectors")) {
                     $scope.filterOptions.selectors.sectors = data.sectors;
+                    $scope.filterOptions.filters.selectedSector = "";
                 }
             });
         };
@@ -242,13 +248,13 @@ angular.module('ngMo.my_patterns', [
         $scope.search = function () {
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
-                    $scope.refreshSelectors( ['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
                     break;
                 case 1://pairs doesnt have markets
-                    $scope.refreshSelectors( ['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
                     break;
                 case 3: //futures ONLY have markets
-                    $scope.refreshSelectors( ['markets']);
+                    $scope.refreshSelectors(['markets']);
                     break;
                 default://others doesnt have selectors to refresh
                     break;
@@ -340,12 +346,12 @@ angular.module('ngMo.my_patterns', [
 
             var urlParam = this.createParamsFromFilter(filtering);
             var url_pattern;
-            if (TabsService.getActiveTab() === 0) {//stock
+            if (filtering.tab_type === "Acciones") {//stock
                 url_pattern = 'src/app/my_patterns/data/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
 
-            } else if (TabsService.getActiveTab() === 1) {//pairs
+            } else if (filtering.tab_type === "Pares") {//pairs
                 url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
-            } else if (TabsService.getActiveTab() === 2) {//index
+            } else if (filtering.tab_type === "Indices") {//index
                 if (filtering.index_type === 'index') {
                     url_pattern = 'src/app/my_patterns/data/testdataIndex.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
                 } else {
@@ -392,7 +398,7 @@ angular.module('ngMo.my_patterns', [
                 {"id": 7, "description": "Shenzhen Stock Exchange"}
             ];
 
-            if (selectorsToRefresh.indexOf("regions")>-1) {
+            if (selectorsToRefresh.indexOf("regions") > -1) {
                 //load regions (always all regions)
                 data.regions = [
                     {"id": 1, "description": "America"},
@@ -400,7 +406,7 @@ angular.module('ngMo.my_patterns', [
                     {"id": 3, "description": "China"}
                 ];
             }
-            if (selectorsToRefresh.indexOf("markets")>-1) {
+            if (selectorsToRefresh.indexOf("markets") > -1) {
                 //load markets , check if region is selected.
                 //NOTE: IN A REAL CASE ALL THE FILTERS INFLUENCE THE LIST RECEIVED, NOT ONLY THE REGION
                 //the cases are in string (not INT) so we use expressions to check the value
@@ -420,14 +426,14 @@ angular.module('ngMo.my_patterns', [
             }
 
             //the sectors and industries are always same, to dont make large code
-            if (selectorsToRefresh.indexOf("sectors")>-1) {
+            if (selectorsToRefresh.indexOf("sectors") > -1) {
                 data.sectors = [
                     {"id": 1, "description": "Sector1"},
                     {"id": 2, "description": "Sector2"}
                 ];
             }
 
-            if (selectorsToRefresh.indexOf("industries")>-1) {
+            if (selectorsToRefresh.indexOf("industries") > -1) {
                 data.industries = [
                     {"id": 1, "description": "Industry1"},
                     {"id": 2, "description": "Industry2"}
