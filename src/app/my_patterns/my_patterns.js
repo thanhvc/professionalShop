@@ -121,15 +121,10 @@ angular.module('ngMo.my_patterns', [
                     favourite: false},
                 selectors: {
                     regions: [
-                        {"id": 1, "description": "America"},
-                        {"id": 2, "description": "Europa"},
-                        {"id": 3, "description": "China"}
+
                     ],
 
                     markets: [
-                        {"id": 1, "description": "Bombay Stock Exchange"},
-                        {"id": 2, "description": "American Stock Exchange"},
-                        {"id": 3, "description": "Toronto Stock Exchange"}
                     ],
 
                     sectors: [
@@ -153,10 +148,10 @@ angular.module('ngMo.my_patterns', [
 
 
             };
+
+            //refresh all the selectors
+            $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
         };
-
-
-
 
 
         /*load the table template*/
@@ -184,13 +179,13 @@ angular.module('ngMo.my_patterns', [
             TabsService.changeActiveTab(idTab);
             $scope.pagingOptions.currentPage = 1;
             $scope.restartFilter();
-           // $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, null);
+            // $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, null);
             $scope.loadPage();
         };
         /*paginData sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
-            var data= PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function(data){
+            var data = PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
                     $scope.myData = data;//data.page;
                     /*mocked, this info is loaded from data*/
                     $scope.results = 100;//data.results;
@@ -202,47 +197,104 @@ angular.module('ngMo.my_patterns', [
 
         };
 
-        /*watch for pages*/
+
+        /**
+         *      make a petition of selectors, the selectors is an array of the selectors required from server
+         */
+        $scope.refreshSelectors = function (selectors) {
+            PatternsService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
+                //checks the data received
+                if (data.hasOwnProperty("markets")) {
+                    $scope.filterOptions.selectors.markets = data.markets;
+                }
+                if (data.hasOwnProperty("regions")) {
+                    $scope.filterOptions.selectors.regions = data.regions;
+                }
+                if (data.hasOwnProperty("industries")) {
+                    $scope.filterOptions.selectors.industries = data.industries;
+                }
+                if (data.hasOwnProperty("sectors")) {
+                    $scope.filterOptions.selectors.sectors = data.sectors;
+                }
+            });
+        };
+
+        /**
+         *  make a new search with the filters, restart the page and search, for the button Search in the page
+         */
+        $scope.search = function () {
+            $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+            $scope.applyFilters();
+        };
+
+        /*apply filters to search, restarting the page*/
+        $scope.applyFilters = function () {
+            $scope.pagingOptions.currentPage = 1; //restart the page
+            $scope.loadPage();
+        };
+        /**
+         * specific functions to refresh each selector,
+         * This functions are defined to be used in onchange events, this way
+         * we dont use watch (for dont overload the scope)
+         * note: select Region/operation uses Search, because is like push the button Search..
+         */
+
+
+        $scope.selectMarket = function () {
+            $scope.refreshSelectors(['industries', 'sectors']);
+            $scope.applyFilters();
+        };
+
+        $scope.selectSector = function () {
+            $scope.refreshSelectors(['industries']);
+            $scope.applyFilters();
+        };
+
+        /**
+         * watch for pages
+         * */
         $scope.$watch('pagingOptions', function (newVal, oldVal) {
             if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
                 //$scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null);
                 $scope.loadPage();
             }
         }, true);
-        /**FOR FUTURES FILTERS**/
-        $scope.$watch('filterOptions', function (newVal, oldVal) {
+        /**FOR FUTURES FILTERS*
+         $scope.$watch('filterOptions', function (newVal, oldVal) {
             if (newVal !== oldVal) {
                // $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null);
                 $scope.loadPage();
             }
         }, true);
+         */
         /*function that is fired when the indexType filter is changed, it loads the table of index/pair index*/
         $scope.changeIndexType = function () {
-           // PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, null);
+            // PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, null);
             $scope.loadPage();
         };
 
-
-        /*First load*/
+        /*First load on page ready*/
         $scope.restartFilter();
-        $scope.loadPage($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, null);
+        $scope.loadPage();
     })
-    .service("PatternsService", function($http,TabsService){
+    .service("PatternsService", function ($http, TabsService) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
             var urlParams = "";
             for (var property in filtering) {
-                if (filtering.hasOwnProperty(property)) {
+                if (filtering.hasOwnProperty(property)) { //check if its a property (to exclude technicals property of js)
                     // create the params
-                    urlParams = "&" + property + "=" + filtering[property];
+                    if ((filtering[property] != null) && (filtering[property] !== "")) {
+                        urlParams += "&" + property + "=" + filtering[property];
+                    }
                 }
             }
             return urlParams;
         };
 
         /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
-        this.getPagedDataAsync = function (pageSize, page, filtering,callbackFunc) {
+        this.getPagedDataAsync = function (pageSize, page, filtering, callbackFunc) {
             // setTimeout(function () { //change setTimeOut for $timeOut
             var data;
             /**
@@ -270,11 +322,84 @@ angular.module('ngMo.my_patterns', [
 
             //loads the url
             /*$http.get(url_pattern).success(function (largeLoad) {
-               return largeLoad;
-            });*/
-            var result= $http.get(url_pattern).success(function(data) {
+             return largeLoad;
+             });*/
+            var result = $http.get(url_pattern).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });
+        };
+
+        /**
+         *
+         * @param filtering - is the object with the filters
+         * @param selectorsToRefresh - the list of selectors requested
+         */
+        this.getSelectors = function (filtering, selectorsToRefresh, callback) {
+            //the filtering object could contains some filters that are required for get the specified selectors
+            //for example, to get the markets, the selected region is required (if there is not region, means all..)
+            //the http petition will use the callback function to load the info received from server
+            var data = {};
+            /*mocked -- we are going to check the selectors needed and check filters */
+            //mocked lists:
+            var eeuuMarkets = [
+                {"id": 1, "description": "American Stock Exchange"},
+                {"id": 2, "description": "Nasdaq Stock Exchange"},
+                {"id": 3, "description": "New York Stock Exchange"}
+            ];
+            var indianMarkets = [
+                {"id": 4, "description": "Bombay Stock Exchange"},
+                {"id": 5, "description": "National Stock Exchange"}
+            ];
+
+            var chinaMarkets = [
+                {"id": 6, "description": "Shangai Stock Exchange"},
+                {"id": 7, "description": "Shenzhen Stock Exchange"}
+            ];
+
+            if (selectorsToRefresh.indexOf("regions")>-1) {
+                //load regions (always all regions)
+                data.regions = [
+                    {"id": 1, "description": "America"},
+                    {"id": 2, "description": "India"},
+                    {"id": 3, "description": "China"}
+                ];
+            }
+            if (selectorsToRefresh.indexOf("markets")>-1) {
+                //load markets , check if region is selected.
+                //NOTE: IN A REAL CASE ALL THE FILTERS INFLUENCE THE LIST RECEIVED, NOT ONLY THE REGION
+                //the cases are in string (not INT) so we use expressions to check the value
+                switch (true) {
+                    case /1/.test(filtering.selectedRegion): //america
+                        data.markets = eeuuMarkets;
+                        break;
+                    case /2/.test(filtering.selectedRegion):
+                        data.markets = indianMarkets;
+                        break;
+                    case /3/.test(filtering.selectedRegion):
+                        data.markets = chinaMarkets;
+                        break;
+                    default :
+                        data.markets = eeuuMarkets.concat(indianMarkets.concat(chinaMarkets));
+                }
+            }
+
+            //the sectors and industries are always same, to dont make large code
+            if (selectorsToRefresh.indexOf("sectors")>-1) {
+                data.sectors = [
+                    {"id": 1, "description": "Sector1"},
+                    {"id": 2, "description": "Sector2"}
+                ];
+            }
+
+            if (selectorsToRefresh.indexOf("industries")>-1) {
+                data.industries = [
+                    {"id": 1, "description": "Industry1"},
+                    {"id": 2, "description": "Industry2"}
+                ];
+            }
+
+            callback(data);
+
         };
     });
