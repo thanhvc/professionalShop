@@ -352,18 +352,18 @@ angular.module('ngMo.my_patterns', [
             var urlParam = this.createParamsFromFilter(filtering);
             var url_pattern;
             if (filtering.tab_type === "Acciones") {//stock
-                url_pattern = 'src/app/my_patterns/data/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+                url_pattern = 'src/app/my_patterns/data/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page;
 
             } else if (filtering.tab_type === "Pares") {//pairs
-                url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+                url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page;
             } else if (filtering.tab_type === "Indices") {//index
                 if (filtering.index_type === 'index') {
-                    url_pattern = 'src/app/my_patterns/data/testdataIndex.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+                    url_pattern = 'src/app/my_patterns/data/testdataIndex.json.js?pageSize=' + pageSize + '&page=' + page;
                 } else {
-                    url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+                    url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page;
                 }
             } else {//futures
-                url_pattern = 'src/app/my_patterns/data/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page + '&type=' + TabsService.getActiveTab();
+                url_pattern = 'src/app/my_patterns/data/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page;
             }
 
             //loads the url

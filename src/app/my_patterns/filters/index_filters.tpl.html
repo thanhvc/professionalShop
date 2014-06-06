@@ -12,7 +12,8 @@
             </td>
             <td>
 
-                <select ng-show="filterOptions.filters.index_type == 'index'" ng-change="search()" style="width: 100px;" class="border-filters select-filter"
+                <select ng-show="filterOptions.filters.index_type == 'index'"
+                        ng-change="applyFilters()" style="width: 100px;" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- Operacion -</option>
                     <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}"
