@@ -18,23 +18,23 @@
             Seguimiento Diario
         </a>
 
-    <li id="hystorics-nav" class="third-item-menu"
-        ng-class="{'item-nav-hover': selectMenu == 'hystorics-nav' || actualMenu == 'hystorics-nav'}"
+    <li id="historic-nav" class="third-item-menu"
+        ng-class="{'item-nav-hover': selectMenu == 'historic-nav' || actualMenu == 'historic-nav'}"
         ng-click="onClickMenu()"
-        ng-mouseenter="onMouseEnterMenu('hystorics-nav')"
+        ng-mouseenter="onMouseEnterMenu('historic-nav')"
         ng-mouseleave="onMouseLeaveMenu()">
-        <a ui-sref="lookup-diary" >
+        <a ui-sref="historic" >
             Históricos
         </a>
 
     <li id="tools-nav" class="fourth-item-menu"
         ng-class="{'item-nav-hover': selectMenu == 'tools-nav' || actualMenu == 'tools-nav'}"
         ng-click="onClickMenu()"
-        ng-mouseenter="onMouseEnterMenu('tools-nav')"
+        ng-mouseenter="onMouseEnterMenu('tools-nav', 'submenu1')"
         ng-mouseleave="onMouseLeaveMenu()">
-        <a ui-sref="tools">
+        <span>
             Herramientas
-        </a>
+        </span>
 
     <li id="the-week-nav" class="fifth-item-menu"
         ng-class="{'item-nav-hover': selectMenu == 'the-week-nav' || actualMenu == 'the-week-nav'}"
