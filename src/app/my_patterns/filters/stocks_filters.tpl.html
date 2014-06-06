@@ -8,7 +8,7 @@
                 <select ng-change="search()"  class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedRegion">
                     <option value="">- región -</option>
                     <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
-                           ><!-- ng-selected="{{item.id == filterOptions.filters.selectedRegion}}"-->
+                            ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
                         {{item.description}}
                     </option>
                 </select>
@@ -17,7 +17,7 @@
                 <select ng-change="selectMarket()" class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedMarket">
                     <option value="">- Mercado -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"
-                           ><!-- ng-selected="{{item.id == filterOptions.filters.selectedMarket}}"-->
+                            ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
                         {{item.description}}
                     </option>
                 </select>
@@ -26,7 +26,7 @@
                 <select ng-change="selectSector()" class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedSector">
                     <option value="">- Sector -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
-                        ><!--    ng-selected="{{item.id == filterOptions.filters.selectedSector}}"-->
+                        >
                         {{item.description}}
                     </option>
                 </select>
@@ -41,7 +41,7 @@
                 </select>
             </td>
             <td>
-                <select ng-change="applyFilters()" style="width: 100px;" class="border-filters select-filter"
+                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- Operacion -</option>
                     <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}"
@@ -63,7 +63,7 @@
                     </option>
                 </select>
                 <input class="border-filters input-filter small-input-filter" placeholder="%"
-                       data-ng-model="filterOptions.rentInput">
+                       data-ng-model="filterOptions.filters.rentInput">
             </td>
             <td>
                 <span class="filter-label-select">Renta media</span><br>
@@ -89,7 +89,7 @@
                     </option>
                 </select>
                 <input class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
-                       data-ng-model="filterOptions.rentDiaryInput">
+                       data-ng-model="filterOptions.filters.rentDiaryInput">
             </td>
             <td>
                 <span class="filter-label-select">Volatilidad (%)</span><br>
