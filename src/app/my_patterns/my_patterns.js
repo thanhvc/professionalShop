@@ -67,6 +67,9 @@ angular.module('ngMo.my_patterns', [
     })
     .controller('PatternsCtrl', function PatternsCtrl($scope, $http, TabsService, ActualDateService, PatternsService) {
         //tabs and variables
+        //pattern number for rents
+        $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
+        $scope.daysPattern = /^\d+$/;
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
         $scope.actualDate = ActualDateService.actualDate();

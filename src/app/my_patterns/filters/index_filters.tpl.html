@@ -23,89 +23,105 @@
                 </select>
             </td>
         </tr>
-        <tr>
-            <td>
-                <span class="filter-label-select">Renta Acumulada</span><br>
-                <select class="border-filters select-filter small-select-filter"
-                        data-ng-model="filterOptions.filters.selectedRent">
-                    <option value="">- Elegir -</option>
-                    <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                            ><!--  ng-selected="{{item.id == filterOptions.filters.selectedRent}}"-->
-                        {{item.description}}
-                    </option>
-                </select>
-                <input class="border-filters input-filter small-input-filter" placeholder="%"
-                       data-ng-model="filterOptions.filters.rentInput">
-            </td>
-            <td>
-                <span class="filter-label-select">Renta media</span><br>
-                <select class="border-filters select-filter small-select-filter"
-                        data-ng-model="filterOptions.filters.selectedAverage">
-                    <option value="">- Elegir -</option>
-                    <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                            ><!--ng-selected="{{item.id == filterOptions.filters.selectedAverage}}"-->
-                        {{item.description}}
-                    </option>
-                </select>
-                <input class="border-filters input-filter small-input-filter" placeholder="%"
-                       data-ng-model="filterOptions.filters.rentAverageInput">
-            </td>
-            <td>
-                <span class="filter-label-select">Renta diaria</span><br>
-                <select class="border-filters select-filter small-select-filter"
-                        data-ng-model="filterOptions.filters.selectedRentDiary">
-                    <option value="">- Elegir -</option>
-                    <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                            ><!--ng-selected="{{item.id == filterOptions.filters.selectedRentDiary}}"-->
-                        {{item.description}}
-                    </option>
-                </select>
-                <input class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
-                       data-ng-model="filterOptions.filters.rentDiaryInput">
-            </td>
-            <td>
-                <span class="filter-label-select">Volatilidad (%)</span><br>
-                <select class="border-filters select-filter small-select-filter"
-                        data-ng-model="filterOptions.filters.selectedVolatility">
-                    <option value="">- Elegir -</option>
-                    <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                            ><!-- ng-selected="{{item.id == filterOptions.filters.selectedVolatility}}"-->
-                        {{item.description}}
-                    </option>
-                </select>
-                <input class="border-filters input-filter small-input-filter" placeholder="%"
-                       data-ng-model="filterOptions.filters.volatilityInput">
-            </td>
-            <td>
-                <span class="filter-label-select">Duración (Días)</span><br>
-                <select class="border-filters select-filter small-select-filter"
-                        data-ng-model="filterOptions.filters.selectedDuration">
-                    <option value="">- Elegir -</option>
-                    <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                    "><!--ng-selected="{{item.id == filterOptions.filters.selectedDuration}}-->
-                    {{item.description}}
-                    </option>
-                </select>
-                <input class="border-filters input-filter small-input-filter" placeholder="días"
-                       data-ng-model="filterOptions.filters.durationInput">
-            </td>
-            <td>
-                <table style="position: relative; left: -15px;">
-                    <tr>
-                        <td style="text-align: center;">  <span class="filter-label-select">Favoritos</span><br>
-                            <input type="checkbox"
-                                   ng-model="filterOptions.filters.favourite">
-                        </td>
-
-                        <td style="vertical-align: bottom; text-align: center;">
-                            <button class="mo-button" ng-click="search()">Buscar</button>
-                        </td>
-                    </tr>
-                </table>
-
-
-            </td>
-        </tr>
-
     </table>
+    <form name="rentForm">
+        <table>
+            <tr>
+                <td>
+
+                    <span class="filter-label-select">Renta Acumulada</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            data-ng-model="filterOptions.filters.selectedRent">
+                        <option value="">- Elegir -</option>
+                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
+                                ><!--  ng-selected="{{item.id == filterOptions.filters.selectedRent}}"-->
+                            {{item.description}}
+                        </option>
+                    </select>
+                    <input name="rentInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                           ng-class=" {'warning-input':  (rentForm.rentInput.$error.pattern && (rentForm.rentInput.$dirty))}"
+                           ng-pattern="rentPattern" ng-trim="false"
+                           data-ng-model="filterOptions.filters.rentInput">
+
+                </td>
+                <td>
+                    <span class="filter-label-select">Renta media</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            data-ng-model="filterOptions.filters.selectedAverage">
+                        <option value="">- Elegir -</option>
+                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
+                                ><!--ng-selected="{{item.id == filterOptions.filters.selectedAverage}}"-->
+                            {{item.description}}
+                        </option>
+                    </select>
+                    <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                           ng-pattern="rentPattern" ng-trim="false"
+                           ng-class=" {'warning-input':  (rentForm.rentAverageInput.$error.pattern && (rentForm.rentAverageInput.$dirty))}"
+                           data-ng-model="filterOptions.filters.rentAverageInput">
+                </td>
+                <td>
+                    <span class="filter-label-select">Renta diaria</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            data-ng-model="filterOptions.filters.selectedRentDiary">
+                        <option value="">- Elegir -</option>
+                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
+                                ><!--ng-selected="{{item.id == filterOptions.filters.selectedRentDiary}}"-->
+                            {{item.description}}
+                        </option>
+                    </select>
+                    <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
+                           ng-pattern="rentPattern" ng-trim="false"
+                           ng-class=" {'warning-input':  (rentForm.rentDiaryInput.$error.pattern && (rentForm.rentDiaryInput.$dirty))}"
+                           data-ng-model="filterOptions.filters.rentDiaryInput">
+                </td>
+                <td>
+                    <span class="filter-label-select">Volatilidad (%)</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            data-ng-model="filterOptions.filters.selectedVolatility">
+                        <option value="">- Elegir -</option>
+                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
+                                ><!-- ng-selected="{{item.id == filterOptions.filters.selectedVolatility}}"-->
+                            {{item.description}}
+                        </option>
+                    </select>
+                    <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                           ng-pattern="daysPattern" ng-trim="false"
+                           ng-class=" {'warning-input':  (rentForm.volatilityInput.$error.pattern && (rentForm.volatilityInput.$dirty))}"
+                           data-ng-model="filterOptions.filters.volatilityInput">
+                </td>
+                <td>
+                    <span class="filter-label-select">Duración (Días)</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            data-ng-model="filterOptions.filters.selectedDuration">
+                        <option value="">- Elegir -</option>
+                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
+                        "><!--ng-selected="{{item.id == filterOptions.filters.selectedDuration}}-->
+                        {{item.description}}
+                        </option>
+                    </select>
+                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="días"
+                           ng-pattern="daysPattern" ng-trim="false"
+                           ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
+                           data-ng-model="filterOptions.filters.durationInput">
+                </td>
+                <td>
+                    <table style="position: relative; left: -15px;">
+                        <tr>
+                            <td style="text-align: center;"><span class="filter-label-select">Favoritos</span><br>
+                                <input type="checkbox"
+                                       ng-model="filterOptions.filters.favourite">
+                            </td>
+
+                            <td style="vertical-align: bottom; text-align: center;">
+                                <button class="mo-button" ng-click="search()">Buscar</button>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </td>
+            </tr>
+
+        </table>
+    </form>
 </div>
