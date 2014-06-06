@@ -150,16 +150,29 @@ angular.module('ngMo.my_patterns', [
             };
 
             //refresh all the selectors
-            $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+            switch (TabsService.getActiveTab()) {
+                case 0:     //stocks
+                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                    break;
+                case 1:     //pairs
+                    $scope.refreshSelectors(['regions',  'industries', 'sectors']);
+                    break;
+                case 2:     //index (pair and index)
+                    break;
+                case 3:     //futures
+                    $scope.refreshSelectors(['markets']);
+                    break;
+            }
+
         };
 
 
         /*load the table template*/
         $scope.getTemplateTable = function () {
             switch (TabsService.getActiveTab()) {
-                case 2:
+                case 2:         //index
                     return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].table;
-                default:
+                default:        //others
                     return templateTables[TabsService.getActiveTab()].table;
             }
 
@@ -167,9 +180,9 @@ angular.module('ngMo.my_patterns', [
         /*load the filter template*/
         $scope.getTemplateFilter = function () {
             switch (TabsService.getActiveTab()) {
-                case 2:
+                case 2:         //index
                     return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].filter;
-                default:
+                default:        //others
                     return templateTables[TabsService.getActiveTab()].filter;
             }
         };
@@ -177,12 +190,16 @@ angular.module('ngMo.my_patterns', [
         $scope.changeTab = function (idTab) {
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
-            $scope.pagingOptions.currentPage = 1;
             $scope.restartFilter();
-            // $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, null);
-            $scope.loadPage();
+            $scope.applyFilters();
         };
-        /*paginData sets the data in the table, and the results/found in the data to be showed in the view*/
+
+        //restore filters and load page
+        $scope.restoreData = function () {
+            $scope.changeTab(TabsService.getActiveTab);//is like change to the same tab
+        };
+
+        /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
             var data = PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
@@ -223,7 +240,20 @@ angular.module('ngMo.my_patterns', [
          *  make a new search with the filters, restart the page and search, for the button Search in the page
          */
         $scope.search = function () {
-            $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+            switch (TabsService.getActiveTab()) {
+                case 0://stock have markets to refresh
+                    $scope.refreshSelectors( ['markets', 'industries', 'sectors']);
+                    break;
+                case 1://pairs doesnt have markets
+                    $scope.refreshSelectors( ['markets', 'industries', 'sectors']);
+                    break;
+                case 3: //futures ONLY have markets
+                    $scope.refreshSelectors( ['markets']);
+                    break;
+                default://others doesnt have selectors to refresh
+                    break;
+            }
+
             $scope.applyFilters();
         };
 
@@ -241,10 +271,15 @@ angular.module('ngMo.my_patterns', [
 
 
         $scope.selectMarket = function () {
-            $scope.refreshSelectors(['industries', 'sectors']);
+            //in stock is required refresh industries, sectors, in futures and
+            //others tabs dont have this selectors
+            if (TabsService.getActiveTab() === 0) {
+                $scope.refreshSelectors(['industries', 'sectors']);
+            }
             $scope.applyFilters();
         };
 
+        //only used in stock
         $scope.selectSector = function () {
             $scope.refreshSelectors(['industries']);
             $scope.applyFilters();
