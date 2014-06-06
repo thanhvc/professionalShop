@@ -201,7 +201,7 @@ angular.module('ngMo.my_patterns', [
 
         //restore filters and load page
         $scope.restoreData = function () {
-            $scope.changeTab(TabsService.getActiveTab);//is like change to the same tab
+            $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
         };
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/

@@ -2,10 +2,12 @@
     <table>
         <tr>
             <td>
-                <input class="border-filters input-filter" placeholder="Nombre" ng-model="filterOptions.filters.filterName">
+                <input class="border-filters input-filter" placeholder="Nombre"
+                       ng-model="filterOptions.filters.filterName">
             </td>
             <td>
-                <select ng-change="search()"  class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedRegion">
+                <select ng-change="search()" class="border-filters select-filter"
+                        data-ng-model="filterOptions.filters.selectedRegion">
                     <option value="">- región -</option>
                     <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
@@ -15,7 +17,8 @@
             </td>
 
             <td>
-                <select ng-change="selectSector()" class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedSector">
+                <select ng-change="selectSector()" class="border-filters select-filter"
+                        data-ng-model="filterOptions.filters.selectedSector">
                     <option value="">- Sector -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
@@ -24,7 +27,8 @@
                 </select>
             </td>
             <td>
-                <select ng-change="applyFilters()" class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedIndustry">
+                <select ng-change="applyFilters()" class="border-filters select-filter"
+                        data-ng-model="filterOptions.filters.selectedIndustry">
                     <option value="">- Industria -</option>
                     <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}">
@@ -69,7 +73,8 @@
                             {{item.description}}
                         </option>
                     </select>
-                    <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                    <input name="rentAverageInput" class="border-filters input-filter small-input-filter"
+                           placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.rentAverageInput.$error.pattern && (rentForm.rentAverageInput.$dirty))}"
                            data-ng-model="filterOptions.filters.rentAverageInput">
@@ -84,7 +89,8 @@
                             {{item.description}}
                         </option>
                     </select>
-                    <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
+                    <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                           placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.rentDiaryInput.$error.pattern && (rentForm.rentDiaryInput.$dirty))}"
                            data-ng-model="filterOptions.filters.rentDiaryInput">
@@ -114,7 +120,8 @@
                         {{item.description}}
                         </option>
                     </select>
-                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="días"
+                    <input name="durationInput" class="border-filters input-filter small-input-filter"
+                           placeholder="días"
                            ng-pattern="daysPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
                            data-ng-model="filterOptions.filters.durationInput">
