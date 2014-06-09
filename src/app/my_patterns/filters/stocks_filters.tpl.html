@@ -6,7 +6,7 @@
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
-                <select ng-change="search()" class="border-filters select-filter"
+                <select ng-change="selectRegion()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedRegion">
                     <option value="">- región -</option>
                     <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
