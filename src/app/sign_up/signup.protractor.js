@@ -43,6 +43,7 @@ var SigunMenu = function() {
         this.input3.sendKeys('***');
         
     }
+
 }
 describe('signupMenu', function(){
 
@@ -82,6 +83,7 @@ describe('signupMenu', function(){
         sMenu.checkIfAlphanumeris();
         expect(sMenu.error.getText()).toBeDefined();
     });
+
 })
 
 
