@@ -16,19 +16,19 @@ var Cart = function() {
     this.total = element(by.binding('subtotalFutures'));
 
 
-    this.subtotal2;
-    this.total2;
+    this.subtotal2 = 0;
+    this.total2 = 0;
 
     this.open = function () {
         browser.get('http://46.51.174.51/moshopclient');
         browser.ignoreSynchronization = true;
-    }
+    };
 
     this.checkCart = function () {
 
         element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
         element(by.id("purchase-button")).click();
-    }
+    };
 
     this.buyingMore = function(){
         element(by.repeater('pack in homeTablePack.americaContent track by $index'));//.row(0);//.click());
@@ -39,7 +39,7 @@ var Cart = function() {
         button.get(1).click();
 
         var icon = element(by.css('.icon-cart')).click();
-    }
+    };
 
     this.correctItemsNumber = function(){
         element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
@@ -47,7 +47,7 @@ var Cart = function() {
         browser.get('http://46.51.174.51/moshopclient');
         element(by.repeater('pack in homeTablePack.americaContent track by $index').row(2)).click();
         element(by.id("purchase-button")).click();
-    }
+    };
 
     this. correctSum = function(){
         element(by.repeater('pack in homeTablePack.americaContent track by $index'));//.row(0)).click();
@@ -61,8 +61,8 @@ var Cart = function() {
             this.total2 = result;//.substring(6,12);
 
         });
-    }
-}
+    };
+};
 
 
 describe('The cart functionality is corret', function() {
