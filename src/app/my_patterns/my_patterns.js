@@ -269,7 +269,38 @@ angular.module('ngMo.my_patterns', [
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
             $scope.pagingOptions.currentPage = 1; //restart the page
+            $scope.checkFilters();//check if selectors and inputs are right
             $scope.loadPage();
+        };
+
+        /*check that all rent filters have  values and a selector*/
+        $scope.checkFilters = function () {
+            //for each input filter filled, the selector linked must be set
+            if (!($scope.filterOptions.filters.rentAverageInput &&
+                $scope.filterOptions.filters.rentAverageInput)) {
+                $scope.filterOptions.filters.rentAverageInput = "";
+                $scope.filterOptions.filters.rentAverageInput = "";
+            }
+            if (!($scope.filterOptions.filters.rentInput &&
+                $scope.filterOptions.filters.selectedRent)) {
+                $scope.filterOptions.filters.rentInput = "";
+                $scope.filterOptions.filters.selectedRent = "";
+            }
+            if (!($scope.filterOptions.filters.rentDiaryInput &&
+                $scope.filterOptions.filters.selectedRentDiary)) {
+                $scope.filterOptions.filters.rentDiaryInput = "";
+                $scope.filterOptions.filters.selectedRentDiary = "";
+            }
+            if (!($scope.filterOptions.filters.volatilityInput &&
+                $scope.filterOptions.filters.selectedVolatility)) {
+                $scope.filterOptions.filters.volatilityInput = "";
+                $scope.filterOptions.filters.selectedVolatility = "";
+            }
+            if (!($scope.filterOptions.filters.durationInput &&
+                $scope.filterOptions.filters.selectedDuration)) {
+                $scope.filterOptions.filters.durationInput = "";
+                $scope.filterOptions.filters.selectedDuration = "";
+            }
         };
         /**
          * specific functions to refresh each selector,
