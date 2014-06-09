@@ -33,6 +33,10 @@ input[type="text"]{
   border-radius: 0;
 }
 
+:focus{
+  outline: -webkit-focus-ring-color auto 0px;
+}
+
 a{
   &:hover{
     text-decoration: none;
@@ -1184,7 +1188,7 @@ table{
 .subheader-table-pack{
   font-size: 11px;
   background-color: @greyColor;
-  height:24px;
+  height:35px;
   td{
     text-align: center;
     border-right: 1px solid silver;
@@ -1864,3 +1868,4 @@ select{
 @import '../app/the_week/the-week.less';
 @import '../app/my_patterns/my_patterns.less';
 @import '../app/calendar/calendar.less';
+@import '../app/my_subscriptions/my_subscriptions.less';
