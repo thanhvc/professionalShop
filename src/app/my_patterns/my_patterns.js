@@ -65,7 +65,7 @@ angular.module('ngMo.my_patterns', [
             activeTab = active;
         };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, TabsService, ActualDateService, PatternsService) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, TabsService, ActualDateService, PatternsService, MonthSelectorService) {
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
@@ -249,7 +249,7 @@ angular.module('ngMo.my_patterns', [
          *  make a new search with the filters, restart the page and search, for the button Search in the page
          */
         $scope.search = function () {
-            switch (TabsService.getActiveTab()) {
+           /* switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
                     $scope.refreshSelectors(['markets', 'industries', 'sectors']);
                     break;
@@ -261,7 +261,7 @@ angular.module('ngMo.my_patterns', [
                     break;
                 default://others doesnt have selectors to refresh
                     break;
-            }
+            }*/
 
             $scope.applyFilters();
         };
@@ -326,7 +326,7 @@ angular.module('ngMo.my_patterns', [
         };
 
         //when we change index type (pairs_index, or index)
-        $scope.selectIndexType = function() {
+        $scope.selectIndexType = function () {
             $scope.applyFilters();
         };
 
@@ -352,6 +352,21 @@ angular.module('ngMo.my_patterns', [
             // PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, null);
             $scope.loadPage();
         };
+
+
+        /*month controls*/
+
+        $scope.month = MonthSelectorService.getDate();
+
+        $scope.nextMonth = function () {
+            MonthSelectorService.addMonths(1);
+            $scope.month = MonthSelectorService.getDate();
+        };
+        $scope.previousMonth = function () {
+            MonthSelectorService.addMonths(-1);
+            $scope.month = MonthSelectorService.getDate();
+        };
+
 
         /*First load on page ready*/
         $scope.restartFilter();
@@ -482,4 +497,92 @@ angular.module('ngMo.my_patterns', [
             callback(data);
 
         };
+    })
+    .factory('MonthSelectorService', function () {
+        var actualDate = {};
+
+        return {
+
+            getMonthName: function () {
+                if (!actualDate.month) {
+                    this.restartDate();
+                }
+                var monthString = "";
+                switch (actualDate.month) {
+                    case 1:
+                        monthString = "Enero";
+                        break;
+                    case 2:
+                        monthString = "Febrero";
+                        break;
+                    case 3:
+                        monthString = "Marzo";
+                        break;
+                    case 4:
+                        monthString = "Abril";
+                        break;
+                    case 5:
+                        monthString = "Mayo";
+                        break;
+                    case 6:
+                        monthString = "Junio";
+                        break;
+                    case 7:
+                        monthString = "Julio";
+                        break;
+                    case 8:
+                        monthString = "Agosto";
+                        break;
+                    case 9:
+                        monthString = "Septiembre";
+                        break;
+                    case 10:
+                        monthString = "Octubre";
+                        break;
+                    case 11:
+                        monthString = "Noviembre";
+                        break;
+                    case 12:
+                        monthString = "Diciembre";
+                        break;
+                    default :
+                        monthString = "notFound";
+                        break;
+
+                }
+                actualDate.monthString = monthString;
+            },
+            restartDate: function () {
+                var today = new Date();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+                actualDate = {
+                    month: mm,
+                    year: yyyy,
+                    monthString: ""
+                };
+                return actualDate;
+            },
+            getDate: function () {
+                if (!actualDate.month) {
+                    this.restartDate();
+                }
+                this.getMonthName();
+                return actualDate;
+            },
+            addMonths: function (months) { /*add Months accepts months in positive (to add) or negative (to substract)*/
+                if (!actualDate.month) {
+                    this.restartDate();
+                }
+                var d = new Date(actualDate.year, actualDate.month - 1, 1);
+                d.setMonth(d.getMonth() + months);
+                actualDate = {
+                    month: d.getMonth() + 1,
+                    year: d.getFullYear(),
+                    monthString: ""
+                };
+                this.getMonthName();
+            }
+        };
+
     });

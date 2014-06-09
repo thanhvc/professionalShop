@@ -33,7 +33,7 @@
             <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
                  active="ctab.active" disabled="tab.disabled">
                 <div class="black-head header-month-filter">
-                    Mayo
+                   <div class="blue-month-selector" ng-click="previousMonth()"><<</div> <div style="float:left;">{{month.monthString}}</div> <div ng-click="nextMonth()" class="blue-month-selector">>></div>
                 </div>
                 <div class="filter-container">
                     <!--filters-->
