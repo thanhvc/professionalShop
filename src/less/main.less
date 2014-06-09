@@ -1530,10 +1530,18 @@ table{
 
 /******* modal selectors  *******/
 
+/**
+* TODO: replace modal-content for modal-lg and modal-sm when angular-bootstrap publish version 0.11.0
+**/
+
 .modal-content{
   border-radius: 0;
   width: 1010px;
   left:-190px;
+}
+
+.advertising-modal{
+  width: 1010px;
   border: 5px outset gray;
 }
 
@@ -1570,6 +1578,26 @@ table{
 .modal-backdrop {
   .in {
     opacity: 0.6;
+  }
+}
+
+.modal-text{
+    width: 1010px;
+    border-radius: 0;
+    left:-190px;
+
+  .modal-header{
+    border-bottom:0;
+    margin-bottom: 10px;
+  }
+
+  .modal-body{
+    width: 1000px;
+    height: 20px;
+    margin-left: 5px;
+    overflow: hidden;
+    text-align: center;
+    color: @darkGrey;
   }
 }
 
