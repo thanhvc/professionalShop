@@ -5,11 +5,13 @@
         La tabla muestra las estrategias clasificadas por mes de publicación ordenadas por Fecha de Entrada.
         <div style="display: inline-block;"
              ng-click="show=!show" ng-show="!show"><img
-                src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar m&aacute;s</a></div>
+                src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar m&aacute;s</a>
+        </div>
     </div>
     <div ng-show="show">
-        <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<span class="dark-link-color" ><<</span>' y
-            '<span class="dark-link-color" >>></span>'. Para cambiar de grupo de
+        <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<span
+                class="dark-link-color"><<</span>' y
+            '<span class="dark-link-color">>></span>'. Para cambiar de grupo de
             Productos haga click sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
 
         <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
@@ -23,7 +25,8 @@
             análisis. Más información.</p>
 
         <p>
-            <img src="assets/img/textup.png"> <a  style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar menos</a>
+            <img src="assets/img/textup.png"> <a style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar
+            menos</a>
         </p>
     </div>
 
@@ -33,7 +36,9 @@
             <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
                  active="ctab.active" disabled="tab.disabled">
                 <div class="black-head header-month-filter">
-                   <div class="blue-month-selector" ng-click="previousMonth()"><<</div> <div style="float:left;">{{month.monthString}}</div> <div ng-click="nextMonth()" class="blue-month-selector">>></div>
+                    <div class="blue-month-selector" ng-click="previousMonth()"><<</div>
+                    <div style="float:left;">{{filterOptions.filters.month.monthString}}</div>
+                    <div ng-click="nextMonth()" class="blue-month-selector">>></div>
                 </div>
                 <div class="filter-container">
                     <!--filters-->
@@ -53,7 +58,8 @@
                             <span>Patrones encontrados:</span>
                             <span>{{found}}</span>
                         </div>
-                        <button style="float:right; position: relative; top: -2px;" class="mo-button" ng-click="restoreData()">Mostrar todos
+                        <button style="float:right; position: relative; top: -2px;" class="mo-button"
+                                ng-click="restoreData()">Mostrar todos
                         </button>
                     </div>
                 </div>
