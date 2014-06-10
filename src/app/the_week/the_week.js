@@ -56,29 +56,20 @@ angular.module('ngMo.the_week', [
                 {
                     title: 'Bolsa',
                     value: 0,
-                    americaContent: [],
-                    asiaContent: [],
-                    europeContent: [],
-                    allWorldContent: [],
                     url: 'the_week/tables_the_week/stock-exchange.tpl.html'
                 },
                 {
                     title: 'Commodities',
                     value: 1,
-                    compositeContent: [],
-                    sectorsContent: [],
                     url: 'the_week/tables_the_week/commodities.tpl.html'
                 },
                 {
                     title: 'S&P',
                     value: 2,
-                    content: [],
                     url: 'the_week/tables_the_week/s&p.tpl.html'
                 }
             ];
 
-        //returns: each array position is the profitability of each week day. e.g: returns[0] is profitability on Monday
-        // same in bullish_years and bearish_years
         $scope.stockAreas = [
             {
                 name: 'America',

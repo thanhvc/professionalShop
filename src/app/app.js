@@ -451,7 +451,31 @@ angular.module('ngMo', [
     .directive('flagBox', function () {
         return {
             restrict: 'E',
-            templateUrl: 'layout_templates/flags.tpl.html'
+            templateUrl: 'layout_templates/flags.tpl.html',
+            controller: function($scope, $modal){
+                $scope.openModal = function(idioma) {
+                    $modal.open({
+                        templateUrl: 'layout_templates/modal-text.tpl.html',
+                        controller: ModalInstanceCtrl,
+                        resolve: {
+                            advertisingSelected: function () {
+                                switch (idioma) {
+                                    case 'English':
+                                        return "Work in progress. Sorry for the inconvenience. Available in Spanish.";
+                                    case 'Germany':
+                                        return "Arbeiten im Gange. Sorry für die Unannehmlichkeiten. In Spanisch verfügbar.";
+                                    case 'French':
+                                        return "Travaux en cours. Excuser pour le désagrément. Actuellement disponible en espagnol.";
+                                    case 'Japanese':
+                                        return "進行中で働いています。ご迷惑をおかけして申し訳ありません。英語とスペイン語で、現在利用可能";
+                                    case 'Chinese':
+                                        return "工作进行中。很抱歉给您带来不便。目前在英语和西班牙语。";
+                                }
+                            }
+                        }
+                    });
+                };
+            }
         };
     })
 

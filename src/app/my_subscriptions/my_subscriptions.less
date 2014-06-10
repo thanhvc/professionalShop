@@ -1,0 +1,101 @@
+.header-my-subscriptions-table{
+  font-size: 11px;
+  background-color: @black;
+  height:40px;
+  td{
+    padding-left: 20px;
+  }
+}
+
+.tables-my-subscriptions {
+  font-family: "fontpo-bold", "verdana";
+  width: 100%;
+  font-size: 11px;
+  color: @white;
+  margin-bottom: 9px;
+  select{
+    color: @black;
+  }
+}
+
+.subheader-my-subscriptions-table{
+  font-size: 11px;
+  background-color: @greyColor;
+  height:24px;
+  td{
+    text-align: center;
+    border-right: 1px solid silver;
+    &:nth-child(1) {
+      width: 138px;
+    }
+    &:nth-child(2) {
+      width: 173px;
+    }
+    &:nth-child(3) {
+      width: 229px;
+    }
+    &:nth-child(4) {
+      width: 91px;
+    }
+    &:nth-child(5) {
+      width: 97px;
+    }
+    &:nth-child(6) {
+      width: 100px;
+      border-right: 0;
+    }
+  }
+}
+
+.my-subscriptions-table {
+  width: 100%;
+  border: 1px solid silver;
+  font-size: 10px;
+  color: @white;
+  font-family: fontpo;
+  line-height: 1;
+  tbody {
+    tr {
+      cursor: pointer;
+      &:nth-child(odd) {
+        background-color: #ECECED;
+        border: 1px solid silver ;
+      }
+      &:nth-child(even) {
+        background-color: @white;
+        border: 1px solid silver;
+      }
+      td{
+        border-right: 1px solid silver;
+        padding: 3px 4px 3px 4px;
+        &:nth-child(1){
+          color: #0663D7;
+          width: 149px;
+        }
+        &:nth-child(2){
+          color: @black;
+          width: 196px;
+        }
+        &:nth-child(3){
+          color: @black;
+          width: 82px;
+          text-align: center;
+        }
+        &:nth-child(4){
+          color: @black;
+          width: 84px;
+          text-align: center;
+        }
+        &:nth-child(5){
+          color: @black;
+          width: 85px;
+          text-align: center;
+          padding: 3px 0 3px 0;
+        }
+      }
+      &:hover{
+        background-color: @orangeColor;
+      }
+    }
+  }
+}
