@@ -1,17 +1,24 @@
 <div class="login-panel">
     <span>Acceso</span>
-    <label>Email</label><input type="text" class="float-right" ng-class="{'warning-input' : errorSignIn}"/>
-    <label>Contrase&ntilde;a</label><input type="password" class="float-right" ng-class="{'warning-input' : errorSignIn}"/>
-    <div>
-        <label>Recordar</label> <input type = "checkbox" />
-        <button class="mo-button float-right" ng-click="submit()">Entrar</button>
-        <div ng-show="errorSignIn" class="login-bottom-panel">
-            <img  ng-src="assets/img/warning-icon.png">
-            <span class="warning-login-text">Usuario o contrase&ntilde;a incorrecta.</span>
-        </div>
-        <div class="forget-password">
-            <img ng-src="assets/img/question-mark.png">
-            <a ui-sref="forgotten-password" ng-click="hideSignInForm()">&iquest;Ha olvidado su contrase&ntilde;a?</a>
+
+    <form ng-submit="submit()">
+        <label>Email</label><input type="text" class="float-right" ng-model="fields.email"
+                                   ng-class="{'warning-input' : errorSignIn}"/>
+        <label>Contrase&ntilde;a</label><input type="password" ng-model="fields.password" class="float-right"
+                                               ng-class="{'warning-input' : errorSignIn}"/>
+
         <div>
+            <label>Recordar</label> <input type="checkbox"/>
+            <button type="submit" class="mo-button float-right">Entrar</button>
+        </div>
+    </form>
+    <div ng-show="errorSignIn" class="login-bottom-panel">
+        <img ng-src="assets/img/warning-icon.png">
+        <span class="warning-login-text">Usuario o contrase&ntilde;a incorrecta.</span>
+    </div>
+    <div class="forget-password">
+        <img ng-src="assets/img/question-mark.png">
+        <a ui-sref="forgotten-password" ng-click="hideSignInForm()">&iquest;Ha olvidado su contrase&ntilde;a?</a>
+
     </div>
 </div>

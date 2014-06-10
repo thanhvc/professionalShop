@@ -6,18 +6,18 @@ var Menu = function() {
 
     // All relevant elements
     this.menu = element(by.id("market-observatory-nav"));
-    this.submenu;
-    this.text;
+    this.submenu = '';
+    this.text = '';
 
     this.open = function () {
         browser.get('http://46.51.174.51/moshopclient');
         browser.ignoreSynchronization = true;
-    }
+    };
 
     this.clickFunction = function(){
 
         this.menu.click();
-    }
+    };
 
     this.navigate = function(){
         this.menu = element(by.id('services-nav'));
@@ -26,15 +26,20 @@ var Menu = function() {
         this.submenu.click();
         this.text = element(by.css('.text-block-title'));
         this.text = this.text.getText();
-    }
+    };
 
     this.hover = function(){
         this.menu = element(by.id("market-observatory-nav"));
         this.menu.click();
         browser.actions().mouseMove($('#organization-nav')).perform();
         this.submenu = element(by.id('organization-nav'));
-    }
-}
+    };
+
+    this.checkTranslation = function(){
+
+        this.menu = element(by.id('services-nav'));
+    };
+};
 
 describe('The menu is ok', function() {
 
@@ -61,4 +66,8 @@ describe('The menu is ok', function() {
         expect(m.menu.getCssValue('background-color')).toBe('rgba(255, 130, 0, 1)');
     });
 
+
+    it('should not have a translation available', function(){
+        m.checkTranslation();
+    });
 });

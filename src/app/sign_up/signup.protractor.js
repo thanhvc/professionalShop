@@ -13,12 +13,13 @@ var SigunMenu = function() {
     this.input2 = this.items.get(1);
     this.input3 = this.items.get(2);
     this.input4 = this.items.last();
+    this.patterns = null;
     this.error = element.all(by.css('.red-color-form')).get(2);
 
     this.open = function() {
         // Goto the login page
         browser.get('http://46.51.174.51/moshopclient/#/sign-up');
-    }
+    };
 
     this.checkIdenticalInputs = function(){
 
@@ -26,25 +27,48 @@ var SigunMenu = function() {
         this.input2.getAttribute('value').sendKeys('userEmail');
         this.input3.getAttribute('value').sendKeys('userpass');
         this.input4.getAttribute('value').sendKeys('userpass');
-    }
+    };
 
 
     this.checkCorrectFormat = function(){
         this.matcher = new RegExp('[\b[a-z0-9._%+-]+@[a-z0-9.-]+\/.[a-z]b.]');
 
-    }
+    };
 
     this.checkAtLeastEightCharacters = function(){
         this.input3.sendKeys('pass');
 
-    }
+    };
 
     this.checkIfAlphanumeris = function(){
         this.input3.sendKeys('***');
         
-    }
+    };
 
-}
+    this.checkPack = function(){
+
+        //Do the signup
+        $('a[href*="sign-up"]').click();
+         this.input1.sendKeys('usuario@edosoft.com');
+         this.input2.sendKeys('usuario@edosoft.com');
+         this.input3.sendKeys('usuariopass');
+         this.input4.sendKeys('usuariopass');
+        //Clickkkk
+
+        //Do login
+        $('.no-logged-box').click();
+        this.userName = element.all(by.css('input')).get(0);
+        this.userName.sendKeys('usuario');
+        this.userName = element.all(by.css('input')).get(1);
+        this.userName.sendKeys('uusuarioPass');
+
+        //Check user's pack
+        browser.get('http://46.51.174.51/moshopclient/#/patterns');
+        this.patterns = element.all(by.css('.table-cell-patterns'));
+
+    };
+
+};
 describe('signupMenu', function(){
 
     var sMenu = new SigunMenu();
@@ -84,9 +108,12 @@ describe('signupMenu', function(){
         expect(sMenu.error.getText()).toBeDefined();
     });
 
-})
+    it('should have the same pack as a free suscriptor', function(){
 
-
+        sMenu.checkPack();
+        expect(sMenu.patterns.count()).toBe(560);
+    });
+});
 
 
 var SignupMenuStep2 = function() {
@@ -104,39 +131,50 @@ var SignupMenuStep2 = function() {
     this.open = function () {
         browser.get('http://46.51.174.51/moshopclient/#/sign-up-step2');
         browser.ignoreSynchronization = true;
-    }
+    };
 
     this.checkValidName = function () {
         this.input1.sendKeys('nameUser*');
 
-    }
+    };
     this.checkValidSurname = function () {
         this.input2.sendKeys('surnameUser*');
-    }
+    };
     this.checkCorrectAddressField = function(){
         this.input3.sendKeys('userAddress');
 
-    }
+    };
     this.checkValidCity = function(){
         this.input4.sendKeys('userCity');
-    }
+    };
     this.checkCountrySelected = function(){
          this.country.sendKeys('Albania');
 
-    }
+    };
     this.checkCaptchaSelected = function(){
         this.input6.sendKeys('4');
 
-    }
+    };
     this.checkPostalCode = function(){
         this.input4.sendKeys('userPostalCode');
 
-    }
+    };
     this.checkConditionsAceppted = function(){
         var conditions = error.last();
         expect(conditions.getText()).toBeDefined();
-    }
-}
+    };
+
+    this.freeSuscription = function(){
+
+        element(by.id('subscriptions-and-prices-nav')).click();
+        element(by.id('free-subscription-nav')).click();
+        $('a[href*="#/sign-up"]').click();
+
+    };
+
+
+
+};
 
 describe('Signup step2 should work', function(){
 
@@ -192,7 +230,11 @@ describe('Signup step2 should work', function(){
         expect(sMenu2.errorI.get(1)).toBe(null);
     });
 
+    it('should go the free subscription', function(){
+        sMenu2.freeSuscription();
+        expect(element(by.css('signup-table'))).toBeDefined();
+
+    });
 
 
-
-})
+});
