@@ -1,6 +1,16 @@
 
 angular.module('auth',['http-auth-interceptor'])
 
+    .config(['$httpProvider', function ($httpProvider) {
+        // ...
+
+        // delete header from client:
+        // http://stackoverflow.com/questions/17289195/angularjs-post-data-to-external-rest-api
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }])
+
+
     .service('SignInFormState', function () {
         var stateSignInBox = false;
         this.toggleSignInState = function(){
@@ -21,10 +31,13 @@ angular.module('auth',['http-auth-interceptor'])
 
     })
 
+
     .directive('signInForm', function (){
         return {
             restrict: "E",
-            controller: function($scope, SignInFormState, $http, authService){
+
+            controller: function ($scope, SignInFormState, $http, $window, authService) {
+
                 $scope.stateSignInForm = false;
                 $scope.firstTime = false;
 
@@ -37,7 +50,11 @@ angular.module('auth',['http-auth-interceptor'])
                 };
 
                 $scope.submit = function() {
-                    $http.post('auth/login').success(function() {
+                    data = $scope.fields;
+                    $http.post('http://api.mo-shopclient.development.com:9000/login', data).success(function (data, status, headers, config) {
+                        //  console.log("success");
+                        //  console.log(data);
+                        $window.sessionStorage.token = data;
                         authService.loginConfirmed();
                     });
                 };

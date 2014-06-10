@@ -131,9 +131,7 @@ b , strong {
 .show-less{
   background: url('../assets/img/textup.png');
 }
-.dark-link-color {
-  color: @darkLink;
-}
+
 .toggle-link{
   color: @darkLink;
   text-decoration: underline;
@@ -295,11 +293,12 @@ b , strong {
   }
   ul {
     padding: 0;
+    margin-bottom: 0;
     li {
       display: inline-block;
       color: @orangeColor;
       text-align: center;
-      a, a:hover{
+      a, a:hover, span{
         cursor: pointer;
         color: inherit;
         font-size: 11px;
@@ -355,6 +354,13 @@ b , strong {
   }
   .seventh-item-menu{
     width: 98px;
+    padding: 0;
+    a{
+      display: inline-block;
+      height: 23px;
+      padding: 5px 0 4px 0;
+      width: 100%;
+    }
   }
 }
 
@@ -394,6 +400,33 @@ b , strong {
     }
   }
 }
+
+.sub-menu-private{
+  position: relative;
+  width: 400px;
+  left: 339px;
+  height: 24px;
+  li {
+    padding: 3px 5px 10px 5px;
+    color: @greyLabel;
+    display: inline-block;
+    margin-left: 0 !important;
+    a{
+      padding: 5px 10px 6px 10px;
+      cursor: pointer;
+      color: inherit;
+      font-size: 11px;
+      border-bottom: 1px solid #CECECE;
+    }
+    .item-nav-hover {
+      background-color: @orangeColor;
+      color: @white;
+      text-decoration: none;
+    }
+  }
+}
+
+
 .item-nav-hover {
   background-color: @orangeColor;
   color: @white;

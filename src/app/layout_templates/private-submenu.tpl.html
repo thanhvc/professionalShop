@@ -6,7 +6,7 @@
         ng-click="onClickSubmenu('portfolio-nav')"
         ng-mouseenter="onMouseEnterSubmenu('tools-nav','submenu1','portfolio-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a
+        <a ui-sref="portfolio"
            ng-class="{'item-nav-hover': selectItemSubmenu == 'portfolio-nav' || actualItemSubmenu == 'portfolio-nav'}">
             Cartera
         </a>
@@ -14,7 +14,7 @@
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('tools-nav','submenu1','correlation-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a  ng-class="{'item-nav-hover': selectItemSubmenu == 'correlation-nav'
+        <a ui-sref="correlation"  ng-class="{'item-nav-hover': selectItemSubmenu == 'correlation-nav'
             || actualItemSubmenu == 'correlation-nav'}">
             Correlación
         </a>
@@ -22,7 +22,7 @@
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('tools-nav','submenu1','volatility-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
-        <a  ng-class="{'item-nav-hover': selectItemSubmenu == 'volatility-nav'
+        <a ui-sref="volatility" ng-class="{'item-nav-hover': selectItemSubmenu == 'volatility-nav'
             || actualItemSubmenu == 'volatility-nav'}">
             Volatilidad
         </a>

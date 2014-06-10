@@ -1,0 +1,23 @@
+<div class="super-border private-black-title">Seguimiento Diario</div>
+<div class="private-container-text">
+    <p>Diariamente al cierre de los mercados, se genera un informe del estado de las estrategias en curso clasificadas por <strong>mes de publicación</strong> y ordenadas por Fecha de Entrada. </p>
+
+    <p><span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
+    <div ng-show="show">
+        <p>Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos “<span class="blue-text"><<</span>” y “<span class="blue-text">>></span>”.
+            Para cambiar de grupo de Productos haga clic sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
+        <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
+        <p>Hacer clic en las siguientes columnas:</p>
+        <ul class="public-list-first-level">
+            <li>“Id.” para mostrar la Tabla de Detalle del Patrón y la evolución gráfica de la cotización en curso superpuesta sobre Patrón.</li>
+            <li>“Último Precio” para observar la cotización de la estrategia en curso.</li>
+            <li>“Volatilidad” para mostrar los valores de la volatilidad en curso.</li>
+        </ul>
+        <p>La marca de Favorito “Fav”, se usa para diferenciar las estrategias preferidas, facilitar la gestión y análisis.</p>
+        <p>La columna Notas se reserva para informar sobre splits.</p>
+        <p>La columna Alarmas se usa para establecer criterios sobre Precios o Rentabilidad con notificación vía correo electrónico. <a ng-click="openModalInstance('services/detailed_description/diary')">Más información.</a></p>
+
+        <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
+    </div>
+
+</div>

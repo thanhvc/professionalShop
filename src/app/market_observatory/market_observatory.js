@@ -12,7 +12,7 @@ angular.module('ngMo.market_observatory', [
                 }
             },
             data: {
-                pageTitle: 'Organizacion',
+                pageTitle: 'Organización',
                 selectMenu: 'market-observatory-nav',
                 selectSubmenu: 'submenu1',
                 selectItemSubmenu: 'organization-nav',
@@ -45,7 +45,7 @@ angular.module('ngMo.market_observatory', [
                     }
                 },
                 data: {
-                    pageTitle: 'service_conditions',
+                    pageTitle: 'Service Conditions',
                     selectMenu: 'market-observatory-nav',
                     selectSubmenu: 'submenu1',
                     selectItemSubmenu: 'service-conditions-nav',
@@ -61,7 +61,7 @@ angular.module('ngMo.market_observatory', [
                     }
                 },
                 data: {
-                    pageTitle: 'Protecció;n de Datos',
+                    pageTitle: 'Protección de Datos',
                     selectMenu: 'market-observatory-nav',
                     selectSubmenu: 'submenu1',
                     selectItemSubmenu: 'data-protection-nav',

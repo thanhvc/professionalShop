@@ -9,9 +9,8 @@
         </div>
     </div>
     <div ng-show="show">
-        <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<span
-                class="dark-link-color"><<</span>' y
-            '<span class="dark-link-color">>></span>'. Para cambiar de grupo de
+        <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<span class="blue-text"><<</span>' y
+            '<span class="blue-text">>></span>'. Para cambiar de grupo de
             Productos haga click sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
 
         <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
@@ -22,7 +21,7 @@
             <li>Evolución gráfica de la cotización en curso superpuesta sobre Patrón.</li>
         </ul>
         <p>La marca de Favorito 'Fav.', se usa para diferenciar las estrategias preferidas, facilitar la gestión y
-            análisis. Más información.</p>
+            análisis. <a ng-click="openModalInstance('services/detailed_description/patterns')">Más información.</a></p>
 
         <p>
             <img src="assets/img/textup.png"> <a style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar
@@ -55,6 +54,7 @@
                 </div>
                 <div>
                     <div ng-include="getTemplateTable()"></div>
+
 
                     <!--footer-->
                     <div class="footer-table-private">
