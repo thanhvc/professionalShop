@@ -34,6 +34,11 @@ var Menu = function() {
         browser.actions().mouseMove($('#organization-nav')).perform();
         this.submenu = element(by.id('organization-nav'));
     };
+
+    this.checkTranslation = function(){
+
+        this.menu = element(by.id('services-nav'));
+    };
 };
 
 describe('The menu is ok', function() {
@@ -61,4 +66,8 @@ describe('The menu is ok', function() {
         expect(m.menu.getCssValue('background-color')).toBe('rgba(255, 130, 0, 1)');
     });
 
+
+    it('should not have a translation available', function(){
+        m.checkTranslation();
+    });
 });
