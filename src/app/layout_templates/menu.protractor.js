@@ -45,7 +45,7 @@ var Menu = function() {
 
     this.checkTable = function(){
         this.table = element(by.css('.header-table-pack'));
-    }
+    };
 
     this.checkPatternNumber = function(){
         this.text = element.all(by.css('ng-binding')).last();
