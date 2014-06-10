@@ -36,12 +36,12 @@
             <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
                  active="ctab.active" disabled="tab.disabled">
                 <div class="black-head header-month-filter">
-                    <div class="blue-month-selector" ng-click="previousMonth()"><<</div>
-                    <div style="float:left;">{{filterOptions.filters.month.monthString + " " + filterOptions.filters.month.year}}</div>
-                    <div ng-click="nextMonth()" class="blue-month-selector">>></div>
+                    <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
+                    <div style="float:left; text-transform:uppercase;">{{filterOptions.filters.month.monthString + " " + filterOptions.filters.month.year}}</div>
+                    <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
 
                     <div>
-                        <select class="border-filters select-filter small-select-filter" style="color: black;"
+                        <select class="border-filters select-filter month-filter" style="color: black;"
                                 data-ng-model="filterOptions.filters.selectMonth"
                                 ng-change="goToMonth()"
                                 ng-options="item.name for item in filterOptions.months"

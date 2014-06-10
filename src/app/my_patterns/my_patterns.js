@@ -415,6 +415,14 @@ angular.module('ngMo.my_patterns', [
             }
         };
 
+        $scope.canMove = function (direction) {
+            if (direction>0) {
+                return (($scope.filterOptions.months[11].value !== $scope.filterOptions.filters.month.value));
+            }
+            else {
+                return (($scope.filterOptions.months[0].value !== $scope.filterOptions.filters.month.value));
+            }
+        };
 
         ///urlParams control
         $scope.saveUrlParams = function () {
