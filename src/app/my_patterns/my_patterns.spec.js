@@ -191,6 +191,23 @@ describe('The Patterns view ', function () {
         expect(scope.filterOptions.filters.durationInput).toEqual("50");
         expect(scope.filterOptions.filters.favourite).toEqual(true);
         expect(scope.filterOptions.filters.month.value).toEqual("1_2014");
+        //special cases of region, markets..
+        scope.filterOptions.filters.selectedRegion = "2";
+        scope.filterOptions.filters.selectedMarket = "3";
+        scope.filterOptions.filters.selectedSector = "4";
+        scope.saveUrlParams();
+
+        scope.filterOptions.filters.selectedMarket = "";
+        scope.filterOptions.filters.selectedSector = "";
+        scope.loadUrlParams();
+        expect(scope.filterOptions.filters.selectedMarket).toEqual("3");
+        expect(scope.filterOptions.filters.selectedSector).toEqual("4");
+        scope.filterOptions.filters.selectedSector = "5";
+        scope.saveUrlParams();
+        scope.filterOptions.filters.selectedSector = "";
+        scope.loadUrlParams();
+        expect(scope.filterOptions.filters.selectedSector).toEqual("5");
+
     });
 
     it('checking month operations ', inject(function (MonthSelectorService) {
@@ -224,6 +241,17 @@ describe('The Patterns view ', function () {
         scope.nextMonth();
         expect(scope.filterOptions.filters.month.month).toEqual(actual_date.getMonth()+1);
         expect(scope.filterOptions.filters.month.year).toEqual(actual_date.getFullYear());
+        scope.filterOptions.filters.selectMonth = {value: "1_2014", id: "1"};
+        scope.goToMonth();
+        expect(scope.filterOptions.filters.month.month).toEqual(1);
+        expect(scope.filterOptions.filters.month.year).toEqual(2014);
+        scope.filterOptions.filters.month = MonthSelectorService.restartDate();
+        scope.nextMonth();//last month to move
+        expect(scope.canMove(1)).toEqual(false);
+        scope.previousMonth();
+        expect(scope.canMove(1)).toEqual(true);
+        scope.filterOptions.filters.month = MonthSelectorService.addMonths(-10,scope.filterOptions.filters.month);
+        expect(scope.canMove(-1)).toEqual(false);
 
 
     }));
