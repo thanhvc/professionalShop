@@ -65,7 +65,12 @@ angular.module('ngMo.my_patterns', [
             activeTab = active;
         };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, TabsService, ActualDateService, PatternsService) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, TabsService, ActualDateService, PatternsService, $window, IsLogged) {
+
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            $scope.isLog = IsLogged.isLogged($window.sessionStorage.token);
+        });
+
         //tabs and variables
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();

@@ -27,6 +27,21 @@ angular.module('auth',['http-auth-interceptor'])
         };
     })
 
+    .service('IsLogged', function ($http) {
+        this.isLogged = function(token){
+            data = token;
+            $http.post('http://localhost:9000/isLogged', data)
+                .success(function (data, status, headers, config) {
+                    console.log('user logged');
+                    return true;
+                })
+                .error(function (data, status, headers, config) {
+                    console.log('user not logged');
+                    return false;
+                });
+        };
+    })
+
     .controller('AuthCtrl', function AuthCtrl($scope, SignInFormState) {
 
     })
@@ -36,7 +51,7 @@ angular.module('auth',['http-auth-interceptor'])
         return {
             restrict: "E",
 
-            controller: function ($scope, SignInFormState, $http, $window, authService) {
+            controller: function ($scope, SignInFormState, $http, $window, authService, $state) {
 
                 $scope.stateSignInForm = false;
                 $scope.firstTime = false;
@@ -51,12 +66,22 @@ angular.module('auth',['http-auth-interceptor'])
 
                 $scope.submit = function() {
                     data = $scope.fields;
-                    $http.post('http://api.mo-shopclient.development.com:9000/login', data).success(function (data, status, headers, config) {
-                        //  console.log("success");
-                        //  console.log(data);
-                        $window.sessionStorage.token = data;
-                        authService.loginConfirmed();
-                    });
+                    $http.post('http://localhost:9000/login', data)
+                        .success(function (data, status, headers, config) {
+                            //  console.log("success");
+                            //  console.log(data);
+                            $window.sessionStorage.token = data.authToken;
+                            authService.loginConfirmed();
+                            $scope.errorSignIn = true;
+                            $state.go('my-patterns');
+                            $scope.hideSignInForm();
+                            $scope.currentUser = data.name;
+
+                        })
+                        .error(function (data, status, headers, config) {
+                                console.log("error");
+                                $scope.errorSignIn = true;
+                        });
                 };
 
                 /*$scope.logout = function() {
@@ -68,6 +93,8 @@ angular.module('auth',['http-auth-interceptor'])
             link: function($scope) {
                 $scope.$watch('stateSignInForm');
                 $scope.$watch('firstTime');
+                $scope.$watch('errorSignIn');
+                $scope.$watch('loggedUser');
             },
             templateUrl:'layout_templates/sign-in-box.tpl.html'
         };
