@@ -9,23 +9,23 @@ var App = function(){
     this.open = function(){
         browser.get('http://46.51.174.51/moshopclient/');
         browser.ignoreSynchronization = true;
-    }
+    };
 
     this.clickF = function(){
         element(by.css(".no-logged-box")).click();
-    }
+    };
 
     this.fadeIn = function(){
 
         element(by.css(".no-logged-box")).click();
-    }
+    };
 
     this.fadeOut = function(){
 
         element(by.css(".no-logged-box")).click();
         element(by.css(".subscribe-free-link")).click();
-    }
-}
+    };
+};
 
 describe('The login box', function() {
 
