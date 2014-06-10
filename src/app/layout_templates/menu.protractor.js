@@ -8,6 +8,7 @@ var Menu = function() {
     this.menu = element(by.id("market-observatory-nav"));
     this.submenu = '';
     this.text = '';
+    this.table = null;
 
     this.open = function () {
         browser.get('http://46.51.174.51/moshopclient');
@@ -41,6 +42,20 @@ var Menu = function() {
         this.menu = element(by.id('services-nav'));
 
     };
+
+    this.checkTable = function(){
+        this.table = element(by.css('.header-table-pack'));
+    }
+
+    this.checkPatternNumber = function(){
+        this.text = element.all(by.css('ng-binding')).last();
+    };
+
+    this.checkData = function(){
+        element.all(by.css('ng-binding')).each(function(element) {
+            expect(element.getText()).not.toBe('');
+        });
+    };
 };
 
 describe('The menu is ok', function() {
@@ -72,5 +87,22 @@ describe('The menu is ok', function() {
     it('should not have a translation available', function(){
         m.checkTranslation();
         expect(m.menu.getText()).toBe('Servicios');
+    });
+
+    it('it should show the main table', function(){
+
+        m.checkTable();
+        expect(m.table).toBeDefined();
+    });
+
+    it('it should have the correct number of elements', function(){
+
+        m.checkPatternNumber();
+        expect(m.text).not.toBe('0');
+    });
+
+    it('it should have data in every cell', function(){
+
+        m.checkData();
     });
 });
