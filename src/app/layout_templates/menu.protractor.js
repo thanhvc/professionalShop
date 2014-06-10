@@ -37,7 +37,9 @@ var Menu = function() {
 
     this.checkTranslation = function(){
 
+        element(by.css('.flag-gb')).click();
         this.menu = element(by.id('services-nav'));
+
     };
 };
 
@@ -69,5 +71,6 @@ describe('The menu is ok', function() {
 
     it('should not have a translation available', function(){
         m.checkTranslation();
+        expect(m.menu.getText()).toBe('Servicios');
     });
 });
