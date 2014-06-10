@@ -106,6 +106,12 @@ angular.module('ngMo.my_patterns', [
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
         $scope.restartFilter = function () {
+            var restartMonth = true;
+            if ($scope.filterOptions.filters) {
+                if ($scope.filterOptions.filters.month) {
+                    restartMonth = false;
+                }
+            }
             $scope.filterOptions = {
                 filters: {
                     filterName: "",
@@ -127,7 +133,8 @@ angular.module('ngMo.my_patterns', [
                     index_type: "index",
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
-                    month: MonthSelectorService.getDate(),
+                    //if month is set, we keep the value
+                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
                     favourite: false},
                 selectors: {
                     regions: [
@@ -154,7 +161,8 @@ angular.module('ngMo.my_patterns', [
                     comparators: [
                         {"id": 1, "description": "Menor que"},
                         {"id": 2, "description": "Mayor que"}
-                    ]}
+                    ],
+                    months: MonthSelectorService.getListMonths()}
 
 
             };
@@ -371,17 +379,14 @@ angular.module('ngMo.my_patterns', [
         /*month controls*/
 
 
-
         $scope.nextMonth = function () {
-            MonthSelectorService.addMonths(1);
-            $scope.filterOptions.filters.month = MonthSelectorService.getDate();
+            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
-            MonthSelectorService.addMonths(-1);
-            $scope.filterOptions.filters.month = MonthSelectorService.getDate();
+            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -396,11 +401,11 @@ angular.module('ngMo.my_patterns', [
                 urlParamsSend.qname = urlParams.filterName;
             }
 
-            if (urlParams.selectedRegion){
+            if (urlParams.selectedRegion) {
                 urlParamsSend.qregion = urlParams.selectedRegion;
             }
 
-            if (urlParams.selectedMarket){
+            if (urlParams.selectedMarket) {
                 urlParamsSend.qmarket = urlParams.selectedMarket;
             }
 
@@ -450,8 +455,8 @@ angular.module('ngMo.my_patterns', [
             if (urlParams.tab_type) {
                 urlParamsSend.qtab = urlParams.tab_type;
             }
-            if (urlParams.active_tab === 0 || (urlParams.active_tab) ) {
-                urlParamsSend.qacttab= urlParams.active_tab;
+            if (urlParams.active_tab === 0 || (urlParams.active_tab)) {
+                urlParamsSend.qacttab = urlParams.active_tab;
             }
             if (urlParams.favourite) {
                 urlParamsSend.qfav = urlParams.favourite;
@@ -482,31 +487,36 @@ angular.module('ngMo.my_patterns', [
                 durationInput: (params.qdur ? params.qdur : "" ),
                 index_type: (params.qindex ? params.qindex : "" ),
                 tab_type: (params.qtab ? params.qtab : "" ),
-                active_tab: (params.qacttab ? parseInt(params.qacttab,10) : ""),
+                active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : ""),
                 favourite: (params.qfav ? params.qfav : "" )
             };
 
             //special cases:
             var tabChanged = false;
+            //if the params tab is different of the actual tab
             if (($scope.filterOptions.filters.active_tab !== params.qacttab)) {
                 //change tab
-                TabsService.changeActiveTab((params.qacttab ? parseInt(params.qacttab,10) : 0));
-                for (i=0;i<$scope.tabs.length;i++) {
-                    if ($scope.tabs[i].value ===TabsService.getActiveTab()) {
+                TabsService.changeActiveTab((params.qacttab ? parseInt(params.qacttab, 10) : 0));
+                for (i = 0; i < $scope.tabs.length; i++) {
+                    if ($scope.tabs[i].value === TabsService.getActiveTab()) {
                         $scope.tabs[i].active = true;
                         tabChanged = true;
                     } else {
-                        $scope.tabs[i].active= false;
+                        $scope.tabs[i].active = false;
                     }
                 }
             }
-
+            //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
-                var d = new Date(date[1],date[0]-1,1);
-                MonthSelectorService.setDate(d);
-                filters.month = MonthSelectorService.getDate();
+                var d = new Date(date[1], date[0] - 1, 1);
+                filters.month = MonthSelectorService.setDate(d);
 
+
+            } else {
+                //if the date is not passed as param, we load the default date
+                var date_restart = new Date();
+                filters.month = MonthSelectorService.restartDate();
             }
 
 
@@ -579,7 +589,14 @@ angular.module('ngMo.my_patterns', [
         });
         /*First load on page ready*/
         $scope.restartFilter();
+        if ($location.search()) {
+            //if the paramsUrl are  passed, we load the page with the filters
+            $scope.loadUrlParams();
+        }
+
         $scope.loadPage();
+
+
     })
     .service("PatternsService", function ($http, TabsService) {
 
@@ -712,12 +729,10 @@ angular.module('ngMo.my_patterns', [
 
         return {
 
-            getMonthName: function () {
-                if (!actualDate.month) {
-                    this.restartDate();
-                }
+            getMonthName: function (date) {
+
                 var monthString = "";
-                switch (actualDate.month) {
+                switch (date.month) {
                     case 1:
                         monthString = "Enero";
                         break;
@@ -759,7 +774,7 @@ angular.module('ngMo.my_patterns', [
                         break;
 
                 }
-                actualDate.monthString = monthString;
+                return monthString;
             },
             restartDate: function () {
                 var today = new Date();
@@ -770,16 +785,10 @@ angular.module('ngMo.my_patterns', [
                     year: yyyy,
                     monthString: ""
                 };
+                actualDate.monthString = this.getMonthName(actualDate);
                 return actualDate;
             },
-            getDate: function () {
-                if (!actualDate.month) {
-                    this.restartDate();
-                }
-                this.getMonthName();
-                return actualDate;
-            },
-            setDate: function(date) {
+            setDate: function (date) {
                 var mm = date.getMonth() + 1; //January is 0!
                 var yyyy = date.getFullYear();
                 actualDate = {
@@ -787,11 +796,10 @@ angular.module('ngMo.my_patterns', [
                     year: yyyy,
                     monthString: ""
                 };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
             },
-            addMonths: function (months) { /*add Months accepts months in positive (to add) or negative (to substract)*/
-                if (!actualDate.month) {
-                    this.restartDate();
-                }
+            addMonths: function (months, date) { /*add Months accepts months in positive (to add) or negative (to substract)*/
                 var d = new Date(actualDate.year, actualDate.month - 1, 1);
                 d.setMonth(d.getMonth() + months);
                 actualDate = {
@@ -799,7 +807,20 @@ angular.module('ngMo.my_patterns', [
                     year: d.getFullYear(),
                     monthString: ""
                 };
-                this.getMonthName();
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            getListMonths: function () {
+                var today = new Date();
+                var monthList = [];
+                //the list is 10 last months + actual month + next month
+                var d = new Date(today.getFullYear(), today.getMonth() - 10, 1);
+                for (i = 0; i < 12; i++) {
+                    monthList.push(this.setDate(d));
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
+
             }
         };
 

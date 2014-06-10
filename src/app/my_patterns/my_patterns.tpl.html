@@ -39,6 +39,17 @@
                     <div class="blue-month-selector" ng-click="previousMonth()"><<</div>
                     <div style="float:left;">{{filterOptions.filters.month.monthString}}</div>
                     <div ng-click="nextMonth()" class="blue-month-selector">>></div>
+
+                    <div>
+                        <select class="border-filters select-filter small-select-filter"
+                                data-ng-model="filterOptions.filters.month">
+                            <option value="">- Elegir -</option>
+                            <option ng-repeat="m in filterOptions.selectors.months" value="{{m.month + '_' + m.year}}"
+                                    ><!--ng-selected="{{item.id == filterOptions.filters.selectedAverage}}"-->
+                                {{m.monthString + " " + m.year}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
                 <div class="filter-container">
                     <!--filters-->
