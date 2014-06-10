@@ -2,187 +2,239 @@
  * Created by laia on 4/06/14.
  */
 
-describe('The signup menu is ok', function(){
+/* The signup menu is correct*/
 
-    beforeEach(function () {
+
+var SigunMenu = function() {
+
+    // All relevant elements
+    this.items = element.all(by.css('.signup-input'));
+    this.input1 = this.items.first();
+    this.input2 = this.items.get(1);
+    this.input3 = this.items.get(2);
+    this.input4 = this.items.last();
+    this.patterns = null;
+    this.error = element.all(by.css('.red-color-form')).get(2);
+
+    this.open = function() {
+        // Goto the login page
         browser.get('http://46.51.174.51/moshopclient/#/sign-up');
-        browser.ignoreSynchronization = true;
+    };
+
+    this.checkIdenticalInputs = function(){
+
+        this.input1.getAttribute('value').sendKeys('userEmail');
+        this.input2.getAttribute('value').sendKeys('userEmail');
+        this.input3.getAttribute('value').sendKeys('userpass');
+        this.input4.getAttribute('value').sendKeys('userpass');
+    };
+
+
+    this.checkCorrectFormat = function(){
+        this.matcher = new RegExp('[\b[a-z0-9._%+-]+@[a-z0-9.-]+\/.[a-z]b.]');
+
+    };
+
+    this.checkAtLeastEightCharacters = function(){
+        this.input3.sendKeys('pass');
+
+    };
+
+    this.checkIfAlphanumeris = function(){
+        this.input3.sendKeys('***');
+        
+    };
+
+    this.checkPack = function(){
+
+        //Do the signup
+        $('a[href*="sign-up"]').click();
+         this.input1.sendKeys('usuario@edosoft.com');
+         this.input2.sendKeys('usuario@edosoft.com');
+         this.input3.sendKeys('usuariopass');
+         this.input4.sendKeys('usuariopass');
+        //Clickkkk
+
+        //Do login
+        $('.no-logged-box').click();
+        this.userName = element.all(by.css('input')).get(0);
+        this.userName.sendKeys('usuario');
+        this.userName = element.all(by.css('input')).get(1);
+        this.userName.sendKeys('uusuarioPass');
+
+        //Check user's pack
+        browser.get('http://46.51.174.51/moshopclient/#/patterns');
+        this.patterns = element.all(by.css('.table-cell-patterns'));
+
+    };
+
+};
+describe('signupMenu', function(){
+
+    var sMenu = new SigunMenu();
+
+    it('should open the page', function() {
+
+        sMenu.open();
+        expect(sMenu.items.count()).toBe(4);
+        expect(sMenu.input1.getAttribute('type')).toBe('email');
+        expect(sMenu.input2.getAttribute('type')).toBe('email');
+        expect(sMenu.input3.getAttribute('type')).toBe('password');
+        expect(sMenu.input4.getAttribute('type')).toBe('password');
+
     });
 
-    it('should have 4 inputs', function () {
+    it(' should have Identical Inputs' , function(){
 
-        var items = element.all(by.css('.signup-input'));
-        expect(items.count()).toBe(4);
-
-        var input1 = items.get(0);
-
-        input1.getAttribute('type').then(function(result) {
-            expect(result).toBe('email');
-        });
-
-        var input2 =  items.get(1);
-        input2.getAttribute('type').then(function(result) {
-            expect(result).toBe('email');
-        });
-
-        var input3 = items.get(2);
-        input3.getAttribute('type').then(function(result) {
-            expect(result).toBe('password');
-        });
-
-        var input4 = items.last();
-        input4.getAttribute('type').then(function(result) {
-            expect(result).toBe('password');
-        });
-
+        sMenu.checkIdenticalInputs();
+        expect(sMenu.input1.getAttribute('value')).toBe(sMenu.input2.getAttribute('value'));
+        expect(sMenu.input3.getAttribute('value')).toBe(sMenu.input4.getAttribute('value'));
     });
-
-    it('should have identical emails', function(){
-
-         var inputs = element.all(by.css('.signup-input'));
-         var input1 = inputs.first();
-         var input2 = inputs.get(1);
-
-         input1.sendKeys('user@gmail.com');
-         input2.sendKeys('user@gmail.com');
-         expect(input1.getAttribute('value')).toBe((input2).getAttribute('value'));
-     });
-
-
 
     it('should have the correct format', function(){
-
-         var input1 = element(by.css('.signup-input'));
-         input1.sendKeys('user@gmail.com');
-
-         var matcher = new RegExp('[\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]b.]');
-         matcher.test(input1.getAttribute('value'));
-
-
-     });
-
-    it('should have identical passwords', function(){
-
-        var items = element.all(by.css('.signup-input'));
-        var input3 = items.get(2)
-        var input4 = items.last();
-        input3.sendKeys('password');
-        input4.sendKeys('password');
-        expect(input3.getAttribute('value')).toBe(input4.getAttribute('value'));
+        sMenu.checkCorrectFormat();
+        sMenu.matcher.test(sMenu.input1.getAttribute('value'));
 
     });
 
     it('should have at least 8 characters', function(){
 
-        var items = element.all(by.css('.signup-input'));
-        var input3 = items.get(2);
-        input3.sendKeys('pass');
-
-        var error = element.all(by.css('.red-color-form'));
-        error = error.get(2);
-        expect(error.getText()).toBeDefined();
+        sMenu.checkAtLeastEightCharacters();
+        expect(sMenu.error.getText()).toBeDefined();
     });
 
-    it('should be alphanumerics', function(){
+    it('should be alphanumeric',function(){
+        sMenu.checkIfAlphanumeris();
+        expect(sMenu.error.getText()).toBeDefined();
+    });
 
-        var items = element.all(by.css('.signup-input'));
-        var input3 = items.get(2);
-        input3.sendKeys('***');
-        var error = element.all(by.css('.red-color-form'));
-        error = error.get(2);
-        expect(error.getText()).toBeDefined();
+    it('should have the same pack as a free suscriptor', function(){
 
+        sMenu.checkPack();
+        expect(sMenu.patterns.count()).toBe(560);
     });
 });
 
 
-describe('The signup step 2 is ok', function() {
+var SignupMenuStep2 = function() {
 
-    beforeEach(function () {
+    // All relevant elements
+    this.items = element.all(by.css('.signup-input'));
+    this.input1 = this.items.first();
+    this.input2 = this.items.get(1);
+    this.input3 = this.items.get(2);
+    this.input4 = this.items.get(3);
+    this.input6 = this.items.get(5);
+    this.country = element(by.css('.signup-select'));
+    this.errorI = element.all(by.css('text-warning-form'));
+
+    this.open = function () {
         browser.get('http://46.51.174.51/moshopclient/#/sign-up-step2');
         browser.ignoreSynchronization = true;
-    });
-    it('should have a valid name', function(){
-        var items = element.all(by.css('.signup-input'));
-        var input1 = items.get(1);
-        input1.sendKeys('nameUser*');
+    };
 
-        var error = element(by.css('.text-warning-form'));
-        expect(error.getText()).toBeDefined();
+    this.checkValidName = function () {
+        this.input1.sendKeys('nameUser*');
 
-    });
+    };
+    this.checkValidSurname = function () {
+        this.input2.sendKeys('surnameUser*');
+    };
+    this.checkCorrectAddressField = function(){
+        this.input3.sendKeys('userAddress');
 
-    it('should have a valid surname', function(){
+    };
+    this.checkValidCity = function(){
+        this.input4.sendKeys('userCity');
+    };
+    this.checkCountrySelected = function(){
+         this.country.sendKeys('Albania');
 
-        var items = element.all(by.css('.signup-input'));
-        var surname = items.get(1);
-        surname.sendKeys('surnameUser*');
-        var error = element(by.css('.text-warning-form'));
-        expect(error.getText()).toBeDefined();
+    };
+    this.checkCaptchaSelected = function(){
+        this.input6.sendKeys('4');
 
+    };
+    this.checkPostalCode = function(){
+        this.input4.sendKeys('userPostalCode');
 
-    });
-
-    it('should have an address field with less than 200 characters', function(){
-
-        var items = element.all(by.css('.signup-input'));
-        var add = items.get(2);
-        add.sendKeys('userAddress');
-
-        var error = element.all(by.css('.text-warning-form'));
-        var invalid = error.get(1);
-        expect(invalid.getText()).toBe('');
-
-    });
-
-    it('should have a valid city', function(){
-
-        var items = element.all(by.css('.signup-input'));
-        var city = items.get(3);
-        city.sendKeys('userCity');
-
-        var error = element.all(by.css('.text-warning-form'));
-        var invalid = error.get(1);
-        expect(invalid.getText()).toBe('');
-
-
-    })
-
-    it('should have a country selected', function() {
-
-        var country = element(by.css('.signup-select'));
-        country.sendKeys('Albania');
-        country.getAttribute('value').then(function(result){
-            expect(result).toBe('1');
-        })
-
-    })
-    it('should have a captcha selected', function() {
-
-        var items = element.all(by.css('.signup-input'));
-        var captcha = items.get(5);
-        captcha.sendKeys('4');
-        expect(captcha.getAttribute('value')).toBe('4');
-
-    })
-
-    it('should have a postal code', function() {
-
-        var items = element.all(by.css('.signup-input'));
-        var postal = items.get(4);
-        postal.sendKeys('userPostalCode');
-        var error = element.all(by.css('.text-warning-form'));
-        var invalid = error.get(1);
-        expect(invalid.getText()).toBe('');
-
-    })
-
-    it('should have the conditions accepted', function() {
-        var error = element.all(by.css('.text-warning-form'));
+    };
+    this.checkConditionsAceppted = function(){
         var conditions = error.last();
         expect(conditions.getText()).toBeDefined();
+    };
 
-    })
+    this.freeSuscription = function(){
+
+        element(by.id('subscriptions-and-prices-nav')).click();
+        element(by.id('free-subscription-nav')).click();
+        $('a[href*="#/sign-up"]').click();
+
+    };
+
+
+
+};
+
+describe('Signup step2 should work', function(){
+
+    var sMenu2 = new SignupMenuStep2();
+
+
+    it('should have a valid name',function(){
+
+        sMenu2.open();
+
+        sMenu2.checkValidName();
+        expect(sMenu2.errorI.first()).toBeDefined();
+    });
+
+    it('should have a valid surname',function(){
+
+        sMenu2.checkValidSurname();
+        expect(sMenu2.errorI.get(1)).toBeDefined();
+    });
+
+    it('should have a valid address',function(){
+
+        sMenu2.checkCorrectAddressField();
+        expect(sMenu2.errorI.get(1)).toBe(null);
+    });
+
+    it('should have a valid city',function(){
+
+        sMenu2.checkValidCity();
+        expect(sMenu2.errorI.get(1)).toBe(null);
+    });
+
+    it('should have a country selected', function(){
+
+        sMenu2.checkCountrySelected();
+        sMenu2.country.getAttribute('value').then(function(result) {
+            expect(result).toBe('1');
+        });
+
+
+    });
+
+    it('should have a  valid captcha', function(){
+
+        sMenu2.checkCaptchaSelected();
+        expect(sMenu2.input6.getAttribute('value')).toBe('4');
+
+    });
+
+    it('should have a postal code', function(){
+
+        sMenu2.checkPostalCode();
+        expect(sMenu2.errorI.get(1)).toBe(null);
+    });
+
+    it('should go the free subscription', function(){
+        sMenu2.freeSuscription();
+        expect(element(by.css('signup-table'))).toBeDefined();
+
+    });
 
 
 });

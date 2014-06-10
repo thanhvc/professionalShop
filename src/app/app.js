@@ -10,8 +10,14 @@ angular.module('ngMo', [
         'ngMo.investor_tools',
         'ngMo.contact',
         'ngMo.my_patterns',
+        'ngMo.lookup_diary',
+        'ngMo.historic',
+        'ngMo.portfolio',
+        'ngMo.correlation',
+        'ngMo.volatility',
         'ngMo.the_week',
         'ngMo.calendar',
+        'ngMo.my_subscriptions',
         'ui.router',
         'gettext' ,
         'singUp',
@@ -283,7 +289,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, ActualDateService) {
+    .controller('AppCtrl', function AppCtrl($scope, ActualDateService, $modal) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
 
@@ -298,6 +304,18 @@ angular.module('ngMo', [
             $scope.$watch('selectSubmenu', function(){});
         });
         $scope.actualDate = ActualDateService.actualDate();
+
+        $scope.openModalInstance = function(url) {
+            $modal.open({
+                templateUrl: 'home/modal.tpl.html',
+                controller: ModalInstanceCtrl,
+                resolve: {
+                    advertisingSelected: function () {
+                        return url+".tpl.html";
+                    }
+                }
+            });
+        };
     })
 
 /**
@@ -375,8 +393,9 @@ angular.module('ngMo', [
     .directive('privateMenu',function (){
         return {
             controller: function($scope, $state){
-                $scope.onMouseEnterMenu = function(idMenu) {
+                $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
                     $scope.actualMenu = idMenu;
+                    $scope.actualSubmenu = idSubmenu;
                 };
                 $scope.onMouseLeaveMenu = function() {
                     if ($state.current.data.selectMenu !== '' && $scope.actualMenu !== $state.current.data.selectMenu) {
@@ -392,6 +411,36 @@ angular.module('ngMo', [
             link: function($scope) {
             },
             templateUrl:'layout_templates/private-menu.tpl.html'
+        };
+    })
+
+    .directive('privateSubMenu',function (){
+        return {
+            controller: function($scope, $state){
+                $scope.onMouseEnterSubmenu = function(idMenu, idSubmenu, idItemSubmenu) {
+                    $scope.actualMenu = idMenu;
+                    $scope.actualSubmenu = idSubmenu;
+                    $scope.actualItemSubmenu = idItemSubmenu;
+                };
+                $scope.onMouseLeaveSubmenu = function () {
+                    $scope.actualItemSubmenu = '';
+                    if ($state.current.data.selectMenu !== '' && $scope.actualMenu !== $state.current.data.selectMenu) {
+                        $scope.actualMenu = $state.current.data.selectMenu;
+                        $scope.actualSubmenu = $state.current.data.selectSubmenu;
+                        $scope.actualItemSubmenu = $state.current.data.selectItemSubmenu;
+                    }
+                };
+                $scope.onClickSubmenu = function () {
+                    $scope.actualMenu = '';
+                    $scope.actualSubmenu = '';
+                    $scope.actualItemSubmenu = '';
+                };
+            },
+            link: function($scope) {
+                $scope.$watch('actualSubmenu', function(){});
+                $scope.$watch('selectSubmenu', function(){});
+            },
+            templateUrl:'layout_templates/private-submenu.tpl.html'
         };
     })
 
@@ -483,3 +532,10 @@ angular.module('ngMo', [
 
 
 ;
+//modalPanel
+ var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
+     $scope.advertisingSelected = advertisingSelected;
+     $scope.close = function () {
+        $modalInstance.close();
+    };
+ };

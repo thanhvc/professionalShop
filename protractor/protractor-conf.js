@@ -7,7 +7,8 @@ exports.config = {
         homepage: '../src/app/home/*protractor.js',
         layout: '../src/app/*protractor.js',
         signup:' ../src/app/sign_up/*protractor.js',
-        signup:' ../src/app/home/catalog/*protractor.js'
+        cart:' ../src/app/home/catalog/*protractor.js',
+        menu:' ../src/app/layout_templates/*protractor.js'
 
 
     }
