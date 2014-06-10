@@ -104,6 +104,12 @@ angular.module('ngMo.my_patterns', [
         ];
 
 
+        $scope.setPage = function(page) {
+            console.log("pag : "+page);
+            $scope.pagingOptions.currentPage = page;
+            $scope.saveUrlParams();
+        };
+
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
         $scope.restartFilter = function () {
             var restartMonth = true;
@@ -369,13 +375,14 @@ angular.module('ngMo.my_patterns', [
 
         /**
          * watch for pages
-         * */
+         *
         $scope.$watch('pagingOptions', function (newVal, oldVal) {
             if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+                console.log("EVENTO PAG --");
                 $scope.saveUrlParams();
                 // $scope.loadPage();
             }
-        }, true);
+        }, true);*/
 
         /*function that is fired when the indexType filter is changed, it loads the table of index/pair index*/
         $scope.changeIndexType = function () {
@@ -383,8 +390,9 @@ angular.module('ngMo.my_patterns', [
             // $scope.loadPage();
         };
 
-
-        /*month controls*/
+        /**
+         * month controls
+         * */
 
 
         $scope.nextMonth = function () {
@@ -428,6 +436,7 @@ angular.module('ngMo.my_patterns', [
         $scope.saveUrlParams = function () {
             var urlParams = $scope.filterOptions.filters;
             urlParams.page = $scope.pagingOptions.currentPage;
+            //we ask each param to include in the url or not
             var urlParamsSend = {};
             if (urlParams.filterName) {
                 urlParamsSend.qname = urlParams.filterName;
@@ -493,16 +502,13 @@ angular.module('ngMo.my_patterns', [
             if (urlParams.favourite) {
                 urlParamsSend.qfav = urlParams.favourite;
             }
-
+            urlParamsSend.pag=urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
 
-
             $location.path('/patterns').search(urlParamsSend);
-            //$state.go("my-patterns",urlParamsSend);
         };
         $scope.loadUrlParams = function () {
             var params = $location.search();
-
 
             var filters = {
                 filterName: (params.qname ? params.qname : "" ),
@@ -550,8 +556,6 @@ angular.module('ngMo.my_patterns', [
                 var date_restart = new Date();
                 filters.month = MonthSelectorService.restartDate();
             }
-
-
 
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {
@@ -612,7 +616,7 @@ angular.module('ngMo.my_patterns', [
             }
             $scope.filterOptions.filters = filters;
             $scope.updateSelectorMonth();
-
+            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
 
         };
 
@@ -675,10 +679,6 @@ angular.module('ngMo.my_patterns', [
                 url_pattern = 'src/app/my_patterns/data/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page;
             }
 
-            //loads the url
-            /*$http.get(url_pattern).success(function (largeLoad) {
-             return largeLoad;
-             });*/
             var result = $http.get(url_pattern).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);

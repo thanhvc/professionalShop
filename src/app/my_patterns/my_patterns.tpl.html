@@ -46,14 +46,6 @@
                                 ng-change="goToMonth()"
                                 ng-options="item.name for item in filterOptions.months"
                                 >
-                           <!-- <option ng-repeat="m in filterOptions.months"
-                                    value="{{m.value}}"
-                                    ng-selected="{{m.value == filterOptions.filters.month.value}}"
-                                    >
-                                {{m.name}}
-                            </option>-->
-
-                        <!--   ng-options="item.name for item in filterOptions.months"   -->
                         </select>
                     </div>
                 </div>
@@ -63,7 +55,6 @@
                 </div>
                 <div>
                     <div ng-include="getTemplateTable()"></div>
-
 
                     <!--footer-->
                     <div class="footer-table-private">
