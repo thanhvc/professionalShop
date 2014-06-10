@@ -105,7 +105,6 @@ angular.module('ngMo.my_patterns', [
 
 
         $scope.setPage = function(page) {
-            console.log("pag : "+page);
             $scope.pagingOptions.currentPage = page;
             $scope.saveUrlParams();
         };
@@ -235,6 +234,7 @@ angular.module('ngMo.my_patterns', [
         $scope.loadPage = function () {
             var data = PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
+                    console.log("CARGANDO DATOS2");
                     $scope.myData = data;//data.page;
                     /*mocked, this info is loaded from data*/
                     $scope.results = 100;//data.results;
@@ -373,22 +373,6 @@ angular.module('ngMo.my_patterns', [
             $scope.applyFilters();
         };
 
-        /**
-         * watch for pages
-         *
-        $scope.$watch('pagingOptions', function (newVal, oldVal) {
-            if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-                console.log("EVENTO PAG --");
-                $scope.saveUrlParams();
-                // $scope.loadPage();
-            }
-        }, true);*/
-
-        /*function that is fired when the indexType filter is changed, it loads the table of index/pair index*/
-        $scope.changeIndexType = function () {
-            $scope.saveUrlParams();
-            // $scope.loadPage();
-        };
 
         /**
          * month controls
@@ -621,7 +605,6 @@ angular.module('ngMo.my_patterns', [
         };
 
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
-            console.log("EVENTO --" + "name=" + $location.search().qname);
             $scope.loadUrlParams();
             $scope.loadPage();
         });
