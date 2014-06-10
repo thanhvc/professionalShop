@@ -96,6 +96,29 @@ var Commodities = function(){
     };
 
 };
+
+var Actions = function(){
+
+    this.text = '';
+    this.element = null;
+
+    this.open = function () {
+        browser.get('http://46.51.174.51/moshopclient/#/patterns');
+        browser.ignoreSynchronization = true;
+    };
+
+    this.showMore = function(){
+        element(by.css(".toggle-link")).click();
+        this.element = element(by.css(".ng-hide"));
+    };
+
+    this.showLess = function(){
+       // element(by.css(".toggle-link")).click();
+
+    };
+
+
+};
 describe('The patterns menu is ok', function() {
 
     var p = new Patterns();
@@ -164,6 +187,8 @@ describe('The S&P table is ok', function(){
         s.showMore();
        // expect(s.tableLength).not.toBe(element(by.repeater('region in area.regions')).getSize());
     });
+
+
 });
 
 
@@ -184,6 +209,26 @@ describe('The Commodities table is ok', function(){
         expect(c.graphic).toBeDefined();
         expect(c.graphicName).toBe(element(by.css(".index-name")).getText());
     });
+
+});
+
+describe('Pattern menu should be ok', function(){
+
+    var a = new Actions();
+
+    a.open();
+
+    it('should show more text', function(){
+
+        a.showMore();
+        expect(a.element).toBeDefined();
+    });
+    it('should show less text', function(){
+
+        a.showLess();
+        //expect(element(by.css(".ng-hide"))).not.toBeDefined();
+    });
+
 
 });
 
