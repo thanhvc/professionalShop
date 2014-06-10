@@ -8,7 +8,8 @@ exports.config = {
         layout: '../src/app/*protractor.js',
         signup:' ../src/app/sign_up/*protractor.js',
         cart:' ../src/app/home/catalog/*protractor.js',
-        menu:' ../src/app/layout_templates/*protractor.js'
+        menu:' ../src/app/layout_templates/*protractor.js',
+        patterns:' ../src/app/my_patterns/*protractor.js'
 
     },
     capabilities: {
@@ -27,5 +28,4 @@ exports.config = {
          */
         'phantomjs.cli.args': [ "--ignore-ssl-errors=true", ]
     }
-
 }
