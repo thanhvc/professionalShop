@@ -253,6 +253,7 @@ angular.module('ngMo.my_patterns', [
             $scope.applyFilters();
         };
 
+
         //restore filters and load page
         $scope.restoreData = function () {
             $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
@@ -397,6 +398,7 @@ angular.module('ngMo.my_patterns', [
 
         //when we change index type (pairs_index, or index)
         $scope.selectIndexType = function () {
+            TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.applyFilters();
         };
 
@@ -674,13 +676,13 @@ angular.module('ngMo.my_patterns', [
 
             var urlParam = this.createParamsFromFilter(filtering);
             var url_pattern;
-            if (filtering.tab_type === "Acciones") {//stock
+            if (parseInt(filtering.active_tab,10) === 0) {//stock
                 url_pattern = 'src/app/my_patterns/data/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page;
 
-            } else if (filtering.tab_type === "Pares") {//pairs
+            } else if (parseInt(filtering.active_tab,10) === 1) {//pairs
                 url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page;
-            } else if (filtering.tab_type === "Indices") {//index
-                if (filtering.index_type === 0) {//index
+            } else if (parseInt(filtering.active_tab,10) === 2) {//index
+                if (parseInt(filtering.index_type,10) === 0) {//index
                     url_pattern = 'src/app/my_patterns/data/testdataIndex.json.js?pageSize=' + pageSize + '&page=' + page;
                 } else {
                     url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page;

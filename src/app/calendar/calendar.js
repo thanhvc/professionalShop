@@ -17,14 +17,15 @@ angular.module('ngMo.calendar', [
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
-            }
+            },
+            reloadOnSearch: false
         });
     })
 
     .run(function run() {
     })
 
-    .controller('CalendarCtrl', function ($scope, TabsService) {
+    .controller('CalendarCtrl', function ($scope, TabsService, $location) {//<- use location.search()
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -47,15 +48,41 @@ angular.module('ngMo.calendar', [
             currentPage: 1
         };
 
+
+
+        $scope.saveUrlParams = function () {
+            var urlParams = {};
+            urlParams.pag = $scope.pagingOptions.currentPage;
+            urlParams.qacttab = $scope.selectedTab;
+            urlParams.qindex = TabsService.getActiveIndexType();
+            $location.path('/calendar').search(urlParams);
+        };
+        $scope.loadUrlParams = function () {
+            var urlParams = $location.search();
+            $scope.selectedTab = (urlParams.qacttab ? urlParams.qacttab: TabsService.getActiveTab());
+            $scope.selectedTypeIndice = (urlParams.qindex ? urlParams.qindex : TabsService.getActiveIndexType() ) ;
+            $scope.selectedMonth = ($scope.calendarMonths[0]).value;
+            $scope.selectedOrder = 0;
+            TabsService.changeActiveTab(parseInt( $scope.selectedTab ,10));
+            $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
+            $scope.tabs = TabsService.getTabs();
+            $scope.tabs[TabsService.getActiveTab()].active=true;
+
+        };
+
+
         $scope.changeTab = function (idTab) {
-            $scope.obtainDays(idTab);
+           // $scope.obtainDays(idTab);
             $scope.selectedMonth = ($scope.calendarMonths[0]).value;
             $scope.selectedOrder = 0;
             $scope.selectedTypeIndice = 0;
             $scope.urlSelected = templateTables[idTab];
+            $scope.selectedTab= idTab;
 
             TabsService.changeActiveTab(idTab);
             $scope.pagingOptions.currentPage = 1;
+            //save params to load data
+            $scope.saveUrlParams();
         };
 
         $scope.stocks_calendar = {
@@ -281,18 +308,18 @@ angular.module('ngMo.calendar', [
 
         $scope.selectedMonth = ($scope.calendarMonths[0]).value;
         $scope.selectedOrder = 0;
-        $scope.selectedTypeIndice = 0;
+        $scope.selectedTypeIndice = TabsService.getActiveIndexType();//now load index from service
 
 
         $scope.getDayOfWeek = function (dayOfMonth, lastDateMonth) {
             var daysOfWeek = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
-            var dayOfWeek = new Date(lastDateMonth.getFullYear(), lastDateMonth.getMonth()-1, dayOfMonth);
+            var dayOfWeek = new Date(lastDateMonth.getFullYear(), lastDateMonth.getMonth() - 1, dayOfMonth);
             return daysOfWeek[dayOfWeek.getDay()];
         };
 
         $scope.obtainDays = function (tab) {
             var lastDateMonth;
-            switch(tab){
+            switch (tab) {
                 case 0:
                     lastDateMonth = $scope.stocks_calendar.lastDateMonth;
                     break;
@@ -307,7 +334,7 @@ angular.module('ngMo.calendar', [
                     break;
             }
             $scope.daysOfMonth = [];
-            for (var i = 1;i <= lastDateMonth.getDate(); i++){
+            for (var i = 1; i <= lastDateMonth.getDate(); i++) {
                 $scope.daysOfMonth.push({
                     dayOfWeek: $scope.getDayOfWeek(i, lastDateMonth),
                     dayOfMonth: i
@@ -315,15 +342,41 @@ angular.module('ngMo.calendar', [
             }
         };
 
-        $scope.urlSelected = templateTables[$scope.selectedTab];
-        $scope.obtainDays($scope.selectedTab);
 
         $scope.changeIndiceFilter = function (selectedTypeIndice) {
-            if (selectedTypeIndice === 0){
+            if (parseInt(selectedTypeIndice,10) === 0) {
                 $scope.urlSelected = templateTables[2];
-            }else{
+            } else {
                 $scope.urlSelected = templateTables[4];
             }
+            TabsService.changeActiveIndexType(parseInt(selectedTypeIndice,10));
+            $scope.selectedTypeIndice = selectedTypeIndice;
         };
+        //function to convert the service tab to the local tab system
+        $scope.transformTab = function (idTab, idIndex) {
+            if (parseInt(idTab,10) === 2) {//is Index
+                if (parseInt(idIndex,10) === 0) {
+                    return 2;
+                } else {
+                    return 4;
+                }
+
+            } else {
+                return idTab;
+            }
+        };
+
+        $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
+            $scope.loadUrlParams();
+            $scope.obtainDays(parseInt($scope.selectedTab,10));
+        });
+
+        if ($location.search()) {
+            $scope.loadUrlParams();
+            $scope.obtainDays(parseInt($scope.selectedTab,10));
+        } else {
+            $scope.obtainDays(parseInt($scope.selectedTab,10));
+        }
+        $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
 
     });
