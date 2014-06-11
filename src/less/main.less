@@ -211,7 +211,6 @@ b , strong {
 .menu-widget-right {
   float: right;
   padding-left: 50px;
-  margin-top: 10px;
   -moz-osx-font-smoothing: antialiased;
 }
 .menu-widget-left {
@@ -372,6 +371,7 @@ b , strong {
   float: left;
   margin: 2px 12px 7px 3px;
   width: 10px;
+  height: 12px;
   background-position: -494px 208px;
   background-size: 520px 208px;
   margin-bottom: 7px;
@@ -717,6 +717,7 @@ Flags styles
 /******************    end flags selector ***************/
 
 .signin-signup-box {
+  margin-top:10px;
   border: 1px solid @greyBorderColor;
   font-size: 11px;
   color: white;
@@ -782,7 +783,13 @@ Flags styles
   }
 }
 .logged-box-container{
-  padding: 5px 33px 20px 15px !important;
+  padding: 5px 54px 20px 15px !important;
+  margin: 0;
+  text-indent: 12px;
+  text-transform: capitalize;
+  label{
+    text-indent: 0;
+  }
 }
 
 .signin-signup-box {
@@ -827,12 +834,12 @@ Flags styles
 }
 
 @keyframes show-login-box{
-  from {top: -140px;}
+  from {top: -150px;}
   to {top: 24px;}
 }
 
 @-webkit-keyframes show-login-box{
-  from {top: -140px;}
+  from {top: -150px;}
   to {top: 24px;}
 }
 
@@ -841,17 +848,17 @@ Flags styles
   -webkit-animation: hide-login-box 1s;
   -moz-animation: hide-login-box 1s;
   -o-animation: hide-login-box 1s;
-  top: -140px;
+  top: -150px;
 }
 
 @keyframes hide-login-box{
   from {top: 24px;}
-  to {top: -140px;}
+  to {top: -150px;}
 }
 
 @-webkit-keyframes hide-login-box{
   from {top: 24px;}
-  to {top: -140px;}
+  to {top: -150px;}
 }
 
 .login-panel{
