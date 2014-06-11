@@ -1,5 +1,5 @@
-<div class="shopping-cart-container" ng-show="numItemsCart > 0">
-    <div class="shopping-cart-summary" ng-class="{'show-summary-cart': showCart, 'hide-summary-cart': !showCart}">
+<div class="shopping-cart-container" ng-show="numItemsCart > 0" ng-class="{'show-summary-cart': showCart, 'hide-summary-cart': !showCart, 'show-summary-cart-top': boolChangeClass}">
+    <div class="shopping-cart-summary" >
         <span class="title-cart">Carro de Compra</span>
         <table class="cart-summary-table" ng-show="stockItems.length > 0">
             <tr>
@@ -149,11 +149,11 @@
         <div class="total-cart">Total: {{totalCart | number:2}} EUR</div>
         <div class="buttons-cart-container">
             <button class="mo-cancel-button" ng-click="removeAllItemsCart()">Cancelar</button>
-            <button class="mo-button" ui-sref="home" ng-click="toggleCart()">A&ntilde;adir m&aacute;s</button>
+            <button class="mo-button" ui-sref="home" ng-click="toggleCart();">A&ntilde;adir m&aacute;s</button>
             <button class="mo-button">Proceder Pago</button>
         </div>
     </div>
-    <div class="shopping-cart-tab" ng-click="toggleCart()">
+    <div class="shopping-cart-tab" ng-click="toggleCart(); $event.stopPropagation();">
         <div  class="icon-cart">
             <div>
                 {{numItemsCart}}
