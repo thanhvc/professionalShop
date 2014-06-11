@@ -54,7 +54,34 @@ angular.module('ngMo.my_patterns', [
             }
         ];
 
+        var indexTypes = [
+            {
+                title: "Indices",
+                active: activeIndex === 0,
+                value: 0
+            },
+            {
+                title: "Pares Indices",
+                active: activeIndex === 1,
+                value: 1
+
+            }
+        ];
+
         var activeTab = 0;
+        var activeIndex = 0;
+
+        this.getIndexType = function () {
+            return indexTypes;
+        };
+
+        this.getActiveIndexType = function () {
+            return activeIndex;
+        };
+
+        this.changeActiveIndexType = function (active) {
+            activeIndex = active;
+        };
 
         this.getTabs = function () {
             return tabs;
@@ -93,18 +120,19 @@ angular.module('ngMo.my_patterns', [
             {"table": 'my_patterns/tables/pairs_table.tpl.html',
                 "filter": 'my_patterns/filters/pairs_filters.tpl.html'},
 
-            {"index": {"table": 'my_patterns/tables/index_table.tpl.html',
-                "filter": 'my_patterns/filters/index_filters.tpl.html'},
-                "pair_index": {"table": 'my_patterns/tables/pairs_index_table.tpl.html',
+            [
+                {"table": 'my_patterns/tables/index_table.tpl.html',
+                    "filter": 'my_patterns/filters/index_filters.tpl.html'},
+                {"table": 'my_patterns/tables/pairs_index_table.tpl.html',
                     "filter": 'my_patterns/filters/index_filters.tpl.html'}
-            },
+            ],
 
             {"table": 'my_patterns/tables/futures_table.tpl.html',
                 "filter": 'my_patterns/filters/futures_filters.tpl.html'}
         ];
 
 
-        $scope.setPage = function(page) {
+        $scope.setPage = function (page) {
             $scope.pagingOptions.currentPage = page;
             $scope.saveUrlParams();
         };
@@ -139,7 +167,7 @@ angular.module('ngMo.my_patterns', [
                     volatilityInput: "",
                     selectedDuration: "",
                     durationInput: "",
-                    index_type: "index",
+                    index_type: TabsService.getActiveIndexType(),
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
@@ -379,13 +407,13 @@ angular.module('ngMo.my_patterns', [
 
 
         $scope.nextMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1,$scope.filterOptions.filters.month);
+            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1,$scope.filterOptions.filters.month);
+            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -398,8 +426,8 @@ angular.module('ngMo.my_patterns', [
             $scope.saveUrlParams();
         };
         //synchronize the selector with the month of the filter
-        $scope.updateSelectorMonth = function() {
-            for (i=0;i<$scope.filterOptions.months.length;i++) {
+        $scope.updateSelectorMonth = function () {
+            for (i = 0; i < $scope.filterOptions.months.length; i++) {
                 if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
                     $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[i];
                 }
@@ -407,7 +435,7 @@ angular.module('ngMo.my_patterns', [
         };
 
         $scope.canMove = function (direction) {
-            if (direction>0) {
+            if (direction > 0) {
                 return (($scope.filterOptions.months[11].value !== $scope.filterOptions.filters.month.value));
             }
             else {
@@ -485,7 +513,7 @@ angular.module('ngMo.my_patterns', [
             if (urlParams.favourite) {
                 urlParamsSend.qfav = urlParams.favourite;
             }
-            urlParamsSend.pag=urlParams.page;
+            urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
 
             $location.path('/patterns').search(urlParamsSend);
@@ -506,7 +534,7 @@ angular.module('ngMo.my_patterns', [
                 volatilityInput: (params.qvol ? params.qvol : "" ),
                 selectedDuration: (params.qseldur ? params.qseldur : "" ),
                 durationInput: (params.qdur ? params.qdur : "" ),
-                index_type: (params.qindex ? params.qindex : "" ),
+                index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
                 tab_type: (params.qtab ? params.qtab : "" ),
                 active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : ""),
                 favourite: (params.qfav ? params.qfav : "" )
@@ -517,7 +545,7 @@ angular.module('ngMo.my_patterns', [
             //if the params tab is different of the actual tab
             if (($scope.filterOptions.filters.active_tab !== params.qacttab)) {
                 //change tab
-                TabsService.changeActiveTab((params.qacttab ? parseInt(params.qacttab, 10) : 0));
+                TabsService.changeActiveTab((params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab()));
                 for (i = 0; i < $scope.tabs.length; i++) {
                     if ($scope.tabs[i].value === TabsService.getActiveTab()) {
                         $scope.tabs[i].active = true;
@@ -652,7 +680,7 @@ angular.module('ngMo.my_patterns', [
             } else if (filtering.tab_type === "Pares") {//pairs
                 url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page;
             } else if (filtering.tab_type === "Indices") {//index
-                if (filtering.index_type === 'index') {
+                if (filtering.index_type === 0) {//index
                     url_pattern = 'src/app/my_patterns/data/testdataIndex.json.js?pageSize=' + pageSize + '&page=' + page;
                 } else {
                     url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page;
@@ -800,7 +828,7 @@ angular.module('ngMo.my_patterns', [
                     month: mm,
                     year: yyyy,
                     monthString: "",
-                    value: mm+"_"+yyyy
+                    value: mm + "_" + yyyy
                 };
                 actualDate.monthString = this.getMonthName(actualDate);
                 return actualDate;
@@ -812,7 +840,7 @@ angular.module('ngMo.my_patterns', [
                     month: mm,
                     year: yyyy,
                     monthString: "",
-                    value: mm+"_"+yyyy
+                    value: mm + "_" + yyyy
                 };
                 actualDate.monthString = this.getMonthName(actualDate);
                 return actualDate;
@@ -824,7 +852,7 @@ angular.module('ngMo.my_patterns', [
                     month: d.getMonth() + 1,
                     year: d.getFullYear(),
                     monthString: "",
-                    value: (d.getMonth() + 1)+"_"+d.getFullYear()
+                    value: (d.getMonth() + 1) + "_" + d.getFullYear()
                 };
                 actualDate.monthString = this.getMonthName(actualDate);
                 return actualDate;
@@ -835,11 +863,11 @@ angular.module('ngMo.my_patterns', [
                 //the list is 10 last months + actual month + next month
                 var d = new Date(today.getFullYear(), today.getMonth() - 10, 1);
                 for (i = 0; i < 12; i++) {
-                   var d_act =(this.setDate(d));
+                    var d_act = (this.setDate(d));
                     monthList.push({
                         id: i,
                         value: d_act.value,
-                        name: d_act.monthString+" "+d_act.year
+                        name: d_act.monthString + " " + d_act.year
                     });
 
                     d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
