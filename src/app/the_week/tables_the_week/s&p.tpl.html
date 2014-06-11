@@ -2,7 +2,7 @@
     <table class="syp-table">
         <thead>
         <tr>
-            <th colspan="14">
+            <th colspan="14" style="font-size:12px;">
                 RADIOGRAFÍA
             </th>
         </tr>
@@ -22,7 +22,7 @@
             <td rowspan="2" class="sector-name"><span tooltip="{{sector.name}}">{{sector.name}}</span></td>
             <td ng-class="{'positive-percent': sector.global_daily_return >= 0, 'negative-percent': sector.global_daily_return < 0}"><span tooltip="Rentabilidad">{{sector.global_daily_return}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.global_bullish_years}}</span></td>
-            <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,indice.name, indice.daily_return_graphic)"/></td>
+            <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,sector.name, sector.daily_return_graphic)"/></td>
             <td ng-class="{'positive-percent': sector.returns.L >= 0, 'negative-percent': sector.returns.L < 0}"><span tooltip="Rentabilidad">{{sector.returns.L}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.L}}</span></td>
             <td ng-class="{'positive-percent': sector.returns.M >= 0, 'negative-percent': sector.returns.M < 0}"><span tooltip="Rentabilidad">{{sector.returns.M}}%</span></td>
