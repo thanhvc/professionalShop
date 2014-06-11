@@ -45,7 +45,6 @@ var SP = function(){
 
     this.table = null;
     this.graphic = null;
-    this.text = '';
     this.graphicName = '';
     this.open = function () {
         browser.get('http://46.51.174.51/moshopclient/#/patterns');
@@ -64,12 +63,6 @@ var SP = function(){
         this.graphicName = $("span[class*=ng-binding]").getText();
     };
 
-    this.showMore = function(){
-
-       // this.tableLength = element(by.repeater('.sector in sypSectors')).getSize();
-      //  element(by.css(".toggle-tables-link")).click();
-
-    };
 };
 
 var Commodities = function(){
@@ -101,6 +94,7 @@ var Actions = function(){
 
     this.text = '';
     this.element = null;
+    this.element2 = null;
 
     this.open = function () {
         browser.get('http://46.51.174.51/moshopclient/#/patterns');
@@ -113,10 +107,57 @@ var Actions = function(){
     };
 
     this.showLess = function(){
-       // element(by.css(".toggle-link")).click();
+       element(by.css(".toggle-link")).click();
 
     };
 
+    this.showMoreInfo = function(){
+        element(by.css(".toggle-link")).click();
+        $('a[ng-click*="openModalInstance(\'services/detailed_description/patterns\')"]').click();
+        this.element = element(by.css(".modal-content"));
+    };
+
+    this.checkPanels = function(){
+        this.text = element.all(by.css('.ng-isolate-scope'));
+        this.tables = element.all(by.css('.table-header-top-patterns')).count();
+
+        this.text1 = this.text.get(1).getText();
+
+        this.filters = element.all(by.css('.border-filters')).count();
+        this.text2 = this.text.get(2).getText();
+        this.text3 = this.text.get(3).getText();
+        this.text4 = this.text.get(4).getText();
+    };
+
+/*    this.checkMonth = function(){
+
+        this.element = element.all(by.css('.ng-binding')).get(5);
+        this.element2 = element.all(by.css('select'));
+        this.element2 = this.element2.first().getAttribute('value');//.then(function(r){return r;});
+        return this.element;
+     };*/
+
+    this.checkAmericaRegions = function(){
+
+        this.element = $('select[ng-change*="selectRegion()"]');
+        this.element.sendKeys('America');
+        this.element2 = $('select[ng-change*="selectMarket()"]');
+        this.element2.sendKeys('America Stock Exchange');
+    };
+
+    this.checkIndiaRegions = function(){
+
+        this.element.sendKeys('India');
+        this.element2 = $('select[ng-change*="selectMarket()"]');
+        this.element2.sendKeys('Bombay Stock Exchange');
+    };
+
+    this.checkChinaRegions = function(){
+
+        this.element.sendKeys('China');
+        this.element2 = $('select[ng-change*="selectMarket()"]');
+        this.element2.sendKeys('Shangai Stock Exchange');
+    };
 
 };
 describe('The patterns menu is ok', function() {
@@ -216,19 +257,65 @@ describe('Pattern menu should be ok', function(){
 
     var a = new Actions();
 
-    a.open();
-
     it('should show more text', function(){
-
+        a.open();
         a.showMore();
         expect(a.element).toBeDefined();
     });
     it('should show less text', function(){
-
+        a.open();
         a.showLess();
-        //expect(element(by.css(".ng-hide"))).not.toBeDefined();
+        expect(element(by.css(".ng-hide"))).toBe(null);
     });
 
+    it('should have 4 panels', function(){
+        a.checkPanels();
+
+        expect(a.text1).toBe('Acciones');
+        expect(a.text2).toBe('Pares');
+        expect(a.text3).toBe('Indices');
+        expect(a.text4).toBe('Futuros');
+        expect(a.tables).toBe(4);
+        expect(a.filters).toBe(68);
+    });
+
+    it('should show more info',function(){
+        a.open();
+        a.showMoreInfo();
+        expect(a.element).toBeDefined();
+    });
+
+    it('should have the correct America regions', function(){
+
+        a.checkAmericaRegions();
+        expect(a.element.getAttribute('value')).toBe('1');
+        expect(a.element2.getAttribute('value')).toBe('1');
+    });
+    it('should have the correct India regions', function(){
+
+        a.checkIndiaRegions();
+        expect(a.element.getAttribute('value')).toBe('1');
+        expect(a.element2.getAttribute('value')).toBe('1');
+    });
+    it('should have the correct China regions', function(){
+
+        a.checkChinaRegions();
+        expect(a.element.getAttribute('value')).toBe('1');
+        expect(a.element2.getAttribute('value')).toBe('1');
+    });
+
+
+
+
+    /*it('should show the correct month',function(){
+        a.open();
+        a.checkMonth();
+        var t =a.element.getText().then(function(r){t = String( r);});
+        //t= t.substring(0,5).toLowerCase();
+        console.log(t);
+        expect(a.element2).toBe(getMonth(a.element));
+
+    });*/
 
 });
 
@@ -281,4 +368,26 @@ function weekNo() {
     }
     var week = Math.round(totalDays/7);
     return week;
+}
+
+function getMonth(m){
+
+    var months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio','julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+    var i = -1;
+    for (i= 0; i < 12; i++) {
+        if (months[i] == m) {
+            break;
+        }
+    }
+
+    if (i != -1){
+        var j = 0;
+        for (j= 0;j < 10; j++){
+            i = (j+i+2)%12;
+        }
+
+    }
+
+    return i;
 }
