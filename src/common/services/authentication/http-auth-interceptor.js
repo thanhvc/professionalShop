@@ -46,18 +46,18 @@
 
             var interceptor = ['$rootScope', '$q', 'httpBuffer', function($rootScope, $q, httpBuffer) {
                 function success(response) {
-                    $rootScope.errorSignIn = false;
                     return response;
                 }
 
                 function error(response) {
+
                     if (response.status === 401 && !response.config.ignoreAuthModule) {
                         var deferred = $q.defer();
                         httpBuffer.append(response.config, deferred);
                         $rootScope.$broadcast('event:auth-loginRequired', response);
-                        return deferred.promise;
+                        //return deferred.promise;
                     }
-                    $rootScope.errorSignIn = true;
+
                     // otherwise, default behaviour
                     return $q.reject(response);
                 }

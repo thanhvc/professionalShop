@@ -95,7 +95,7 @@ angular.module('ngMo.my_patterns', [
             activeTab = active;
         };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, $window, IsLogged) {
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^\d+(\.\d{0,2})?$/;

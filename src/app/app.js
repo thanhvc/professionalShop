@@ -63,6 +63,7 @@ angular.module('ngMo', [
 
     .run(function run() {
     })
+
     .service('ActiveTabService', function (){
         var activeTab = 0;
         this.activeTab = function (){
@@ -289,7 +290,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, ActualDateService, $modal) {
+    .controller('AppCtrl', function AppCtrl($scope, ActualDateService, $modal, $window, IsLogged) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
 
@@ -299,6 +300,9 @@ angular.module('ngMo', [
             $scope.actualMenu = '';
             $scope.actualSubmenu = '';
             $scope.moMenuType = toState.data.moMenuType;
+            $scope.errorSignIn = false;
+
+            $scope.isLog = IsLogged.isLogged($window.sessionStorage.token);
 
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
@@ -323,12 +327,12 @@ angular.module('ngMo', [
  */
     .directive('publicMenu',function ($compile){
         return {
-            controller: function($scope, $state){
+            controller: function($scope, $state, $window, IsLogged){
                 /**
                  * TODO: Replace this variable for a service
                  * @type {boolean}
                  */
-                $scope.isLogged = true;
+                $scope.isLog = IsLogged.isLogged($window.sessionStorage.token);
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
                     $scope.actualMenu = idMenu;
                     $scope.actualSubmenu = idSubmenu;
@@ -345,7 +349,7 @@ angular.module('ngMo', [
             link: function($scope, element) {
                $scope.$watch('actualSubmenu', function(){});
                $scope.$watch('selectSubmenu', function(){});
-                if ($scope.isLogged) {
+                if ($scope.isLog) {
                     var itemPublicMenu = angular.element("<ul class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
                         "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
                         "ng-mouseleave=\"onMouseLeaveMenu()\"" +
