@@ -234,7 +234,6 @@ angular.module('ngMo.my_patterns', [
         $scope.loadPage = function () {
             var data = PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
-                    console.log("CARGANDO DATOS2");
                     $scope.myData = data;//data.page;
                     /*mocked, this info is loaded from data*/
                     $scope.results = 100;//data.results;
@@ -292,9 +291,9 @@ angular.module('ngMo.my_patterns', [
         /*check that all rent filters have  values and a selector*/
         $scope.checkFilters = function () {
             //for each input filter filled, the selector linked must be set
-            if (!($scope.filterOptions.filters.rentAverageInput &&
+            if (!($scope.filterOptions.filters.selectedAverage &&
                 $scope.filterOptions.filters.rentAverageInput)) {
-                $scope.filterOptions.filters.rentAverageInput = "";
+                $scope.filterOptions.filters.selectedAverage = "";
                 $scope.filterOptions.filters.rentAverageInput = "";
             }
             if (!($scope.filterOptions.filters.rentInput &&
@@ -380,13 +379,13 @@ angular.module('ngMo.my_patterns', [
 
 
         $scope.nextMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1);
+            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1,$scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1);
+            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1,$scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -819,7 +818,7 @@ angular.module('ngMo.my_patterns', [
                 return actualDate;
             },
             addMonths: function (months, date) { /*add Months accepts months in positive (to add) or negative (to substract)*/
-                var d = new Date(actualDate.year, actualDate.month - 1, 1);
+                var d = new Date(date.year, date.month - 1, 1);
                 d.setMonth(d.getMonth() + months);
                 actualDate = {
                     month: d.getMonth() + 1,

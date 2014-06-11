@@ -6,10 +6,11 @@
             </td>
 
             <td>
-                <select ng-change="selectMarket()" class="border-filters select-filter" data-ng-model="filterOptions.filters.selectedMarket">
+                <select ng-change="selectMarket()" class="border-filters select-filter"
+                        data-ng-model="filterOptions.filters.selectedMarket">
                     <option value="">- Mercado -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"
-                            ><!-- ng-selected="{{item.id == filterOptions.filters.selectedMarket}}"-->
+                            ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
                         {{item.description}}
                     </option>
                 </select>
