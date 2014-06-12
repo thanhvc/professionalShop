@@ -679,7 +679,7 @@ angular.module('ngMo.the_week', [
                 $scope.showSelectedGraphic = function (e, name, url) {
 
                     if ($scope.openGraph === true){
-                        $scope.hideSelectedGraphic();
+                        //$scope.hideSelectedGraphic();
                         $timeout( function(){
                             $scope.openGraph = true;
                         },800);
@@ -709,9 +709,10 @@ angular.module('ngMo.the_week', [
                 };
             },
             link: function($scope) {
+                $scope.$watch('openGraph', function(){});
             },
 
-            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph}\"  ng-style=\"{'top': myTop}\">"+
+            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph}\"  ng-style=\"{'top': myTop}\" ng-click=\"$event.stopPropagation();\">"+
                 "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>"+
                 "<br/>"+
                 "<span>{{selectedGraphic.indiceName}}</span>"+

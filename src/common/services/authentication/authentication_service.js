@@ -29,13 +29,17 @@ angular.module('auth',['http-auth-interceptor'])
 
     .service('IsLogged', function ($http) {
         this.isLogged = function(token){
-            data = token;
-            $http.post('http://localhost:9000/isLogged', data)
-                .success(function (data, status, headers, config) {
+            config = {
+                headers: {
+                    'auth-token': token
+                }
+            };
+            $http.get('http://localhost:9000/isLogged', config)
+                .success(function (params, status, headers, config) {
                     console.log('user logged');
                     return true;
                 })
-                .error(function (data, status, headers, config) {
+                .error(function (params, status, headers, config) {
                     console.log('user not logged');
                     return false;
                 });

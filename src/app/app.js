@@ -163,10 +163,13 @@ angular.module('ngMo', [
         var futuresSubtotal = 0;
 
         var showCart = false;
-        this.changeShowCart = function (){
-            if (showCart === false) {
-                showCart = true;
-            }else{
+        this.openCart = function (){
+            showCart = true;
+            return showCart;
+        };
+
+        this.closeCart = function (){
+            if (showCart === true) {
                 showCart = false;
             }
             return showCart;
@@ -302,7 +305,8 @@ angular.module('ngMo', [
             $scope.moMenuType = toState.data.moMenuType;
             $scope.errorSignIn = false;
 
-            $scope.isLog = IsLogged.isLogged($window.sessionStorage.token);
+
+            $scope.isLog = $scope.isLog = IsLogged.isLogged($window.sessionStorage.token);
 
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
@@ -318,6 +322,26 @@ angular.module('ngMo', [
                         return url+".tpl.html";
                     }
                 }
+            });
+        };
+        //function trigger other functions when click into body
+        $scope.hideElements = function () {
+            $scope.hideSignInForm();
+            $scope.closeCart();
+            $scope.hideSelectedGraphic();
+        };
+
+    })
+
+    .directive("scroll", function ($window) {
+        return function(scope, element, attrs) {
+            angular.element($window).bind("scroll", function() {
+                if (this.pageYOffset >= 150) {
+                    scope.boolChangeClass = true;
+                } else {
+                    scope.boolChangeClass = false;
+                }
+                scope.$apply();
             });
         };
     })
@@ -483,7 +507,7 @@ angular.module('ngMo', [
         };
     })
 
-    .directive('cart', function( ) {
+    .directive('cart', function() {
         return{
             controller: function($scope, ShoppingCartService, ArrayContainItemService) {
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
@@ -495,9 +519,22 @@ angular.module('ngMo', [
                 $scope.subtotalPairsIndices = 0;
                 $scope.subtotalFutures = 0;
 
-                $scope.toggleCart = function () {
-                   $scope.showCart = ShoppingCartService.changeShowCart();
+                $scope.openCart = function () {
+                   $scope.showCart = ShoppingCartService.openCart();
                 };
+
+                $scope.closeCart = function () {
+                    $scope.showCart = ShoppingCartService.closeCart();
+                };
+
+                $scope.toggleCart = function () {
+                    if ($scope.showCart === true){
+                        $scope.showCart = false;
+                    }else{
+                        $scope.showCart = true;
+                    }
+                };
+
                 $scope.removeItemCart =  function (productType,item){
                     ShoppingCartService.removeItemCart(productType, item);
                     $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
@@ -525,7 +562,7 @@ angular.module('ngMo', [
                         $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
                         $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
                         $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
-                        $scope.showCart = true;
+                        $scope.openCart();
                         $scope.totalCart = ShoppingCartService.obtainTotalCart();
                         $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                         $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
@@ -557,7 +594,6 @@ angular.module('ngMo', [
             templateUrl: 'layout_templates/cart.tpl.html'
         };
     })
-
 
 ;
 //modalPanel
