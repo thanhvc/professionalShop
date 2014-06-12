@@ -1,4 +1,4 @@
-describe('The SignUp ',function(){
+/*describe('The SignUp ',function(){
     beforeEach(angular.mock.module("ngMo"));
     describe('form ', function(){
 
@@ -92,4 +92,4 @@ describe('The SignUp ',function(){
 
 
     });
-});
+});*/

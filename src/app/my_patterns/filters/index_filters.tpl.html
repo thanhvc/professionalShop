@@ -6,10 +6,9 @@
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
-                <select ng-change="selectIndexType()" ng-model="filterOptions.filters.index_type"
-                        ng-change="changeIndexType()">
-                    <option selected="selected" value="index">Índices</option>
-                    <option value="pair_index">Par Índices</option>
+                <select ng-change="selectIndexType()" ng-model="filterOptions.filters.index_type">
+                    <option value="0">Índices</option>
+                    <option value="1">Par Índices</option>
                 </select>
             </td>
             <td>
