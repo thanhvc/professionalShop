@@ -36,16 +36,9 @@ var Menu = function() {
         this.submenu = element(by.id('organization-nav'));
     };
 
-    this.checkTranslation = function(){
-
-        element(by.css('.flag-gb')).click();
-        this.menu = element(by.id('services-nav'));
-
-    };
-
     this.checkTable = function(){
         this.table = element(by.css('.header-table-pack'));
-    }
+    };
 
     this.checkPatternNumber = function(){
         this.text = element.all(by.css('ng-binding')).last();
@@ -83,11 +76,6 @@ describe('The menu is ok', function() {
         expect(m.menu.getCssValue('background-color')).toBe('rgba(255, 130, 0, 1)');
     });
 
-
-    it('should not have a translation available', function(){
-        m.checkTranslation();
-        expect(m.menu.getText()).toBe('Servicios');
-    });
 
     it('it should show the main table', function(){
 

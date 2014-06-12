@@ -108,14 +108,15 @@ var Actions = function(){
 
     this.showLess = function(){
        element(by.css(".toggle-link")).click();
-
+       this.element = $('a[ng-click*="openModalInstance(\'services/detailed_description/patterns\')"]');
     };
 
     this.showMoreInfo = function(){
-        element(by.css(".toggle-link")).click();
+
         $('a[ng-click*="openModalInstance(\'services/detailed_description/patterns\')"]').click();
         this.element = element(by.css(".modal-content"));
     };
+
 
     this.checkPanels = function(){
         this.text = element.all(by.css('.ng-isolate-scope'));
@@ -129,13 +130,14 @@ var Actions = function(){
         this.text4 = this.text.get(4).getText();
     };
 
-/*    this.checkMonth = function(){
+    this.checkMonth = function(){
 
         this.element = element.all(by.css('.ng-binding')).get(5);
         this.element2 = element.all(by.css('select'));
         this.element2 = this.element2.first().getAttribute('value');//.then(function(r){return r;});
+
         return this.element;
-     };*/
+     };
 
     this.checkAmericaRegions = function(){
 
@@ -159,6 +161,47 @@ var Actions = function(){
         this.element2.sendKeys('Shangai Stock Exchange');
     };
 
+    this.checkNumericFields = function(){
+
+        //this.element = $('input[class*="border-filters"]');
+        this.element = $('input[name*="rentInput"]');
+        this.element.sendKeys('35');
+
+        this.element1 = $('input[name*="rentAverageInput"]');
+        this.element1.sendKeys('63');
+
+        this.element2 = $('input[name*="rentDiaryInput"]');
+        this.element2.sendKeys('63');
+
+        this.element3 = $('input[name*="volatilityInput"]');
+        this.element3.sendKeys('63');
+
+        this.element4 = $('input[name*="durationInput"]');
+        this.element4.sendKeys('63');
+    };
+
+    this.restoreAll = function(){
+        this.element = element(by.css('input[placeholder*="%"]'));
+        this.element = this.element.sendKeys('35');
+        this.b = $('button[ng-click*="restoreData()"]').click();
+    };
+
+    this.goBack = function(){
+
+        this.button = element(by.css('.blue-month-selector'));
+        var i;
+
+        for (i = 0; i < 10; i++){ this.button.click();}
+
+        this.button = element(by.css('.blue-month-selector'));
+    };
+
+    this.goAhead = function(){
+
+        this.button = $('.blue-month-selector[ng-show*="canMove(1)"]').click();
+        this.button = $('.blue-month-selector[ng-show*="canMove(1)"]');
+
+    };
 };
 describe('The patterns menu is ok', function() {
 
@@ -224,12 +267,6 @@ describe('The S&P table is ok', function(){
         expect(s.graphicName).toBe(element(by.css(".index-name")).getText());
     });
 
-    it('should show more options', function(){
-        s.showMore();
-       // expect(s.tableLength).not.toBe(element(by.repeater('region in area.regions')).getSize());
-    });
-
-
 });
 
 
@@ -253,7 +290,7 @@ describe('The Commodities table is ok', function(){
 
 });
 
-describe('Pattern menu should be ok', function(){
+describe('Pattern menu', function(){
 
     var a = new Actions();
 
@@ -279,11 +316,6 @@ describe('Pattern menu should be ok', function(){
         expect(a.filters).toBe(68);
     });
 
-    it('should show more info',function(){
-        a.open();
-        a.showMoreInfo();
-        expect(a.element).toBeDefined();
-    });
 
     it('should have the correct America regions', function(){
 
@@ -305,17 +337,60 @@ describe('Pattern menu should be ok', function(){
     });
 
 
+    it('should have numeric fields', function(){
+        a.checkNumericFields();
+        expect(a.element.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
+        expect(a.element1.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
+        expect(a.element2.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
+        expect(a.element3.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
+        expect(a.element4.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
+    });
 
-
-    /*it('should show the correct month',function(){
+    it('should reset the values', function(){
         a.open();
-        a.checkMonth();
-        var t =a.element.getText().then(function(r){t = String( r);});
-        //t= t.substring(0,5).toLowerCase();
-        console.log(t);
-        expect(a.element2).toBe(getMonth(a.element));
+        a.restoreAll();
+        expect(a.element.getText()).toBe('');
+    });
 
-    });*/
+    it('should go back', function(){
+
+        a.goBack();
+        expect(a.button).toBe(null);
+    });
+
+    it('should go ahead', function(){
+
+        a.goAhead();
+        expect(a.button).toBe(null);
+    });
+
+    it('should show the correct month',function(){
+
+        a.checkMonth();
+        var t;
+        a.element.getText().then(function(r) {
+            t = String(r);
+            t= t.substring(0, t.indexOf('2')-1).toLowerCase();
+
+            expect(a.element2).toBe(getMonth(t).toString());
+        });
+
+
+    });
+
+    it('should show more info',function(){
+         a.open();
+         a.showMoreInfo();
+         expect(a.element).toBeDefined();
+
+    });
+
+    it('should show less info',function(){
+         a.open();
+         a.showLess();
+         expect(a.element).toBe(null);
+
+    });
 
 });
 

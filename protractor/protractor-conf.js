@@ -9,7 +9,7 @@ exports.config = {
         signup:' ../src/app/sign_up/*protractor.js',
         cart:' ../src/app/home/catalog/*protractor.js',
         menu:' ../src/app/layout_templates/*protractor.js',
-      
+
         patterns:' ../src/app/my_patterns/*protractor.js'
     }
 }
