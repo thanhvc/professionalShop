@@ -13,7 +13,7 @@ describe('The publicMenu directive', function () {
             $scope = _$rootScope_.$new();
             $state =  _$state_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.when('GET', 'http://localhost:9000/isLogged').respond(200);
+            $httpBackend.when('GET', 'http://localhost:9000/islogged').respond(200);
         }));
         it('should produce 6 menu items', inject(function () {
             var template = $compile("<nav public-menu></nav>")($scope);
@@ -54,7 +54,7 @@ describe('The publicSubmenu directive', function () {
             $scope = _$rootScope_.$new();
             $state =  _$state_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.when('GET', 'http://localhost:9000/isLogged').respond();
+            $httpBackend.when('GET', 'http://localhost:9000/islogged').respond();
         }));
 
         function replaceAll( text, find, replace){

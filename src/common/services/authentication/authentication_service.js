@@ -34,7 +34,7 @@ angular.module('auth',['http-auth-interceptor'])
                     'auth-token': token
                 }
             };
-            $http.get('http://localhost:9000/isLogged', config)
+            $http.get('http://localhost:9000/islogged', config)
                 .success(function (params, status, headers, config) {
                     console.log('user logged');
                     return true;
