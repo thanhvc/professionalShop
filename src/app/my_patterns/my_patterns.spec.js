@@ -15,6 +15,7 @@ describe('The Patterns view ', function () {
         compile = $compile;
         template = $templateCache;
         httpMock = $httpBackend;
+        httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
         httpMock.when('GET', 'src/app/my_patterns/data/testdataStock.json.js?pageSize=10&page=1').respond([
             {
                 "Id": "20000",

@@ -40,7 +40,16 @@ angular.module('ngMo', [
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'publicMenu'
-            }
+            }/*,
+            resolve: {
+                IsLogged: "IsLogged",
+                userIsLogged: function(IsLogged){
+                    return IsLogged.isLogged();
+                }
+            },
+            controller: function($scope, userIsLogged){
+                $scope.isLog = userIsLogged;
+            }*/
         })
         .state('forgotten-password', {
             url: '/forgotten-password',
@@ -293,10 +302,9 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, ActualDateService, $modal, $window, IsLogged) {
+    .controller('AppCtrl', function AppCtrl($scope, ActualDateService, $modal, IsLogged) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
-
             $scope.selectMenu = toState.data.selectMenu;
             $scope.selectSubmenu = toState.data.selectSubmenu;
             $scope.selectItemSubmenu = toState.data.selectItemSubmenu;
@@ -304,10 +312,6 @@ angular.module('ngMo', [
             $scope.actualSubmenu = '';
             $scope.moMenuType = toState.data.moMenuType;
             $scope.errorSignIn = false;
-
-
-            $scope.isLog = $scope.isLog = IsLogged.isLogged($window.sessionStorage.token);
-
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
         });
@@ -328,7 +332,7 @@ angular.module('ngMo', [
         $scope.hideElements = function () {
             $scope.hideSignInForm();
             $scope.closeCart();
-            $scope.hideSelectedGraphic();
+            //$scope.hideSelectedGraphic();
         };
 
     })
@@ -351,12 +355,11 @@ angular.module('ngMo', [
  */
     .directive('publicMenu',function ($compile){
         return {
-            controller: function($scope, $state, $window, IsLogged){
+            controller: function($scope, $state){
                 /**
                  * TODO: Replace this variable for a service
                  * @type {boolean}
                  */
-                $scope.isLog = IsLogged.isLogged($window.sessionStorage.token);
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
                     $scope.actualMenu = idMenu;
                     $scope.actualSubmenu = idSubmenu;
@@ -370,10 +373,11 @@ angular.module('ngMo', [
                     }
                 };
             },
-            link: function($scope, element) {
+            link: function($scope, element, IsLogged) {
                $scope.$watch('actualSubmenu', function(){});
                $scope.$watch('selectSubmenu', function(){});
-                if ($scope.isLog) {
+               $scope.isLogg = IsLogged.isLogged();
+                if ($scope.isLogg) {
                     var itemPublicMenu = angular.element("<ul class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
                         "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
                         "ng-mouseleave=\"onMouseLeaveMenu()\"" +

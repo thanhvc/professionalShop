@@ -27,16 +27,16 @@ angular.module('auth',['http-auth-interceptor'])
         };
     })
 
-    .service('IsLogged', function ($http) {
-        this.isLogged = function(token){
+    .service('IsLogged', function ($http, $window) {
+        this.isLogged = function(){
+            token = $window.sessionStorage.token;
             config = {
                 headers: {
-                    'auth-token': token
+                    'X-Session-Token': token
                 }
             };
             $http.get('http://localhost:9000/islogged', config)
                 .success(function (params, status, headers, config) {
-                    console.log('user logged');
                     return true;
                 })
                 .error(function (params, status, headers, config) {
@@ -77,6 +77,7 @@ angular.module('auth',['http-auth-interceptor'])
                             $window.sessionStorage.token = data.authToken;
                             authService.loginConfirmed();
                             $scope.errorSignIn = true;
+                            //$scope.isLogg = true;
                             $state.go('my-patterns');
                             $scope.hideSignInForm();
                             $scope.currentUser = data.name;
@@ -85,6 +86,7 @@ angular.module('auth',['http-auth-interceptor'])
                         .error(function (data, status, headers, config) {
                                 console.log("error");
                                 $scope.errorSignIn = true;
+                                //$scope.isLogg = false;
                         });
                 };
 

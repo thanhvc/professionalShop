@@ -5,13 +5,16 @@ describe('The catalog table directive', function () {
         var $compile;
         var $scope;
         var $state;
+        var httpMock;
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
             $compile = _$compile_;
             $scope = _$rootScope_.$new();
             $state =  _$state_;
+            httpMock = $httpBackend;
+            httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
         }));
 
         it('should have 1 item into table after apply name filter', inject(function () {
@@ -75,13 +78,16 @@ describe('The carousel directive', function () {
         var $compile;
         var $scope;
         var $state;
+        var httpMock;
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
             $compile = _$compile_;
             $scope = _$rootScope_.$new();
             $state =  _$state_;
+            httpMock = $httpBackend;
+            httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
         }));
 
         it('should have 3 selectors', inject(function () {
@@ -122,13 +128,16 @@ describe('The homeText directive', function () {
         var $compile;
         var $scope;
         var $state;
+        var httpMock;
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
             $compile = _$compile_;
             $scope = _$rootScope_.$new();
             $state =  _$state_;
+            httpMock = $httpBackend;
+            httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
         }));
 
         var searchClass = function(classname, classExpected) {
@@ -172,16 +181,19 @@ describe('The homeTablePack', function () {
         var $sce;
         var ActiveTabService;
         var PacksService;
+        var httpMock;
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_ , _$sce_, _ActiveTabService_, _PacksService_) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_ , _$sce_, _ActiveTabService_, _PacksService_, $httpBackend) {
             $compile = _$compile_;
             $scope = _$rootScope_.$new();
             $state =  _$state_;
             $sce = _$sce_;
             ActiveTabService = _ActiveTabService_;
             PacksService = _PacksService_;
+            httpMock = $httpBackend;
+            httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
         }));
 
         it('should have 1 item per table', inject(function () {
@@ -264,16 +276,19 @@ describe('The search external catalog', function () {
         var $sce;
         var ActiveTabService;
         var PacksService;
+        var httpMock;
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_ , _$sce_, _ActiveTabService_, _PacksService_) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_ , _$sce_, _ActiveTabService_, _PacksService_, $httpBackend) {
             $compile = _$compile_;
             $scope = _$rootScope_.$new();
             $state =  _$state_;
             $sce = _$sce_;
             ActiveTabService = _ActiveTabService_;
             PacksService = _PacksService_;
+            httpMock = $httpBackend;
+            httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
         }));
 
         var obtainTemplate = function(){

@@ -25,7 +25,16 @@ angular.module('ngMo.my_patterns', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false
+            reloadOnSearch: false/*,
+            resolve: {
+                IsLogged: "IsLogged",
+                userIsLogged: function(IsLogged){
+                    return IsLogged.isLogged();
+                }
+            },
+            controller: function($scope, userIsLogged){
+                $scope.isLog = userIsLogged;
+            }*/
         });
     })
     .service('TabsService', function () {
@@ -68,7 +77,13 @@ angular.module('ngMo.my_patterns', [
             activeTab = active;
         };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, $window, IsLogged) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService) {
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+
+        });
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^\d+(\.\d{0,2})?$/;

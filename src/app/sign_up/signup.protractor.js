@@ -42,7 +42,7 @@ var SigunMenu = function() {
 
     this.checkIfAlphanumeris = function(){
         this.input3.sendKeys('***');
-        
+
     };
 
     this.checkPack = function(){

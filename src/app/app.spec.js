@@ -104,13 +104,16 @@ describe('The cart directive', function () {
         var $compile;
         var $scope;
         var $state;
+        var httpMock;
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
             $compile = _$compile_;
             $scope = _$rootScope_.$new();
             $state =  _$state_;
+            httpMock = $httpBackend;
+            httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
         }));
 
         addItemsToCart = function (numItems) {
@@ -239,13 +242,16 @@ describe('The privateMenu directive', function () {
         var $compile;
         var $scope;
         var $state;
+        var httpMock;
 
     beforeEach(module('templates-app'));
 
-    beforeEach(inject(function (_$compile_, _$rootScope_, _$state_) {
+    beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
         $compile = _$compile_;
         $scope = _$rootScope_.$new();
         $state =  _$state_;
+        httpMock = $httpBackend;
+        httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
     }));
 
     it('should produce 7 menu items', inject(function () {
@@ -271,10 +277,13 @@ describe('The signin-signup-box ng-scope div', function(){
         var $compile;
         var $scope;
         var $state;
+        var httpMock;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, $httpBackend) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
+            httpMock = $httpBackend;
+            httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
         }));
 
             it('should fade in', function () {
