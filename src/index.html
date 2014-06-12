@@ -16,7 +16,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body ng-click="hideSignInForm();closeCart();" scroll>
+<body ng-click="hideElements();" scroll>
     <header>
         <div id="menu-id" class="menu black-head">
             <div id="mo-header" class="mo-header">
@@ -56,6 +56,7 @@
     </div>
 
     <div cart></div>
+    <div selected-graphic-panel ng-hide="firstTime"></div>
 
     <footer class="footer">
         <div class="footer-top">
@@ -123,6 +124,5 @@
             </footer>
         </div>
     </footer>
-
 </body>
 </html>

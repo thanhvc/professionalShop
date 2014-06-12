@@ -324,6 +324,12 @@ angular.module('ngMo', [
                 }
             });
         };
+        //function trigger other functions when click into body
+        $scope.hideElements = function () {
+            $scope.hideSignInForm();
+            $scope.closeCart();
+            $scope.hideSelectedGraphic();
+        };
 
     })
 
