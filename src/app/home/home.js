@@ -226,6 +226,11 @@ angular.module('ngMo.home', [
 
     //carousel functions
     .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, AnchorLinkService) {
+
+        $scope.changePosCart = function () {
+            $scope.positionCart = 'top';
+        };
+
         $scope.myInterval = 6000;
 
         $scope.scrollTo = AnchorLinkService.scrollTo;

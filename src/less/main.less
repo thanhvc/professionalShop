@@ -48,6 +48,10 @@ label{
   margin-bottom: 0;
 }
 
+th{
+  font-weight: normal;
+}
+
 body{
   color:@black;
   font-family: 'fontpo';
@@ -1222,11 +1226,17 @@ table{
 /******* cart classes  ******/
 .shopping-cart-container{
   display: block;
-  position: fixed;
-  top: 160px;
+
+  position: absolute;
+  top: 150px;
   z-index: 99;
   right: 0;
   width: 510px;
+}
+
+.show-summary-cart-top{
+  top: 0 !important;
+  position: fixed;
 }
 
 .shopping-cart-summary {
@@ -1700,6 +1710,7 @@ select{
     margin-bottom: 0.5em;
     padding-left: 5px;
     list-style: decimal;
+    margin-left: 25px;
   }
 }
 
@@ -1921,6 +1932,12 @@ tooltip-placement=" top ultra-left-tooltip" **/
 .tooltip.nearly-top {
   margin-top: 0;
   padding: 0 5px;
+}
+
+.modal-body{
+  .text-block-title{
+    margin-top: 0;
+  }
 }
 
 /**

@@ -284,7 +284,7 @@
          expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
 
          angularHomepage.checkKeepTheSubmenu();
-         expect(browser.isElementPresent(by.css('.what-is-and-what-is-not-nav'))).toBe(false);
+         expect(browser.isElementPresent(by.id('what-is-and-what-is-not-nav'))).toBe(true);
          expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
 
 

@@ -135,8 +135,8 @@ angular.module('ngMo.calendar', [
                     product2_name: "ZIGO CORPORATION",
                     product2_market: "NASDAQ",
                     code: "42060",
-                    start_day: 17,
-                    finish_day: 20
+                    start_day: 1,
+                    finish_day: 28
                 },
                 {
                     product1_name: "NUTRACEUTICAL INTERNATIONAL",
@@ -144,8 +144,8 @@ angular.module('ngMo.calendar', [
                     product2_name: "GENCORP INC.",
                     product2_market: "NYSE",
                     code: "48354",
-                    start_day: 1,
-                    finish_day: 28
+                    start_day: 9,
+                    finish_day: 19
                 },
                 {
                     product1_name: "INTERNATIONAL GAME TECHN",
@@ -153,8 +153,8 @@ angular.module('ngMo.calendar', [
                     product2_name: "SUPERIOR INDUSTRIES INTERNATIONAL",
                     product2_market: "NYSE",
                     code: "45552",
-                    start_day: 9,
-                    finish_day: 19
+                    start_day: 17,
+                    finish_day: 20
                 }
             ]
         };
@@ -168,32 +168,32 @@ angular.module('ngMo.calendar', [
                     market: "SPC",
                     code: 51079,
                     bullish_pattern: false,
-                    start_day: 9,
-                    finish_day: 18
+                    start_day: 2,
+                    finish_day: 10
                 },
                 {
                     product_name: "BURCAP BUENOS AIRES",
                     market: "BUEI",
                     code: 54154,
                     bullish_pattern: true,
-                    start_day: 2,
-                    finish_day: 10
+                    start_day: 3,
+                    finish_day: 11
                 },
                 {
                     product_name: "NASDAQ TRASPORTATION",
                     market: "NQI",
                     code: 57154,
                     bullish_pattern: true,
-                    start_day: 3,
-                    finish_day: 11
+                    start_day: 9,
+                    finish_day: 18
                 },
                 {
                     product_name: "S&P 500 PERSONAL PRODUCTS",
                     market: "SCP",
                     code: 50854,
                     bullish_pattern: false,
-                    start_day: 1,
-                    finish_day: 10
+                    start_day: 12,
+                    finish_day: 19
                 }
 
             ]
