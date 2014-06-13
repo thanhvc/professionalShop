@@ -340,7 +340,7 @@ angular.module('ngMo.the_week', [
         });
 
         $scope.commoditiesAreas = null;
-        var resultCommo = $http.get(" http://api.mo-shopclient.development.com:9000getcommoditiesweek").success(function (data) {
+        var resultCommo = $http.get(" http://api.mo-shopclient.development.com:9000/getcommoditiesweek").success(function (data) {
             // With the data succesfully returned, call our callback
             $scope.commoditiesAreas = data;
         });
