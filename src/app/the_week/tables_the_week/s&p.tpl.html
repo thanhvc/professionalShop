@@ -8,13 +8,13 @@
         </tr>
         <tr>
             <th></th>
-            <th colspan="2">Semana {{mondayDay}}/{{mondayDay+4}}</th>
+            <th colspan="2">Semana <br/>{{mondayDay}}/{{mondayDay+4}}</th>
             <th></th>
-            <th colspan="2">Lu {{mondayDay}}</th>
-            <th colspan="2">Ma {{mondayDay+1}}</th>
-            <th colspan="2">Mi {{mondayDay+2}}</th>
-            <th colspan="2">Ju {{mondayDay+3}}</th>
-            <th colspan="2">Vi {{mondayDay+4}}</th>
+            <th colspan="2">Lu <br/>{{mondayDay}}</th>
+            <th colspan="2">Ma <br/>{{mondayDay+1}}</th>
+            <th colspan="2">Mi <br/>{{mondayDay+2}}</th>
+            <th colspan="2">Ju <br/>{{mondayDay+3}}</th>
+            <th colspan="2">Vi <br/>{{mondayDay+4}}</th>
         </tr>
         </thead>
         <tbody  ng-repeat="sector in sypSectors">
@@ -125,3 +125,4 @@
 
     </table>
 </div>
+<div selected-graphic-panel ng-hide="firstTime"></div>

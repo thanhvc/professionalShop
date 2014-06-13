@@ -262,10 +262,10 @@ describe('The Patterns view ', function () {
        expect(scope.getTemplateTable()).toEqual("my_patterns/tables/pairs_table.tpl.html");
         expect(scope.getTemplateFilter()).toEqual("my_patterns/filters/pairs_filters.tpl.html");
         scope.changeTab(2);
-        scope.filterOptions.filters.index_type= "index";
+        scope.filterOptions.filters.index_type= 0;//index
         expect(scope.getTemplateTable()).toEqual("my_patterns/tables/index_table.tpl.html");
         expect(scope.getTemplateFilter()).toEqual("my_patterns/filters/index_filters.tpl.html");
-        scope.filterOptions.filters.index_type= "pair_index";
+        scope.filterOptions.filters.index_type= 1;//pair index
         expect(scope.getTemplateTable()).toEqual("my_patterns/tables/pairs_index_table.tpl.html");
         expect(scope.getTemplateFilter()).toEqual("my_patterns/filters/index_filters.tpl.html");
         scope.changeTab(3);

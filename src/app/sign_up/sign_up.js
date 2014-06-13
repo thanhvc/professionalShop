@@ -109,7 +109,11 @@ angular.module('singUp', [])
             //password Pattern, note that to not allow spaces must use ng-trim="false" in the input
             $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
             //user model
-            $scope.user = toState.data.user;
+            //$scope.user = toState.data.user;
+            if ($state.user){
+                $scope.user = $state.user;
+
+            }
 
             //result of form submit -- just for test for now, the final results must be checked
             $scope.result = {
@@ -157,6 +161,23 @@ angular.module('singUp', [])
                     var result = SignUpService.secondStep($scope.user);
                     if (result == "ok") {
                         $scope.validCaptcha = true;
+                        //the user is deleted to clean the form, in the final case this must be sended to the user.
+                        $scope.user = {
+                            email: '',
+                                email2: '',
+                                password: '',
+                                password2: '',
+                                name: '',
+                                surname: '',
+                                address: '',
+                                city: '',
+                                postal: '',
+                                country: '',
+                                conditions: '',
+                                captcha: ''
+                        };
+
+                        //-save user (deleted in this case)
                         $state.user = $scope.user;
                         $state.go('signupSuccessful');
 
