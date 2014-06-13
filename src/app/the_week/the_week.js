@@ -334,19 +334,19 @@ angular.module('ngMo.the_week', [
         ];*/
 
         $scope.stockAreas = null;
-        var resultC = $http.get("http://localhost:9000/getstocksweek").success(function (data) {
+        var resultC = $http.get(" http://api.mo-shopclient.development.com:9000/getstocksweek").success(function (data) {
             // With the data succesfully returned, call our callback
             $scope.stockAreas = data;
         });
 
         $scope.commoditiesAreas = null;
-        var resultCommo = $http.get("http://localhost:9000/getcommoditiesweek").success(function (data) {
+        var resultCommo = $http.get(" http://api.mo-shopclient.development.com:9000getcommoditiesweek").success(function (data) {
             // With the data succesfully returned, call our callback
             $scope.commoditiesAreas = data;
         });
 
         $scope.sypSectors = null;
-        var resultSP = $http.get("http://localhost:9000/getspweek").success(function (data) {
+        var resultSP = $http.get(" http://api.mo-shopclient.development.com:9000/getspweek").success(function (data) {
             // With the data succesfully returned, call our callback
             $scope.sypSectors = data;
         });
