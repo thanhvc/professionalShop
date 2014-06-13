@@ -22,9 +22,9 @@ var Patterns = function() {
     };
 
     this.graphicName = function(){
-        this.graphic = element(by.css(".graphic-image")).click();
-        this.graphic = element(by.id("graphicPanel")).click();
-        this.graphicName = $("span[class*=ng-binding]").getText();
+        this.graphic = element.all(by.css(".graphic-image")).first().click();
+        this.graphic = element(by.css('span.ng-binding')).getAttribute('value');
+        this.graphicName = element.all(by.css('.ng-binding')).get(13).getText();
     };
 
     this.showMore = function(){
@@ -58,9 +58,10 @@ var SP = function(){
 
 
     this.graphicName = function(){
-        this.graphic = element(by.css(".graphic-image")).click();
-        this.graphic = element(by.id("graphicPanel")).click();
-        this.graphicName = $("span[class*=ng-binding]").getText();
+        this.graphic = element.all(by.css(".graphic-image")).first().click();
+        this.graphic = element(by.css('span.ng-binding')).getAttribute('value');
+        this.graphicName = element.all(by.css('.ng-binding')).get(13).getText();
+
     };
 
 };
@@ -83,9 +84,9 @@ var Commodities = function(){
 
 
     this.graphicName = function(){
-        this.graphic = element(by.css(".graphic-image")).click();
-        this.graphic = element(by.id("graphicPanel")).click();
-        this.graphicName = $("span[class*=ng-binding]").getText();
+        this.graphic = element.all(by.css(".graphic-image")).first().click();
+        this.graphic = element(by.css('span.ng-binding')).getAttribute('value');
+        this.graphicName = element.all(by.css('.ng-binding')).get(13).getText();
     };
 
 };
@@ -200,6 +201,46 @@ var Actions = function(){
 
         this.button = $('.blue-month-selector[ng-show*="canMove(1)"]').click();
         this.button = $('.blue-month-selector[ng-show*="canMove(1)"]');
+
+    };
+
+    this.checkURL = function(){
+
+
+        browser.get('http://46.51.174.51/moshopclient/#/patterns?qname=prueba&month=6_2014&qregion=10&qpage=1&qmarket=1&qsector=1&qindust=1&qop=1');
+
+        this.name = element.all(by.css('input')).get(3).getAttribute('value');
+        this.region = element.all(by.css('select')).get(0).getAttribute('value');
+        this.sector = element.all(by.css('select.border-filters')).get(3).getAttribute('value');
+        this.month = '6';
+        this.element2 = element.all(by.css('.ng-binding'));
+        this.element2.get(5).getText().then(function(r){
+            var t = String(r);
+            this.element2 = r;
+
+        });
+
+        this.page = element.all(by.css('.ng-binding')).get(183).getText();
+        this.market = element.all(by.css('select.border-filters')).get(2).getAttribute('value');
+        this.indust = element.all(by.css('select.border-filters')).get(4).getAttribute('value');
+        this.op = element.all(by.css('select.border-filters')).get(5).getAttribute('value');
+        browser.get('http://46.51.174.51/moshopclient/#/patterns?qindex=index&tab=Acciones&acttab=0&selrent=1&qrent=11&qselaver=1&qseldiar=1&qdiar=33&qselvol=1&qvol=44&qseldur=1&qdur=55&qfav=1');
+
+        this.acttab = element.all(by.css('.ng-binding')).get(1).getCssValue('background-color');
+        this.index = element.all(by.css('select.ng-pristine')).get(0).getAttribute('value');
+        this.selaver = element.all(by.css('select.border-filters')).get(7).getAttribute('value');
+
+        this.seldiar = element.all(by.css('select.border-filters')).get(8).getAttribute('value');
+        this.selvol = element.all(by.css('select.border-filters')).get(9).getAttribute('value');
+        this.seldur = element.all(by.css('select.border-filters')).get(10).getAttribute('value');
+        this.diar = element.all(by.css('input')).get(6).getAttribute('value');
+        this.vol = element.all(by.css('input')).get(7).getAttribute('value');
+        this.dur = element.all(by.css('input')).get(8).getAttribute('value');
+        this.fav = element.all(by.css('input')).get(9).getAttribute('value');
+        this.selrent = element.all(by.css('select')).get(6).getAttribute('value');
+        this.rent = element.all(by.css('input')).get(4).getAttribute('value');
+
+        return this.element2;
 
     };
 };
@@ -392,6 +433,39 @@ describe('Pattern menu', function(){
 
     });
 
+    it('should have a correct URL', function(){
+
+        a.element2 = a.checkURL();
+        expect(a.name).toBe('prueba');
+        expect(a.region).toBe('10');
+        //expect(a.sector).toBe('1');
+        //expect(a.indust).toBe('1');
+        expect(a.op).toBe('1');
+
+        expect(a.index).toBe('10');
+        expect(a.page).toBe('1');
+
+        a.element2.get(5).getText().then(function(r){
+            var t = String(r);
+            t= t.substring(0, t.indexOf('2')-1).toLowerCase();
+            t = getMonthNumber(t);
+            expect('6').toBe((t+1).toString());
+        });
+
+        expect(a.acttab).toBe('rgba(255, 130, 0, 1)');
+        expect(a.market).toBe('1');
+        expect(a.rent).toBe('11');
+        //expect(a.selrent).toBe('1');
+        expect(a.selaver).toBe('1');
+        expect(a.seldiar).toBe('1');
+        expect(a.selvol).toBe('1');
+        expect(a.seldur).toBe('1');
+        expect(a.fav).toBe('on');
+        expect(a.vol).toBe('44');
+        expect(a.diar).toBe('33');
+        expect(a.dur).toBe('55');
+    });
+
 });
 
 function getMonday(d) {
@@ -464,5 +538,19 @@ function getMonth(m){
 
     }
 
+    return i;
+}
+
+function getMonthNumber(m){
+
+    var months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio','julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+    var i = -1;
+    for (i= 0; i < 12; i++) {
+        if (months[i] == m) {
+            break;
+        }
+    }
+    if(i == 12) i = -1;
     return i;
 }
