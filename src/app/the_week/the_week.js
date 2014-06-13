@@ -24,7 +24,7 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function ($scope, ActualDateService) {
+    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });
@@ -70,7 +70,7 @@ angular.module('ngMo.the_week', [
                 }
             ];
 
-        $scope.stockAreas = [
+       /* $scope.stockAreas = [
             {
                 name: 'America',
                 regions: [
@@ -331,9 +331,28 @@ angular.module('ngMo.the_week', [
                 ]
             }
 
-        ];
+        ];*/
 
-        $scope.commoditiesAreas = [
+        $scope.stockAreas = null;
+        var resultC = $http.get("http://localhost:9000/getstocksweek").success(function (data) {
+            // With the data succesfully returned, call our callback
+            $scope.stockAreas = data;
+        });
+
+        $scope.commoditiesAreas = null;
+        var resultCommo = $http.get("http://localhost:9000/getcommoditiesweek").success(function (data) {
+            // With the data succesfully returned, call our callback
+            $scope.commoditiesAreas = data;
+        });
+
+        $scope.sypSectors = null;
+        var resultSP = $http.get("http://localhost:9000/getspweek").success(function (data) {
+            // With the data succesfully returned, call our callback
+            $scope.sypSectors = data;
+        });
+
+
+        /* $scope.commoditiesAreas = [
             {
                 name: 'Materias Primas',
                 regions: [
@@ -489,9 +508,9 @@ angular.module('ngMo.the_week', [
                     }
                 ]
             }
-        ];
+        ];*/
 
-        $scope.sypSectors = [
+      /*  $scope.sypSectors = [
             {
                 name: 'S&P 500 ENERGY',
                 global_daily_return: 0.14,
@@ -665,7 +684,7 @@ angular.module('ngMo.the_week', [
                 ]
             }
 
-        ];
+        ];*/
 
 
     })
