@@ -302,7 +302,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, ActualDateService, $modal, IsLogged) {
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
             $scope.selectMenu = toState.data.selectMenu;
@@ -314,6 +314,7 @@ angular.module('ngMo', [
             $scope.errorSignIn = false;
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
+            IsLogged.isLogged();
         });
         $scope.actualDate = ActualDateService.actualDate();
 
@@ -353,7 +354,7 @@ angular.module('ngMo', [
 /**
  * Directive for public nav
  */
-    .directive('publicMenu',function ($compile){
+    .directive('publicMenu',function ($compile, $rootScope){
         return {
             controller: function($scope, $state){
                 /**
@@ -373,21 +374,28 @@ angular.module('ngMo', [
                     }
                 };
             },
-            link: function($scope, element, IsLogged) {
+            link: function($scope, element) {
                $scope.$watch('actualSubmenu', function(){});
                $scope.$watch('selectSubmenu', function(){});
-               $scope.isLogg = IsLogged.isLogged();
-                if ($scope.isLogg) {
-                    var itemPublicMenu = angular.element("<ul class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
-                        "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
-                        "ng-mouseleave=\"onMouseLeaveMenu()\"" +
-                        "ng-class=\"{'item-nav-hover':actualMenu == 'my-patterns-nav'}\">" +
-                        "<a ui-sref=\"my-patterns\">" +
-                        "Mis Patrones" +
-                        "</a></ul>");
-                    element.append(itemPublicMenu);
-                    $compile(element.contents())($scope);
-                }
+               var isPresent = false;
+               $scope.$watch('isLog', function(){
+                   if ($rootScope.isLog && !isPresent) {
+                       isPresent = true;
+                       var itemPublicMenu = angular.element("<ul class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
+                           "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
+                           "ng-mouseleave=\"onMouseLeaveMenu()\"" +
+                           "ng-class=\"{'item-nav-hover':actualMenu == 'my-patterns-nav'}\">" +
+                           "<a ui-sref=\"my-patterns\">" +
+                           "Mis Patrones" +
+                           "</a></ul>");
+                       element.append(itemPublicMenu);
+                       $compile(element.contents())($scope);
+                   }else if(!$rootScope.isLog && isPresent){
+                       isPresent = false;
+
+                       console.log("eliminar item del menu publico");
+                   }
+               });
             },
             templateUrl:'layout_templates/public-menu.tpl.html'
         };
