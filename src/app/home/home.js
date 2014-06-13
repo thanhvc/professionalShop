@@ -226,6 +226,9 @@ angular.module('ngMo.home', [
 
     //carousel functions
     .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, AnchorLinkService) {
+        $scope.$on('$stateChangeStart', function (event, toState){
+            IsLogged.isLogged();
+        });
 
         $scope.changePosCart = function () {
             $scope.positionCart = 'top';

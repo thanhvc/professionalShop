@@ -25,6 +25,10 @@ angular.module('ngMo.the_week', [
     })
 
     .controller('TheWeekCtrl', function ($scope, ActualDateService) {
+        $scope.$on('$stateChangeStart', function (event, toState){
+            IsLogged.isLogged();
+        });
+
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });
