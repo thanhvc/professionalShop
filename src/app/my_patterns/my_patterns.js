@@ -105,11 +105,13 @@ angular.module('ngMo.my_patterns', [
         };
     })
     .controller('PatternsCtrl', function PatternsCtrl($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged) {
+        $scope.$on('$stateChangeStart', function (event, toState){
+            IsLogged.isLogged();
+        });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            IsLogged.isLogged();
         });
         //tabs and variables
         //pattern number for rents

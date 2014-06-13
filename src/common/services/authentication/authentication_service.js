@@ -73,8 +73,6 @@ angular.module('auth',['http-auth-interceptor'])
                     data = $scope.fields;
                     $http.post('http://api.mo-shopclient.development.com:9000/login', data)
                         .success(function (data, status, headers, config) {
-                            //  console.log("success");
-                            //  console.log(data);
                             $window.sessionStorage.token = data.authToken;
                             authService.loginConfirmed();
                             $scope.errorSignIn = true;
@@ -84,7 +82,6 @@ angular.module('auth',['http-auth-interceptor'])
 
                         })
                         .error(function (data, status, headers, config) {
-                                console.log("error");
                                 $scope.errorSignIn = true;
                         });
                 };
