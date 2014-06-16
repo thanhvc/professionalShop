@@ -117,6 +117,7 @@ angular.module('singUp', [])
                 $scope.user = $state.user;
 
             }
+            $scope.errorForm = false;
 
             //result of form submit -- just for test for now, the final results must be checked
             /*$scope.result = {
@@ -128,11 +129,18 @@ angular.module('singUp', [])
             //function to send the first step form
             //Calls firstStep of the SignUpService and takes result=ok / error
             $scope.sendFirstStep = function () {
-                var result = SignUpService.firstStep($scope.user);
-                if (result.result == "ok") {
-                    $state.user = $scope.user;
-                    $state.go('signup2');
-                }
+                var result = SignUpService.firstStep($scope.user, function (result) {
+                    $scope.errorForm = false;
+                    if (result.result == "ok") {
+                        $state.user = $scope.user;
+                        $scope.errorForm = false;
+                        $state.go('signup2');
+                    } else  if (result.username == "used"){
+                        $scope.result = result;
+                    } else {
+                        $scope.errorForm = true;
+                    }
+                });
             };
 
             //Step 2
@@ -157,12 +165,13 @@ angular.module('singUp', [])
                 $scope.formSubmited = true; //set the second form as submited (to check the inputs)
                 if ($scope.formReg.$valid) {
                     //if the form is correct, we go to the service
-                    var result = SignUpService.secondStep($scope.user);
-                    if (result == "ok") {
-                        $scope.validCaptcha = true;
-                        //the user is deleted to clean the form, in the final case this must be sended to the user.
-                        $scope.user = {
-                            email: '',
+                    var result = SignUpService.secondStep($scope.user, function (result) {
+                        $scope.errorForm = false;
+                        if (result.status == "ok") {
+                            $scope.validCaptcha = true;
+                            //the user is deleted to clean the form, in the final case this must be sended to the user.
+                            $scope.user = {
+                                email: '',
                                 email2: '',
                                 password: '',
                                 password2: '',
@@ -174,17 +183,20 @@ angular.module('singUp', [])
                                 country: '',
                                 conditions: '',
                                 captcha: ''
-                        };
+                            };
+                            $scope.errorForm = false;
+                            //-save user (deleted in this case)
+                            $state.user = $scope.user;
+                            $state.go('signupSuccessful');
 
-                        //-save user (deleted in this case)
-                        $state.user = $scope.user;
-                        $state.go('signupSuccessful');
+                        } else if (result.status == "incorrectCaptcha") {
+                            $scope.validCaptcha = false;
+                        } else {
+                            $scope.validCaptcha = true;
+                            $scope.errorForm = true;
+                        }
 
-                    } else if (result == "incorrectCaptcha") {
-                        $scope.validCaptcha=false;
-                    } else  {
-                        $scope.validCaptcha= true;
-                    }
+                    });
                 }
             };
         });
@@ -208,28 +220,32 @@ angular.module('singUp', [])
     })
     .factory('SignUpService', function ($http) {
         var signUpService = {};
-        signUpService.firstStep = function (user) {
+        signUpService.firstStep = function (user,callback) {
             data = user;
             return $http.post('http://api.mo-shopclient.development.com:9000/testemail', data)
-                .success(function () {
-                    return response = {
-                        result: "ok",
-                        username: "not-used"
-                    };
+                .success(function (data) {
+                   callback(data);
                 })
-                .error(function () {
-                    return response = {
-                        result: "error",
-                        username: "used"
-                    };
+                .error(function (data) {
+                    callback(data);
                 });
         };
-        signUpService.secondStep = function (user) {
-            if (user.captcha =="4") {
+        signUpService.secondStep = function (user,callback) {
+            data = user;
+            return $http.post('http://api.mo-shopclient.development.com:9000/signup', data)
+                .success(function (data) {
+                    callback(data);
+                })
+                .error(function (data) {
+                    callback(data);
+                });
+
+
+            /*if (user.captcha =="4") {
                 return "ok";
             } else {
                 return "incorrectCaptcha";
-            }
+            }*/
         };
 
         //countries get by json (extract from server)

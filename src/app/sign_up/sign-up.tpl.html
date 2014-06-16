@@ -71,6 +71,9 @@
                     <div  class="red-color-form prices-font12"
                          ng-show="form.password1.$error.pattern && (form.password1.$dirty && form.password2.$dirty)">Caracteres inv&aacute;lidos en la contrase&ntilde;a
                     </div>
+                    <div class="red-color-form prices-font12"
+                          ng-show="errorForm">Error en el formulario, por favor vuelva a intentarlo
+                    </div>
                     <div  class="red-color-form prices-font12"
                          ng-show="form.$error.required && form.$dirty">
                         Faltan campos obligatorios
