@@ -591,7 +591,7 @@ angular.module('ngMo.my_patterns', [
             //for a special case to load the selectors, we need save the region,market,...
             //if the location.search region,market.. values are not the same that the filters, we need
             //to reload the selectors...
-            if ($scope.filterOptions.filters.selectedRegion !== params.qregion) {
+            if ((typeof params.qregion !== 'undefined') && ($scope.filterOptions.filters.selectedRegion !== params.qregion)) {
                 //if region is distinct, refresh all selectors
                 $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
                 filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
@@ -600,7 +600,7 @@ angular.module('ngMo.my_patterns', [
                 filters.selectedSector = (params.qsector ? params.qsector : "" );
                 filters.selectedIndustry = (params.qindust ? params.qindust : "" );
             }
-            else if ($scope.filterOptions.filters.selectedMarket !== params.qmarket) {
+            else if ((typeof params.qmarket !== 'undefined') && ($scope.filterOptions.filters.selectedMarket !== params.qmarket)) {
                 //region similar, but not market
                 $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
                 $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
@@ -609,7 +609,7 @@ angular.module('ngMo.my_patterns', [
                 $scope.refreshMarket();
                 filters.selectedSector = (params.qsector ? params.qsector : "" );
                 filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            } else if ($scope.filterOptions.filters.selectedSector !== params.qsector) {
+            } else if ((typeof params.qsector !== 'undefined') && ($scope.filterOptions.filters.selectedSector !== params.qsector)) {
                 //region and market similar, but not sector
                 $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
                 $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
