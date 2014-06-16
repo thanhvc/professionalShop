@@ -76,7 +76,7 @@ angular.module('ngMo.contact', [
     .run(function run() {
     })
 
-    .controller('ContactCtrl', function ContactCtrl($scope) {
+    .controller('ContactCtrl', function ContactCtrl($scope, IsLogged) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });

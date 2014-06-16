@@ -108,7 +108,7 @@ angular.module('ngMo.subscriptions_and_prices', [
     .run(function run() {
     })
 
-    .controller('Subscriptions_And_PricesCtrl', function Subscriptions_And_PricesCtrl($scope) {
+    .controller('Subscriptions_And_PricesCtrl', function Subscriptions_And_PricesCtrl($scope, IsLogged) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });

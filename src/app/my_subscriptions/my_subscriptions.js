@@ -329,7 +329,7 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
-    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService) {
+    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });

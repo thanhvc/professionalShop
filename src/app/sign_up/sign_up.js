@@ -100,7 +100,7 @@ angular.module('singUp', [])
     .run(function run() {
     })
 
-    .controller('SignupCtrl', function ($scope, $state, SignUpService) {
+    .controller('SignupCtrl', function ($scope, $state, SignUpService, IsLogged) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -119,24 +119,20 @@ angular.module('singUp', [])
             }
 
             //result of form submit -- just for test for now, the final results must be checked
-            $scope.result = {
+            /*$scope.result = {
                 result: "unknown",
                 username: "unknown"
-            };
+            };*/
 
 
             //function to send the first step form
             //Calls firstStep of the SignUpService and takes result=ok / error
             $scope.sendFirstStep = function () {
                 var result = SignUpService.firstStep($scope.user);
-                $scope.result = result;
-                if ($scope.result.result == "ok") {
-                    //if the results are OK, we save the model in the state (in case of press back button)
-                    //and go to step2
+                if (result.result == "ok") {
                     $state.user = $scope.user;
                     $state.go('signup2');
                 }
-
             };
 
             //Step 2
@@ -210,19 +206,23 @@ angular.module('singUp', [])
             }
         };
     })
-    .factory('SignUpService', function () {
+    .factory('SignUpService', function ($http) {
         var signUpService = {};
         signUpService.firstStep = function (user) {
-            var response = {
-                result: "ok",
-                username: "not-used"
-            };
-            //testing used mail
-            if (user.email == "test@test") {
-                response.result = "error";
-                response.username = "used";
-            }
-            return response;
+            data = user;
+            return $http.post('http://api.mo-shopclient.development.com:9000/testemail', data)
+                .success(function () {
+                    return response = {
+                        result: "ok",
+                        username: "not-used"
+                    };
+                })
+                .error(function () {
+                    return response = {
+                        result: "error",
+                        username: "used"
+                    };
+                });
         };
         signUpService.secondStep = function (user) {
             if (user.captcha =="4") {
