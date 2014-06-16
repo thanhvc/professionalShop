@@ -220,7 +220,10 @@ angular.module('ngMo.services', [
     .run(function run() {
     })
 
-    .controller('ServicesCtrl', function ServicesCtrl($scope,PricesService) {
+    .controller('ServicesCtrl', function ServicesCtrl($scope,PricesService, IsLogged) {
+        $scope.$on('$stateChangeStart', function (event, toState){
+            IsLogged.isLogged();
+        });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });

@@ -27,21 +27,22 @@ angular.module('auth',['http-auth-interceptor'])
         };
     })
 
-    .service('IsLogged', function ($http) {
-        this.isLogged = function(token){
+    .service('IsLogged', function ($http, $window, $rootScope) {
+        this.isLogged = function(){
+            token = $window.sessionStorage.token;
             config = {
                 headers: {
-                    'auth-token': token
+                    'X-Session-Token': token
                 }
             };
-            $http.get('http://localhost:9000/isLogged', config)
+            $rootScope.isLog=false;
+            $http.get('http://api.mo-shopclient.development.com:9000/islogged', config)
                 .success(function (params, status, headers, config) {
-                    console.log('user logged');
-                    return true;
+                    $rootScope.isLog = true;
+
                 })
                 .error(function (params, status, headers, config) {
-                    console.log('user not logged');
-                    return false;
+                    $rootScope.isLog = false;
                 });
         };
     })
@@ -55,7 +56,7 @@ angular.module('auth',['http-auth-interceptor'])
         return {
             restrict: "E",
 
-            controller: function ($scope, SignInFormState, $http, $window, authService, $state) {
+            controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state) {
 
                 $scope.stateSignInForm = false;
                 $scope.firstTime = false;
@@ -70,10 +71,8 @@ angular.module('auth',['http-auth-interceptor'])
 
                 $scope.submit = function() {
                     data = $scope.fields;
-                    $http.post('http://localhost:9000/login', data)
+                    $http.post('http://api.mo-shopclient.development.com:9000/login', data)
                         .success(function (data, status, headers, config) {
-                            //  console.log("success");
-                            //  console.log(data);
                             $window.sessionStorage.token = data.authToken;
                             authService.loginConfirmed();
                             $scope.errorSignIn = true;
@@ -83,16 +82,24 @@ angular.module('auth',['http-auth-interceptor'])
 
                         })
                         .error(function (data, status, headers, config) {
-                                console.log("error");
                                 $scope.errorSignIn = true;
                         });
                 };
 
-                /*$scope.logout = function() {
-                    $http.post('auth/logout').success(function () {
-                        $scope.restrictedContent = [];
-                    });
-                };*/
+                $scope.logout = function() {
+                    token = $window.sessionStorage.token;
+                    config = {
+                        headers: {
+                            'X-Session-Token': token
+                        }
+                    };
+                    $http.get('http://api.mo-shopclient.development.com:9000/logout', config)
+                        .success(function () {
+                            $rootScope.isLog = false;
+                            $state.go('home');
+                            $window.sessionStorage.removeItem('token');
+                        });
+                };
             },
             link: function($scope) {
                 $scope.$watch('stateSignInForm');

@@ -329,7 +329,11 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
-    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService) {
+    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged) {
+        $scope.$on('$stateChangeStart', function (event, toState){
+            IsLogged.isLogged();
+        });
+
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';

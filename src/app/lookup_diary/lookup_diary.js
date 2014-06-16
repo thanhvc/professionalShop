@@ -27,7 +27,10 @@ angular.module('ngMo.lookup_diary', [
     .run(function run() {
     })
 
-    .controller('LookupDiaryCtrl', function ($scope) {
+    .controller('LookupDiaryCtrl', function ($scope, IsLogged) {
+        $scope.$on('$stateChangeStart', function (event, toState){
+            IsLogged.isLogged();
+        });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';

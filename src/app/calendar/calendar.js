@@ -25,7 +25,10 @@ angular.module('ngMo.calendar', [
     .run(function run() {
     })
 
-    .controller('CalendarCtrl', function ($scope, TabsService, $location) {//<- use location.search()
+    .controller('CalendarCtrl', function ($scope, TabsService, $location,  IsLogged) {//<- use location.search()
+        $scope.$on('$stateChangeStart', function (event, toState){
+            IsLogged.isLogged();
+        });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
