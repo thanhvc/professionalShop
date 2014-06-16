@@ -224,7 +224,7 @@ var Actions = function(){
         this.market = element.all(by.css('select.border-filters')).get(2).getAttribute('value');
         this.indust = element.all(by.css('select.border-filters')).get(4).getAttribute('value');
         this.op = element.all(by.css('select.border-filters')).get(5).getAttribute('value');
-        browser.get('http://46.51.174.51/moshopclient/#/patterns?qindex=index&tab=Acciones&acttab=0&selrent=1&qrent=11&qselaver=1&qseldiar=1&qdiar=33&qselvol=1&qvol=44&qseldur=1&qdur=55&qfav=1');
+        browser.get('http://46.51.174.51/moshopclient/#/patterns?qindex=index&tab=Acciones&acttab=0&qselrent=1&qrent=11&qselaver=1&qseldiar=1&qdiar=33&qselvol=1&qvol=44&qseldur=1&qdur=55&qfav=1');
 
         this.acttab = element.all(by.css('.ng-binding')).get(1).getCssValue('background-color');
         this.index = element.all(by.css('select.ng-pristine')).get(0).getAttribute('value');
@@ -441,10 +441,8 @@ describe('Pattern menu', function(){
         //expect(a.sector).toBe('1');
         //expect(a.indust).toBe('1');
         expect(a.op).toBe('1');
-
         expect(a.index).toBe('10');
         expect(a.page).toBe('1');
-
         a.element2.get(5).getText().then(function(r){
             var t = String(r);
             t= t.substring(0, t.indexOf('2')-1).toLowerCase();
@@ -455,7 +453,7 @@ describe('Pattern menu', function(){
         expect(a.acttab).toBe('rgba(255, 130, 0, 1)');
         expect(a.market).toBe('1');
         expect(a.rent).toBe('11');
-        //expect(a.selrent).toBe('1');
+        expect(a.selrent).toBe('1');
         expect(a.selaver).toBe('1');
         expect(a.seldiar).toBe('1');
         expect(a.selvol).toBe('1');
@@ -551,6 +549,8 @@ function getMonthNumber(m){
             break;
         }
     }
-    if(i == 12) i = -1;
+    if(i == 12) {
+        i = -1;
+    }
     return i;
 }
