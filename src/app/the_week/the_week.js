@@ -24,7 +24,7 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function ($scope, ActualDateService) {
+    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -699,7 +699,6 @@ angular.module('ngMo.the_week', [
 
                     if(e !== 'undefined') {
                         $scope.myTop = e.srcElement.y + e.srcElement.height + 'px';
-                        $scope.myLeft = e.srcElement.x + e.srcElement.width +7+ 'px';
                     }
                 };
 
@@ -717,7 +716,7 @@ angular.module('ngMo.the_week', [
                 $scope.$watch('openGraph', function(){});
             },
 
-            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph}\"  ng-style=\"{'top': myTop, 'left': myLeft}\" ng-click=\"$event.stopPropagation();\">"+
+            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph}\"  ng-style=\"{'top': myTop}\" ng-click=\"$event.stopPropagation();\">"+
                 "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>"+
                 "<br/>"+
                 "<span>{{selectedGraphic.indiceName}}</span>"+
