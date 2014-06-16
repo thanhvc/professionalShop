@@ -12,7 +12,7 @@ var Patterns = function() {
     this.graphicName = '';
 
     this.open = function () {
-        browser.get('http://mo.devel.edosoftfactory.com/#/patterns');
+        browser.get('http://46.51.174.51/moshopclient/#/patterns');
         browser.ignoreSynchronization = true;
     };
 
@@ -47,7 +47,7 @@ var SP = function(){
     this.graphic = null;
     this.graphicName = '';
     this.open = function () {
-        browser.get('http://mo.devel.edosoftfactory.com/#/patterns');
+        browser.get('http://46.51.174.51/moshopclient/#/patterns');
         browser.ignoreSynchronization = true;
     };
 
@@ -73,7 +73,7 @@ var Commodities = function(){
     this.text = '';
     this.graphicName = '';
     this.open = function () {
-        browser.get('http://mo.devel.edosoftfactory.com/#/patterns');
+        browser.get('http://46.51.174.51/moshopclient/#/patterns');
         browser.ignoreSynchronization = true;
     };
 
@@ -98,7 +98,7 @@ var Actions = function(){
     this.element2 = null;
 
     this.open = function () {
-        browser.get('http://mo.devel.edosoftfactory.com/#/patterns');
+        browser.get('http://46.51.174.51/moshopclient/#/patterns');
         browser.ignoreSynchronization = true;
     };
 
@@ -207,7 +207,7 @@ var Actions = function(){
     this.checkURL = function(){
 
 
-        browser.get('http://mo.devel.edosoftfactory.com/#/patterns?qname=prueba&month=6_2014&qregion=10&qpage=1&qmarket=1&qsector=1&qindust=1&qop=1');
+        browser.get('http://46.51.174.51/moshopclient/#/patterns?qname=prueba&month=6_2014&qregion=10&qpage=1&qmarket=1&qsector=1&qindust=1&qop=1');
 
         this.name = element.all(by.css('input')).get(3).getAttribute('value');
         this.region = element.all(by.css('select')).get(0).getAttribute('value');
@@ -224,7 +224,7 @@ var Actions = function(){
         this.market = element.all(by.css('select.border-filters')).get(2).getAttribute('value');
         this.indust = element.all(by.css('select.border-filters')).get(4).getAttribute('value');
         this.op = element.all(by.css('select.border-filters')).get(5).getAttribute('value');
-        browser.get('http://mo.devel.edosoftfactory.com/#/patterns?qindex=index&tab=Acciones&acttab=0&selrent=1&qrent=11&qselaver=1&qseldiar=1&qdiar=33&qselvol=1&qvol=44&qseldur=1&qdur=55&qfav=1');
+        browser.get('http://46.51.174.51/moshopclient/#/patterns?qindex=index&tab=Acciones&acttab=0&selrent=1&qrent=11&qselaver=1&qseldiar=1&qdiar=33&qselvol=1&qvol=44&qseldur=1&qdur=55&qfav=1');
 
         this.acttab = element.all(by.css('.ng-binding')).get(1).getCssValue('background-color');
         this.index = element.all(by.css('select.ng-pristine')).get(0).getAttribute('value');
@@ -551,9 +551,6 @@ function getMonthNumber(m){
             break;
         }
     }
-    if (i == 12) {
-
-        i = -1;
-    }
+    if(i == 12) i = -1;
     return i;
 }
