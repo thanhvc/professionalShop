@@ -18,6 +18,7 @@ angular.module('ngMo', [
         'ngMo.the_week',
         'ngMo.calendar',
         'ngMo.my_subscriptions',
+        'ngMo.my_profile',
         'ui.router',
         'gettext' ,
         'singUp',
