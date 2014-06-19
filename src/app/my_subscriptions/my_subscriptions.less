@@ -99,3 +99,54 @@
     }
   }
 }
+
+.tables-my-packs{
+  margin-bottom: 10px;
+  width: 100%;
+  thead{
+    tr{
+      &:nth-child(2) {
+        td {
+          border-right: 2px solid @greyLabel;
+          border-bottom: 1px solid @black;
+        }
+      }
+    }
+  }
+  tbody {
+    tr {
+      height: 25px;
+      &:nth-child(odd) {
+        background-color: @smokeGrey;
+        border-bottom: 1px solid @greyColor;
+      }
+      &:nth-child(even) {
+        background-color: @white;
+        border-bottom: 1px solid @greyColor;
+      }
+      td {
+        font-size: 10px;
+        &:nth-child(1){
+          border-left: 1px solid @greyLabel;
+        }
+        border-right: 2px solid @greyLabel;
+        text-align: center;
+      }
+    }
+  }
+}
+.subheader-my-packs-table{
+  background-color: @greyBorderColor;
+  height: 24px;
+  color: @white;
+  text-align: center;
+}
+
+.header-my-packs-table{
+  background-color: @black;
+  height: 40px;
+  border-right: 2px solid @black;
+  font-family: fontpo-bold;
+  color: @white;
+  text-indent: 20px;
+}

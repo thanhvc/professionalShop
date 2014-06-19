@@ -85,59 +85,61 @@
     </tr>
     <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
         <td width="30" class="table-id-orange">
-            {{data.Id}}
+            {{data.id}}
         </td>
         <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
-            {{data.type}}<br/>
+            <span ng-if="data.patternType == 'BULLISH'">Comprar</span>
+            <span ng-if="data.patternType == 'BEARISH'">Vender</span>
+            <br/>
             <div class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name_tooltip}}"
-                  ng-class="{'buy-color': data.type == 'buy', 'sell-color': data.type == 'sell'}">
-                {{data.name}}
+                  tooltip-html-unsafe="{{data.asset.longName}}"
+                  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
+                {{data.asset.longName}}
             </span>
             </div>
         </td>
         <td style="text-align: left; width: 180px; vertical-align: top;"
             class="table-cell-patterns border-right-table"
-            ng-class="{'buy-color': data.type == 'buy',
-                            'sell-color': data.type == 'sell'}">
+            ng-class="{'buy-color': data.patternType == 'BULLISH',
+                            'sell-color': data.patternType == 'BEARISH'}">
             <!--sector/industry-->
-            <div class="text-limitator"><span class="cursor-help" tooltip-html-unsafe="{{data.Sector}}">{{data.Sector}}</span>
-                <span ng-show="{{(data.Sector != '' && data.Industry != '')}}"> / </span>
+            <div class="text-limitator"><span class="cursor-help" tooltip-html-unsafe="{{data.asset.sector}}">{{data.asset.sector}}</span>
+                <span ng-show="{{(data.asset.sector != '' && data.asset.industry != '')}}"> / </span>
             </div>
             <div class="text-limitator">
-                <span class="cursor-help" tooltip="{{data.Industry}}">{{data.Industry}}</span>
+                <span class="cursor-help" tooltip="{{data.asset.industry}}">{{data.asset.industry}}</span>
             </div>
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <span tooltip-html-unsafe="{{data.Merc_tooltip}}" class="cursor-help">{{data.Merc}}</span>
+            <span tooltip-html-unsafe="{{data.asset.exchange.name}}" class="cursor-help">{{data.asset.exchange.name}}</span>
         </td>
         <td style="width: 32px;" class="table-cell-patterns sub-border-right-table">
-            <b>{{data.Year}}</b>
+            <b>{{data.win}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
-            <b>{{data.Year_Perd}}</b>
+            <b>{{data.loss}}</b>
         </td>
         <td style="width: 68px;" class="table-cell-patterns sub-border-right-table">
-            {{data.Enter}}
+            {{data.entryDate | date: 'dd/MMM/yyyy'}}
         </td>
         <td style="width: 68px;" class="table-cell-patterns border-right-table">
-            {{data.Exit}}
+            {{data.exitDate | date: 'dd/MMM/yyyy'}}
         </td>
         <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
-            <b> {{data.Rent_acum}}</b>
+            <b> {{data.accumulatedReturn}}</b>
         </td>
         <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
-            <b> {{data.Rent_average}}</b>
+            <b> {{data.averageReturn}}</b>
         </td>
         <td style="width: 44px;" class="table-cell-patterns border-right-table">
-            <b> {{data.Rent_Diary}}</b>
+            <b> {{data.dailyReturn}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
-            <b> {{data.Days}}</b>
+            <b> {{data.duration}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
-            <b> {{data.Vol}}</b>
+            <b> {{data.volatility}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
             <div class="current-favourite"

@@ -45,7 +45,7 @@ angular.module('ngMo.market_observatory', [
                     }
                 },
                 data: {
-                    pageTitle: 'Service Conditions',
+                    pageTitle: 'Condiciones del Servicio',
                     selectMenu: 'market-observatory-nav',
                     selectSubmenu: 'submenu1',
                     selectItemSubmenu: 'service-conditions-nav',

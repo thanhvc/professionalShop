@@ -12,7 +12,7 @@ angular.module('ngMo.the_week', [
                 }
             },
             data: {
-                pageTitle: 'The week',
+                pageTitle: 'La Semana',
                 selectMenu: 'the-week-nav',
                 selectSubmenu: '',
                 selectItemSubmenu: '',

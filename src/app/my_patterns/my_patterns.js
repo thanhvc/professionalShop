@@ -19,22 +19,13 @@ angular.module('ngMo.my_patterns', [
                 }
             },
             data: {
-                pageTitle: 'My patterns',
+                pageTitle: 'Mis Patrones',
                 selectMenu: 'my-patterns-nav',
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false/*,
-            resolve: {
-                IsLogged: "IsLogged",
-                userIsLogged: function(IsLogged){
-                    return IsLogged.isLogged();
-                }
-            },
-            controller: function($scope, userIsLogged){
-                $scope.isLog = userIsLogged;
-            }*/
+            reloadOnSearch: false
         });
     })
     .service('TabsService', function () {
@@ -280,15 +271,14 @@ angular.module('ngMo.my_patterns', [
         $scope.loadPage = function () {
             var data = PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
-                    $scope.myData = data;//data.page;
+                    $scope.myData = data.patterns;//data.page;
                     /*mocked, this info is loaded from data*/
-                    $scope.results = 100;//data.results;
-                    $scope.found = 100;//data.found;
+                    $scope.results = data.results;//data.results;
+                    $scope.found = data.found;//data.found;
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
                 });
-
         };
 
 
@@ -555,7 +545,7 @@ angular.module('ngMo.my_patterns', [
                 durationInput: (params.qdur ? params.qdur : "" ),
                 index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
                 tab_type: (params.qtab ? params.qtab : "" ),
-                active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : ""),
+                active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
                 favourite: (params.qfav ? params.qfav : "" )
             };
 
@@ -665,7 +655,7 @@ angular.module('ngMo.my_patterns', [
 
 
     })
-    .service("PatternsService", function ($http, TabsService) {
+    .service("PatternsService", function ($http, $window) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -694,21 +684,30 @@ angular.module('ngMo.my_patterns', [
             var urlParam = this.createParamsFromFilter(filtering);
             var url_pattern;
             if (parseInt(filtering.active_tab,10) === 0) {//stock
-                url_pattern = 'src/app/my_patterns/data/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page;
+                url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainpatterns';
 
             } else if (parseInt(filtering.active_tab,10) === 1) {//pairs
-                url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page;
+                url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainpatterns';
             } else if (parseInt(filtering.active_tab,10) === 2) {//index
                 if (parseInt(filtering.index_type,10) === 0) {//index
-                    url_pattern = 'src/app/my_patterns/data/testdataIndex.json.js?pageSize=' + pageSize + '&page=' + page;
+                    url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainpatterns';
                 } else {
-                    url_pattern = 'src/app/my_patterns/data/testdataPairs.json.js?pageSize=' + pageSize + '&page=' + page;
+                    url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainpatterns';
                 }
             } else {//futures
-                url_pattern = 'src/app/my_patterns/data/testdataStock.json.js?pageSize=' + pageSize + '&page=' + page;
+                url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainfuturepatterns';
             }
 
-            var result = $http.get(url_pattern).success(function (data) {
+            config = {
+                params :{
+                    'page': page,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab,10),
+                    'indexType': parseInt(filtering.active_tab,10)
+                }
+            };
+
+            var result = $http.get(url_pattern, config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });

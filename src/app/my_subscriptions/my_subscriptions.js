@@ -18,7 +18,7 @@ angular.module('ngMo.my_subscriptions', [
                 }
             },
             data: {
-                pageTitle: 'My Subscriptions',
+                pageTitle: 'Mis Suscripciones',
                 selectMenu: 'my-subscriptions-nav',
                 selectSubmenu: '',
                 selectItemSubmenu: '',
@@ -56,6 +56,90 @@ angular.module('ngMo.my_subscriptions', [
     })
 
     .run(function run() {
+    })
+
+    .service('MyPacksService', function (){
+
+        //Dummies Packs
+        var stocksPacks = [
+            {
+                id: 1,
+                packName: "Canada",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            },
+            {
+                id: 2,
+                packName: "Estados Unidos Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            },
+            {
+                id: 3,
+                packName: "Latino América Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var pairsPacks = [
+            {
+                id: 1,
+                packName: "Estados Unidos Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            },
+            {
+                id: 2,
+                packName: "Estados Unidos Pack II",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var indicesPacks = [
+            {
+                id: 1,
+                packName: "INDICES Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var pairsIndicesPacks = [
+            {
+                id: 1,
+                packName: "PARES INDICES Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var futuresPacks = [
+            {
+                id: 1,
+                packName: "Futures Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        //******
+
+        this.obtainPacks = function (area) {
+            switch (area){
+                case 'stocks':
+                    return stocksPacks;
+                case 'pairs':
+                    return pairsPacks;
+                case 'indices':
+                    return indicesPacks;
+                case 'pairs_indices':
+                    return pairsIndicesPacks;
+                case 'futures':
+                    return futuresPacks;
+            }
+        };
     })
 
     .service('MySubscriptionPacksService', function (){
@@ -329,7 +413,7 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
-    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged) {
+    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -374,6 +458,39 @@ angular.module('ngMo.my_subscriptions', [
                 value: 3,
                 futuresContent: MySubscriptionPacksService.obtainPacks('futures'),
                 url: 'my_subscriptions/tables_packs/futures_table.tpl.html'
+            }
+        ];
+
+        $scope.myPacksTablePacks = [
+            {
+                title: 'Acciones',
+                active: ActiveTabService.activeTab() === 0,
+                value: 0,
+                content: MyPacksService.obtainPacks('stocks'),
+                url: 'my_subscriptions/tables_my_packs/stock_table.tpl.html'
+            },
+            {
+                title: 'Pares',
+                active: ActiveTabService.activeTab() === 1,
+                value: 1,
+                content: MyPacksService.obtainPacks('pairs'),
+
+                url: 'my_subscriptions/tables_my_packs/pairs_table.tpl.html'
+            },
+            {
+                title: 'Indices',
+                active: ActiveTabService.activeTab() === 2,
+                value: 2,
+                content: MyPacksService.obtainPacks('indices'),
+
+                url: 'my_subscriptions/tables_my_packs/indices_table.tpl.html'
+            },
+            {
+                title: 'Futuros',
+                active: ActiveTabService.activeTab() === 3,
+                value: 3,
+                content: MyPacksService.obtainPacks('futures'),
+                url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
             }
         ];
 

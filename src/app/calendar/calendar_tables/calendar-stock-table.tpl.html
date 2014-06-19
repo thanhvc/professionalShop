@@ -16,10 +16,10 @@
         <option value="1">Venta</option>
     </select>
     <input type="checkbox" ng-model="favouriteCalendar"><label>Favoritos</label>
-    <input type="text" placeholder="Día">
-    <select data-ng-model="selectedOrder" class="select-order">
-        <option selected value="0">Ordenar por Fecha Entrada</option>
-        <option value="1">Ordenar por Fecha Salida</option>
+    <input type="text" placeholder="Día" data-ng-model="dayPattern">
+    <select data-ng-model="orderField" class="select-order">
+        <option selected value="start_day">Ordenar por Fecha Entrada</option>
+        <option value="finish_day">Ordenar por Fecha Salida</option>
     </select>
 </div>
 <table class="calendar-table">
@@ -30,7 +30,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="pattern in stocks_calendar.patterns">
+    <tr ng-repeat="pattern in stocks_calendar.patterns | orderBy: orderField | DayFrom: dayPattern: orderField">
         <td>
             <span tooltip="{{pattern.product_name}} ({{pattern.market}}) {{pattern.code}}" class="cursor-help">{{pattern.product_name}}</span>
         </td>

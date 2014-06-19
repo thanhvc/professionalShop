@@ -1,1 +1,5 @@
-Mis packs
+<tabset>
+    <tab ng-click="onClickTab(myPacksTablePack.value)" ng-repeat="myPacksTablePack in myPacksTablePacks" heading="{{myPacksTablePack.title}}" active="myPacksTablePack.active" disabled="tab.disabled">
+        <div ng-include="myPacksTablePack.url"></div>
+    </tab>
+</tabset>

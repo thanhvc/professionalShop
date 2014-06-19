@@ -303,6 +303,12 @@ angular.module('ngMo', [
     })
 
     .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
+        /*$rootScope.$on('$routeChangeStart', function (event){
+           if  (!$rootScope.isLog){
+               $rootScope.saveLocation = $location.url();
+               $location.path('/')
+           }
+        });*/
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });

@@ -12,7 +12,7 @@ angular.module('ngMo.calendar', [
                 }
             },
             data: {
-                pageTitle: 'Calendar',
+                pageTitle: 'Calendario',
                 selectMenu: 'calendar-nav',
                 selectSubmenu: '',
                 selectItemSubmenu: '',
@@ -37,6 +37,9 @@ angular.module('ngMo.calendar', [
 
         $scope.selectedTab = TabsService.getActiveTab();
         $scope.tabs = TabsService.getTabs();
+        $scope.orderField = 'start_day';
+        $scope.day = '';
+
 
         var templateTables = [
             'calendar/calendar_tables/calendar-stock-table.tpl.html',
@@ -382,4 +385,30 @@ angular.module('ngMo.calendar', [
         }
         $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
 
-    });
+    })
+
+    .filter('DayFrom', function () {
+        return function (input, start, orderField) {
+            var tempPatterns = [];
+            if(typeof start !== "undefined"){
+                if (orderField === 'start_day') {
+                    angular.forEach(input, function (item) {
+                        if (item.start_day >= start) {
+                            tempPatterns.push(item);
+                        }
+                    });
+                } else if (orderField === 'finish_day') {
+                    angular.forEach(input, function (item) {
+                        if (item.finish_day <= start) {
+                            tempPatterns.push(item);
+                        }
+                    });
+                }
+                return tempPatterns;
+            }else{
+                return input;
+            }
+        };
+    })
+
+;

@@ -1,0 +1,158 @@
+<table style="width: 950px;" class="table-pattern">
+    <!--HEADER-->
+    <tr class="table-header-top-patterns">
+        <th class="table-id-header" rowspan="2">
+            Id
+        </th>
+        <th class="border-right-table">
+            Acción
+        </th>
+        <th class="border-right-table">
+            Sector / Industria
+        </th>
+        <th class="border-right-table"
+            title="Mercado">
+            <span class="cursor-help" tooltip-html-unsafe="Mercado">Merc.</span>
+        </th>
+        <th class="border-right-table"
+            colspan="2" title="Número de Años">
+            <span class="cursor-help" tooltip-html-unsafe="Número de Años">Años</span>
+        </th>
+        <th class="border-right-table"
+            colspan="2">
+            Fechas
+        </th>
+        <th class="border-right-table"
+            colspan="3">
+            Rentabilidad (%)
+        </th>
+        <th class="border-right-table"
+            title="Duración">
+            <span class="cursor-help" tooltip-html-unsafe="Duración">Dur.</span>
+        </th>
+        <th class="border-right-table"
+            title="Volatilidad">
+            <span class="cursor-help" tooltip-html-unsafe="Volatilidad">Vol.</span>
+        </th>
+        <th class="border-right-table"
+            title="Favorito">
+            <span class="cursor-help" tooltip-html-unsafe="Favorito">Fav.</span>
+        </th>
+        <th class="sub-border-right-table"
+            title="Estado">
+            <span class="cursor-help" tooltip-html-unsafe="Estado">Est.</span>
+        </th>
+    </tr>
+    <tr class="table-header-bottom-patterns">
+        <th class="border-right-table">
+            Nombre
+        </th>
+        <th class="border-right-table">
+        </th>
+        <th class="border-right-table">
+        </th>
+        <th class="sub-border-right-table"
+            title="Ganancia">
+            <span class="cursor-help" tooltip-html-unsafe="Ganancia">Gan.</span>
+        </th>
+        <th class="border-right-table"
+            title="Pérdida">
+            <span class="cursor-help" tooltip-html-unsafe="Pérdida">Pér.</span>
+        </th>
+        <th class="sub-border-right-table">
+            Entrada
+        </th>
+        <th class="border-right-table">
+            Salida
+        </th>
+        <th class="sub-border-right-table"
+            title="Acumulada">
+            <span class="cursor-help" tooltip-html-unsafe="Acumulada">Acum.</span>
+        </th>
+        <th class="sub-border-right-table">
+            Media
+        </th>
+        <th class="border-right-table">
+            Diaria
+        </th>
+        <th class="border-right-table">Días
+        </th>
+        <th class="border-right-table">
+            (%)
+        </th>
+        <th class="border-right-table"></th>
+        <th class="sub-border-right-table"></th>
+    </tr>
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
+        <td width="30" class="table-id-orange">
+            {{data.id}}
+        </td>
+        <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
+            {{data.type}}<br/>
+            <div class="text-limitator">
+            <span class="cursor-help"
+                  tooltip-html-unsafe="{{data.name_tooltip}}"
+                  ng-class="{'buy-color': data.type == 'buy', 'sell-color': data.type == 'sell'}">
+                {{data.name}}
+            </span>
+            </div>
+        </td>
+        <td style="text-align: left; width: 180px; vertical-align: top;"
+            class="table-cell-patterns border-right-table"
+            ng-class="{'buy-color': data.type == 'buy',
+                            'sell-color': data.type == 'sell'}">
+            <!--sector/industry-->
+            <div class="text-limitator"><span class="cursor-help" tooltip-html-unsafe="{{data.Sector}}">{{data.Sector}}</span>
+                <span ng-show="{{(data.Sector != '' && data.Industry != '')}}"> / </span>
+            </div>
+            <div class="text-limitator">
+                <span class="cursor-help" tooltip="{{data.Industry}}">{{data.Industry}}</span>
+            </div>
+        </td>
+        <td style="width: 48px;" class="table-cell-patterns border-right-table">
+            <span tooltip-html-unsafe="{{data.Merc_tooltip}}" class="cursor-help">{{data.Merc}}</span>
+        </td>
+        <td style="width: 32px;" class="table-cell-patterns sub-border-right-table">
+            <b>{{data.Year}}</b>
+        </td>
+        <td style="width: 32px;" class="table-cell-patterns border-right-table">
+            <b>{{data.Year_Perd}}</b>
+        </td>
+        <td style="width: 68px;" class="table-cell-patterns sub-border-right-table">
+            {{data.Enter}}
+        </td>
+        <td style="width: 68px;" class="table-cell-patterns border-right-table">
+            {{data.Exit}}
+        </td>
+        <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
+            <b> {{data.Rent_acum}}</b>
+        </td>
+        <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
+            <b> {{data.Rent_average}}</b>
+        </td>
+        <td style="width: 44px;" class="table-cell-patterns border-right-table">
+            <b> {{data.Rent_Diary}}</b>
+        </td>
+        <td style="width: 30px;" class="table-cell-patterns border-right-table">
+            <b> {{data.Days}}</b>
+        </td>
+        <td style="width: 30px;" class="table-cell-patterns border-right-table">
+            <b> {{data.Vol}}</b>
+        </td>
+        <td style="width: 32px;" class="table-cell-patterns border-right-table">
+            <div class="current-favourite"
+                 g-class="{'favourite-added': data.Fav == 'true'}"></div>
+        </td>
+        <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
+            <div class="state-sphere cursor-help" ng-class="{
+           'started-state':data.Est === 'Comenzado',
+            'no-started-state': data.Est === 'Sin Comenzar' ,
+            'finished-state': data.Est === 'Finalizado'}"
+                 tooltip-html-unsafe="{{data.Est}}"
+                    ></div>
+        </td>
+
+    </tr>
+
+
+</table>
