@@ -80,9 +80,14 @@ angular.module('ngMo.my_profile', [
 
         $scope.countries = SignUpService.getCountries();
 
+        $scope.actualPassword = "";
+        $scope.passwordUser = "";
+        $scope.repeatPasswordUser = "";
+        $scope.internalErrorPass= false;
 
-        $scope.passwordUser = "1";
-        $scope.repeatPasswordUser = "2";
+        $scope.passwordSubmited= false;
+        $scope.passwordError = false;
+
 
         $scope.restartUser = function () {
             $scope.user =
@@ -99,7 +104,7 @@ angular.module('ngMo.my_profile', [
 
 
         $scope.interalError = false;
-        $scope.loadUser = function() {
+        $scope.loadUser = function () {
             ProfileService.loadUser(function (data, status) {
                 if (status === 200) {
                     $scope.user = data;
@@ -112,18 +117,46 @@ angular.module('ngMo.my_profile', [
             });
         };
 
-        $scope.saveUser = function() {
-            ProfileService.editUser($scope.user,function(data,status){
-                if (status ===200) {
-                    $scope.user = data;
+        $scope.saveUser = function () {
+
+            ProfileService.editUser($scope.user, function (data, status) {
+                if (status === 200) {
+                    //$scope.user = data;
                     $scope.internalError = false;
 
                 } else {
                     $scope.internalError = true;
-                    $scope.restartUser();
+                    // $scope.loadUser();
                 }
             });
         };
+
+
+        $scope.savePassword = function () {
+            data = {
+                pass: $scope.passwordUser,
+                actPass: $scope.actualPassword
+            };
+            ProfileService.editPassword(data,function(data,status) {
+                $scope.passwordSubmited = true;
+                if (status == 200) {
+                    if (data.result == "ok") {
+                        $scope.internalErrorPass = false;
+                        $scope.passwordError = false;
+                    } else {
+                        $scope.internalErrorPass = false;
+                        $scope.passwordError = true;
+                    }
+
+                } else {
+                    $scope.internalErrorPass = true;
+                }
+            });
+
+
+        };
+
+
         $scope.loadUser();
 
 
@@ -146,15 +179,40 @@ angular.module('ngMo.my_profile', [
                 });
         };
         profileService.editUser = function (user, callback) {
-            data = user;
-            return $http.post('http://api.mo-shopclient.development.com:9000/edituser', data)
-                .success(function (data) {
-                    callback(data);
+            //data = user;
+            token = $window.sessionStorage.token;
+            config = {
+                headers: {
+                    'X-Session-Token': token
+                },
+                data: user
+            };
+            return $http.post('http://api.mo-shopclient.development.com:9000/edituser', config)
+                .success(function (data, status) {
+                    callback(data, status);
                 })
-                .error(function (data) {
-                    callback(data);
+                .error(function (data, status) {
+                    callback(data, status);
                 });
 
+        };
+
+        profileService.editPassword = function (passwords, callback) {
+            //data = user;
+            token = $window.sessionStorage.token;
+            config = {
+                headers: {
+                    'X-Session-Token': token
+                },
+                data: passwords
+            };
+            return $http.post('http://api.mo-shopclient.development.com:9000/editpassword', config)
+                .success(function (data, status) {
+                    callback(data, status);
+                })
+                .error(function (data, status) {
+                    callback(data, status);
+                });
         };
 
 
