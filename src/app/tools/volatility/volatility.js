@@ -30,6 +30,8 @@ angular.module('ngMo.volatility', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+
+        loadData();
     })
 
     ;
