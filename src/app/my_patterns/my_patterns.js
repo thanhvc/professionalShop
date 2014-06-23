@@ -682,21 +682,6 @@ angular.module('ngMo.my_patterns', [
 
 
             var urlParam = this.createParamsFromFilter(filtering);
-            var url_pattern;
-            if (parseInt(filtering.active_tab,10) === 0) {//stock
-                url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainpatterns';
-
-            } else if (parseInt(filtering.active_tab,10) === 1) {//pairs
-                url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainpatterns';
-            } else if (parseInt(filtering.active_tab,10) === 2) {//index
-                if (parseInt(filtering.index_type,10) === 0) {//index
-                    url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainpatterns';
-                } else {
-                    url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainpatterns';
-                }
-            } else {//futures
-                url_pattern = 'http://api.mo-shopclient.development.com:9000/obtainfuturepatterns';
-            }
 
             config = {
                 params :{
@@ -707,7 +692,7 @@ angular.module('ngMo.my_patterns', [
                 }
             };
 
-            var result = $http.get(url_pattern, config).success(function (data) {
+            var result = $http.get('http://api.mo-shopclient.development.com:9000/patterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });

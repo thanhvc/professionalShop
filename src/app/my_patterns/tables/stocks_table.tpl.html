@@ -112,7 +112,7 @@
             </div>
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <span tooltip-html-unsafe="{{data.asset.exchange.name}}" class="cursor-help">{{data.asset.exchange.name}}</span>
+            <span tooltip-html-unsafe="{{data.asset.exchange.name}}" class="cursor-help">{{data.asset.exchange.symbol}}</span>
         </td>
         <td style="width: 32px;" class="table-cell-patterns sub-border-right-table">
             <b>{{data.win}}</b>
@@ -139,7 +139,7 @@
             <b> {{data.duration}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
-            <b> {{data.volatility}}</b>
+            <b> {{data.asset.volatility}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
             <div class="current-favourite"

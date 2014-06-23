@@ -79,8 +79,8 @@
             {{data.id}}
         </td>
         <td style="text-align: left; width: 450px;vertical-align: top;" class="table-cell-patterns border-right-table">
-            <span ng-if="data.patternType == 'BULLISH'">Comprar</span>
-            <span ng-if="data.patternType == 'BEARISH'">Vender</span>
+            <span ng-if="data.patternType == 'BULLISH'">Alcista</span>
+            <span ng-if="data.patternType == 'BEARISH'">Bajista</span>
             <br/>
             <span class="cursor-help"
                   tooltip-html-unsafe="{{data.asset.longName}}"
@@ -114,7 +114,7 @@
             <b> {{data.duration}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
-            <b> {{data.volatility}}</b>
+            <b> {{data.asset.volatility}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
             <div class="current-favourite"

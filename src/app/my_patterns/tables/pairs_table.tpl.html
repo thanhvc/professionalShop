@@ -92,21 +92,17 @@
         </td>
         <td style="text-align: left; width: 230px; vertical-align: top;" class="table-cell-patterns border-right-table">
             <div class="text-limitator">
-                <span>{{data.type}}</span>
-            <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name_tooltip}}"
-                  ng-class="{'buy-color': data.type == 'buy', 'sell-color': data.type == 'sell'}">
-                {{data.name}}
+                <span>Comprar</span>
+            <span class="cursor-help buy-color"
+                  tooltip-html-unsafe="{{data.asset.shortName}}">
+                {{data.asset.longName}}
             </span>
             </div>
             <div class="text-limitator">
-            <span>
-                {{data.type2}}
-            </span>
-            <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name_tooltip2}}"
-                  ng-class="{'buy-color': data.type2 == 'buy', 'sell-color': data.type2 == 'sell'}">
-                {{data.name2}}
+            <span>Vender</span>
+            <span class="cursor-help sell-color"
+                  tooltip-html-unsafe="{{data.bearishAsset.shortName}}">
+                {{data.bearishAsset.longName}}
             </span>
             </div>
 
@@ -115,66 +111,59 @@
             class="table-cell-patterns border-right-table"
                 >
             <!--sector/industry-->
-            <div tooltip="{{data.Sector}} / {{data.Industry}}" class="max-length-pairs-sector text-limitator" ng-class="{'buy-color': data.type == 'buy',
-                            'sell-color': data.type == 'sell'}">
-                <span class="cursor-help">{{data.Sector}}</span>
-                <span ng-show="{{(data.Sector != '' && data.Industry != '')}}"> / </span>
-                <span class="cursor-help">{{data.Industry}}</span>
+            <div tooltip="{{data.asset.sector}} / {{data.asset.industry}}" class="max-length-pairs-sector text-limitator buy-color">
+                <span class="cursor-help">{{data.bearishAsset.sector}}</span>
+                <span ng-show="{{(data.asset.sector != '' && data.asset.industry != '')}}"> / </span>
+                <span class="cursor-help">{{data.bearishAsset.industry}}</span>
             </div>
-            <div tooltip="{{data.Sector2}} / {{data.Industry2}}" class="max-length-pairs-sector text-limitator"
-                 ng-class="{'buy-color': data.type2 == 'buy',
-                            'sell-color': data.type2 == 'sell'}">
-                <span class="cursor-help" tooltip-html-unsafe="{{data.Sector2}}">{{data.Sector2}}</span>
-                <span ng-show="{{(data.Sector2 != '' && data.Industry2 != '')}}"> / </span>
-                <span class="cursor-help" tooltip="{{data.Industry2}}">{{data.Industry2}}</span>
+            <div tooltip="{{data.bearishAsset.sector}} / {{data.bearishAsset.industry}}" class="max-length-pairs-sector text-limitator sell-color">
+                <span class="cursor-help" tooltip-html-unsafe="{{data.bearishAsset.sector}}">{{data.bearishAsset.sector}}</span>
+                <span ng-show="{{(data.bearishAsset.sector != '' && data.bearishAsset.industry != '')}}"> / </span>
+                <span class="cursor-help" tooltip="{{data.bearishAsset.industry}}">{{data.bearishAsset.industry}}</span>
             </div>
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <div tooltip-html-unsafe="{{data.Merc_tooltip}}" ng-class="{'buy-color': data.type == 'buy',
-                            'sell-color': data.type == 'sell'}">
-                {{data.Merc}}
+            <div tooltip-html-unsafe="{{data.asset.exchange.name}}" class="buy-color">
+                {{data.asset.exchange.symbol}}
             </div>
-            <div tooltip-html-unsafe="{{data.Merc2_tooltip}}" ng-class="{'buy-color': data.type2 == 'buy',
-                            'sell-color': data.type2 == 'sell'}">
-                {{data.Merc2}}
+            <div tooltip-html-unsafe="{{data.bearishAsset.exchange.name}}" class="sell-color">
+                {{data.bearishAsset.exchange.symbol}}
             </div>
         </td>
         <td style="width: 32px;" class="table-cell-patterns sub-border-right-table">
-            <b>{{data.Year}}</b>
+            <b>{{data.win}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
-            <b>{{data.Year_Perd}}</b>
+            <b>{{data.loss}}</b>
         </td>
         <td style="width: 68px;" class="table-cell-patterns sub-border-right-table">
-            {{data.Enter}}
+            {{data.entryDate | date: 'dd/MMM/yyyy'}}
         </td>
         <td style="width: 68px;" class="table-cell-patterns border-right-table">
-            {{data.Exit}}
+            {{data.exitDate | date: 'dd/MMM/yyyy'}}
         </td>
         <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
-            <b> {{data.Rent_acum}}</b>
+            <b> {{data.accumulatedReturn}}</b>
         </td>
         <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
-            <b> {{data.Rent_average}}</b>
+            <b>{{data.averageReturn}}</b>
         </td>
         <td style="width: 44px;" class="table-cell-patterns border-right-table">
-            <div ng-class="{'buy-color': data.type == 'buy',
-                            'sell-color': data.type == 'sell'}">
-                <b>{{data.Side}}</b>
+            <div class="buy-color">
+                <b>{{data.bullishAverageReturn}}</b>
             </div>
-            <div ng-class="{'buy-color': data.type2 == 'buy',
-                            'sell-color': data.type2 == 'sell'}">
-                <b>{{data.Side2}}</b>
+            <div class="sell-color">
+                <b>{{data.bearishAverageReturn}}</b>
             </div>
         </td>
         <td style="width: 44px;" class="table-cell-patterns border-right-table">
-            <b> {{data.Rent_Diary}}</b>
+            <b> {{data.dailyReturn}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
-            <b> {{data.Days}}</b>
+            <b> {{data.duration}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
-            <b> {{data.Vol}}</b>
+            <b> {{data.pairVolatility}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
             <div class="current-favourite"
