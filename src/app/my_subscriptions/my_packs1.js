@@ -48,5 +48,6 @@ function loadMyPacksData() {
             document.getElementsByClassName('end')[i].innerHTML = 'Dic 2014';
         }
 
-    };
+
+       };
 }
