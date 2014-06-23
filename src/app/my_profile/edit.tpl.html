@@ -111,6 +111,9 @@
                            class="red-color-form prices-font11">Hay campos erróneos</span></div>
                 <div><span ng-show="internalError" class="red-color-form prices-font11">Se ha producido un error interno, inténtelo luego</span>
                 </div>
+                <div><span ng-show="userSaved" class="prices-font11">Se ha modificado correctamente</span>
+
+                </div>
             </td>
         </tr>
         <tr>
@@ -199,7 +202,7 @@
 
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="2" style="padding-top:10px;">
                 <button class="mo-button"
                         name="confirmPassword"
                         ng-click="savePassword()"

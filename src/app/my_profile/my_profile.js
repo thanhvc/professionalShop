@@ -84,6 +84,7 @@ angular.module('ngMo.my_profile', [
         $scope.passwordUser = "";
         $scope.repeatPasswordUser = "";
         $scope.internalErrorPass= false;
+        $scope.userSaved= false;
 
         $scope.passwordSubmited= false;
         $scope.passwordError = false;
@@ -123,9 +124,11 @@ angular.module('ngMo.my_profile', [
                 if (status === 200) {
                     //$scope.user = data;
                     $scope.internalError = false;
+                    $scope.userSaved = true;
 
                 } else {
                     $scope.internalError = true;
+                    $scope.userSaved= false;
                     // $scope.loadUser();
                 }
             });
