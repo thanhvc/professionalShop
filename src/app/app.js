@@ -10,6 +10,7 @@ angular.module('ngMo', [
         'ngMo.investor_tools',
         'ngMo.contact',
         'ngMo.my_patterns',
+        'ngMo.my_packs',
         'ngMo.lookup_diary',
         'ngMo.historic',
         'ngMo.portfolio',
