@@ -551,6 +551,8 @@ function getMonthNumber(m){
             break;
         }
     }
-    if(i == 12) i = -1;
+    if (i == 12) {
+        i = -1;
+    }
     return i;
 }

@@ -16,8 +16,7 @@ $ git clone https://github.com/edosoft/mo-shopclient.git cd ng-boilerplate
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
 $ bower install
-$ node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update
-$ grunt watch --force
+$ grunt watch
 ```
 ##Development server
 
@@ -48,6 +47,20 @@ Then you can configure your ide to deploy to /opt/mo-shopclient-deployment and y
 
 The translation libraries are [angular-gettext](https://github.com/rubenv/angular-gettext)
 TODO: Add translations.js to the project.
+
+## Jenkins CI
+
+The Project uses Jenkins to exec and publish test an coverage information on devel and master braches. You can access to the corresponding jobs by the Build status links in the top of this file.
+
+## Less Lint
+
+The task:
+
+```
+grunt lesslint
+```
+
+Outputs less file problems based on csslint tool.
 
 ## Learn
 
@@ -155,15 +168,7 @@ learn more.
   self-executing anonymous function to ensure no clashes with other libraries.
 - `package.json` - metadata about the app, used by NPM and our build script. Our
   NPM dependencies are listed here.
-  
-##E2E Test
 
-Run 
-
-´´´
-grunt e2e
-´´´
-in order to execute End to End Tests. (Google Chrome needed)
 ### Detailed Installation
 
 This section provides a little more detailed understanding of what goes into
