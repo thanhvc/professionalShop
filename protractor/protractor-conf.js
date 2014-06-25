@@ -9,7 +9,8 @@ exports.config = {
         signup:' ../src/app/sign_up/*protractor.js',
         cart:' ../src/app/home/catalog/*protractor.js',
         menu:' ../src/app/layout_templates/*protractor.js',*/
-        patterns:' ../src/app/my_patterns/*protractor.js'
+        //patterns:' ../src/app/my_patterns/*protractor.js',
+        volatility:' ../src/app/tools/volatility/*protractor.js'
 
     },
     multiCapabilities: [

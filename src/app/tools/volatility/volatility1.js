@@ -27,6 +27,7 @@ function loadData() {
             {'name':'AGNICO-EAGLE MINES LIMITED', 'market': 'NYSE','date':'9 may 2014', 'vol':'43'}
         ];
 
+
         var i = 0;
         var n = data.length;
         for (i =0; i< n; i++){
