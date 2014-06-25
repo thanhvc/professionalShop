@@ -106,14 +106,14 @@ describe('The SignUp ',function(){
             scope.$apply();
             //the form is not valid, we stay in the step 2
             expect(state.$current.url.source).toEqual("/sign-up-step2");
-            console.log(" expect 3:" + state.$current.url.source);
+
             //now we accept the form
             scope.formReg.$valid= true; // the form must be valid to go to successful sign up
             scope.user.captcha="22";//the only valid captcha is 4 in this moment
             scope.sendSecondStep();
             scope.$apply();
             expect(state.$current.url.source).toEqual("/sign-up-step2");
-            console.log(" expect 4:" + state.$current.url.source);
+
             scope.user.captcha="4";//the only valid captcha is 4 in this moment
             scope.secondCallback(statusOK);
             scope.$apply();
