@@ -21,7 +21,7 @@ var App = function(){
     };
 
     this.checkDataLoaded = function(){
-        this.row = element.all(by.css(".subscribeTableCols")).get(0);
+        this.row = element.all(by.css(".rich-table-cell")).get(0);
     };
 };
 
@@ -42,7 +42,7 @@ describe('The volatility page ', function() {
 
     it ('should load the data', function(){
         a.checkDataLoaded();
-        expect(a.row.getAttribute('text')).toBe('4IMPRINT GROUP PLC');
+        expect(a.row.getText()).toBe('4IMPRINT GROUP PLC');
     });
 
 });

@@ -172,34 +172,35 @@
 
 <div>
 <tbody>
-<tr  class="cellA" class="rich-table-row rich-table-firstrow tableSRowEven">
+<tr ng-repeat="data in myData" class="rich-table-row rich-table-firstrow tableSRowEven" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style="color:#996600 !important;">
     <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="4IMPRINT GROUP PLC (LSE)"></span>
+        <span class="tableDiaryLinks toolTipObj" title="4IMPRINT GROUP PLC (LSE)">{{data.name}}</span>
         <div class="toolTipJS" style="display:none;">
             <div class="toolTipFor">PREV</div>
             <div class="toolTipContent">4IMPRINT GROUP PLC (LSE)</div>
         </div>
     </td>
     <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="London Stock Exchange">
-        <span  class="pepe" class="tableDiaryLinks toolTipObj cursorHelp"></span>
+        <span  class="pepe" class="tableDiaryLinks toolTipObj cursorHelp">{{data.market}}</span>
         <div class="toolTipJS" style="display:none;">
             <div class="toolTipFor"></div>
             <div class="toolTipContent">London Stock Exchange</div>
         </div>
     </td>
-    <td class="blackFont"  class="rich-table-cell subscribeTableCols" ></td>
+    <td class="blackFont"  class="rich-table-cell subscribeTableCols" >{{data.date}}</td>
     <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
         <form name="tablaVolatilidadS:0:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
 
             <a href="#" name="tablaVolatilidadS:0:formVolatiS:volatiS"> </a>
 
         </form>
+        {{data.vol}}
     </td>
     <td style="width: 32px;" class="table-cell-patterns border-right-table">
         <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
     </td>
 </tr>
-<tr class="cellB" class="rich-table-row tableSRowOdd">
+<!--<tr class="cellB" class="rich-table-row tableSRowOdd">
     <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
         <span class="tableDiaryLinks toolTipObj" title="600 GROUP PLC (LSE)">
         </span>
@@ -687,7 +688,7 @@
         <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
     </td>
 </tr>
-
+-->
 </tbody>
 </div>
 </table>
