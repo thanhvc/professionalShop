@@ -20,7 +20,7 @@ var Cart = function() {
     this.total2 = 0;
 
     this.open = function () {
-        browser.get('http://46.51.174.51/moshopclient');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
         browser.ignoreSynchronization = true;
     };
 
@@ -45,8 +45,6 @@ var Cart = function() {
         element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
         element(by.id("purchase-button")).click();
         browser.get('http://46.51.174.51/moshopclient');
-        element(by.repeater('pack in homeTablePack.americaContent track by $index').row(2)).click();
-        element(by.id("purchase-button")).click();
     };
 
     this. correctSum = function(){
