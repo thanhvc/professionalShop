@@ -40,6 +40,7 @@ describe('The volatility page ', function() {
         expect(a.n).toBe(32);
     });
 
+
     it ('should load the data', function(){
         a.checkDataLoaded();
         expect(a.row.getText()).toBe('4IMPRINT GROUP PLC');
