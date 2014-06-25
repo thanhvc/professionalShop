@@ -20,14 +20,13 @@ module.exports = function ( karma ) {
       'src/**/*.protractor.js'
     ],
     frameworks: [ 'jasmine' ],
-    plugins: [ 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coffee-preprocessor','karma-coverage' ],
+    plugins: [ 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coffee-preprocessor','karma-coverage', 'karma-junit-reporter' ],
     preprocessors: {
       'src/**/*.coffee': 'coverage',
       '**/*.coffee': 'coffee',
       'src/**/*.js':'coverage',
     },
 
-/**, 'karma-junit-reporter' <- insert in plugins**/
     /**
      * How to report, by default.
      */
