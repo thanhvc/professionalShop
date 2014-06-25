@@ -20,7 +20,7 @@ module.exports = function ( karma ) {
       'src/**/*.protractor.js'
     ],
     frameworks: [ 'jasmine' ],
-    plugins: [ 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coffee-preprocessor','karma-coverage', 'karma-junit-reporter' ],
+    plugins: [ 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coffee-preprocessor','karma-junit-reporter' ],
     preprocessors: {
       'src/**/*.coffee': 'coverage',
       '**/*.coffee': 'coffee',
@@ -30,7 +30,7 @@ module.exports = function ( karma ) {
     /**
      * How to report, by default.
      */
-    reporters : ['dots', 'junit', 'coverage'],
+    reporters : ['dots',  'coverage'],
 
     junitReporter : {
         outputFile: 'test-results.xml'
@@ -42,7 +42,9 @@ module.exports = function ( karma ) {
             file: 'coverage.xml'
             },
 
-    /**
+    /** 'junit', <-in reporters
+
+    'karma-coverage', <_in plugins
      * On which port should the browser connect, on which port is the test runner
      * operating, and what is the URL path for the browser to use.
      */

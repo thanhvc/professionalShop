@@ -202,24 +202,24 @@ angular.module('ngMo', [
 
         this.addItemCart = function (item) {
             var activeTab = ActiveTabService.activeTab();
-            switch (activeTab){
-                case 0:
+            switch (item.patternType){
+                case "stock":
                     stockItems.push(item);
                     stockSubtotal += item.price;
                     break;
-                case 1:
+                case "pair":
                     pairsItems.push(item);
                     pairsSubtotal += item.price;
                     break;
-                case 2:
+                case "index":
                     indicesItems.push(item);
                     indicesSubtotal += item.price;
                     break;
-                case 3:
+                case "pairIndex":
                     pairsIndicesItems.push(item);
                     pairsIndicesSubtotal += item.price;
                     break;
-                case 4:
+                case "future":
                     futuresItems.push(item);
                     futuresSubtotal += item.price;
             }
@@ -526,7 +526,7 @@ angular.module('ngMo', [
 
     .directive('cart', function() {
         return{
-            controller: function($scope, ShoppingCartService, ArrayContainItemService) {
+            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService) {
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                 $scope.totalCart = ShoppingCartService.obtainTotalCart();
                 $scope.showCart = false;
@@ -563,16 +563,34 @@ angular.module('ngMo', [
                  * TODO: replace enter parameter 'id' for 'item'
                  * @param id
                  */
-                $scope.addNewItemCart = function(id){
+                $scope.addNewItemCart = function(newItem){
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                     item = {
-                        "id": id,
-                        "packName": "Nuevo "+id,
+                        "id": newItem.id,
+                        "packName": "Nuevo "+newItem.id,
                         "startDate": "May 14",
                         "duration": "Mensual",
-                        "price": 29
+                        "price": 29,
+                        "patternType": newItem.patternType
                     };
-                    if (!ArrayContainItemService.containItem($scope.stockItems, item)) {
+                    var totalList = [];
+                    if ((typeof $scope.stockItems != "undefined")) {
+                        totalList = totalList.concat($scope.stockItems);
+                    }
+                    if ((typeof $scope.pairsItems != "undefined")) {
+                        totalList = totalList.concat($scope.pairsItems);
+                    }
+                    if ((typeof $scope.indicesItems != "undefined")) {
+                        totalList = totalList.concat($scope.indicesItems);
+                    }
+                    if ((typeof $scope.pairsIndicesItems != "undefined")) {
+                        totalList = totalList.concat($scope.pairsIndicesItems);
+                    }
+                    if ((typeof $scope.futuresItems != "undefined")) {
+                        totalList = totalList.concat($scope.futuresItems);
+                    }
+
+                    if (!ArrayContainItemService.containItem(totalList , item)) {
                         ShoppingCartService.addItemCart(item);
                         $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                         $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
@@ -595,6 +613,96 @@ angular.module('ngMo', [
                     $scope.totalCart = 0;
                     $scope.numItemsCart = 0;
                     $scope.subtotalStock = 0;
+                };
+
+                $scope.submitCart = function () {
+                    token = $window.sessionStorage.token;
+                    if (token != null) {
+                        //user logged, then can add packs
+
+
+                        //the cart data to send
+                        dataCart = {
+                            stocks : [],
+                            index: [],
+                            pairIndex: [],
+                            pairs: [],
+                            futures: []
+                        };
+
+                        //create the data to send
+                        if ($scope.stockItems.length >0) {
+                            for (i=0;i<$scope.stockItems.length;i++) {
+                                item = {
+                                    duration: $scope.stockItems[i].duration,
+                                    id: $scope.stockItems[i].id,
+                                    start: $scope.stockItems[i].startDate
+                                };
+                                dataCart.stocks.push(item);
+                            }
+                        }
+
+                        if ($scope.pairsItems.length >0) {
+                            for (i=0;i<$scope.pairsItems.length;i++) {
+                                item = {
+                                    duration: $scope.pairsItems[i].duration,
+                                    id: $scope.pairsItems[i].id,
+                                    start: $scope.pairsItems[i].startDate
+                                };
+                                dataCart.pairs.push(item);
+                            }
+                        }
+
+                        if ($scope.indicesItems.length >0) {
+                            for (i=0;i<$scope.indicesItems.length;i++) {
+                                item = {
+                                    duration: $scope.indicesItems[i].duration,
+                                    id: $scope.indicesItems[i].id,
+                                    start: $scope.indicesItems[i].startDate
+                                };
+                                dataCart.index.push(item);
+                            }
+                        }
+
+                        if ($scope.pairsIndicesItems.length >0) {
+                            for (i=0;i<$scope.pairsIndicesItems.length;i++) {
+                                item = {
+                                    duration: $scope.pairsIndicesItems[i].duration,
+                                    id: $scope.pairsIndicesItems[i].id,
+                                    start: $scope.pairsIndicesItems[i].startDate
+                                };
+                                dataCart.pairIndex.push(item);
+                            }
+                        }
+
+                        if ($scope.futuresItems.length >0) {
+                            for (i=0;i<$scope.futuresItems.length;i++) {
+                                item = {
+                                    duration: $scope.futuresItems[i].duration,
+                                    id: $scope.futuresItems[i].id,
+                                    start: $scope.futuresItems[i].startDate
+                                };
+                                dataCart.futures.push(item);
+                            }
+                        }
+
+                        config = {
+                            headers: {
+                                'X-Session-Token': token
+                            },
+                            data: dataCart
+                        };
+                        return $http.post('http://api.mo-shopclient.development.com:9000/addpacks', config)
+                            .success(function (data, status) {
+                                $scope.callbackPurchase(data, status);
+                            })
+                            .error(function (data, status) {
+                                $scope.callbackPurchase(data, status);
+                            });
+                    }
+                };
+                $scope.callbackPurchase = function (){
+
                 };
             },
             link: function ($scope) {
