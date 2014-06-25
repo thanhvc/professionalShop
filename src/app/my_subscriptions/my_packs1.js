@@ -48,6 +48,7 @@ function loadMyPacksData() {
             document.getElementsByClassName('start')[i].innerHTML = 'Ene 2014';
             document.getElementsByClassName('end')[i].innerHTML = 'Dic 2014';
         }
+        alert('prueba');
 
        };
 }
