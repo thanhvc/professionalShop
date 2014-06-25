@@ -1,0 +1,115 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'webdriver-manager',
+1 verbose cli   'update' ]
+2 info using npm@1.4.14
+3 info using node@v0.10.29
+4 verbose node symlink /usr/bin/node
+5 warn package.json mo-shopclient@0.0.1 homepage field must start with a protocol.
+6 warn package.json webdriver@0.0.1 No README data
+7 verbose readDependencies using package.json deps
+8 verbose cache add [ 'webdriver-manager', null ]
+9 verbose cache add name=undefined spec="webdriver-manager" args=["webdriver-manager",null]
+10 verbose parsed url { protocol: null,
+10 verbose parsed url   slashes: null,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: null,
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: null,
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: 'webdriver-manager',
+10 verbose parsed url   path: 'webdriver-manager',
+10 verbose parsed url   href: 'webdriver-manager' }
+11 verbose cache add [ 'update', null ]
+12 verbose cache add name=undefined spec="update" args=["update",null]
+13 verbose parsed url { protocol: null,
+13 verbose parsed url   slashes: null,
+13 verbose parsed url   auth: null,
+13 verbose parsed url   host: null,
+13 verbose parsed url   port: null,
+13 verbose parsed url   hostname: null,
+13 verbose parsed url   hash: null,
+13 verbose parsed url   search: null,
+13 verbose parsed url   query: null,
+13 verbose parsed url   pathname: 'update',
+13 verbose parsed url   path: 'update',
+13 verbose parsed url   href: 'update' }
+14 silly lockFile 56806f4b-webdriver-manager webdriver-manager
+15 verbose lock webdriver-manager /home/laia/.npm/56806f4b-webdriver-manager.lock
+16 silly lockFile 0a25ba59-update update
+17 verbose lock update /home/laia/.npm/0a25ba59-update.lock
+18 silly lockFile 56806f4b-webdriver-manager webdriver-manager
+19 silly lockFile 56806f4b-webdriver-manager webdriver-manager
+20 silly lockFile 0a25ba59-update update
+21 silly lockFile 0a25ba59-update update
+22 verbose addNamed [ 'webdriver-manager', '' ]
+23 verbose addNamed [ null, '*' ]
+24 silly lockFile 3ee93e3a-webdriver-manager webdriver-manager@
+25 verbose lock webdriver-manager@ /home/laia/.npm/3ee93e3a-webdriver-manager.lock
+26 verbose addNamed [ 'update', '' ]
+27 verbose addNamed [ null, '*' ]
+28 silly lockFile f8258749-update update@
+29 verbose lock update@ /home/laia/.npm/f8258749-update.lock
+30 silly addNameRange { name: 'webdriver-manager', range: '*', hasData: false }
+31 silly addNameRange { name: 'update', range: '*', hasData: false }
+32 verbose url raw webdriver-manager
+33 verbose url resolving [ 'https://registry.npmjs.org/', './webdriver-manager' ]
+34 verbose url resolved https://registry.npmjs.org/webdriver-manager
+35 info trying registry request attempt 1 at 09:26:59
+36 http GET https://registry.npmjs.org/webdriver-manager
+37 verbose url raw update
+38 verbose url resolving [ 'https://registry.npmjs.org/', './update' ]
+39 verbose url resolved https://registry.npmjs.org/update
+40 info trying registry request attempt 1 at 09:26:59
+41 http GET https://registry.npmjs.org/update
+42 http 404 https://registry.npmjs.org/webdriver-manager
+43 verbose headers { date: 'Wed, 25 Jun 2014 08:27:11 GMT',
+43 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R14B04)',
+43 verbose headers   'content-type': 'application/json',
+43 verbose headers   'cache-control': 'max-age=0',
+43 verbose headers   'content-length': '52',
+43 verbose headers   'accept-ranges': 'bytes',
+43 verbose headers   via: '1.1 varnish',
+43 verbose headers   age: '0',
+43 verbose headers   'x-served-by': 'cache-lcy1127-LCY',
+43 verbose headers   'x-cache': 'MISS',
+43 verbose headers   'x-cache-hits': '0',
+43 verbose headers   'x-timer': 'S1403684831.689449,VS0,VE163',
+43 verbose headers   'keep-alive': 'timeout=10, max=50',
+43 verbose headers   connection: 'Keep-Alive' }
+44 silly registry.get cb [ 404,
+44 silly registry.get   { date: 'Wed, 25 Jun 2014 08:27:11 GMT',
+44 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R14B04)',
+44 silly registry.get     'content-type': 'application/json',
+44 silly registry.get     'cache-control': 'max-age=0',
+44 silly registry.get     'content-length': '52',
+44 silly registry.get     'accept-ranges': 'bytes',
+44 silly registry.get     via: '1.1 varnish',
+44 silly registry.get     age: '0',
+44 silly registry.get     'x-served-by': 'cache-lcy1127-LCY',
+44 silly registry.get     'x-cache': 'MISS',
+44 silly registry.get     'x-cache-hits': '0',
+44 silly registry.get     'x-timer': 'S1403684831.689449,VS0,VE163',
+44 silly registry.get     'keep-alive': 'timeout=10, max=50',
+44 silly registry.get     connection: 'Keep-Alive' } ]
+45 silly lockFile 3ee93e3a-webdriver-manager webdriver-manager@
+46 silly lockFile 3ee93e3a-webdriver-manager webdriver-manager@
+47 error 404 404 Not Found: webdriver-manager
+47 error 404
+47 error 404 'webdriver-manager' is not in the npm registry.
+47 error 404 You should bug the author to publish it
+47 error 404 It was specified as a dependency of 'mo-shopclient'
+47 error 404
+47 error 404 Note that you can also install from a
+47 error 404 tarball, folder, or http url, or git url.
+48 error System Linux 3.13.0-24-generic
+49 error command "/usr/bin/node" "/usr/bin/npm" "install" "webdriver-manager" "update"
+50 error cwd /home/laia/IdeaProjects/mo-shopclient
+51 error node -v v0.10.29
+52 error npm -v 1.4.14
+53 error code E404
+54 verbose exit [ 1, true ]
