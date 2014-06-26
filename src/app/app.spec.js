@@ -118,7 +118,11 @@ describe('The cart directive', function () {
 
         addItemsToCart = function (numItems) {
             for (var i=0;i<numItems;i++){
-                $scope.addNewItemCart(i);
+                item = {
+                    "id" : i,
+                    "patternType": "stock"
+                };
+                $scope.addNewItemCart(item);
                 $scope.$apply();
             }
         };

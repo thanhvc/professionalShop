@@ -150,7 +150,7 @@
         <div class="buttons-cart-container">
             <button class="mo-cancel-button" ng-click="removeAllItemsCart()">Cancelar</button>
             <button class="mo-button" ui-sref="home" ng-click="toggleCart();">A&ntilde;adir m&aacute;s</button>
-            <button class="mo-button">Proceder Pago</button>
+            <button class="mo-button" ng-click="submitCart()">Proceder Pago</button>
         </div>
     </div>
     <div class="shopping-cart-tab" ng-click="toggleCart(); $event.stopPropagation();">

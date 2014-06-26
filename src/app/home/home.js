@@ -32,19 +32,22 @@ angular.module('ngMo.home', [
                 "id": 1,
                 "region": "Canada",
                 "market": "Toronto Stock",
-                "numberPatterns": "77"
+                "numberPatterns": "77",
+                "patternType": "stock"
             },
             {
                 "id": 2,
                 "region": "Estados Unidos Pack I",
                 "market": "AMEX, NASDAQ",
-                "numberPatterns": "83"
+                "numberPatterns": "83",
+                "patternType": "stock"
             },
             {
                 "id": 3,
                 "region": "Estados Unidos Pack II",
                 "market": "AMEX, NASDAQ",
-                "numberPatterns": "83"}
+                "numberPatterns": "83",
+                "patternType": "stock"}
         ];
 
         var asiaPacks = [
@@ -52,25 +55,29 @@ angular.module('ngMo.home', [
                 "id": 4,
                 "region": "Australia",
                 "market": "Australian SE, New Zealand SE",
-                "numberPatterns": "68"
+                "numberPatterns": "68",
+                "patternType": "stock"
             },
             {
                 "id": 5,
                 "region": "China",
                 "market": "Shanghai SE, Shenzhen SE",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "stock"
             },
             {
                 "id": 6,
                 "region": "Corea",
                 "market": "Korea SE, KOSDAQ",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "stock"
             },
             {
                 "id": 7,
                 "region": "Hong-Kong + Singapur",
                 "market": "Hong Kong SE, Singapore SE, Singapore Securities",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "stock"
             }
         ];
 
@@ -79,31 +86,36 @@ angular.module('ngMo.home', [
                 "id": 8,
                 "region": "EURO Zona Pack I",
                 "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "stock"
             },
             {
                 "id": 9,
                 "region": "EURO Zona Pack II",
                 "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "stock"
             },
             {
                 "id": 10,
                 "region": "EURO Zona Pack III",
                 "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "stock"
             },
             {
                 "id": 11,
                 "region": "EURO Zona Pack IV",
                 "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "stock"
             },
             {
                 "id": 12,
                 "region": "EURO Zona Pack V",
                 "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "stock"
             }
         ];
 
@@ -112,19 +124,22 @@ angular.module('ngMo.home', [
                 "id": 13,
                 "region": "Estados Unidos Pack I",
                 "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pair"
             },
             {
                 "id": 14,
                 "region": "Estados Unidos Pack II",
                 "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pair"
             },
             {
                 "id": 15,
                 "region": "Estados Unidos Pack III",
                 "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pair"
             }
         ];
 
@@ -133,19 +148,22 @@ angular.module('ngMo.home', [
                 "id": 16,
                 "region": "Japón Pack I",
                 "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pair"
             },
             {
                 "id": 17,
                 "region": "Japón Pack II",
                 "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pair"
             },
             {
                 "id": 18,
                 "region": "Japón Pack III",
                 "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pair"
             }
         ];
 
@@ -154,19 +172,22 @@ angular.module('ngMo.home', [
                 "id": 19,
                 "region": "EURO Zona Pack I",
                 "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pair"
             },
             {
                 "id": 20,
                 "region": "EURO Zona Pack II",
                 "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pair"
             },
             {
                 "id": 21,
                 "region": "EURO Zona Pack III",
                 "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pair"
             }
         ];
 
@@ -175,7 +196,8 @@ angular.module('ngMo.home', [
                 "id": 22,
                 "region": "Bolsa, Financieros, Materias Primas",
                 "market": "Global, Regional, Pais, Sectorial, Industrial. Tipos de Interés. Materias Primas",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "indjex"
             }
         ];
 
@@ -184,7 +206,8 @@ angular.module('ngMo.home', [
                 "id": 23,
                 "region": "Bolsa",
                 "market": "Global, Regional, Pais, Sectorial, Industrial",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "pairIndex"
             }
         ];
 
@@ -193,7 +216,8 @@ angular.module('ngMo.home', [
                 "id": 24,
                 "region": "Energía, Metales, Agrícolas, Carnes, Softs, Divisas, Tipos de Interés",
                 "market": "EUREX, Hong Kong Futures Exchanges, ICE Canada, ICE US, Korean Futures Exchange, Montreal Options Exchange, NYSE Euronext, Singapore Monetary Exchange, Sydney Futures Exchange, Chicago Board of Trade Futures, Chicago Board Options Exchange, Chicago Mercantile Exchange Futures, Kansas City Board of Trade Futures, Minneapolis Grain Exchange Futures, New York Mercantile Exchange Futures, ICE Europe",
-                "numberPatterns": "100"
+                "numberPatterns": "100",
+                "patternType": "future"
             }
         ];
         //******

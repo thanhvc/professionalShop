@@ -14,6 +14,7 @@ describe('The catalog table directive', function () {
             $scope = _$rootScope_.$new();
             $state =  _$state_;
             httpMock = $httpBackend;
+            $state.params.packId = "1";
             httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
         }));
 

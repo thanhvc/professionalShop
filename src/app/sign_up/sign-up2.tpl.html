@@ -114,7 +114,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3" style="height: 60px;">
+                            <td colspan="3" style="height: 60px; padding-right: 105px;">
                                 <div  class="text-warning-form"
                                    >
                                     <span ng-show="formReg.$error.required && formReg.$dirty">
@@ -123,6 +123,11 @@
                                 <div   class="text-warning-form"
                                      ><span ng-show="formReg.$error.pattern || formReg.$error.maxlength">
                                     Campos err&oacute;neos
+                                    </span>
+                                </div>
+                                <div  class="text-warning-form"
+                                        ><span ng-show="errorForm">
+                                   Ha ocurrido un error con el registro, por favor vuelva a intentarlo de nuevo
                                     </span>
                                 </div>
                                 <div  class="text-warning-form"

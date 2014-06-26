@@ -6,4 +6,5 @@ node_modules/
 vendor/
 .idea/
 coverage/
+karma/
 test-results.xml
