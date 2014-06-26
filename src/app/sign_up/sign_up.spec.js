@@ -17,7 +17,7 @@ describe('The SignUp ',function(){
                  {
                     result: "ok"
                 });
-            httpMock.when('POST','http://api.mo-shopclient.development.com:9000/signup').respond({
+            httpMock.when('POST','http://api.mo-shopclient.development.com:9000/user').respond({
                     status: "ok"
             });
             //create an empty scope
