@@ -50,7 +50,16 @@ angular.module('ngMo.volatility', [
                     {'name':'AGNICO-EAGLE MINES LIMITED', 'market': 'NYSE','date':'9 may 2014', 'vol':'43'}
                 ];
 
-                document.getElementsByTagName('td')[0].style.color ='green';
+
+                window.onload = function(){
+                    document.getElementsByClassName('green')[2].style.color ='#54BA1E';
+                    document.getElementsByClassName('green')[6].style.color ='#54BA1E ';
+                    document.getElementsByClassName('green')[8].style.color ='#54BA1E ';
+                    document.getElementsByClassName('green')[11].style.color ='#54BA1E ';
+                    document.getElementsByClassName('green')[13].style.color ='#54BA1E ';
+                    document.getElementsByClassName('green')[17].style.color ='#54BA1E ';
+                    document.getElementsByClassName('green')[18].style.color ='#54BA1E ';
+                };
             }
         });
 

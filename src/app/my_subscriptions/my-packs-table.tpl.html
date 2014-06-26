@@ -19,8 +19,8 @@
                 <th style="width: 240px; border-left: 1px solid black; border-right: 2px solid gray;background-color: #868789 ;height:20px;font-size: 11px;color:white;text-align: center;" class="tableHeader" class="rich-table-headercell tableDiaryHeader noBorder" style="width:70px; border-top:0px !important; border-right:1px solid black;">Orden</th>
             </tr>
             <tbody>
-            <tr class="rich-tablerow tableRowEvenM" style="height:25px;background-color :#E1E3E7;font-size:10px;">
-                    <td class="packName rich-table-cell tableDiaryCols borderRight1 borderLeft1" style="border: 1px solid black; border-right: 2px solid gray;width: 500px;  text-align: center; border-bottom: 1px solid gray !important;"></td>
+            <tr  ng-repeat="data in myData" class="rich-tablerow tableRowEvenM" style="height:25px;background-color :#E1E3E7;font-size:10px;">
+                    <td class="packName rich-table-cell tableDiaryCols borderRight1 borderLeft1" style="border: 1px solid black; border-right: 2px solid gray;width: 500px;  text-align: center; border-bottom: 1px solid gray !important;">{{data.pack}}</td>
                     <td class="rich-table-cell tableDiaryCols borderRight1 borderLeft1" style="border: 1px solid black; border-right: 2px solid gray; text-align: center; border-bottom: 1px solid gray !important;">
                         <div>
                             <div class="start divSuscripcionTD"></div>
@@ -74,7 +74,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr class="rich-tablerow tableRowEvenM" style="height:25px;background-color :#E1E3E7;font-size:10px">
+               <!-- <tr class="rich-tablerow tableRowEvenM" style="height:25px;background-color :#E1E3E7;font-size:10px">
                     <td class="packName rich-table-cell tableDiaryCols borderRight1 borderLeft1" style="border: 1px solid black;border-right: 2px solid gray; text-align: center; border-bottom: 1px solid gray !important;"></td>
                     <td class="rich-table-cell tableDiaryCols borderRight1 borderLeft1" style="border: 1px solid black;border-right: 2px solid gray; text-align: center; border-bottom: 1px solid gray !important;">
                         <div >
@@ -575,7 +575,7 @@
                                                 <option value="RENOVAR">Renovar</option><option value="CANCELAR">Cancelar</option></select>
                                             </form></div></td></tr>
 
-
+-->
             </tbody>
             </table>
         </div>
