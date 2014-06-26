@@ -1,0 +1,29 @@
+<div class="public-zone-text container" ng-controller="ProfileCtrl">
+
+    <table class="table-page-index" style="width: 115px;">
+        <tr>
+            <td>
+                  <span><a ui-sref="profile.edit" ng-class="{'orange-text': subPage == 'edit'}">
+                    Editar
+                  </a>
+                    </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span><a ui-sref="profile.orders" ng-class="{'orange-text': subPage == 'orders'}">
+                    Mis ordenes
+                </a>
+                 </span>
+
+            </td>
+        </tr>
+    </table>
+
+    <div ui-view="sub-profile">
+
+    </div>
+
+</div>
+
+

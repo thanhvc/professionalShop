@@ -1,4 +1,4 @@
-/*describe('The SignUp ',function(){
+describe('The SignUp ',function(){
     beforeEach(angular.mock.module("ngMo"));
     describe('form ', function(){
 
@@ -9,7 +9,17 @@
         beforeEach(module('ui.router'));//needed to user $state
         beforeEach(module('ui.bootstrap'));//to load $modal
         beforeEach(angular.mock.module('singUp'));//start the module
-        beforeEach(inject(function($templateCache,$compile,$rootScope, $controller, $state){
+        beforeEach(inject(function($templateCache,$compile,$rootScope, $controller, $state,$httpBackend){
+
+            httpMock = $httpBackend;
+            httpMock.when('GET', 'http://api.mo-shopclient.development.com:9000/islogged').respond(200);
+            httpMock.when('POST', 'http://api.mo-shopclient.development.com:9000/testemail').respond(
+                 {
+                    result: "ok"
+                });
+            httpMock.when('POST','http://api.mo-shopclient.development.com:9000/signup').respond({
+                    status: "ok"
+            });
             //create an empty scope
             scope = $rootScope.$new();
             //declare the controller and inject our empty scope
@@ -59,14 +69,34 @@
 
             //testing steps
             expect(scope.countries.length > 0).toBe(true);
+            scope.user = {
+                email: '',
+                email2: '',
+                password: '',
+                password2: '',
+                name: '',
+                surname: '',
+                address: '',
+                city: '',
+                postal: '',
+                country: '',
+                conditions: '',
+                captcha: ''
+            };
 
             //used mail (probably change in a future)
             scope.user.email = "test@test";
             scope.sendFirstStep();
             scope.$apply();
-            expect(state.$current.url.source).toEqual("/sign-up"); //is not go to step 2
+             expect(state.$current.url.source).toEqual("/sign-up"); //is not go to step 2
             scope.user.email = "test2@test2.com";
-            scope.sendFirstStep();
+           // scope.sendFirstStep();
+            //scope.$apply();
+            statusOK = {
+                result: "ok",
+                status: "ok"
+            };
+            scope.firstCallback(statusOK);
             scope.$apply();
             //now must be in the step2
             expect(state.$current.url.source).toEqual("/sign-up-step2");
@@ -76,14 +106,16 @@
             scope.$apply();
             //the form is not valid, we stay in the step 2
             expect(state.$current.url.source).toEqual("/sign-up-step2");
+
             //now we accept the form
             scope.formReg.$valid= true; // the form must be valid to go to successful sign up
             scope.user.captcha="22";//the only valid captcha is 4 in this moment
             scope.sendSecondStep();
             scope.$apply();
             expect(state.$current.url.source).toEqual("/sign-up-step2");
+
             scope.user.captcha="4";//the only valid captcha is 4 in this moment
-            scope.sendSecondStep();
+            scope.secondCallback(statusOK);
             scope.$apply();
 
             expect(state.$current.url.source).toEqual("/sign-up-successful");
@@ -92,4 +124,4 @@
 
 
     });
-});*/
+});
