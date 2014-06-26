@@ -36,7 +36,9 @@ angular.module('ngMo.correlation', [
         $scope.daysPattern = /^\d+$/;
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
-        $scope.actualDate = ActualDateService.actualDate();
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.actualDate = data.actualDate;
+        });
         $scope.tabs = TabsService.getTabs();
         $scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
         $scope.totalServerItems = 0;

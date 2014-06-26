@@ -2,7 +2,7 @@
     <table>
         <tr>
             <td>
-                <input class="border-filters input-filter" placeholder="Nombre"
+                <input class="border-filters input-filter" placeholder="Nombre Índice"
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
@@ -11,17 +11,29 @@
                     <option value="1">Par Índices</option>
                 </select>
             </td>
-            <td>
 
-                <select ng-show="filterOptions.filters.index_type == 'index'"
-                        ng-change="applyFilters()" style="width: 100px;" class="border-filters select-filter"
-                        data-ng-model="filterOptions.filters.selectedOperation">
+            <td>
+                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
+                        data-ng-model="filterOptions.filters.selectedOperation" ng-show="filterOptions.filters.index_type == 0">
                     <option value="">- Operacion -</option>
                     <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}"
-                            ><!--ng-selected="{{item.id == filterOptions.filters.selectedOperation}}"-->
+                            ng-selected="{{item.id == filterOptions.filters.selectedOperation}}" ><!---->
                         {{item.description}}
                     </option>
                 </select>
+            </td>
+
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+
+            <td style="text-align: center;padding-left: 100px;">
+                <span class="filter-label-select">Alarmas</span><br>
+                <input class="checkbox-filters" type="checkbox"
+                       ng-model="filterOptions.filters.alarm">
             </td>
         </tr>
     </table>

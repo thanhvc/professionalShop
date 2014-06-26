@@ -34,23 +34,33 @@ angular.module('ngMo.the_week', [
         });
 
         $scope.obtainDateMondaythisWeek = function () {
-            var today = ActualDateService.actualDate();
-            var monday = new Date();
-            var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
-            monday.setDate(today.getDate()-dayOfWeek);
-            return monday.getDate();
+            var firstDay = ActualDateService.actualDate(function (data) {
+                var today = new Date(data.actualDate);
+                var monday = new Date();
+                var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
+                monday.setDate(today.getDate()-dayOfWeek);
+                $scope.mondayDay = monday.getDate();
+            });
         };
 
         /**
          * TODO: replace number for service
          * @type {number}
          */
-        $scope.weekOfYear = 23;
-        $scope.year = ActualDateService.actualDate().getFullYear();
-        var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        $scope.month = months[ActualDateService.actualDate().getMonth()];
 
-        $scope.mondayDay = $scope.obtainDateMondaythisWeek();
+
+        var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.year = new Date(data.actualDate).getFullYear();
+            $scope.month = months[new Date(data.actualDate).getMonth()];
+        });
+
+        var data2 = ActualDateService.actualWeek(function (data) {
+            $scope.weekOfYear = data.numWeek;
+        });
+
+        $scope.obtainDateMondaythisWeek();
 
         $scope.showIndices = true;
 

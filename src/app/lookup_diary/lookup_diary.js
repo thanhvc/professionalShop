@@ -42,7 +42,11 @@ angular.module('ngMo.lookup_diary', [
         $scope.daysPattern = /^\d+$/;
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
-        $scope.actualDate = ActualDateService.actualDate();
+
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.actualDate = data.actualDate;
+        });
+
         $scope.tabs = TabsService.getTabs();
         $scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
         $scope.totalServerItems = 0;
@@ -204,7 +208,6 @@ angular.module('ngMo.lookup_diary', [
             var data = LookupDiaryService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
                     $scope.myData = data.patterns;//data.page;
-                    /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     if (!$scope.$$phase) {
@@ -611,12 +614,13 @@ angular.module('ngMo.lookup_diary', [
             config = {
                 params :{
                     'page': page,
-                    'type': parseInt(filtering.active_tab,10),
-                    'token': $window.sessionStorage.token
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab,10),
+                    'indexType': parseInt(filtering.active_tab,10)
                 }
             };
 
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/obtainpatterns', config).success(function (data) {
+            var result = $http.get('http://api.mo-shopclient.development.com:9000/lookupdiarypatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });

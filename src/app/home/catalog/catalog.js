@@ -107,7 +107,9 @@ angular.module('ngMo.catalog', [
         };
     })
     .controller('CatalogCtrl', function CatalogController($scope, ActualDateService){
-        $scope.actualDate = ActualDateService.actualDate();
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.actualDate = data.actualDate;
+        });
 
         $scope.generateSearchUrl = function (provider, input) {
             if (typeof input === 'undefined'){

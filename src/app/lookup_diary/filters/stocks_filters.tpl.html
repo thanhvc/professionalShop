@@ -2,13 +2,13 @@
     <table>
         <tr>
             <td>
-                <input class="border-filters input-filter" placeholder="Nombre"
+                <input class="border-filters input-filter" style="margin-right: 10px;" placeholder="Nombre"
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
                 <select ng-change="selectRegion()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedRegion">
-                    <option value="">- región -</option>
+                    <option value="">- País -</option>
                     <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
                         {{item.description}}
@@ -55,6 +55,11 @@
                     </option>
                 </select>
             </td>
+            <td style="text-align: center">
+                <span class="filter-label-select">Alarmas</span><br>
+                <input class="checkbox-filters" type="checkbox"
+                       ng-model="filterOptions.filters.alarm">
+            </td>
         </tr>
     </table>
     <form name="rentForm">
@@ -62,7 +67,7 @@
             <tr>
                 <td>
 
-                    <span class="filter-label-select">Renta Acumulada</span><br>
+                    <span class="filter-label-select">Última Rentabilidad</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             data-ng-model="filterOptions.filters.selectedRent">
                         <option value="">- Elegir -</option>
@@ -78,7 +83,7 @@
 
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta media</span><br>
+                    <span class="filter-label-select">Mejor Ganancia</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             data-ng-model="filterOptions.filters.selectedAverage">
                         <option value="">- Elegir -</option>
@@ -93,7 +98,7 @@
                            data-ng-model="filterOptions.filters.rentAverageInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta diaria</span><br>
+                    <span class="filter-label-select">Peor Pérdida</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
                         <option value="">- Elegir -</option>

@@ -5,129 +5,135 @@
             Id
         </th>
         <th class="border-right-table">
-            Acción
+            Descripción
         </th>
-
-        <th class="border-right-table"
-            colspan="2" title="Número de Años">
-            <span class="cursor-help" tooltip-html-unsafe="Número de Años">Años</span>
+        <th class="border-right-table" colspan="2">
+            Entrada
         </th>
-        <th class="border-right-table"
-            colspan="2">
-            Fechas
+        <th class="border-right-table">
+            <span class="cursor-help">Salida</span>
         </th>
         <th class="border-right-table"
             colspan="3">
-            Rentabilidad (%)
+            <span class="cursor-help">Último</span>
+        </th>
+        <th class="border-right-table" tooltip-html-unsafe="Volatilidad">
+            Vol.
         </th>
         <th class="border-right-table"
-            title="Duración">
-            <span class="cursor-help" tooltip-html-unsafe="Duración">Dur.</span>
+            colspan="2">
+            Mejor Ganancia
         </th>
-        <th class="border-right-table"
-            title="Volatilidad">
-            <span class="cursor-help" tooltip-html-unsafe="Volatilidad">Vol.</span>
+        <th class="border-right-table"  colspan="2">
+            <span class="cursor-help">Peor Pérdida</span>
         </th>
-        <th class="border-right-table"
-            title="Favorito">
-            <span class="cursor-help" tooltip-html-unsafe="Favorito">Fav.</span>
+        <th class="border-right-table">
+            <span class="cursor-help">Notas</span>
         </th>
-        <th class="sub-border-right-table"
-            title="Estado">
-            <span class="cursor-help" tooltip-html-unsafe="Estado">Est.</span>
+        <th class="sub-border-right-table">
+            <span class="cursor-help">Alarma</span>
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
         <th class="border-right-table">
-            Nombre
-        </th>
 
-        <th class="sub-border-right-table"
-            title="Ganancia">
-            <span class="cursor-help" tooltip-html-unsafe="Ganancia">Gan.</span>
-        </th>
-        <th class="border-right-table"
-            title="Pérdida">
-            <span class="cursor-help" tooltip-html-unsafe="Pérdida">Pér.</span>
         </th>
         <th class="sub-border-right-table">
-            Entrada
+            Fecha
         </th>
         <th class="border-right-table">
-            Salida
+            Precio
         </th>
-        <th class="sub-border-right-table"
-            title="Acumulada">
-            <span class="cursor-help" tooltip-html-unsafe="Acumulada">Acum.</span>
+        <th class="border-right-table">
+            Fecha
         </th>
         <th class="sub-border-right-table">
-            Media
+            Fecha
         </th>
-        <th class="border-right-table">
-            Diaria
-        </th>
-        <th class="border-right-table">Días
+        <th class="sub-border-right-table">
+            Precio
         </th>
         <th class="border-right-table">
             (%)
         </th>
-        <th class="border-right-table"></th>
-        <th class="sub-border-right-table"></th>
+        <th class="border-right-table">
+            (%)
+        </th>
+        <th class="sub-border-right-table">
+            Fecha
+        </th>
+        <th class="border-right-table">
+            (%)
+        </th>
+        <th class="sub-border-right-table">
+            Fecha
+        </th>
+        <th class="border-right-table">
+            (%)
+        </th>
+        <th class="border-right-table">
+
+        </th>
+        <th class="sub-border-right-table">
+            Precio
+        </th>
     </tr>
     <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
         <td width="30" class="table-id-orange">
-            {{data.Id}}
+            {{data.id}}
         </td>
-        <td style="text-align: left; width: 450px;vertical-align: top;" class="table-cell-patterns border-right-table">
-            {{data.type}}<br/>
-
+        <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
+            <span ng-show="data.patternType == 'BULLISH'">Alcista</span>
+            <span ng-show="data.patternType == 'BEARISH'">Bajista</span>
+            <br/>
+            <div class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name_tooltip}}"
-                  ng-class="{'buy-color': data.type == 'buy', 'sell-color': data.type == 'sell'}">
-                {{data.name}}
+                  tooltip-html-unsafe="{{data.asset.shortName}}"
+                  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
+                {{data.asset.longName}}
             </span>
+            </div>
         </td>
-
-        <td style="width: 32px;" class="table-cell-patterns sub-border-right-table">
-            <b>{{data.Year}}</b>
+        <td style="width: 70px;"
+            class="table-cell-patterns sub-border-right-table">
+            {{data.entryDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="width: 32px;" class="table-cell-patterns border-right-table">
-            <b>{{data.Year_Perd}}</b>
+        <td style="width: 48px;" class="table-cell-patterns border-right-table">
+            <b>{{data.entryValue}}</b>
         </td>
-        <td style="width: 68px;" class="table-cell-patterns sub-border-right-table">
-            {{data.Enter}}
+        <td style="width: 70px;" class="table-cell-patterns border-right-table">
+            {{data.exitDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="width: 68px;" class="table-cell-patterns border-right-table">
-            {{data.Exit}}
+        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
+            {{data.asset.lastQuoteDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
-            <b> {{data.Rent_acum}}</b>
+        <td class="table-cell-patterns sub-border-right-table">
+            <b ng-class="{'negative-percent': data.asset.lastQuote < 0}">{{data.asset.lastQuote}}</b>
         </td>
-        <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
-            <b> {{data.Rent_average}}</b>
+        <td class="table-cell-patterns border-right-table">
+            <b>{{data.lastPerformance}}</b>
         </td>
         <td style="width: 44px;" class="table-cell-patterns border-right-table">
-            <b> {{data.Rent_Diary}}</b>
+            <span class="link"><b>{{data.asset.volatility}}</b></span>
+        </td>
+        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
+            {{data.bestGainDate | date: 'dd/MMM/yyyy'}}
+        </td>
+        <td class="table-cell-patterns border-right-table">
+            <b ng-class="{'negative-percent': data.asset.lastQuote < 0}">{{data.bestGain}}</b>
+        </td>
+        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
+            {{data.worstLossDate | date: 'dd/MMM/yyyy'}}
+        </td>
+        <td class="table-cell-patterns border-right-table">
+            <b ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
-            <b> {{data.Days}}</b>
-        </td>
-        <td style="width: 30px;" class="table-cell-patterns border-right-table">
-            <b> {{data.Vol}}</b>
-        </td>
-        <td style="width: 32px;" class="table-cell-patterns border-right-table">
-            <div class="current-favourite"
-                 g-class="{'favourite-added': data.Fav == 'true'}"></div>
-        </td>
-        <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
-            <div class="state-sphere cursor-help" ng-class="{
-           'started-state':data.Est == 'Comenzado',
-            'no-started-state': data.Est == 'Sin Comenzar' ,
-            'finished-state': data.Est == 'Finalizado'}"
-                 tooltip-html-unsafe="{{data.Est}}"
-                    ></div>
-        </td>
 
+        </td>
+        <td class="table-cell-patterns border-right-table">
+            <div class="alarm-icon"></div>
+        </td>
     </tr>
 
 
