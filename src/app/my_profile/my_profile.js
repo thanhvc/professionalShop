@@ -173,7 +173,7 @@ angular.module('ngMo.my_profile', [
                     'X-Session-Token': token
                 }
             };
-            $http.get('http://api.mo-shopclient.development.com:9000/loaduser', config)
+            $http.get('http://api.mo-shopclient.development.com:9000/user', config)
                 .success(function (data, status) {
                     callback(data, status);
                 })
@@ -190,7 +190,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: user
             };
-            return $http.post('http://api.mo-shopclient.development.com:9000/edituser', config)
+            return $http.post('http://api.mo-shopclient.development.com:9000/user/save', config)
                 .success(function (data, status) {
                     callback(data, status);
                 })
@@ -209,7 +209,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: passwords
             };
-            return $http.post('http://api.mo-shopclient.development.com:9000/editpassword', config)
+            return $http.post('http://api.mo-shopclient.development.com:9000/user/save', config)
                 .success(function (data, status) {
                     callback(data, status);
                 })

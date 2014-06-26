@@ -568,7 +568,8 @@ angular.module('ngMo', [
                     item = {
                         "id": newItem.id,
                         "packName": "Nuevo "+newItem.id,
-                        "startDate": "May 14",
+                        "startDate": newItem.startDate,
+                         "date": newItem.date, //is the startDate in mm/dd format, to send it to the server
                         "duration": "Mensual",
                         "price": 29,
                         "patternType": newItem.patternType
@@ -621,14 +622,8 @@ angular.module('ngMo', [
                         //user logged, then can add packs
 
 
-                        //the cart data to send
-                        dataCart = {
-                            stocks : [],
-                            index: [],
-                            pairIndex: [],
-                            pairs: [],
-                            futures: []
-                        };
+                        //the cart data to send, is not necessary keep the packs divided by type, with the Id we can recognize the type pattern in the server
+                        dataCart = [];
 
                         //create the data to send
                         if ($scope.stockItems.length >0) {
@@ -636,9 +631,9 @@ angular.module('ngMo', [
                                 item = {
                                     duration: $scope.stockItems[i].duration,
                                     id: $scope.stockItems[i].id,
-                                    start: $scope.stockItems[i].startDate
+                                    start: $scope.stockItems[i].date
                                 };
-                                dataCart.stocks.push(item);
+                                dataCart.push(item);
                             }
                         }
 
@@ -647,9 +642,9 @@ angular.module('ngMo', [
                                 item = {
                                     duration: $scope.pairsItems[i].duration,
                                     id: $scope.pairsItems[i].id,
-                                    start: $scope.pairsItems[i].startDate
+                                    start: $scope.pairsItems[i].date
                                 };
-                                dataCart.pairs.push(item);
+                                dataCart.push(item);
                             }
                         }
 
@@ -658,9 +653,9 @@ angular.module('ngMo', [
                                 item = {
                                     duration: $scope.indicesItems[i].duration,
                                     id: $scope.indicesItems[i].id,
-                                    start: $scope.indicesItems[i].startDate
+                                    start: $scope.indicesItems[i].date
                                 };
-                                dataCart.index.push(item);
+                                dataCart.push(item);
                             }
                         }
 
@@ -669,9 +664,9 @@ angular.module('ngMo', [
                                 item = {
                                     duration: $scope.pairsIndicesItems[i].duration,
                                     id: $scope.pairsIndicesItems[i].id,
-                                    start: $scope.pairsIndicesItems[i].startDate
+                                    start: $scope.pairsIndicesItems[i].date
                                 };
-                                dataCart.pairIndex.push(item);
+                                dataCart.push(item);
                             }
                         }
 
@@ -680,9 +675,9 @@ angular.module('ngMo', [
                                 item = {
                                     duration: $scope.futuresItems[i].duration,
                                     id: $scope.futuresItems[i].id,
-                                    start: $scope.futuresItems[i].startDate
+                                    start: $scope.futuresItems[i].date
                                 };
-                                dataCart.futures.push(item);
+                                dataCart.push(item);
                             }
                         }
 

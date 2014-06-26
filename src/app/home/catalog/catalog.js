@@ -25,7 +25,7 @@ angular.module('ngMo.catalog', [
                 "region": "Canada",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -87,7 +87,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -109,7 +109,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack II",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -131,7 +131,7 @@ angular.module('ngMo.catalog', [
                 "region": "Australia",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -153,7 +153,7 @@ angular.module('ngMo.catalog', [
                 "region": "China",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -175,7 +175,7 @@ angular.module('ngMo.catalog', [
                 "region": "Corea",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -197,7 +197,7 @@ angular.module('ngMo.catalog', [
                 "region": "Hong kong",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -219,7 +219,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -241,7 +241,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -263,7 +263,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -285,7 +285,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -307,7 +307,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -329,7 +329,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -351,7 +351,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -373,7 +373,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -395,7 +395,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -417,7 +417,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -439,7 +439,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -461,7 +461,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -483,7 +483,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -505,7 +505,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -527,7 +527,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "index",
                 "productType": 2,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -549,7 +549,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "pairIndex",
                 "productType": 3,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -571,7 +571,7 @@ angular.module('ngMo.catalog', [
                 "region": "Estados Unidos Pack I",
                 "patternType": "future",
                 "productType": 4,
-                "startDate": "Mayo 2014",
+                "startDate": "Mayo 2014", "date":"01/05/2014",
                 "numberPatterns": 77,
                 "patterns": [
                     {
@@ -614,7 +614,8 @@ angular.module('ngMo.catalog', [
                 "startDate": patternsPack[i].startDate,
                 "patternType": patternsPack[i].patternType,
                 "numberPatterns": patternsPack[i].numberPatterns,
-                "patterns": patternsPack[i].patterns
+                "patterns": patternsPack[i].patterns,
+                "date": patternsPack[i].date
             };
 
             return tempPatternPack;
@@ -638,7 +639,8 @@ angular.module('ngMo.catalog', [
                 "startDate": patternsPack[i].startDate,
                 "patternType": patternsPack[i].patternType,
                 "numberPatterns": patternsPack[i].numberPatterns,
-                "patterns": patternsPack[i].patterns
+                "patterns": patternsPack[i].patterns,
+                "date": patternsPack[i].date
             };
 
             return tempPatternPack;
