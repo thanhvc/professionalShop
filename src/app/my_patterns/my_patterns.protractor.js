@@ -551,11 +551,8 @@ function getMonthNumber(m){
             break;
         }
     }
-<<<<<<< HEAD
-    if(i == 12) {
-=======
     if (i == 12) {
->>>>>>> edosoft/devel
+
         i = -1;
     }
     return i;
