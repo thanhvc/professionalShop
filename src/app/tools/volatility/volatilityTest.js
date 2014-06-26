@@ -1,6 +1,12 @@
 /**
+ * Created by laia on 26/06/14.
+ *//*
+
+*/
+/**
  * Created by laia on 25/06/14.
- */
+ *//*
+
 var App = function(){
 
     this.open = function(){
@@ -21,7 +27,7 @@ var App = function(){
     };
 
     this.checkDataLoaded = function(){
-        this.row = element.all(by.css(".rich-table-cell")).get(0);
+        this.row = element.all(by.css(".tableDiaryLinks")).get(0);
     };
 };
 
@@ -30,11 +36,11 @@ describe('The volatility page ', function() {
     var a = new App();
     it('should appear when volatility link is clicked', function () {
         a.open();
-       // a.login();
+        // a.login();
         expect(browser.isElementPresent(by.css('.private-black-title'))).toBe(true);
     });
 
-    it('should have 32 lines', function(){
+   it('should have 32 lines', function(){
 
         a.checkNumberOfLines();
         expect(a.n).toBe(32);
@@ -46,4 +52,4 @@ describe('The volatility page ', function() {
         expect(a.row.getText()).toBe('4IMPRINT GROUP PLC');
     });
 
-});
+});*/
