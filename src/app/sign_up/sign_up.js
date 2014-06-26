@@ -254,7 +254,7 @@ angular.module('singUp', [])
         };
         signUpService.secondStep = function (user, callback) {
             data = user;
-            return $http.post('http://api.mo-shopclient.development.com:9000/signup', data)
+            return $http.post('http://api.mo-shopclient.development.com:9000/user', data)
                 .success(function (data) {
                     callback(data);
                 })
