@@ -5,7 +5,7 @@
 */
 /**
  * Created by laia on 25/06/14.
- *//*
+ */
 
 var App = function(){
 
@@ -16,8 +16,8 @@ var App = function(){
 
     this.login = function(){
         element(by.css(".no-logged-box")).click();
-        element(by.css(".float-right")).sendKeys('laiarios@gmail.com');
-        element.all(by.css(".float-right")).get(1).sendKeys('prueba1');
+        element(by.css(".float-right")).sendKeys('laia@gmail.com');
+        element.all(by.css(".float-right")).get(1).sendKeys('prueba12');
         element(by.css(".mo-button")).click();
     };
 
@@ -29,14 +29,14 @@ var App = function(){
     this.checkDataLoaded = function(){
         this.row = element.all(by.css(".tableDiaryLinks")).get(0);
     };
-};
+}
 
 describe('The volatility page ', function() {
 
     var a = new App();
     it('should appear when volatility link is clicked', function () {
         a.open();
-        // a.login();
+        a.login();
         expect(browser.isElementPresent(by.css('.private-black-title'))).toBe(true);
     });
 
@@ -52,4 +52,4 @@ describe('The volatility page ', function() {
         expect(a.row.getText()).toBe('4IMPRINT GROUP PLC');
     });
 
-});*/
+});
