@@ -83,10 +83,10 @@ angular.module('ngMo.my_profile', [
         $scope.actualPassword = "";
         $scope.passwordUser = "";
         $scope.repeatPasswordUser = "";
-        $scope.internalErrorPass= false;
-        $scope.userSaved= false;
+        $scope.internalErrorPass = false;
+        $scope.userSaved = false;
 
-        $scope.passwordSubmited= false;
+        $scope.passwordSubmited = false;
         $scope.passwordError = false;
 
 
@@ -128,7 +128,7 @@ angular.module('ngMo.my_profile', [
 
                 } else {
                     $scope.internalError = true;
-                    $scope.userSaved= false;
+                    $scope.userSaved = false;
                     // $scope.loadUser();
                 }
             });
@@ -140,7 +140,7 @@ angular.module('ngMo.my_profile', [
                 pass: $scope.passwordUser,
                 actPass: $scope.actualPassword
             };
-            ProfileService.editPassword(data,function(data,status) {
+            ProfileService.editPassword(data, function (data, status) {
                 $scope.passwordSubmited = true;
                 if (status == 200) {
                     if (data.result == "ok") {
@@ -173,7 +173,7 @@ angular.module('ngMo.my_profile', [
                     'X-Session-Token': token
                 }
             };
-            $http.get('http://api.mo-shopclient.development.com:9000/user', config)
+            $http.get('http://api.mo.devel.edosoftfactory.com/user', config)
                 .success(function (data, status) {
                     callback(data, status);
                 })
@@ -190,7 +190,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: user
             };
-            return $http.put('http://api.mo-shopclient.development.com:9000/user', config)
+            return $http.put('http://api.mo.devel.edosoftfactory.com/user', config)
                 .success(function (data, status) {
                     callback(data, status);
                 })
@@ -209,7 +209,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: passwords
             };
-            return $http.put('http://api.mo-shopclient.development.com:9000/user', config)
+            return $http.put('http://api.mo.devel.edosoftfactory.com/user', config)
                 .success(function (data, status) {
                     callback(data, status);
                 })

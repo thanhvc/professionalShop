@@ -36,7 +36,7 @@ angular.module('auth',['http-auth-interceptor'])
                 }
             };
             $rootScope.isLog=false;
-            $http.get('http://api.mo-shopclient.development.com:9000/islogged', config)
+            $http.get('http://api.mo.devel.edosoftfactory.com/islogged', config)
                 .success(function (params, status, headers, config) {
                     $rootScope.isLog = true;
 
@@ -71,7 +71,7 @@ angular.module('auth',['http-auth-interceptor'])
 
                 $scope.submit = function() {
                     data = $scope.fields;
-                    $http.post('http://api.mo-shopclient.development.com:9000/login', data)
+                    $http.post('http://api.mo.devel.edosoftfactory.com/login', data)
                         .success(function (data, status, headers, config) {
                             $window.sessionStorage.token = data.authToken;
                             authService.loginConfirmed();
@@ -93,7 +93,7 @@ angular.module('auth',['http-auth-interceptor'])
                             'X-Session-Token': token
                         }
                     };
-                    $http.get('http://api.mo-shopclient.development.com:9000/logout', config)
+                    $http.get('http://api.mo.devel.edosoftfactory.com/logout', config)
                         .success(function () {
                             $rootScope.isLog = false;
                             $state.go('home');

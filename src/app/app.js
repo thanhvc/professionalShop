@@ -687,7 +687,7 @@ angular.module('ngMo', [
                             },
                             data: dataCart
                         };
-                        return $http.post('http://api.mo-shopclient.development.com:9000/addpacks', config)
+                        return $http.post('http://api.mo.devel.edosoftfactory.com/addpacks', config)
                             .success(function (data, status) {
                                 $scope.callbackPurchase(data, status);
                             })

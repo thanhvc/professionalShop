@@ -11,9 +11,9 @@ describe('The publicMenu directive', function () {
         beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, _$httpBackend_) {
             $compile = _$compile_;
             $scope = _$rootScope_.$new();
-            $state =  _$state_;
+            $state = _$state_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.when('GET', 'http://api.mo-shopclient.development.com:9000/islogged').respond(200);
+            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond(200);
         }));
         it('should produce 6 menu items', inject(function () {
             var template = $compile("<nav public-menu></nav>")($scope);
@@ -25,16 +25,16 @@ describe('The publicMenu directive', function () {
             var template = $compile("<div ng-controller = 'AppCtrl'><nav public-menu></nav></div>")($scope);
             $scope.$apply();
             var suffix = "-nav";
-            var vMenuList =  template.find('li');
+            var vMenuList = template.find('li');
             var log = [];
 
-            angular.forEach(vMenuList,function(item) {
-                if (item.id === 'market-observatory' + suffix) {
-                    this.push(item.className);
-                }
-            },
-            log);
-           expect(log[0].indexOf('item-nav-hover')).toNotEqual(-1);
+            angular.forEach(vMenuList, function (item) {
+                    if (item.id === 'market-observatory' + suffix) {
+                        this.push(item.className);
+                    }
+                },
+                log);
+            expect(log[0].indexOf('item-nav-hover')).toNotEqual(-1);
         }));
 
     });
@@ -52,34 +52,34 @@ describe('The publicSubmenu directive', function () {
         beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, _$httpBackend_) {
             $compile = _$compile_;
             $scope = _$rootScope_.$new();
-            $state =  _$state_;
+            $state = _$state_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.when('GET', 'http://api.mo-shopclient.development.com:9000/islogged').respond();
+            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond();
         }));
 
-        function replaceAll( text, find, replace){
+        function replaceAll(text, find, replace) {
             while (text.toString().indexOf(find) != -1) {
                 text = text.toString().replace(find, replace);
             }
             return text;
         }
 
-       it('should have \'item-nav-hover\' class', inject(function () {
+        it('should have \'item-nav-hover\' class', inject(function () {
 
             var stateProvider = ["organization", "what_is_and_what_is_not", "service_conditions", "data_protection" ,
-                                             "summary", "products_and_exchanges", "detailed_description", "fundamentals",
-                                             "stocks", "funds", "etf_cfd", "futures", "pairs", "advanced", "diversification",
-                                             "prices", "products", "subscription_types", "purchase", "free_subscription", "shopping_guide" ,
-                                             "resources", "articles", "symbols_and_exchanges", "mo_template_collections",
-                                            "support", "business", "job", "localization"
+                "summary", "products_and_exchanges", "detailed_description", "fundamentals",
+                "stocks", "funds", "etf_cfd", "futures", "pairs", "advanced", "diversification",
+                "prices", "products", "subscription_types", "purchase", "free_subscription", "shopping_guide" ,
+                "resources", "articles", "symbols_and_exchanges", "mo_template_collections",
+                "support", "business", "job", "localization"
 
-           ];
-            angular.forEach(stateProvider,function(itemProvider) {
+            ];
+            angular.forEach(stateProvider, function (itemProvider) {
                 $state.go(itemProvider);
                 var templateSubmenu = $compile("<div ng-controller ='AppCtrl'><nav public-sub-menu></nav></div>")($scope);
                 $scope.$apply();
                 var suffix = "-nav";
-                var selectedItem = replaceAll($state.current.name, "_","-") + suffix;
+                var selectedItem = replaceAll($state.current.name, "_", "-") + suffix;
                 var vSubmenuList = templateSubmenu.find('li');
                 var log = [];
                 angular.forEach(vSubmenuList, function (item) {
@@ -111,15 +111,15 @@ describe('The cart directive', function () {
         beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
             $compile = _$compile_;
             $scope = _$rootScope_.$new();
-            $state =  _$state_;
+            $state = _$state_;
             httpMock = $httpBackend;
-            httpMock.when('GET', 'http://api.mo-shopclient.development.com:9000/islogged').respond(200);
+            httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond(200);
         }));
 
         addItemsToCart = function (numItems) {
-            for (var i=0;i<numItems;i++){
+            for (var i = 0; i < numItems; i++) {
                 item = {
-                    "id" : i,
+                    "id": i,
                     "patternType": "stock"
                 };
                 $scope.addNewItemCart(item);
@@ -129,7 +129,7 @@ describe('The cart directive', function () {
 
         obtainLog = function (trsCart, log) {
             angular.forEach(trsCart, function (item) {
-                    if (typeof item.attributes[0] != 'undefined'){
+                    if (typeof item.attributes[0] != 'undefined') {
                         if (item.attributes[0].textContent === "stockItem in stockItems") {
                             this.push(item);
                         }
@@ -139,13 +139,13 @@ describe('The cart directive', function () {
             return log;
         };
 
-        obtainSubtotal = function (items, log){
-            angular.forEach(items,function(item) {
-                        if (typeof item.attributes[0] != 'undefined') {
-                            if (item.attributes[0].textContent === "subtotal-cart") {
-                                this.push(item.children[3].textContent);
-                            }
+        obtainSubtotal = function (items, log) {
+            angular.forEach(items, function (item) {
+                    if (typeof item.attributes[0] != 'undefined') {
+                        if (item.attributes[0].textContent === "subtotal-cart") {
+                            this.push(item.children[3].textContent);
                         }
+                    }
                 },
                 log);
             return log;
@@ -153,10 +153,10 @@ describe('The cart directive', function () {
 
         obtainTotalCart = function (items, log) {
             var cont = true;
-            angular.forEach(items,function(item) {
+            angular.forEach(items, function (item) {
                     if (cont) {
                         if (typeof item.attributes[0] != 'undefined') {
-                            if (item.className.substring(0,10) === "total-cart") {
+                            if (item.className.substring(0, 10) === "total-cart") {
                                 this.push(item.textContent);
                                 cont = false;
                             }
@@ -199,7 +199,7 @@ describe('The cart directive', function () {
             };
             $scope.addNewItemCart(itemToRemove);
 
-            $scope.removeItemCart('stocks',itemToRemove);
+            $scope.removeItemCart('stocks', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
             log = obtainLog(trsCart, log);
@@ -214,7 +214,7 @@ describe('The cart directive', function () {
         }));
 
         //remove All items to cart
-       it('should have 0 items and total and subtotal equals 0', inject(function () {
+        it('should have 0 items and total and subtotal equals 0', inject(function () {
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(3);
@@ -248,21 +248,21 @@ describe('The privateMenu directive', function () {
         var $state;
         var httpMock;
 
-    beforeEach(module('templates-app'));
+        beforeEach(module('templates-app'));
 
-    beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
-        $compile = _$compile_;
-        $scope = _$rootScope_.$new();
-        $state =  _$state_;
-        httpMock = $httpBackend;
-        httpMock.when('GET', 'http://api.mo-shopclient.development.com:9000/islogged').respond(200);
-    }));
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
+            $compile = _$compile_;
+            $scope = _$rootScope_.$new();
+            $state = _$state_;
+            httpMock = $httpBackend;
+            httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond(200);
+        }));
 
-    it('should produce 7 menu items', inject(function () {
-        var template = $compile("<nav private-menu></nav>")($scope);
-        $scope.$apply();
-        expect(template.find('li').length).toEqual(7);
-    }));
+        it('should produce 7 menu items', inject(function () {
+            var template = $compile("<nav private-menu></nav>")($scope);
+            $scope.$apply();
+            expect(template.find('li').length).toEqual(7);
+        }));
 
     });
 });
@@ -270,7 +270,7 @@ describe('The privateMenu directive', function () {
 
 /* Check if login  - logout panel fades in*/
 
-describe('The signin-signup-box ng-scope div', function(){
+describe('The signin-signup-box ng-scope div', function () {
 
 
     beforeEach(angular.mock.module("ngMo"));
@@ -287,20 +287,20 @@ describe('The signin-signup-box ng-scope div', function(){
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
             httpMock = $httpBackend;
-            httpMock.when('GET', 'http://api.mo-shopclient.development.com:9000/islogged').respond(200);
+            httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond(200);
         }));
 
-            it('should fade in', function () {
+        it('should fade in', function () {
 
-                var template = $compile("<div class=\"signin-signup-box ng-scope\" ng-controller=\"AuthCtrl\">" +
-                    "<div class=\"no-logged-box sign-background\" ng-click=\"toggleSignInForm(); $event.stopPropagation();\">Login</div>" +
-                    "<a ui-sref=\"signup\" class=\"subscribe-free-link sign-background\">" +
-                    "<span>Suscr&iacute;bete Gratis</span>" +
-                    "</a></div>")($scope);
-                $scope.$apply();
-               // expect(template.children.length).toEqual(3);
-                expect(template.children('span, div').length).toEqual(2);
-            });
+            var template = $compile("<div class=\"signin-signup-box ng-scope\" ng-controller=\"AuthCtrl\">" +
+                "<div class=\"no-logged-box sign-background\" ng-click=\"toggleSignInForm(); $event.stopPropagation();\">Login</div>" +
+                "<a ui-sref=\"signup\" class=\"subscribe-free-link sign-background\">" +
+                "<span>Suscr&iacute;bete Gratis</span>" +
+                "</a></div>")($scope);
+            $scope.$apply();
+            // expect(template.children.length).toEqual(3);
+            expect(template.children('span, div').length).toEqual(2);
+        });
 
 
     });
@@ -308,11 +308,10 @@ describe('The signin-signup-box ng-scope div', function(){
 
 
 /*Check if the sigin box fades in*/
-describe('The signin box fades in',function(){
+describe('The signin box fades in', function () {
     beforeEach(angular.mock.module("ngMo"));
 
     beforeEach(module('templates-app'));
-
 
 
     describe('template', function () {
@@ -325,7 +324,7 @@ describe('The signin box fades in',function(){
             $compile = _$compile_;
         }));
 
-        beforeEach(function() {
+        beforeEach(function () {
             var template = $compile("<a ui-sref=\"signup\" class=\"subscribe-free-link sign-background\">" +
                 "<span>Suscr&iacute;bete Gratis</span>" +
                 "</a>")($scope);
@@ -335,23 +334,23 @@ describe('The signin box fades in',function(){
             expect(template.children('span').length).toEqual(1);
 
             template.click();
-            expect(element("<div class=\"login-panel\">"+
-            "<span>Acceso</span>"+
-            "<label>Email</label><input type=\"text\" class=\"float-right\" ng-class=\"{'warning-input' : errorSignIn}\"/>"+
-                "<label>Contrase&ntilde;a</label><input type=\"password\" class=\"float-right\" ng-class=\"{'warning-input' : errorSignIn}\"/>"+
-                "<div>"+
-                    "<label>Recordar</label> <input type = \"checkbox\" />"+
-                    "<button class=\"mo-button float-right\" ng-click=\"submit()\">Entrar</button>"+
-                    "<div ng-show=\"errorSignIn\" class=\"login-bottom-panel\">"+
-                        "<img  ng-src=\"assets/img/warning-icon.png\">"+
-                            "<span class=\"warning-login-text\">Usuario o contrase&ntilde;a incorrecta.</span>"+
-                        "</div>"+
-                        "<div class=\"forget-password\">"+
-                            "<img ng-src=\"assets/img/question-mark.png\">"+
-                                "<a ui-sref=\"forgotten-password\" ng-click=\"hideSignInForm()\">&iquest;Ha olvidado su contrase&ntilde;a?</a>"+
-                                "<div>"+
-                                "</div>"+
-                            "</div>").is(':visible')).toBe(true);
+            expect(element("<div class=\"login-panel\">" +
+                "<span>Acceso</span>" +
+                "<label>Email</label><input type=\"text\" class=\"float-right\" ng-class=\"{'warning-input' : errorSignIn}\"/>" +
+                "<label>Contrase&ntilde;a</label><input type=\"password\" class=\"float-right\" ng-class=\"{'warning-input' : errorSignIn}\"/>" +
+                "<div>" +
+                "<label>Recordar</label> <input type = \"checkbox\" />" +
+                "<button class=\"mo-button float-right\" ng-click=\"submit()\">Entrar</button>" +
+                "<div ng-show=\"errorSignIn\" class=\"login-bottom-panel\">" +
+                "<img  ng-src=\"assets/img/warning-icon.png\">" +
+                "<span class=\"warning-login-text\">Usuario o contrase&ntilde;a incorrecta.</span>" +
+                "</div>" +
+                "<div class=\"forget-password\">" +
+                "<img ng-src=\"assets/img/question-mark.png\">" +
+                "<a ui-sref=\"forgotten-password\" ng-click=\"hideSignInForm()\">&iquest;Ha olvidado su contrase&ntilde;a?</a>" +
+                "<div>" +
+                "</div>" +
+                "</div>").is(':visible')).toBe(true);
         });
 
 

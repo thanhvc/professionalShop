@@ -157,7 +157,7 @@ angular.module('singUp', [])
                 }
             };
             $scope.sendFirstStep = function () {
-                var result = SignUpService.firstStep($scope.user, $scope.firstCallback );
+                var result = SignUpService.firstStep($scope.user, $scope.firstCallback);
             };
 
             //Step 2
@@ -177,8 +177,6 @@ angular.module('singUp', [])
             $scope.formSubmited = false; //variable that is true when the form is submited to check the inputs
             $scope.validCaptcha = true; //set the captcha to true (correct by default, when the server responses with the valid/invalid captcha we change it)
             //send the second step submit
-
-
 
 
             $scope.secondCallback = function (result) {
@@ -244,7 +242,7 @@ angular.module('singUp', [])
         var signUpService = {};
         signUpService.firstStep = function (user, callback) {
             data = user;
-            return $http.post('http://api.mo-shopclient.development.com:9000/testemail', data)
+            return $http.post('http://api.mo.devel.edosoftfactory.com/testemail', data)
                 .success(function (data) {
                     callback(data);
                 })
@@ -254,7 +252,7 @@ angular.module('singUp', [])
         };
         signUpService.secondStep = function (user, callback) {
             data = user;
-            return $http.post('http://api.mo-shopclient.development.com:9000/user', data)
+            return $http.post('http://api.mo.devel.edosoftfactory.com/user', data)
                 .success(function (data) {
                     callback(data);
                 })
