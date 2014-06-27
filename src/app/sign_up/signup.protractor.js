@@ -49,8 +49,8 @@ var SigunMenu = function() {
 
         //Do the signup
         $('a[href*="sign-up"]').click();
-         this.input1.sendKeys('user@gmail.com');
-         this.input2.sendKeys('user@gmail.com');
+         this.input1.sendKeys('user@edosoft.es');
+         this.input2.sendKeys('user@edosoft.es');
          this.input3.sendKeys('userpass');
          this.input4.sendKeys('userpass');
         //Clickkkk
