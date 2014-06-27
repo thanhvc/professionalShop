@@ -22,6 +22,7 @@ angular.module('ngMo', [
         'ui.router',
         'gettext' ,
         'singUp',
+        'ngMo.Activate',
         'auth'
     ])
 
