@@ -26,15 +26,12 @@ var Cart = function() {
 
     this.checkCart = function () {
 
-        //element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
-        //element(by.repeater('stokItem in stockItems').row(0)).click();
         element(by.repeater('pattern in selectedPack.patterns').row(0)).click();
         element(by.id("purchase-button")).click();
     };
 
     this.buyingMore = function(){
         element.all(by.css('ng-binding')).get(0);
-        //element.all(by.css('pack in homeTablePack.americaContent track by $index')).get(0).click();
 
         element(by.id("purchase-button")).click();
         var button = element.all(by.css(".mo-button"));
@@ -44,7 +41,6 @@ var Cart = function() {
     };
 
     this.correctItemsNumber = function(){
-        //element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
         element.all(by.css('ng-binding')).get(0);
         element(by.id("purchase-button")).click();
         browser.get('http://localhost:63342/mo-shopclient/build/index.html#/catalog/1');
@@ -77,7 +73,7 @@ describe('The cart functionality is correct', function() {
     });
 
     it('should disappear when buying more', function(){
-       // c.open();
+
         c.buyingMore();
         expect(browser.isElementPresent(by.css('.hide-summary-cart'))).toBe(true);
 
@@ -98,7 +94,7 @@ describe('The cart functionality is correct', function() {
     });
 
     it('should have the correct sum', function(){
-       // c.open();
+
         c.correctSum();
         expect(c.subtotal2).toBe(c.total2);
 

@@ -265,13 +265,10 @@
      it('should open the page', function() {
          angularHomepage.open();
          angularHomepage.login();
-         //expect(angularHomepage.logBox).toBeDefined();
 
          angularHomepage.checkFadeIn();
-         //expect(angularHomepage.signup).not.toBeDefined();
 
          angularHomepage.checkFadeOut();
-         //expect(angularHomepage.signup).toBe(null);
 
 
      });
