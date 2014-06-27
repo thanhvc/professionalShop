@@ -41,16 +41,7 @@ angular.module('ngMo', [
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'publicMenu'
-            }/*,
-            resolve: {
-                IsLogged: "IsLogged",
-                userIsLogged: function(IsLogged){
-                    return IsLogged.isLogged();
-                }
-            },
-            controller: function($scope, userIsLogged){
-                $scope.isLog = userIsLogged;
-            }*/
+            }
         })
         .state('forgotten-password', {
             url: '/forgotten-password',
@@ -304,6 +295,12 @@ angular.module('ngMo', [
     })
 
     .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
+        /*$rootScope.$on('$routeChangeStart', function (event){
+           if  (!$rootScope.isLog){
+               $rootScope.saveLocation = $location.url();
+               $location.path('/')
+           }
+        });*/
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -319,7 +316,9 @@ angular.module('ngMo', [
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
         });
-        $scope.actualDate = ActualDateService.actualDate();
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.actualDate = data.actualDate;
+        });
 
         $scope.openModalInstance = function(url) {
             $modal.open({

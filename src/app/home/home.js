@@ -19,230 +19,24 @@ angular.module('ngMo.home', [
     .config(function config($stateProvider) {
 
     })
-    .service('ActualDateService', function (){
-        this.actualDate = function(){
-            return new Date();
+    .service('ActualDateService', function ($http){
+        this.actualDate = function(callbackFunc){
+            var result = $http.get('http://api.mo-shopclient.development.com:9000/actualdate').success(function (data) {
+                callbackFunc(data);
+            });
+        };
+
+        this.actualWeek = function(callbackFunc){
+            var result = $http.get('http://api.mo-shopclient.development.com:9000/numweek').success(function (data) {
+                callbackFunc(data);
+            });
         };
     })
-    .service('PacksService', function (){
-
-        //Dummies Packs
-        var americanPacks = [
-            {
-                "id": 1,
-                "region": "Canada",
-                "market": "Toronto Stock",
-                "numberPatterns": "77",
-                "patternType": "stock"
-            },
-            {
-                "id": 2,
-                "region": "Estados Unidos Pack I",
-                "market": "AMEX, NASDAQ",
-                "numberPatterns": "83",
-                "patternType": "stock"
-            },
-            {
-                "id": 3,
-                "region": "Estados Unidos Pack II",
-                "market": "AMEX, NASDAQ",
-                "numberPatterns": "83",
-                "patternType": "stock"}
-        ];
-
-        var asiaPacks = [
-            {
-                "id": 4,
-                "region": "Australia",
-                "market": "Australian SE, New Zealand SE",
-                "numberPatterns": "68",
-                "patternType": "stock"
-            },
-            {
-                "id": 5,
-                "region": "China",
-                "market": "Shanghai SE, Shenzhen SE",
-                "numberPatterns": "100",
-                "patternType": "stock"
-            },
-            {
-                "id": 6,
-                "region": "Corea",
-                "market": "Korea SE, KOSDAQ",
-                "numberPatterns": "100",
-                "patternType": "stock"
-            },
-            {
-                "id": 7,
-                "region": "Hong-Kong + Singapur",
-                "market": "Hong Kong SE, Singapore SE, Singapore Securities",
-                "numberPatterns": "100",
-                "patternType": "stock"
-            }
-        ];
-
-        var europePacks = [
-            {
-                "id": 8,
-                "region": "EURO Zona Pack I",
-                "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100",
-                "patternType": "stock"
-            },
-            {
-                "id": 9,
-                "region": "EURO Zona Pack II",
-                "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100",
-                "patternType": "stock"
-            },
-            {
-                "id": 10,
-                "region": "EURO Zona Pack III",
-                "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100",
-                "patternType": "stock"
-            },
-            {
-                "id": 11,
-                "region": "EURO Zona Pack IV",
-                "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100",
-                "patternType": "stock"
-            },
-            {
-                "id": 12,
-                "region": "EURO Zona Pack V",
-                "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100",
-                "patternType": "stock"
-            }
-        ];
-
-        var americanPairsPacks = [
-            {
-                "id": 13,
-                "region": "Estados Unidos Pack I",
-                "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
-                "numberPatterns": "100",
-                "patternType": "pair"
-            },
-            {
-                "id": 14,
-                "region": "Estados Unidos Pack II",
-                "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
-                "numberPatterns": "100",
-                "patternType": "pair"
-            },
-            {
-                "id": 15,
-                "region": "Estados Unidos Pack III",
-                "market": "AMEX, NASDAQ, NYSE, Bulletin Board",
-                "numberPatterns": "100",
-                "patternType": "pair"
-            }
-        ];
-
-        var asiaPairsPacks = [
-            {
-                "id": 16,
-                "region": "Japón Pack I",
-                "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
-                "numberPatterns": "100",
-                "patternType": "pair"
-            },
-            {
-                "id": 17,
-                "region": "Japón Pack II",
-                "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
-                "numberPatterns": "100",
-                "patternType": "pair"
-            },
-            {
-                "id": 18,
-                "region": "Japón Pack III",
-                "market": "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
-                "numberPatterns": "100",
-                "patternType": "pair"
-            }
-        ];
-
-        var europePairsPacks = [
-            {
-                "id": 19,
-                "region": "EURO Zona Pack I",
-                "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100",
-                "patternType": "pair"
-            },
-            {
-                "id": 20,
-                "region": "EURO Zona Pack II",
-                "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100",
-                "patternType": "pair"
-            },
-            {
-                "id": 21,
-                "region": "EURO Zona Pack III",
-                "market": "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                "numberPatterns": "100",
-                "patternType": "pair"
-            }
-        ];
-
-        var indicesPacks = [
-            {
-                "id": 22,
-                "region": "Bolsa, Financieros, Materias Primas",
-                "market": "Global, Regional, Pais, Sectorial, Industrial. Tipos de Interés. Materias Primas",
-                "numberPatterns": "100",
-                "patternType": "indjex"
-            }
-        ];
-
-        var pairs_indicesPacks = [
-            {
-                "id": 23,
-                "region": "Bolsa",
-                "market": "Global, Regional, Pais, Sectorial, Industrial",
-                "numberPatterns": "100",
-                "patternType": "pairIndex"
-            }
-        ];
-
-        var futuresPacks = [
-            {
-                "id": 24,
-                "region": "Energía, Metales, Agrícolas, Carnes, Softs, Divisas, Tipos de Interés",
-                "market": "EUREX, Hong Kong Futures Exchanges, ICE Canada, ICE US, Korean Futures Exchange, Montreal Options Exchange, NYSE Euronext, Singapore Monetary Exchange, Sydney Futures Exchange, Chicago Board of Trade Futures, Chicago Board Options Exchange, Chicago Mercantile Exchange Futures, Kansas City Board of Trade Futures, Minneapolis Grain Exchange Futures, New York Mercantile Exchange Futures, ICE Europe",
-                "numberPatterns": "100",
-                "patternType": "future"
-            }
-        ];
-        //******
-
-        this.obtainPacks = function (area) {
-            switch (area){
-                case 'america':
-                    return americanPacks;
-                case 'asia':
-                    return asiaPacks;
-                case 'europe':
-                    return europePacks;
-                case 'americaPairs':
-                    return americanPairsPacks;
-                case 'asiaPairs':
-                    return asiaPairsPacks;
-                case 'europePairs':
-                    return europePairsPacks;
-                case 'indices':
-                    return indicesPacks;
-                case 'pairs_indices':
-                    return pairs_indicesPacks;
-                case 'futures':
-                    return futuresPacks;
-            }
+    .service('PacksService', function ($http){
+        this.obtainPacks = function (callbackFunc) {
+            var europePacks = $http.get('http://api.mo-shopclient.development.com:9000/homepacks').success(function (data) {
+                callbackFunc(data);
+            });
         };
     })
 
@@ -250,9 +44,6 @@ angular.module('ngMo.home', [
 
     //carousel functions
     .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, AnchorLinkService, IsLogged) {
-        $scope.$on('$stateChangeStart', function (event, toState){
-            IsLogged.isLogged();
-        });
 
         $scope.changePosCart = function () {
             $scope.positionCart = 'top';
@@ -322,42 +113,54 @@ angular.module('ngMo.home', [
          "<ul class='public-list-first-level'><li class='listadoFlechas textoEstaticoPublicidad'>Maximizar la rentabilidad, con la mayor frecuencia de aciertos, reduciendo las p&eacute;rdidas en los a&ntilde;os con fallo y exponi&eacute;ndose al riesgo de mercado durante el menor tiempo posible.</li></ul></div>";
         $scope.tooltipOpinions = "<div style='width:780px'>Opini&oacute;n:<br>Algo \"personal\" que se expresa y no se puede garantizar que sea verdad. Una opini&oacute;n es similar a una predicci&oacute;n.</div>";
 
-        //Tabs home table Pack's
-        $scope.homeTablePacks = [
-            {
-                title: 'Acciones',
-                active: ActiveTabService.activeTab() === 0,
-                value: 0,
-                americaContent: PacksService.obtainPacks('america'),
-                asiaContent: PacksService.obtainPacks('asia'),
-                europeContent: PacksService.obtainPacks('europe'),
-                url: 'home/tables_packs/stock_table.tpl.html'
-            },
-            {
-                title: 'Pares',
-                active: ActiveTabService.activeTab() === 1,
-                value: 1,
-                americaContent: PacksService.obtainPacks('americaPairs'),
-                asiaContent: PacksService.obtainPacks('asiaPairs'),
-                europeContent: PacksService.obtainPacks('europePairs'),
-                url: 'home/tables_packs/pairs_table.tpl.html'
-            },
-            {
-                title: 'Indices',
-                active: ActiveTabService.activeTab() === 2,
-                value: 2,
-                indicesContent: PacksService.obtainPacks('indices'),
-                pairsIndicesContent: PacksService.obtainPacks('pairs_indices'),
-                url: 'home/tables_packs/indices_table.tpl.html'
-            },
-            {
-                title: 'Futuros',
-                active: ActiveTabService.activeTab() === 3,
-                value: 3,
-                futuresContent: PacksService.obtainPacks('futures'),
-                url: 'home/tables_packs/futures_table.tpl.html'
-            }
-        ];
+
+        $scope.loadPacks = function () {
+            var data = PacksService.obtainPacks(function (data) {
+                $scope.myData = data;//data.page;
+                $scope.homeTablePacks = [
+                    {
+                        title: 'Acciones',
+                        active: ActiveTabService.activeTab() === 0,
+                        value: 0,
+                        americaContent: $scope.myData.region0,
+                        asiaContent: $scope.myData.region1,
+                        europeContent: $scope.myData.region2,
+                        url: 'home/tables_packs/stock_table.tpl.html'
+                    },
+                    {
+                        title: 'Pares',
+                        active: ActiveTabService.activeTab() === 1,
+                        value: 1,
+                        americaContent: $scope.myData.region3,
+                        asiaContent: $scope.myData.region4,
+                        europeContent: $scope.myData.region5,
+                        url: 'home/tables_packs/pairs_table.tpl.html'
+                    },
+                    {
+                        title: 'Indices',
+                        active: ActiveTabService.activeTab() === 2,
+                        value: 2,
+                        indicesContent: $scope.myData.region6,
+                        pairsIndicesContent: $scope.myData.region7,
+                        url: 'home/tables_packs/indices_table.tpl.html'
+                    },
+                    {
+                        title: 'Futuros',
+                        active: ActiveTabService.activeTab() === 3,
+                        value: 3,
+                        futuresContent: $scope.myData.region8,
+                        url: 'home/tables_packs/futures_table.tpl.html'
+                    }
+                ];
+
+                if (!$scope.$$phase) {
+                    $scope.$apply();
+                }
+            });
+        };
+
+        $scope.loadPacks();
+
     })
 
 

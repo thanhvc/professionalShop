@@ -1,0 +1,51 @@
+<div class="tools-container">
+
+    <table style="width: 400px;" class="table-correlation">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Nombre</td>
+            <td>Mercado</td>
+            <td>Op.</td>
+            <td>Añadir</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pattern in myData">
+            <td>{{pattern.id}}</td>
+            <td>{{pattern.asset.longName}}</td>
+            <td>{{pattern.asset.exchange.name}}</td>
+            <td>
+                <span tooltip="Venta" ng-if="pattern.patternType == 'BULLISH'">V</span>
+                <span tooltip="Compra" ng-if="pattern.patternType == 'BEARISH'">C</span>
+            </td>
+            <td class="correlation-button">>></td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="width: 450px;float:right;" class="table-correlation">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Nombre</td>
+            <td>Mercado</td>
+            <td>Op.</td>
+            <td>Fav.</td>
+            <td>Quitar</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pattern in selectedPatterns">
+            <td>{{pattern.id}}</td>
+            <td>{{pattern.name}}</td>
+            <td>{{pattern.market}}</td>
+            <td>{{pattern.operation}}</td>
+            <td>{{pattern.favorite}}</td>
+            <td class="correlation-button"><<</td>
+        </tr>
+        </tbody>
+    </table>
+    <div style="width: 450px;float:right;">
+        <span class="correlation-note">Lista a Correlar (máx. 10 items)</span>
+    </div>
+</div>

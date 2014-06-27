@@ -591,63 +591,32 @@ angular.module('ngMo.catalog', [
                 ];
 
         this.obtainSelectedPack = function (page, numItemsPerPage) {
-            var to = page * numItemsPerPage;
-            var from = to - numItemsPerPage;
+            var to = page*numItemsPerPage;
+            var from = to-numItemsPerPage;
             /**
              * TODO: replace return patternsPack by http call
              */
             //return patternsPack;
-             var i = null;
-            for (j=0;j<patternsPack.length;j++) {
-                if (patternsPack[j].id.toString() === $state.params.packId ) {
-                    i = j;
-                    break;
-                }
-            }
-            if (i == null) {
-                return;
-            }
             var tempPatternPack = {
                 "id": $state.params.packId,
-                "region": patternsPack[i].region,
-                "productType": patternsPack[i].productType,
-                "startDate": patternsPack[i].startDate,
-                "patternType": patternsPack[i].patternType,
-                "numberPatterns": patternsPack[i].numberPatterns,
-                "patterns": patternsPack[i].patterns,
-                "date": patternsPack[i].date
+                "region": patternsPack.region,
+                "productType": patternsPack.productType,
+                "startDate": patternsPack.startDate,
+                "numberPatterns": patternsPack.numberPatterns,
+                "patterns": []
             };
 
             return tempPatternPack;
         };
 
         this.obtainSelectedPatternsPack = function () {
-            var i = null;
-            for (j=0;j<patternsPack.length;j++) {
-                if (patternsPack[j].id.toString() === $state.params.packId ) {
-                    i = j;
-                    break;
-                }
-            }
-            if (i == null) {
-                return;
-            }
-            var tempPatternPack = {
-                "id": $state.params.packId,
-                "region": patternsPack[i].region,
-                "productType": patternsPack[i].productType,
-                "startDate": patternsPack[i].startDate,
-                "patternType": patternsPack[i].patternType,
-                "numberPatterns": patternsPack[i].numberPatterns,
-                "patterns": patternsPack[i].patterns,
-                "date": patternsPack[i].date
-            };
-
-            return tempPatternPack;
+            return patternsPack;
         };
     })
-    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService) {
-        $scope.actualDate = ActualDateService.actualDate();
+    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService){
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.actualDate = data.actualDate;
+        });
 
         $scope.generateSearchUrl = function (provider, input) {
             if (typeof input === 'undefined') {
@@ -708,7 +677,6 @@ angular.module('ngMo.catalog', [
                  * TODO: selectedTab should be obtained for the selectedPack (productType)
                  */
                 selectedTab = $scope.selectedPack.productType;
-                /**check**/
             },
             link: function ($scope) {
                 $scope.getContentUrl = function () {

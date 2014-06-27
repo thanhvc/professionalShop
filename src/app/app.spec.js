@@ -13,6 +13,7 @@ describe('The publicMenu directive', function () {
             $scope = _$rootScope_.$new();
             $state = _$state_;
             $httpBackend = _$httpBackend_;
+            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond(200);
             $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond(200);
         }));
         it('should produce 6 menu items', inject(function () {
@@ -55,6 +56,7 @@ describe('The publicSubmenu directive', function () {
             $state = _$state_;
             $httpBackend = _$httpBackend_;
             $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond();
+            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com/actualdate').respond(200);
         }));
 
         function replaceAll(text, find, replace) {
@@ -312,6 +314,7 @@ describe('The signin box fades in', function () {
     beforeEach(angular.mock.module("ngMo"));
 
     beforeEach(module('templates-app'));
+
 
 
     describe('template', function () {
