@@ -303,6 +303,10 @@ angular.module('ngMo', [
         });*/
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
+            $scope.inWeekView = false;
+            if (toState.url === '/the-week') {
+                $scope.inWeekView = true;
+            }
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
@@ -335,7 +339,7 @@ angular.module('ngMo', [
         $scope.hideElements = function () {
             $scope.hideSignInForm();
             $scope.closeCart();
-            //$scope.hideSelectedGraphic();
+            $scope.hideSelectedGraphic();
         };
 
     })
