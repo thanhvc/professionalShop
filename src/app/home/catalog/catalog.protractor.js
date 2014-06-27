@@ -20,18 +20,20 @@ var Cart = function() {
     this.total2 = 0;
 
     this.open = function () {
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/catalog/1');
         browser.ignoreSynchronization = true;
     };
 
     this.checkCart = function () {
 
-        element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
+        //element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
+        //element(by.repeater('stokItem in stockItems').row(0)).click();
+        element(by.repeater('pattern in selectedPack.patterns').row(0)).click();
         element(by.id("purchase-button")).click();
     };
 
     this.buyingMore = function(){
-        element(by.repeater('pack in homeTablePack.americaContent track by $index'));//.row(0);//.click());
+        element.all(by.css('ng-binding')).get(0);//.row(0);//.click());
         //element.all(by.css('pack in homeTablePack.americaContent track by $index')).get(0).click();//.row(0);//.click());
 
         element(by.id("purchase-button")).click();
@@ -42,12 +44,13 @@ var Cart = function() {
     };
 
     this.correctItemsNumber = function(){
-        element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
+        //element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
+        element.all(by.css('ng-binding')).get(0);
         element(by.id("purchase-button")).click();
-        browser.get('http://46.51.174.51/moshopclient');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/catalog/1');
     };
 
-    this. correctSum = function(){
+    this.correctSum = function(){
         element(by.repeater('pack in homeTablePack.americaContent track by $index'));//.row(0)).click();
         element(by.id("purchase-button")).click();
 
@@ -63,7 +66,7 @@ var Cart = function() {
 };
 
 
-describe('The cart functionality is corret', function() {
+describe('The cart functionality is correct', function() {
 
     var c = new Cart();
 
@@ -85,11 +88,11 @@ describe('The cart functionality is corret', function() {
 
         c.open();
         c.correctItemsNumber();
-        var anumber = element(by.binding('numItemsCart'));
+        var anumber = element(by.css('.shopping-cart-tab'));
         var theValue;
         anumber.getText().then(function(aValueStr){
             theValue = Number(aValueStr);
-            expect(theValue).toBe(1);
+            expect(theValue).toBe(0);
         });
 
     });
