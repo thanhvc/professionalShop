@@ -216,32 +216,32 @@ describe('The Patterns view ', function () {
         var date = MonthSelectorService.restartDate();
         var actual_date = new Date();
         expect(actual_date.getFullYear()).toEqual(date.year);
-        expect(actual_date.getMonth()+1).toEqual(date.month);
-        expect(date.value).toEqual((actual_date.getMonth()+1)+"_"+actual_date.getFullYear());
+        expect(actual_date.getMonth() + 1).toEqual(date.month);
+        expect(date.value).toEqual((actual_date.getMonth() + 1) + "_" + actual_date.getFullYear());
         //checks the month movements
-        var test_date = new Date(2013,0,1);
+        var test_date = new Date(2013, 0, 1);
         var result_date = MonthSelectorService.setDate(test_date);
         expect(result_date.value).toEqual("1_2013");
         expect(result_date.month).toEqual(1);
         expect(result_date.year).toEqual(2013);
-        result_date = MonthSelectorService.addMonths(2,result_date);
+        result_date = MonthSelectorService.addMonths(2, result_date);
         expect(result_date.value).toEqual("3_2013");
         expect(result_date.month).toEqual(3);
         expect(result_date.year).toEqual(2013);
-        result_date = MonthSelectorService.addMonths(-3,result_date);
+        result_date = MonthSelectorService.addMonths(-3, result_date);
         expect(result_date.value).toEqual("12_2012");
         expect(result_date.month).toEqual(12);
         expect(result_date.year).toEqual(2012);
         var listMonths = MonthSelectorService.getListMonths();
         expect(listMonths.length).toEqual(12);
         //now in the controller (from actualDate)
-        result_date =  MonthSelectorService.restartDate();
+        result_date = MonthSelectorService.restartDate();
         scope.previousMonth();
-        var changed_date = new Date(actual_date.getFullYear(), actual_date.getMonth()-1,1);
-        expect(scope.filterOptions.filters.month.month).toEqual(changed_date.getMonth()+1);
+        var changed_date = new Date(actual_date.getFullYear(), actual_date.getMonth() - 1, 1);
+        expect(scope.filterOptions.filters.month.month).toEqual(changed_date.getMonth() + 1);
         expect(scope.filterOptions.filters.month.year).toEqual(changed_date.getFullYear());
         scope.nextMonth();
-        expect(scope.filterOptions.filters.month.month).toEqual(actual_date.getMonth()+1);
+        expect(scope.filterOptions.filters.month.month).toEqual(actual_date.getMonth() + 1);
         expect(scope.filterOptions.filters.month.year).toEqual(actual_date.getFullYear());
         scope.filterOptions.filters.selectMonth = {value: "1_2014", id: "1"};
         scope.goToMonth();
@@ -252,21 +252,21 @@ describe('The Patterns view ', function () {
         expect(scope.canMove(1)).toEqual(false);
         scope.previousMonth();
         expect(scope.canMove(1)).toEqual(true);
-        scope.filterOptions.filters.month = MonthSelectorService.addMonths(-10,scope.filterOptions.filters.month);
+        scope.filterOptions.filters.month = MonthSelectorService.addMonths(-10, scope.filterOptions.filters.month);
         expect(scope.canMove(-1)).toEqual(false);
 
 
     }));
 
-    it('checking tabs', function(){
+    it('checking tabs', function () {
         scope.changeTab(1);
-       expect(scope.getTemplateTable()).toEqual("my_patterns/tables/pairs_table.tpl.html");
+        expect(scope.getTemplateTable()).toEqual("my_patterns/tables/pairs_table.tpl.html");
         expect(scope.getTemplateFilter()).toEqual("my_patterns/filters/pairs_filters.tpl.html");
         scope.changeTab(2);
-        scope.filterOptions.filters.index_type= 0;//index
+        scope.filterOptions.filters.index_type = 0;//index
         expect(scope.getTemplateTable()).toEqual("my_patterns/tables/index_table.tpl.html");
         expect(scope.getTemplateFilter()).toEqual("my_patterns/filters/index_filters.tpl.html");
-        scope.filterOptions.filters.index_type= 1;//pair index
+        scope.filterOptions.filters.index_type = 1;//pair index
         expect(scope.getTemplateTable()).toEqual("my_patterns/tables/pairs_index_table.tpl.html");
         expect(scope.getTemplateFilter()).toEqual("my_patterns/filters/index_filters.tpl.html");
         scope.changeTab(3);

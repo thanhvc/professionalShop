@@ -28,7 +28,7 @@ angular.module('ngMo.historic', [
     })
 
     .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, HistoricsService) {
-        $scope.$on('$stateChangeStart', function (event, toState){
+        $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -611,11 +611,11 @@ angular.module('ngMo.historic', [
             var urlParam = this.createParamsFromFilter(filtering);
 
             config = {
-                params :{
+                params: {
                     'page': page,
                     'token': $window.sessionStorage.token,
-                    'productType': parseInt(filtering.active_tab,10),
-                    'indexType': parseInt(filtering.active_tab,10)
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': parseInt(filtering.active_tab, 10)
                 }
             };
 

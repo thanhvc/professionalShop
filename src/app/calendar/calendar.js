@@ -25,8 +25,8 @@ angular.module('ngMo.calendar', [
     .run(function run() {
     })
 
-    .controller('CalendarCtrl', function ($scope, TabsService, $location,  IsLogged, CalendarService, MonthSelectorService, ActualDateService) {//<- use location.search()
-        $scope.$on('$stateChangeStart', function (event, toState){
+    .controller('CalendarCtrl', function ($scope, TabsService, $location, IsLogged, CalendarService, MonthSelectorService, ActualDateService) {//<- use location.search()
+        $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -155,14 +155,14 @@ angular.module('ngMo.calendar', [
 
         $scope.loadUrlParams = function () {
             var urlParams = $location.search();
-            $scope.selectedTab = (urlParams.qacttab ? urlParams.qacttab: TabsService.getActiveTab());
-            $scope.selectedTypeIndice = (urlParams.qindex ? urlParams.qindex : TabsService.getActiveIndexType() ) ;
+            $scope.selectedTab = (urlParams.qacttab ? urlParams.qacttab : TabsService.getActiveTab());
+            $scope.selectedTypeIndice = (urlParams.qindex ? urlParams.qindex : TabsService.getActiveIndexType() );
             $scope.selectedMonth = ($scope.calendarMonths[0]).value;
             $scope.selectedOrder = 0;
-            TabsService.changeActiveTab(parseInt( $scope.selectedTab ,10));
+            TabsService.changeActiveTab(parseInt($scope.selectedTab, 10));
             $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
             $scope.tabs = TabsService.getTabs();
-            $scope.tabs[TabsService.getActiveTab()].active=true;
+            $scope.tabs[TabsService.getActiveTab()].active = true;
             $scope.filterOptions.filters.active_tab = $scope.selectedTab;
         };
 
@@ -170,12 +170,12 @@ angular.module('ngMo.calendar', [
         $scope.changeTab = function (idTab) {
 
 
-           // $scope.obtainDays(idTab);
+            // $scope.obtainDays(idTab);
             $scope.selectedMonth = ($scope.calendarMonths[0]).value;
             $scope.selectedOrder = 0;
             $scope.selectedTypeIndice = 0;
             $scope.urlSelected = templateTables[idTab];
-            $scope.selectedTab= idTab;
+            $scope.selectedTab = idTab;
 
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
@@ -225,11 +225,11 @@ angular.module('ngMo.calendar', [
 
         $scope.getDayOfWeek = function (dayOfMonth, lastDateMonth) {
             var daysOfWeek = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
-            var dayOfWeek = new Date(2014, 6 -1, dayOfMonth);
+            var dayOfWeek = new Date(2014, 6 - 1, dayOfMonth);
             return daysOfWeek[dayOfWeek.getDay()];
         };
 
-        $scope.lastDateMonth = function() {
+        $scope.lastDateMonth = function () {
             var dat = CalendarService.getLastDayOfMonth(6 - 1, function (data) {
                 $scope.lastDayOfMonth = data.lastDateMonth;
 
@@ -300,18 +300,18 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.changeIndiceFilter = function (selectedTypeIndice) {
-            if (parseInt(selectedTypeIndice,10) === 0) {
+            if (parseInt(selectedTypeIndice, 10) === 0) {
                 $scope.urlSelected = templateTables[2];
             } else {
                 $scope.urlSelected = templateTables[4];
             }
-            TabsService.changeActiveIndexType(parseInt(selectedTypeIndice,10));
+            TabsService.changeActiveIndexType(parseInt(selectedTypeIndice, 10));
             $scope.selectedTypeIndice = selectedTypeIndice;
         };
         //function to convert the service tab to the local tab system
         $scope.transformTab = function (idTab, idIndex) {
-            if (parseInt(idTab,10) === 2) {//is Index
-                if (parseInt(idIndex,10) === 0) {
+            if (parseInt(idTab, 10) === 2) {//is Index
+                if (parseInt(idIndex, 10) === 0) {
                     return 2;
                 } else {
                     return 4;
@@ -365,11 +365,11 @@ angular.module('ngMo.calendar', [
             var urlParam = this.createParamsFromFilter(filtering);
 
             config = {
-                params :{
+                params: {
                     'page': page,
                     'token': $window.sessionStorage.token,
-                    'productType': parseInt(filtering.active_tab,10),
-                    'indexType': parseInt(filtering.active_tab,10),
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': parseInt(filtering.active_tab, 10),
                     'order': parseInt(filtering.order, 10)
                 }
             };
@@ -453,10 +453,10 @@ angular.module('ngMo.calendar', [
 
         };
 
-        this.getLastDayOfMonth = function (month, callbackFunc){
+        this.getLastDayOfMonth = function (month, callbackFunc) {
 
             config = {
-                params :{
+                params: {
                     'month': month,
                     'token': $window.sessionStorage.token
                 }

@@ -32,7 +32,7 @@ angular.module('ngMo.home', [
             });
         };
     })
-    .service('PacksService', function ($http){
+    .service('PacksService', function ($http) {
         this.obtainPacks = function (callbackFunc) {
             var europePacks = $http.get('http://api.mo.devel.edosoftfactory.com/homepacks').success(function (data) {
                 callbackFunc(data);
@@ -52,7 +52,7 @@ angular.module('ngMo.home', [
         $scope.myInterval = 6000;
 
         $scope.scrollTo = AnchorLinkService.scrollTo;
-        $scope.tooltipOpinions= $templateCache.get("tooltips/opinion.tpl.html");
+        $scope.tooltipOpinions = $templateCache.get("tooltips/opinion.tpl.html");
         $scope.tooltipReliability = $templateCache.get("tooltips/reliatibility.tpl.html");
         $scope.tooltipPeriods = $templateCache.get("tooltips/period.tpl.html");
         $scope.tooltipFact = $templateCache.get("tooltips/fact.tpl.html");
@@ -166,15 +166,15 @@ angular.module('ngMo.home', [
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
-.directive('carouselControllerProvider', function($timeout,$modal){
+    .directive('carouselControllerProvider', function ($timeout, $modal) {
         return {
-            link:function(scope, elem){
-                $timeout(function(){
+            link: function (scope, elem) {
+                $timeout(function () {
                     var carousel = elem.find('div')[1];
                     var carouselCtrl = angular.element(carousel).isolateScope();
                     var _modal_ = $modal;
                     var origNext = carouselCtrl.next;
-                    carouselCtrl.open = function($scope){
+                    carouselCtrl.open = function ($scope) {
                         $scope.advertisingViews = [
                             {
                                 src: 'home/advertising/majufuri_no_advantages.tpl.html'
@@ -212,8 +212,8 @@ angular.module('ngMo.home', [
                                 advertisingSelected: function () {
                                     var items = elem.find('li');
                                     var i = 0;
-                                    while(item = items[i]) {
-                                        if (item.className.indexOf('active') >= 0){
+                                    while (item = items[i]) {
+                                        if (item.className.indexOf('active') >= 0) {
                                             return $scope.advertisingViews[i].src;
                                         }
                                         i++;
@@ -229,7 +229,7 @@ angular.module('ngMo.home', [
     })
 
     //home texts that change when change product type tab
-    .directive('homeTexts',function (ActiveTabService){
+    .directive('homeTexts', function (ActiveTabService) {
         urlTemplatesHomeTexts = [
             {url: 'home/home_texts/stock_text.tpl.html'},
             {url: 'home/home_texts/pairs_text.tpl.html'},
@@ -238,13 +238,13 @@ angular.module('ngMo.home', [
         ];
         selectedTab = ActiveTabService.activeTab();
         return {
-            controller: function($scope){
-                $scope.onClickTab = function(idTab){
-                    selectedTab =ActiveTabService.changeActiveTab(idTab);
+            controller: function ($scope) {
+                $scope.onClickTab = function (idTab) {
+                    selectedTab = ActiveTabService.changeActiveTab(idTab);
                 };
             },
-            link: function($scope) {
-                $scope.getContentUrl = function() {
+            link: function ($scope) {
+                $scope.getContentUrl = function () {
                     return urlTemplatesHomeTexts[selectedTab].url;
                 };
             },

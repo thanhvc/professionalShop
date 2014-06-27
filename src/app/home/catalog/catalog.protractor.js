@@ -2,7 +2,7 @@
  * Created by laia on 4/06/14.
  */
 
-var Cart = function() {
+var Cart = function () {
 
     // All relevant elements
     this.items = element.all(by.css('.signup-input'));
@@ -20,7 +20,7 @@ var Cart = function() {
     this.total2 = 0;
 
     this.open = function () {
-        browser.get('http://46.51.174.51/moshopclient');
+        browser.get('http://mo.devel.edosoftfactory.com');
         browser.ignoreSynchronization = true;
     };
 
@@ -30,7 +30,7 @@ var Cart = function() {
         element(by.id("purchase-button")).click();
     };
 
-    this.buyingMore = function(){
+    this.buyingMore = function () {
         element(by.repeater('pack in homeTablePack.americaContent track by $index'));//.row(0);//.click());
         //element.all(by.css('pack in homeTablePack.americaContent track by $index')).get(0).click();//.row(0);//.click());
 
@@ -41,23 +41,23 @@ var Cart = function() {
         var icon = element(by.css('.icon-cart')).click();
     };
 
-    this.correctItemsNumber = function(){
+    this.correctItemsNumber = function () {
         element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
         element(by.id("purchase-button")).click();
-        browser.get('http://46.51.174.51/moshopclient');
+        browser.get('http://mo.devel.edosoftfactory.com');
         element(by.repeater('pack in homeTablePack.americaContent track by $index').row(2)).click();
         element(by.id("purchase-button")).click();
     };
 
-    this. correctSum = function(){
+    this.correctSum = function () {
         element(by.repeater('pack in homeTablePack.americaContent track by $index'));//.row(0)).click();
         element(by.id("purchase-button")).click();
 
-        this.subtotal.getText().then(function(result){
-           this.subtotal2 = result.substring(6,12);
+        this.subtotal.getText().then(function (result) {
+            this.subtotal2 = result.substring(6, 12);
 
         });
-        this.total.getText().then(function(result){
+        this.total.getText().then(function (result) {
             this.total2 = result;//.substring(6,12);
 
         });
@@ -65,7 +65,7 @@ var Cart = function() {
 };
 
 
-describe('The cart functionality is corret', function() {
+describe('The cart functionality is corret', function () {
 
     var c = new Cart();
 
@@ -75,29 +75,29 @@ describe('The cart functionality is corret', function() {
         expect(browser.isElementPresent(by.css('.shopping-cart-summary'))).toBe(true);
     });
 
-    it('should disappear when buying more', function(){
-       // c.open();
+    it('should disappear when buying more', function () {
+        // c.open();
         c.buyingMore();
         expect(browser.isElementPresent(by.css('.hide-summary-cart'))).toBe(true);
 
     });
 
 
-    it('should the correct number of elements in the icon ', function(){
+    it('should the correct number of elements in the icon ', function () {
 
         c.open();
         c.correctItemsNumber();
         var anumber = element(by.binding('numItemsCart'));
         var theValue;
-        anumber.getText().then(function(aValueStr){
+        anumber.getText().then(function (aValueStr) {
             theValue = Number(aValueStr);
             expect(theValue).toBe(1);
         });
 
     });
 
-    it('should have the correct sum', function(){
-       // c.open();
+    it('should have the correct sum', function () {
+        // c.open();
         c.correctSum();
         expect(c.subtotal2).toBe(c.total2);
 
