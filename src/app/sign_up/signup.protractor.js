@@ -49,18 +49,18 @@ var SigunMenu = function() {
 
         //Do the signup
         $('a[href*="sign-up"]').click();
-         this.input1.sendKeys('laia@gmail.com');
-         this.input2.sendKeys('laia@gmail.com');
-         this.input3.sendKeys('prueba12');
-         this.input4.sendKeys('prueba12');
+         this.input1.sendKeys('user@gmail.com');
+         this.input2.sendKeys('user@gmail.com');
+         this.input3.sendKeys('userpass');
+         this.input4.sendKeys('userpass');
         //Clickkkk
 
         //Do login
         $('.no-logged-box').click();
         this.userName = element.all(by.css('input')).get(0);
-        this.userName.sendKeys('laia');
+        this.userName.sendKeys('user');
         this.userName = element.all(by.css('input')).get(1);
-        this.userName.sendKeys('prueba12');
+        this.userName.sendKeys('userpass');
         element(by.css('.mo-button')).click();
 
         //Check user's pack

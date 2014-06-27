@@ -12,7 +12,7 @@ var Patterns = function() {
     this.graphicName = '';
 
     this.open = function () {
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/patterns');
+        browser.get('http://46.51.174.51/moshopclient/#/patterns');
         browser.ignoreSynchronization = true;
     };
 
@@ -47,7 +47,7 @@ var SP = function(){
     this.graphic = null;
     this.graphicName = '';
     this.open = function () {
-        browser.get('http://46.51.174.51/moshopclient/#/patterns');
+        http://localhost:63342/mo-shopclient/build/index.html#/patterns')
         browser.ignoreSynchronization = true;
     };
 
@@ -163,8 +163,6 @@ var Actions = function(){
     };
 
     this.checkNumericFields = function(){
-
-        //this.element = $('input[class*="border-filters"]');
         this.element = $('input[name*="rentInput"]');
         this.element.sendKeys('35');
 
@@ -455,7 +453,6 @@ describe('Pattern menu', function(){
         expect(a.acttab).toBe('rgba(255, 130, 0, 1)');
         expect(a.market).toBe('1');
         expect(a.rent).toBe('11');
-        //expect(a.selrent).toBe('1');
         expect(a.selaver).toBe('1');
         expect(a.seldiar).toBe('1');
         expect(a.selvol).toBe('1');

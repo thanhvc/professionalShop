@@ -14,7 +14,7 @@ var Packs = function(){
         element(by.css(".no-logged-box")).click();
         element(by.css(".float-right")).sendKeys('@gmail.com');
         element.all(by.css(".float-right")).get(1).sendKeys('prueba12');
-        //element(by.css(".mo-button")).click();
+
         browser.get('http://46.51.174.51/moshopclient/#/my-subscriptions/my-packs');
     };
 

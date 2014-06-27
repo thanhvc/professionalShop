@@ -1,9 +1,4 @@
 /**
- * Created by laia on 26/06/14.
- *//*
-
-*/
-/**
  * Created by laia on 25/06/14.
  */
 
@@ -36,7 +31,6 @@ describe('The volatility page ', function() {
     var a = new App();
     it('should appear when volatility link is clicked', function () {
         a.open();
-        //a.login();
         expect(browser.isElementPresent(by.css('.private-black-title'))).toBe(true);
     });
 
