@@ -620,7 +620,7 @@ angular.module('ngMo.lookup_diary', [
                 }
             };
 
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/lookupdiarypatterns', config).success(function (data) {
+            var result = $http.get('http://api.mo.devel.edosoftfactory.com/lookupdiarypatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });

@@ -374,7 +374,7 @@ angular.module('ngMo.calendar', [
                 }
             };
 
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/calendarpatterns', config).success(function (data) {
+            var result = $http.get('http://api.mo.devel.edosoftfactory.com/calendarpatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });
@@ -461,7 +461,7 @@ angular.module('ngMo.calendar', [
                     'token': $window.sessionStorage.token
                 }
             };
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/lastdaymonth', config).success(function (data) {
+            var result = $http.get('http://api.mo.devel.edosoftfactory.com/lastdaymonth', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });

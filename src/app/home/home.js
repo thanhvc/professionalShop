@@ -21,20 +21,20 @@ angular.module('ngMo.home', [
     })
     .service('ActualDateService', function ($http){
         this.actualDate = function(callbackFunc){
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/actualdate').success(function (data) {
+            var result = $http.get('http://api.mo.devel.edosoftfactory.com/actualdate').success(function (data) {
                 callbackFunc(data);
             });
         };
 
         this.actualWeek = function(callbackFunc){
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/numweek').success(function (data) {
+            var result = $http.get('http://api.mo.devel.edosoftfactory.com/numweek').success(function (data) {
                 callbackFunc(data);
             });
         };
     })
     .service('PacksService', function ($http){
         this.obtainPacks = function (callbackFunc) {
-            var europePacks = $http.get('http://api.mo-shopclient.development.com:9000/homepacks').success(function (data) {
+            var europePacks = $http.get('http://api.mo.devel.edosoftfactory.com/homepacks').success(function (data) {
                 callbackFunc(data);
             });
         };
