@@ -48,7 +48,7 @@ angular.module('ngMo.correlation', [
             currentPage: 1
         };
 
-        $scope.selectedPatterns= {};
+        $scope.selectedPatterns = {};
 
         /** templates of filters/tables for each tab**/
         var templateTables = [
@@ -607,15 +607,15 @@ angular.module('ngMo.correlation', [
             var urlParam = this.createParamsFromFilter(filtering);
 
             config = {
-                params :{
+                params: {
                     'page': page,
                     'token': $window.sessionStorage.token,
-                    'productType': parseInt(filtering.active_tab,10),
-                    'indexType': parseInt(filtering.active_tab,10)
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': parseInt(filtering.active_tab, 10)
                 }
             };
 
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/obtainpatterns', config).success(function (data) {
+            var result = $http.get('http://api.mo.devel.edosoftfactory.com/obtainpatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });

@@ -1,33 +1,33 @@
 /*
  * Created by laia on 2/06/14.
-*
+ *
  * Created by Aitor on 28/05/14.*/
 
 //Check if login box fades in
-var App = function(){
+var App = function () {
 
-    this.open = function(){
-        browser.get('http://46.51.174.51/moshopclient/');
+    this.open = function () {
+        browser.get('http://mo.devel.edosoftfactory.com/');
         browser.ignoreSynchronization = true;
     };
 
-    this.clickF = function(){
+    this.clickF = function () {
         element(by.css(".no-logged-box")).click();
     };
 
-    this.fadeIn = function(){
+    this.fadeIn = function () {
 
         element(by.css(".no-logged-box")).click();
     };
 
-    this.fadeOut = function(){
+    this.fadeOut = function () {
 
         element(by.css(".no-logged-box")).click();
         element(by.css(".subscribe-free-link")).click();
     };
 };
 
-describe('The login box', function() {
+describe('The login box', function () {
 
     var a = new App();
     it('should appear when login link is clicked', function () {
@@ -44,7 +44,7 @@ describe('The login box', function() {
 
     it('should fade out', function () {
         a.fadeOut();
-      //  expect(browser.isElementPresent(by.css('.sign-in-box'))).toBe(false);
+        //  expect(browser.isElementPresent(by.css('.sign-in-box'))).toBe(false);
     });
 });
 

@@ -28,7 +28,7 @@ angular.module('ngMo.lookup_diary', [
     })
 
     .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService, LookupDiaryService, $http, $state, $stateParams, $location) {
-        $scope.$on('$stateChangeStart', function (event, toState){
+        $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -612,15 +612,15 @@ angular.module('ngMo.lookup_diary', [
             var urlParam = this.createParamsFromFilter(filtering);
 
             config = {
-                params :{
+                params: {
                     'page': page,
                     'token': $window.sessionStorage.token,
-                    'productType': parseInt(filtering.active_tab,10),
-                    'indexType': parseInt(filtering.active_tab,10)
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': parseInt(filtering.active_tab, 10)
                 }
             };
 
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/lookupdiarypatterns', config).success(function (data) {
+            var result = $http.get('http://api.mo.devel.edosoftfactory.com/lookupdiarypatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });

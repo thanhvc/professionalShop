@@ -11,7 +11,7 @@
 
      this.open = function () {
          // Goto the login page
-         browser.get('http://46.51.174.51/moshopclient/');
+         browser.get('http://mo.devel.edosoftfactory.com/');
          browser.ignoreSynchronization = true;
      };
 

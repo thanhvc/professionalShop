@@ -19,27 +19,26 @@ angular.module('ngMo.home', [
     .config(function config($stateProvider) {
 
     })
-    .service('ActualDateService', function ($http){
-        this.actualDate = function(callbackFunc){
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/actualdate').success(function (data) {
+    .service('ActualDateService', function ($http) {
+        this.actualDate = function (callbackFunc) {
+            var result = $http.get('http://api.mo.devel.edosoftfactory.com/actualdate').success(function (data) {
                 callbackFunc(data);
             });
         };
 
-        this.actualWeek = function(callbackFunc){
-            var result = $http.get('http://api.mo-shopclient.development.com:9000/numweek').success(function (data) {
+        this.actualWeek = function (callbackFunc) {
+            var result = $http.get('http://api.mo.devel.edosoftfactory.com/numweek').success(function (data) {
                 callbackFunc(data);
             });
         };
     })
-    .service('PacksService', function ($http){
+    .service('PacksService', function ($http) {
         this.obtainPacks = function (callbackFunc) {
-            var europePacks = $http.get('http://api.mo-shopclient.development.com:9000/homepacks').success(function (data) {
+            var europePacks = $http.get('http://api.mo.devel.edosoftfactory.com/homepacks').success(function (data) {
                 callbackFunc(data);
             });
         };
     })
-
 
 
     //carousel functions
@@ -52,7 +51,7 @@ angular.module('ngMo.home', [
         $scope.myInterval = 6000;
 
         $scope.scrollTo = AnchorLinkService.scrollTo;
-        $scope.tooltipOpinions= $templateCache.get("tooltips/opinion.tpl.html");
+        $scope.tooltipOpinions = $templateCache.get("tooltips/opinion.tpl.html");
         $scope.tooltipReliability = $templateCache.get("tooltips/reliatibility.tpl.html");
         $scope.tooltipPeriods = $templateCache.get("tooltips/period.tpl.html");
         $scope.tooltipFact = $templateCache.get("tooltips/fact.tpl.html");
@@ -105,12 +104,12 @@ angular.module('ngMo.home', [
                 "");
 
         $scope.tooltipFact = "<div style='width:780px'>Hecho:<br>Algo basado en datos verificables. Si adem&aacute;s el hecho es objetivo, la informaci&oacute;n debe ser completa y revelar todos los detalles.</div>";
-        $scope.tooltipReliability = "<div style='width:640px'>En Market Observatory, una <strong>Fiabilidad o Frecuencia 90%</strong> de aciertos significa:<br><ul class='public-list-first-level'>"+
-            "<li class='listadoFlechas textoEstaticoPublicidad'>La mayor parte de los Patrones o Estrategias publicadas en la Web tienen 0 fallos en 15 a&ntilde;os -fiabilidad 100%- o 1 fallo en 15 a&ntilde;os -fiabilidad del 93%-</li>"+
-            "<li class='listadoFlechas textoEstaticoPublicidad'>El resto de Patrones tienen 2 fallos en 15 a&ntilde;os -fiabilidad del 87%-.</li>"+
-        "</ul></div>";
-        $scope.tooltipPeriods = "<div style='width:640px'>En Market Observatory, un <strong>Periodo &oacute;ptimo</strong> para invertir supone:<br>"+
-         "<ul class='public-list-first-level'><li class='listadoFlechas textoEstaticoPublicidad'>Maximizar la rentabilidad, con la mayor frecuencia de aciertos, reduciendo las p&eacute;rdidas en los a&ntilde;os con fallo y exponi&eacute;ndose al riesgo de mercado durante el menor tiempo posible.</li></ul></div>";
+        $scope.tooltipReliability = "<div style='width:640px'>En Market Observatory, una <strong>Fiabilidad o Frecuencia 90%</strong> de aciertos significa:<br><ul class='public-list-first-level'>" +
+            "<li class='listadoFlechas textoEstaticoPublicidad'>La mayor parte de los Patrones o Estrategias publicadas en la Web tienen 0 fallos en 15 a&ntilde;os -fiabilidad 100%- o 1 fallo en 15 a&ntilde;os -fiabilidad del 93%-</li>" +
+            "<li class='listadoFlechas textoEstaticoPublicidad'>El resto de Patrones tienen 2 fallos en 15 a&ntilde;os -fiabilidad del 87%-.</li>" +
+            "</ul></div>";
+        $scope.tooltipPeriods = "<div style='width:640px'>En Market Observatory, un <strong>Periodo &oacute;ptimo</strong> para invertir supone:<br>" +
+            "<ul class='public-list-first-level'><li class='listadoFlechas textoEstaticoPublicidad'>Maximizar la rentabilidad, con la mayor frecuencia de aciertos, reduciendo las p&eacute;rdidas en los a&ntilde;os con fallo y exponi&eacute;ndose al riesgo de mercado durante el menor tiempo posible.</li></ul></div>";
         $scope.tooltipOpinions = "<div style='width:780px'>Opini&oacute;n:<br>Algo \"personal\" que se expresa y no se puede garantizar que sea verdad. Una opini&oacute;n es similar a una predicci&oacute;n.</div>";
 
 
@@ -166,15 +165,15 @@ angular.module('ngMo.home', [
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
-.directive('carouselControllerProvider', function($timeout,$modal){
+    .directive('carouselControllerProvider', function ($timeout, $modal) {
         return {
-            link:function(scope, elem){
-                $timeout(function(){
+            link: function (scope, elem) {
+                $timeout(function () {
                     var carousel = elem.find('div')[1];
                     var carouselCtrl = angular.element(carousel).isolateScope();
                     var _modal_ = $modal;
                     var origNext = carouselCtrl.next;
-                    carouselCtrl.open = function($scope){
+                    carouselCtrl.open = function ($scope) {
                         $scope.advertisingViews = [
                             {
                                 src: 'home/advertising/majufuri_no_advantages.tpl.html'
@@ -212,8 +211,8 @@ angular.module('ngMo.home', [
                                 advertisingSelected: function () {
                                     var items = elem.find('li');
                                     var i = 0;
-                                    while(item = items[i]) {
-                                        if (item.className.indexOf('active') >= 0){
+                                    while (item = items[i]) {
+                                        if (item.className.indexOf('active') >= 0) {
                                             return $scope.advertisingViews[i].src;
                                         }
                                         i++;
@@ -229,7 +228,7 @@ angular.module('ngMo.home', [
     })
 
     //home texts that change when change product type tab
-    .directive('homeTexts',function (ActiveTabService){
+    .directive('homeTexts', function (ActiveTabService) {
         urlTemplatesHomeTexts = [
             {url: 'home/home_texts/stock_text.tpl.html'},
             {url: 'home/home_texts/pairs_text.tpl.html'},
@@ -238,13 +237,13 @@ angular.module('ngMo.home', [
         ];
         selectedTab = ActiveTabService.activeTab();
         return {
-            controller: function($scope){
-                $scope.onClickTab = function(idTab){
-                    selectedTab =ActiveTabService.changeActiveTab(idTab);
+            controller: function ($scope) {
+                $scope.onClickTab = function (idTab) {
+                    selectedTab = ActiveTabService.changeActiveTab(idTab);
                 };
             },
-            link: function($scope) {
-                $scope.getContentUrl = function() {
+            link: function ($scope) {
+                $scope.getContentUrl = function () {
                     return urlTemplatesHomeTexts[selectedTab].url;
                 };
             },
