@@ -5,7 +5,7 @@
 /* The signup menu is correct*/
 
 
-var SigunMenu = function() {
+var SigunMenu = function () {
 
     // All relevant elements
     this.items = element.all(by.css('.signup-input'));
@@ -16,12 +16,12 @@ var SigunMenu = function() {
     this.patterns = null;
     this.error = element.all(by.css('.red-color-form')).get(2);
 
-    this.open = function() {
+    this.open = function () {
         // Goto the login page
-        browser.get('http://46.51.174.51/moshopclient/#/sign-up');
+        browser.get('http://mo.devel.edosoftfactory.com/#/sign-up');
     };
 
-    this.checkIdenticalInputs = function(){
+    this.checkIdenticalInputs = function () {
 
         this.input1.getAttribute('value').sendKeys('userEmail');
         this.input2.getAttribute('value').sendKeys('userEmail');
@@ -30,29 +30,29 @@ var SigunMenu = function() {
     };
 
 
-    this.checkCorrectFormat = function(){
+    this.checkCorrectFormat = function () {
         this.matcher = new RegExp('[\b[a-z0-9._%+-]+@[a-z0-9.-]+\/.[a-z]b.]');
 
     };
 
-    this.checkAtLeastEightCharacters = function(){
+    this.checkAtLeastEightCharacters = function () {
         this.input3.sendKeys('pass');
 
     };
 
-    this.checkIfAlphanumeris = function(){
+    this.checkIfAlphanumeris = function () {
         this.input3.sendKeys('***');
 
     };
 
-    this.checkPack = function(){
+    this.checkPack = function () {
 
         //Do the signup
         $('a[href*="sign-up"]').click();
-         this.input1.sendKeys('usuario@edosoft.com');
-         this.input2.sendKeys('usuario@edosoft.com');
-         this.input3.sendKeys('usuariopass');
-         this.input4.sendKeys('usuariopass');
+        this.input1.sendKeys('usuario@edosoft.com');
+        this.input2.sendKeys('usuario@edosoft.com');
+        this.input3.sendKeys('usuariopass');
+        this.input4.sendKeys('usuariopass');
         //Clickkkk
 
         //Do login
@@ -63,17 +63,17 @@ var SigunMenu = function() {
         this.userName.sendKeys('uusuarioPass');
 
         //Check user's pack
-        browser.get('http://46.51.174.51/moshopclient/#/patterns');
+        browser.get('http://mo.devel.edosoftfactory.com/#/patterns');
         this.patterns = element.all(by.css('.table-cell-patterns'));
 
     };
 
 };
-describe('signupMenu', function(){
+describe('signupMenu', function () {
 
     var sMenu = new SigunMenu();
 
-    it('should open the page', function() {
+    it('should open the page', function () {
 
         sMenu.open();
         expect(sMenu.items.count()).toBe(4);
@@ -84,31 +84,31 @@ describe('signupMenu', function(){
 
     });
 
-    it(' should have Identical Inputs' , function(){
+    it(' should have Identical Inputs', function () {
 
         sMenu.checkIdenticalInputs();
         expect(sMenu.input1.getAttribute('value')).toBe(sMenu.input2.getAttribute('value'));
         expect(sMenu.input3.getAttribute('value')).toBe(sMenu.input4.getAttribute('value'));
     });
 
-    it('should have the correct format', function(){
+    it('should have the correct format', function () {
         sMenu.checkCorrectFormat();
         sMenu.matcher.test(sMenu.input1.getAttribute('value'));
 
     });
 
-    it('should have at least 8 characters', function(){
+    it('should have at least 8 characters', function () {
 
         sMenu.checkAtLeastEightCharacters();
         expect(sMenu.error.getText()).toBeDefined();
     });
 
-    it('should be alphanumeric',function(){
+    it('should be alphanumeric', function () {
         sMenu.checkIfAlphanumeris();
         expect(sMenu.error.getText()).toBeDefined();
     });
 
-    it('should have the same pack as a free suscriptor', function(){
+    it('should have the same pack as a free suscriptor', function () {
 
         sMenu.checkPack();
         expect(sMenu.patterns.count()).toBe(560);
@@ -116,7 +116,7 @@ describe('signupMenu', function(){
 });
 
 
-var SignupMenuStep2 = function() {
+var SignupMenuStep2 = function () {
 
     // All relevant elements
     this.items = element.all(by.css('.signup-input'));
@@ -129,7 +129,7 @@ var SignupMenuStep2 = function() {
     this.errorI = element.all(by.css('text-warning-form'));
 
     this.open = function () {
-        browser.get('http://46.51.174.51/moshopclient/#/sign-up-step2');
+        browser.get('http://mo.devel.edosoftfactory.com/#/sign-up-step2');
         browser.ignoreSynchronization = true;
     };
 
@@ -140,31 +140,31 @@ var SignupMenuStep2 = function() {
     this.checkValidSurname = function () {
         this.input2.sendKeys('surnameUser*');
     };
-    this.checkCorrectAddressField = function(){
+    this.checkCorrectAddressField = function () {
         this.input3.sendKeys('userAddress');
 
     };
-    this.checkValidCity = function(){
+    this.checkValidCity = function () {
         this.input4.sendKeys('userCity');
     };
-    this.checkCountrySelected = function(){
-         this.country.sendKeys('Albania');
+    this.checkCountrySelected = function () {
+        this.country.sendKeys('Albania');
 
     };
-    this.checkCaptchaSelected = function(){
+    this.checkCaptchaSelected = function () {
         this.input6.sendKeys('4');
 
     };
-    this.checkPostalCode = function(){
+    this.checkPostalCode = function () {
         this.input4.sendKeys('userPostalCode');
 
     };
-    this.checkConditionsAceppted = function(){
+    this.checkConditionsAceppted = function () {
         var conditions = error.last();
         expect(conditions.getText()).toBeDefined();
     };
 
-    this.freeSuscription = function(){
+    this.freeSuscription = function () {
 
         element(by.id('subscriptions-and-prices-nav')).click();
         element(by.id('free-subscription-nav')).click();
@@ -173,15 +173,14 @@ var SignupMenuStep2 = function() {
     };
 
 
-
 };
 
-describe('Signup step2 should work', function(){
+describe('Signup step2 should work', function () {
 
     var sMenu2 = new SignupMenuStep2();
 
 
-    it('should have a valid name',function(){
+    it('should have a valid name', function () {
 
         sMenu2.open();
 
@@ -189,48 +188,48 @@ describe('Signup step2 should work', function(){
         expect(sMenu2.errorI.first()).toBeDefined();
     });
 
-    it('should have a valid surname',function(){
+    it('should have a valid surname', function () {
 
         sMenu2.checkValidSurname();
         expect(sMenu2.errorI.get(1)).toBeDefined();
     });
 
-    it('should have a valid address',function(){
+    it('should have a valid address', function () {
 
         sMenu2.checkCorrectAddressField();
         expect(sMenu2.errorI.get(1)).toBe(null);
     });
 
-    it('should have a valid city',function(){
+    it('should have a valid city', function () {
 
         sMenu2.checkValidCity();
         expect(sMenu2.errorI.get(1)).toBe(null);
     });
 
-    it('should have a country selected', function(){
+    it('should have a country selected', function () {
 
         sMenu2.checkCountrySelected();
-        sMenu2.country.getAttribute('value').then(function(result) {
+        sMenu2.country.getAttribute('value').then(function (result) {
             expect(result).toBe('1');
         });
 
 
     });
 
-    it('should have a  valid captcha', function(){
+    it('should have a  valid captcha', function () {
 
         sMenu2.checkCaptchaSelected();
         expect(sMenu2.input6.getAttribute('value')).toBe('4');
 
     });
 
-    it('should have a postal code', function(){
+    it('should have a postal code', function () {
 
         sMenu2.checkPostalCode();
         expect(sMenu2.errorI.get(1)).toBe(null);
     });
 
-    it('should go the free subscription', function(){
+    it('should go the free subscription', function () {
         sMenu2.freeSuscription();
         expect(element(by.css('signup-table'))).toBeDefined();
 

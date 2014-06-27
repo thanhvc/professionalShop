@@ -31,7 +31,7 @@ angular.module('ngMo.investor_tools', [
                     }
                 },
                 data: {
-                    pageTitle: 'Articulos',
+                    pageTitle: 'Artículos',
                     selectMenu: 'investor-tools-nav',
                     selectSubmenu: 'submenu5',
                     selectItemSubmenu: 'articles-nav',

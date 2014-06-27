@@ -16,7 +16,7 @@ describe('The Patterns view ', function () {
         template = $templateCache;
         httpMock = $httpBackend;
         httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond(200);
-        httpMock.when('GET', 'src/app/my_patterns/data/testdataStock.json.js?pageSize=10&page=1').respond([
+        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/patterns?indexType=0&page=1&productType=0').respond(200,
             {
                 "Id": "20000",
                 "name": "EMERA ",
@@ -59,7 +59,8 @@ describe('The Patterns view ', function () {
                 "Fav": false,
                 "Est": "Finalizado"
             }
-        ]);
+        );
+        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/actualdate').respond(200);
     }));
 
 
