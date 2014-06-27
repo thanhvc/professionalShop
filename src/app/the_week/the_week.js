@@ -45,7 +45,7 @@ angular.module('ngMo.the_week', [
          * TODO: replace number for service
          * @type {number}
          */
-        $scope.weekOfYear = 23;
+        $scope.weekOfYear = ActualDateService.actualWeek();
         $scope.year = ActualDateService.actualDate().getFullYear();
         var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         $scope.month = months[ActualDateService.actualDate().getMonth()];
