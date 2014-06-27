@@ -9,3 +9,4 @@ vendor/
 coverage/
 karma/
 test-results.xml
+e2e-test-results/*xml
