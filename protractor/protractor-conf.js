@@ -23,7 +23,7 @@ exports.config = {
          * Can be used to specify the phantomjs binary path.
          * This can generally be ommitted if you installed phantomjs globally.
           */
-            'phantomjs.binary.path': '../../karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
+            'phantomjs.binary.path': 'node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
 
          /*
           * Csasdommand line arugments to pass to phantomjs.
