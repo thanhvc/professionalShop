@@ -11,7 +11,7 @@ var Menu = function() {
     this.table = null;
 
     this.open = function () {
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
+        browser.get('http://46.51.174.51/moshopclient/#/');
         browser.ignoreSynchronization = true;
     };
 

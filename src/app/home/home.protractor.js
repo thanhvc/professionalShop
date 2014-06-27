@@ -11,7 +11,7 @@
 
      this.open = function () {
          // Goto the login page
-         browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
+         browser.get('http://46.51.174.51/moshopclient/#');
          browser.ignoreSynchronization = true;
      };
 

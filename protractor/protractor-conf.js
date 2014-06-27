@@ -8,7 +8,7 @@ exports.config = {
         layout: '../src/app/*protractor.js',
         signup:' ../src/app/sign_up/*protractor.js',
         cart:' ../src/app/home/catalog/*protractor.js',
-        //menu:' ../src/app/layout_templates/*protractor.js',
+        menu:' ../src/app/layout_templates/*protractor.js',
         //patterns:' ../src/app/my_patterns/*protractor.js',
         volatility:' ../src/app/tools/volatility/*protractor.js',
         my_packs: '../src/app/my_subscriptions/*protractor.js'

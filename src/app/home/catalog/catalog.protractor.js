@@ -20,7 +20,7 @@ var Cart = function() {
     this.total2 = 0;
 
     this.open = function () {
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/catalog/1');
+        browser.get('http://46.51.174.51/moshopclient/#/catalog/1');
         browser.ignoreSynchronization = true;
     };
 
@@ -33,8 +33,8 @@ var Cart = function() {
     };
 
     this.buyingMore = function(){
-        element.all(by.css('ng-binding')).get(0);//.row(0);//.click());
-        //element.all(by.css('pack in homeTablePack.americaContent track by $index')).get(0).click();//.row(0);//.click());
+        element.all(by.css('ng-binding')).get(0);
+        //element.all(by.css('pack in homeTablePack.americaContent track by $index')).get(0).click();
 
         element(by.id("purchase-button")).click();
         var button = element.all(by.css(".mo-button"));
@@ -51,7 +51,7 @@ var Cart = function() {
     };
 
     this.correctSum = function(){
-        element(by.repeater('pack in homeTablePack.americaContent track by $index'));//.row(0)).click();
+        element(by.repeater('pack in homeTablePack.americaContent track by $index'));
         element(by.id("purchase-button")).click();
 
         this.subtotal.getText().then(function(result){
