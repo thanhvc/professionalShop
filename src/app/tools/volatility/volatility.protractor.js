@@ -10,7 +10,7 @@
 var App = function(){
 
     this.open = function(){
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/volatility');
+        browser.get('http://46.51.174.51/moshopclient/#/volatility');
         browser.ignoreSynchronization = true;
     };
 
@@ -36,7 +36,7 @@ describe('The volatility page ', function() {
     var a = new App();
     it('should appear when volatility link is clicked', function () {
         a.open();
-        a.login();
+        //a.login();
         expect(browser.isElementPresent(by.css('.private-black-title'))).toBe(true);
     });
 

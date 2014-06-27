@@ -11,11 +11,7 @@
 
      this.open = function () {
          // Goto the login page
-<<<<<<< HEAD
-         browser.get('http://mo.devel.edosoftfactory.com/');
-=======
-         browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
->>>>>>> Volatility tests
+         browser.get('http://46.51.174.51/moshopclient/#');
          browser.ignoreSynchronization = true;
      };
 
