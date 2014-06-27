@@ -1,7 +1,7 @@
 /**
  * Created by robgon on 10/06/14.
 
-describe('The Patterns view ', function () {
+ describe('The Patterns view ', function () {
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(module('ui.router'));
     beforeEach(module('ui.bootstrap'));
@@ -15,6 +15,6 @@ describe('The Patterns view ', function () {
         compile = $compile;
         template = $templateCache;
         httpMock = $httpBackend;
-        httpMock.when('GET', 'http://api.mo-shopclient.development.com:9000/loaduser').respond(200);
+        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/loaduser').respond(200);
         httpMock.when('GET', 'src/app/my_patterns/data/testdataStock.json.js?pageSize=10&page=1').respond([
             {*/

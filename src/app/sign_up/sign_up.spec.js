@@ -1,6 +1,6 @@
-describe('The SignUp ',function(){
+describe('The SignUp ', function () {
     beforeEach(angular.mock.module("ngMo"));
-    describe('form ', function(){
+    describe('form ', function () {
 
         var compile;
         var scope;
@@ -9,24 +9,24 @@ describe('The SignUp ',function(){
         beforeEach(module('ui.router'));//needed to user $state
         beforeEach(module('ui.bootstrap'));//to load $modal
         beforeEach(angular.mock.module('singUp'));//start the module
-        beforeEach(inject(function($templateCache,$compile,$rootScope, $controller, $state,$httpBackend){
+        beforeEach(inject(function ($templateCache, $compile, $rootScope, $controller, $state, $httpBackend) {
 
             httpMock = $httpBackend;
-            httpMock.when('GET', 'http://api.mo-shopclient.development.com:9000/islogged').respond(200);
-            httpMock.when('POST', 'http://api.mo-shopclient.development.com:9000/testemail').respond(
-                 {
+            httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond(200);
+            httpMock.when('POST', 'http://api.mo.devel.edosoftfactory.com/testemail').respond(
+                {
                     result: "ok"
                 });
-            httpMock.when('POST','http://api.mo-shopclient.development.com:9000/user').respond({
-                    status: "ok"
+            httpMock.when('POST', 'http://api.mo.devel.edosoftfactory.com/user').respond({
+                status: "ok"
             });
             //create an empty scope
             scope = $rootScope.$new();
             //declare the controller and inject our empty scope
             $controller('SignupCtrl', {$scope: scope});
-            state =$state;
-            compile= $compile;
-            template= $templateCache;
+            state = $state;
+            compile = $compile;
+            template = $templateCache;
         }));
         // tests start here
 
@@ -88,9 +88,9 @@ describe('The SignUp ',function(){
             scope.user.email = "test@test";
             scope.sendFirstStep();
             scope.$apply();
-             expect(state.$current.url.source).toEqual("/sign-up"); //is not go to step 2
+            expect(state.$current.url.source).toEqual("/sign-up"); //is not go to step 2
             scope.user.email = "test2@test2.com";
-           // scope.sendFirstStep();
+            // scope.sendFirstStep();
             //scope.$apply();
             statusOK = {
                 result: "ok",
@@ -101,20 +101,20 @@ describe('The SignUp ',function(){
             //now must be in the step2
             expect(state.$current.url.source).toEqual("/sign-up-step2");
 
-            scope.formReg = {$valid : false}; // the form must be valid to go to successful sign up
+            scope.formReg = {$valid: false}; // the form must be valid to go to successful sign up
             scope.sendSecondStep();
             scope.$apply();
             //the form is not valid, we stay in the step 2
             expect(state.$current.url.source).toEqual("/sign-up-step2");
 
             //now we accept the form
-            scope.formReg.$valid= true; // the form must be valid to go to successful sign up
-            scope.user.captcha="22";//the only valid captcha is 4 in this moment
+            scope.formReg.$valid = true; // the form must be valid to go to successful sign up
+            scope.user.captcha = "22";//the only valid captcha is 4 in this moment
             scope.sendSecondStep();
             scope.$apply();
             expect(state.$current.url.source).toEqual("/sign-up-step2");
 
-            scope.user.captcha="4";//the only valid captcha is 4 in this moment
+            scope.user.captcha = "4";//the only valid captcha is 4 in this moment
             scope.secondCallback(statusOK);
             scope.$apply();
 
