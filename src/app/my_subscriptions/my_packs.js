@@ -15,8 +15,8 @@ angular.module('ngMo.my_packs', [
                 }
             }
 
-        })
-        ;
+        });
+
     })
 
     .run(function run() {

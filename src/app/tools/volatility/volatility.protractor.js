@@ -16,7 +16,7 @@ var App = function(){
 
     this.login = function(){
         element(by.css(".no-logged-box")).click();
-        element(by.css(".float-right")).sendKeys('laia@gmail.com');
+        element(by.css(".float-right")).sendKeys('@gmail.com');
         element.all(by.css(".float-right")).get(1).sendKeys('prueba12');
         element(by.css(".mo-button")).click();
     };
@@ -29,7 +29,7 @@ var App = function(){
     this.checkDataLoaded = function(){
         this.row = element.all(by.css(".tableDiaryLinks")).get(0);
     };
-}
+};
 
 describe('The volatility page ', function() {
 
@@ -43,7 +43,7 @@ describe('The volatility page ', function() {
    it('should have 32 lines', function(){
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(32);
+        expect(a.n).toBe(33);
     });
 
 
