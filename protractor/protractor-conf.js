@@ -12,7 +12,7 @@ exports.config = {
         signup:' ../src/app/sign_up/*protractor.js',
         cart:' ../src/app/home/catalog/*protractor.js',
         menu:' ../src/app/layout_templates/*protractor.js',
-        patterns:' ../src/app/my_patterns/*protractor.js'
+        // patterns:' ../src/app/my_patterns/*protractor.js'
 
     },
     multiCapabilities: [
@@ -23,7 +23,7 @@ exports.config = {
          * Can be used to specify the phantomjs binary path.
          * This can generally be ommitted if you installed phantomjs globally.
           */
-            'phantomjs.binary.path': 'node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
+            'phantomjs.binary.path': '../../karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
 
          /*
           * Csasdommand line arugments to pass to phantomjs.
