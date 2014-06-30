@@ -21,7 +21,7 @@ angular.module('ngMo.catalog', [
 
         //Dummies Patterns Pack
         var patternsPack = [
-            {   "id": 1,
+            {   "id": "P1",
                 "region": "Canada",
                 "patternType": "stock",
                 "productType": 0,
@@ -83,7 +83,7 @@ angular.module('ngMo.catalog', [
                 ]
             },
             {
-                "id": 2,
+                "id": "P2",
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
@@ -105,7 +105,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 3,
+                "id": "P3",
                 "region": "Estados Unidos Pack II",
                 "patternType": "stock",
                 "productType": 0,
@@ -127,7 +127,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 4,
+                "id": "P4",
                 "region": "Australia",
                 "patternType": "stock",
                 "productType": 0,
@@ -149,7 +149,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 5,
+                "id": "P5",
                 "region": "China",
                 "patternType": "stock",
                 "productType": 0,
@@ -171,7 +171,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 6,
+                "id": "P6",
                 "region": "Corea",
                 "patternType": "stock",
                 "productType": 0,
@@ -193,7 +193,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 7,
+                "id": "P7",
                 "region": "Hong kong",
                 "patternType": "stock",
                 "productType": 0,
@@ -215,7 +215,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 8,
+                "id": "P8",
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
@@ -237,7 +237,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 9,
+                "id": "P9",
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
@@ -259,7 +259,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 10,
+                "id": "P10",
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
@@ -281,7 +281,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 11,
+                "id": "P11",
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
@@ -303,7 +303,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 12,
+                "id": "P12",
                 "region": "Estados Unidos Pack I",
                 "patternType": "stock",
                 "productType": 0,
@@ -325,7 +325,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 13,
+                "id": "P13",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
@@ -347,7 +347,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 14,
+                "id": "P14",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
@@ -369,7 +369,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 15,
+                "id": "P15",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
@@ -391,7 +391,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 16,
+                "id": "P16",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
@@ -413,7 +413,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 17,
+                "id": "P17",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
@@ -435,7 +435,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 18,
+                "id": "P18",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
@@ -457,7 +457,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 19,
+                "id": "P19",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
@@ -479,7 +479,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 20,
+                "id": "P20",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
@@ -501,7 +501,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 21,
+                "id": "P21",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pair",
                 "productType": 1,
@@ -523,7 +523,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 22,
+                "id": "P22",
                 "region": "Estados Unidos Pack I",
                 "patternType": "index",
                 "productType": 2,
@@ -545,7 +545,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 23,
+                "id": "P23",
                 "region": "Estados Unidos Pack I",
                 "patternType": "pairIndex",
                 "productType": 3,
@@ -567,7 +567,7 @@ angular.module('ngMo.catalog', [
                     }]
             },
             {
-                "id": 24,
+                "id": "P24",
                 "region": "Estados Unidos Pack I",
                 "patternType": "future",
                 "productType": 4,
@@ -588,7 +588,7 @@ angular.module('ngMo.catalog', [
                         "state": "Sin Comenzar"
                     }]
             }
-                ];
+        ];
 
         this.obtainSelectedPack = function (page, numItemsPerPage) {
             var to = page*numItemsPerPage;
@@ -596,21 +596,55 @@ angular.module('ngMo.catalog', [
             /**
              * TODO: replace return patternsPack by http call
              */
+            var i = null;
+            for (j=0;j<patternsPack.length;j++) {
+                if (patternsPack[j].id.toString() === $state.params.packId ) {
+                    i = j;
+                    break;
+                }
+            }
+            if (i == null) {
+                return;
+            }
             //return patternsPack;
             var tempPatternPack = {
                 "id": $state.params.packId,
-                "region": patternsPack.region,
-                "productType": patternsPack.productType,
-                "startDate": patternsPack.startDate,
-                "numberPatterns": patternsPack.numberPatterns,
-                "patterns": []
+                "region": patternsPack[i].region,
+                "productType": patternsPack[i].productType,
+                "startDate": patternsPack[i].startDate,
+                "patternType": patternsPack[i].patternType,
+                "numberPatterns": patternsPack[i].numberPatterns,
+                "patterns": patternsPack[i].patterns,
+                "date":patternsPack[i].date
             };
 
             return tempPatternPack;
         };
 
         this.obtainSelectedPatternsPack = function () {
-            return patternsPack;
+            //return patternsPack;
+            var i = null;
+            for (j=0;j<patternsPack.length;j++) {
+                if (patternsPack[j].id.toString() === $state.params.packId ) {
+                    i = j;
+                    break;
+                }
+            }
+            if (i == null) {
+                return;
+            }
+            var tempPatternPack = {
+                "id": $state.params.packId,
+                "region": patternsPack[i].region,
+                "productType": patternsPack[i].productType,
+                "startDate": patternsPack[i].startDate,
+                "patternType": patternsPack[i].patternType,
+                "numberPatterns": patternsPack[i].numberPatterns,
+                "patterns": patternsPack[i].patterns,
+                "date":patternsPack[i].date
+            };
+
+            return tempPatternPack;
         };
     })
     .controller('CatalogCtrl', function CatalogController($scope, ActualDateService){

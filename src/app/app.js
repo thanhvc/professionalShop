@@ -1,32 +1,32 @@
 angular.module('ngMo', [
-        'templates-app',
-        'templates-common',
-        'ngMo.home',
-        'ngMo.catalog',
-        'ngMo.market_observatory',
-        'ngMo.services',
-        'ngMo.service_applications',
-        'ngMo.subscriptions_and_prices',
-        'ngMo.investor_tools',
-        'ngMo.contact',
-        'ngMo.my_patterns',
-        'ngMo.lookup_diary',
-        'ngMo.historic',
-        'ngMo.portfolio',
-        'ngMo.correlation',
-        'ngMo.volatility',
-        'ngMo.the_week',
-        'ngMo.calendar',
-        'ngMo.my_subscriptions',
-        'ngMo.my_profile',
-        'ui.router',
-        'gettext' ,
-        'singUp',
-        'ngMo.Activate',
-        'auth'
-    ])
+    'templates-app',
+    'templates-common',
+    'ngMo.home',
+    'ngMo.catalog',
+    'ngMo.market_observatory',
+    'ngMo.services',
+    'ngMo.service_applications',
+    'ngMo.subscriptions_and_prices',
+    'ngMo.investor_tools',
+    'ngMo.contact',
+    'ngMo.my_patterns',
+    'ngMo.lookup_diary',
+    'ngMo.historic',
+    'ngMo.portfolio',
+    'ngMo.correlation',
+    'ngMo.volatility',
+    'ngMo.the_week',
+    'ngMo.calendar',
+    'ngMo.my_subscriptions',
+    'ngMo.my_profile',
+    'ui.router',
+    'gettext' ,
+    'singUp',
+    'ngMo.Activate',
+    'auth'
+])
 
- .config(function config( $stateProvider, $urlRouterProvider) {
+    .config(function config( $stateProvider, $urlRouterProvider) {
 
         $stateProvider.state('home', {
             url: '/home',
@@ -44,22 +44,22 @@ angular.module('ngMo', [
                 moMenuType: 'publicMenu'
             }
         })
-        .state('forgotten-password', {
-            url: '/forgotten-password',
-            views: {
-                "main": {
-                    controller: 'AppCtrl',
-                    templateUrl: 'forgotten_password/forgotten-password.tpl.html'
+            .state('forgotten-password', {
+                url: '/forgotten-password',
+                views: {
+                    "main": {
+                        controller: 'AppCtrl',
+                        templateUrl: 'forgotten_password/forgotten-password.tpl.html'
+                    }
+                },
+                data: {
+                    pageTitle: 'forgotten-password',
+                    selectMenu: '',
+                    selectSubmenu: '',
+                    selectItemSubmenu: '',
+                    moMenuType: 'publicMenu'
                 }
-            },
-            data: {
-                pageTitle: 'forgotten-password',
-                selectMenu: '',
-                selectSubmenu: '',
-                selectItemSubmenu: '',
-                moMenuType: 'publicMenu'
-             }
-        });
+            });
         $urlRouterProvider.otherwise('/home');
     })
 
@@ -69,11 +69,11 @@ angular.module('ngMo', [
     .service('ActiveTabService', function (){
         var activeTab = 0;
         this.activeTab = function (){
-          return  activeTab;
+            return  activeTab;
         };
         this.changeActiveTab = function (tab) {
-          activeTab =   tab;
-          return activeTab;
+            activeTab =   tab;
+            return activeTab;
         };
     })
     .service('AnchorLinkService', function ($location, $anchorScroll){
@@ -86,10 +86,10 @@ angular.module('ngMo', [
         this.containItem = function (array, itemArray) {
             var contain = false;
             angular.forEach(array, function (item) {
-                    if (item.id === itemArray.id) {
-                        contain = true;
-                    }
-                });
+                if (item.id === itemArray.id) {
+                    contain = true;
+                }
+            });
             if (contain){
                 return true;
             }else {
@@ -102,58 +102,58 @@ angular.module('ngMo', [
 
         var stockItems =  [
             /*{
-                "id": 1,
-                "packName": "Canada",
-                "startDate": "May 14",
-                "duration": "Mensual",
-                "price": 29
-            },
-            {
-                "id": 2,
-                "packName": "Estados Unidos Pack I",
-                "startDate": "May 14",
-                "duration": "Trimestral",
-                "price": 82
-            }*/
+             "id": 1,
+             "packName": "Canada",
+             "startDate": "May 14",
+             "duration": "Mensual",
+             "price": 29
+             },
+             {
+             "id": 2,
+             "packName": "Estados Unidos Pack I",
+             "startDate": "May 14",
+             "duration": "Trimestral",
+             "price": 82
+             }*/
         ];
 
         var pairsItems  =  [
-           /* {
-                "id": 13,
-                "packName": "Estados Unidos Pack I",
-                "startDate": "May 14",
-                "duration": "Anual",
-                "price": 313
-            }*/
+            /* {
+             "id": 13,
+             "packName": "Estados Unidos Pack I",
+             "startDate": "May 14",
+             "duration": "Anual",
+             "price": 313
+             }*/
         ];
 
         var indicesItems = [
             /*{
-                "id": 22,
-                "packName": "Indices Pack I",
-                "startDate": "May 14",
-                "duration": "Anual",
-                "price": 313
-            }*/
+             "id": 22,
+             "packName": "Indices Pack I",
+             "startDate": "May 14",
+             "duration": "Anual",
+             "price": 313
+             }*/
         ];
 
         var pairsIndicesItems = [
-          /*  {
-                "id": 23,
-                "packName": "Pares Indices Pack I",
-                "startDate": "May 14",
-                "duration": "Anual",
-                "price": 313
-            }*/
+            /*  {
+             "id": 23,
+             "packName": "Pares Indices Pack I",
+             "startDate": "May 14",
+             "duration": "Anual",
+             "price": 313
+             }*/
         ] ;
         var futuresItems =  [
-           /* {
-                "id": 24,
-                "packName": "Futures Pack I",
-                "startDate": "May 14",
-                "duration": "Mensual",
-                "price": 29
-            }*/
+            /* {
+             "id": 24,
+             "packName": "Futures Pack I",
+             "startDate": "May 14",
+             "duration": "Mensual",
+             "price": 29
+             }*/
         ];
 
         var numItemsCart = 0;
@@ -297,11 +297,11 @@ angular.module('ngMo', [
 
     .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
         /*$rootScope.$on('$routeChangeStart', function (event){
-           if  (!$rootScope.isLog){
-               $rootScope.saveLocation = $location.url();
-               $location.path('/')
-           }
-        });*/
+         if  (!$rootScope.isLog){
+         $rootScope.saveLocation = $location.url();
+         $location.path('/')
+         }
+         });*/
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
             $scope.inWeekView = false;
@@ -382,29 +382,29 @@ angular.module('ngMo', [
                 };
             },
             link: function($scope, element) {
-               $scope.$watch('actualSubmenu', function(){});
-               $scope.$watch('selectSubmenu', function(){});
-               var isPresent = false;
-               $scope.$watch('isLog', function(){
-                   if ($rootScope.isLog && !isPresent) {
-                       isPresent = true;
-                       var itemPublicMenu = angular.element("<ul id=\"new-item-menu\" class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
-                           "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
-                           "ng-mouseleave=\"onMouseLeaveMenu()\"" +
-                           "ng-class=\"{'item-nav-hover':actualMenu == 'my-patterns-nav'}\">" +
-                           "<a ui-sref=\"my-patterns\">" +
-                           "Mis Patrones" +
-                           "</a></ul>");
-                       element.append(itemPublicMenu);
-                       $compile(element.contents())($scope);
-                   }else if(!$rootScope.isLog && isPresent){
-                       isPresent = false;
-                       var itemmenu = angular.element(document.querySelector("#new-item-menu"));
-                       itemmenu.remove();
-                       //element.remove(itemmenu);
-                       $compile(element.contents())($scope);
-                   }
-               });
+                $scope.$watch('actualSubmenu', function(){});
+                $scope.$watch('selectSubmenu', function(){});
+                var isPresent = false;
+                $scope.$watch('isLog', function(){
+                    if ($rootScope.isLog && !isPresent) {
+                        isPresent = true;
+                        var itemPublicMenu = angular.element("<ul id=\"new-item-menu\" class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
+                            "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
+                            "ng-mouseleave=\"onMouseLeaveMenu()\"" +
+                            "ng-class=\"{'item-nav-hover':actualMenu == 'my-patterns-nav'}\">" +
+                            "<a ui-sref=\"my-patterns\">" +
+                            "Mis Patrones" +
+                            "</a></ul>");
+                        element.append(itemPublicMenu);
+                        $compile(element.contents())($scope);
+                    }else if(!$rootScope.isLog && isPresent){
+                        isPresent = false;
+                        var itemmenu = angular.element(document.querySelector("#new-item-menu"));
+                        itemmenu.remove();
+                        //element.remove(itemmenu);
+                        $compile(element.contents())($scope);
+                    }
+                });
             },
             templateUrl:'layout_templates/public-menu.tpl.html'
         };
@@ -541,7 +541,7 @@ angular.module('ngMo', [
                 $scope.subtotalFutures = 0;
 
                 $scope.openCart = function () {
-                   $scope.showCart = ShoppingCartService.openCart();
+                    $scope.showCart = ShoppingCartService.openCart();
                 };
 
                 $scope.closeCart = function () {
@@ -573,7 +573,7 @@ angular.module('ngMo', [
                         "id": newItem.id,
                         "packName": "Nuevo "+newItem.id,
                         "startDate": newItem.startDate,
-                         "date": newItem.date, //is the startDate in mm/dd format, to send it to the server
+                        "date": newItem.date, //is the startDate in mm/dd format, to send it to the server
                         "duration": "Mensual",
                         "price": 29,
                         "patternType": newItem.patternType
@@ -721,9 +721,9 @@ angular.module('ngMo', [
 
 ;
 //modalPanel
- var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
-     $scope.advertisingSelected = advertisingSelected;
-     $scope.close = function () {
+var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
+    $scope.advertisingSelected = advertisingSelected;
+    $scope.close = function () {
         $modalInstance.close();
     };
- };
+};
