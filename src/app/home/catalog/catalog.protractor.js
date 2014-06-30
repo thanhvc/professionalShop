@@ -20,20 +20,20 @@ var Cart = function() {
     this.total2 = 0;
 
     this.open = function () {
+
         browser.get('http://46.51.174.51/moshopclient/#/catalog/1');
         browser.ignoreSynchronization = true;
     };
 
     this.checkCart = function () {
 
-        element(by.repeater('pattern in selectedPack.patterns').row(0)).click();
-        element(by.id("purchase-button")).click();
+        element(by.id('purchase-button')).click();
     };
 
     this.buyingMore = function(){
         element.all(by.css('ng-binding')).get(0);
 
-        element(by.id("purchase-button")).click();
+        element(by.id('purchase-button')).click();
         var button = element.all(by.css(".mo-button"));
         button.get(1).click();
 
@@ -43,7 +43,8 @@ var Cart = function() {
     this.correctItemsNumber = function(){
         element.all(by.css('ng-binding')).get(0);
         element(by.id("purchase-button")).click();
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/catalog/1');
+
+        browser.get('http://46.51.174.51/moshopclient/#/catalog/1');
     };
 
     this.correctSum = function(){

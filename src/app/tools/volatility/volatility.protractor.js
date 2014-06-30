@@ -5,14 +5,15 @@
 var App = function(){
 
     this.open = function(){
+
         browser.get('http://46.51.174.51/moshopclient/#/volatility');
         browser.ignoreSynchronization = true;
     };
 
     this.login = function(){
         element(by.css(".no-logged-box")).click();
-        element(by.css(".float-right")).sendKeys('@gmail.com');
-        element.all(by.css(".float-right")).get(1).sendKeys('prueba12');
+        element(by.css(".float-right")).sendKeys('userEmail@gmail.com');
+        element.all(by.css(".float-right")).get(1).sendKeys('userpass');
         element(by.css(".mo-button")).click();
     };
 
@@ -37,7 +38,7 @@ describe('The volatility page ', function() {
    it('should have 32 lines', function(){
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(33);
+        expect(a.n).toBe(32);
     });
 
 
