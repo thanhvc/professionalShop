@@ -13,8 +13,6 @@ exports.config = {
         volatility:' ../src/app/tools/volatility/*protractor.js',
         my_packs: '../src/app/my_subscriptions/*protractor.js'
 
-
-
     },
     multiCapabilities: [
         /* {
