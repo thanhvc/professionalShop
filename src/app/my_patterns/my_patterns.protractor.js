@@ -14,6 +14,7 @@ var Patterns = function() {
     this.open = function () {
         browser.get('http://46.51.174.51/moshopclient/#/patterns');
         browser.ignoreSynchronization = true;
+
     };
 
     this.checkTable = function(){
