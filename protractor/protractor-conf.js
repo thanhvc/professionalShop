@@ -14,6 +14,7 @@ exports.config = {
         my_packs: '../src/app/my_subscriptions/*protractor.js'
 
 
+
     },
     multiCapabilities: [
         /* {
