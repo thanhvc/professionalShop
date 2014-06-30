@@ -390,6 +390,12 @@ module.exports = function ( grunt ) {
                     debug:true,
                     args: {} // Target-specific arguments
                 }
+            },
+            e2e_jenkins: {
+                options: {
+                    configFile: "protractor/protractor-conf-jenkins.js", // Target-specific config file
+                    args: {} // Target-specific arguments
+                }
             }
         },
         protractor_webdriver: {
@@ -597,6 +603,8 @@ module.exports = function ( grunt ) {
     grunt.registerTask( 'default', [ 'build', 'compile' ] );
     grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e']);
     grunt.registerTask('e2edebug',['protractor_webdriver:run','protractor:e2edebug']);
+    grunt.registerTask('e2e_jenkins', ['protractor_webdriver:run', 'protractor:e2e_jenkins']);
+
 
     /**
      * The `build` task gets your app ready to run for development and testing.
