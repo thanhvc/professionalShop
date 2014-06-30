@@ -12,7 +12,7 @@ angular.module('ngMo.the_week', [
                 }
             },
             data: {
-                pageTitle: 'The week',
+                pageTitle: 'La Semana',
                 selectMenu: 'the-week-nav',
                 selectSubmenu: '',
                 selectItemSubmenu: '',
@@ -24,7 +24,7 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService) {
+    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -34,23 +34,33 @@ angular.module('ngMo.the_week', [
         });
 
         $scope.obtainDateMondaythisWeek = function () {
-            var today = ActualDateService.actualDate();
-            var monday = new Date();
-            var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
-            monday.setDate(today.getDate()-dayOfWeek);
-            return monday.getDate();
+            var firstDay = ActualDateService.actualDate(function (data) {
+                var today = new Date(data.actualDate);
+                var monday = new Date();
+                var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
+                monday.setDate(today.getDate()-dayOfWeek);
+                $scope.mondayDay = monday.getDate();
+            });
         };
 
         /**
          * TODO: replace number for service
          * @type {number}
          */
-        $scope.weekOfYear = 23;
-        $scope.year = ActualDateService.actualDate().getFullYear();
-        var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        $scope.month = months[ActualDateService.actualDate().getMonth()];
 
-        $scope.mondayDay = $scope.obtainDateMondaythisWeek();
+
+        var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.year = new Date(data.actualDate).getFullYear();
+            $scope.month = months[new Date(data.actualDate).getMonth()];
+        });
+
+        var data2 = ActualDateService.actualWeek(function (data) {
+            $scope.weekOfYear = data.numWeek;
+        });
+
+        $scope.obtainDateMondaythisWeek();
 
         $scope.showIndices = true;
 
@@ -676,9 +686,8 @@ angular.module('ngMo.the_week', [
 
     .directive('selectedGraphicPanel', function () {
         return {
-            controller: function ($scope, $timeout){
+            controller: function ($scope, $timeout, $state){
                 $scope.openGraph = false;
-                $scope.firstTime = true;
 
                 $scope.showSelectedGraphic = function (e, name, url) {
 
@@ -688,7 +697,6 @@ angular.module('ngMo.the_week', [
                             $scope.openGraph = true;
                         },800);
                     }else{
-                        $scope.firstTime = false;
                         $scope.openGraph = true;
                     }
 
@@ -716,7 +724,7 @@ angular.module('ngMo.the_week', [
                 $scope.$watch('openGraph', function(){});
             },
 
-            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph}\"  ng-style=\"{'top': myTop}\" ng-click=\"$event.stopPropagation();\">"+
+            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph }\"  ng-style=\"{'top': myTop}\" ng-click=\"$event.stopPropagation();\">"+
                 "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>"+
                 "<br/>"+
                 "<span>{{selectedGraphic.indiceName}}</span>"+

@@ -12,8 +12,10 @@ var Patterns = function() {
     this.graphicName = '';
 
     this.open = function () {
+
         browser.get('http://46.51.174.51/moshopclient/#/patterns');
         browser.ignoreSynchronization = true;
+
     };
 
     this.checkTable = function(){
@@ -23,14 +25,14 @@ var Patterns = function() {
 
     this.graphicName = function(){
         this.graphic = element.all(by.css(".graphic-image")).first().click();
-        this.graphic = element(by.css('span.ng-binding')).getAttribute('value');
+        this.graphic = element.all(by.css('.graphic-panel > span')).get(0).getAttribute('value');
         this.graphicName = element.all(by.css('.ng-binding')).get(13).getText();
     };
 
     this.showMore = function(){
 
-        this.tableLength = element(by.repeater('region in area.regions')).getSize();
-        element(by.css(".toggle-tables-link")).click();
+        this.tableLength = element.all(by.repeater('region in area.regions')).get(0).getSize();
+        element.all(by.css(".toggle-tables-link")).get(0).click();
 
     };
 

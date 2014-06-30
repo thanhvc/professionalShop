@@ -25,3 +25,42 @@
     </div>
 
 </div>
+
+<div style="margin-top: 15px;">
+
+    <tabset>
+        <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+             active="ctab.active" disabled="tab.disabled">
+            <div class="correlation-filter-container">
+                <!--filters-->
+                <div ng-include="getTemplateFilter()"></div>
+            </div>
+            <div>
+                <div ng-include="getTemplateTable()">
+
+
+            </div>
+
+
+                <!--footer-->
+                <div class="footer-table-correlation">
+                    <div class="pagination-correlation-container">
+                        <pagination ng-show="myData.size() > 10" boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                                    items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                                    page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                                    next-text="&gt;"
+                                    first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+                    </div>
+                    <button style="width: 120px;margin-left: 50px;" class="mo-cancel-button">
+                            Cancelar
+                    </button>
+                    <button style="width: 120px;" class="mo-button">
+                        Calcular
+                    </button>
+                </div>
+            </div>
+
+        </tab>
+    </tabset>
+
+</div>

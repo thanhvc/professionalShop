@@ -10,6 +10,7 @@ angular.module('ngMo', [
         'ngMo.investor_tools',
         'ngMo.contact',
         'ngMo.my_patterns',
+        'ngMo.my_packs',
         'ngMo.lookup_diary',
         'ngMo.historic',
         'ngMo.portfolio',
@@ -41,16 +42,7 @@ angular.module('ngMo', [
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'publicMenu'
-            }/*,
-            resolve: {
-                IsLogged: "IsLogged",
-                userIsLogged: function(IsLogged){
-                    return IsLogged.isLogged();
-                }
-            },
-            controller: function($scope, userIsLogged){
-                $scope.isLog = userIsLogged;
-            }*/
+            }
         })
         .state('forgotten-password', {
             url: '/forgotten-password',
@@ -304,8 +296,18 @@ angular.module('ngMo', [
     })
 
     .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
+        /*$rootScope.$on('$routeChangeStart', function (event){
+           if  (!$rootScope.isLog){
+               $rootScope.saveLocation = $location.url();
+               $location.path('/')
+           }
+        });*/
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
+            $scope.inWeekView = false;
+            if (toState.url === '/the-week') {
+                $scope.inWeekView = true;
+            }
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
@@ -319,7 +321,9 @@ angular.module('ngMo', [
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
         });
-        $scope.actualDate = ActualDateService.actualDate();
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.actualDate = data.actualDate;
+        });
 
         $scope.openModalInstance = function(url) {
             $modal.open({
@@ -336,7 +340,7 @@ angular.module('ngMo', [
         $scope.hideElements = function () {
             $scope.hideSignInForm();
             $scope.closeCart();
-            //$scope.hideSelectedGraphic();
+            $scope.hideSelectedGraphic();
         };
 
     })
@@ -687,7 +691,7 @@ angular.module('ngMo', [
                             },
                             data: dataCart
                         };
-                        return $http.post('http://api.mo-shopclient.development.com:9000/addpacks', config)
+                        return $http.post('http://api.mo.devel.edosoftfactory.com/addpacks', config)
                             .success(function (data, status) {
                                 $scope.callbackPurchase(data, status);
                             })

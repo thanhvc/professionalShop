@@ -39,6 +39,7 @@
     "karma-junit-reporter": "*",
     "grunt-protractor-runner": "*",
     "grunt-protractor-webdriver": "*",
-    "protractor":"*"
+      "protractor": "*",
+      "jasmine-reporters": "*"
   }
 }

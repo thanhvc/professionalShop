@@ -15,3 +15,62 @@
     </div>
 
 </div>
+
+<div style="margin-top: 15px;">
+
+    <tabset>
+        <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+             active="ctab.active" disabled="tab.disabled">
+            <div class="black-head header-month-filter">
+                <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
+                <div style="float:left; text-transform:uppercase;">{{filterOptions.filters.month.monthString + " " + filterOptions.filters.month.year}}</div>
+                <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
+
+                <div>
+                    <select class="border-filters select-filter month-filter" style="color: black;"
+                            data-ng-model="filterOptions.filters.selectMonth"
+                            ng-change="goToMonth()"
+                            ng-options="item.name for item in filterOptions.months"
+                            >
+                    </select>
+                </div>
+            </div>
+            <div class="filter-container">
+                <!--filters-->
+                <div ng-include="getTemplateFilter()"></div>
+            </div>
+            <div>
+                <div ng-include="getTemplateTable()"></div>
+
+
+                <!--footer-->
+                <div class="footer-table-private">
+                    <div class="total-patterns">
+                        <span>Número total de patrones:</span>
+                        <span>{{results}}</span>
+                    </div>
+                    <div style="float: left; margin-top: 3px;">
+                        <span>Patrones encontrados:</span>
+                        <span>{{found}}</span>
+                    </div>
+                    <button style="float:right; position: relative; top: -2px;" class="mo-button"
+                            ng-click="restoreData()">Mostrar todos
+                    </button>
+                </div>
+            </div>
+            <div class="copyright">
+                Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+            </div>
+            <!--pagination-->
+            <div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;">
+                <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                            ng-show="myData.size() > 10"
+                            items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                            page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                            next-text="&gt;"
+                            first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+            </div>
+        </tab>
+    </tabset>
+
+</div>
