@@ -18,7 +18,11 @@ var SigunMenu = function () {
 
     this.open = function () {
         // Goto the login page
+<<<<<<< HEAD
         browser.get('http://mo.devel.edosoftfactory.com/#/sign-up');
+=======
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/sign-up');
+>>>>>>> Volatility tests
     };
 
     this.checkIdenticalInputs = function () {

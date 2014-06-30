@@ -11,7 +11,11 @@ var Menu = function () {
     this.table = null;
 
     this.open = function () {
+<<<<<<< HEAD
         browser.get('http://mo.devel.edosoftfactory.com');
+=======
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
+>>>>>>> Volatility tests
         browser.ignoreSynchronization = true;
     };
 

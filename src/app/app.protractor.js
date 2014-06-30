@@ -6,8 +6,13 @@
 //Check if login box fades in
 var App = function () {
 
+<<<<<<< HEAD
     this.open = function () {
         browser.get('http://mo.devel.edosoftfactory.com/');
+=======
+    this.open = function(){
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
+>>>>>>> Volatility tests
         browser.ignoreSynchronization = true;
     };
 

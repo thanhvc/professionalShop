@@ -20,7 +20,11 @@ var Cart = function () {
     this.total2 = 0;
 
     this.open = function () {
+<<<<<<< HEAD
         browser.get('http://mo.devel.edosoftfactory.com');
+=======
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
+>>>>>>> Volatility tests
         browser.ignoreSynchronization = true;
     };
 
@@ -44,9 +48,13 @@ var Cart = function () {
     this.correctItemsNumber = function () {
         element(by.repeater('pack in homeTablePack.americaContent track by $index').row(0)).click();
         element(by.id("purchase-button")).click();
+<<<<<<< HEAD
         browser.get('http://mo.devel.edosoftfactory.com');
         element(by.repeater('pack in homeTablePack.americaContent track by $index').row(2)).click();
         element(by.id("purchase-button")).click();
+=======
+        browser.get('http://46.51.174.51/moshopclient');
+>>>>>>> Volatility tests
     };
 
     this.correctSum = function () {

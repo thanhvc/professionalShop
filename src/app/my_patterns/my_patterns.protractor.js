@@ -12,7 +12,7 @@ var Patterns = function() {
     this.graphicName = '';
 
     this.open = function () {
-        browser.get('http://46.51.174.51/moshopclient/#/patterns');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/patterns');
         browser.ignoreSynchronization = true;
     };
 
