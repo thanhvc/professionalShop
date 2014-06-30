@@ -18,6 +18,7 @@ var SigunMenu = function() {
 
     this.open = function() {
         // Goto the login page
+
         browser.get('http://46.51.174.51/moshopclient/#/sign-up');
     };
 
