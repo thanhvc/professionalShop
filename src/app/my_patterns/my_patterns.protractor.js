@@ -62,13 +62,13 @@ var SP = function(){
     };
 
 
-   /* this.graphicName = function(){
-        this.graphic = element.all(by.css(".graphic-image-cell > graphic-image")).first().click();
+    this.graphicName = function(){
+        element.all(by.css(".graphic-image-cell")).first().click();
         this.graphic = element(by.css('span.ng-binding')).getAttribute('value');
         this.graphicName = element.all(by.css('.ng-binding')).get(13).getText();
 
     };
-    */
+
 };
 
 var Commodities = function(){
@@ -90,9 +90,9 @@ var Commodities = function(){
 
 
     this.graphicName = function(){
-        this.graphic = element.all(by.css(".graphic-image")).first().click();
-        this.graphic = element(by.css('span.ng-binding')).getAttribute('value');
-        this.graphicName = element.all(by.css('.ng-binding')).get(13).getText();
+        element.all(by.css(".graphic-image")).first().click();
+        //this.graphic = element(by.css('.open-graphic-panel > span')).get(0).getText();
+        this.graphicName = element.all(by.css('.ng-binding')).get(13).getAttribute('text');
     };
 
 };
@@ -274,12 +274,13 @@ describe('The patterns menu is ok', function() {
         expect(p.table).toBeDefined();
     });
 
-  /*  it('should have the correct graphic name', function(){
+    it('should have the correct graphic name', function(){
         p.graphicName();
-        expect(p.graphicName).toBe(p.graphic);
+        expect(p.graphicName).toBe('DOW JONES INDUSTRIAL AVERAGE');
+        //expect(p.graphicName).toBe(p.graphic);
 
     });
-*/
+
 
     it('should show more options', function(){
         p.showMore();
