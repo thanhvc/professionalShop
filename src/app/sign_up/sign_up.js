@@ -238,11 +238,11 @@ angular.module('singUp', [])
             }
         };
     })
-    .factory('SignUpService', function ($http) {
+    .factory('SignUpService', function ($http, $rootScope) {
         var signUpService = {};
         signUpService.firstStep = function (user, callback) {
             data = user;
-            return $http.post('http://api.mo.devel.edosoftfactory.com/testemail', data)
+            return $http.post($rootScope.urlService+'/testemail', data)
                 .success(function (data) {
                     callback(data);
                 })
@@ -252,7 +252,7 @@ angular.module('singUp', [])
         };
         signUpService.secondStep = function (user, callback) {
             data = user;
-            return $http.post('http://api.mo.devel.edosoftfactory.com/user', data)
+            return $http.post($rootScope.urlService+'/user', data)
                 .success(function (data) {
                     callback(data);
                 })

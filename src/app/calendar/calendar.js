@@ -343,7 +343,7 @@ angular.module('ngMo.calendar', [
 
     })
 
-    .service("CalendarService", function ($http, $window) {
+    .service("CalendarService", function ($http, $window, $rootScope) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -374,7 +374,7 @@ angular.module('ngMo.calendar', [
                 }
             };
 
-            var result = $http.get('http://api.mo.devel.edosoftfactory.com/calendarpatterns', config).success(function (data) {
+            var result = $http.get($rootScope.urlService+'/calendarpatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });
@@ -461,7 +461,7 @@ angular.module('ngMo.calendar', [
                     'token': $window.sessionStorage.token
                 }
             };
-            var result = $http.get('http://api.mo.devel.edosoftfactory.com/lastdaymonth', config).success(function (data) {
+            var result = $http.get($rootScope.urlService+'/lastdaymonth', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });

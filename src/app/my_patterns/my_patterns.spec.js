@@ -6,17 +6,19 @@ describe('The Patterns view ', function () {
     beforeEach(module('ui.router'));
     beforeEach(module('ui.bootstrap'));
 
-    beforeEach(inject(function ($templateCache, $compile, $rootScope, $controller, $state, $httpBackend) {
+    beforeEach(inject(function ($templateCache, $compile, $rootScope, $controller, $state, $httpBackend, myPatternsData) {
         //create an empty scope
         scope = $rootScope.$new();
+        service = myPatternsData;
         //declare the controller and inject our empty scope
-        $controller('PatternsCtrl', {$scope: scope});
+        $controller('PatternsCtrl', {$scope: scope, myPatternsData: service});
         state = $state;
         compile = $compile;
         template = $templateCache;
         httpMock = $httpBackend;
-        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond(200);
-        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/patterns?indexType=0&page=1&productType=0').respond(200,
+        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/islogged').respond(200);
+        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond(200);
+        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/patterns?indexType=0&page=1&productType=0').respond(200,
             {
                 "Id": "20000",
                 "name": "EMERA ",
@@ -60,7 +62,6 @@ describe('The Patterns view ', function () {
                 "Est": "Finalizado"
             }
         );
-        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/actualdate').respond(200);
     }));
 
 
