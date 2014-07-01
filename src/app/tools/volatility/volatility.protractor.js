@@ -6,7 +6,8 @@ var App = function(){
 
     this.open = function(){
 
-        browser.get('http://46.51.174.51/moshopclient/#/volatility');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/volatility');
+
         browser.ignoreSynchronization = true;
     };
 
@@ -25,6 +26,19 @@ var App = function(){
     this.checkDataLoaded = function(){
         this.row = element.all(by.css(".tableDiaryLinks")).get(0);
     };
+
+    this.showMoreInfo = function(){
+        element(by.css('toggle-link')).click();
+    };
+
+    this.showLessInfo = function(){
+        this.element = element(by.css('show-less'));
+        this.element.click();
+    };
+
+    this.showMoreInfoButton = function(){
+        this.element = element.all(by.css('a')).get(49);
+    }
 };
 
 describe('The volatility page ', function() {
@@ -47,4 +61,21 @@ describe('The volatility page ', function() {
         expect(a.row.getText()).toBe('4IMPRINT GROUP PLC');
     });
 
+    if('should show more info', function(){
+
+        a.showMoreInfo();
+        expect(browser.isElementPresent(by.css('.show-less'))).toBe(true);
+    });
+
+    if('should show more info button', function(){
+
+        a.showMoreInfoButton();
+        expect(a.element).toBeDefined();
+    });
+
+    if('should show less info ', function(){
+
+        a.showMoreLessButton();
+        expect(a.element).not.toBeDefined();
+    });
 });
