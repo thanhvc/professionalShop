@@ -83,6 +83,10 @@ angular.module('auth',['http-auth-interceptor'])
                         })
                         .error(function (data, status, headers, config) {
                                 $scope.errorSignIn = true;
+                            if (data.reason == "not-activated") {
+                                //the user is not activated, we send him to resend mail status
+                                $state.go("reactivate");
+                            }
                         });
                 };
 

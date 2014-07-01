@@ -20,22 +20,32 @@
                                name="username2" style="width:200px;" required="true" match="email">
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button class="mo-button"  name="continue"
+                                ng-click="reactivate()" style="margin: auto;" type="button">Reenviar correo activación
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="height:55px;">
+                        <div class="red-color-form prices-font12" ng-show="mismatch">Los
+                            emails no coinciden
+                        </div>
+                        <div ng-show="formReactivate.uEmail.$error.email && (formReactivate.uEmail.$dirty)"
+                             class="red-color-form prices-font12">
+                            Email inv&aacute;lido
+                        </div>
+                        <div class="prices-font12" ng-show="sent  && formReactivate.uEmail.$dirty">
+                            Se ha mandado un email de activación a la cuenta con la dirección asociada, por favor compruebe su correo
+                        </div>
+                    </td>
+                </tr>
             </table>
-            <button class="mo-button"  name="continue"
-                    ng-click="reactivate()" style="margin: auto;" type="button">Reenviar correo activación
-            </button>
+
         </form>
 
-        <div class="red-color-form prices-font12" ng-show="mismatch">Los
-            emails no coinciden
-        </div>
-        <div ng-show="formReactivate.uEmail.$error.email && (formReactivate.uEmail.$dirty)"
-             class="red-color-form prices-font12">
-            Email inv&aacute;lido
-        </div>
-        <div class="prices-font12" ng-show="sent  && formReactivate.uEmail.$dirty">
-           Se ha mandado un email de activación a la cuenta con la dirección asociada, por favor compruebe su correo
-        </div>
+
     </div>
 
 </div>
