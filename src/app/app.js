@@ -64,7 +64,7 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com:9000';
+        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
     })
 
     .service('ActiveTabService', function (){
