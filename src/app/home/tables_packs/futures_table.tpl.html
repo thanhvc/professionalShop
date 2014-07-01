@@ -21,7 +21,7 @@
                 <tr ng-repeat="pack in homeTablePack.futuresContent track by $index" ui-sref="catalog({packId: pack.id})">
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
-                    <td>{{pack.patternList.size()}}</td>
+                    <td>{{pack.numPatterns}}</td>
                 </tr>
                 </tbody>
             </table>

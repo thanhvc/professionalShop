@@ -590,7 +590,7 @@ angular.module('ngMo.lookup_diary', [
 
 
     })
-    .service("LookupDiaryService", function ($http, $window) {
+    .service("LookupDiaryService", function ($http, $window, $rootScope) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -620,7 +620,7 @@ angular.module('ngMo.lookup_diary', [
                 }
             };
 
-            var result = $http.get('http://api.mo.devel.edosoftfactory.com/lookupdiarypatterns', config).success(function (data) {
+            var result = $http.get($rootScope.urlService+'/lookupdiarypatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });
