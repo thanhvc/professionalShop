@@ -11,7 +11,7 @@ angular.module('ngMo.Activate', [  'ui.router',
             url: '/activate/:token',
             views: {
                 "main": {
-                    templateUrl: 'sign_up/sign-up.tpl.html'
+                    templateUrl: 'activate/activate.tpl.html'
                 }
             },
             data: {
@@ -27,7 +27,7 @@ angular.module('ngMo.Activate', [  'ui.router',
     .run(function run() {
     })
 
-    .controller('ActivateCtrl', function ($scope, $state, $stateParams) {
+    .controller('ActivateCtrl', function ($scope, $state, $stateParams, $http) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -37,6 +37,31 @@ angular.module('ngMo.Activate', [  'ui.router',
             }
         });
 
-        $scope.token = $stateParams.token;
+        $scope.callback = function(data) {
+            if (data != null && data.status == "ok"){
+                $state.go('home',{activated: true});
+            } else {
+                $state.go('home');
+            }
+        };
+
+
+        if ($stateParams.token != null) {
+
+            $scope.token = $stateParams.token;
+
+            tokenData = {
+                token : $scope.token
+            };
+
+            $http.post('http://api.mo.devel.edosoftfactory.com/activate', tokenData)
+                .success(function (data) {
+                    $scope.callback(data);
+                })
+                .error(function (data) {
+                    $scope.callback(data);
+                });
+        }
+
 
     });

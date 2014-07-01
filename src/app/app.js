@@ -23,13 +23,14 @@ angular.module('ngMo', [
         'ui.router',
         'gettext' ,
         'singUp',
-        'auth'
+        'auth',
+        'ngMo.Activate'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
 
         $stateProvider.state('home', {
-            url: '/home',
+            url: '/home?activated',
             views: {
                 "main": {
                     controller: 'HomeCtrl',

@@ -43,11 +43,19 @@ angular.module('ngMo.home', [
 
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, AnchorLinkService, IsLogged) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, AnchorLinkService, IsLogged, $state, $stateParams) {
 
         $scope.changePosCart = function () {
             $scope.positionCart = 'top';
         };
+
+        //if the activated param is set, means that the homepage must show a special message for new users, this param  doesnt activate
+        //any method, only shows the message. The activation of user is controlled in activate module
+        $scope.justActivated = false;
+        if ((typeof $stateParams.activated !== "undefined") && ($stateParams.activated != null))
+        {
+            $scope.justActivated = true;
+        }
 
         $scope.myInterval = 6000;
 
