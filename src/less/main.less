@@ -1493,7 +1493,7 @@ table{
           background-color: @orangeColor;
           color: @white;
           border-radius: 0;
-          padding: 1px 9px;
+          padding: 0 9px;
           border: none;
         }
       }
@@ -1502,7 +1502,7 @@ table{
           background-color: @orangeColor;
           color: @white;
           border-radius: 0;
-          padding: 1px 9px;
+          padding: 0 9px;
           border: none;
         }
       }
@@ -1511,7 +1511,7 @@ table{
         background-color: @white;
         border: none;
         border-top: 2px solid @orangeColor;
-        padding: 1px 9px;
+        padding: 0 9px;
         margin-left: 1px;
       }
       &.active {
@@ -1940,34 +1940,6 @@ tooltip-placement=" top ultra-left-tooltip" **/
   }
 }
 
-.alarm-icon{
-  background:  url('../assets/img/alarm.png');
-  background-size: 27px 19px;
-  width: 27px;
-  height: 19px;
-  display: inline-block;
-}
-
-.checkbox-filters{
-  width: 13px;
-}
-
-
-.prices-font11{
-  font-family: fontpo, verdana !important;
-  font-size: 11px;
-}
-
-.prices-font10{
-  font-family: fontpo, verdana !important;
-  font-size: 10px;
-}
-
-.prices-font12{
-  font-family: fontpo, verdana !important;
-  font-size: 12px;
-}
-
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using.
@@ -1983,5 +1955,5 @@ tooltip-placement=" top ultra-left-tooltip" **/
 @import '../app/my_patterns/my_patterns.less';
 @import '../app/calendar/calendar.less';
 @import '../app/my_subscriptions/my_subscriptions.less';
-@import '../app/tools/correlation/correlation.less';
-@import '../app/my_profile/my_profile.less';
+@import '../app/tools/volatility/volatility.less';
+@import '../app/my_subscriptions/my_packs.less';

@@ -11,13 +11,14 @@
 
      this.open = function () {
          // Goto the login page
-         browser.get('http://mo.devel.edosoftfactory.com/');
+
+         browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
+
          browser.ignoreSynchronization = true;
      };
 
      this.login = function (logBox) {
          this.logBox.click();
-
      };
 
      this.checkFadeIn = function () {
@@ -38,6 +39,8 @@
      };
 
      this.checkKeepTheSubmenu = function () {
+
+         element(by.id('market-observatory-nav')).click();
          this.link = element(by.id('what-is-and-what-is-not-nav'));
 
          this.link.click();
@@ -45,50 +48,49 @@
 
      };
 
-     this.checkShouldShowThPage = function () {
-         this.link = element(by.id('what-is-and-what-is-not-nav'));
+     this.checkShouldShowThePage = function () {
+         element(by.id('market-observatory-nav')).click();
+         this.link = element(by.id('service-conditions-nav'));
          this.link.click();
      };
      this.shouldShowTheConditionsPage = function () {
-         this.link = element(by.id('service-conditions-nav'));
 
+         element(by.id('market-observatory-nav')).click();
+         this.link = element(by.id('service-conditions-nav'));
          this.link.click();
          this.theElem = element(by.css('.public-zone-text'));
      };
 
      this.shouldShowTheDataProtectionPage = function () {
-         this.link = element(by.id('data-protection-nav'));
-         this.link.click();
+         element(by.id('market-observatory-nav')).click();
+         this.link = element(by.id('data-protection-nav')).click();
          this.theElem = element(by.css('.public-zone-text container ng-scope'));
-
      };
 
      this.shouldShowTheSummary = function () {
-         this.link1 = element(by.id('services-nav'));
-         this.link1.click();
+         this.link1 = element(by.id('services-nav')).click();
          this.link = element(by.id('summary-nav'));
          this.link.click();
-         this.theElem= element(by.css('.submenu-content ng-scope'));
+        // this.theElem= element(by.css('.submenu-content ng-scope'));
 
      };
      this.shouldShowTheProductsAndExchanges  = function () {
+         this.link1 = element(by.id('services-nav')).click();
          this.link = element(by.id('products-and-exchanges-nav'));
          this.link.click();
-         this.theElem = element(by.css('.public-zone-text container ng-scope'));
 
      };
      this.shouldShowTheDetailedDescription = function () {
+         this.link1 = element(by.id('services-nav')).click();
          this.link = element(by.id('detailed-description-nav'));
          this.link.click();
-         this.theElem= element(by.css('.public-zone-text container ng-scope'));
-
 
      };
 
      this.shouldShowTheFundamentals = function () {
+         this.link1 = element(by.id('services-nav')).click();
          this.link = element(by.id('fundamentals-nav'));
          this.link.click();
-         this.theElem= element(by.css('.public-zone-text container ng-scope'));
 
 
      };
@@ -97,164 +99,130 @@
          this.menu.click();
          this.link = element(by.id('stocks-nav'));
          this.link.click();
-         this.theElem= element(by.css('.text-block-title'));
+
 
      };
 
      this.shouldShowTheFunds = function () {
-         this.link = element(by.id('funds-nav'));
 
+         this.menu = element(by.id('service-applications-nav')).click();
+         this.link = element(by.id('funds-nav'));
          this.link.click();
-         this.theElem= element(by.css('.text-block-title'));
 
      };
 
      this.shouldShowTheEtfCfdNav = function () {
-         this.link = element(by.id('etf-cfd-nav'));
+         element(by.id('service-applications-nav')).click();
+         this.link = element(by.id('etf-cfd-nav')).click();
 
-         this.link.click();
-         this.theElem= element(by.css('.text-block-title'));
+     };
 
+      this.shouldShowThePairs = function () {
+         element(by.id('service-applications-nav')).click();
+         this.link = element(by.id('pairs-nav')).click();
 
      };
      this.shouldShowTheFutures = function () {
-         this.link = element(by.id('futures-nav'));
-
-         this.link.click();
-         this.theElem= element(by.css('.public-zone-text container ng-scope'));
+         element(by.id('service-applications-nav')).click();
+         this.link = element(by.id('futures-nav')).click();
 
      };
 
      this.shouldShowTheAdvanced = function () {
-         this.link = element(by.id('advanced-nav'));
-         this.link.click();
-         this.theElem= element(by.css('.text-block-title'));
+         element(by.id('service-applications-nav')).click();
+         this.link = element(by.id('advanced-nav')).click();
+
      };
 
      this.shouldShowTheDiversification = function () {
-         this.link = element(by.id('diversification-nav'));
-
-         this.link.click();
-         this.theElem= element(by.css('.text-block-title'));
-
+         element(by.id('service-applications-nav')).click();
+         this.link = element(by.id('diversification-nav')).click();
 
      };
      this.shouldShowThePrices = function () {
 
          element(by.id('subscriptions-and-prices-nav')).click();
-         this.link = element(by.id('prices-nav'));
-
-         this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
+         this.link = element(by.id('prices-nav')).click();
 
      };
      this.shouldShowTheProducts = function () {
+         element(by.id('subscriptions-and-prices-nav')).click();
          this.link = element(by.id('products-nav'));
-
          this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
 
      };
 
      this.shouldShowTheSubscriptionTypes = function () {
+         element(by.id('subscriptions-and-prices-nav')).click();
          this.link = element(by.id('subscription-types-nav'));
-
          this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
-
 
      };
      this.shouldShowThePurchase = function () {
+         element(by.id('subscriptions-and-prices-nav')).click();
          this.link = element(by.id('purchase-nav'));
          this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
-
 
      };
 
      this.shouldShowTheFreeSubscription = function () {
-         this.link = element(by.id('free-subscription-nav'));
-
-         this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
+         element(by.id('subscriptions-and-prices-nav')).click();
+         this.link = element(by.id('free-subscription-nav')).click();
 
      };
      this.shouldShowTheShoppingGuide = function () {
-         this.link = element(by.id('shopping-guide-nav'));
-
-         this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
-
+         element(by.id('subscriptions-and-prices-nav')).click();
+         this.link = element(by.id('shopping-guide-nav')).click();
 
      };
 
-
      this.shouldShowTheResources = function () {
          element(by.id('investor-tools-nav')).click();
-         this.link = element(by.id('resources-nav'));
-         this.link.click();
-         this.theElem = element(by.css('.public-zone-text container ng-scope'));
+         element(by.id('resources-nav')).click();
 
      };
 
      this.shouldShowTheArticles = function () {
-         this.link = element(by.id('articles-nav'));
-
-         this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
-
+         element(by.id('investor-tools-nav')).click();
+         this.link = element(by.id('articles-nav')).click();
 
      };
 
      this.shouldShowTheSymbols = function(){
+         element(by.id('investor-tools-nav')).click();
+         this.link = element(by.id('symbols-and-exchanges-nav')).click();
 
-         this.link = element(by.id('symbols-and-exchanges-nav'));
-         this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
 
      };
      this.shouldshowthemotemplatecollections = function () {
+         element(by.id('investor-tools-nav')).click();
          this.link = element(by.id('mo-template-collections-nav'));
-
          this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
-
-
      };
 
      this.shouldshowthesupport = function () {
 
          element(by.id('contact-nav')).click();
-         this.link = element(by.id('support-nav'));
-         this.link.click();
-
+         element(by.id('support-nav')).click();
 
      };
 
      this.shouldshowthebussines = function () {
-         this.link = element(by.id('business-nav'));
-         this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
-
+         element(by.id('contact-nav')).click();
+         element(by.id('business-nav')).click();
 
      };
 
      this.shouldshowthejob = function () {
-         this.link = element(by.id('job-nav'));
-
-         this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
-
+         element(by.id('contact-nav')).click();
+         this.link = element(by.id('job-nav')).click();
 
      };
 
      this.shouldshowthelocalization = function () {
-         this.link = element(by.id('localization-nav'));
 
-         this.link.click();
-         this.theElem = element(by.css('.text-block-title'));
-
-
+         element(by.id('contact-nav')).click();
+         this.link = element(by.id('localization-nav')).click();
      };
 
  };
@@ -266,138 +234,110 @@
      it('should open the page', function() {
          angularHomepage.open();
          angularHomepage.login();
-         expect(angularHomepage.logBox).toBeDefined();
 
          angularHomepage.checkFadeIn();
-         expect(angularHomepage.signup).toBeDefined();
 
          angularHomepage.checkFadeOut();
-         expect(angularHomepage.signup).toBe(null);
 
 
      });
 
+
      it('should go to the organization link', function () {
 
          angularHomepage.checkOrganizationLink();
-         expect(browser.isElementPresent(by.css('.orange-title'))).toBe(true);
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
+
 
          angularHomepage.checkKeepTheSubmenu();
-         expect(browser.isElementPresent(by.id('what-is-and-what-is-not-nav'))).toBe(true);
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
-
-
-         angularHomepage.checkShouldShowThPage();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
-         expect(element(by.css('.text-block-title'))).toBeDefined();
-
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheConditionsPage();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
          expect(angularHomepage.theElem).toBeDefined();
 
          angularHomepage.shouldShowTheDataProtectionPage();
          expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
          expect(angularHomepage.theElem).toBeDefined();
 
+
          angularHomepage.shouldShowTheSummary();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
+
 
          angularHomepage.shouldShowTheProductsAndExchanges();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
+
 
          angularHomepage.shouldShowTheDetailedDescription();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
+
 
          angularHomepage.shouldShowTheFundamentals();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheAction();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
-
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheFunds();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheEtfCfdNav();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheFutures();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
+
+         angularHomepage.shouldShowThePairs();
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheAdvanced();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheDiversification();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
-
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowThePrices();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheProducts();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheSubscriptionTypes();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowThePurchase();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheFreeSubscription();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheShoppingGuide();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
-
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheResources();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheArticles();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
-
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldshowthemotemplatecollections();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
-
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldShowTheSymbols();
-         expect(angularHomepage.theElem).toBeDefined();
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldshowthesupport();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldshowthebussines();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldshowthejob();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
          angularHomepage.shouldshowthelocalization();
-         expect(angularHomepage.theElem).toBeDefined();
-         expect(browser.isElementPresent(by.css('.menu-not-logged'))).toBe(true);
+         expect(browser.isElementPresent(by.css('.text-block-title'))).toBeDefined();
 
      });
 
