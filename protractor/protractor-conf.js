@@ -1,9 +1,6 @@
 /**
  * Created by Aitor on 28/05/14.
  */
-
-
-
 exports.config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
     suites: {
@@ -12,7 +9,9 @@ exports.config = {
         signup:' ../src/app/sign_up/*protractor.js',
         cart:' ../src/app/home/catalog/*protractor.js',
         menu:' ../src/app/layout_templates/*protractor.js',
-        // patterns:' ../src/app/my_patterns/*protractor.js'
+        patterns:' ../src/app/my_patterns/*protractor.js',
+        volatility: ' ../src/tools/*protractor.js',
+        packs: '../src/tools/my_subscriptions/*protractor.js'
 
     },
     multiCapabilities: [
