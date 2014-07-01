@@ -19,7 +19,8 @@ var SigunMenu = function() {
     this.open = function() {
         // Goto the login page
 
-        browser.get('http://46.51.174.51/moshopclient/#/sign-up');
+        //browser.get('http://46.51.174.51/moshopclient/#/sign-up');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/sign-up');
     };
 
     this.checkIdenticalInputs = function(){
@@ -62,7 +63,7 @@ var SigunMenu = function() {
         this.userName.sendKeys('user');
         this.userName = element.all(by.css('input')).get(1);
         this.userName.sendKeys('userpass');
-        element(by.css('.mo-button')).click();
+        element.all(by.css('.mo-button')).first().click();
 
         //Check user's pack
         this.patterns = element.all(by.css('.ng-binding'));
@@ -130,7 +131,8 @@ var SignupMenuStep2 = function() {
     this.errorI = element.all(by.css('text-warning-form'));
 
     this.open = function () {
-        browser.get('http://46.51.174.51/moshopclient/#/sign-up-step2');
+        //browser.get('http://46.51.174.51/moshopclient/#/sign-up-step2');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/sign-up-step2');
         browser.ignoreSynchronization = true;
     };
 

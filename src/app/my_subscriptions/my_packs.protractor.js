@@ -7,7 +7,7 @@ var Packs = function(){
 
     this.open = function(){
 
-        browser.get('http://46.51.174.51/moshopclient/#/my-subscriptions/my-packs');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/my-subscriptions/my-packs');
         browser.ignoreSynchronization = true;
     };
 
@@ -26,8 +26,12 @@ var Packs = function(){
     };
 
     this.checkDataLoaded = function(){
-        this.row = element(by.css('.packName'));
+        this.row = element.all(by.css('.packName')).first();
     };
+
+    this.checkPolicy = function(){
+        element.all(by.css(".ng-scope")).first().click();
+    }
 };
 
 describe('My packs page ', function() {
@@ -49,6 +53,12 @@ describe('My packs page ', function() {
         a.open();
         a.checkDataLoaded();
         expect(a.row.getText()).toBe('Australia + Nueva Zelanda Pack I');
+    });
+
+    it('should show the policy info', function(){
+
+        a.checkPolicy();
+        expect(browser.isElementPresent(by.css('.container'))).toBe(true);
     });
 
 

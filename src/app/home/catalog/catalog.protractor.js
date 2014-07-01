@@ -21,7 +21,8 @@ var Cart = function() {
 
     this.open = function () {
 
-        browser.get('http://46.51.174.51/moshopclient/#/catalog/1');
+        //browser.get('http://46.51.174.51/moshopclient/#/catalog/1');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/catalog/1');
         browser.ignoreSynchronization = true;
     };
 
@@ -44,7 +45,7 @@ var Cart = function() {
         element.all(by.css('ng-binding')).get(0);
         element(by.id("purchase-button")).click();
 
-        browser.get('http://46.51.174.51/moshopclient/#/catalog/1');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/catalog/1');
     };
 
     this.correctSum = function(){
@@ -85,7 +86,7 @@ describe('The cart functionality is correct', function() {
 
         c.open();
         c.correctItemsNumber();
-        var anumber = element(by.css('.shopping-cart-tab'));
+        var anumber = element(by.css('.icon-cart'));
         var theValue;
         anumber.getText().then(function(aValueStr){
             theValue = Number(aValueStr);
