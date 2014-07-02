@@ -164,7 +164,7 @@ angular.module('ngMo.my_profile', [
 
 
     })
-    .factory('ProfileService', function ($http, $window) {
+    .factory('ProfileService', function ($http, $window,$rootScope) {
         var profileService = {};
         profileService.loadUser = function (callback) {
             token = $window.sessionStorage.token;
