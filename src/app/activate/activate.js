@@ -3,7 +3,7 @@
  */
 
 angular.module('ngMo.Activate', [  'ui.router',
-    'ui.bootstrap' ])
+    'ui.bootstrap', 'singUp' ])
 
     .config(function config($stateProvider) {
         /*State for first signup step*/
@@ -11,7 +11,24 @@ angular.module('ngMo.Activate', [  'ui.router',
             url: '/activate/:token',
             views: {
                 "main": {
-                    templateUrl: 'sign_up/sign-up.tpl.html'
+                    controller: 'ActivateCtrl',
+                    templateUrl: 'activate/activate.tpl.html'
+                }
+            },
+            data: {
+                /* empty the menu data*/
+                pageTitle: '',
+                selectMenu: '',
+                selectSubmenu: '',
+                selectItemSubmenu: '',
+                moMenuType: 'publicMenu'
+
+            }}).state('reactivate', {
+            url: '/reactivate',
+            views: {
+                "main": {
+                    controller: 'ReactivateCtrl',
+                    templateUrl: 'activate/reactivate.tpl.html'
                 }
             },
             data: {
@@ -26,17 +43,72 @@ angular.module('ngMo.Activate', [  'ui.router',
     })
     .run(function run() {
     })
-
-    .controller('ActivateCtrl', function ($scope, $state, $stateParams) {
-        $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
-        });
-        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            if (angular.isDefined(toState.data.pageTitle)) {
-                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+    //activation of user Controller
+    .controller('ActivateCtrl', function ($scope, $state, $stateParams, $http,$rootScope) {
+        //callback function to redirect to home with user activated or not
+        $scope.callback = function(data) {
+            if (data != null && data.status == "ok"){
+                $state.go('home',{activated: true});
+            } else {
+                $state.go('home');
             }
-        });
+        };
 
-        $scope.token = $stateParams.token;
+
+        if ($stateParams.token != null) {
+
+            $scope.token = $stateParams.token;
+
+            tokenData = {
+                token : $scope.token
+            };
+            //take the token from params and sends to the server the token to activate the user
+            $http.post($rootScope.urlService+'/activate', tokenData)
+                .success(function (data) {
+                    $scope.callback(data);
+                })
+                .error(function (data) {
+                    $scope.callback(data);
+                });
+        }
+
+
+    })
+    //Reactivation of user, a page to resend a token
+    .controller('ReactivateCtrl', function ($scope, $state, $stateParams, $http,$rootScope) {
+
+        $scope.user = {email : "",
+                        email2:""};
+        $scope.mismatch = false;
+
+        $scope.sent = false;
+        $scope.status= "ok";
+        $scope.callback = function(data) {
+            $scope.sent = true;
+        };
+
+
+        $scope.reactivate = function() {
+            $scope.mismatch = ($scope.user.email2 !== $scope.user.email);
+            if ($scope.mismatch) {
+                return;
+            } else {
+
+                email = {
+                    email: $scope.user.email
+                };
+                $http.post($rootScope.urlService+ '/resendmail',email)
+                    .success(function (data) {
+                        $scope.callback(data);
+                    })
+                    .error(function (data) {
+                        $scope.callback(data);
+                    });
+
+            }
+        };
+
+
+
 
     });

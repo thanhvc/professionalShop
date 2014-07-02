@@ -1,5 +1,12 @@
 <div>
+
+
     <!-- Advertising carousel -->
+    <div ng-show="{{justActivated}}">
+        <div class="activated-user-message">
+            Su usuario ha sido activado con éxito
+        </div>
+    </div>
     <div ng-controller="HomeCtrl" carousel-controller-provider class="carousel-container" >
         <div>
             <carousel interval="myInterval">
