@@ -30,6 +30,18 @@ angular.module('auth',['http-auth-interceptor'])
     .service('IsLogged', function ($http, $window, $rootScope) {
         this.isLogged = function(){
             token = $window.sessionStorage.token;
+            if (typeof token ==="undefined" ) {
+                //doesnt exist a token, so the user is not loged
+                $rootScope.isLog = false;
+                return;
+            } else {
+                if ($rootScope.isLog) {
+                    //if the isLog is true and token exists, the user is logged.
+                    //the security (about if this token is really logged for this user or not)
+                    //now depends on each request
+                    return;
+                }
+            }
             config = {
                 headers: {
                     'X-Session-Token': token
