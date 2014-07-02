@@ -99,7 +99,16 @@ angular.module('ngMo', [
             }
         };
     })
-
+    .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
+        return function(n){
+            //return a string with 2 decimal if exists..
+            //xx.xxxx -> xx.xx
+            //xx.x -> xx.x
+            //xx -> xx
+            str = n.toString().substr(0,n.toString().indexOf(".")+3);
+            return str;
+        };
+    })
     .service('ShoppingCartService', function (ActiveTabService){
 
         var stockItems =  [];
@@ -646,7 +655,7 @@ angular.module('ngMo', [
                         };
                         return $http.post($rootScope.urlService+'/addpacks', config)
                             .success(function (data, status) {
-                                //$scope.removeAllItemsCart();
+                                $scope.removeAllItemsCart();
                                 $scope.callbackPurchase(data, status);
                             })
                             .error(function (data, status) {

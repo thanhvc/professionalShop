@@ -16,7 +16,7 @@
     Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y herramientas de evaluaci&oacute;n.
     </p>
     <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy' | uppercase}}</div>
-    <div class="region-catalog-container">{{selectedPack.region.name}}</div>
+    <div class="region-catalog-container">{{selectedPack.region.name}} {{selectedPack.name}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
     <span class="actual-date-catalog">DATE: {{actualDate | date:'dd MMMM'}}. (CET)</span>
 
@@ -76,12 +76,12 @@
             <td>{{pattern.asset.name | limitTo: 33}}</td>
             <td>{{pattern.asset.exchange.symbol}}</td>
             <td>{{pattern.asset.sector}} <span ng-show="pattern.asset.sector != '' && pattern.asset.industry != ''">/</span> {{pattern.asset.industry}}</td>
-            <td>{{pattern.win}}</td>
-            <td>{{pattern.loss}}</td>
-            <td>{{pattern.accumulatedReturn}}</td>
-            <td>{{pattern.averageReturn}}</td>
-            <td>{{pattern.duration}}</td>
-            <td>{{pattern.asset.volatility}}</td>
+            <td>{{pattern.win | twoDecimals}}</td>
+            <td>{{pattern.loss | twoDecimals}}</td>
+            <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td>{{pattern.averageReturn | twoDecimals}}</td>
+            <td>{{pattern.duration | twoDecimals}}</td>
+            <td>{{pattern.asset.volatility | twoDecimals}}</td>
             <td><div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div></td>
         </tr>
     </table>
