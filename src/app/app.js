@@ -106,7 +106,10 @@ angular.module('ngMo', [
             //xx.xxxx -> xx.xx
             //xx.x -> xx.x
             //xx -> xx
-            str = n.toString().substr(0,n.toString().indexOf(".")+3);
+            str="";
+            if (n != null && !isNaN(n)) {
+                str = n.toString().substr(0,n.toString().indexOf(".")+3);
+            }
             return str;
         };
     })
