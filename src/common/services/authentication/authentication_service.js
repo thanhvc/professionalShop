@@ -87,7 +87,7 @@ angular.module('auth',['http-auth-interceptor'])
                         .success(function (data, status, headers, config) {
                             $window.sessionStorage.token = data.authToken;
                             authService.loginConfirmed();
-                            $scope.errorSignIn = true;
+                            $scope.errorSignIn = false;
                             $state.go('my-patterns');
                             $scope.hideSignInForm();
                             $scope.currentUser = data.name;
