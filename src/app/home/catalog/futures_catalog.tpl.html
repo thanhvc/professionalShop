@@ -73,9 +73,9 @@
             <th></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td>{{pattern.asset.name | limitTo: 33}}</td>
+            <td>{{pattern.asset.longName | limitTo: 33}}</td>
             <td>{{pattern.asset.exchange.symbol}}</td>
-            <td>{{pattern.asset.sector}} <span ng-show="pattern.asset.sector != '' && pattern.asset.industry != ''">/</span> {{pattern.asset.industry}}</td>
+            <td>{{pattern.asset.sector}} <span ng-show="pattern.asset.sector != null && pattern.asset.industry != null">/</span> {{pattern.asset.industry}}</td>
             <td>{{pattern.win | twoDecimals}}</td>
             <td>{{pattern.loss | twoDecimals}}</td>
             <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
