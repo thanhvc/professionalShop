@@ -1,17 +1,17 @@
 <div>
-    <span class="catalog-title">Cat&aacute;logo Acciones</span>
+    <span class="catalog-title">Cat&aacute;logo Indices Pares</span>
 
     <p>El siguiente cuadro es un resumen de contenidos del Pack a Comprar mediante suscripci&oacute;n. Contiene una lista de hasta 100 Compa&ntilde;&iacute;as con las mejores Estrategias durante el Mes indicado.</p>
     <p>
-    La tabla muestra un avance de par&aacute;metros de las diferentes estrategias, que permite valorar las ventajas de Comprar el Pack.
+        La tabla muestra un avance de par&aacute;metros de las diferentes estrategias, que permite valorar las ventajas de Comprar el Pack.
     <ul class="public-list-first-level">
-    <li>Nombre de la Compa&ntilde;&iacute;a, Mercado cotizaci&oacute;n y clasificaci&oacute;n Sectorial.</li>
-    <li>N&uacute;mero de a&ntilde;os &ndash;o frecuencia de aciertos&ndash; que la estrategia gener&oacute; Beneficios y P&eacute;rdidas.</li>
-    <li>Rentabilidad Acumulada durante 15 a&ntilde;os y Rentabilidad Media asociada al periodo de la operaci&oacute;n &ndash;no es rentabilidad anual&ndash;. </li>
-    <li>Duraci&oacute;n de la operaci&oacute;n (Holding days) para planificar la disponibilidad del dinero. </li>
-    <li>Volatilidad hist&oacute;rica para estimar perfil de riesgo. </li>
-    <li>El &ldquo;Estado&rdquo; de la Estrategia se indica mediante un sem&aacute;foro: Color naranja si a d&iacute;a de hoy est&aacute; en curso. Color rojo si ya termin&oacute;. Color verde cuando en la fecha actual todav&iacute;a est&aacute; sin comenzar.</li>
-    <li>Informaci&oacute;n de los datos Fundamentales de la Compa&ntilde;&iacute;a</li>
+        <li>Nombre de la Compa&ntilde;&iacute;a, Mercado cotizaci&oacute;n y clasificaci&oacute;n Sectorial.</li>
+        <li>N&uacute;mero de a&ntilde;os &ndash;o frecuencia de aciertos&ndash; que la estrategia gener&oacute; Beneficios y P&eacute;rdidas.</li>
+        <li>Rentabilidad Acumulada durante 15 a&ntilde;os y Rentabilidad Media asociada al periodo de la operaci&oacute;n &ndash;no es rentabilidad anual&ndash;. </li>
+        <li>Duraci&oacute;n de la operaci&oacute;n (Holding days) para planificar la disponibilidad del dinero. </li>
+        <li>Volatilidad hist&oacute;rica para estimar perfil de riesgo. </li>
+        <li>El &ldquo;Estado&rdquo; de la Estrategia se indica mediante un sem&aacute;foro: Color naranja si a d&iacute;a de hoy est&aacute; en curso. Color rojo si ya termin&oacute;. Color verde cuando en la fecha actual todav&iacute;a est&aacute; sin comenzar.</li>
+        <li>Informaci&oacute;n de los datos Fundamentales de la Compa&ntilde;&iacute;a</li>
     </ul>
     Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y herramientas de evaluaci&oacute;n.
     </p>
@@ -51,7 +51,7 @@
     </div>
     <table class="patterns-table-catalog">
         <tr>
-            <th>Patr&oacute;n Acciones</th>
+            <th>Patr&oacute;n Par</th>
             <th>Mercado</th>
             <th>Sector / Industria</th>
             <th colspan="2">N&uacute;mero de A&ntilde;os</th>
@@ -73,9 +73,16 @@
             <th></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td>{{pattern.asset.longName | limitTo: 33}}</td>
+            <td>
+                <span class="buy-color">{{pattern.asset.longName | limitTo: 33}}</span>
+                <br/>
+                <span class="sell-color">{{pattern.bearishAsset.longName | limitTo: 33}}</span>
+            </td>
             <td>{{pattern.asset.exchange.symbol}}</td>
-            <td>{{pattern.asset.sector}} <span ng-show="pattern.asset.sector != null && pattern.asset.industry != null">/</span> {{pattern.asset.industry}}</td>
+            <td>    <span class="buy-color">{{pattern.asset.sector}}</span> <span class="buy-color" ng-show="pattern.asset.sector != '' && pattern.asset.industry != ''">/</span> <span class="buy-color"> {{pattern.asset.industry}} </span>
+                <br/>
+                <span class="sell-color">{{pattern.bearishAsset.sector}}</span> <span class="sell-color" ng-show="pattern.bearishAsset.sector != '' && pattern.bearishAsset.industry != ''">/</span> <span class="sell-color">{{pattern.bearishAsset.industry}}</span>
+            </td>
             <td>{{pattern.win}}</td>
             <td>{{pattern.loss}}</td>
             <td>{{pattern.accumulatedReturn}}</td>
@@ -92,7 +99,7 @@
                     page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
                     next-text="&gt;"
                     first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
-        </div>
+    </div>
 
 
 

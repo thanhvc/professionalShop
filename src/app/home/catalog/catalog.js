@@ -85,7 +85,8 @@ angular.module('ngMo.catalog', [
             {url: 'home/catalog/stocks_catalog.tpl.html'},
             {url: 'home/catalog/pairs_catalog.tpl.html'},
             {url: 'home/catalog/indices_catalog.tpl.html'},
-            {url: 'home/catalog/futures_catalog.tpl.html'}
+            {url: 'home/catalog/futures_catalog.tpl.html'},
+            {url: 'home/catalog/pairs_indices_catalog.tpl.html'}
         ];
 
         return {
@@ -139,6 +140,11 @@ angular.module('ngMo.catalog', [
                         $scope.patterns = data.patterns;
                         $scope.results = data.results;
                         $scope.found = data.found;
+                        if ($scope.selectedPack.productType === 'INDICE'){
+                            if ($scope.selectedPack.patternType === 1) {
+                                $scope.selectedTab = 4;
+                            }
+                        }
                     });
                 };
 
@@ -149,12 +155,12 @@ angular.module('ngMo.catalog', [
 
                 $scope.loadPatterns();
 
-                selectedTab = ActiveTabService.activeTab();
+                $scope.selectedTab = ActiveTabService.activeTab();
 
             },
             link: function ($scope) {
                 $scope.getContentUrl = function () {
-                    return urlTemplatesCatalogTexts[selectedTab].url;
+                    return urlTemplatesCatalogTexts[$scope.selectedTab].url;
                 };
             },
             template: '<div ng-include="getContentUrl()"></div>'
