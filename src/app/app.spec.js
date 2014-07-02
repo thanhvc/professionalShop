@@ -102,7 +102,7 @@
 /**
  * TODO: add items of differents types for a greater coverage test
  */
-describe('The cart directive', function () {
+/*describe('The cart directive', function () {
     beforeEach(angular.mock.module("ngMo"));
     describe('template', function () {
         var $compile;
@@ -238,7 +238,7 @@ describe('The cart directive', function () {
         }));
 
     });
-});
+});*/
 
 /* Count how many items the private menu has*/
 
