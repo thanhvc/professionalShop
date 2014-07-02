@@ -727,7 +727,7 @@ angular.module('ngMo.the_week', [
             template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph }\"  ng-style=\"{'top': myTop}\" ng-click=\"$event.stopPropagation();\">"+
                 "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>"+
                 "<br/>"+
-                "<span>{{selectedGraphic.indiceName}}</span>"+
+                "<span >{{selectedGraphic.indiceName}}</span>"+
                 "<br/>"+
                 "<span>Rentabilidad Diaria Acumulada (%)</span>"+
                 "<br/>"+

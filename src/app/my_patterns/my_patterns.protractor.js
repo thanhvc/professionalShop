@@ -9,26 +9,25 @@ var Patterns = function() {
     this.table = null;
     this.graphic = null;
     this.text = '';
-    this.graphicName = '';
     this.graphic = '';
 
     this.open = function () {
 
-        //browser.get('http://46.51.174.51/moshopclient/#/patterns');
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/patterns');
+        //browser.get('http://46.51.174.51/moshopclient/#/home');
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
         browser.ignoreSynchronization = true;
 
     };
 
-    this.checkTable = function(){
-        element(by.id("the-week-nav")).click();
-        this.table = element(by.css("the-week-table"));
-    };
+    this.login = function(){
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/the-week');
+
+    }
 
     this.graphicName = function(){
 
-        this.graphic = element.all(by.css('.graphic-panel > span')).first().getText();
-        this.graphicName = element.all(by.css('.ng-binding')).get(13).getText();
+        this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(13).getText();
+        this.nameGraphic = element.all(by.css('.ng-binding')).get(13).getText();
     };
 
     this.showMore = function(){
@@ -56,17 +55,15 @@ var SP = function(){
         browser.ignoreSynchronization = true;
     };
 
-    this.checkTable = function(){
-        element.all(by.css(".ng-isolate-scope")).get(2).click();
-        this.table =  element(by.css("syp-table"));
-    };
+    this.login = function(){
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/the-week');
+
+    }
 
 
     this.graphicName = function(){
-        element.all(by.css(".graphic-image-cell")).first().click();
-        this.graphic = element(by.css('span.ng-binding')).getAttribute('value');
-        this.graphicName = element.all(by.css('.ng-binding')).get(13).getText();
-
+        this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(13).getText();
+        this.nameGraphic = element.all(by.css('.ng-binding')).get(13).getText();
     };
 
 };
@@ -82,17 +79,16 @@ var Commodities = function(){
         browser.get('http://localhost:63342/mo-shopclient/build/index.html#/patterns');
         browser.ignoreSynchronization = true;
     };
+    this.login = function(){
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/the-week');
 
-    this.checkTable = function(){
-        element.all(by.css(".ng-isolate-scope")).get(1).click();
-        this.table =  element(by.css("commodities-table"));
-    };
+    }
+
 
 
     this.graphicName = function(){
-        element.all(by.css(".graphic-image")).first().click();
-        //this.graphic = element(by.css('.open-graphic-panel > span')).get(0).getText();
-        this.graphicName = element.all(by.css('.ng-binding')).get(13).getAttribute('text');
+       this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(13).getText();
+       this.nameGraphic = element.all(by.css('.ng-binding')).get(13).getText();
     };
 
 };
@@ -108,17 +104,10 @@ var Actions = function(){
         browser.get('http://localhost:63342/mo-shopclient/build/index.html#/patterns');
         browser.ignoreSynchronization = true;
     };
+    this.login = function(){
+        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/the-week');
 
-    this.showMore = function(){
-        element.all(by.css(".toggle-link")).get(0).click();
-        this.element = element(by.css(".ng-hide"));
-    };
-
-    this.showLess = function(){
-        element.all(by.css(".toggle-link")).get(0).click();
-        this.element = $('a[ng-click*="openModalInstance(\'services/detailed_description/patterns\')"]');
-
-    };
+    }
 
     this.showMoreInfo = function(){
 
@@ -127,6 +116,7 @@ var Actions = function(){
 
 
     this.checkPanels = function(){
+
         this.text = element.all(by.css('.ng-isolate-scope'));
         this.tables = element.all(by.css('.table-header-top-patterns')).count();
 
@@ -135,7 +125,7 @@ var Actions = function(){
         this.filters = element.all(by.css('.border-filters')).count();
         this.text2 = this.text.get(2).getText();
         this.text3 = this.text.get(3).getText();
-        this.text4 = this.text.get(4).getText();
+        //this.text4 = this.text.get(4).getText();
     };
 
     this.checkMonth = function(){
@@ -233,7 +223,6 @@ var Actions = function(){
 
         });
 
-       // this.page = element.all(by.css('.ng-binding')).get(183).getText();
         this.market = element.all(by.css('select.border-filters')).get(2).getAttribute('value');
         this.indust = element.all(by.css('select.border-filters')).get(4).getAttribute('value');
         this.op = element.all(by.css('select.border-filters')).get(5).getAttribute('value');
@@ -268,16 +257,11 @@ describe('The patterns menu is ok', function() {
         p.open();
     });
 
-    it('should have a table', function(){
-
-        p.checkTable();
-        expect(p.table).toBeDefined();
-    });
 
     it('should have the correct graphic name', function(){
+        p.login();
         p.graphicName();
-        expect(p.graphicName).toBe('DOW JONES INDUSTRIAL AVERAGE');
-        //expect(p.graphicName).toBe(p.graphic);
+        expect(p.graphic).toBe(p.nameGraphic);
 
     });
 
@@ -318,17 +302,12 @@ describe('The S&P table is ok', function(){
 
     s.open();
 
-    it('should show the table', function(){
+       it('should have the correct graphic name', function(){
+         s.login();
+       s.graphicName();
+        expect(s.graphic).toBe(s.nameGraphic);
 
-        s.checkTable();
-        expect(s.table).toBeDefined();
     });
-
-    /*it('should have the correct graphic name', function(){
-        s.graphicName();
-        expect(s.graphic).toBeDefined();
-        expect(s.graphicName).toBe(element(by.css(".index-name")).getText());
-    });*/
 
 });
 
@@ -339,51 +318,32 @@ describe('The Commodities table is ok', function(){
 
     c.open();
 
-    it('should show the table', function(){
 
-        c.checkTable();
-        expect(c.table).toBeDefined();
-    });
-
-  /*  it('should have the correct graphic name', function(){
+   it('should have the correct graphic name', function(){
         c.graphicName();
-        expect(c.graphic).toBeDefined();
-        expect(c.graphicName).toBe(element(by.css(".index-name")).getText());
+        expect(c.graphic).toBe(c.nameGraphic);
     });
-    */
+
 });
 
 
-describe('Pattern menu', function(){
+describe('Actions menu', function(){
 
     var a = new Actions();
-
-    it('should show more text', function(){
-        a.open();
-        a.showMore();
-        expect(a.element).toBeDefined();
-    });
-
-
-   it('should show less text', function(){
-        a.open();
-        a.showLess();
-        expect(element(by.css(".ng-hide"))).toBeDefined();
-    });
-
 
     it('should have 4 panels', function(){
         a.checkPanels();
 
-        expect(a.text1).toBe('Acciones');
-        expect(a.text2).toBe('Pares');
-        expect(a.text3).toBe('Indices');
-        expect(a.text4).toBe('Futuros');
-        expect(a.tables).toBe(4);
-        expect(a.filters).toBe(68);
+        expect(a.text1).toBe('Bolsa');
+        expect(a.text2).toBe('Commodities');
+        expect(a.text3).toBe('S&P');
+       // expect(a.text4).toBe('Futuros');
+        expect(a.tables).toBe(0);
+        expect(a.filters).toBe(0);
+
     });
 
-
+/*
     it('should have the correct America regions', function(){
 
         a.checkAmericaRegions();
@@ -437,7 +397,7 @@ describe('Pattern menu', function(){
         expect(a.button).toBeDefined();
     });
 
-    /*it('should show the correct month',function(){
+    it('should show the correct month',function(){
 
         a.checkMonth();
         var t,v;
@@ -449,7 +409,7 @@ describe('Pattern menu', function(){
         });
 
 
-    });*/
+    });
 
 
     it('should show more info',function(){
@@ -495,7 +455,7 @@ describe('Pattern menu', function(){
         expect(a.diar).toBe('33');
         expect(a.dur).toBe('55');
     });
-
+*/
 
 });
 
