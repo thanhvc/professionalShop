@@ -33,10 +33,11 @@ angular.module('ngMo.my_patterns', [
                     return {active_tab: TabsService.getActiveTab()};
                 },
                 myPatternsData: function(PatternsService, filtering) {
-                    return PatternsService.getPagedDataAsync(10, 1, filtering).then(function (data){
+                    return PatternsService.getPagedDataAsync(1, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
-                            result: data.results
+                            result: data.results,
+                            found: data.found
                          };
 
                     });
@@ -287,15 +288,10 @@ angular.module('ngMo.my_patterns', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
-            var data = PatternsService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
+            var data = PatternsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
-                    /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
-                    }
                 });
         };
 
@@ -672,7 +668,7 @@ angular.module('ngMo.my_patterns', [
         //$scope.loadPage();
         $scope.myData = myPatternsData.patterns;
         $scope.results = myPatternsData.results;
-        $scope.found = myPatternsData.results;
+        $scope.found = myPatternsData.found;
 
 
     })
@@ -693,7 +689,7 @@ angular.module('ngMo.my_patterns', [
         };
 
         /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
-        this.getPagedDataAsync = function (pageSize, page, filtering) {
+        this.getPagedDataAsync = function (page, filtering) {
             var deferred = $q.defer();
             var data;
             var urlParam = this.createParamsFromFilter(filtering);
