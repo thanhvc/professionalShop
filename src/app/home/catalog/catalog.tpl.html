@@ -1,11 +1,18 @@
 <div>
     <div selected-pack-catalog></div>
     <div class="browser-data-catalog">
-        <p class="orange-title" >&iquest;Desea informaci&oacute;n sobre los datos Fundamentales de una Compa&ntilde;&iacute;a?</p>
+        <p class="orange-title">&iquest;Desea informaci&oacute;n sobre los datos Fundamentales de una Compa&ntilde;&iacute;a?</p>
+
         <p>Introducir Nombre de la Compa&ntilde;&iacute;a (para acciones de Asia tambi&eacute;n C&oacute;digo Num&eacute;rico)</p>
-        <input placeholder="Nombre" ng-model="searchExternCatalog">
-        <a ng-href="{{urlSearchCatalog}}" ng-click="generateSearchUrl('Google', searchExternCatalog)">Buscar en Google</a><img ng-src="assets/img/home/google-icon.png">
-        <a ng-href="{{urlSearchCatalog}}" ng-click="generateSearchUrl('Yahoo', searchExternCatalog)">Buscar en Yahoo</a><img ng-src="assets/img/home/yahoo-icon.png">
-        <a ng-href="{{urlSearchCatalog}}" ng-click="generateSearchUrl('Bloomberg', searchExternCatalog)">Buscar en Bloomberg</a><img ng-src="assets/img/home/bloomberg-icon.png">
+
+        <div ng-controller="CatalogCtrl">
+            <input placeholder="Nombre" ng-model="searchExternCatalog">
+            <a ng-href="{{urlSearchCatalog}}" ng-click="generateSearchUrl('Google', searchExternCatalog)">Buscar en
+                Google</a><img ng-src="assets/img/home/google-icon.png">
+            <a ng-href="{{urlSearchCatalog}}" ng-click="generateSearchUrl('Yahoo', searchExternCatalog)">Buscar en
+                Yahoo</a><img ng-src="assets/img/home/yahoo-icon.png">
+            <a ng-href="{{urlSearchCatalog}}" ng-click="generateSearchUrl('Bloomberg', searchExternCatalog)">Buscar en
+                Bloomberg</a><img ng-src="assets/img/home/bloomberg-icon.png">
+        </div>
     </div>
 </div>

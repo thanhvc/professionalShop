@@ -65,7 +65,6 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-        //$rootScope.urlService = 'http://localhost:9000';
         $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
     })
 
@@ -89,7 +88,7 @@ angular.module('ngMo', [
         this.containItem = function (array, itemArray) {
             var contain = false;
             angular.forEach(array, function (item) {
-                    if (item.id === itemArray.id) {
+                    if (item.code === itemArray.code ) {
                         contain = true;
                     }
                 });
@@ -100,7 +99,19 @@ angular.module('ngMo', [
             }
         };
     })
-
+    .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
+        return function(n){
+            //return a string with 2 decimal if exists..
+            //xx.xxxx -> xx.xx
+            //xx.x -> xx.x
+            //xx -> xx
+            str="";
+            if (n != null && !isNaN(n)) {
+                str = n.toString().substr(0,n.toString().indexOf(".")+3);
+            }
+            return str;
+        };
+    })
     .service('ShoppingCartService', function (ActiveTabService){
 
         var stockItems =  [];
@@ -647,7 +658,7 @@ angular.module('ngMo', [
                         };
                         return $http.post($rootScope.urlService+'/addpacks', config)
                             .success(function (data, status) {
-                                //$scope.removeAllItemsCart();
+                                $scope.removeAllItemsCart();
                                 $scope.callbackPurchase(data, status);
                             })
                             .error(function (data, status) {
