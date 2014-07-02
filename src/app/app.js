@@ -88,7 +88,7 @@ angular.module('ngMo', [
         this.containItem = function (array, itemArray) {
             var contain = false;
             angular.forEach(array, function (item) {
-                    if (item.id === itemArray.id) {
+                    if (item.code === itemArray.code ) {
                         contain = true;
                     }
                 });
