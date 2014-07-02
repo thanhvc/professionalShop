@@ -64,7 +64,8 @@ angular.module('ngMo', [
         $urlRouterProvider.otherwise('/home');
     })
 
-    .run(function run() {
+    .run(function run($rootScope) {
+        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
     })
 
     .service('ActiveTabService', function (){
@@ -297,12 +298,7 @@ angular.module('ngMo', [
     })
 
     .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
-        /*$rootScope.$on('$routeChangeStart', function (event){
-           if  (!$rootScope.isLog){
-               $rootScope.saveLocation = $location.url();
-               $location.path('/')
-           }
-        });*/
+
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
             $scope.inWeekView = false;
@@ -692,7 +688,7 @@ angular.module('ngMo', [
                             },
                             data: dataCart
                         };
-                        return $http.post('http://api.mo.devel.edosoftfactory.com/addpacks', config)
+                        return $http.post($rootScope.urlService+'/addpacks', config)
                             .success(function (data, status) {
                                 $scope.callbackPurchase(data, status);
                             })

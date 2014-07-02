@@ -25,7 +25,23 @@ angular.module('ngMo.my_patterns', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false
+            reloadOnSearch: false,
+            resolve: {
+                PatternsService: "PatternsService",
+                TabsService: "TabsService",
+                filtering : function(TabsService){
+                    return {active_tab: TabsService.getActiveTab()};
+                },
+                myPatternsData: function(PatternsService, filtering) {
+                    return PatternsService.getPagedDataAsync(10, 1, filtering).then(function (data){
+                        return {
+                            patterns: data.patterns,
+                            result: data.results
+                         };
+
+                    });
+                }
+            }
         });
     })
     .service('TabsService', function () {
@@ -95,7 +111,7 @@ angular.module('ngMo.my_patterns', [
             activeTab = active;
         };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -653,11 +669,14 @@ angular.module('ngMo.my_patterns', [
             $scope.loadUrlParams();
         }
 
-        $scope.loadPage();
+        //$scope.loadPage();
+        $scope.myData = myPatternsData.patterns;
+        $scope.results = myPatternsData.results;
+        $scope.found = myPatternsData.results;
 
 
     })
-    .service("PatternsService", function ($http, $window) {
+    .service("PatternsService", function ($http, $window, $rootScope, $q) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -674,15 +693,9 @@ angular.module('ngMo.my_patterns', [
         };
 
         /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
-        this.getPagedDataAsync = function (pageSize, page, filtering, callbackFunc) {
-            // setTimeout(function () { //change setTimeOut for $timeOut
+        this.getPagedDataAsync = function (pageSize, page, filtering) {
+            var deferred = $q.defer();
             var data;
-            /**
-             *TODO: THIS IS A MOCKED HTTP REQUEST, THERE ARE A LOT OF JSON DEPENDING ON TYPE, IN THIS CASE WE CHANGE THE JSON TO LOAD
-             *       BUT THE TYPE IS PASSED AS A PARAM IN THE FINAL CODE, NOT WILL CALL DIFERENTS URL..
-             */
-
-
             var urlParam = this.createParamsFromFilter(filtering);
 
             config = {
@@ -694,10 +707,12 @@ angular.module('ngMo.my_patterns', [
                 }
             };
 
-            var result = $http.get('http://api.mo.devel.edosoftfactory.com/patterns', config).success(function (data) {
+            var result = $http.get($rootScope.urlService+'/patterns', config).then(function (response) {
                 // With the data succesfully returned, call our callback
-                callbackFunc(data);
+                deferred.resolve();
+                return response.data;
             });
+            return result;
         };
 
         /**

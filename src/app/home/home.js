@@ -19,22 +19,22 @@ angular.module('ngMo.home', [
     .config(function config($stateProvider) {
 
     })
-    .service('ActualDateService', function ($http){
+    .service('ActualDateService', function ($http, $rootScope){
         this.actualDate = function(callbackFunc){
-            var result = $http.get('http://api.mo.devel.edosoftfactory.com/actualdate').success(function (data) {
+            var result = $http.get($rootScope.urlService+'/actualdate').success(function (data) {
                 callbackFunc(data);
             });
         };
 
         this.actualWeek = function(callbackFunc){
-            var result = $http.get('http://api.mo.devel.edosoftfactory.com/numweek').success(function (data) {
+            var result = $http.get($rootScope.urlService+'/numweek').success(function (data) {
                 callbackFunc(data);
             });
         };
     })
-    .service('PacksService', function ($http) {
+    .service('PacksService', function ($http, $rootScope) {
         this.obtainPacks = function (callbackFunc) {
-            var europePacks = $http.get('http://api.mo.devel.edosoftfactory.com/homepacks').success(function (data) {
+            var europePacks = $http.get($rootScope.urlService+'/homepacks').success(function (data) {
                 callbackFunc(data);
             });
         };
@@ -130,33 +130,33 @@ angular.module('ngMo.home', [
                         title: 'Acciones',
                         active: ActiveTabService.activeTab() === 0,
                         value: 0,
-                        americaContent: $scope.myData.region0,
-                        asiaContent: $scope.myData.region1,
-                        europeContent: $scope.myData.region2,
+                        americaContent: $scope.myData.STOCK.NALA,
+                        asiaContent: $scope.myData.STOCK.APAC,
+                        europeContent: $scope.myData.STOCK.EMEA,
                         url: 'home/tables_packs/stock_table.tpl.html'
                     },
                     {
                         title: 'Pares',
                         active: ActiveTabService.activeTab() === 1,
                         value: 1,
-                        americaContent: $scope.myData.region3,
-                        asiaContent: $scope.myData.region4,
-                        europeContent: $scope.myData.region5,
+                        americaContent: $scope.myData.STOCKPAIR.NALA,
+                        asiaContent: $scope.myData.STOCKPAIR.APAC,
+                        europeContent: $scope.myData.STOCKPAIR.EMEA,
                         url: 'home/tables_packs/pairs_table.tpl.html'
                     },
                     {
                         title: 'Indices',
                         active: ActiveTabService.activeTab() === 2,
                         value: 2,
-                        indicesContent: $scope.myData.region6,
-                        pairsIndicesContent: $scope.myData.region7,
+                        indicesContent: $scope.myData.INDICE.INDEX,
+                        pairsIndicesContent: $scope.myData.INDICEPAIR.INDEX,
                         url: 'home/tables_packs/indices_table.tpl.html'
                     },
                     {
                         title: 'Futuros',
                         active: ActiveTabService.activeTab() === 3,
                         value: 3,
-                        futuresContent: $scope.myData.region8,
+                        futuresContent: $scope.myData.FUTURE.FUTURE,
                         url: 'home/tables_packs/futures_table.tpl.html'
                     }
                 ];

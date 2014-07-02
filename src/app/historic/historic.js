@@ -589,7 +589,7 @@ angular.module('ngMo.historic', [
 
 
     })
-    .service("HistoricsService", function ($http, $window) {
+    .service("HistoricsService", function ($http, $window, $rootScope) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -619,7 +619,7 @@ angular.module('ngMo.historic', [
                 }
             };
 
-            var result = $http.get('http://api.mo.devel.edosoftfactory.com/patterns', config).success(function (data) {
+            var result = $http.get($rootScope.urlService+'/patterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });

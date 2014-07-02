@@ -48,7 +48,7 @@ angular.module('auth',['http-auth-interceptor'])
                 }
             };
             $rootScope.isLog=false;
-            $http.get('http://api.mo.devel.edosoftfactory.com/islogged', config)
+            $http.get($rootScope.urlService+'/islogged', config)
                 .success(function (params, status, headers, config) {
                     $rootScope.isLog = true;
 
@@ -83,7 +83,7 @@ angular.module('auth',['http-auth-interceptor'])
 
                 $scope.submit = function() {
                     data = $scope.fields;
-                    $http.post('http://api.mo.devel.edosoftfactory.com/login', data)
+                    $http.post($rootScope.urlService+'/login', data)
                         .success(function (data, status, headers, config) {
                             $window.sessionStorage.token = data.authToken;
                             authService.loginConfirmed();
@@ -109,7 +109,7 @@ angular.module('auth',['http-auth-interceptor'])
                             'X-Session-Token': token
                         }
                     };
-                    $http.get('http://api.mo.devel.edosoftfactory.com/logout', config)
+                    $http.get($rootScope.urlService+'/logout', config)
                         .success(function () {
                             $rootScope.isLog = false;
                             $state.go('home');

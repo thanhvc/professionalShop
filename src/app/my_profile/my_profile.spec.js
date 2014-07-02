@@ -15,6 +15,6 @@
         compile = $compile;
         template = $templateCache;
         httpMock = $httpBackend;
-        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/loaduser').respond(200);
+        httpMock.when('GET', $rootScope.urlService+'/loaduser').respond(200);
         httpMock.when('GET', 'src/app/my_patterns/data/testdataStock.json.js?pageSize=10&page=1').respond([
             {*/

@@ -12,12 +12,12 @@ describe('The SignUp ', function () {
         beforeEach(inject(function ($templateCache, $compile, $rootScope, $controller, $state, $httpBackend) {
 
             httpMock = $httpBackend;
-            httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com/islogged').respond(200);
-            httpMock.when('POST', 'http://api.mo.devel.edosoftfactory.com/testemail').respond(
+            httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
+            httpMock.when('POST', $rootScope.urlService+'/testemail').respond(
                 {
                     result: "ok"
                 });
-            httpMock.when('POST', 'http://api.mo.devel.edosoftfactory.com/user').respond({
+            httpMock.when('POST', $rootScope.urlService+'/user').respond({
                 status: "ok"
             });
             //create an empty scope

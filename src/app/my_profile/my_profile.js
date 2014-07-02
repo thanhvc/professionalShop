@@ -173,7 +173,7 @@ angular.module('ngMo.my_profile', [
                     'X-Session-Token': token
                 }
             };
-            $http.get('http://api.mo.devel.edosoftfactory.com/user', config)
+            $http.get($rootScope.urlService+'/user', config)
                 .success(function (data, status) {
                     callback(data, status);
                 })
@@ -190,7 +190,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: user
             };
-            return $http.put('http://api.mo.devel.edosoftfactory.com/user', config)
+            return $http.put($rootScope.urlService+'/user', config)
                 .success(function (data, status) {
                     callback(data, status);
                 })
@@ -209,7 +209,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: passwords
             };
-            return $http.put('http://api.mo.devel.edosoftfactory.com/user', config)
+            return $http.put($rootScope.urlService+'/user', config)
                 .success(function (data, status) {
                     callback(data, status);
                 })
