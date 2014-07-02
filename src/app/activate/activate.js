@@ -44,7 +44,7 @@ angular.module('ngMo.Activate', [  'ui.router',
     .run(function run() {
     })
     //activation of user Controller
-    .controller('ActivateCtrl', function ($scope, $state, $stateParams, $http) {
+    .controller('ActivateCtrl', function ($scope, $state, $stateParams, $http,$rootScope) {
         //callback function to redirect to home with user activated or not
         $scope.callback = function(data) {
             if (data != null && data.status == "ok"){
@@ -63,7 +63,7 @@ angular.module('ngMo.Activate', [  'ui.router',
                 token : $scope.token
             };
             //take the token from params and sends to the server the token to activate the user
-            $http.post('http://api.mo.devel.edosoftfactory.com/activate', tokenData)
+            $http.post($rootScope.urlService+'/activate', tokenData)
                 .success(function (data) {
                     $scope.callback(data);
                 })
@@ -75,7 +75,7 @@ angular.module('ngMo.Activate', [  'ui.router',
 
     })
     //Reactivation of user, a page to resend a token
-    .controller('ReactivateCtrl', function ($scope, $state, $stateParams, $http) {
+    .controller('ReactivateCtrl', function ($scope, $state, $stateParams, $http,$rootScope) {
 
         $scope.user = {email : "",
                         email2:""};
@@ -97,7 +97,7 @@ angular.module('ngMo.Activate', [  'ui.router',
                 email = {
                     email: $scope.user.email
                 };
-                $http.post('http://api.mo.devel.edosoftfactory.com/resendmail',email)
+                $http.post($rootScope.urlService+ '/resendmail',email)
                     .success(function (data) {
                         $scope.callback(data);
                     })
