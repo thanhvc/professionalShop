@@ -81,9 +81,13 @@
             <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
                 <br>
                 <span class="cursor-help grey-text-pair" tooltip-html-unsafe="{{pattern.bearishAsset.exchange.name}}">{{pattern.bearishAsset.exchange.symbol}}</span></td>
-            <td>    <span class="buy-color">{{pattern.asset.sector}}</span> <span class="buy-color" ng-show="pattern.asset.sector != null && pattern.asset.industry != null">/</span> <span class="buy-color"> {{pattern.asset.industry}} </span>
+            <td>    <span tooltip-html-unsafe="{{pattern.asset.sector}}" class="buy-color">{{pattern.asset.sector}}</span>
+                <span class="buy-color" ng-show="pattern.asset.sector != null && pattern.asset.industry != null">/</span>
+                <span tooltip-html-unsafe="{{pattern.asset.industry}}" class="buy-color"> {{pattern.asset.industry}} </span>
                 <br/>
-                <span class="sell-color">{{pattern.bearishAsset.sector}}</span> <span class="sell-color" ng-show="pattern.bearishAsset.sector != null && pattern.bearishAsset.industry != null">/</span> <span class="sell-color">{{pattern.bearishAsset.industry}}</span>
+                <span tooltip-html-unsafe="{{pattern.bearishAsset.sector}}" class="sell-color">{{pattern.bearishAsset.sector}}</span>
+                <span class="sell-color" ng-show="pattern.bearishAsset.sector != null && pattern.bearishAsset.industry != null">/</span>
+                <span tooltip-html-unsafe="{{pattern.bearishAsset.industry}}" class="sell-color">{{pattern.bearishAsset.industry}}</span>
             </td>
             <td>{{pattern.win | twoDecimals}}</td>
             <td>{{pattern.loss | twoDecimals}}</td>
