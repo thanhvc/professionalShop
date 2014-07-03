@@ -3,7 +3,7 @@ angular.module('ngMo.catalog', [
 ])
     .config(function config($stateProvider) {
         $stateProvider.state('catalog', {
-            url: '/catalog/:packCode',
+            url: '/catalog/:packCode/:month',
             views: {
                 "main": {
                     controller: 'HomeCtrl',
@@ -41,7 +41,8 @@ angular.module('ngMo.catalog', [
             config = {
                 params: {
                     'page': page,
-                    'packCode': $state.params.packCode
+                    'packCode': $state.params.packCode,
+                    'month': $state.params.month
                 }
             };
 

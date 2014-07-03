@@ -66,6 +66,7 @@ angular.module('ngMo', [
 
     .run(function run($rootScope) {
         $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+        //$rootScope.urlService = 'http://localhost:9000';
     })
 
     .service('ActiveTabService', function (){
@@ -76,6 +77,17 @@ angular.module('ngMo', [
         this.changeActiveTab = function (tab) {
           activeTab =   tab;
           return activeTab;
+        };
+    })
+
+    .service('SecondActiveTabService', function (){
+        var activeTab = 0;
+        this.activeTab = function (){
+            return  activeTab;
+        };
+        this.changeActiveTab = function (tab) {
+            activeTab =   tab;
+            return activeTab;
         };
     })
     .service('AnchorLinkService', function ($location, $anchorScroll){
@@ -287,6 +299,10 @@ angular.module('ngMo', [
         });
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
+        });
+
+        var dataNext = ActualDateService.nextDate(function (data) {
+            $scope.nextDate = data.nextDate;
         });
 
         $scope.openModalInstance = function(url) {

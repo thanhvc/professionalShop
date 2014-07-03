@@ -31,6 +31,12 @@ angular.module('ngMo.home', [
                 callbackFunc(data);
             });
         };
+
+        this.nextDate = function(callbackFunc){
+            var result = $http.get($rootScope.urlService+'/nextdate').success(function (data) {
+                callbackFunc(data);
+            });
+        };
     })
     .service('PacksService', function ($http, $rootScope) {
         this.obtainPacks = function (callbackFunc) {
@@ -43,7 +49,7 @@ angular.module('ngMo.home', [
 
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, AnchorLinkService, IsLogged, $state, $stateParams) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, SecondActiveTabService, AnchorLinkService, IsLogged, $state, $stateParams) {
 
         $scope.changePosCart = function () {
             $scope.positionCart = 'top';
@@ -130,36 +136,75 @@ angular.module('ngMo.home', [
                         title: 'Acciones',
                         active: ActiveTabService.activeTab() === 0,
                         value: 0,
-                        americaContent: $scope.myData.STOCK.NALA,
-                        asiaContent: $scope.myData.STOCK.APAC,
-                        europeContent: $scope.myData.STOCK.EMEA,
+                        americaContent: $scope.myData.firstTable.STOCK.NALA,
+                        asiaContent: $scope.myData.firstTable.STOCK.APAC,
+                        europeContent: $scope.myData.firstTable.STOCK.EMEA,
                         url: 'home/tables_packs/stock_table.tpl.html'
                     },
                     {
                         title: 'Pares',
                         active: ActiveTabService.activeTab() === 1,
                         value: 1,
-                        americaContent: $scope.myData.STOCKPAIR.NALA,
-                        asiaContent: $scope.myData.STOCKPAIR.APAC,
-                        europeContent: $scope.myData.STOCKPAIR.EMEA,
+                        americaContent: $scope.myData.firstTable.STOCKPAIR.NALA,
+                        asiaContent: $scope.myData.firstTable.STOCKPAIR.APAC,
+                        europeContent: $scope.myData.firstTable.STOCKPAIR.EMEA,
                         url: 'home/tables_packs/pairs_table.tpl.html'
                     },
                     {
                         title: 'Indices',
                         active: ActiveTabService.activeTab() === 2,
                         value: 2,
-                        indicesContent: $scope.myData.INDICE.INDEX,
-                        pairsIndicesContent: $scope.myData.INDICEPAIR.INDEX,
+                        indicesContent: $scope.myData.firstTable.INDICE.INDEX,
+                        pairsIndicesContent: $scope.myData.firstTable.INDICEPAIR.INDEX,
                         url: 'home/tables_packs/indices_table.tpl.html'
                     },
                     {
                         title: 'Futuros',
                         active: ActiveTabService.activeTab() === 3,
                         value: 3,
-                        futuresContent: $scope.myData.FUTURE.FUTURES,
+                        futuresContent: $scope.myData.firstTable.FUTURE.FUTURES,
                         url: 'home/tables_packs/futures_table.tpl.html'
                     }
                 ];
+
+                if (typeof $scope.myData.secondTable !== "undefined")
+                {
+                    $scope.homeTablePacks2 = [
+                        {
+                            title: 'Acciones',
+                            active: SecondActiveTabService.activeTab() === 0,
+                            value: 0,
+                            americaContent: $scope.myData.secondTable.STOCK.NALA,
+                            asiaContent: $scope.myData.secondTable.STOCK.APAC,
+                            europeContent: $scope.myData.secondTable.STOCK.EMEA,
+                            url: 'home/tables_packs/second_stock_table.tpl.html'
+                        },
+                        {
+                            title: 'Pares',
+                            active: SecondActiveTabService.activeTab() === 1,
+                            value: 1,
+                            americaContent: $scope.myData.secondTable.STOCKPAIR.NALA,
+                            asiaContent: $scope.myData.secondTable.STOCKPAIR.APAC,
+                            europeContent: $scope.myData.secondTable.STOCKPAIR.EMEA,
+                            url: 'home/tables_packs/second_pairs_table.tpl.html'
+                        },
+                        {
+                            title: 'Indices',
+                            active: SecondActiveTabService.activeTab() === 2,
+                            value: 2,
+                            indicesContent: $scope.myData.secondTable.INDICE.INDEX,
+                            pairsIndicesContent: $scope.myData.secondTable.INDICEPAIR.INDEX,
+                            url: 'home/tables_packs/second_indices_table.tpl.html'
+                        },
+                        {
+                            title: 'Futuros',
+                            active: SecondActiveTabService.activeTab() === 3,
+                            value: 3,
+                            futuresContent: $scope.myData.secondTable.FUTURE.FUTURES,
+                            url: 'home/tables_packs/second_futures_table.tpl.html'
+                        }
+                    ];
+                }
 
                 if (!$scope.$$phase) {
                     $scope.$apply();
@@ -237,7 +282,7 @@ angular.module('ngMo.home', [
     })
 
     //home texts that change when change product type tab
-    .directive('homeTexts', function (ActiveTabService) {
+    .directive('homeTexts', function (ActiveTabService, SecondActiveTabService) {
         urlTemplatesHomeTexts = [
             {url: 'home/home_texts/stock_text.tpl.html'},
             {url: 'home/home_texts/pairs_text.tpl.html'},
@@ -245,10 +290,16 @@ angular.module('ngMo.home', [
             {url: 'home/home_texts/futures_text.tpl.html'}
         ];
         selectedTab = ActiveTabService.activeTab();
+
+        secondSelectedTab = SecondActiveTabService.activeTab();
         return {
             controller: function ($scope) {
                 $scope.onClickTab = function (idTab) {
                     selectedTab = ActiveTabService.changeActiveTab(idTab);
+                };
+
+                $scope.onClickSecondTab = function (idTab) {
+                    secondSelectedTab = SecondActiveTabService.changeActiveTab(idTab);
                 };
             },
             link: function ($scope) {
