@@ -699,7 +699,8 @@ angular.module('ngMo.my_patterns', [
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': parseInt(filtering.active_tab, 10)
+                    'indexType': parseInt(filtering.active_tab, 10),
+                    'month': filtering.month
                 }
             };
 
