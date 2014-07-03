@@ -6,8 +6,8 @@ var App = function(){
 
     this.open = function(){
 
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/volatility');
-
+       // browser.get('http://localhost:63342/mo-shopclient/build/index.html#/volatility');
+        browser.get('http://46.51.174.51/moshopclient/#/home/volatility');
         browser.ignoreSynchronization = true;
     };
 

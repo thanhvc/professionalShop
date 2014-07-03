@@ -7,7 +7,8 @@ var Packs = function(){
 
     this.open = function(){
 
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/my-subscriptions/my-packs');
+        //browser.get('http://localhost:63342/mo-shopclient/build/index.html#/my-subscriptions/my-packs');
+        browser.get('http://46.51.174.51/moshopclient/#/home/my-suscriptions/my-packs');
         browser.ignoreSynchronization = true;
     };
 

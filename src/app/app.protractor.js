@@ -8,8 +8,8 @@ var App = function(){
 
     this.open = function(){
 
-        //browser.get('http://46.51.174.51/moshopclient/#/home');
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
+        browser.get('http://46.51.174.51/moshopclient/#/home');
+        //browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
         browser.ignoreSynchronization = true;
     };
 
