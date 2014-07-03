@@ -6,7 +6,7 @@
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
-                <select class="border-filters select-filter-correlation" style="color: black;"
+                <select disabled="true" class="border-filters select-filter-correlation" style="color: black;"
                         data-ng-model="filterOptions.filters.selectMonth"
                         ng-change="goToMonth()"
                         ng-options="item.name for item in filterOptions.months"
@@ -14,7 +14,7 @@
                 </select>
             </td>
             <td>
-                <select ng-change="selectMarket()" class="border-filters select-filter-correlation"
+                <select disabled="true" ng-change="selectMarket()" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedMarket">
                     <option value="">- Mercado -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"
@@ -24,7 +24,7 @@
                 </select>
             </td>
             <td>
-                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter-correlation"
+                <select disabled="true" ng-change="search()" style="width: 100px;" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- Operacion -</option>
                     <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}"
