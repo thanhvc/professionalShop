@@ -18,7 +18,7 @@ angular.module('ngMo.catalog', [
             },
             resolve: {
                 SelectedPackService: "SelectedPackService",
-                initializedData: function (SelectedPackService,$stateParams,$state) {
+                initializedData: function (SelectedPackService, $stateParams, $state) {
                     pagingOptions = {
                         pageSize: 10,
                         currentPage: 1
@@ -45,7 +45,7 @@ angular.module('ngMo.catalog', [
                             active_tab: "",
                             packCode: $stateParams.packCode
                         }};
-                     return SelectedPackService.obtainPatternsPack(pagingOptions.currentPage, filterOptions.filters).then(function (data) {
+                    return SelectedPackService.obtainPatternsPack(pagingOptions.currentPage, filterOptions.filters).then(function (data) {
                         return {
                             pack: data.pack,
                             startDate: data.startDate,
@@ -61,7 +61,7 @@ angular.module('ngMo.catalog', [
         });
     })
 
-    .service('SelectedPackService', function ($http, $rootScope, $q, $state,$stateParams) {
+    .service('SelectedPackService', function ($http, $rootScope, $q, $state, $stateParams) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -97,7 +97,7 @@ angular.module('ngMo.catalog', [
             return result;
         };
     })
-    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService,initializedData, $stateParams) {
+    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService, initializedData, $stateParams, TabsService,ActiveTabService) {
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
         });
@@ -122,10 +122,7 @@ angular.module('ngMo.catalog', [
 
             });
         };
-    })
 
-    //pack selected catalog
-    .directive('selectedPackCatalog', [function () {
         urlTemplatesCatalogTexts = [
             {url: 'home/catalog/stocks_catalog.tpl.html'},
             {url: 'home/catalog/pairs_catalog.tpl.html'},
@@ -134,112 +131,102 @@ angular.module('ngMo.catalog', [
             {url: 'home/catalog/pairs_indices_catalog.tpl.html'}
         ];
 
-        return {
-           scope: {
-                input: '=initialData'
-            },
-            controller: function ($scope, ShoppingCartService, SelectedPackService, TabsService, ActiveTabService, $stateParams) {
-                if (typeof $scope.input !== "undefined") {
-                    $scope.selectedPack = $scope.input.pack;
-                    if ($scope.selectedPack != null) {
-                        $scope.startDate = $scope.input.startDate;
-                        $scope.patterns = $scope.input.patterns;
-                        $scope.results = $scope.input.results;
-                        $scope.found = $scope.input.found;
-                        if ($scope.selectedPack.productType === 'INDICE') {
-                            if ($scope.selectedPack.patternType === 1) {
-                                $scope.selectedTab = 4;
-                            } else {
-                                $scope.selectedTab = 2;
-                            }
-                        } else {
-                            $scope.selectedTab = $scope.selectedPack.patternType;
-                        }
+        if (typeof $scope.initialData !== "undefined") {
+            $scope.selectedPack = $scope.initialData.pack;
+            if ($scope.selectedPack != null) {
+                $scope.startDate = $scope.initialData.startDate;
+                $scope.patterns = $scope.initialData.patterns;
+                $scope.results = $scope.initialData.results;
+                $scope.found = $scope.initialData.found;
+                if ($scope.selectedPack.productType === 'INDICE') {
+                    if ($scope.selectedPack.patternType === 1) {
+                        $scope.selectedTab = 4;
+                    } else {
+                        $scope.selectedTab = 2;
                     }
-
                 } else {
-                    $scope.selectedPack = null;
+                    $scope.selectedTab = $scope.selectedPack.patternType;
                 }
-                $scope.pagingOptions = {
-                    pageSize: 10,
-                    currentPage: 1
-                };
-                $scope.filterOptions = {
-                    filters: {
-                        filterName: "",
-                        selectedRegion: "",
-                        selectedMarket: "",
-                        selectedSector: "",
-                        selectedIndustry: "",
-                        selectedOperation: "",
-                        selectedRent: "",
-                        rentInput: "",
-                        selectedAverage: "",
-                        rentAverageInput: "",
-                        selectedRentDiary: "",
-                        rentDiaryInput: "",
-                        selectedVolatility: "",
-                        volatilityInput: "",
-                        selectedDuration: "",
-                        durationInput: "",
-                        index_type: TabsService.getActiveIndexType(),
-                        active_tab: ActiveTabService.activeTab(),
-                        packCode: $stateParams.packCode
-                    },
-                    selectors: {
-                        sectors: [
-                            {"id": 1, "description": "Sector1"},
-                            {"id": 2, "description": "Sector2"}
-                        ],
+            }
 
-                        industries: [
-                            {"id": 1, "description": "Industry1"},
-                            {"id": 2, "description": "Industry2"}
-                        ]
-
-                    }
-                };
-
-                $scope.loadPatterns = function () {
-                    var data = SelectedPackService.obtainPatternsPack($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
-                        $scope.selectedPack = data.pack;
-                        $scope.startDate = data.startDate;
-                        $scope.patterns = data.patterns;
-                        $scope.results = data.results;
-                        $scope.found = data.found;
-                        if ($scope.selectedPack.productType === 'INDICE') {
-                            if ($scope.selectedPack.patternType === 1) {
-                                $scope.selectedTab = 4;
-                            } else {
-                                $scope.selectedTab = 2;
-                            }
-                        } else {
-                            $scope.selectedTab = $scope.selectedPack.patternType;
-                        }
-                    });
-                };
-
-                $scope.setPage = function (page) {
-                    $scope.pagingOptions.currentPage = page;
-                    $scope.loadPatterns();
-                };
-
-                //if the preload input is already, dont load patterns..
-                if ($scope.selectedPack == null) {
-                    $scope.loadPatterns();
-                }
-
-
-                //$scope.selectedTab = ActiveTabService.activeTab();
-
-            },
-            link: function ($scope) {
-                $scope.getContentUrl = function () {
-                    return urlTemplatesCatalogTexts[$scope.selectedTab].url;
-                };
-            },
-            template: '<div ng-include="getContentUrl()"></div>'
+        } else {
+            $scope.selectedPack = null;
+        }
+        $scope.pagingOptions = {
+            pageSize: 10,
+            currentPage: 1
         };
-    }])
+        $scope.filterOptions = {
+            filters: {
+                filterName: "",
+                selectedRegion: "",
+                selectedMarket: "",
+                selectedSector: "",
+                selectedIndustry: "",
+                selectedOperation: "",
+                selectedRent: "",
+                rentInput: "",
+                selectedAverage: "",
+                rentAverageInput: "",
+                selectedRentDiary: "",
+                rentDiaryInput: "",
+                selectedVolatility: "",
+                volatilityInput: "",
+                selectedDuration: "",
+                durationInput: "",
+                index_type: TabsService.getActiveIndexType(),
+                active_tab: ActiveTabService.activeTab(),
+                packCode: $stateParams.packCode
+            },
+            selectors: {
+                sectors: [
+                    {"id": 1, "description": "Sector1"},
+                    {"id": 2, "description": "Sector2"}
+                ],
+
+                industries: [
+                    {"id": 1, "description": "Industry1"},
+                    {"id": 2, "description": "Industry2"}
+                ]
+
+            }
+        };
+
+        $scope.loadPatterns = function () {
+            var data = SelectedPackService.obtainPatternsPack($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
+                $scope.selectedPack = data.pack;
+                $scope.startDate = data.startDate;
+                $scope.patterns = data.patterns;
+                $scope.results = data.results;
+                $scope.found = data.found;
+                if ($scope.selectedPack.productType === 'INDICE') {
+                    if ($scope.selectedPack.patternType === 1) {
+                        $scope.selectedTab = 4;
+                    } else {
+                        $scope.selectedTab = 2;
+                    }
+                } else {
+                    $scope.selectedTab = $scope.selectedPack.patternType;
+                }
+            });
+        };
+
+        $scope.setPage = function (page) {
+            $scope.pagingOptions.currentPage = page;
+            $scope.loadPatterns();
+        };
+
+        //if the preload input is already, dont load patterns..
+        if ($scope.selectedPack == null) {
+            $scope.loadPatterns();
+        }
+
+        $scope.getContentUrl = function () {
+            return urlTemplatesCatalogTexts[$scope.selectedTab].url;
+        };
+
+    }
+)
+
 ;
 
