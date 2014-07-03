@@ -4,7 +4,7 @@ angular.module('ngMo.catalog', [
 ])
     .config(function config($stateProvider) {
         $stateProvider.state('catalog', {
-            url: '/catalog/:packCode',
+            url: '/catalog/:packCode/:month',
             views: {
                 "main": {
 
@@ -43,7 +43,8 @@ angular.module('ngMo.catalog', [
                             durationInput: "",
                             index_type: "",
                             active_tab: "",
-                            packCode: $stateParams.packCode
+                            packCode: $stateParams.packCode,
+                            month: $stateParams.month
                         }};
                     return SelectedPackService.obtainPatternsPack(pagingOptions.currentPage, filterOptions.filters).then(function (data) {
                         return {
@@ -85,11 +86,12 @@ angular.module('ngMo.catalog', [
             config = {
                 params: {
                     'page': page,
-                    'packCode': filtering.packCode
+                    'packCode': filtering.packCode,
+                    'month': filtering.month
                 }
             };
 
-            var result = $http.get($rootScope.urlService + '/patternspack', config).then(function (response) {
+            var result = $http.get($rootScope.urlService+'/patternspack', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;
@@ -176,7 +178,8 @@ angular.module('ngMo.catalog', [
                 durationInput: "",
                 index_type: TabsService.getActiveIndexType(),
                 active_tab: ActiveTabService.activeTab(),
-                packCode: $stateParams.packCode
+                packCode: $stateParams.packCode,
+                month: $stateParams.month
             },
             selectors: {
                 sectors: [
@@ -229,4 +232,5 @@ angular.module('ngMo.catalog', [
 )
 
 ;
+
 

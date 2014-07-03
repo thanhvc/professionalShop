@@ -105,7 +105,7 @@
                             'sell-color': data.patternType == 'BEARISH'}">
             <!--sector/industry-->
             <div class="text-limitator"><span class="cursor-help" tooltip-html-unsafe="{{data.asset.sector}}">{{data.asset.sector}}</span>
-                <span ng-show="{{(data.asset.sector != '' && data.asset.industry != '')}}"> / </span>
+                <span ng-show="{{(data.asset.sector != null && data.asset.industry != null)}}"> / </span>
             </div>
             <div class="text-limitator">
                 <span class="cursor-help" tooltip="{{data.asset.industry}}">{{data.asset.industry}}</span>
