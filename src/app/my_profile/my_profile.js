@@ -60,7 +60,8 @@ angular.module('ngMo.my_profile', [
     .run(function run() {
     })
 
-    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService) {
+    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state) {
+        $scope.subPage = $state.$current.data.subPage;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
