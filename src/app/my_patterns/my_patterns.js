@@ -36,7 +36,7 @@ angular.module('ngMo.my_patterns', [
                     return PatternsService.getPagedDataAsync(1, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
-                            result: data.results,
+                            results: data.results,
                             found: data.found
                          };
 

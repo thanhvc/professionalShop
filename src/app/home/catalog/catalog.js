@@ -99,7 +99,7 @@ angular.module('ngMo.catalog', [
             return result;
         };
     })
-    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService, initializedData, $stateParams, TabsService,ActiveTabService) {
+    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService, initializedData, $stateParams, TabsService,ActiveTabService, SelectedPackService) {
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
         });
