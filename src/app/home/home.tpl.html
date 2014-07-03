@@ -29,4 +29,11 @@
             <div ng-include="homeTablePack.url"></div>
         </tab>
     </tabset>
+
+    <!-- tabs product's type -->
+    <tabset>
+        <tab ng-click="onClickSecondTab(homeTablePack2.value)" ng-repeat="homeTablePack2 in homeTablePacks2" heading="{{homeTablePack2.title}}" active="homeTablePack2.active" disabled="tab.disabled">
+            <div ng-include="homeTablePack2.url"></div>
+        </tab>
+    </tabset>
 </div>

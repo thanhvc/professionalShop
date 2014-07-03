@@ -14,11 +14,11 @@
     </thead>
     <tbody>
     <tr>
-        <td class="area-cell">AMÉRICA</td>
+        <td class="area-cell">AM&Eacute;RICA</td>
         <td colspan="3">
             <table class="table-pack">
                 <tbody>
-                <tr ng-repeat="pack in homeTablePack.americaContent track by $index" ui-sref="catalog({packCode: pack.code, month: 0})">
+                <tr ng-repeat="pack in homeTablePack2.americaContent track by $index" ui-sref="catalog({packCode: pack.code, month: 1})">
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
@@ -31,11 +31,11 @@
         <td class="separator"></td>
     </tr>
     <tr>
-        <td class="area-cell area-cell-several-lines">ASIA<br> PACÍFICO</td>
+        <td class="area-cell">ASIA</td>
         <td colspan="3">
             <table class="table-pack">
                 <tbody>
-                <tr ng-repeat="pack in homeTablePack.asiaContent track by $index" ui-sref="catalog({packCode: pack.code, month: 0})">
+                <tr ng-repeat="pack in homeTablePack2.asiaContent track by $index" ui-sref="catalog({packCode: pack.code, month: 1})">
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
@@ -48,11 +48,11 @@
         <td class="separator"></td>
     </tr>
     <tr>
-        <td class="area-cell area-cell-several-lines">EUROPA<br> ÁFRICA<br> ORIENTE MEDIO</td>
+        <td class="area-cell">EUROPA</td>
         <td colspan="3">
             <table class="table-pack">
                 <tbody>
-                <tr ng-repeat="pack in homeTablePack.europeContent track by $index " ui-sref="catalog({packCode: pack.code, month: 0})">
+                <tr ng-repeat="pack in homeTablePack2.europeContent track by $index" ui-sref="catalog({packCode: pack.code, month: 1})">
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
