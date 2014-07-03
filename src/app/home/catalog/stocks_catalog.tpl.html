@@ -15,10 +15,10 @@
     </ul>
     Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y herramientas de evaluaci&oacute;n.
     </p>
-    <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy' | uppercase}}</div>
+    <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy'}}</div>
     <div class="region-catalog-container">{{selectedPack.name}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
-    <span class="actual-date-catalog">DATE: {{actualDate | date:'dd MMMM'}}. (CET)</span>
+    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMMM'}}. (CET)</span>
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
