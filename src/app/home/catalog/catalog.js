@@ -3,7 +3,7 @@ angular.module('ngMo.catalog', [
 ])
     .config(function config($stateProvider) {
         $stateProvider.state('catalog', {
-            url: '/catalog/:packId',
+            url: '/catalog/:packCode',
             views: {
                 "main": {
                     controller: 'HomeCtrl',
@@ -17,634 +17,40 @@ angular.module('ngMo.catalog', [
         });
     })
 
-    .service('SelectedPackService', function ($state) {
+    .service('SelectedPackService', function ($http, $rootScope, $q, $state) {
 
-        //Dummies Patterns Pack
-        var patternsPack = [
-            {   "id": "P1",
-                "region": "Canada",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    },
-                    {
-                        "name": "ABCOURT MINES INC.",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 235,
-                        "average": 15.64,
-                        "duration": "De 1 a 3",
-                        "volatility": 10,
-                        "state": "Comenzado"
-                    },
-                    {
-                        "name": "ABEN RESOURCES LTD.",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 14,
-                        "lost": 1,
-                        "accumulated": 379,
-                        "average": 25.27,
-                        "duration": "De 1 a 3",
-                        "volatility": 70,
-                        "state": "Finalizado"
-                    },
-                    {
-                        "name": "TOTAL TELCOM INC.",
-                        "market": "TSXV",
-                        "sector": "Information Technology",
-                        "industry": "Communication",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 422,
-                        "average": 28.1,
-                        "duration": "Mas de 3",
-                        "volatility": 302,
-                        "state": "Comenzado"
+        /*make the string with the params for all the properties of the filter*/
+        this.createParamsFromFilter = function (filtering) {
+            var urlParams = "";
+            for (var property in filtering) {
+                if (filtering.hasOwnProperty(property)) { //check if its a property (to exclude technicals property of js)
+                    // create the params
+                    if ((filtering[property] != null) && (filtering[property] !== "")) {
+                        urlParams += "&" + property + "=" + filtering[property];
                     }
-                ]
-            },
-            {
-                "id": "P2",
-                "region": "Estados Unidos Pack I",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P3",
-                "region": "Estados Unidos Pack II",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P4",
-                "region": "Australia",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P5",
-                "region": "China",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P6",
-                "region": "Corea",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P7",
-                "region": "Hong kong",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P8",
-                "region": "Estados Unidos Pack I",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P9",
-                "region": "Estados Unidos Pack I",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P10",
-                "region": "Estados Unidos Pack I",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P11",
-                "region": "Estados Unidos Pack I",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P12",
-                "region": "Estados Unidos Pack I",
-                "patternType": "stock",
-                "productType": 0,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P13",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pair",
-                "productType": 1,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P14",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pair",
-                "productType": 1,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P15",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pair",
-                "productType": 1,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P16",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pair",
-                "productType": 1,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P17",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pair",
-                "productType": 1,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P18",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pair",
-                "productType": 1,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P19",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pair",
-                "productType": 1,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P20",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pair",
-                "productType": 1,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P21",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pair",
-                "productType": 1,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P22",
-                "region": "Estados Unidos Pack I",
-                "patternType": "index",
-                "productType": 2,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P23",
-                "region": "Estados Unidos Pack I",
-                "patternType": "pairIndex",
-                "productType": 3,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            },
-            {
-                "id": "P24",
-                "region": "Estados Unidos Pack I",
-                "patternType": "future",
-                "productType": 4,
-                "startDate": "Mayo 2014", "date":"01/05/2014",
-                "numberPatterns": 77,
-                "patterns": [
-                    {
-                        "name": "ABACUS MINING & EXPLORATION CORPO",
-                        "market": "TSXV",
-                        "sector": "",
-                        "industry": "",
-                        "gain": 15,
-                        "lost": 0,
-                        "accumulated": 298,
-                        "average": 19.88,
-                        "duration": "Hasta 1",
-                        "volatility": 40,
-                        "state": "Sin Comenzar"
-                    }]
-            }
-        ];
-
-        this.obtainSelectedPack = function (page, numItemsPerPage) {
-            var to = page*numItemsPerPage;
-            var from = to-numItemsPerPage;
-            /**
-             * TODO: replace return patternsPack by http call
-             */
-            var i = null;
-            for (j=0;j<patternsPack.length;j++) {
-                if (patternsPack[j].id.toString() === $state.params.packId ) {
-                    i = j;
-                    break;
                 }
             }
-            if (i == null) {
-                return;
-            }
-            //return patternsPack;
-            var tempPatternPack = {
-                "id": $state.params.packId,
-                "region": patternsPack[i].region,
-                "productType": patternsPack[i].productType,
-                "startDate": patternsPack[i].startDate,
-                "patternType": patternsPack[i].patternType,
-                "numberPatterns": patternsPack[i].numberPatterns,
-                "patterns": patternsPack[i].patterns,
-                "date":patternsPack[i].date
-            };
-
-            return tempPatternPack;
+            return urlParams;
         };
 
-        this.obtainSelectedPatternsPack = function () {
-            //return patternsPack;
-            var i = null;
-            for (j=0;j<patternsPack.length;j++) {
-                if (patternsPack[j].id.toString() === $state.params.packId ) {
-                    i = j;
-                    break;
+        this.obtainPatternsPack = function (page, filtering) {
+            var deferred = $q.defer();
+            var data;
+            var urlParam = this.createParamsFromFilter(filtering);
+
+            config = {
+                params: {
+                    'page': page,
+                    'packCode': $state.params.packCode
                 }
-            }
-            if (i == null) {
-                return;
-            }
-            var tempPatternPack = {
-                "id": $state.params.packId,
-                "region": patternsPack[i].region,
-                "productType": patternsPack[i].productType,
-                "startDate": patternsPack[i].startDate,
-                "patternType": patternsPack[i].patternType,
-                "numberPatterns": patternsPack[i].numberPatterns,
-                "patterns": patternsPack[i].patterns,
-                "date":patternsPack[i].date
             };
 
-            return tempPatternPack;
+            var result = $http.get($rootScope.urlService+'/patternspack', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
     })
     .controller('CatalogCtrl', function CatalogController($scope, ActualDateService){
@@ -674,102 +80,91 @@ angular.module('ngMo.catalog', [
     })
 
     //pack selected catalog
-    .directive('selectedPackCatalog', function (ActiveTabService) {
+    .directive('selectedPackCatalog', function () {
         urlTemplatesCatalogTexts = [
             {url: 'home/catalog/stocks_catalog.tpl.html'},
             {url: 'home/catalog/pairs_catalog.tpl.html'},
             {url: 'home/catalog/indices_catalog.tpl.html'},
-            {url: 'home/catalog/futures_catalog.tpl.html'}
+            {url: 'home/catalog/futures_catalog.tpl.html'},
+            {url: 'home/catalog/pairs_indices_catalog.tpl.html'}
         ];
 
         return {
 
-            controller: function ($scope, ShoppingCartService, SelectedPackService, $filter) {
+            controller: function ($scope, ShoppingCartService, SelectedPackService, TabsService, ActiveTabService) {
 
-                $scope.selectedAllPatternPack = SelectedPackService.obtainSelectedPatternsPack();
-
-                $scope.selectedPack = SelectedPackService.obtainSelectedPack();
-
-
-                /**
-                 * TODO: Change pageSize to 10
-                 */
-                $scope.pageSize = 2;
-                $scope.maxSize = 8;
-
-                //filterName is used for pass custom filter name. Default undefined
-                $scope.changeFilter = function (item, filterName) {
-                    if (typeof filterName === 'undefined') {
-                        filterName = 'filter';
-                    }
-                    $scope.currentPage = 1;
-                    $scope.selectedPack.patterns = $filter(filterName)($scope.selectedAllPatternPack.patterns, item);
-                    $scope.totalItems = $scope.selectedPack.patterns.length;
+                $scope.pagingOptions = {
+                    pageSize: 10,
+                    currentPage: 1
                 };
 
-                /**
-                 * TODO: selectedTab should be obtained for the selectedPack (productType)
-                 */
-                selectedTab = $scope.selectedPack.productType;
+                $scope.filterOptions = {
+                    filters: {
+                        filterName: "",
+                        selectedRegion: "",
+                        selectedMarket: "",
+                        selectedSector: "",
+                        selectedIndustry: "",
+                        selectedOperation: "",
+                        selectedRent: "",
+                        rentInput: "",
+                        selectedAverage: "",
+                        rentAverageInput: "",
+                        selectedRentDiary: "",
+                        rentDiaryInput: "",
+                        selectedVolatility: "",
+                        volatilityInput: "",
+                        selectedDuration: "",
+                        durationInput: "",
+                        index_type: TabsService.getActiveIndexType(),
+                        active_tab: ActiveTabService.activeTab()
+                    },
+                    selectors: {
+                        sectors: [
+                            {"id": 1, "description": "Sector1"},
+                            {"id": 2, "description": "Sector2"}
+                        ],
+
+                        industries: [
+                            {"id": 1, "description": "Industry1"},
+                            {"id": 2, "description": "Industry2"}
+                        ]
+
+                    }
+                };
+
+                $scope.loadPatterns = function () {
+                    var data = SelectedPackService.obtainPatternsPack($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
+                        $scope.selectedPack = data.pack;
+                        $scope.startDate = data.startDate;
+                        $scope.patterns = data.patterns;
+                        $scope.results = data.results;
+                        $scope.found = data.found;
+                        if ($scope.selectedPack.productType === 'INDICE'){
+                            if ($scope.selectedPack.patternType === 1) {
+                                $scope.selectedTab = 4;
+                            }
+                        }
+                    });
+                };
+
+                $scope.setPage = function (page) {
+                    $scope.pagingOptions.currentPage = page;
+                    $scope.loadPatterns();
+                };
+
+                $scope.loadPatterns();
+
+                $scope.selectedTab = ActiveTabService.activeTab();
+
             },
             link: function ($scope) {
                 $scope.getContentUrl = function () {
-                    /*TODO: the url pages are not full, only works the stock page... */
-                    //return urlTemplatesCatalogTexts[selectedTab].url;
-                    return urlTemplatesCatalogTexts[0].url;
+                    return urlTemplatesCatalogTexts[$scope.selectedTab].url;
                 };
-                $scope.changeFilter('');
             },
             template: '<div ng-include="getContentUrl()"></div>'
         };
     })
-
-    //filter catalog volatility by range
-    .filter('VolatilityCatalogFilter', function () {
-        return function (items, option) {
-            var tempPatterns = [];
-            switch (option) {
-                case "<25":
-                    angular.forEach(items, function (item) {
-                        if (item.volatility < 25) {
-                            tempPatterns.push(item);
-                        }
-                    });
-                    return tempPatterns;
-                case ">25<50":
-                    angular.forEach(items, function (item) {
-                        if (item.volatility >= 25 && item.volatility < 50) {
-                            tempPatterns.push(item);
-                        }
-                    });
-                    return tempPatterns;
-                case ">50<75":
-                    angular.forEach(items, function (item) {
-                        if (item.volatility >= 50 && item.volatility < 75) {
-                            tempPatterns.push(item);
-                        }
-                    });
-                    return tempPatterns;
-                case ">75":
-                    angular.forEach(items, function (item) {
-                        if (item.volatility > 75) {
-                            tempPatterns.push(item);
-                        }
-                    });
-                    return tempPatterns;
-            }
-            return items;
-        };
-    })
-
-    //filter for offset items
-    .filter('startFrom', function () {
-        return function (input, start) {
-            start = +start; //parse to int
-            return input.slice(start);
-        };
-    })
-
-
 ;
 

@@ -156,7 +156,7 @@ angular.module('ngMo.home', [
                         title: 'Futuros',
                         active: ActiveTabService.activeTab() === 3,
                         value: 3,
-                        futuresContent: $scope.myData.FUTURE.FUTURE,
+                        futuresContent: $scope.myData.FUTURE.FUTURES,
                         url: 'home/tables_packs/futures_table.tpl.html'
                     }
                 ];

@@ -1,4 +1,99 @@
 <div>
-    Cat&aacute;logo Futuros
+    <span class="catalog-title">Cat&aacute;logo Futuros</span>
+
+    <p>El siguiente cuadro es un resumen de contenidos del Pack a Comprar mediante suscripci&oacute;n. Contiene una lista de hasta 100 Compa&ntilde;&iacute;as con las mejores Estrategias durante el Mes indicado.</p>
+    <p>
+        La tabla muestra un avance de par&aacute;metros de las diferentes estrategias, que permite valorar las ventajas de Comprar el Pack.
+    <ul class="public-list-first-level">
+        <li>Nombre de la Compa&ntilde;&iacute;a, Mercado cotizaci&oacute;n y clasificaci&oacute;n Sectorial.</li>
+        <li>N&uacute;mero de a&ntilde;os &ndash;o frecuencia de aciertos&ndash; que la estrategia gener&oacute; Beneficios y P&eacute;rdidas.</li>
+        <li>Rentabilidad Acumulada durante 15 a&ntilde;os y Rentabilidad Media asociada al periodo de la operaci&oacute;n &ndash;no es rentabilidad anual&ndash;. </li>
+        <li>Duraci&oacute;n de la operaci&oacute;n (Holding days) para planificar la disponibilidad del dinero. </li>
+        <li>Volatilidad hist&oacute;rica para estimar perfil de riesgo. </li>
+        <li>El &ldquo;Estado&rdquo; de la Estrategia se indica mediante un sem&aacute;foro: Color naranja si a d&iacute;a de hoy est&aacute; en curso. Color rojo si ya termin&oacute;. Color verde cuando en la fecha actual todav&iacute;a est&aacute; sin comenzar.</li>
+        <li>Informaci&oacute;n de los datos Fundamentales de la Compa&ntilde;&iacute;a</li>
+    </ul>
+    Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y herramientas de evaluaci&oacute;n.
+    </p>
+    <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy' | uppercase}}</div>
+    <div class="region-catalog-container">{{selectedPack.name}}</div>
+    <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
+    <span class="actual-date-catalog">DATE: {{actualDate | date:'dd MMMM'}}. (CET)</span>
+
+    <div class="header-catalog-table">
+        <div class="catalog-filter">
+            <input placeholder="Nombre" ng-model="namePattern" ng-change="changeFilter(namePattern)">
+            <select ng-model="sectorPattern" ng-change="changeFilter(sectorPattern)">
+                <option selected="selected" value="">- Elegir Sector -</option>
+                <option value="Information Technology">Information Technology</option>
+            </select>
+            <select ng-model="industryPattern" ng-change="changeFilter(industryPattern)">
+                <option selected="selected" value="">- Elegir industria -</option>
+                <option value="{{'Communications Equipment' | limitTo: 10}}">Communications Equipment</option>
+            </select>
+            <select ng-model="durationPattern" ng-change="changeFilter(durationPattern)">
+                <option selected="selected" value="">- Elegir duraci&oacute;n -</option>
+                <option value="Hasta 1">Hasta 1 mes</option>
+                <option value="De 1 a 3">De 1 a 3 meses</option>
+                <option value="Mas de 3">Mas de 3 meses</option>
+            </select>
+            <select ng-model="volatilityPattern" ng-change="changeFilter(volatilityPattern, 'VolatilityCatalogFilter')">
+                <option selected="selected" value="">- Elegir volatilidad -</option>
+                <option value="<25">Menos de 25%</option>
+                <option value=">25<50">Entre 25% y 50%</option>
+                <option value=">50<75">Entre 50% y 75%</option>
+                <option value=">75">Mas de 75%</option>
+            </select>
+        </div>
+        <div class="number-patterns-catalog">
+            N&uacute;mero total de patrones: {{results}}; Patrones encontrados: {{found}}
+        </div>
+    </div>
+    <table class="patterns-table-catalog">
+        <tr>
+            <th>Patr&oacute;n Acciones</th>
+            <th>Mercado</th>
+            <th>Sector / Industria</th>
+            <th colspan="2">N&uacute;mero de A&ntilde;os</th>
+            <th colspan="2">Rentabilidad (%)</th>
+            <th>Duraci&oacute;n</th>
+            <th><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
+            <th>Estado</th>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <th>C&oacute;digo</th>
+            <th></th>
+            <th>Ganancia</th>
+            <th>Pérdida</th>
+            <th>Acumulada</th>
+            <th>Promedio</th>
+            <th>Meses</th>
+            <th>(%)</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="pattern in patterns">
+            <td>{{pattern.asset.longName | limitTo: 33}}</td>
+            <td>{{pattern.asset.exchange.symbol}}</td>
+            <td>{{pattern.asset.sector}} <span ng-show="pattern.asset.sector != null && pattern.asset.industry != null">/</span> {{pattern.asset.industry}}</td>
+            <td>{{pattern.win | twoDecimals}}</td>
+            <td>{{pattern.loss | twoDecimals}}</td>
+            <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td>{{pattern.averageReturn | twoDecimals}}</td>
+            <td>{{pattern.duration | twoDecimals}}</td>
+            <td>{{pattern.asset.volatility | twoDecimals}}</td>
+            <td><div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div></td>
+        </tr>
+    </table>
+    <!--pagination-->
+    <div class="pagination-container" ng-show="results > 10" style="margin-top:72px; clear:both; margin-bottom:20px;">
+        <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                    items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                    page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                    next-text="&gt;"
+                    first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+    </div>
+
+
 
 </div>

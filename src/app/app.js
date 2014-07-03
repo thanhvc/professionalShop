@@ -88,7 +88,7 @@ angular.module('ngMo', [
         this.containItem = function (array, itemArray) {
             var contain = false;
             angular.forEach(array, function (item) {
-                    if (item.id === itemArray.id) {
+                    if (item.code === itemArray.code ) {
                         contain = true;
                     }
                 });
@@ -99,64 +99,29 @@ angular.module('ngMo', [
             }
         };
     })
-
+    .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
+        return function(n){
+            //return a string with 2 decimal if exists..
+            //xx.xxxx -> xx.xx
+            //xx.x -> xx.x
+            //xx -> xx
+            str="";
+            if (n != null && !isNaN(n)) {
+                str = n.toString().substr(0,n.toString().indexOf(".")+3);
+            }
+            return str;
+        };
+    })
     .service('ShoppingCartService', function (ActiveTabService){
 
-        var stockItems =  [
-            /*{
-                "id": 1,
-                "packName": "Canada",
-                "startDate": "May 14",
-                "duration": "Mensual",
-                "price": 29
-            },
-            {
-                "id": 2,
-                "packName": "Estados Unidos Pack I",
-                "startDate": "May 14",
-                "duration": "Trimestral",
-                "price": 82
-            }*/
-        ];
+        var stockItems =  [];
 
-        var pairsItems  =  [
-           /* {
-                "id": 13,
-                "packName": "Estados Unidos Pack I",
-                "startDate": "May 14",
-                "duration": "Anual",
-                "price": 313
-            }*/
-        ];
+        var pairsItems  =  [];
 
-        var indicesItems = [
-            /*{
-                "id": 22,
-                "packName": "Indices Pack I",
-                "startDate": "May 14",
-                "duration": "Anual",
-                "price": 313
-            }*/
-        ];
+        var indicesItems = [];
 
-        var pairsIndicesItems = [
-          /*  {
-                "id": 23,
-                "packName": "Pares Indices Pack I",
-                "startDate": "May 14",
-                "duration": "Anual",
-                "price": 313
-            }*/
-        ] ;
-        var futuresItems =  [
-           /* {
-                "id": 24,
-                "packName": "Futures Pack I",
-                "startDate": "May 14",
-                "duration": "Mensual",
-                "price": 29
-            }*/
-        ];
+        var pairsIndicesItems = [] ;
+        var futuresItems =  [];
 
         var numItemsCart = 0;
         var totalCart = 0;
@@ -196,24 +161,26 @@ angular.module('ngMo', [
 
         this.addItemCart = function (item) {
             var activeTab = ActiveTabService.activeTab();
-            switch (item.patternType){
-                case "stock":
-                    stockItems.push(item);
-                    stockSubtotal += item.price;
+            switch (item.productType){
+                case 'STOCK':
+                    if (item.patternType === 0){
+                        stockItems.push(item);
+                        stockSubtotal += item.price;
+                    }else{
+                        pairsItems.push(item);
+                        pairsSubtotal += item.price;
+                    }
                     break;
-                case "pair":
-                    pairsItems.push(item);
-                    pairsSubtotal += item.price;
+                case 'INDICE':
+                    if (item.patternType === 0) {
+                        indicesItems.push(item);
+                        indicesSubtotal += item.price;
+                    }else{
+                        pairsIndicesItems.push(item);
+                        pairsIndicesSubtotal += item.price;
+                    }
                     break;
-                case "index":
-                    indicesItems.push(item);
-                    indicesSubtotal += item.price;
-                    break;
-                case "pairIndex":
-                    pairsIndicesItems.push(item);
-                    pairsIndicesSubtotal += item.price;
-                    break;
-                case "future":
+                case 'FUTURE':
                     futuresItems.push(item);
                     futuresSubtotal += item.price;
             }
@@ -527,7 +494,7 @@ angular.module('ngMo', [
 
     .directive('cart', function() {
         return{
-            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService) {
+            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope) {
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                 $scope.totalCart = ShoppingCartService.obtainTotalCart();
                 $scope.showCart = false;
@@ -564,16 +531,17 @@ angular.module('ngMo', [
                  * TODO: replace enter parameter 'id' for 'item'
                  * @param id
                  */
-                $scope.addNewItemCart = function(newItem){
+                $scope.addNewItemCart = function(newItem, startDate){
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                     item = {
-                        "id": newItem.id,
-                        "packName": "Nuevo "+newItem.id,
-                        "startDate": newItem.startDate,
-                         "date": newItem.date, //is the startDate in mm/dd format, to send it to the server
+                        "code": newItem.code,
+                        "packName": newItem.name,
+                        "startDate": $filter('date')(startDate, 'MMMM yyyy'),
                         "duration": "Mensual",
                         "price": 29,
-                        "patternType": newItem.patternType
+                        "date": $filter('date')(startDate, 'dd/MM/yyyy'),
+                        "patternType": newItem.patternType,
+                        "productType": newItem.productType
                     };
                     var totalList = [];
                     if ((typeof $scope.stockItems != "undefined")) {
@@ -631,7 +599,7 @@ angular.module('ngMo', [
                             for (i=0;i<$scope.stockItems.length;i++) {
                                 item = {
                                     duration: $scope.stockItems[i].duration,
-                                    id: $scope.stockItems[i].id,
+                                    code: $scope.stockItems[i].code,
                                     start: $scope.stockItems[i].date
                                 };
                                 dataCart.push(item);
@@ -642,7 +610,7 @@ angular.module('ngMo', [
                             for (i=0;i<$scope.pairsItems.length;i++) {
                                 item = {
                                     duration: $scope.pairsItems[i].duration,
-                                    id: $scope.pairsItems[i].id,
+                                    code: $scope.pairsItems[i].code,
                                     start: $scope.pairsItems[i].date
                                 };
                                 dataCart.push(item);
@@ -653,7 +621,7 @@ angular.module('ngMo', [
                             for (i=0;i<$scope.indicesItems.length;i++) {
                                 item = {
                                     duration: $scope.indicesItems[i].duration,
-                                    id: $scope.indicesItems[i].id,
+                                    code: $scope.indicesItems[i].code,
                                     start: $scope.indicesItems[i].date
                                 };
                                 dataCart.push(item);
@@ -664,7 +632,7 @@ angular.module('ngMo', [
                             for (i=0;i<$scope.pairsIndicesItems.length;i++) {
                                 item = {
                                     duration: $scope.pairsIndicesItems[i].duration,
-                                    id: $scope.pairsIndicesItems[i].id,
+                                    code: $scope.pairsIndicesItems[i].code,
                                     start: $scope.pairsIndicesItems[i].date
                                 };
                                 dataCart.push(item);
@@ -675,7 +643,7 @@ angular.module('ngMo', [
                             for (i=0;i<$scope.futuresItems.length;i++) {
                                 item = {
                                     duration: $scope.futuresItems[i].duration,
-                                    id: $scope.futuresItems[i].id,
+                                    code: $scope.futuresItems[i].code,
                                     start: $scope.futuresItems[i].date
                                 };
                                 dataCart.push(item);
@@ -690,6 +658,7 @@ angular.module('ngMo', [
                         };
                         return $http.post($rootScope.urlService+'/addpacks', config)
                             .success(function (data, status) {
+                                $scope.removeAllItemsCart();
                                 $scope.callbackPurchase(data, status);
                             })
                             .error(function (data, status) {
