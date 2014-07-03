@@ -1,23 +1,67 @@
 angular.module('ngMo.catalog', [
-    'ui.router'
+    'ui.router',
+    'ui.bootstrap'
 ])
     .config(function config($stateProvider) {
         $stateProvider.state('catalog', {
             url: '/catalog/:packCode',
             views: {
                 "main": {
-                    controller: 'HomeCtrl',
-                    templateUrl: 'home/catalog/catalog.tpl.html'
+
+                    templateUrl: 'home/catalog/catalog.tpl.html',
+                    controller: 'CatalogCtrl'
                 }
             },
             data: {
                 pageTitle: 'Catalog',
                 moMenuType: 'publicMenu'
+            },
+            resolve: {
+                SelectedPackService: "SelectedPackService",
+                initializedData: function (SelectedPackService,$stateParams,$state) {
+                    pagingOptions = {
+                        pageSize: 10,
+                        currentPage: 1
+                    };
+                    filterOptions = {
+                        filters: {
+                            filterName: "",
+                            selectedRegion: "",
+                            selectedMarket: "",
+                            selectedSector: "",
+                            selectedIndustry: "",
+                            selectedOperation: "",
+                            selectedRent: "",
+                            rentInput: "",
+                            selectedAverage: "",
+                            rentAverageInput: "",
+                            selectedRentDiary: "",
+                            rentDiaryInput: "",
+                            selectedVolatility: "",
+                            volatilityInput: "",
+                            selectedDuration: "",
+                            durationInput: "",
+                            index_type: "",
+                            active_tab: "",
+                            packCode: $stateParams.packCode
+                        }};
+                     return SelectedPackService.obtainPatternsPack(pagingOptions.currentPage, filterOptions.filters).then(function (data) {
+                        return {
+                            pack: data.pack,
+                            startDate: data.startDate,
+                            patterns: data.patterns,
+                            results: data.results,
+                            found: data.found
+                        };
+
+
+                    });
+                }
             }
         });
     })
 
-    .service('SelectedPackService', function ($http, $rootScope, $q, $state) {
+    .service('SelectedPackService', function ($http, $rootScope, $q, $state,$stateParams) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -41,11 +85,11 @@ angular.module('ngMo.catalog', [
             config = {
                 params: {
                     'page': page,
-                    'packCode': $state.params.packCode
+                    'packCode': filtering.packCode
                 }
             };
 
-            var result = $http.get($rootScope.urlService+'/patternspack', config).then(function (response) {
+            var result = $http.get($rootScope.urlService + '/patternspack', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;
@@ -53,10 +97,11 @@ angular.module('ngMo.catalog', [
             return result;
         };
     })
-    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService){
+    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService,initializedData, $stateParams) {
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
         });
+        $scope.initialData = initializedData;
 
         $scope.generateSearchUrl = function (provider, input) {
             if (typeof input === 'undefined') {
@@ -80,7 +125,7 @@ angular.module('ngMo.catalog', [
     })
 
     //pack selected catalog
-    .directive('selectedPackCatalog', function () {
+    .directive('selectedPackCatalog', [function () {
         urlTemplatesCatalogTexts = [
             {url: 'home/catalog/stocks_catalog.tpl.html'},
             {url: 'home/catalog/pairs_catalog.tpl.html'},
@@ -90,14 +135,35 @@ angular.module('ngMo.catalog', [
         ];
 
         return {
+           scope: {
+                input: '=initialData'
+            },
+            controller: function ($scope, ShoppingCartService, SelectedPackService, TabsService, ActiveTabService, $stateParams) {
+                if (typeof $scope.input !== "undefined") {
+                    $scope.selectedPack = $scope.input.pack;
+                    if ($scope.selectedPack != null) {
+                        $scope.startDate = $scope.input.startDate;
+                        $scope.patterns = $scope.input.patterns;
+                        $scope.results = $scope.input.results;
+                        $scope.found = $scope.input.found;
+                        if ($scope.selectedPack.productType === 'INDICE') {
+                            if ($scope.selectedPack.patternType === 1) {
+                                $scope.selectedTab = 4;
+                            } else {
+                                $scope.selectedTab = 2;
+                            }
+                        } else {
+                            $scope.selectedTab = $scope.selectedPack.patternType;
+                        }
+                    }
 
-            controller: function ($scope, ShoppingCartService, SelectedPackService, TabsService, ActiveTabService) {
-
+                } else {
+                    $scope.selectedPack = null;
+                }
                 $scope.pagingOptions = {
                     pageSize: 10,
                     currentPage: 1
                 };
-
                 $scope.filterOptions = {
                     filters: {
                         filterName: "",
@@ -117,7 +183,8 @@ angular.module('ngMo.catalog', [
                         selectedDuration: "",
                         durationInput: "",
                         index_type: TabsService.getActiveIndexType(),
-                        active_tab: ActiveTabService.activeTab()
+                        active_tab: ActiveTabService.activeTab(),
+                        packCode: $stateParams.packCode
                     },
                     selectors: {
                         sectors: [
@@ -140,10 +207,14 @@ angular.module('ngMo.catalog', [
                         $scope.patterns = data.patterns;
                         $scope.results = data.results;
                         $scope.found = data.found;
-                        if ($scope.selectedPack.productType === 'INDICE'){
+                        if ($scope.selectedPack.productType === 'INDICE') {
                             if ($scope.selectedPack.patternType === 1) {
                                 $scope.selectedTab = 4;
+                            } else {
+                                $scope.selectedTab = 2;
                             }
+                        } else {
+                            $scope.selectedTab = $scope.selectedPack.patternType;
                         }
                     });
                 };
@@ -153,9 +224,13 @@ angular.module('ngMo.catalog', [
                     $scope.loadPatterns();
                 };
 
-                $scope.loadPatterns();
+                //if the preload input is already, dont load patterns..
+                if ($scope.selectedPack == null) {
+                    $scope.loadPatterns();
+                }
 
-                $scope.selectedTab = ActiveTabService.activeTab();
+
+                //$scope.selectedTab = ActiveTabService.activeTab();
 
             },
             link: function ($scope) {
@@ -165,6 +240,6 @@ angular.module('ngMo.catalog', [
             },
             template: '<div ng-include="getContentUrl()"></div>'
         };
-    })
+    }])
 ;
 
