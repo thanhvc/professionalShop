@@ -92,7 +92,7 @@
             <span ng-if="data.patternType == 'BULLISH'">Comprar</span>
             <span ng-if="data.patternType == 'BEARISH'">Vender</span><br/>
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.asset.longName}}"
+                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}}) {{data.asset.expirationYear}}"
                   ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
                 {{data.asset.longName}}
             </span>
