@@ -114,7 +114,7 @@ angular.module('ngMo.catalog', [
                     $scope.urlSearchCatalog = 'https://www.google.com/finance?q=' + input;
                     break;
                 case 'Yahoo':
-                    $scope.urlSearchCatalog = 'http://finance.yahoo.com/?q=' + input;
+                    $scope.urlSearchCatalog = 'http://finance.yahoo.com/q?s=' + input+"&ql=1";
                     break;
                 case 'Bloomberg':
                     $scope.urlSearchCatalog = 'http://www.bloomberg.com/markets/symbolsearch?query=' + input;
