@@ -1,4 +1,4 @@
-/*describe('The publicMenu directive', function () {
+describe('The publicMenu directive', function () {
  beforeEach(angular.mock.module("ngMo"));
  describe('template', function () {
         var $compile;
@@ -16,31 +16,38 @@
             $scope = $rootScope.$new();
             $state = _$state_;
         }));
+
+
         it('should produce 6 menu items', inject(function () {
             var template = $compile("<nav public-menu></nav>")($scope);
             $scope.$apply();
             expect(template.find('li').length).toEqual(6);
         }));
+
+
         it('should have \'item-nav-hover\' class', inject(function () {
- $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond(200);
- $state.go('organization');
- var template = $compile("<div ng-controller = 'AppCtrl'><nav public-menu></nav></div>")($scope);
+            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond(200);
+            $state.go('organization');
+            var template = $compile("<div ng-controller = 'AppCtrl'><nav public-menu></nav></div>")($scope);
             $scope.$apply();
             var suffix = "-nav";
             var vMenuList = template.find('li');
             var log = [];
+
+            console.log(suffix);
 
             angular.forEach(vMenuList, function (item) {
                     if (item.id === 'market-observatory' + suffix) {
                         this.push(item.className);
                     }
                 },
-                log);
+            log);
+
             expect(log[0].indexOf('item-nav-hover')).toNotEqual(-1);
         }));
 
     });
- });*/
+ });
 
 /*describe('The publicSubmenu directive', function () {
  beforeEach(angular.mock.module("ngMo"));
