@@ -301,6 +301,11 @@ angular.module('ngMo', [
             $scope.actualDate = data.actualDate;
         });
 
+        var dataNext = ActualDateService.nextDate(function (data) {
+                   $scope.nextDate = data.nextDate;
+        });
+
+
         $scope.openModalInstance = function(url) {
             $modal.open({
                 templateUrl: 'home/modal.tpl.html',
