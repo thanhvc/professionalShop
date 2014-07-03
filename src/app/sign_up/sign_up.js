@@ -133,7 +133,7 @@ angular.module('singUp', [])
                 };
             }
             $scope.errorForm = false;
-
+            $scope.previousMail= "";
             //result of form submit -- just for test for now, the final results must be checked
             /*$scope.result = {
              result: "unknown",
@@ -152,6 +152,7 @@ angular.module('singUp', [])
                     $state.go('signup2');
                 } else if (result.username == "used") {
                     $scope.result = result;
+                    $scope.previousMail = $scope.user.email;
                 } else {
                     $scope.errorForm = true;
                 }
@@ -159,7 +160,9 @@ angular.module('singUp', [])
             $scope.sendFirstStep = function () {
                 var result = SignUpService.firstStep($scope.user, $scope.firstCallback);
             };
-
+            $scope.clearState = function(){
+                $scope.result= "";
+            };
             //Step 2
 
             //countries list of select (the value <option> could not be the same as the id in the html, but its works well)

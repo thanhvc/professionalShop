@@ -21,7 +21,7 @@
                             <tbody>
                             <tr>
                                 <td><span class="grey-label">Email</span></td>
-                                <td><input  class="signup-input" ng-model="user.email" type="email"
+                                <td><input  class="signup-input" ng-model="user.email" type="email" ng-change="clearState()"
                                            name="uEmail" style="width:200px;" required="true">
                                 </td>
                             </tr>
@@ -62,7 +62,7 @@
                     <div class="red-color-form prices-font12" ng-show="form.username2.$error.mismatch && (form.uEmail.$dirty && form.username2.$dirty )">Los
                         emails no coinciden
                     </div>
-                    <div class="red-color-form prices-font12" ng-show="result.username == 'used' && form.uEmail.$dirty">El
+                    <div class="red-color-form prices-font12" ng-show="(result.username == 'used' && form.uEmail.$dirty)">El
                         e-mail ya est&aacute; siendo usado
                     </div>
                     <div  class="red-color-form prices-font12" ng-show="form.password1.$error.minlength && form.password1.$dirty">La
