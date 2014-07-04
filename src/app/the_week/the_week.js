@@ -40,6 +40,18 @@ angular.module('ngMo.the_week', [
                 var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
                 monday.setDate(today.getDate()-dayOfWeek);
                 $scope.mondayDay = monday.getDate();
+
+                var monthsDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+                var m = monday.getMonth();
+                var day = monday.getDay();
+                var year = monday.getYear();
+
+                if(year % 4 === 0 && year % 100 !== 0 || year% 400 === 0) {
+                    monthsDays[1] = 29;
+                }
+
+                $scope.nextDay = (day % monthsDays[m]);
+
             });
         };
 
@@ -49,11 +61,12 @@ angular.module('ngMo.the_week', [
          */
 
 
-        var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
         var data = ActualDateService.actualDate(function (data) {
             $scope.year = new Date(data.actualDate).getFullYear();
-            $scope.month = months[new Date(data.actualDate).getMonth()];
+            $scope.month = months[new Date(data.actualDate).getMonth() ];
+
         });
 
         var data2 = ActualDateService.actualWeek(function (data) {
@@ -727,7 +740,7 @@ angular.module('ngMo.the_week', [
             template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph }\"  ng-style=\"{'top': myTop}\" ng-click=\"$event.stopPropagation();\">"+
                 "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>"+
                 "<br/>"+
-                "<span >{{selectedGraphic.indiceName}}</span>"+
+                "<span>{{selectedGraphic.indiceName}}</span>"+
                 "<br/>"+
                 "<span>Rentabilidad Diaria Acumulada (%)</span>"+
                 "<br/>"+

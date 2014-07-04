@@ -21,23 +21,22 @@ var Cart = function() {
 
     this.open = function () {
 
-        //browser.get('http://46.51.174.51/moshopclient/#/catalog/1');
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/catalog/1');
+        browser.get('http://api.mo.devel.edosoftfactory.com/#/catalog/1');
         browser.ignoreSynchronization = true;
     };
 
     this.checkCart = function () {
 
-        element(by.id('purchase-button')).click();
+        element(by.css('.mo-button')).click();
     };
 
     this.buyingMore = function(){
         element.all(by.css('ng-binding')).get(0);
+        this.button = element(by.css('.mo-button'));
+        this.button.click();
 
-        element(by.id('purchase-button')).click();
-        var button = element.all(by.css(".mo-button"));
-        button.get(1).click();
-
+        this.button = element(by.css('.buttons-cart-container .mo-button'));//.click();
+        this.button.click();
         var icon = element(by.css('.icon-cart')).click();
     };
 
@@ -45,12 +44,12 @@ var Cart = function() {
         element.all(by.css('ng-binding')).get(0);
         element(by.id("purchase-button")).click();
 
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/catalog/1');
+          browser.get('http://api.mo.devel.edosoftfactory.com/#/catalog/1');
     };
 
     this.correctSum = function(){
         element(by.repeater('pack in homeTablePack.americaContent track by $index'));
-        element(by.id("purchase-button")).click();
+        element(by.css(".purchase-button")).click();
 
         this.subtotal.getText().then(function(result){
            this.subtotal2 = result.substring(6,12);
@@ -68,7 +67,7 @@ describe('The cart functionality is correct', function() {
 
     var c = new Cart();
 
-    it('should appear the cart', function () {
+ /*   it('should appear the cart', function () {
         c.open();
         c.checkCart();
         expect(browser.isElementPresent(by.css('.shopping-cart-summary'))).toBe(true);
@@ -100,5 +99,5 @@ describe('The cart functionality is correct', function() {
         c.correctSum();
         expect(c.subtotal2).toBe(c.total2);
 
-    });
+    });*/
 });
