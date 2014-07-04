@@ -697,13 +697,19 @@ angular.module('ngMo.my_patterns', [
             var deferred = $q.defer();
             var data;
             var urlParam = this.createParamsFromFilter(filtering);
+            var indexType = null;
 
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
             config = {
                 params: {
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year
                 }
