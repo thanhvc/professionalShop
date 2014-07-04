@@ -1,4 +1,4 @@
-describe('The publicMenu directive', function () {
+/*describe('The publicMenu directive', function () {
  beforeEach(angular.mock.module("ngMo"));
  describe('template', function () {
         var $compile;
@@ -106,7 +106,7 @@ describe('The publicSubmenu directive', function () {
 
     });
 });
-
+*/
 /**
  * TODO: add items of differents types for a greater coverage test
  */
