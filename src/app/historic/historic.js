@@ -619,7 +619,7 @@ angular.module('ngMo.historic', [
                 }
             };
 
-            var result = $http.get($rootScope.urlService+'/patterns', config).success(function (data) {
+            var result = $http.get($rootScope.urlService+'/historicpatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });
