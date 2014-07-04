@@ -18,9 +18,7 @@ var SigunMenu = function() {
 
     this.open = function() {
         // Goto the login page
-
-        //browser.get('http://46.51.174.51/moshopclient/#/sign-up');
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/sign-up');
+        browser.get('http://api.mo.devel.edosoftfactory.com/#/sign-up');
     };
 
     this.checkIdenticalInputs = function(){
@@ -131,8 +129,7 @@ var SignupMenuStep2 = function() {
     this.errorI = element.all(by.css('text-warning-form'));
 
     this.open = function () {
-        //browser.get('http://46.51.174.51/moshopclient/#/sign-up-step2');
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/sign-up-step2');
+        browser.get('http://api.mo.devel.edosoftfactory.com/sign-up-step2');
         browser.ignoreSynchronization = true;
     };
 
