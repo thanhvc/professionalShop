@@ -1,38 +1,40 @@
 /**
  * Created by robgon on 10/06/14.
  */
-/*
+
  describe('The Patterns view ', function () {
  beforeEach(angular.mock.module("ngMo"));
     beforeEach(module('ui.router'));
     beforeEach(module('ui.bootstrap'));
 
-    beforeEach(inject(function ($templateCache, $compile, $rootScope, $controller, $state, $httpBackend, myPatternsData) {
+    beforeEach(inject(function ($templateCache, $compile, $rootScope, $controller, $state, $httpBackend) {
+        //PatternsData = _myPatternsData_;
         //create an empty scope
         scope = $rootScope.$new();
-        service = myPatternsData;
+        myPatternsData = {};
         //declare the controller and inject our empty scope
-        $controller('PatternsCtrl', {$scope: scope, myPatternsData: service});
+        $controller('PatternsCtrl', {$scope: scope, myPatternsData: myPatternsData});
+
         state = $state;
         compile = $compile;
         template = $templateCache;
         httpMock = $httpBackend;
-        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/islogged').respond(200);
-        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond(200);
-        httpMock.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/patterns?indexType=0&page=1&productType=0').respond(200,
+        httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
+        httpMock.when('GET', $rootScope.urlService+'/actualdate').respond(200);
+
+        httpMock.when('GET', $rootScope.urlService+'/patterns?indexType=0&month=7&page=1&productType=0').respond(200,
             {
-                "Id": "20000",
-                "name": "EMERA ",
-                "name_tooltip": "CANADIAN NATIONAL (NASDAQ)",
-                "type": "buy",
-                "Sector": "Industrial",
-                "Industry": "",
+                "id": "20000",
+                "longName": "EMERA ",
+                "typePattern": "buy",
+                "sector": "Industrial",
+                "industry": "",
                 "Merc": "TSX",
                 "Merc_tooltip": "Toronto Stock Exchange",
                 "Year": "13",
                 "Year_Perd": "2",
-                "Enter": "01/may/14",
-                "Exit": "01/may/14",
+                "entryDate": "01/may/14",
+                "exitDate": "01/may/14",
                 "Rent_acum": "85",
                 "Rent_average": "5.7",
                 "Rent_Diary": "0.06",
@@ -66,13 +68,13 @@
     }));
 
 
-    it(' in the initialization ', function () {
+    /*it(' in the initialization ', function () {
         state.go('my-patterns');
         scope.$apply();
         expect(scope.filterOptions.filters).toBeDefined();
         expect(scope.filterOptions.selectors.regions).toBeDefined();
         expect(scope.pagingOptions.currentPage).toEqual(1);
-    });
+    });*/
 
     it('checking the filters ', function () {
         expect(scope.filterOptions.filters).toBeDefined();
@@ -131,7 +133,7 @@
     /**when launches saveUrl params gives error:
      * PhantomJS 1.9.7 (Mac OS X) ERROR
      Some of your tests did a full page reload! */
-/*
+
  it('checking that the params are saved in the url', function () {
  //set some filters
         scope.filterOptions.filters.filterName = "testName";
@@ -280,4 +282,4 @@
     });
 
 
- });*/
+ });
