@@ -65,8 +65,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       $rootScope.urlService = 'http://localhost:9000';
+       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       //$rootScope.urlService = 'http://localhost:9000';
     })
 
     .service('ActiveTabService', function (){
@@ -119,8 +119,15 @@ angular.module('ngMo', [
             //xx -> xx
             str="";
             if (n != null && !isNaN(n)) {
-                str = n.toString().substr(0,n.toString().indexOf(".")+3);
-                return str;
+                posDot = null;
+                posDot = n.toString().indexOf(".");
+                if (posDot != null && posDot >-1) {
+                    str = n.toString().substr(0,posDot+3);
+                    return str;
+                } else {
+                    return n;
+                }
+
             } else {
                 //if the input cant be converted, we return the same value.
                 //example: if N is a sentence(string) we return the same string...
