@@ -27,10 +27,14 @@ angular.module('ngMo.my_patterns', [
             },
             reloadOnSearch: false,
             resolve: {
+                MonthSelectorService: "MonthSelectorService",
                 PatternsService: "PatternsService",
                 TabsService: "TabsService",
-                filtering : function(TabsService){
-                    return {active_tab: TabsService.getActiveTab()};
+                filtering : function(TabsService,MonthSelectorService){
+                    return {
+                        active_tab: TabsService.getActiveTab(),
+                        month: MonthSelectorService.restartDate()
+                    };
                 },
                 myPatternsData: function(PatternsService, filtering) {
                     return PatternsService.getPagedDataAsync(1, filtering).then(function (data){
@@ -700,7 +704,8 @@ angular.module('ngMo.my_patterns', [
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': parseInt(filtering.active_tab, 10),
-                    'month': filtering.month
+                    'month': filtering.month.month,
+                    'year': filtering.month.year
                 }
             };
 
