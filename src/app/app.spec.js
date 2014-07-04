@@ -12,7 +12,8 @@ describe('The publicMenu directive', function () {
             $compile = _$compile_;
             $httpBackend = _$httpBackend_;
             $httpBackend.when('GET', $rootScope.urlService+'/actualdate').respond(200);
-            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/islogged').respond(200);
+            $httpBackend.when('GET', $rootScope.urlService+'/islogged').respond(200);
+            $httpBackend.when('GET',$rootScope.urlService+'/nextdate').respond(200);
             $scope = $rootScope.$new();
             $state = _$state_;
         }));
@@ -25,7 +26,7 @@ describe('The publicMenu directive', function () {
         }));
 
 
-        it('should have \'item-nav-hover\' class', inject(function () {
+        it('should have \'item-nav-hover\' class', inject(function ($rootScope) {
             $httpBackend.when('GET', $rootScope.urlService+'/actualdate').respond(200);
             $state.go('organization');
             var template = $compile("<div ng-controller = 'AppCtrl'><nav public-menu></nav></div>")($scope);
@@ -59,13 +60,14 @@ describe('The publicSubmenu directive', function () {
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, _$httpBackend_) {
+        beforeEach(inject(function (_$compile_, $rootScope, _$state_, _$httpBackend_) {
             $compile = _$compile_;
-            $scope = _$rootScope_.$new();
+            $scope = $rootScope.$new();
             $state = _$state_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.when('GET','http://localhost:9000/islogged').respond(200);
-            $httpBackend.when('GET','http://localhost:9000/actualdate').respond(200);
+            $httpBackend.when('GET',$rootScope.urlService+'/islogged').respond(200);
+            $httpBackend.when('GET',$rootScope.urlService+'/actualdate').respond(200);
+            $httpBackend.when('GET',$rootScope.urlService+'/nextdate').respond(200);
 
         }));
 
@@ -110,7 +112,7 @@ describe('The publicSubmenu directive', function () {
 /**
  * TODO: add items of differents types for a greater coverage test
  */
-/*
+
 describe('The cart directive', function () {
     beforeEach(angular.mock.module("ngMo"));
     describe('template', function () {
@@ -132,8 +134,9 @@ describe('The cart directive', function () {
         addItemsToCart = function (numItems) {
             for (var i = 0; i < numItems; i++) {
                 item = {
-                    "id": i,
-                    "patternType": "stock"
+                    "code": i,
+                    "patternType": 0,
+                    "productType": "STOCK"
                 };
                 $scope.addNewItemCart(item);
                 $scope.$apply();
@@ -248,7 +251,7 @@ describe('The cart directive', function () {
 
     });
 });
-*/
+
 /* Count how many items the private menu has*/
 /*
 describe('The privateMenu directive', function () {
