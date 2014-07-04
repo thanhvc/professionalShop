@@ -11,7 +11,7 @@ describe('The publicMenu directive', function () {
         beforeEach(inject(function (_$compile_, $rootScope, _$state_, _$httpBackend_) {
             $compile = _$compile_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond(200);
+            $httpBackend.when('GET', $rootScope.urlService+'/actualdate').respond(200);
             $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/islogged').respond(200);
             $scope = $rootScope.$new();
             $state = _$state_;
@@ -26,11 +26,11 @@ describe('The publicMenu directive', function () {
 
 
         it('should have \'item-nav-hover\' class', inject(function () {
-            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond(200);
+            $httpBackend.when('GET', $rootScope.urlService+'/actualdate').respond(200);
             $state.go('organization');
             var template = $compile("<div ng-controller = 'AppCtrl'><nav public-menu></nav></div>")($scope);
             $scope.$apply();
-            /*var suffix = "-nav";
+            var suffix = "-nav";
             var vMenuList = template.find('li');
             var log = [];
 
@@ -43,22 +43,13 @@ describe('The publicMenu directive', function () {
                 },
             log);
 
-            expect(log[0].indexOf('item-nav-hover')).toNotEqual(-1);*/
-            var i;
-            i = 0;
-            i = 345 -45;
-            i = i -1234123;
-            i = i -1234123;
-            i = i -1234123;
-            i = i -1234123;
-            i = i -1234123;
-            i = i -1234123;
-            i = i -1234123;
+            expect(log[0].indexOf('item-nav-hover')).toNotEqual(-1);
+
         }));
 
     });
  });
-/*
+
 describe('The publicSubmenu directive', function () {
  beforeEach(angular.mock.module("ngMo"));
  describe('template', function () {
@@ -73,8 +64,8 @@ describe('The publicSubmenu directive', function () {
             $scope = _$rootScope_.$new();
             $state = _$state_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/islogged').respond();
-            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond();
+            $httpBackend.when('GET','http://localhost:9000/islogged').respond(200);
+            $httpBackend.when('GET','http://localhost:9000/actualdate').respond(200);
 
         }));
 
