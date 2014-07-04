@@ -6,7 +6,7 @@
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
-                <select class="border-filters select-filter-correlation" style="color: black;"
+                <select disabled="true" class="border-filters select-filter-correlation" style="color: black;"
                         data-ng-model="filterOptions.filters.selectMonth"
                         ng-change="goToMonth()"
                         ng-options="item.name for item in filterOptions.months"
@@ -14,7 +14,7 @@
                 </select>
             </td>
             <td>
-                <select ng-change="selectRegion()" class="border-filters select-filter-correlation"
+                <select disabled="true" ng-change="selectRegion()" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedRegion">
                     <option value="">Región</option>
                     <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"

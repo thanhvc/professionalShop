@@ -36,21 +36,21 @@
     <div class="header-catalog-table">
         <div class="catalog-filter">
             <input readonly="readonly" placeholder="Nombre" ng-model="namePattern" ng-change="changeFilter(namePattern)">
-            <select ng-model="sectorPattern" ng-change="changeFilter(sectorPattern)">
+            <select disabled="true" ng-model="sectorPattern" ng-change="changeFilter(sectorPattern)" >
                 <option selected="selected" value="">- Elegir Sector -</option>
                 <option value="Information Technology">Information Technology</option>
             </select>
-            <select ng-model="industryPattern" ng-change="changeFilter(industryPattern)">
+            <select disabled="true" ng-model="industryPattern" ng-change="changeFilter(industryPattern)">
                 <option selected="selected" value="">- Elegir industria -</option>
                 <option value="{{'Communications Equipment' | limitTo: 10}}">Communications Equipment</option>
             </select>
-            <select ng-model="durationPattern" ng-change="changeFilter(durationPattern)">
+            <select disabled="true" ng-model="durationPattern" ng-change="changeFilter(durationPattern)">
                 <option selected="selected" value="">- Elegir duraci&oacute;n -</option>
                 <option value="Hasta 1">Hasta 1 mes</option>
                 <option value="De 1 a 3">De 1 a 3 meses</option>
                 <option value="Mas de 3">Mas de 3 meses</option>
             </select>
-            <select ng-model="volatilityPattern" ng-change="changeFilter(volatilityPattern, 'VolatilityCatalogFilter')">
+            <select disabled="true" ng-model="volatilityPattern" ng-change="changeFilter(volatilityPattern, 'VolatilityCatalogFilter')">
                 <option selected="selected" value="">- Elegir volatilidad -</option>
                 <option value="<25">Menos de 25%</option>
                 <option value=">25<50">Entre 25% y 50%</option>

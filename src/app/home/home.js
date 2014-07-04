@@ -162,7 +162,7 @@ angular.module('ngMo.home', [
                         title: 'Futuros',
                         active: ActiveTabService.activeTab() === 3,
                         value: 3,
-                        futuresContent: $scope.myData.firstTable.FUTURE.FUTURES,
+                        futuresContent: $scope.myData.firstTable.FUTURE.FUTURE,
                         url: 'home/tables_packs/futures_table.tpl.html'
                     }
                 ];
@@ -200,7 +200,7 @@ angular.module('ngMo.home', [
                             title: 'Futuros',
                             active: SecondActiveTabService.activeTab() === 3,
                             value: 3,
-                            futuresContent: $scope.myData.secondTable.FUTURE.FUTURES,
+                            futuresContent: $scope.myData.secondTable.FUTURE.FUTURE,
                             url: 'home/tables_packs/second_futures_table.tpl.html'
                         }
                     ];
