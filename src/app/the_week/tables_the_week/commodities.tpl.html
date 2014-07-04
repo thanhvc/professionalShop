@@ -8,13 +8,13 @@
         </tr>
         <tr>
             <th></th>
-            <th colspan="2">Semana {{mondayDay}}/{{mondayDay+4}}</th>
+            <th colspan="2">Semana {{mondayDay}}/{{nextDay+3}}</th>
             <th></th>
             <th colspan="2">Lu {{mondayDay}}</th>
-            <th colspan="2">Ma {{mondayDay+1}}</th>
-            <th colspan="2">Mi {{mondayDay+2}}</th>
-            <th colspan="2">Ju {{mondayDay+3}}</th>
-            <th colspan="2">Vi {{mondayDay+4}}</th>
+            <th colspan="2">Ma {{nextDay}}</th>
+            <th colspan="2">Mi {{nextDay+1}}</th>
+            <th colspan="2">Ju {{nextDay+2}}</th>
+            <th colspan="2">Vi {{nextDay+3}}</th>
         </tr>
         </thead>
         <tbody ng-repeat="region in area.regions">

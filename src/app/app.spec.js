@@ -11,38 +11,46 @@
         beforeEach(inject(function (_$compile_, $rootScope, _$state_, _$httpBackend_) {
             $compile = _$compile_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond(200);
+            $httpBackend.when('GET', $rootScope.urlService+'/actualdate').respond(200);
             $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/islogged').respond(200);
             $scope = $rootScope.$new();
             $state = _$state_;
         }));
+
+
         it('should produce 6 menu items', inject(function () {
             var template = $compile("<nav public-menu></nav>")($scope);
             $scope.$apply();
             expect(template.find('li').length).toEqual(6);
         }));
+
+
         it('should have \'item-nav-hover\' class', inject(function () {
- $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond(200);
- $state.go('organization');
- var template = $compile("<div ng-controller = 'AppCtrl'><nav public-menu></nav></div>")($scope);
+            $httpBackend.when('GET', $rootScope.urlService+'/actualdate').respond(200);
+            $state.go('organization');
+            var template = $compile("<div ng-controller = 'AppCtrl'><nav public-menu></nav></div>")($scope);
             $scope.$apply();
             var suffix = "-nav";
             var vMenuList = template.find('li');
             var log = [];
+
+            console.log(suffix);
 
             angular.forEach(vMenuList, function (item) {
                     if (item.id === 'market-observatory' + suffix) {
                         this.push(item.className);
                     }
                 },
-                log);
+            log);
+
             expect(log[0].indexOf('item-nav-hover')).toNotEqual(-1);
+
         }));
 
     });
- });*/
+ });
 
-/*describe('The publicSubmenu directive', function () {
+describe('The publicSubmenu directive', function () {
  beforeEach(angular.mock.module("ngMo"));
  describe('template', function () {
         var $compile;
@@ -56,8 +64,8 @@
             $scope = _$rootScope_.$new();
             $state = _$state_;
             $httpBackend = _$httpBackend_;
-            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/islogged').respond();
-            $httpBackend.when('GET', 'http://api.mo.devel.edosoftfactory.com:9000/actualdate').respond();
+            $httpBackend.when('GET','http://localhost:9000/islogged').respond(200);
+            $httpBackend.when('GET','http://localhost:9000/actualdate').respond(200);
 
         }));
 
@@ -98,11 +106,12 @@
 
     });
 });
- */
+*/
 /**
  * TODO: add items of differents types for a greater coverage test
  */
-/*describe('The cart directive', function () {
+/*
+describe('The cart directive', function () {
     beforeEach(angular.mock.module("ngMo"));
     describe('template', function () {
         var $compile;
@@ -238,10 +247,10 @@
         }));
 
     });
-});*/
-
+});
+*/
 /* Count how many items the private menu has*/
-
+/*
 describe('The privateMenu directive', function () {
 
     beforeEach(angular.mock.module("ngMo"));
@@ -271,9 +280,9 @@ describe('The privateMenu directive', function () {
     });
 });
 
-
+*/
 /* Check if login  - logout panel fades in*/
-
+/*
 describe('The signin-signup-box ng-scope div', function () {
 
 
@@ -309,9 +318,10 @@ describe('The signin-signup-box ng-scope div', function () {
 
     });
 });
-
+*/
 
 /*Check if the sigin box fades in*/
+/*
 describe('The signin box fades in', function () {
     beforeEach(angular.mock.module("ngMo"));
 
@@ -361,5 +371,5 @@ describe('The signin box fades in', function () {
 
     });
 });
-
+*/
 /* Check if login - logout panel fades out*/
