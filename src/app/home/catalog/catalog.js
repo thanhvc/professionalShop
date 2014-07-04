@@ -146,6 +146,8 @@ angular.module('ngMo.catalog', [
                     } else {
                         $scope.selectedTab = 2;
                     }
+                } else if ($scope.selectedPack.productType === 'FUTURE') {
+                    $scope.selectedTab = 3;
                 } else {
                     $scope.selectedTab = $scope.selectedPack.patternType;
                 }
@@ -208,6 +210,8 @@ angular.module('ngMo.catalog', [
                     } else {
                         $scope.selectedTab = 2;
                     }
+                } else if ($scope.selectedPack.productType === 'FUTURE') {
+                    $scope.selectedTab = 3;
                 } else {
                     $scope.selectedTab = $scope.selectedPack.patternType;
                 }
