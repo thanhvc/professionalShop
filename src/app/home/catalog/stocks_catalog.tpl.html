@@ -77,6 +77,7 @@
             <th>Nombre</th>
             <th>C&oacute;digo</th>
             <th></th>
+            <th></th>
             <th>Ganancia</th>
             <th>Pérdida</th>
             <th>Acumulada</th>
@@ -90,6 +91,7 @@
             </td>
             <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
             </td>
+            <td>{{pattern.asset.exchange.name}}</td>
             <td><span tooltip-html-unsafe="{{pattern.asset.sector}}">{{pattern.asset.sector}}</span> <span
                     ng-show="pattern.asset.sector != null && pattern.asset.industry != null">/</span>
                 <span tooltip-html-unsafe="{{pattern.asset.industry}}">{{pattern.asset.industry}}</span></td>
