@@ -68,7 +68,7 @@ angular.module('auth',['http-auth-interceptor'])
         return {
             restrict: "E",
 
-            controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state) {
+            controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state, ShoppingCartService) {
 
                 $scope.stateSignInForm = false;
                 $scope.firstTime = false;
@@ -112,6 +112,7 @@ angular.module('auth',['http-auth-interceptor'])
                     $http.get($rootScope.urlService+'/logout', config)
                         .success(function () {
                             $rootScope.isLog = false;
+                            $scope.removeAllItemsCart();
                             $state.go('home');
                             $window.sessionStorage.removeItem('token');
                         });

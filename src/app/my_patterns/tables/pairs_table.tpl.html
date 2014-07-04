@@ -94,14 +94,14 @@
             <div class="text-limitator">
                 <span>Comprar</span>
             <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.asset.shortName}}">
+                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
                 {{data.asset.longName}}
             </span>
             </div>
             <div class="text-limitator">
             <span>Vender</span>
             <span class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.bearishAsset.shortName}}">
+                  tooltip-html-unsafe="{{data.bearishAsset.longName}} ({{data.bearishAsset.exchange.symbol}})">
                 {{data.bearishAsset.longName}}
             </span>
             </div>
@@ -112,13 +112,13 @@
                 >
             <!--sector/industry-->
             <div tooltip="{{data.asset.sector}} / {{data.asset.industry}}" class="max-length-pairs-sector text-limitator buy-color">
-                <span class="cursor-help">{{data.bearishAsset.sector}}</span>
-                <span ng-show="{{(data.asset.sector != '' && data.asset.industry != '')}}"> / </span>
-                <span class="cursor-help">{{data.bearishAsset.industry}}</span>
+                <span class="cursor-help">{{data.asset.sector}}</span>
+                <span ng-show="{{(data.asset.sector != null && data.asset.sector != '' && data.asset.industry != null && data.asset.industry != '')}}"> / </span>
+                <span class="cursor-help">{{data.asset.industry}}</span>
             </div>
             <div tooltip="{{data.bearishAsset.sector}} / {{data.bearishAsset.industry}}" class="max-length-pairs-sector text-limitator sell-color">
                 <span class="cursor-help" tooltip-html-unsafe="{{data.bearishAsset.sector}}">{{data.bearishAsset.sector}}</span>
-                <span ng-show="{{(data.bearishAsset.sector != '' && data.bearishAsset.industry != '')}}"> / </span>
+                <span ng-show="{{(data.bearishAsset.sector != null && data.bearishAsset.industry != null)}}"> / </span>
                 <span class="cursor-help" tooltip="{{data.bearishAsset.industry}}">{{data.bearishAsset.industry}}</span>
             </div>
         </td>
@@ -166,7 +166,7 @@
             <b> {{data.pairVolatility | twoDecimals}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
-            <div class="current-favourite"
+            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita"
                  g-class="{'favourite-added': data.Fav == 'true'}"></div>
         </td>
         <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
