@@ -77,9 +77,8 @@
                 <br/>
                 <span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishAsset.longName}}" class="sell-color">{{pattern.bearishAsset.longName | limitTo: 33}}</span>
             </td>
-            <td><span class="cursor-help"  tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
-            <br>
-                <span class="cursor-help"  tooltip-html-unsafe="{{pattern.bearishAsset.exchange.name}}">{{pattern.bearishAsset.exchange.symbol}}</span>
+            <td><div><span class="cursor-help"  tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></div>
+            <div><span class="cursor-help"  tooltip-html-unsafe="{{pattern.bearishAsset.exchange.name}}">{{pattern.bearishAsset.exchange.symbol}}</span></div>
             </td>
             <td>    <span class="buy-color">{{pattern.asset.sector}}</span> <span class="buy-color" ng-show="pattern.asset.sector != '' && pattern.asset.industry != ''">/</span> <span class="buy-color"> {{pattern.asset.industry}} </span>
                 <br/>
