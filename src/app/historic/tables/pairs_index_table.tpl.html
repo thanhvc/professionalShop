@@ -13,10 +13,6 @@
         <th class="border-right-table">
             <span class="cursor-help">Salida</span>
         </th>
-        <th class="border-right-table"
-            colspan="3">
-            <span class="cursor-help">Último</span>
-        </th>
         <th class="border-right-table" tooltip-html-unsafe="Volatilidad">
             Vol.
         </th>
@@ -27,55 +23,40 @@
         <th class="border-right-table"  colspan="2">
             <span class="cursor-help">Peor Pérdida</span>
         </th>
-        <th class="border-right-table">
+        <th>
             <span class="cursor-help">Notas</span>
-        </th>
-        <th class="sub-border-right-table">
-            <span class="cursor-help">Alarma</span>
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
         <th class="border-right-table">
+            Nombre Índice
+        </th>
+        <th class="sub-border-right-table">
+            Fecha
+        </th>
+        <th class="border-right-table">
+            Precio
+        </th>
+        <th class="border-right-table">
+            Fecha
+        </th>
+        <th class="border-right-table">
+            (%)
+        </th>
+        <th class="sub-border-right-table">
+            Fecha
+        </th>
+        <th class="border-right-table">
+            (%)
+        </th>
+        <th class="sub-border-right-table">
+            Fecha
+        </th>
+        <th class="border-right-table">
+            (%)
+        </th>
+        <th>
 
-        </th>
-        <th class="sub-border-right-table">
-            Fecha
-        </th>
-        <th class="border-right-table">
-            Precio
-        </th>
-        <th class="border-right-table">
-            Fecha
-        </th>
-        <th class="sub-border-right-table">
-            Fecha
-        </th>
-        <th class="sub-border-right-table">
-            Precio
-        </th>
-        <th class="border-right-table">
-            (%)
-        </th>
-        <th class="border-right-table">
-            (%)
-        </th>
-        <th class="sub-border-right-table">
-            Fecha
-        </th>
-        <th class="border-right-table">
-            (%)
-        </th>
-        <th class="sub-border-right-table">
-            Fecha
-        </th>
-        <th class="border-right-table">
-            (%)
-        </th>
-        <th class="border-right-table">
-
-        </th>
-        <th class="sub-border-right-table">
-            Precio
         </th>
     </tr>
     <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
@@ -111,13 +92,6 @@
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
             {{data.asset.lastQuoteDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="width: 68px;" class="table-cell-patterns sub-border-right-table">
-            <div class="link"><b>{{data.asset.lastQuote | twoDecimals}}</b></div>
-            <div class="link"><b>{{data.bearishAsset.lastQuote | twoDecimals}}</b></div>
-        </td>
-        <td class="table-cell-patterns border-right-table">
-            <b>{{data.lastPerformance | twoDecimals}}</b>
-        </td>
         <td class="table-cell-patterns border-right-table">
             <span class="link"><b>{{data.asset.volatility | twoDecimals}}</b></span>
         </td>
@@ -133,11 +107,8 @@
         <td class="table-cell-patterns border-right-table">
             <b>{{data.worstLoss | twoDecimals}}</b>
         </td>
-        <td style="width: 30px;" class="table-cell-patterns border-right-table">
+        <td style="width: 30px;" class="table-cell-patterns">
 
-        </td>
-        <td class="table-cell-patterns border-right-table">
-            <div class="alarm-icon"></div>
         </td>
     </tr>
 

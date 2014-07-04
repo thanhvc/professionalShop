@@ -8,7 +8,7 @@
             <td>
                 <select disabled="true" ng-change="selectRegion()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedRegion">
-                    <option value="">- región -</option>
+                    <option value="">- Región -</option>
                     <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
                         {{item.description}}
