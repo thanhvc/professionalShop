@@ -13,7 +13,7 @@
                 <td>{{stockItem.packName}}</td>
                 <td>{{stockItem.startDate}}</td>
                 <td>
-                    <select ng-click=" $event.stopPropagation();" ng-model="stockItem.duration">
+                    <select ng-click=" $event.stopPropagation();" ng-change="changeDurationCart(stockItem.code,0)"  ng-model="stockItem.duration">
                         <option value="Mensual">Mensual</option>
                         <option value="Trimestral">Trimestral</option>
                         <option value="Anual">Anual</option>
@@ -42,7 +42,7 @@
                 <td>{{pairsItem.packName}}</td>
                 <td>{{pairsItem.startDate}}</td>
                 <td>
-                    <select ng-click=" $event.stopPropagation();"  ng-model="pairsItem.duration">
+                    <select ng-click=" $event.stopPropagation();" ng-change="changeDurationCart(pairsItem.code,1)"  ng-model="pairsItem.duration">
                         <option value="Mensual">Mensual</option>
                         <option value="Trimestral">Trimestral</option>
                         <option value="Anual">Anual</option>
@@ -71,7 +71,7 @@
                 <td>{{indicesItem.packName}}</td>
                 <td>{{indicesItem.startDate}}</td>
                 <td>
-                    <select ng-click=" $event.stopPropagation();"  ng-model="indicesItem.duration">
+                    <select ng-click=" $event.stopPropagation();" ng-change="changeDurationCart(indicesItem.code,2)"  ng-model="indicesItem.duration">
                         <option value="Mensual">Mensual</option>
                         <option value="Trimestral">Trimestral</option>
                         <option value="Anual">Anual</option>
@@ -100,7 +100,7 @@
                 <td>{{pairsIndicesItem.packName}}</td>
                 <td>{{pairsIndicesItem.startDate}}</td>
                 <td>
-                    <select ng-click=" $event.stopPropagation();"  ng-model="pairsIndicesItem.duration">
+                    <select ng-click=" $event.stopPropagation();"  ng-change="changeDurationCart(pairsIndicesItem.code,3)"  ng-model="pairsIndicesItem.duration">
                         <option value="Mensual">Mensual</option>
                         <option value="Trimestral">Trimestral</option>
                         <option value="Anual">Anual</option>
@@ -129,7 +129,7 @@
                 <td>{{futuresItem.packName}}</td>
                 <td>{{futuresItem.startDate}}</td>
                 <td>
-                    <select ng-click=" $event.stopPropagation();"  ng-model="futuresItem.duration">
+                    <select ng-click=" $event.stopPropagation();"  ng-change="changeDurationCart(futuresItem.code,4)"  ng-model="futuresItem.duration">
                         <option value="Mensual">Mensual</option>
                         <option value="Trimestral">Trimestral</option>
                         <option value="Anual">Anual</option>

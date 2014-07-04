@@ -1,28 +1,29 @@
 <div>
     <span class="catalog-title">Cat&aacute;logo Futuros</span>
 
-    <p>El siguiente cuadro es un resumen de contenidos del Pack a <b>Comprar</b> mediante suscripci&oacute;n. Contiene una lista de hasta 100 Compa&ntilde;&iacute;as con las mejores Estrategias durante el Mes indicado.</p>
+    <p>El siguiente cuadro es un resumen de contenidos del Pack a <b>Comprar</b> mediante suscripción. Contiene una lista de hasta 100 Estrategias sobre los principales productos internacionales cotizados a Futuro durante el Mes indicado..</p>
     <p>
-        La tabla muestra un avance de par&aacute;metros de las diferentes estrategias, que permite valorar las ventajas de Comprar el Pack.
+        La tabla muestra un avance de parámetros de las diferentes estrategias, que permite valorar las ventajas de Comprar el Pack:
     <ul class="public-list-first-level">
-        <li>Nombre de la Compa&ntilde;&iacute;a, Mercado cotizaci&oacute;n y clasificaci&oacute;n Sectorial.</li>
-        <li>N&uacute;mero de a&ntilde;os &ndash;o frecuencia de aciertos&ndash; que la estrategia gener&oacute; Beneficios y P&eacute;rdidas.</li>
-        <li>Rentabilidad Acumulada durante 15 a&ntilde;os y Rentabilidad Media asociada al periodo de la operaci&oacute;n &ndash;no es rentabilidad anual&ndash;. </li>
-        <li>Duraci&oacute;n de la operaci&oacute;n (Holding days) para planificar la disponibilidad del dinero. </li>
-        <li>Volatilidad hist&oacute;rica para estimar perfil de riesgo. </li>
-        <li>El &ldquo;Estado&rdquo; de la Estrategia se indica mediante un sem&aacute;foro: Color naranja si a d&iacute;a de hoy est&aacute; en curso. Color rojo si ya termin&oacute;. Color verde cuando en la fecha actual todav&iacute;a est&aacute; sin comenzar.</li>
-        <li>Informaci&oacute;n de los datos Fundamentales de la Compa&ntilde;&iacute;a</li>
+        <li>Nombre del producto y mercado donde cotiza como Futuro.</li>
+        <li>Número de años –o frecuencia de aciertos- que la estrategia generó Beneficios y Pérdidas.</li>
+        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media asociada al periodo de la operación –no es rentabilidad anual-.</li>
+        <li>Duración de la operación (Holding days) para planificación del dinero. </li>
+        <li>La Volatilidad histórica para estimar el riesgo.</li>
+        <li>El “Estado” de la Estrategia se indica mediante un semáforo: Color naranja si a día de hoy está en curso.</li>
+        <li>Color rojo si ya terminó. Color verde cuando en la fecha actual todavía está sin comenzar.
+        </li>
     </ul>
     Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y herramientas de evaluaci&oacute;n.
     </p>
     <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy'}}</div>
-    <div class="region-catalog-container">{{selectedPack.region.name}}</div>
+    <div class="region-catalog-container">{{selectedPack.region.name | uppercase}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
     <span class="actual-date-catalog">DATE: {{actualDate | date:'dd MMMM'}}. (CET)</span>
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
-            <input placeholder="Nombre" ng-model="namePattern" ng-change="changeFilter(namePattern)">
+            <input readonly="readonly" placeholder="Nombre" ng-model="namePattern" ng-change="changeFilter(namePattern)">
             <select ng-model="sectorPattern" ng-change="changeFilter(sectorPattern)">
                 <option selected="selected" value="">- Elegir Sector -</option>
                 <option value="Information Technology">Information Technology</option>
@@ -73,16 +74,24 @@
             <th></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td>{{pattern.asset.longName | limitTo: 33}}</td>
-            <td>{{pattern.asset.exchange.symbol}}</td>
-            <td>{{pattern.asset.sector}} <span ng-show="pattern.asset.sector != null && pattern.asset.industry != null">/</span> {{pattern.asset.industry}}</td>
+            <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 33}}</span></td>
+            <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
+            <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.sector}}">{{pattern.asset.sector}}</span>
+                <span ng-show="pattern.asset.sector != null && pattern.asset.industry != null">/</span>
+                <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.industry}}">{{pattern.asset.industry}}</span></td>
             <td>{{pattern.win | twoDecimals}}</td>
             <td>{{pattern.loss | twoDecimals}}</td>
             <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
             <td>{{pattern.averageReturn | twoDecimals}}</td>
-            <td>{{pattern.duration | twoDecimals}}</td>
+            <td><span ng-show="(pattern.duration <31)">Hasta 1</span>
+                <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
+                <span ng-show="(pattern.duration >92)">Más de 3</span></td>
             <td>{{pattern.asset.volatility | twoDecimals}}</td>
-            <td><div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div></td>
+            <td><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
+                <div tooltip="Sin Comenzar" class="state-sphere no-started-state" ng-show="pattern.statePattern == 0"></div>
+                <div tooltip="Comenzado" class="state-sphere started-state" ng-show="pattern.statePattern == 1"></div>
+                <div tooltip="Finalizado" class="state-sphere finished-state" ng-show="pattern.statePattern == 2"></div>
+            </td>
         </tr>
     </table>
     <!--pagination-->
