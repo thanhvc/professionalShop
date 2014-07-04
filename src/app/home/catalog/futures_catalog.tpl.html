@@ -83,7 +83,9 @@
             <td>{{pattern.loss | twoDecimals}}</td>
             <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
             <td>{{pattern.averageReturn | twoDecimals}}</td>
-            <td>{{pattern.duration | twoDecimals}}</td>
+            <td><span ng-show="(pattern.duration <31)">Hasta 1</span>
+                <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
+                <span ng-show="(pattern.duration >92)">Más de 3</span></td>
             <td>{{pattern.asset.volatility | twoDecimals}}</td>
             <td><div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div></td>
         </tr>
