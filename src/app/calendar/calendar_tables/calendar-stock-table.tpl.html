@@ -1,23 +1,23 @@
 <div class="calendar-filters-container">
-    <select data-ng-model="selectedMonth">
+    <select disabled="true" data-ng-model="selectedMonth">
         <option ng-repeat="month in calendarMonths" value="{{month.value}}">{{month.description}}</option>
     </select>
-    <select data-ng-model="selectedRegion">
+    <select disabled="true" data-ng-model="selectedRegion">
         <option selected value="">- Región -</option>
         <option ng-repeat="region in calendarRegions" value="{{region.id}}">{{region.description}}</option>
     </select>
-    <select data-ng-model="selectedMarket">
+    <select disabled="true" data-ng-model="selectedMarket">
         <option selected value="">- Mercado -</option>
         <option ng-repeat="market in calendarMarkets" value="{{market.id}}">{{market.description}}</option>
     </select>
-    <select data-ng-model="selectedOperation">
+    <select disabled="true" data-ng-model="selectedOperation">
         <option selected value="">- Operación -</option>
         <option value="0">Compra</option>
         <option value="1">Venta</option>
     </select>
     <input type="checkbox" ng-model="favouriteCalendar"><label>Favoritos</label>
     <input type="text" placeholder="Día" data-ng-model="dayPattern">
-    <select data-ng-model="filterOptions.filters.order" class="select-order" ng-change="search()" >
+    <select disabled="true" data-ng-model="filterOptions.filters.order" class="select-order" ng-change="search()" >
         <option selected value="0">Ordenar por Fecha Entrada</option>
         <option value="1">Ordenar por Fecha Salida</option>
     </select>
