@@ -102,9 +102,8 @@
             {{data.entryDate | date: 'dd/MMM/yyyy'}}
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <span class="buy-color"><b>{{data.entryValue}}</b></span>
-            <br/>
-            <span class="sell-color"><b>{{data.bearishEntryValue}}</b></span>
+            <div class="buy-color"><b>{{data.entryValue}}</b></div>
+            <div class="sell-color"><b>{{data.bearishEntryValue}}</b></div>
         </td>
         <td style="width: 70px;" class="table-cell-patterns border-right-table">
             {{data.exitDate | date: 'dd/MMM/yyyy'}}
@@ -113,27 +112,26 @@
             {{data.asset.lastQuoteDate | date: 'dd/MMM/yyyy'}}
         </td>
         <td style="width: 68px;" class="table-cell-patterns sub-border-right-table">
-            <span class="link"><b>{{data.asset.lastQuote}}</b></span>
-            <br/>
-            <span class="link"><b>{{data.bearishAsset.lastQuote}}</b></span>
+            <div class="link"><b>{{data.asset.lastQuote | twoDecimals}}</b></div>
+            <div class="link"><b>{{data.bearishAsset.lastQuote | twoDecimals}}</b></div>
         </td>
         <td class="table-cell-patterns border-right-table">
-            <b>{{data.lastPerformance}}</b>
+            <b>{{data.lastPerformance | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns border-right-table">
-            <span class="link"><b>{{data.asset.volatility}}</b></span>
+            <span class="link"><b>{{data.asset.volatility | twoDecimals}}</b></span>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
             {{data.bestGainDate | date: 'dd/MM/yyyy'}}
         </td>
         <td class="table-cell-patterns border-right-table">
-            <b ng-class="{'negative-percent': data.asset.lastQuote < 0}">{{data.bestGain}}</b>
+            <b ng-class="{'negative-percent': data.asset.lastQuote < 0}">{{data.bestGain | twoDecimals}}</b>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
             {{data.worstLossDate | date: 'dd/MM/yyyy'}}
         </td>
         <td class="table-cell-patterns border-right-table">
-            <b>{{data.worstLoss}}</b>
+            <b>{{data.worstLoss | twoDecimals}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
 
