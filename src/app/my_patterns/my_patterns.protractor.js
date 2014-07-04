@@ -102,7 +102,6 @@ var Actions = function(){
     };
     this.login = function(){
          browser.get('http://api.mo.devel.edosoftfactory.com/#/home/the-week');
-
     }
 
     this.showMoreInfo = function(){
