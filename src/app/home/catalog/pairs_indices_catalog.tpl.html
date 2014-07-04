@@ -93,7 +93,13 @@
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
             <td>{{pattern.asset.volatility | twoDecimals}}</td>
-            <td><div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div></td>
+            <td>
+                <!--<div tooltip="{{pattern.state}}"
+                class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
+                <div tooltip="Sin Comenzar" class="state-sphere no-started-state" ng-show="pattern.statePattern == 0"></div>
+                <div tooltip="Comenzado" class="state-sphere started-state" ng-show="pattern.statePattern == 1"></div>
+                <div tooltip="Finalizado" class="state-sphere finished-state" ng-show="pattern.statePattern == 2"></div>
+            </td>
         </tr>
     </table>
     <!--pagination-->
