@@ -95,6 +95,36 @@ angular.module('singUp', [])
                         captcha: ''
                     }
                 }
+            })
+            .state('new-subscription', {
+                url: '/new-subscription',
+                views: {
+                    "main": {
+                        templateUrl: 'sign_up/new-subscription.tpl.html'
+                    }
+                },
+                data: {
+                    /* empty the menu data*/
+                    pageTitle: '',
+                    selectMenu: '',
+                    selectSubmenu: '',
+                    selectItemSubmenu: '',
+                    moMenuType: 'publicMenu',
+                    user: {
+                        email: '',
+                        email2: '',
+                        password: '',
+                        password2: '',
+                        name: '',
+                        surname: '',
+                        address: '',
+                        city: '',
+                        postal: '',
+                        country: '',
+                        conditions: '',
+                        captcha: ''
+                    }
+                }
             });
     })
     .run(function run() {
@@ -109,6 +139,26 @@ angular.module('singUp', [])
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
 
+
+
+            //newSubscription vars:
+            $scope.login = {
+                mail :"",
+                password:""
+            };
+
+            $scope.newSubscriptionMode = "login";
+
+
+            $scope.createNewSubs = function() {
+                if ($scope.newSubscriptionMode == "login") {
+
+                } else {
+                    $scope.sendFirstStep();
+                }
+            };
+
+            //signup vars:
             //password Pattern, note that to not allow spaces must use ng-trim="false" in the input
             $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
             //user model
