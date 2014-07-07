@@ -296,10 +296,11 @@ angular.module('ngMo.my_patterns', [
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
-                });
+                    $scope.myData.product = 'PEPE';
+            });
+
+
         };
-
-
         /**
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
@@ -673,6 +674,7 @@ angular.module('ngMo.my_patterns', [
         $scope.myData = myPatternsData.patterns;
         $scope.results = myPatternsData.results;
         $scope.found = myPatternsData.found;
+
 
 
     })
