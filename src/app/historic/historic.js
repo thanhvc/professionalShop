@@ -53,7 +53,6 @@ angular.module('ngMo.historic', [
             pageSize: 10,
             currentPage: 1
         };
-
         /** templates of filters/tables for each tab**/
         var templateTables = [
             {"table": 'historic/tables/stocks_table.tpl.html',
