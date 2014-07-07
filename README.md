@@ -1,4 +1,13 @@
-## Quick Start
+#Market Observatory Shop Client
+AngularJS client for Market Observatory Project
+
+##Status
+* Master
+[![Build Status](http://katana.edosoftfactory.com:8080/job/MoShopClient%20-%20master/badge/icon)](http://katana.edosoftfactory.com:8080/job/MoShopClient%20-%20master/)
+* Devel
+[![Build Status](http://katana.edosoftfactory.com:8080/job/MoShopClient%20-%20devel%20branch/badge/icon)](http://katana.edosoftfactory.com:8080/job/MoShopClient%20-%20devel%20branch/)
+
+##Quickstart
 
 Install Node.js latest version and then:
 
@@ -7,7 +16,7 @@ $ git clone https://github.com/edosoft/mo-shopclient.git cd ng-boilerplate
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
 $ bower install
-$ grunt watch --force
+$ grunt watch
 ```
 ##Development server
 
@@ -38,6 +47,20 @@ Then you can configure your ide to deploy to /opt/mo-shopclient-deployment and y
 
 The translation libraries are [angular-gettext](https://github.com/rubenv/angular-gettext)
 TODO: Add translations.js to the project.
+
+## Jenkins CI
+
+The Project uses Jenkins to exec and publish test an coverage information on devel and master braches. You can access to the corresponding jobs by the Build status links in the top of this file.
+
+## Less Lint
+
+The task:
+
+```
+grunt lesslint
+```
+
+Outputs less file problems based on csslint tool.
 
 ## Learn
 

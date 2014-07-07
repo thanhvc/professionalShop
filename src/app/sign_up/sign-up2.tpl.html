@@ -1,0 +1,157 @@
+<div class="panel">
+    <div>
+        <form name="formReg" novalidate>
+            <div class="sign-up-body-step2" ng-controller="SignupCtrl">
+                <div class="orange-border prices-font11" style="padding: 10px; margin-bottom:20px;">
+                    <table class="signup-table-step2 prices-font12">
+                        <tbody>
+                        <tr>
+                            <td class="red-color-form">*</td>
+                            <td>Nombre</td>
+                            <td >
+                                <input  type="text" name="name"
+                                       class="signup-input "
+                                       ng-class=" {'warning-input': (formReg.name.$error.required && (formReg.name.$dirty || formSubmited) )
+                                                  || (formReg.name.$error.pattern && (formReg.name.$dirty|| formSubmited))
+                                                  || formReg.name.$error.maxlength}"
+                                       alt="Nombre"
+                                       ng-pattern="namePattern" ng-trim="false" ng-model="user.name" required="true"
+                                       ng-maxlength="80"></td>
+                        </tr>
+                        <tr>
+                            <td class="red-color-form">*</td>
+                            <td>Apellido</td>
+                            <td >
+                                <input  type="text" name="surname" class="signup-input"
+                                       alt="Apellido"
+                                       ng-model="user.surname" required="true" ng-pattern="namePattern"
+                                       ng-maxlength="80"
+                                        ng-class="{'warning-input': (formReg.surname.$error.required && (formReg.surname.$dirty || formSubmited))
+                                                  || (formReg.surname.$error.pattern && (formReg.surname.$dirty || formSubmited))
+                                                  || formReg.surname.$error.maxlength}"></td>
+                        </tr>
+                        <tr>
+                            <td class="red-color-form">*</td>
+                            <td>Direcci&oacute;n</td>
+                            <td ><input  type="text" name="address"
+                                                           class="signup-input" alt="Direccion"
+                                                           ng-model="user.address" required="true" ng-maxlength="200"
+                                                           ng-class="{'warning-input': (formReg.address.$error.required && (formReg.address.$dirty || formSubmited))
+                                                           || (formReg.address.$error.maxlength)}"  >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="red-color-form">*</td>
+                            <td>Ciudad</td>
+                            <td ><input  type="text" name="city"
+                                                           class="signup-input" alt="Ciudad"
+                                                           ng-model="user.city" required="true" ng-maxlength="200"
+                                                           ng-class="{'warning-input': (formReg.city.$error.required && (formReg.city.$dirty|| formSubmited))
+                                                           || (formReg.city.$error.maxlength)}" ></td>
+                        </tr>
+                        <tr>
+                            <td class="red-color-form">*</td>
+                            <td>C&oacute;digo Postal</td>
+                            <td ><input  type="text" name="postal"
+                                                           class="signup-input" alt="Codigo Postal"
+                                                           ng-model="user.postal" required="true" ng-maxlength="80"
+                                                           ng-pattern="zipPattern"
+                                                           ng-class="{'warning-input': (formReg.postal.$error.pattern && (formReg.postal.$dirty|| formSubmited))
+                                                           || (formReg.postal.$error.required  && (formReg.postal.$dirty|| formSubmited))}"></td>
+                        </tr>
+                        <tr>
+                            <td class="red-color-form">*</td>
+                            <td>Pa&iacute;s</td>
+                            <td >
+
+
+                                <select class="signup-select" name="country" size="1"
+                                        ng-model="user.country"
+
+                                        ng-options="opt as opt.name for opt in countries"
+                                        required="true"
+                                        ng-class="{'warning-input': (formReg.country.$error.required && (formReg.country.$dirty || formSubmited))}" >
+                                    <option style="display:none" value="">select a type</option>
+
+                                </select>
+
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="red-color-form">*</td>
+                            <td colspan="2">
+                                <div id="bodyCaptcha">
+                                <span>
+                                Pregunta de seguridad:</span>
+                                    <img id="captchaImg" src="assets/img/captcha.png/captcha.png" class="captcha-img">
+                                    <input type="text" name="captcha" style="width:65px;"
+                                           class="signup-input"
+                                           ng-model="user.captcha" required="true" ng-pattern="captchaPattern"
+                                           ng-class="{'warning-input': ((formReg.captcha.$error.required &&
+                                            (formReg.button-submit.$dirty|| formSubmited))||(!validCaptcha && formSubmited))
+                                            || (formReg.captcha.$error.pattern && (formReg.captcha.$dirty || formSubmited))}">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="red-color-form">*</td>
+                            <td colspan="2">Acepto las
+                                <div id="terms-conditions-link" ng-click="openModalInstance('sign_up/terms-and-conditions');" style="display:inline;">
+                                    <span style="color:#0663D7;cursor:pointer;">condiciones del servicio</span>
+                                </div>
+                                <input  type="checkbox" name="conditions"
+                                       style="margin-left:20px !important;" ng-model="user.conditions" required="true">
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td colspan="3" class="signup-form-warning" style="text-align: left;">
+                                * Campos obligatorios
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="height: 60px; padding-right: 105px;">
+                                <div  class="text-warning-form"
+                                   >
+                                    <span ng-show="formReg.$error.required && formReg.$dirty">
+                                    Faltan campos obligatorios</span>
+                                </div>
+                                <div   class="text-warning-form"
+                                     ><span ng-show="formReg.$error.pattern || formReg.$error.maxlength">
+                                    Campos err&oacute;neos
+                                    </span>
+                                </div>
+                                <div  class="text-warning-form"
+                                        ><span ng-show="errorForm">
+                                   Ha ocurrido un error con el registro, por favor vuelva a intentarlo de nuevo
+                                    </span>
+                                </div>
+                                <div  class="text-warning-form"
+                                     ><span ng-show="formReg.conditions.$error.required && formReg.$dirty">
+                                    Debe aceptar las condiciones del servicio
+                                    </span>
+                                </div>
+                                <div  class="text-warning-form"
+                                        ><span ng-show="!validCaptcha && formSubmited">
+                                    captcha incorrecto
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <input class="mo-button"
+                       name="button-submit"
+                       value="Registrar" style="float:right;" type="button" ng-click="sendSecondStep()">
+            </div>
+
+
+        </form>
+
+    </div>
+</div>

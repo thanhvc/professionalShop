@@ -1,0 +1,165 @@
+<div class="shopping-cart-container" ng-show="numItemsCart > 0" ng-class="{'show-summary-cart': showCart, 'hide-summary-cart': !showCart, 'show-summary-cart-top': boolChangeClass}">
+    <div class="shopping-cart-summary" >
+        <span class="title-cart">Carro de Compra</span>
+        <table class="cart-summary-table" ng-show="stockItems.length > 0">
+            <tr>
+                <th>Acciones</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="stockItem in stockItems">
+                <td>{{stockItem.packName}}</td>
+                <td>{{stockItem.startDate}}</td>
+                <td>
+                    <select ng-click=" $event.stopPropagation();" ng-change="changeDurationCart(stockItem.code,0)"  ng-model="stockItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
+                <td>{{stockItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('stocks', stockItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalStock | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="cart-summary-table" ng-show="pairsItems.length > 0">
+            <tr>
+                <th>Pares Acciones</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="pairsItem in pairsItems">
+                <td>{{pairsItem.packName}}</td>
+                <td>{{pairsItem.startDate}}</td>
+                <td>
+                    <select ng-click=" $event.stopPropagation();" ng-change="changeDurationCart(pairsItem.code,1)"  ng-model="pairsItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
+                <td>{{pairsItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('pairs', pairsItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalPairs | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="cart-summary-table"  ng-show="indicesItems.length > 0">
+            <tr>
+                <th>&Iacute;ndices</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="indicesItem in indicesItems">
+                <td>{{indicesItem.packName}}</td>
+                <td>{{indicesItem.startDate}}</td>
+                <td>
+                    <select ng-click=" $event.stopPropagation();" ng-change="changeDurationCart(indicesItem.code,2)"  ng-model="indicesItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
+                <td>{{indicesItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('indices', indicesItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalIndices | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="cart-summary-table"  ng-show="pairsIndicesItems.length > 0">
+            <tr>
+                <th>Par &Iacute;ndices</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr  ng-repeat="pairsIndicesItem in pairsIndicesItems">
+                <td>{{pairsIndicesItem.packName}}</td>
+                <td>{{pairsIndicesItem.startDate}}</td>
+                <td>
+                    <select ng-click=" $event.stopPropagation();"  ng-change="changeDurationCart(pairsIndicesItem.code,3)"  ng-model="pairsIndicesItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
+                <td>{{pairsIndicesItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('pairsIndices', pairsIndicesItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalPairsIndices | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="cart-summary-table"  ng-show="futuresItems.length > 0">
+            <tr>
+                <th>Futuros</th>
+                <th>Inicio</th>
+                <th>Duraci&oacute;n</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="futuresItem in futuresItems">
+                <td>{{futuresItem.packName}}</td>
+                <td>{{futuresItem.startDate}}</td>
+                <td>
+                    <select ng-click=" $event.stopPropagation();"  ng-change="changeDurationCart(futuresItem.code,4)"  ng-model="futuresItem.duration">
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </td>
+                <td>{{futuresItem.price | number:2}} EUR</td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemCart('futures', futuresItem)"></div></td>
+            </tr>
+            <tr class="subtotal-cart">
+                <td></td>
+                <td></td>
+                <td>Subtotal</td>
+                <td>{{subtotalFutures | number:2}} EUR</td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="total-cart">Total: {{totalCart | number:2}} EUR</div>
+        <div class="buttons-cart-container">
+            <button class="mo-cancel-button" ng-click="removeAllItemsCart()">Cancelar</button>
+            <button class="mo-button" ui-sref="home" ng-click="toggleCart();">A&ntilde;adir m&aacute;s</button>
+            <button class="mo-button" ng-click="submitCart()">Proceder Pago</button>
+        </div>
+    </div>
+    <div class="shopping-cart-tab" ng-click="toggleCart(); $event.stopPropagation();">
+        <div  class="icon-cart">
+            <div>
+                {{numItemsCart}}
+            </div>
+        </div>
+        <div ng-show="showCart">&gt;&gt;</div>
+        <div ng-show="!showCart">&lt;&lt;</div>
+    </div>
+</div>

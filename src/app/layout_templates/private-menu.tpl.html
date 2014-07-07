@@ -1,0 +1,64 @@
+<!-- Menú que se muestra en la parte privada cuando el usuario está logueado (zona restringida) -->
+<ul>
+    <li id="my-patterns-nav" class="first-item-menu"
+        ng-class="{'item-nav-hover': selectMenu == 'my-patterns-nav' || actualMenu == 'my-patterns-nav'}"
+        ng-click="onClickMenu()"
+        ng-mouseenter="onMouseEnterMenu('my-patterns-nav')"
+        ng-mouseleave="onMouseLeaveMenu()">
+        <a ui-sref="my-patterns" >
+            Mis Patrones
+        </a>
+
+    <li id="lookup-diary-nav" class="second-item-menu"
+        ng-class="{'item-nav-hover': selectMenu == 'lookup-diary-nav' || actualMenu == 'lookup-diary-nav'}"
+        ng-click="onClickMenu()"
+        ng-mouseenter="onMouseEnterMenu('lookup-diary-nav')"
+        ng-mouseleave="onMouseLeaveMenu()">
+        <a ui-sref="lookup-diary" >
+            Seguimiento Diario
+        </a>
+
+    <li id="historic-nav" class="third-item-menu"
+        ng-class="{'item-nav-hover': selectMenu == 'historic-nav' || actualMenu == 'historic-nav'}"
+        ng-click="onClickMenu()"
+        ng-mouseenter="onMouseEnterMenu('historic-nav')"
+        ng-mouseleave="onMouseLeaveMenu()">
+        <a ui-sref="historic" >
+            Históricos
+        </a>
+
+    <li id="tools-nav" class="fourth-item-menu"
+        ng-class="{'item-nav-hover': selectMenu == 'tools-nav' || actualMenu == 'tools-nav'}"
+        ng-click="onClickMenu()"
+        ng-mouseenter="onMouseEnterMenu('tools-nav', 'submenu1')"
+        ng-mouseleave="onMouseLeaveMenu()">
+        <span>
+            Herramientas
+        </span>
+
+    <li id="the-week-nav" class="fifth-item-menu"
+        ng-class="{'item-nav-hover': selectMenu == 'the-week-nav' || actualMenu == 'the-week-nav'}"
+        ng-click="onClickMenu()"
+        ng-mouseenter="onMouseEnterMenu('the-week-nav')"
+        ng-mouseleave="onMouseLeaveMenu()">
+        <a ui-sref="the-week" >
+            La Semana
+        </a>
+
+    <li id="calendar-nav" class="sixth-item-menu"
+        ng-class="{'item-nav-hover': selectMenu == 'calendar-nav' || actualMenu == 'calendar-nav'}"
+        ng-click="onClickMenu()"
+        ng-mouseenter="onMouseEnterMenu('calendar-nav')"
+        ng-mouseleave="onMouseLeaveMenu()">
+        <a ui-sref="calendar">
+            Calendario
+        </a>
+    <li id="my-subscriptions-nav" class="seventh-item-menu"
+        ng-class="{'item-nav-hover': selectMenu == 'my-subscriptions-nav' || actualMenu == 'my-subscriptions-nav'}"
+        ng-click="onClickMenu()"
+        ng-mouseenter="onMouseEnterMenu('my-subscriptions-nav')"
+        ng-mouseleave="onMouseLeaveMenu()">
+        <a ui-sref="my-subscriptions" >
+            Mis Suscripciones
+        </a>
+</ul>

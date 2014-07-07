@@ -18,8 +18,9 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-ngmin');
     grunt.loadNpmTasks('grunt-html2js');
-    grunt.loadNpmTasks('grunt-angular-gettext');
-
+    grunt.loadNpmTasks('grunt-lesslint');
+    grunt.loadNpmTasks('grunt-protractor-runner');
+    grunt.loadNpmTasks('grunt-protractor-webdriver');
     /**
      * Load in our build configuration file.
      */
@@ -259,7 +260,21 @@ module.exports = function ( grunt ) {
                 }
             }
         },
+        /**
+         * Less Lint
+         */
+        lesslint:{
+            src: ['<%= app_files.less %>'],
+            options: {
+                csslint:
+                {   'important' : false,
+                    'box-model' : false
+                },
+    imports: ['src/app/**/*.less']}
 
+
+
+        },
         /**
          * `jshint` defines the rules of our linter as well as which files we
          * should check. This file, all javascript sources, and all our unit tests
@@ -354,6 +369,44 @@ module.exports = function ( grunt ) {
             }
         },
 
+        protractor: {
+            options: {
+                configFile: "node_modules/protractor/referenceConf.js", // Default config file
+                keepAlive: true, // If false, the grunt process stops when the test fails.
+                noColor: false, // If true, protractor will not use colors in its output.
+                args: {
+                    // Arguments passed to the command
+                }
+            },
+            e2e: {
+                options: {
+                    configFile: "protractor/protractor-conf.js", // Target-specific config file
+                    args: {} // Target-specific arguments
+                }
+            },
+            e2edebug: {
+                options: {
+                    configFile: "protractor/protractor-conf.js", // Target-specific config file
+                    debug:true,
+                    args: {} // Target-specific arguments
+                }
+            },
+            e2e_jenkins: {
+                options: {
+                    configFile: "protractor/protractor-conf-jenkins.js", // Target-specific config file
+                    args: {} // Target-specific arguments
+                }
+            }
+        },
+        protractor_webdriver: {
+            run: {
+                options: {
+                    path: './node_modules/protractor/bin/',
+                    command: 'webdriver-manager start'
+                }
+            }
+        },
+
         /**
          * The `index` task compiles the `index.html` file as a Grunt template. CSS
          * and JS files co-exist here but they get split apart later.
@@ -406,16 +459,6 @@ module.exports = function ( grunt ) {
                     '<%= html2js.common.dest %>',
                     '<%= test_files.js %>'
                 ]
-            }
-        },
-        /**
-         * This task generates POT files to translate*/
-
-        nggettext_extract: {
-            pot: {
-                files: {
-                    'po/template.pot': ['src/**/*.html']
-                }
             }
         },
 
@@ -558,6 +601,10 @@ module.exports = function ( grunt ) {
      * The default task is to build and compile.
      */
     grunt.registerTask( 'default', [ 'build', 'compile' ] );
+    grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e']);
+    grunt.registerTask('e2edebug',['protractor_webdriver:run','protractor:e2edebug']);
+    grunt.registerTask('e2e_jenkins', ['protractor_webdriver:run', 'protractor:e2e_jenkins']);
+
 
     /**
      * The `build` task gets your app ready to run for development and testing.
@@ -583,6 +630,14 @@ module.exports = function ( grunt ) {
     function filterForJS ( files ) {
         return files.filter( function ( file ) {
             return file.match( /\.js$/ );
+        });
+    }
+    /**
+     * A utility function to get all app protractor test.
+     */
+    function filterForProtractor ( files ) {
+        return files.filter( function ( file ) {
+            return file.match( /\.protractor.js$/ );
         });
     }
 
@@ -641,5 +696,6 @@ module.exports = function ( grunt ) {
             }
         });
     });
+
 
 };

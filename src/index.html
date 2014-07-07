@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="ngMo" ng-controller="AppCtrl">
 <head>
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon_mo_16.ico"/>
     <title ng-bind="pageTitle"></title>
 
     <!-- TODO:social media tags -->
@@ -13,30 +14,38 @@
     <script type="text/javascript" src="<%= file %>"></script>
     <% }); %>
 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
+<body ng-click="hideElements();" scroll>
     <header>
         <div id="menu-id" class="menu black-head">
             <div id="mo-header" class="mo-header">
                 <a href="#/home">
-                    <div class="header-img logo-header"></div>
-                    <div class="header-img central-header"></div>
+                    <div class="header-img header-size logo-header"></div>
+                    <div class="header-img header-size central-header"></div>
                 </a>
-
-                <div class="menu-widget-right">
-                    <div class="flag-container">
-                        <flag-box></flag-box>
+                <div>
+                    <div class="menu-widget-left">
+                        <div class="flag-container">
+                            <flag-box></flag-box>
+                        </div>
                     </div>
+                    <div ng-if="!isLog" class="menu-widget-right" ng-include src="'layout_templates/login-box.tpl.html'"></div>
+                    <div ng-if="isLog" class="menu-widget-right" ng-include src="'layout_templates/logged-box.tpl.html'"></div>
                 </div>
             </div>
         </div>
-
-        <div id="menu-full">
+        <div class="sign-in-form-container" ng-click="$event.stopPropagation();">
+            <sign-in-form ng-show="firstTime" class="sign-in-box" ng-class="{'sign-in-box-open': stateSignInForm, 'sign-in-box-close': !stateSignInForm}"></sign-in-form>
+        </div>
+        <div class="menu-full">
             <div id="menu-nav-id" class="menu-nav">
                 <div>
                     <div id="nav-cont-id" class="nav-cont" ng-controller="AppCtrl">
-                        <nav public-menu id="menu-not-logged" class="navbar font-verdana-bold"></nav>
-                        <nav public-sub-menu id="sub-menu-public" class="font-verdana-bold"></nav>
+                        <nav ng-show="moMenuType == 'privateMenu'" private-menu id="menu-logged" class="font-verdana-bold private-menu"></nav>
+                        <nav ng-show="moMenuType == 'privateMenu'"  private-sub-menu id="sub-menu-private" class="font-verdana-bold sub-menu-private"></nav>
+                        <nav public-menu ng-show="moMenuType == 'publicMenu'" id="menu-not-logged" class="navbar font-verdana-bold menu-not-logged"></nav>
+                        <nav ng-show="moMenuType == 'publicMenu'"  public-sub-menu id="sub-menu-public" class="font-verdana-bold sub-menu-public"></nav>
                     </div>
                 </div>
             </div>
@@ -46,22 +55,76 @@
 
     </div>
 
+
+    <div cart></div>
+
+    <div selected-graphic-panel ng-show="inWeekView"></div>
+
     <footer class="footer">
-        <div class="footer-top">Preguntas frecuentes FAQ</div>
+        <div class="footer-top">
+            <div class="container">Preguntas frecuentes FAQ</div>
+        </div>
         <div class="footer-body">
             <footer class="container">
-                <div class="url-footer-container">
-                    <a href="#/organization" class="footer-title-text">Market Observatory</a><br>
+                <div class="url-footer-container first-footer-container">
+                    <span class="footer-title-text">Market Observatory</span><br>
+                    <a href="#/organization">Organizaci&oacute;n</a><br>
                     <a href="#/what_is_and_what_is_not">Qu&eacute; Es y Qu&eacute; No Es</a><br>
                     <a href="#/service_conditions">Condiciones del Servicio</a><br>
-                    <a href="#/data_protection"> Protecci&oacute;n de Datos</a>
+                    <a href="#/data_protection">Protecci&oacute;n de Datos</a>
+                </div>
+                <div class="url-footer-container second-footer-container">
+                    <span class="footer-title-text">Servicios</span><br>
+                    <a href="#/summary">Resumen</a><br>
+                    <a href="#/products_and_exchanges">Productos y Mercados</a><br>
+                    <a href="#/detailed_description">Descripci&oacute;n Detallada</a><br>
+                    <a href="#/fundamentals">Fundamentos</a><br>
+                </div>
+                <div class="url-footer-container third-footer-container">
+                    <span class="footer-title-text">Aplicaci&oacute;n del Servicio</span><br>
+                    <a href="#/stocks">Acciones</a><br>
+                    <a href="#/funds">Fondos</a><br>
+                    <a href="#/etf_cfd">ETF's, CFD's</a><br>
+                    <a href="#/futures">Futuros</a><br>
+                    <a href="#/pairs">Pares</a><br>
+                    <a href="#/advanced">Avanzado</a><br>
+                    <a href="#/diversification">Diversificaci&oacute;n</a>
+                </div>
+                <div class="url-footer-container fourth-footer-container">
+                    <span class="footer-title-text">Suscripci&oacute;n y Precios</span><br>
+                    <a href="#/prices">Precios</a><br>
+                    <a href="#/products">Productos</a><br>
+                    <a href="#/subscription_types">Tipos Suscripci&oacute;n</a><br>
+                    <a href="#/purchase">Comprar</a><br>
+                    <a href="#/free_subscription">Suscripci&oacute;n Gratis 15 d&iacute;as</a><br>
+                    <a href="#/shopping_guide">Gu&iacute;a Compras</a>
+                </div>
+                <div class="url-footer-container fifth-footer-container">
+                    <span class="footer-title-text">Herramientas del Inversor</span><br>
+                    <a href="#/resources">Recursos</a><br>
+                    <a href="#/articles">Art&iacute;culos</a><br>
+                    <a href="#/symbols_and_exchanges">S&iacute;mbolos y Mercados</a><br>
+                    <a href="#/mo_template_collections">Colecci&oacute;n Plantillas MO</a>
+                </div>
+                <div class="url-footer-container sixth-footer-container">
+                    <span class="footer-title-text">Contacto</span><br>
+                    <a href="#/support">Soporte</a><br>
+                    <a href="#/business">Empresas</a><br>
+                    <a href="#/job">Empleo</a><br>
+                    <a href="#/localization">Localizaci&oacute;n</a>
                 </div>
             </footer>
 
 
         </div>
-        <div class="footer-bottom"></div>
+        <div class="footer-bottom">
+            <footer class="container">
+                <span class="footerBottomText">&copy; Market Observatory | {{actualDate | date: 'yyyy'}} | </span>
+                    <a href="#/privacy_policy">Pol&iacute;tica de privacidad</a>
+                <span class="footer-bottom-text">0.3.14 build 4</span>
+                <span class="footer-bottom-text">Version</span>
+            </footer>
+        </div>
     </footer>
-
 </body>
 </html>

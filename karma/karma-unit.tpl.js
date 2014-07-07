@@ -4,7 +4,7 @@ module.exports = function ( karma ) {
          * From where to look for files, starting with the location of this file.
          */
         basePath: '../',
-        logLevel: karma.LOG_DEBUG,
+        logLevel: karma.LOG_INFO,
 
         /**
          * This is the list of file patterns to load into the browser during testing.
@@ -16,18 +16,31 @@ module.exports = function ( karma ) {
       'src/**/*.coffee',
     ],
     exclude: [
-      'src/assets/**/*.js'
+      'src/assets/**/*.js',
+      'src/**/*.protractor.js'
     ],
     frameworks: [ 'jasmine' ],
-    plugins: [ 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coffee-preprocessor' ],
+    plugins: [ 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-coffee-preprocessor','karma-coverage', 'karma-junit-reporter' ],
     preprocessors: {
+      'src/**/*.coffee': 'coverage',
       '**/*.coffee': 'coffee',
+      'src/**/*.js':'coverage',
     },
 
     /**
      * How to report, by default.
      */
-    reporters: 'dots',
+    reporters : ['dots', 'junit', 'coverage'],
+
+    junitReporter : {
+        outputFile: 'test-results.xml'
+        },
+
+    coverageReporter : {
+        type: 'cobertura',
+        dir: 'coverage/',
+            file: 'coverage.xml'
+            },
 
     /**
      * On which port should the browser connect, on which port is the test runner

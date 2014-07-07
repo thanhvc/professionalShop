@@ -14,7 +14,13 @@ angular.module('ngMo.contact', [
                     templateUrl: 'contact/support/support.tpl.html'
                 }
             },
-            data: { pageTitle: 'Soporte' }
+            data: {
+                pageTitle: 'Soporte',
+                selectMenu: 'contact-nav',
+                selectSubmenu: 'submenu6',
+                selectItemSubmenu: 'support-nav',
+                moMenuType: 'publicMenu'
+            }
         })
             .state('business', {
                 url: '/business',
@@ -24,7 +30,13 @@ angular.module('ngMo.contact', [
                         templateUrl: 'contact/business/business.tpl.html'
                     }
                 },
-                data: { pageTitle: 'Empresas' }
+                data: {
+                    pageTitle: 'Empresas',
+                    selectMenu: 'contact-nav',
+                    selectSubmenu: 'submenu6',
+                    selectItemSubmenu: 'business-nav',
+                    moMenuType: 'publicMenu'
+                }
             })
             .state('job', {
                 url: '/job',
@@ -34,7 +46,13 @@ angular.module('ngMo.contact', [
                         templateUrl: 'contact/job/job.tpl.html'
                     }
                 },
-                data: { pageTitle: 'Empleo' }
+                data: {
+                    pageTitle: 'Empleo',
+                    selectMenu: 'contact-nav',
+                    selectSubmenu: 'submenu6',
+                    selectItemSubmenu: 'job-nav',
+                    moMenuType: 'publicMenu'
+                }
             })
             .state('localization', {
                 url: '/localization',
@@ -44,7 +62,13 @@ angular.module('ngMo.contact', [
                         templateUrl: 'contact/localization/localization.tpl.html'
                     }
                 },
-                data: { pageTitle: 'Localizacion' }
+                data: {
+                    pageTitle: 'Localizacion',
+                    selectMenu: 'contact-nav',
+                    selectSubmenu: 'submenu6',
+                    selectItemSubmenu: 'localization-nav',
+                    moMenuType: 'publicMenu'
+                }
             });
 
     })
@@ -52,7 +76,11 @@ angular.module('ngMo.contact', [
     .run(function run() {
     })
 
-    .controller('ContactCtrl', function ContactCtrl($scope) {
+    .controller('ContactCtrl', function ContactCtrl($scope, IsLogged) {
+        $scope.$on('$stateChangeStart', function (event, toState){
+            IsLogged.isLogged();
+        });
+
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });

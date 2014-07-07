@@ -1,0 +1,90 @@
+<div>
+    <div class="super-border private-black-title">Mis Patrones</div>
+
+    <div style="clear: both">
+        La tabla muestra las estrategias clasificadas por mes de publicación ordenadas por Fecha de Entrada.
+        <div style="display: inline-block;"
+             ng-click="show=!show" ng-show="!show"><img
+                src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar m&aacute;s</a>
+        </div>
+    </div>
+    <div ng-show="show">
+        <p> Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos '<span class="blue-text"><<</span>' y
+            '<span class="blue-text">>></span>'. Para cambiar de grupo de
+            Productos haga click sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
+
+        <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
+
+        <p>Haciendo clic en la celda de la columna izquierda 'Id'. puede ver:</p>
+        <ul class="public-list-first-level list-left-first-level">
+            <li>Tablas de Detalle del Patrón.</li>
+            <li>Evolución gráfica de la cotización en curso superpuesta sobre Patrón.</li>
+        </ul>
+        <p>La marca de Favorito 'Fav.', se usa para diferenciar las estrategias preferidas, facilitar la gestión y
+            análisis. <a ng-click="openModalInstance('services/detailed_description/patterns')">Más información.</a></p>
+
+        <p>
+            <img src="assets/img/textup.png"> <a style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar
+            menos</a>
+        </p>
+    </div>
+
+    <div style="margin-top: 15px;">
+
+        <tabset>
+            <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+                 active="ctab.active" disabled="tab.disabled">
+                <div class="black-head header-month-filter">
+                    <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
+                    <div style="float:left; text-transform:uppercase;">{{filterOptions.filters.month.monthString + " " + filterOptions.filters.month.year}}</div>
+                    <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
+
+                    <div>
+                        <select disabled="true" class="border-filters select-filter month-filter" style="color: black;"
+                                data-ng-model="filterOptions.filters.selectMonth"
+                                ng-change="goToMonth()"
+                                ng-options="item.name for item in filterOptions.months"
+                                >
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-container">
+                    <!--filters-->
+                    <div ng-include="getTemplateFilter()"></div>
+                </div>
+                <div>
+                    <div ng-include="getTemplateTable()"></div>
+
+
+                    <!--footer-->
+                    <div class="footer-table-private">
+                        <div class="total-patterns">
+                            <span>Número total de patrones:</span>
+                            <span>{{results}}</span>
+                        </div>
+                        <div style="float: left; margin-top: 3px;">
+                            <span>Patrones encontrados:</span>
+                            <span>{{found}}</span>
+                        </div>
+                        <button style="float:right; position: relative; top: -2px;" class="mo-button"
+                                ng-click="restoreData()">Mostrar todos
+                        </button>
+                    </div>
+                </div>
+                <div class="copyright">
+                    Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+                </div>
+                <!--pagination-->
+                <div class="pagination-container" ng-show="results > 10" style="margin-top:72px; clear:both; margin-bottom:20px;">
+                    <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                                items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                                page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                                next-text="&gt;"
+                                first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+                </div>
+            </tab>
+        </tabset>
+
+    </div>
+
+</div>

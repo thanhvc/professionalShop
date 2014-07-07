@@ -1,0 +1,251 @@
+<!-- Menú que se muestra en la parte pública cuando el usuario no está logueado -->
+
+<ul id="submenu1" class="submenu"
+    ng-class="{'display-block': actualSubmenu == 'submenu1' || selectSubmenu == 'submenu1', 'display-none': actualSubmenu != 'submenu1' || selectSubmenu!= 'submenu1'}">
+    <li id="organization-nav"
+        ng-click="onClickSubmenu('organization-nav')"
+        ng-mouseenter="onMouseEnterSubmenu('market-observatory-nav','submenu1','organization-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="organization"
+           ng-class="{'item-nav-hover': selectItemSubmenu == 'organization-nav' || actualItemSubmenu == 'organization-nav'}">
+            Organización
+        </a>
+    <li id="what-is-and-what-is-not-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('market-observatory-nav','submenu1','what-is-and-what-is-not-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="what_is_and_what_is_not" ng-class="{'item-nav-hover': selectItemSubmenu == 'what-is-and-what-is-not-nav'
+            || actualItemSubmenu == 'what-is-and-what-is-not-nav'}">
+            Qué Es y Qué No Es
+        </a>
+    <li id="service-conditions-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('market-observatory-nav','submenu1','service-conditions-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="service_conditions" ng-class="{'item-nav-hover': selectItemSubmenu == 'service-conditions-nav'
+            || actualItemSubmenu == 'service-conditions-nav'}">
+            Condiciones del Servicio
+        </a>
+    <li id="data-protection-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('market-observatory-nav','submenu1','data-protection-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="data_protection"  ng-class="{'item-nav-hover': selectItemSubmenu == 'data-protection-nav'
+            || actualItemSubmenu == 'data-protection-nav'}">
+            Protección de datos
+        </a>
+</ul>
+
+<ul id="submenu2" class="submenu"
+    ng-class="{'display-block': actualSubmenu == 'submenu2' || selectSubmenu == 'submenu2', 'display-none': actualSubmenu != 'submenu2' || selectSubmenu!= 'submenu2'}">
+    <li id="summary-nav" ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','summary-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="summary" ng-class="{'item-nav-hover': selectItemSubmenu == 'summary-nav' || actualItemSubmenu == 'summary-nav'}">
+            Resumen
+        </a>
+    <li id="products-and-exchanges-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','products-and-exchanges-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="products_and_exchanges"  ng-class="{'item-nav-hover': selectItemSubmenu == 'products-and-exchanges-nav'
+            || actualItemSubmenu == 'products-and-exchanges-nav'}">
+            Productos y Mercados
+        </a>
+
+    <li id="detailed-description-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','detailed-description-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="detailed_description" ng-class="{'item-nav-hover': selectItemSubmenu == 'detailed-description-nav'
+            || actualItemSubmenu == 'detailed-description-nav'}">
+            Descripción Detallada
+        </a>
+
+    <li id="fundamentals-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','fundamentals-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="fundamentals" ng-class="{'item-nav-hover': selectItemSubmenu == 'fundamentals-nav'
+            || actualItemSubmenu == 'fundamentals-nav'}">
+            Fundamentos
+        </a>
+</ul>
+<ul id="submenu3" class="submenu"
+    ng-class="{'display-block': actualSubmenu == 'submenu3' || selectSubmenu == 'submenu3', 'display-none': actualSubmenu != 'submenu3' || selectSubmenu!= 'submenu3'}">
+    <li id="stocks-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('service-applications-nav','submenu3','stocks-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="stocks" ng-class="{'item-nav-hover': selectItemSubmenu == 'stocks-nav' || actualItemSubmenu == 'stocks-nav'}">
+            Acción
+        </a>
+    <li id="funds-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('service-applications-nav','submenu3','funds-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="funds" ng-class="{'item-nav-hover': selectItemSubmenu == 'funds-nav'
+            || actualItemSubmenu == 'funds-nav'}">
+            Fondos
+        </a>
+    <li id="etf-cfd-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('service-applications-nav','submenu3','etf-cfd-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="etf_cfd" ng-class="{'item-nav-hover': selectItemSubmenu == 'etf-cfd-nav' || actualItemSubmenu == 'etf-cfd-nav'}">
+            ETF's CFD's
+        </a>
+    <li id="futures-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('service-applications-nav','submenu3','futures-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="futures" ng-class="{'item-nav-hover': selectItemSubmenu == 'futures-nav'
+            || actualItemSubmenu == 'futures-nav'}">
+            Futuros
+        </a>
+    <li id="pairs-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('service-applications-nav','submenu3','pairs-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="pairs" ng-class="{'item-nav-hover': selectItemSubmenu == 'pairs-nav'
+            || actualItemSubmenu == 'pairs-nav'}">
+            Pares
+        </a>
+    <li id="advanced-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('service-applications-nav','submenu3','advanced-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="advanced" ng-class="{'item-nav-hover': selectItemSubmenu == 'advanced-nav'
+            || actualItemSubmenu == 'advanced-nav'}">
+            Avanzado
+        </a>
+    <li id="diversification-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('service-applications-nav','submenu3','diversification-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="diversification" ng-class="{'item-nav-hover': selectItemSubmenu == 'diversification-nav'
+            || actualItemSubmenu == 'diversification-nav'}">
+            Diversificación
+        </a>
+</ul>
+<ul id="submenu4" class="submenu"
+    ng-class="{'display-block': actualSubmenu == 'submenu4' || selectSubmenu == 'submenu4', 'display-none': actualSubmenu != 'submenu4' || selectSubmenu!= 'submenu4'}">
+    <li id="prices-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','prices-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="prices" ng-class="{'item-nav-hover': selectItemSubmenu == 'prices-nav'
+            || actualItemSubmenu == 'prices-nav'}">
+            Precios
+        </a>
+    <li id="products-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','products-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="products" ng-class="{'item-nav-hover': selectItemSubmenu == 'products-nav'
+            || actualItemSubmenu == 'products-nav'}">
+            Productos
+        </a>
+    <li id="subscription-types-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','subscription-types-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="subscription_types" ng-class="{'item-nav-hover': selectItemSubmenu == 'subscription-types-nav'
+            || actualItemSubmenu == 'subscription-types-nav'}">
+            Tipos Suscripción
+        </a>
+    <li id="purchase-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','purchase-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="purchase" ng-class="{'item-nav-hover': selectItemSubmenu == 'purchase-nav'
+            || actualItemSubmenu == 'purchase-nav'}">
+            Comprar
+        </a>
+    <li id="free-subscription-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','free-subscription-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="free_subscription" ng-class="{'item-nav-hover': selectItemSubmenu == 'free-subscription-nav'
+            || actualItemSubmenu == 'free-subscription-nav'}">
+            Suscripción Gratis 15 días
+        </a>
+    <li id="shopping-guide-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','shopping-guide-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="shopping_guide" ng-class="{'item-nav-hover': selectItemSubmenu == 'shopping-guide-nav'
+            || actualItemSubmenu == 'shopping-guide-nav'}">
+            Guía Compras
+        </a>
+</ul>
+<ul id="submenu5" class="float-right submenu"
+    ng-class="{'display-block': actualSubmenu == 'submenu5' || selectSubmenu == 'submenu5', 'display-none': actualSubmenu != 'submenu5' || selectSubmenu!= 'submenu5'}">
+    <li id="resources-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','resources-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="resources" ng-class="{'item-nav-hover': selectItemSubmenu == 'resources-nav'
+            || actualItemSubmenu == 'resources-nav'}">
+            Recursos
+        </a>
+    <li id="articles-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','articles-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="articles" ng-class="{'item-nav-hover': selectItemSubmenu == 'articles-nav'
+            || actualItemSubmenu == 'articles-nav'}">
+            Artículos
+        </a>
+    <li id="symbols-and-exchanges-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','symbols-and-exchanges-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="symbols_and_exchanges" ng-class="{'item-nav-hover': selectItemSubmenu == 'symbols-and-exchanges-nav'
+            || actualItemSubmenu == 'symbols-and-exchanges-nav'}">
+            Símbolos y Mercados
+        </a>
+    <li id="mo-template-collections-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','mo-template-collections-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="mo_template_collections" ng-class="{'item-nav-hover': selectItemSubmenu == 'mo-template-collections-nav'
+            || actualItemSubmenu == 'mo-template-collections-nav'}">
+            Colección Plantillas MO
+        </a>
+</ul>
+<ul id="submenu6" class="float-right submenu"
+    ng-class="{'display-block': actualSubmenu == 'submenu6' || selectSubmenu == 'submenu6', 'display-none': actualSubmenu != 'submenu6' || selectSubmenu!= 'submenu6'}">
+    <li id="support-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('contact-nav','submenu6','support-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="support" ng-class="{'item-nav-hover': selectItemSubmenu == 'support-nav'
+            || actualItemSubmenu == 'support-nav'}">
+            Soporte
+        </a>
+    <li id="business-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('contact-nav','submenu6','business-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="business" ng-class="{'item-nav-hover': selectItemSubmenu == 'business-nav'
+            || actualItemSubmenu == 'business-nav'}">
+            Empresas
+        </a>
+    <li id="job-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('contact-nav','submenu6','job-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="job" ng-class="{'item-nav-hover': selectItemSubmenu == 'job-nav'
+            || actualItemSubmenu == 'job-nav'}">
+            Empleo
+        </a>
+    <li id="localization-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('contact-nav','submenu6','localization-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="localization" ng-class="{'item-nav-hover': selectItemSubmenu == 'localization-nav'
+            || actualItemSubmenu == 'localization-nav'}">
+            Localización
+        </a>
+</ul>

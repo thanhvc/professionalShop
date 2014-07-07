@@ -1,0 +1,93 @@
+<table class="tables-my-subscriptions">
+    <thead>
+    <tr class="header-my-subscriptions-table">
+        <td colspan="6">
+            <select>
+                <option value="{{actualDate | date:'MMMM yyyy'}}">{{actualDate | date:'MMMM yyyy' | uppercase}}</option>
+            </select>
+        </td>
+    </tr>
+    <tr class="subheader-my-subscriptions-table">
+        <td></td>
+        <td>Regi&oacute;n</td>
+        <td>Mercados</td>
+        <td>Seleccionar</td>
+        <td>Fecha Inicio</td>
+        <td>Tipo</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="area-cell">AM&Eacute;RICA</td>
+        <td colspan="5">
+            <table class="my-subscriptions-table">
+                <tbody>
+                <tr ng-repeat="pack in mySubscriptionsTablePack.americaContent track by $index">
+                    <td>{{pack.region}}</td>
+                    <td>{{pack.market}}</td>
+                    <td><input type="checkbox" ng-model="pack.purchase" ng-disabled="pack.purchased"></td>
+                    <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
+                    <td>
+                        <select disabled="true" ng-model="pack.duration">
+                            <option value="Mensual">Mensual</option>
+                            <option value="Trimestral">Trimestral</option>
+                            <option value="Anual">Anual</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="separator"></td>
+    </tr>
+    <tr>
+        <td class="area-cell area-cell-several-lines">ASIA<br> PAC&Iacute;FICO</td>
+        <td colspan="5">
+            <table class="my-subscriptions-table">
+                <tbody>
+                <tr ng-repeat="pack in mySubscriptionsTablePack.asiaContent track by $index">
+                    <td>{{pack.region}}</td>
+                    <td>{{pack.market}}</td>
+                    <td><input type="checkbox" ng-model="pack.purchase" ng-disabled="pack.purchased"></td>
+                    <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
+                    <td>
+                        <select disabled="true" ng-model="pack.duration">
+                            <option value="Mensual">Mensual</option>
+                            <option value="Trimestral">Trimestral</option>
+                            <option value="Anual">Anual</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="separator"></td>
+    </tr>
+    <tr>
+        <td class="area-cell area-cell-several-lines">EUROPA<br> &Aacute;FRICA<br> ORIENTE MEDIO</td>
+        <td colspan="5">
+            <table class="my-subscriptions-table">
+                <tbody>
+                <tr ng-repeat="pack in mySubscriptionsTablePack.europeContent track by $index " >
+                    <td>{{pack.region}}</td>
+                    <td>{{pack.market}}</td>
+                    <td><input type="checkbox" ng-model="pack.purchase" ng-disabled="pack.purchased"></td>
+                    <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
+                    <td>
+                        <select disabled="true" ng-model="pack.duration">
+                            <option value="Mensual">Mensual</option>
+                            <option value="Trimestral">Trimestral</option>
+                            <option value="Anual">Anual</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>

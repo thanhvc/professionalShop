@@ -1,7 +1,12 @@
 *.sw*
+*iml
 *~
 build/
 bin/
 node_modules/
 vendor/
 .idea/
+coverage/
+karma/
+test-results.xml
+e2e-test-results/*xml

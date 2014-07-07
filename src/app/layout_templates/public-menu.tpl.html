@@ -1,0 +1,39 @@
+<!-- Menú que se muestra en la parte pública cuando el usuario no está logueado -->
+<!-- TODO: conditional class for logged users  class="public-menu-logged" -->
+<ul ng-class="{'public-menu-logged': isLog}">
+    <li id="market-observatory-nav" class="nav-li first-item-menu"
+        ng-mouseenter="onMouseEnterMenu('market-observatory-nav','submenu1')"
+        ng-mouseleave="onMouseLeaveMenu()"
+        ng-class="{'item-nav-hover': actualMenu == 'market-observatory-nav' || selectMenu == 'market-observatory-nav'}">
+        <span>Market Observatory</span>
+
+    <li id="services-nav" class="nav-li second-item-menu"
+        ng-mouseenter="onMouseEnterMenu('services-nav','submenu2')"
+        ng-mouseleave="onMouseLeaveMenu()"
+        ng-class="{'item-nav-hover':actualMenu == 'services-nav' || selectMenu == 'services-nav'}">
+        <span>Servicios</span>
+
+    <li id="service-applications-nav" class="nav-li third-item-menu"
+        ng-mouseenter="onMouseEnterMenu('service-applications-nav','submenu3')"
+        ng-mouseleave="onMouseLeaveMenu()"
+        ng-class="{'item-nav-hover':actualMenu == 'service-applications-nav' || selectMenu == 'service-applications-nav'}">
+        <span>Aplicación del Servicio</span>
+
+    <li id="subscriptions-and-prices-nav" class="nav-li fourth-item-menu"
+        ng-mouseenter="onMouseEnterMenu('subscriptions-and-prices-nav','submenu4')"
+        ng-mouseleave="onMouseLeaveMenu()"
+        ng-class="{'item-nav-hover':actualMenu == 'subscriptions-and-prices-nav' || selectMenu == 'subscriptions-and-prices-nav'}">
+        <span>Suscripciones y Precios</span>
+
+    <li id="investor-tools-nav" class="nav-li fifth-item-menu"
+        ng-mouseenter="onMouseEnterMenu('investor-tools-nav','submenu5')"
+        ng-mouseleave="onMouseLeaveMenu()"
+        ng-class="{'item-nav-hover':actualMenu == 'investor-tools-nav' || selectMenu == 'investor-tools-nav'}">
+       <span>Herramientas del Inversor</span>
+
+    <li id="contact-nav" class="nav-li sixth-item-menu"
+        ng-mouseenter="onMouseEnterMenu('contact-nav','submenu6')"
+        ng-mouseleave="onMouseLeaveMenu()"
+        ng-class="{'item-nav-hover':actualMenu == 'contact-nav' || selectMenu == 'contact-nav'}">
+        <span>Contacto</span>
+</ul>

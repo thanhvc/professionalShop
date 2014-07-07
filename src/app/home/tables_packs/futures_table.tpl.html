@@ -1,0 +1,31 @@
+<table class="tables-pack-home">
+    <thead>
+    <tr class="header-table-pack">
+        <td colspan="4">
+            {{actualDate | date:'MMMM yyyy' | uppercase}}
+        </td>
+    </tr>
+    <tr class="subheader-table-pack">
+        <td></td>
+        <td>Grupos</td>
+        <td>Mercados</td>
+        <td>N&uacute;mero de Patrones</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="area-cell">FUTUROS</td>
+        <td colspan="3">
+            <table class="table-pack">
+                <tbody>
+                <tr ng-repeat="pack in homeTablePack.futuresContent track by $index" ui-sref="catalog({packCode: pack.code, month: 0})">
+                    <td>{{pack.name}}</td>
+                    <td>{{pack.scopeText}}</td>
+                    <td>{{pack.numPatterns}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
