@@ -130,7 +130,7 @@ angular.module('singUp', [])
     .run(function run() {
     })
 
-    .controller('SignupCtrl', function ($scope, $state, SignUpService, IsLogged) {
+    .controller('SignupCtrl', function ($scope, $state, SignUpService, IsLogged, $rootScope, $window, authService,$http) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -143,19 +143,44 @@ angular.module('singUp', [])
 
             //newSubscription vars:
             $scope.login = {
-                mail :"",
+                email :"",
                 password:""
             };
+            $scope.errorSignIn = false;
 
             $scope.newSubscriptionMode = "login";
 
 
             $scope.createNewSubs = function() {
                 if ($scope.newSubscriptionMode == "login") {
-
+                    $scope.submit();
                 } else {
                     $scope.sendFirstStep();
                 }
+            };
+
+
+
+            $scope.submit = function() {
+                data = $scope.login;
+                $http.post($rootScope.urlService+'/login', data)
+                    .success(function (data, status, headers, config) {
+                        $window.sessionStorage.token = data.authToken;
+                        authService.loginConfirmed();
+                        $scope.errorSignIn = false;
+                       // $state.go('my-patterns');
+                        $scope.hideSignInForm();
+                        $scope.currentUser = data.name;
+                        $rootScope.$broadcast('submitCart');
+
+                    })
+                    .error(function (data, status, headers, config) {
+                        $scope.errorSignIn = true;
+                        if (data.reason == "not-activated") {
+                            //the user is not activated, we send him to resend mail status
+                            $state.go("reactivate");
+                        }
+                    });
             };
 
             //signup vars:
