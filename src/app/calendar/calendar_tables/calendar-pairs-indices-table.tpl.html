@@ -28,7 +28,8 @@
             <span tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.name}}) {{pattern.id}}">{{pattern.asset.longName}}</span>
         </td>
         <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
-            <span ng-show="day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}}" class="pairs-letter calendar-letter">P</span>
+            <span ng-show="day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="pairs-letter calendar-letter">P</span>
+            <span ng-show="day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="pairs-letter calendar-letter">P</span>
         </td>
     </tr>
 
