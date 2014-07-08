@@ -50,7 +50,7 @@ angular.module('ngMo.calendar', [
         ];
 
         $scope.pagingOptions = {
-            pageSize: 10,
+            pageSize: 15,
             currentPage: 1
         };
 
@@ -230,7 +230,8 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.lastDateMonth = function () {
-            var dat = CalendarService.getLastDayOfMonth(6 - 1, function (data) {
+
+            var dat = CalendarService.getLastDayOfMonth(7 - 1, function (data) {
                 $scope.lastDayOfMonth = data.lastDateMonth;
 
                 if (!$scope.$$phase) {
