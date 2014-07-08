@@ -28,7 +28,7 @@
                         <tr>
                             <td>
                                 <form name="loginForm">
-                                    <table>
+                                    <table  class="signup-table" style="height:60px;">
                                         <tr>
                                             <td>
                                                 <span class="grey-label">Usuario (email)</span>
@@ -113,6 +113,9 @@
                 <div class="red-color-form prices-font12"
                      ng-show="loginForm.$error.required && (loginForm.$dirty && newSubscriptionMode== 'login' )">
                     Faltan campos obligatorios
+                </div>
+                <div class="red-color-form prices-font12" ng-show="errorSignIn && (loginForm.$dirty && newSubscriptionMode== 'login' )">
+                    Email o password inválidos
                 </div>
                 <!-- signup errors -->
                 <div class="red-color-form prices-font12"

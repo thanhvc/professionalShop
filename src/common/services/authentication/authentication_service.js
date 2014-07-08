@@ -70,6 +70,12 @@ angular.module('auth',['http-auth-interceptor'])
 
             controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state, ShoppingCartService) {
 
+                $scope.$on('userLogged',function(data,params){
+                    $scope.hideSignInForm();
+                    $scope.currentUser = params.name;
+                    $window.sessionStorage.token = params.token;
+                });
+
                 $scope.stateSignInForm = false;
                 $scope.firstTime = false;
 
