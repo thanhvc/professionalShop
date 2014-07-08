@@ -168,6 +168,12 @@ angular.module('ngMo.my_patterns', [
             $scope.saveUrlParams();
         };
 
+        $scope.toggleFavorite = function (patternId){
+            var data = PatternsService.setFavorite(patternId).then(function (data) {
+                $scope.loadPage();
+            });
+        };
+
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
         $scope.restartFilter = function () {
             var restartMonth = true;
@@ -690,6 +696,23 @@ angular.module('ngMo.my_patterns', [
                 }
             }
             return urlParams;
+        };
+
+        this.setFavorite = function (patternId) {
+            var deferred = $q.defer();
+            var data;
+            config = {
+                params: {
+                    'patternId': patternId,
+                    'token': $window.sessionStorage.token
+                }
+            };
+            var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
 
         /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
