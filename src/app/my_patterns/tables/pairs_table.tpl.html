@@ -4,10 +4,10 @@
         <th class="table-id-header" rowspan="2">
             Id
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table" style="width: 230px; display:inline-block">
             Par Acciones
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table patterns-index-column-width">
             Sector / Industria
         </th>
         <th class="border-right-table"
@@ -170,15 +170,9 @@
                  g-class="{'favourite-added': data.Fav == 'true'}"></div>
         </td>
         <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
-           <!-- <div class="state-sphere cursor-help" ng-class="{
-           'started-state':data.Est == 'Comenzado',
-            'no-started-state': data.Est == 'Sin Comenzar' ,
-            'finished-state': data.Est == 'Finalizado'}"
-                 tooltip-html-unsafe="{{data.Est}}"
-                    ></div>-->
-            <div tooltip="Sin Comenzar" class="state-sphere no-started-state" ng-show="data.statePattern == 0"></div>
-            <div tooltip="Comenzado" class="state-sphere started-state" ng-show="data.statePattern == 1"></div>
-            <div tooltip="Finalizado" class="state-sphere finished-state" ng-show="data.statePattern == 2"></div>
+            <div tooltip="Sin Comenzar" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>
+            <div tooltip="Comenzado" class="state-sphere started-state" ng-show="data.statePattern == 'STARTED'"></div>
+            <div tooltip="Finalizado" class="state-sphere finished-state" ng-show="data.statePattern == 'FINISHED'"></div>
         </td>
 
     </tr>
