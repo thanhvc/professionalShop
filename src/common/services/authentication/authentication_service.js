@@ -76,7 +76,7 @@ angular.module('auth',['http-auth-interceptor'])
                 $scope.$on('userLogged',function(data,params){
                     $scope.hideSignInForm();
                     $scope.currentUser = params.name;
-                    $window.sessionStorage.username = data.name;
+                    $window.sessionStorage.username = params.name;
                     $window.sessionStorage.token = params.token;
                 });
 
