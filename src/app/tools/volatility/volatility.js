@@ -61,9 +61,35 @@ angular.module('ngMo.volatility', [
                     document.getElementsByClassName('green')[18].style.color ='#54BA1E ';
                 };
             }
+
+            $scope.loadGraphic = function() {
+
+                var elemDiv = document.createElement('div');
+                elemDiv.innerHTML='hello';
+                elemDiv.style.cssText = 'position:absolute;width:100%;height:100%;opacity:0.3;z-index:100;background:red;';
+                document.body.appendChild(elemDiv);
+            };
+
+            $scope.loadIndex = function(){
+                var elemDiv = document.createElement('div');
+                var img = document.createElement('img');
+                //<img id="j_id5006" src="/seam/resource/graphicImage/org.jboss.seam.ui.GraphicImageStore.-52d5a106-145f05411af--72fa.png" height="270" width="750" style="margin-right:20px;" class="historyImagePar">
+                elemDiv.innerHTML='hello';
+                elemDiv.style.cssText = 'position:absolute;width:68%;height:113%;top:46%;left:15%;z-index:100;background:white;';
+                document.body.appendChild(elemDiv);
+
+            };
+
+            $scope.loadPairs = function(){
+                alert('pairs');
+            };
+            $scope.loadFutures = function(){
+                alert('futures');
+            };
         });
 
 
-    })
+    });
 
-    ;
+
+

@@ -18,9 +18,9 @@
 <div class="volatilityContent">
     <div class="simpleTab">
         <p class="tableMenuOpt selected homeTableMenuOpt1">Acciones</p>
-        <p class="tableMenuOpt homeTableMenuOpt2">Par Acciones</p>
-        <p class="tableMenuOpt homeTableMenuOpt3">Índices</p>
-        <p class="tableMenuOpt homeTableMenuOpt4">Futuros</p>
+        <p class="tableMenuOpt homeTableMenuOpt2" ng-click="loadPairs()">Par Acciones</p>
+        <p class="tableMenuOpt homeTableMenuOpt3" ng-click="loadIndex()">Índices</p>
+        <p class="tableMenuOpt homeTableMenuOpt4" ng-click="loadFutures()">Futuros</p>
 
     </div>
 
@@ -29,34 +29,40 @@
         <div style="width: 800px; margin: 0 auto;">
             <div class="fontVerdana">
                 <div class="VolatilityHeaderFilter">
-                    <div style="height: 38px">
+                    <div>
                         <div class="divTablaCalendarioFiltro" style="width: 800px;">
                             <div class="menuFiltroCorrelar" style="width: 800px"></div>
                             <form  name="findNameS" method="post" >
-                                <div style="float:left">
+                                <div class="volatility-filters">
                                     <!--<input type="text" name="findNameS:boxFindNameS" class="fontVerdana suscribeInputText displayNone">-->
                                     <input class="filterSelect" type="text" name="findNameS:boxFindName25" value="Nombre" class="fontVerdana suscribeInputText" onfocus="changeBoxFindNameVolatility('S')">
-                                    <form class="monthSelector" name="formSMeses" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-                                        <div style="float:left; margin-left: 5px; margin-top: 1px;">
-                                            <select disabled="true" class="monthSelector"  name="formSMeses:meses" size="1" style="width:115px;">
-                                                <option value="-10">Agosto 2013</option>
-                                                <option value="-9">Septiembre 2013</option>
-                                                <option value="-8">Octubre 2013</option>
-                                                <option value="-7">Noviembre 2013</option>
-                                                <option value="-6">Diciembre 2013</option>
-                                                <option value="-5">Enero 2014</option>
-                                                <option value="-4">Febrero 2014</option>
-                                                <option value="-3">Marzo 2014</option>
-                                                <option value="-2">Abril 2014</option>
-                                                <option value="-1">Mayo 2014</option>
-                                                <option value="0" selected="selected">Junio 2014</option>
-                                                <option value="1">Julio 2014</option>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
 
-                                            </select>
-                                        </div>
-                                    </form>
+                        <form class="monthSelector" name="formSMeses" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+
+                            <div class="month-select">
+                                <select disabled="true" class="monthSelector"  name="formSMeses:meses" size="1" style="width:115px;">
+                                    <option value="-10">Agosto 2013</option>
+                                    <option value="-9">Septiembre 2013</option>
+                                    <option value="-8">Octubre 2013</option>
+                                    <option value="-7">Noviembre 2013</option>
+                                    <option value="-6">Diciembre 2013</option>
+                                    <option value="-5">Enero 2014</option>
+                                    <option value="-4">Febrero 2014</option>
+                                    <option value="-3">Marzo 2014</option>
+                                    <option value="-2">Abril 2014</option>
+                                    <option value="-1">Mayo 2014</option>
+                                    <option value="0" selected="selected">Junio 2014</option>
+                                    <option value="1">Julio 2014</option>
+
+                                </select>
+                            </div>
+                        </form>
                                     <form name="j_id2164" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-                                        <div style="float:left; margin-left: 5px; margin-top: 1px;">
+                                        <div class="region-select">
                                             <select disabled="true" class="regionSelector" name="j_id2164:regVola" size="1" style="width:90px;">
                                                 <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Región -</option>
                                                 <option value="20">Estados Unidos</option>
@@ -69,7 +75,7 @@
                                         </div>
                                     </form>
                                     <form name="j_id2168" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-                                        <div style="float:left; margin-left: 5px; margin-top: 1px;">
+                                        <div class="market-select">
                                             <select disabled="true" class="marketSelector" name="j_id2168:j_id2170" class="fontVerdana" size="1" style="width:95px;" >
                                                 <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Mercado -</option>
                                                 <option value="63">American Stock Exchange</option>
@@ -102,7 +108,7 @@
                                         </div>
                                     </form>
                                     <form name="j_id2173" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-                                        <div style="float:left; margin-left: 5px; margin-top: 1px;">
+                                        <div class="operation-select">
                                             <select disabled="true" class="operationSelector" name="j_id2173:j_id2175" class="fontVerdana" size="1" style="width:106px;">
                                                 <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Operación -</option>
                                                 <option value="0">Compra</option>
@@ -111,24 +117,24 @@
                                         </div>
 
                                     </form>
-                                    <form  name="findVol" method="post" >
-                                        <div class="casillaCol1MisPatrones" style="width:135px; margin-left:10px;">
-                                            <div id="findVol:j_id2179" style="float:left;">
+                                    <form class="vol-select"  name="findVol" method="post" >
+                                        <div class="casillaCol1MisPatrones" >
+                                            <div>
                                                 <select disabled="true" class="volatilitySelector" name="findVol:j_id2180" class="fontVerdana" size="1" style="margin-right: 2px; width: 95px !important;" >
                                                     <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Volatilidad -</option>
                                                     <option value="0">Mayor que</option>
                                                     <option value="1">Menor que</option>
                                                 </select>
-                                                <input class="inputSelector" type="text" name="findVol:volatilidadInput2S" value="%" class=" fontVerdana subscribeInputText" maxlength="3" onfocus="changeInput(this)" style="width: 35px;color: #BDBDBD; text-align: center;">
+                                                <input class="percent-input" type="text" name="findVol:volatilidadInput2S" value="%" class=" fontVerdana subscribeInputText" maxlength="3" onfocus="changeInput(this)" style="width: 35px;color: #BDBDBD; text-align: center;">
                                             </div>
                                         </div>
                                     </form>
-                                    <form name="j_id2184" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-                                        <div style=" color: white; float: left; font-family: 'fontpo'; font-size: 10px; height: 17px; margin-left: 5px; text-align: center; width: 70px;">
-                                            <div style="float: left;">
-                                                <input class="favoriteSelector" type="checkbox" name="j_id2184:j_id2187" style="margin-top: 2px !important; -ms-transform: scale(1.3); -moz-transform: scale(1.3); -o-transform: scale(1.3); -webkit-transform: scale(1.3, 1);">
+                                    <form class="favourite-check" name="j_id2184" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+                                        <div style=" color: white; font-family: 'fontpo'; font-size: 10px; height: 17px; text-align: center; width: 70px;">
+                                            <div >
+                                                <input class="" type="checkbox" name="j_id2184:j_id2187" style="margin-top: 2px !important; -ms-transform: scale(1.3); -moz-transform: scale(1.3); -o-transform: scale(1.3); -webkit-transform: scale(1.3, 1);">
                                             </div>
-                                            <div class="favoriteSelector" style="float: left; position: relative; height: 17px; vertical-align: middle; padding-top: 3px; padding-left: 4px;">Favoritos</div>
+                                            <div class="favourite-text">Favoritos</div>
                                         </div>
                                     </form>
                                 </div>
@@ -161,7 +167,7 @@
     </th>
     <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead" >
         <span title="Favoritos">Fav.</span>
-        <div class="toolTipJS" style="display:none;">
+        <div  class="toolTipJS" style="display:none;">
             <div class="toolTipFor">PREV</div>
             <div class="toolTipContent">Favoritos</div>
         </div>
@@ -170,7 +176,7 @@
 </thead>
 
 
-<div>
+<div class="table-container">
 <tbody>
 <tr ng-repeat="data in myData" class="rich-table-row rich-table-firstrow tableSRowEven" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style="color:#996600 !important;">
     <td class="green" class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
@@ -189,506 +195,12 @@
     </td>
     <td class="blackFont"  class="rich-table-cell subscribeTableCols" >{{data.date}}</td>
     <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:0:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-
-            <a href="#" name="tablaVolatilidadS:0:formVolatiS:volatiS"> </a>
-
-        </form>
-        {{data.vol}}
+        <a ng-click="loadGraphic()" href="#" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.vol}} </a>
     </td>
     <td style="width: 32px;" class="table-cell-patterns border-right-table">
         <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
     </td>
 </tr>
-<!--<tr class="cellB" class="rich-table-row tableSRowOdd">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="600 GROUP PLC (LSE)">
-        </span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV</div>
-            <div class="toolTipContent">600 GROUP PLC (LSE)</div>
-        </div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="London Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor"></div>
-            <div class="toolTipContent">London Stock Exchange</div>
-        </div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols">
-    </td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:1:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a  href="#" name="tablaVolatilidadS:1:formVolatiS:volatiS" ></a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellA" class="rich-table-row tableSRowEven">
-    <td class="greenFont" class="rich-table-cell subscribeTableCols buyColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="A. SCHULMAN (NASDAQ)"></span>
-        <div  class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">A. SCHULMAN (NASDAQ)
-            </div>
-        </div>
-    </td>
-    <td class="blackFontMarket"  class="rich-table-cell subscribeTableCols"  title="NASDAQ Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">NASDAQ Stock Exchange
-            </div>
-        </div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols">
-    </td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols">
-
-        <form  name="tablaVolatilidadS:2:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:2:formVolatiS:volatiS"></a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellB" class="rich-table-row  tableSRowOdd">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="A2A SPA ORD (MI)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV</div>
-            <div class="toolTipContent">A2A SPA ORD (MI)</div>
-        </div>
-    </td>
-    <td class="blackFontMarket"  class="rich-table-cell subscribeTableCols" title="Italian Stock Exchange">
-        <span  class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">Italian Stock Exchange
-            </div>
-        </div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" >
-    </td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:3:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:3:formVolatiS:volatiS"> </a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellA" class="rich-table-row tableSRowEven">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="AASTROM BIOSCIENCES (NASDAQ)"></span>
-        <div  class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">AASTROM BIOSCIENCES (NASDAQ)
-            </div></div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="NASDAQ Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span><div class="toolTipJS" style="display:none;">
-        <div class="toolTipFor">
-        </div>
-        <div class="toolTipContent">NASDAQ Stock Exchange
-        </div></div></td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" >
-    </td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:4:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:4:formVolatiS:volatiS"> </a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellB" class="rich-table-row  tableSRowOdd">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="ACERINOX ORD (MC)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">ACERINOX ORD (MC)
-            </div></div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="Sociedad de Bolsas">
-        <span  class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">Sociedad de Bolsas
-            </div>
-        </div>
-    </td>
-    <td class="blackFont"class="rich-table-cell subscribeTableCols" ></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:5:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:5:formVolatiS:volatiS"></a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellA" class="rich-table-row tableSRowEven">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="ACTIA GROUP ORD (PA)"></span>
-        <div id="tablaVolatilidadS:6:j_id317" class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">ACTIA GROUP ORD (PA)
-            </div>
-        </div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="EURONEXT - Paris">
-        <span  class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">EURONEXT - Paris
-            </div></div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" ></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:6:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:6:formVolatiS:volatiS" ></a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellB"  class="rich-table-row  tableSRowOdd">
-    <td class="greenFont" class="rich-table-cell subscribeTableCols buyColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="ACTIVISION BLIZZARD INC (NASDAQ)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">ACTIVISION BLIZZARD INC (NASDAQ)
-            </div>
-        </div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="NASDAQ Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">NASDAQ Stock Exchange
-            </div>
-        </div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" >
-    </td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:7:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:7:formVolatiS:volatiS" ></a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellA" class="rich-table-row tableSRowEven">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="ACXIOM CORP. (NASDAQ)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">ACXIOM CORP. (NASDAQ)
-            </div>
-        </div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="NASDAQ Stock Exchange">
-        <span  class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">NASDAQ Stock Exchange
-            </div>
-        </div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" ></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form  name="tablaVolatilidadS:8:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:8:formVolatiS:volatiS" ></a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellB"  class="rich-table-row  tableSRowOdd">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span  class="tableDiaryLinks toolTipObj" title="ADTEC CORP. : 6840 (TSE)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">ADTEC CORP. : 6840 (TSE)
-            </div>
-        </div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="Tokyo Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">Tokyo Stock Exchange
-            </div>
-        </div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols"></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols">
-        <form name="tablaVolatilidadS:9:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:9:formVolatiS:volatiS" ></a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellA" class="rich-table-row tableSRowEven">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="ADV MICRO DEV OR (BE)"></span>
-        <div  class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">ADV MICRO DEV OR (BE)
-            </div></div></td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="Berlin Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div  class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">Berlin Stock Exchange
-            </div></div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols"></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols">
-        <form name="tablaVolatilidadS:10:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:10:formVolatiS:volatiS" ></a>
-        </form></td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellB" class="rich-table-row  tableSRowOdd">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="ADVA OPTICAL ORD (BE)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">ADVA OPTICAL ORD (BE)
-            </div></div></td>
-    <td  class="blackFontMarket"  class="rich-table-cell subscribeTableCols"  title="Berlin Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">Berlin Stock Exchange
-            </div></div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols"></td>
-    <td class="volatilityCell"class="rich-table-cell subscribeTableCols">
-        <form name="tablaVolatilidadS:11:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:11:formVolatiS:volatiS"> </a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellA" class="rich-table-row tableSRowEven">
-    <td class="greenFont"class="rich-table-cell subscribeTableCols buyColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="ADVANCED MEDICAL SOLUTIONS GROUP PLC (LSE)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">ADVANCED MEDICAL SOLUTIONS GROUP PLC (LSE)
-            </div></div></td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="London Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">London Stock Exchange
-            </div></div></td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols"></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols">
-        <form name="tablaVolatilidadS:12:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:12:formVolatiS:volatiS" ></a>
-        </form></td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellB" class="rich-table-row  tableSRowOdd">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj"  style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="ADVANCED MICRO DEVICES (NYSE)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV
-            </div>
-            <div class="toolTipContent">ADVANCED MICRO DEVICES (NYSE)
-            </div></div>
-    </td>
-    <td class="blackFontMarket"class="rich-table-cell subscribeTableCols"  title="New York Stock Exchange">
-        <span  class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">
-            </div>
-            <div class="toolTipContent">New York Stock Exchange
-            </div></div></td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" ></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:13:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-
-            <a href="#" name="tablaVolatilidadS:13:formVolatiS:volatiS" ></a>
-
-        </form></td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellA"  class="rich-table-row tableSRowEven">
-    <td class="greenFont" class="rich-table-cell subscribeTableCols buyColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="ADVTECH (J)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV</div>
-            <div class="toolTipContent">ADVTECH (J)</div>
-        </div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="Johannesburg Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor"></div>
-            <div class="toolTipContent">Johannesburg Stock Exchange</div>
-        </div></td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols"></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:14:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:14:formVolatiS:volatiS" ></a>
-        </form>
-    </td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellB" class="rich-table-row tableSRowOdd">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="AEDES ORD (MI)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV</div>
-            <div class="toolTipContent">AEDES ORD (MI)</div>
-        </div></td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="Italian Stock Exchange">
-        <span class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor"></div>
-            <div class="toolTipContent">Italian Stock Exchange</div>
-        </div></td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" ></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:15:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#"  name="tablaVolatilidadS:15:formVolatiS:volatiS" ></a>
-        </form></td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellA"  class="rich-table-row tableSRowEven">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" >
-        <span class="tableDiaryLinks toolTipObj" title="AEGON ORD (BE)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV</div>
-            <div class="toolTipContent">AEGON ORD (BE)</div></div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="Berlin Stock Exchange">
-        <span   class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;"><div class="toolTipFor"></div>
-            <div class="toolTipContent">Berlin Stock Exchange</div></div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" ></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:16:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:16:formVolatiS:volatiS" ></a>
-        </form></td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellB" class="rich-table-row tableSRowOdd">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="AETERNA ZENTARIS (NASDAQ)"></span>
-        <div class="toolTipJS" style="display:none;"><div class="toolTipFor">PREV</div>
-            <div class="toolTipContent">AETERNA ZENTARIS (NASDAQ)</div></div>
-    </td>
-    <td  class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="NASDAQ Stock Exchange">
-        <span  class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;"><div class="toolTipFor"></div>
-            <div class="toolTipContent">NASDAQ Stock Exchange</div></div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" ></td>
-    <td class="volatilityCell"class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:17:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:17:formVolatiS:volatiS" ></a>
-        </form></td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellA" class="rich-table-row tableSRowEven">
-    <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="AETNA INC. (NYSE)"></span>
-        <div class="toolTipJS" style="display:none;"><div class="toolTipFor">PREV</div>
-            <div class="toolTipContent">AETNA INC. (NYSE)</div></div>
-    </td>
-    <td  class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="New York Stock Exchange">
-        <span  class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor"></div>
-            <div class="toolTipContent">New York Stock Exchange</div></div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols"></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:18:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:18:formVolatiS:volatiS"></a>
-        </form></td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
-<tr class="cellB"  class="rich-table-row tableSRowOdd">
-    <td class="greenFont" class="rich-table-cell subscribeTableCols buyColor toolTipObj" style="text-align: left; width:330px;">
-        <span class="tableDiaryLinks toolTipObj" title="AGNICO-EAGLE MINES LIMITED (NYSE)"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor">PREV</div>
-            <div class="toolTipContent">AGNICO-EAGLE MINES LIMITED (NYSE)</div></div>
-    </td>
-    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols" title="New York Stock Exchange">
-        <span  class="tableDiaryLinks toolTipObj cursorHelp"></span>
-        <div class="toolTipJS" style="display:none;">
-            <div class="toolTipFor"></div>
-            <div class="toolTipContent">New York Stock Exchange</div></div>
-    </td>
-    <td class="blackFont" class="rich-table-cell subscribeTableCols" ></td>
-    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <form name="tablaVolatilidadS:19:formVolatiS" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-            <a href="#" name="tablaVolatilidadS:19:formVolatiS:volatiS" ></a>
-        </form></td>
-    <td style="width: 32px;" class="table-cell-patterns border-right-table">
-        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
-    </td>
-</tr>
--->
 </tbody>
 </div>
 </table>
