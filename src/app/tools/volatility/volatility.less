@@ -147,6 +147,45 @@
   margin-bottom: 10px;
 }
 
+.move {
+  -webkit-transition:all 1s;
+  -webkit-transform: translateX(-355px);
+
+
+}
+@mixin .new-element{
+   position: relative;
+   top: -609px;
+   left: 800px;
+   width: 150px;
+   border-left: 1px solid black;
+   border-right: 1px solid black;
+   text-align: center;
+   margin: 5px;
+   font-size: 10px;
+   color: #0663D7;
+  }
+
+.new-element0{
+  @include .new-element;
+}
+
+.new-element1{
+  @include .new-element;
+  top: -654px;
+  left: 800px;
+
+
+}.new-element2{
+  @include .new-element;
+  top: -699px;
+
+}
+.move-to-the-right{
+  -webkit-transition:all 1s;
+  -webkit-transform: translateX(650px);
+}
+
 .diaryTablaMailText {
   float: right;
   margin-right: 10px;
