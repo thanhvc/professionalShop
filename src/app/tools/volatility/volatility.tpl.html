@@ -18,8 +18,8 @@
 <div class="volatilityContent">
     <div class="simpleTab">
         <p class="tableMenuOpt selected homeTableMenuOpt1">Acciones</p>
-        <p class="tableMenuOpt homeTableMenuOpt2" ng-click="loadPairs()">Par Acciones</p>
-        <p class="tableMenuOpt homeTableMenuOpt3" ng-click="loadIndex()">Índices</p>
+        <p class="tableMenuOpt homeTableMenuOpt2" ng-click="">Par Acciones</p>
+        <p class="tableMenuOpt homeTableMenuOpt3" ng-click='loadIndex()'>Índices</p>
         <p class="tableMenuOpt homeTableMenuOpt4" ng-click="loadFutures()">Futuros</p>
 
     </div>
@@ -195,7 +195,7 @@
     </td>
     <td class="blackFont"  class="rich-table-cell subscribeTableCols" >{{data.date}}</td>
     <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-        <a ng-click="loadGraphic()" href="#" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.vol}} </a>
+        <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.vol}}</a>
     </td>
     <td style="width: 32px;" class="table-cell-patterns border-right-table">
         <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
