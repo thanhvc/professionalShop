@@ -13,13 +13,13 @@
         <tbody>
             <tr ng-repeat="pattern in myData">
                 <td>{{pattern.id}}</td>
-                <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'selHl-color': pattern.patternType == 'BEARISH' }">{{pattern.asset.longName}}</td>
+                <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }">{{pattern.asset.longName}}</td>
                 <td>{{pattern.asset.exchange.name}}</td>
                 <td>
                     <span tooltip="Venta" ng-if="pattern.patternType == 'BULLISH'">V</span>
                     <span tooltip="Compra" ng-if="pattern.patternType == 'BEARISH'">C</span>
                 </td>
-                <td class="correlation-button">>></td>
+                <td class="correlation-button"><span ng-click="addToCorrelationList(pattern);">>></span></td>
             </tr>
         </tbody>
     </table>
@@ -41,7 +41,7 @@
             <td>{{pattern.market}}</td>
             <td>{{pattern.operation}}</td>
             <td>{{pattern.favorite}}</td>
-            <td class="correlation-button"><<</td>
+            <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern);"><<</span></td>
         </tr>
         </tbody>
     </table>

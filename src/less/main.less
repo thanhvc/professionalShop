@@ -1552,30 +1552,37 @@ table{
 * TODO: replace modal-content for modal-lg and modal-sm when angular-bootstrap publish version 0.11.0
 **/
 
-.modal-content{
-  border-radius: 0;
-  width: 1010px;
-  left:-190px;
-}
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: transparent;
+  }
+  .modal-dialog{
+    width: 100%;
+    height: 100%;
+  }
 
-.advertising-modal{
-  width: 1010px;
-  border: 5px outset gray;
-}
+  .advertising-modal {
+    width: 1010px;
+    border: 5px outset gray;
+    background-color: @white;
+    margin: 0 auto;
 
-.modal-header{
-  border-bottom:0;
-  margin-bottom: 25px;
-}
+    .modal-header {
+      border-bottom: 0;
+      margin-bottom: 25px;
+    }
 
-.modal-body{
-  width: 946px;
-  height: 550px;
-  overflow-y: scroll;
-  text-align: justify;
-  margin-left: 25px;
-  margin-bottom: 40px;
-}
+    .modal-body {
+      width: 946px;
+      height: 550px;
+      overflow-y: scroll;
+      text-align: justify;
+      margin-left: 25px;
+      margin-bottom: 40px;
+    }
+  }
 
 .btn-close{
   float:right;
@@ -1592,6 +1599,11 @@ table{
     outline-color:transparent;
   }
 }
+.btn-close-alert{
+  height: 18px;
+  width: 18px;
+  background-size: 18px 18px;
+}
 
 .modal-backdrop {
   .in {
@@ -1600,9 +1612,9 @@ table{
 }
 
 .modal-text{
-    width: 1010px;
-    border-radius: 0;
-    left:-190px;
+  width: 500px;
+  background-color: @white;
+  margin: 0 auto;
 
   .modal-header{
     border-bottom:0;
@@ -1610,12 +1622,57 @@ table{
   }
 
   .modal-body{
-    width: 1000px;
-    height: 20px;
+    width: 500px;
+    height: 70px;
     margin-left: 5px;
     overflow: hidden;
     text-align: center;
     color: @darkGrey;
+  }
+}
+
+.modal-alert{
+  width: 354px;
+  background-color: @white;
+  margin: 0 auto;
+
+  .modal-header{
+    text-align: left;
+    color: white;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 1px;
+    height: 23px;
+    border-bottom: 0;
+    .header{
+      background-color: black;
+      padding: 2px 2px 2px 10px;
+      height: 20px;
+    }
+  }
+
+  .modal-body{
+    width: 354px;
+    height: 100px;
+    padding: 0;
+    margin-left: 10px;
+    overflow: hidden;
+    text-align: left;
+    font-size: 10px;
+    color: @darkGrey;
+    line-height: 2.5;
+    input{
+      line-height: 0;
+      margin-left: 5px;
+      font-size: 11px;
+    }
+  }
+
+  .modal-footer{
+    border-top: 0;
+    margin: 0;
+    padding: 0 10px 10px 10px;
   }
 }
 
@@ -1941,6 +1998,41 @@ tooltip-placement=" top ultra-left-tooltip" **/
   }
 }
 
+.alarm-icon{
+  background:  url('../assets/img/alarm.png');
+  background-size: 27px 19px;
+  width: 27px;
+  height: 19px;
+  display: inline-block;
+}
+
+.has-alarm-icon{
+  background:  url('../assets/img/has-alarm.png');
+  background-size: 16px 11px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+}
+
+.checkbox-filters{
+  width: 13px;
+}
+
+.prices-font11{
+  font-family: fontpo, verdana !important;
+  font-size: 11px;
+}
+
+.prices-font10{
+  font-family: fontpo, verdana !important;
+  font-size: 10px;
+}
+
+.prices-font12{
+  font-family: fontpo, verdana !important;
+  font-size: 12px;
+}
+
 
 .reactivate-box {
   width: 450px;
@@ -1966,3 +2058,4 @@ tooltip-placement=" top ultra-left-tooltip" **/
 @import '../app/tools/volatility/volatility.less';
 @import '../app/my_subscriptions/my_packs.less';
 @import '../app/my_profile/my_profile.less';
+@import '../app/tools/correlation/correlation.less';
