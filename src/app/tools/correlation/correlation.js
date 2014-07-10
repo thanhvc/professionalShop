@@ -202,6 +202,7 @@ angular.module('ngMo.correlation', [
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
                     $scope.myData = data.patterns;//data.page;
+                    $scope.correlationList = [];
                     /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
@@ -211,6 +212,33 @@ angular.module('ngMo.correlation', [
                 });
         };
 
+        $scope.addToCorrelationList = function (pattern) {
+            var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, function (data) {
+                    $scope.myData = data.patterns;//data.page;
+                    $scope.correlationList = data.correlationPatterns;
+                    /*mocked, this info is loaded from data*/
+                    $scope.results = data.results;//data.results;
+                    $scope.found = data.found;//data.found;
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+                });
+        };
+
+        $scope.deleteFromCorrelationList = function (pattern) {
+            var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1, function (data) {
+                    $scope.myData = data.patterns;//data.page;
+                    $scope.correlationList = data.correlationPatterns;
+                    /*mocked, this info is loaded from data*/
+                    $scope.results = data.results;//data.results;
+                    $scope.found = data.found;//data.found;
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+                });
+        };
 
         /**
          *      make a petition of selectors, the selectors is an array of the selectors required from server
@@ -602,12 +630,16 @@ angular.module('ngMo.correlation', [
         };
 
         /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
-        this.getPagedDataAsync = function (pageSize, page, filtering, callbackFunc) {
+        this.getPagedDataAsync = function (pageSize, page, filtering, patternId, operation, callbackFunc) {
             var data;
             var urlParam = this.createParamsFromFilter(filtering);
 
+            //Operation -> Add or delete Pattern to correlationList
+
             config = {
                 params: {
+                    'patternId': patternId,
+                    'operation': operation,
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
@@ -615,7 +647,7 @@ angular.module('ngMo.correlation', [
                 }
             };
 
-            var result = $http.get($rootScope.urlService+'/patterns', config).success(function (data) {
+            var result = $http.get($rootScope.urlService+'/correlationpatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });
