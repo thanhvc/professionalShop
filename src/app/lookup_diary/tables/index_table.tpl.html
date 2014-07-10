@@ -17,8 +17,8 @@
             colspan="3">
             <span class="cursor-help">Último</span>
         </th>
-        <th class="border-right-table" tooltip-html-unsafe="Volatilidad">
-            Vol.
+        <th class="border-right-table">
+            <span tooltip-html-unsafe="Volatilidad">Vol.</span>
         </th>
         <th class="border-right-table"
             colspan="2">
@@ -82,7 +82,7 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
+        <td style="text-align: left; width: 230px;vertical-align: middle;" class="table-cell-patterns border-right-table">
             <span ng-show="data.patternType == 'BULLISH'">Alcista</span>
             <span ng-show="data.patternType == 'BEARISH'">Bajista</span>
             <br/>
@@ -132,7 +132,13 @@
 
         </td>
         <td class="table-cell-patterns border-right-table">
-            <div class="alarm-icon"></div>
+            <div ng-click="open(data.id, data.asset.longName, '', data.patternType, data.priceAlert, data.conditionAlert)" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
+                <div style="margin-top: 10px;">
+                    <span ng-show="data.conditionAlert == 'GREATER_THAN' &&  data.priceAlert != null">Mayor que</span>
+                    <span ng-show="data.conditionAlert == 'LESS_THAN' &&  data.priceAlert != null">Menor que</span>
+                    {{data.priceAlert}}
+                </div>
+            </div>
         </td>
     </tr>
 

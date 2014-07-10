@@ -27,7 +27,7 @@ angular.module('ngMo.lookup_diary', [
     .run(function run() {
     })
 
-    .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService, LookupDiaryService, $http, $state, $stateParams, $location) {
+    .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService, LookupDiaryService, $http, $state, $stateParams, $location, $modal) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -167,6 +167,62 @@ angular.module('ngMo.lookup_diary', [
                     break;
             }
 
+        };
+
+       /*$scope.setAlert = function (patternId) {
+            var data = LookupDiaryService.setAlert(patternId).then(function (data) {
+                $scope.loadPage();
+            });
+        };*/
+
+        $scope.open = function (patternId, assetName, bearishAssetName, patternType, actualPrice, actualCondition) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'myModalContent.html',
+                controller: ModalAlertInstanceCtrl,
+                resolve: {
+                    patternId: function () {
+                        return patternId;
+                    },
+                    setAlert: function () {
+                        return function(patternId, price, condition) {
+                            var data = LookupDiaryService.setAlert(patternId, price, condition).then(function (data) {
+                                $scope.loadPage();
+                            });
+                        };
+                    },
+                    deleteAlert: function () {
+                        return function(patternId) {
+                            var data = LookupDiaryService.deleteAlert(patternId).then(function (data) {
+                                $scope.loadPage();
+                            });
+                        };
+                    },
+                    assetName: function () {
+                        return assetName;
+                    },
+                    bearishAssetName: function () {
+                        return bearishAssetName;
+                    },
+                    patternType: function () {
+                        return patternType;
+                    },
+                    actualPrice: function () {
+                        return actualPrice;
+                    },
+                    actualCondition: function () {
+                        if (actualCondition == 'GREATER_THAN'){
+                            return 0;
+                        }else if (actualCondition == 'LESS_THAN'){
+                            return 1;
+                        }
+
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+            });
         };
 
 
@@ -590,7 +646,7 @@ angular.module('ngMo.lookup_diary', [
 
 
     })
-    .service("LookupDiaryService", function ($http, $window, $rootScope) {
+    .service("LookupDiaryService", function ($http, $window, $rootScope, $q) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -611,12 +667,18 @@ angular.module('ngMo.lookup_diary', [
             var data;
             var urlParam = this.createParamsFromFilter(filtering);
 
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+
             config = {
                 params: {
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': parseInt(filtering.active_tab, 10)
+                    'indexType': indexType
                 }
             };
 
@@ -624,6 +686,42 @@ angular.module('ngMo.lookup_diary', [
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });
+        };
+
+        this.setAlert = function (patternId, price, condition) {
+            var deferred = $q.defer();
+            var data;
+            config = {
+                params: {
+                    'patternId': patternId,
+                    'token': $window.sessionStorage.token,
+                    'price': price,
+                    'condition': condition
+                }
+            };
+            var result = $http.get($rootScope.urlService+'/alertpattern', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
+
+        this.deleteAlert = function (patternId) {
+            var deferred = $q.defer();
+            var data;
+            config = {
+                params: {
+                    'patternId': patternId,
+                    'token': $window.sessionStorage.token
+                }
+            };
+            var result = $http.get($rootScope.urlService+'/deletealert', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
 
         /**
@@ -701,3 +799,31 @@ angular.module('ngMo.lookup_diary', [
     })
 
 ;
+
+var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAlert, assetName, bearishAssetName, deleteAlert, patternType, actualPrice, actualCondition) {
+    $scope.setAlert = setAlert;
+    $scope.deleteAlert = deleteAlert;
+    $scope.patternId = patternId;
+    $scope.assetName = assetName;
+    $scope.bearishAssetName = bearishAssetName;
+    $scope.patternType = patternType;
+
+    $scope.data = {
+        price: (typeof actualPrice !== 'undefined' ? actualPrice : 0),
+        price_condition: (typeof actualCondition !== 'undefined' ? actualCondition : 0)
+    };
+
+    $scope.ok = function () {
+        $scope.setAlert($scope.patternId, $scope.data.price, $scope.data.price_condition);
+        $modalInstance.close();
+    };
+
+    $scope.close = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.cancel = function () {
+        $scope.deleteAlert($scope.patternId);
+        $modalInstance.dismiss('cancel');
+    };
+};
