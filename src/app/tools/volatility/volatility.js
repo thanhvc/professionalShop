@@ -62,58 +62,19 @@ angular.module('ngMo.volatility', [
                     document.getElementsByClassName('green')[17].style.color = '#54BA1E ';
                     document.getElementsByClassName('green')[18].style.color = '#54BA1E ';
 
-                    var n = document.getElementsByClassName('green').length;
-                    var last = document.getElementsByClassName('green')[n-1];
-                    var child = document.createElement('div');
-                    var child1 = document.createElement('div');
-                    var child2 = document.createElement('div');
-
-                    document.getElementsByClassName('volatilityCell')[n-1].innerHTML = "";
-                    document.getElementsByClassName('volatilityCell')[n-2].innerHTML = "";
-                    document.getElementsByClassName('volatilityCell')[n-3].innerHTML = "";
-                    child.style.textCss='rich-table-cell subscribeTableCols';
-                    child.style.textCss+='volatilityCell';
-                    child1.style.textCss='rich-table-cell subscribeTableCols';
-                    child1.style.textCss+='volatilityCell';
-                    child2.style.textCss='rich-table-cell subscribeTableCols';
-                    child2.style.textCss+='volatilityCell';
-
-                    var newlink = document.createElement('a');
-                    var newlink1 = document.createElement('a');
-                    var newlink2 = document.createElement('a');
-                    child.className ='new-element';
-                    child1.className ='new-element1';
-                    child2.className ='new-element2';
-                    newlink.innerHTML = 43;
-                    newlink1.innerHTML = 27;
-                    newlink2.innerHTML = 56;
-
-                    newlink.addEventListener("click", function() {
-                        $scope.loadGraphic();
-                    });
-                    newlink1.addEventListener("click", function() {
-                                            $scope.loadGraphic();
-                                        });
-                    newlink2.addEventListener("click", function() {
-                                            $scope.loadGraphic();
-                                        });
-
-                    child.appendChild(newlink);
-                    child1.appendChild(newlink1);
-                    child2.appendChild(newlink2);
-                    document.body.appendChild(child);
-                    document.body.appendChild(child1);
-                    document.body.appendChild(child2);
 
                 };
 
 
             }
 
+            $scope.changeTab= function(id){
+                alert(id);
+            };
             $scope.loadGraphic = function (name) {
 
                 var elemDiv = document.createElement('div');
-                //elemDiv.innerHTML = name.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
+                elemDiv.innerHTML = name.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
                 var img = document.createElement('img');
                 img.src = "assets/img/graphic.png";
                 img.style.cssText = "display:block;padding-top:30px;height:100;width:750;style:margin-right:20px;class:historyImagePar";
