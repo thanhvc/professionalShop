@@ -302,7 +302,6 @@ angular.module('ngMo.my_patterns', [
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
-                    $scope.myData.product = 'PEPE';
             });
 
 
