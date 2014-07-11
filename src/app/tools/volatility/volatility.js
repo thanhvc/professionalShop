@@ -96,7 +96,7 @@ angular.module('ngMo.volatility', [
 
     })
 
-    .controller('VolatilityCtrl', function PatternsCtrl($scope, TabsService, MonthSelectorService, PatternsService) {
+    .controller('VolatilityCtrl', function PatternsCtrl($scope, TabsService, MonthSelectorService, $location, PatternsService) {
 
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -140,6 +140,10 @@ angular.module('ngMo.volatility', [
 
             }
 
+            $scope.pagingOptions = {
+                pageSize: 10,
+                currentPage: 1
+            };
             $scope.selectedTab = TabsService.getActiveTab();
             $scope.tabs = TabsService.getTabs();
             $scope.filterOptions = "";
@@ -232,6 +236,35 @@ angular.module('ngMo.volatility', [
                 //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
                 $scope.updateSelectorMonth();
 
+                /*check that all rent filters have  values and a selector*/
+                $scope.checkFilters = function () {
+                    //for each input filter filled, the selector linked must be set
+                    if (!($scope.filterOptions.filters.selectedAverage &&
+                        $scope.filterOptions.filters.rentAverageInput)) {
+                        $scope.filterOptions.filters.selectedAverage = "";
+                        $scope.filterOptions.filters.rentAverageInput = "";
+                    }
+                    if (!($scope.filterOptions.filters.rentInput &&
+                        $scope.filterOptions.filters.selectedRent)) {
+                        $scope.filterOptions.filters.rentInput = "";
+                        $scope.filterOptions.filters.selectedRent = "";
+                    }
+                    if (!($scope.filterOptions.filters.rentDiaryInput &&
+                        $scope.filterOptions.filters.selectedRentDiary)) {
+                        $scope.filterOptions.filters.rentDiaryInput = "";
+                        $scope.filterOptions.filters.selectedRentDiary = "";
+                    }
+                    if (!($scope.filterOptions.filters.volatilityInput &&
+                        $scope.filterOptions.filters.selectedVolatility)) {
+                        $scope.filterOptions.filters.volatilityInput = "";
+                        $scope.filterOptions.filters.selectedVolatility = "";
+                    }
+                    if (!($scope.filterOptions.filters.durationInput &&
+                        $scope.filterOptions.filters.selectedDuration)) {
+                        $scope.filterOptions.filters.durationInput = "";
+                        $scope.filterOptions.filters.selectedDuration = "";
+                    }
+                };
                 //refresh all the selectors
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
@@ -299,8 +332,8 @@ angular.module('ngMo.volatility', [
 
             $scope.changeTab = function (idTab) {
                 //we change the page to 1, to load the new tab
-
                 TabsService.changeActiveTab(idTab);
+                $scope.selectedTab = TabsService.getActiveTab();
                 $scope.restartFilter();
                 $scope.applyFilters();
             };
@@ -388,7 +421,7 @@ angular.module('ngMo.volatility', [
                 urlParamsSend.pag = urlParams.page;
                 urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
 
-                $location.path('/patterns').search(urlParamsSend);
+                $location.path('/volatility').search(urlParamsSend);
             };
 
             $scope.loadUrlParams = function () {
