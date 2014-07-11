@@ -678,7 +678,9 @@ angular.module('ngMo.lookup_diary', [
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': indexType
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year
                 }
             };
 
