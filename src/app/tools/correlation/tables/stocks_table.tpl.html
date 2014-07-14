@@ -13,13 +13,13 @@
         <tbody>
             <tr ng-repeat="pattern in myData">
                 <td>{{pattern.id}}</td>
-                <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }">{{pattern.asset.longName}}</td>
-                <td>{{pattern.asset.exchange.name}}</td>
+                <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }">{{pattern.asset.longName | limitTo: 25}}</td>
+                <td>{{pattern.asset.exchange.symbol}}</td>
                 <td>
                     <span tooltip="Venta" ng-if="pattern.patternType == 'BULLISH'">V</span>
                     <span tooltip="Compra" ng-if="pattern.patternType == 'BEARISH'">C</span>
                 </td>
-                <td class="correlation-button"><span ng-click="addToCorrelationList(pattern);">>></span></td>
+                <td class="correlation-button"><span ng-click="addToCorrelationList(pattern.id);">>></span></td>
             </tr>
         </tbody>
     </table>
@@ -35,13 +35,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="pattern in selectedPatterns">
+        <tr ng-repeat="pattern in correlationList">
             <td>{{pattern.id}}</td>
-            <td>{{pattern.name}}</td>
-            <td>{{pattern.market}}</td>
-            <td>{{pattern.operation}}</td>
+            <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }">{{pattern.asset.longName | limitTo: 25}}</td>
+            <td>{{pattern.asset.exchange.symbol}}</td>
+            <td>
+                <span tooltip="Venta" ng-if="pattern.patternType == 'BULLISH'">V</span>
+                <span tooltip="Compra" ng-if="pattern.patternType == 'BEARISH'">C</span>
+            </td>
             <td>{{pattern.favorite}}</td>
-            <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern);"><<</span></td>
+            <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern.id);"><<</span></td>
         </tr>
         </tbody>
     </table>

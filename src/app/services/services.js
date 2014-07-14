@@ -71,10 +71,10 @@ angular.module('ngMo.services', [
                 "main": {
                     controller: 'ServicesCtrl',
                     templateUrl: 'services/detailed_description/detailed_description.tpl.html'
-                },
+                }/*,
                 "subPage@detailed_description": {
                     templateUrl: 'services/detailed_description/description.tpl.html'
-                }
+                }*/
             },
             data: {
                 pageTitle: 'Descripcion Detallada',
@@ -83,7 +83,7 @@ angular.module('ngMo.services', [
                 selectItemSubmenu: 'detailed-description-nav',
                 moMenuType: 'publicMenu'
             }
-        })
+        })/*
             //subpages of detailed_description
             .state('detailed_description.basic', {
                 url: '/basic',
@@ -198,6 +198,7 @@ angular.module('ngMo.services', [
                 }
             })
             //end of subpages
+            */
         .state('fundamentals', {
             url: '/fundamentals',
             views: {
@@ -234,6 +235,59 @@ angular.module('ngMo.services', [
         $scope.pack_month = prices.pack_month;
         $scope.pack_trimestral = prices.pack_trimestral;
         $scope.pack_year = prices.pack_year;
+    })
+
+    .directive("scrollDetailed", function ($window, PositionAnchorsDetailed) {
+        return function(scope, element, attrs) {
+            angular.element($window).bind("scroll", function() {
+                //menu position
+                /*if (this.pageYOffset >= 27845) {
+                    scope.boolChangeClassDetailed = true;
+                } else {
+                    scope.boolChangeClassDetailed = false;
+                }*/
+                if (this.pageYOffset >= 150) {
+                    scope.boolChangeClassDetailed = true;
+                } else {
+                    scope.boolChangeClassDetailed = false;
+                }
+                scope.$apply();
+
+                //scrollSpy
+                //Obtain anchors
+                if (typeof anchors === 'undefined') {
+                    anchors = PositionAnchorsDetailed.getPositionAnchors();
+                }
+
+                if (this.pageYOffset < anchors[0].position){
+                    scope.selectedOption = anchors[0].id;
+                }else if(this.pageYOffset > anchors[anchors.length-1].position) {
+                    scope.selectedOption = anchors[anchors.length-1].id;
+                }else {
+                    for (var j = 1; j < anchors.length-1; j++) {
+                        if (this.pageYOffset >= anchors[j].position && this.pageYOffset < anchors[j + 1].position) {
+                            scope.selectedOption = anchors[j].id;
+                        }
+                    }
+                }
+
+            });
+        };
+    })
+    .service("PositionAnchorsDetailed", function() {
+        this.getPositionAnchors = function() {
+            var anchors = document.getElementsByClassName("anchor-detailed");
+            var positions = [];
+            for (var i = 0; i<anchors.length;i++){
+                positions.push(
+                    {
+                        "position": (anchors[i]).offsetTop,
+                        "id": (anchors[i]).getAttribute('id')
+                    });
+            }
+            return positions;
+
+        };
     })
     .service("PricesService", function() {
         this.getPrices = function(){

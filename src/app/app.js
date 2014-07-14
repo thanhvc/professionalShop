@@ -60,7 +60,24 @@ angular.module('ngMo', [
                 selectItemSubmenu: '',
                 moMenuType: 'publicMenu'
              }
-        });
+        })
+        .state('faq', {
+            url: '/faq',
+            views: {
+                "main": {
+                    controller: 'HomeCtrl',
+                    templateUrl: 'faq/faq.tpl.html'
+                }
+            },
+            data: {
+                pageTitle: 'FAQ',
+                selectMenu: '',
+                selectSubmenu: '',
+                selectItemSubmenu: '',
+                moMenuType: 'publicMenu'
+            }
+        })
+        ;
         $urlRouterProvider.otherwise('/home');
     })
 
