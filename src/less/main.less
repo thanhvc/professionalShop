@@ -55,6 +55,7 @@ th{
 body{
   color:@black;
   font-family: 'fontpo';
+  //font-family: Helvetica Neue, Helvetica, Ariall;
   font-size: 12px;
   /*-webkit-font-smoothing: antialiased; -- this change the font */
   -webkit-font-smoothing: auto;
@@ -231,7 +232,7 @@ b , strong {
     li {
       list-style-type: none;
       display: inline-block;
-      margin-left: 2px;
+      padding-left: 2px;
       height: 24px;
       cursor: pointer;
     }
@@ -540,7 +541,7 @@ a{
   li{
     list-style-image: url('../assets/img/public-list-li.png');
     /*margin-bottom: 0.5em;*/
-    margin-bottom: 4px;
+    margin-bottom: 4px !important;
     padding-left: 1px;
     clear: left;
   }
@@ -551,7 +552,7 @@ a{
   font-size: 12px;
   line-height: 1.2em;
   text-align: left;
-  color:@black;
+  color: @black;
   padding: 3px 20px;
   max-width: none;
   opacity: 1;
@@ -576,12 +577,14 @@ a{
 .tooltip-arrow {
   margin-left: 50px;
   border-top: none;
+  display: none;
 }
 
 .element-with-tooltip{
   border-bottom: 1px dashed #999;
   cursor: help;
   font-family: "fontpo-bold", "verdana" !important;
+  color: @tooltipsDarkBlue;
 }
 
 .menu-not-logged{
@@ -638,10 +641,15 @@ a{
   }
 }
 
-
-
 .submenu-content{
   width: 740px;
+  float: left;
+  line-height: 150%;
+  /*margin-top: 35px;*/
+}
+
+.content-detailed{
+  width: 735px;
   float: left;
   line-height: 150%;
   /*margin-top: 35px;*/
@@ -676,6 +684,15 @@ a{
   position: relative;
   z-index: 0;
   margin-top: 35px;
+}
+
+.lat-menu-detailed-nav{
+  width: 200px;
+  float: left;
+  min-height: 10px;
+  margin-right: 10px;
+  position: relative;
+  z-index: 0;
 }
 
 
@@ -933,6 +950,13 @@ Flags styles
   font-size: 11px;
   text-align: right;
   padding: 12px 0;
+  a{
+    color:@white;
+    &:hover{
+      color:@white;
+      text-decoration: none;
+    }
+  }
 }
 
 .footer-body {
@@ -1076,9 +1100,9 @@ table{
 
 .table-pack {
   border: 1px solid silver;
-  font-size: 10px;
+  font-size: 11px;
   color: @white;
-  font-family: fontpo;
+  font-family: Arial;
   tbody {
     tr {
       cursor: pointer;
@@ -1144,10 +1168,6 @@ table{
   background-color: #ECECED;
   td{
     padding: 0.8em 5px 0.8em 10px;
- /*   padding-left: 10px;
-    padding-top: 0.8em;
-    padding-bottom: 0.8em;
-    padding-right: 5px;*/
     line-height: 1.2em;
     vertical-align: top;
   }
@@ -1252,6 +1272,7 @@ table{
   text-align: center;
   padding: 5px 10px;
 }
+
 
 /******** end Tabs Classes ****/
 .home-text-container {
@@ -1624,8 +1645,9 @@ table{
   }
 
   .modal-body{
-    width: 500px;
-    height: 70px;
+    width: 490px;
+    height: 40px;
+    padding: 5px;
     margin-left: 5px;
     overflow: hidden;
     text-align: center;
@@ -1712,7 +1734,6 @@ select{
     float: left;
     font-size: 18px;
     margin-bottom: 0.4em;
-    border-top: 1px solid @black;
   }
 
   .underlined-title{
@@ -1751,6 +1772,13 @@ select{
     background-color: @black;
     padding: 3px;
     color: @white;
+  }
+
+  .public-images{
+    text-align: center !important;
+    img {
+      width: 80%;
+    }
   }
 
 
@@ -2040,6 +2068,13 @@ tooltip-placement=" top ultra-left-tooltip" **/
   width: 450px;
   height: 130px;
   margin: auto;
+}
+
+.faq-index{
+  font-family: fontpo-bold, verdana;
+  li{
+    cursor: pointer;
+  }
 }
 
 /**
