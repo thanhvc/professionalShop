@@ -70,6 +70,16 @@ angular.module('auth',['http-auth-interceptor'])
 
             controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state, ShoppingCartService) {
 
+                if ($window.sessionStorage.username != null) {
+                    $scope.currentUser = $window.sessionStorage.username;
+                }
+                $scope.$on('userLogged',function(data,params){
+                    $scope.hideSignInForm();
+                    $scope.currentUser = params.name;
+                    $window.sessionStorage.username = params.name;
+                    $window.sessionStorage.token = params.token;
+                });
+
                 $scope.stateSignInForm = false;
                 $scope.firstTime = false;
 
@@ -86,6 +96,7 @@ angular.module('auth',['http-auth-interceptor'])
                     $http.post($rootScope.urlService+'/login', data)
                         .success(function (data, status, headers, config) {
                             $window.sessionStorage.token = data.authToken;
+                            $window.sessionStorage.username = data.name;
                             authService.loginConfirmed();
                             $scope.errorSignIn = false;
                             $state.go('my-patterns');
@@ -115,6 +126,7 @@ angular.module('auth',['http-auth-interceptor'])
                             $scope.removeAllItemsCart();
                             $state.go('home');
                             $window.sessionStorage.removeItem('token');
+                            $window.sessionStorage.removeItem('username');
                         });
                 };
             },
