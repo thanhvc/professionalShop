@@ -24,7 +24,7 @@ angular.module('ngMo.correlation', [
     .run(function run() {
     })
 
-    .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, CorrelationService) {
+    .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -189,23 +189,32 @@ angular.module('ngMo.correlation', [
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
             $scope.applyFilters();
+            $scope.clearResults();
         };
 
+        $scope.clearResults = function () {
+            $scope.correlationData = [];
+            $scope.correlationCaption1 = [];
+            $scope.correlationCaption2 = [];
+            $scope.correlationList = [];
+            $window.sessionStorage.removeItem("correlationList");
+        };
 
         //restore filters and load page
         $scope.restoreData = function () {
             $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
         };
 
-        $scope.correlationList = [];
-
+        if ($window.sessionStorage.correlationList != null) {
+            $scope.correlationList = angular.fromJson($window.sessionStorage.correlationList);
+        }else{
+            $scope.correlationList = [];
+        }
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.correlationList, function (data) {
                     $scope.myData = data.patterns;//data.page;
-                    //$scope.correlationList = data.correlationPatterns;
-                    /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     if (!$scope.$$phase) {
@@ -220,6 +229,7 @@ angular.module('ngMo.correlation', [
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.correlationList, function (data) {
                         $scope.myData = data.patterns;//data.page;
                         $scope.correlationList = data.correlationPatterns;
+                        $window.sessionStorage.correlationList = JSON.stringify(data.correlationPatterns);
                         /*mocked, this info is loaded from data*/
                         $scope.results = data.results;//data.results;
                         $scope.found = data.found;//data.found;
@@ -235,13 +245,83 @@ angular.module('ngMo.correlation', [
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1,$scope.correlationList, function (data) {
                     $scope.myData = data.patterns;//data.page;
                     $scope.correlationList = data.correlationPatterns;
-                    /*mocked, this info is loaded from data*/
+                    $window.sessionStorage.correlationList = JSON.stringify(data.correlationPatterns);
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
                 });
+        };
+
+        $scope.clearCorrelationList = function () {
+            $scope.correlationList = [];
+            $window.sessionStorage.removeItem("correlationList");
+            $scope.correlationData = [];
+            $scope.loadPage();
+        };
+
+        $scope.correlate = function () {
+            if ($scope.correlationList.length > 0) {
+                /*var data = CorrelationService.getCorrelationData($scope.correlationList).then(function (data) {
+                 $scope.correlationData = data.patterns;
+                 $scope.correlationCaption1 = data.caption1;
+                 $scope.correlationCaption2 = data.caption2;
+                 });*/
+
+                /*TODO: Delete this code */
+                $scope.correlationData = [
+                    [
+                        null, 'A.PAX', 'B.PX1', 'C.DAX', 'D.SX5', 'E.AAC'
+                    ],
+                    [
+                        'A.PAX', null, 97, 71, 90, 69
+                    ],
+                    [
+                        'B.PX1', 97, null, 65, 91, 53
+                    ],
+                    [
+                        'C.DAX', 71, 65, null, 85, 65
+                    ],
+                    [
+                        'D.SX5', 90, 91, 85, null, 66
+                    ],
+                    [
+                        'E.AAC', 69, 53, 65, 66, null
+                    ]
+                ];
+
+                $scope.correlationCaption1 = [
+                    {
+                        'code': 'A.PX1',
+                        'symbol': 'PX1',
+                        'name': 'CAC 40'
+                    },
+                    {
+                        'code': 'B.DAX',
+                        'symbol': 'DAX',
+                        'name': 'DAX PERFORMANCE'
+                    }
+                ];
+
+                $scope.correlationCaption2 = [
+                    {
+                        'code': 'C.MIB',
+                        'symbol': 'MIBN',
+                        'name': 'FTSE MIB NET TOTAL RETURN LUX'
+                    },
+                    {
+                        'code': 'SX5',
+                        'symbol': 'SX5',
+                        'name': 'EUROSTOXX 50'
+                    },
+                    {
+                        'code': 'E.A2',
+                        'symbol': 'A2',
+                        'name': 'A2A SPA ORD'
+                    }
+                ];
+            }
         };
 
         /**
@@ -646,6 +726,14 @@ angular.module('ngMo.correlation', [
                 }
             }
 
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+
             //Operation -> Add or delete Pattern to correlationList
 
             config = {
@@ -655,7 +743,7 @@ angular.module('ngMo.correlation', [
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
                     'correlationList': correlationIdsList
                 }
             };
@@ -664,6 +752,24 @@ angular.module('ngMo.correlation', [
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
             });
+        };
+
+        this.getCorrelationData = function (correlationList) {
+            var deferred = $q.defer();
+
+            config = {
+                params: {
+                    'correlationList': correlationIdsList,
+                    'token': $window.sessionStorage.token
+                }
+            };
+
+            var result = $http.get($rootScope.urlService+'/correlationresult', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
 
         /**

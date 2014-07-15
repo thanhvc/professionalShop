@@ -85,14 +85,14 @@
         <td style="text-align: left; width: 230px;vertical-align: middle;" class="table-cell-patterns border-right-table">
             <span>Comprar</span>
             <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.asset.shortName}}">
+                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
                  {{data.asset.longName}}
             </span>
             <br/>
             <div class="text-limitator">
             <span>Vender</span>
             <span class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.bearishAsset.shortName}}">
+                  tooltip-html-unsafe="{{data.bearishAsset.longName}} ({{data.bearishAsset.exchange.symbol}})">
                 {{data.bearishAsset.longName}}
             </span>
             </div>

@@ -41,19 +41,18 @@
 
             </div>
 
-
                 <div class="footer-table-correlation">
                     <div class="pagination-correlation-container">
-                        <pagination ng-show="found > 15" boundary-links="true" on-select-page="setPage(page)" total-items="found"
-                                    items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                        <pagination ng-show="found > pagingOptions.pageSize" boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                                    items-per-page="pagingOptions.pageSize" max-size="10"
                                     page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
                                     next-text="&gt;"
                                     first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
                     </div>
-                    <button style="width: 120px;margin-left: 50px;" class="mo-cancel-button">
-                            Cancelar
+                    <button style="width: 120px;margin-left: 165px;margin-right:35px;" class="mo-cancel-button" ng-click="clearCorrelationList();">
+                        Cancelar
                     </button>
-                    <button style="width: 120px;" class="mo-button">
+                    <button style="width: 120px;" class="mo-button" ng-click="correlate();">
                         Calcular
                     </button>
                 </div>
@@ -61,5 +60,58 @@
 
         </tab>
     </tabset>
+    <div ng-show="correlationData.length > 0">
+        <table class="table-correlation-result">
+            <thead>
+                <tr>
+                    <th colspan="6">COEFICIENTES DE CORRELACIÓN (%) (Preg fecha)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in correlationData track by $index">
+                    <td ng-repeat="column in row track by $index" ng-class="{'high-correlation': column >= 80}">{{column}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin: 0 auto; width: 740px;">
+            <table class="correlation-caption-table" >
+                <thead>
+                    <tr>
+                        <td>Código</td>
+                        <td>Símbolo</td>
+                        <td>Nombre</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in correlationCaption1 track by $index">
+                        <td>{{row.code}}</td>
+                        <td>{{row.symbol}}</td>
+                        <td>{{row.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
 
+            <table class="correlation-caption-table" style="margin-left: 75px;">
+                <thead>
+                <tr>
+                    <td>Código</td>
+                    <td>Símbolo</td>
+                    <td>Nombre</td>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in correlationCaption2 track by $index">
+                        <td>{{row.code}}</td>
+                        <td>{{row.symbol}}</td>
+                        <td>{{row.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="excel-correlation-icon"></div>
+            <div class="pdf-correlation-icon"></div>
+            <div class="copyright">
+                Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+            </div>
+        </div>
+    </div>
 </div>
