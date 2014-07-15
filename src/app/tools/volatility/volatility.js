@@ -1,28 +1,54 @@
-angular.module('ngMo.volatility', [
-    'ui.router'
-])
+/**
+ * Created by robgon on 28/05/14.
+ */
 
+
+angular.module('ngMo.volatility', [
+    'ui.router',
+    'ui.bootstrap'
+])
     .config(function config($stateProvider) {
         $stateProvider.state('volatility', {
             url: '/volatility',
             views: {
                 "main": {
                     controller: 'VolatilityCtrl',
-                    templateUrl: 'tools/volatility/volatility.tpl.html'
+                    templateUrl: 'tools/volatility/volatility.tpl.html',
+                    reloadOnSearch: false//with this option, the controller will not reload the page when it change
+                    //the params on url
                 }
             },
             data: {
-                pageTitle: 'Volatility',
+                pageTitle: 'Volatilidad',
                 selectMenu: 'tools-nav',
                 selectSubmenu: 'submenu1',
                 selectItemSubmenu: 'volatility-nav',
                 moMenuType: 'privateMenu'
+            },
+            reloadOnSearch: false,
+            resolve: {
+                MonthSelectorService: "MonthSelectorService",
+                VolatilityService: "VolatilityService",
+                TabsService: "TabsService",
+                filtering : function(TabsService,MonthSelectorService){
+                    return {
+                        active_tab: TabsService.getActiveTab(),
+                        month: MonthSelectorService.restartDate()
+                    };
+                },
+                myPatternsData: function(VolatilityService, filtering) {
+                    return VolatilityService.getPagedDataAsync(1, filtering).then(function (data){
+                        return {
+                            patterns: data.patterns,
+                            results: data.results,
+                            found: data.found
+                        };
 
+                    });
+                }
             }
         });
     })
-
-
     .service('TabsService', function () {
 
         /**Tabs services for private zone**/
@@ -90,188 +116,536 @@ angular.module('ngMo.volatility', [
             activeTab = active;
         };
     })
-
-
-    .run(function run() {
-
-    })
-
-    .controller('VolatilityCtrl', function PatternsCtrl($scope, TabsService, MonthSelectorService, $location, PatternsService) {
-
-
+    .controller('VolatilityCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData) {
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            IsLogged.isLogged();
+        });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
-                $scope.myData = [
-                    {'name': '4IMPRINT GROUP PLC', 'market': 'LSE', 'date': '23 may 2014', 'vol': '30'},
-                    {'name': '600 GROUP PLC', 'market': 'LSE', 'date': '23 may 2014', 'vol': '51'},
-                    {'name': 'A.SCHULMAN', 'market': 'NASDAQ', 'date': '27 may 2014', 'vol': '26'},
-                    {'name': 'A2A SPA ORD', 'market': 'MI', 'date': '27 may 2014', 'vol': '35'},
-                    {'name': 'AASTROM BIOSCIENCES', 'market': 'NASDAQ', 'date': '12 may 2014', 'vol': '127'},
-                    {'name': 'ACERINOX ORD', 'market': 'MC', 'date': '27 may 2014', 'vol': '24'},
-                    {'name': 'ACTIA GROUP ORD', 'market': 'PA', 'date': '27 may 2014', 'vol': '65'},
-                    {'name': 'ACTIVISION BLIZZARD INC', 'market': 'NASDAQ', 'date': '12 may 2014', 'vol': '33'},
-                    {'name': 'ACXIOM CORP.', 'market': 'NASDAQ', 'date': '27 may 2014', 'vol': '69'},
-                    {'name': 'ADTEC CORP. : 6840', 'market': 'TSE', 'date': '12 may 2014', 'vol': '48'},
-                    {'name': 'ADV MICRO DEV OR', 'market': 'BE', 'date': '26 may 2014', 'vol': '46'},
-                    {'name': 'ADVA OPTICAL ORD', 'market': 'BE', 'date': '26 may 2014', 'vol': '37'},
-                    {'name': 'ADVANCED MEDICAL SOLUTIONS GROUP PLC', 'market': 'LSE', 'date': '23 may 2014', 'vol': '35'},
-                    {'name': 'ADVANCED MICRO DEVICES', 'market': 'NYSE', 'date': '9 may 2014', 'vol': '44'},
-                    {'name': 'ADVTECH', 'market': 'J', 'date': '26 may 2014', 'vol': '37'},
-                    {'name': 'AEDES ORD', 'market': 'MI', 'date': '27 may 2014', 'vol': '54'},
-                    {'name': 'AEDES ORD', 'market': 'BE', 'date': '26 may 2014', 'vol': '26'},
-                    {'name': 'AETERNA ZENTARIS', 'market': 'NASDAQ', 'date': '12 may 2014', 'vol': '56'},
-                    {'name': 'AETNA INC.', 'market': 'NYSE', 'date': '9 may 2014', 'vol': '27'},
-                    {'name': 'AGNICO-EAGLE MINES LIMITED', 'market': 'NYSE', 'date': '9 may 2014', 'vol': '43'}
-                ];
+            }
+        });
+        //tabs and variables
+        //pattern number for rents
+        $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
+        $scope.daysPattern = /^\d+$/;
+        /**private models*/
+        $scope.selectedTab = TabsService.getActiveTab();
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.actualDate = data.actualDate;
+        });
+        $scope.tabs = TabsService.getTabs();
+        $scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
+        $scope.totalServerItems = 0;
+        /*paging options*/
+        $scope.pagingOptions = {
+            pageSize: 10,
+            currentPage: 1
+        };
 
-                window.onload = function () {
-                    document.getElementsByClassName('green')[2].style.color = '#54BA1E';
-                    document.getElementsByClassName('green')[6].style.color = '#54BA1E ';
-                    document.getElementsByClassName('green')[8].style.color = '#54BA1E ';
-                    document.getElementsByClassName('green')[11].style.color = '#54BA1E ';
-                    document.getElementsByClassName('green')[13].style.color = '#54BA1E ';
-                    document.getElementsByClassName('green')[17].style.color = '#54BA1E ';
-                    document.getElementsByClassName('green')[18].style.color = '#54BA1E ';
+        $scope.loadGraphic = function (name) {
+
+            var elemDiv = document.createElement('div');
+            elemDiv.innerHTML = name.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
+            var img = document.createElement('img');
+            img.src = "assets/img/graphic.png";
+            img.style.cssText = "display:block;padding-top:30px;height:100;width:750;style:margin-right:20px;class:historyImagePar";
+            elemDiv.style.cssText = 'position:absolute;padding-top:30px; height:600px;text-align:center;color:#996600;position:absolute;width:68%;top:238px;left:45%;z-index:100;background:white;';
+            var closeButton = document.createElement('img');
+            closeButton.src = "assets/img/close_modal.png";
+            closeButton.style.cssText = 'position:relative;top:0px;left:300px;height:15px;width:15px';
+            closeButton.onclick = function (event) {
+
+                setTimeout(function(){
+                    event.srcElement.parentElement.className ='move-to-the-right';
+                    event.srcElement.parentElement.addEventListener('webkitTransitionEnd', function(event2) {
+                        event.srcElement.parentElement.style.cssText = 'display:none';
+
+                    });
+                },0);
 
 
-                };
+            };
+            elemDiv.appendChild(closeButton);
+            elemDiv.appendChild(img);
+            document.body.appendChild(elemDiv);
+
+            setTimeout(function(){
+                elemDiv.className+=' move';
+
+            },0);
+
+            return 0;
+
+        };
 
 
+        /** templates of filters/tables for each tab**/
+        var templateTables = [
+            {"table": 'tools/volatility/tables/stocks_table.tpl.html',
+                "filter": 'tools/volatility/filters/stocks_filters.tpl.html'},
+
+            {"table": 'tools/volatility/volatility.tpl.html',
+                "filter": 'my_patterns/filters/pairs_filters.tpl.html'},
+
+            [
+                {"table": 'my_patterns/tables/index_table.tpl.html',
+                    "filter": 'my_patterns/filters/index_filters.tpl.html'},
+                {"table": 'my_patterns/tables/pairs_index_table.tpl.html',
+                    "filter": 'my_patterns/filters/index_filters.tpl.html'}
+            ],
+
+            {"table": 'my_patterns/tables/futures_table.tpl.html',
+                "filter": 'my_patterns/filters/futures_filters.tpl.html'}
+        ];
+
+
+        $scope.setPage = function (page) {
+            $scope.pagingOptions.currentPage = page;
+            $scope.saveUrlParams();
+        };
+
+        $scope.toggleFavorite = function (patternId){
+            var data = VolatilityService.setFavorite(patternId).then(function (data) {
+                $scope.loadPage();
+            });
+        };
+
+        /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
+        $scope.restartFilter = function () {
+            var restartMonth = true;
+            var restartMonthList = true;
+            if ($scope.filterOptions.filters) {
+                if ($scope.filterOptions.filters.month) {
+                    restartMonth = false;
+                }
+                if ($scope.filterOptions.selectors.months) {
+                    restartMonthList = false;
+                }
+            }
+            $scope.filterOptions = {
+                filters: {
+                    filterName: "",
+                    selectedRegion: "",
+                    selectedMarket: "",
+                    selectedSector: "",
+                    selectedIndustry: "",
+                    selectedOperation: "",
+                    selectedRent: "",
+                    rentInput: "",
+                    selectedAverage: "",
+                    rentAverageInput: "",
+                    selectedRentDiary: "",
+                    rentDiaryInput: "",
+                    selectedVolatility: "",
+                    volatilityInput: "",
+                    selectedDuration: "",
+                    durationInput: "",
+                    index_type: TabsService.getActiveIndexType(),
+                    tab_type: $scope.tabs[TabsService.getActiveTab()].title,
+                    active_tab: TabsService.getActiveTab(),
+                    //if month is set, we keep the value
+                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    favourite: false},
+                selectors: {
+                    regions: [
+
+                    ],
+
+                    markets: [
+                    ],
+
+                    sectors: [
+                        {"id": 1, "description": "Sector1"},
+                        {"id": 2, "description": "Sector2"}
+                    ],
+
+                    industries: [
+                        {"id": 1, "description": "Industry1"},
+                        {"id": 2, "description": "Industry2"}
+                    ],
+
+                    operations: [
+                        {"id": 1, "description": "buy"},
+                        {"id": 2, "description": "sell"}
+                    ],
+                    comparators: [
+                        {"id": 1, "description": "Menor que"},
+                        {"id": 2, "description": "Mayor que"}
+                    ]
+
+                }
+            };
+            if (!$scope.filterOptions.months) {
+                $scope.filterOptions.months = MonthSelectorService.getListMonths();
+            }
+            //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
+            $scope.updateSelectorMonth();
+
+            //refresh all the selectors
+            switch (TabsService.getActiveTab()) {
+                case 0:     //stocks
+                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                    break;
+                case 1:     //pairs
+                    $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                    break;
+                case 2:     //index (pair and index)
+                    break;
+                case 3:     //futures
+                    $scope.refreshSelectors(['markets']);
+                    break;
             }
 
-            $scope.pagingOptions = {
-                pageSize: 10,
-                currentPage: 1
+        };
+
+
+        /*load the table template*/
+        $scope.getTemplateTable = function () {
+            switch (TabsService.getActiveTab()) {
+                case 2:         //index
+                    return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].table;
+                default:        //others
+                    return templateTables[TabsService.getActiveTab()].table;
+            }
+
+        };
+        /*load the filter template*/
+        $scope.getTemplateFilter = function () {
+            switch (TabsService.getActiveTab()) {
+                case 2:         //index
+                    return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].filter;
+                default:        //others
+                    return templateTables[TabsService.getActiveTab()].filter;
+            }
+        };
+        /*changeTab, launches the http get*/
+        $scope.changeTabVol = function (idTab) {
+            //we change the page to 1, to load the new tab
+            TabsService.changeActiveTab(idTab);
+            $scope.restartFilter();
+            $scope.applyFilters();
+        };
+
+
+        //restore filters and load page
+        $scope.restoreData = function () {
+            $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
+        };
+
+        /* sets the data in the table, and the results/found in the data to be showed in the view*/
+        $scope.loadPage = function () {
+            var data = VolatilityService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
+                $scope.myData = data.patterns;//data.page;
+                $scope.results = data.results;//data.results;
+                $scope.found = data.found;//data.found;
+            });
+
+
+        };
+        /**
+         *      make a petition of selectors, the selectors is an array of the selectors required from server
+         */
+        $scope.refreshSelectors = function (selectors) {
+            VolatilityService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
+                //checks the data received, when a selector is refreshed, the value selected is also cleaned
+                if (data.hasOwnProperty("markets")) {
+                    $scope.filterOptions.selectors.markets = data.markets;
+                    $scope.filterOptions.filters.selectedMarket = "";
+                }
+                if (data.hasOwnProperty("regions")) {
+                    $scope.filterOptions.selectors.regions = data.regions;
+                    $scope.filterOptions.filters.selectedRegion = "";
+                }
+                if (data.hasOwnProperty("industries")) {
+                    $scope.filterOptions.selectors.industries = data.industries;
+                    $scope.filterOptions.filters.selectedIndustry = "";
+                }
+                if (data.hasOwnProperty("sectors")) {
+                    $scope.filterOptions.selectors.sectors = data.sectors;
+                    $scope.filterOptions.filters.selectedSector = "";
+                }
+            });
+        };
+
+        /**
+         *  make a new search with the filters, restart the page and search, for the button Search in the page
+         */
+        $scope.search = function () {
+
+
+            $scope.applyFilters();
+        };
+
+        /*apply filters to search, restarting the page*/
+        $scope.applyFilters = function () {
+            $scope.pagingOptions.currentPage = 1; //restart the page
+            $scope.checkFilters();//check if selectors and inputs are right
+            $scope.saveUrlParams();
+            $scope.loadPage();
+        };
+
+        /*check that all rent filters have  values and a selector*/
+        $scope.checkFilters = function () {
+            //for each input filter filled, the selector linked must be set
+            if (!($scope.filterOptions.filters.selectedAverage &&
+                $scope.filterOptions.filters.rentAverageInput)) {
+                $scope.filterOptions.filters.selectedAverage = "";
+                $scope.filterOptions.filters.rentAverageInput = "";
+            }
+            if (!($scope.filterOptions.filters.rentInput &&
+                $scope.filterOptions.filters.selectedRent)) {
+                $scope.filterOptions.filters.rentInput = "";
+                $scope.filterOptions.filters.selectedRent = "";
+            }
+            if (!($scope.filterOptions.filters.rentDiaryInput &&
+                $scope.filterOptions.filters.selectedRentDiary)) {
+                $scope.filterOptions.filters.rentDiaryInput = "";
+                $scope.filterOptions.filters.selectedRentDiary = "";
+            }
+            if (!($scope.filterOptions.filters.volatilityInput &&
+                $scope.filterOptions.filters.selectedVolatility)) {
+                $scope.filterOptions.filters.volatilityInput = "";
+                $scope.filterOptions.filters.selectedVolatility = "";
+            }
+            if (!($scope.filterOptions.filters.durationInput &&
+                $scope.filterOptions.filters.selectedDuration)) {
+                $scope.filterOptions.filters.durationInput = "";
+                $scope.filterOptions.filters.selectedDuration = "";
+            }
+        };
+        /**
+         * specific functions to refresh each selector,
+         * This functions are defined to be used in onchange events, this way
+         * we dont use watch (for dont overload the scope)
+         * note: select Region/operation uses Search, because is like push the button Search..
+         */
+
+        $scope.refreshRegion = function () {
+            switch (TabsService.getActiveTab()) {
+                case 0://stock have markets to refresh
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    break;
+                case 1://pairs doesnt have markets
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    break;
+                case 3: //futures ONLY have markets
+                    $scope.refreshSelectors(['markets']);
+                    break;
+                default://others doesnt have selectors to refresh
+                    break;
+            }
+        };
+        $scope.selectRegion = function () {
+            $scope.refreshRegion();
+            $scope.applyFilters();
+
+        };
+
+        //refresh selectors depending of market
+        $scope.refreshMarket = function () {
+            if (TabsService.getActiveTab() === 0) {
+                $scope.refreshSelectors(['industries', 'sectors']);
+            }
+        };
+        $scope.selectMarket = function () {
+            //in stock is required refresh industries, sectors, in futures and
+            //others tabs dont have this selectors
+            $scope.refreshMarket();
+            $scope.applyFilters();
+        };
+
+        //only used in stock
+        $scope.refreshSector = function () {
+            $scope.refreshSelectors(['industries']);
+        };
+        $scope.selectSector = function () {
+            $scope.refreshSector();
+            $scope.applyFilters();
+        };
+
+        //when we change index type (pairs_index, or index)
+        $scope.selectIndexType = function () {
+            TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
+            $scope.applyFilters();
+        };
+
+
+        /**
+         * month controls
+         * */
+
+
+        $scope.nextMonth = function () {
+            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
+            $scope.restartFilter();
+            $scope.saveUrlParams();
+
+        };
+        $scope.previousMonth = function () {
+            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
+            $scope.restartFilter();
+            $scope.saveUrlParams();
+        };
+        //this function update the Month object in the filter from the value
+        $scope.goToMonth = function () {
+            var date = $scope.filterOptions.filters.selectMonth.value.split("_");
+            var d = new Date(date[1], date[0] - 1, 1);
+            $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+            $scope.restartFilter();
+            $scope.saveUrlParams();
+        };
+        //synchronize the selector with the month of the filter
+        $scope.updateSelectorMonth = function () {
+            for (i = 0; i < $scope.filterOptions.months.length; i++) {
+                if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
+                    $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[i];
+                }
+            }
+        };
+
+        $scope.canMove = function (direction) {
+            if (direction > 0) {
+                return (($scope.filterOptions.months[11].value !== $scope.filterOptions.filters.month.value));
+            }
+            else {
+                return (($scope.filterOptions.months[0].value !== $scope.filterOptions.filters.month.value));
+            }
+        };
+
+        ///urlParams control
+        $scope.saveUrlParams = function () {
+            var urlParams = $scope.filterOptions.filters;
+            urlParams.page = $scope.pagingOptions.currentPage;
+            //we ask each param to include in the url or not
+            var urlParamsSend = {};
+            if (urlParams.filterName) {
+                urlParamsSend.qname = urlParams.filterName;
+            }
+
+            if (urlParams.selectedRegion) {
+                urlParamsSend.qregion = urlParams.selectedRegion;
+            }
+
+            if (urlParams.selectedMarket) {
+                urlParamsSend.qmarket = urlParams.selectedMarket;
+            }
+
+            if (urlParams.selectedSector) {
+                urlParamsSend.qsector = urlParams.selectedSector;
+            }
+
+            if (urlParams.selectedIndustry) {
+                urlParamsSend.qindust = urlParams.selectedIndustry;
+            }
+            if (urlParams.selectedOperation) {
+                urlParamsSend.qop = urlParams.selectedOperation;
+            }
+            if (urlParams.selectedRent) {
+                urlParamsSend.qselrent = urlParams.selectedRent;
+            }
+            if (urlParams.rentInput) {
+                urlParamsSend.qrent = urlParams.rentInput;
+            }
+            if (urlParams.selectedAverage) {
+                urlParamsSend.qselaver = urlParams.selectedAverage;
+            }
+            if (urlParams.rentAverageInput) {
+                urlParamsSend.qaver = urlParams.rentAverageInput;
+            }
+            if (urlParams.selectedRentDiary) {
+                urlParamsSend.qseldiar = urlParams.selectedRentDiary;
+            }
+            if (urlParams.rentDiaryInput) {
+                urlParamsSend.qdiar = urlParams.rentDiaryInput;
+            }
+            if (urlParams.selectedVolatility) {
+                urlParamsSend.qselvol = urlParams.selectedVolatility;
+            }
+            if (urlParams.volatilityInput) {
+                urlParamsSend.qvol = urlParams.volatilityInput;
+            }
+            if (urlParams.selectedDuration) {
+                urlParamsSend.qseldur = urlParams.selectedDuration;
+            }
+            if (urlParams.durationInput) {
+                urlParamsSend.qdur = urlParams.durationInput;
+            }
+            if (urlParams.index_type) {
+                urlParamsSend.qindex = urlParams.index_type;
+            }
+            if (urlParams.tab_type) {
+                urlParamsSend.qtab = urlParams.tab_type;
+            }
+            if (urlParams.active_tab === 0 || (urlParams.active_tab)) {
+                urlParamsSend.qacttab = urlParams.active_tab;
+            }
+            if (urlParams.favourite) {
+                urlParamsSend.qfav = urlParams.favourite;
+            }
+            urlParamsSend.pag = urlParams.page;
+            urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
+
+            $location.path('/patterns').search(urlParamsSend);
+        };
+        $scope.loadUrlParams = function () {
+            var params = $location.search();
+
+            var filters = {
+                filterName: (params.qname ? params.qname : "" ),
+                selectedOperation: (params.qop ? params.qop : "" ),
+                selectedRent: (params.qselrent ? params.qselrent : "" ),
+                rentInput: (params.qrent ? params.qrent : "" ),
+                selectedAverage: (params.qselaver ? params.qselaver : "" ),
+                rentAverageInput: (params.qaver ? params.qaver : "" ),
+                selectedRentDiary: (params.qseldiar ? params.qseldiar : "" ),
+                rentDiaryInput: (params.qdiar ? params.qdiar : "" ),
+                selectedVolatility: (params.qselvol ? params.qselvol : "" ),
+                volatilityInput: (params.qvol ? params.qvol : "" ),
+                selectedDuration: (params.qseldur ? params.qseldur : "" ),
+                durationInput: (params.qdur ? params.qdur : "" ),
+                index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
+                tab_type: (params.qtab ? params.qtab : "" ),
+                active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
+                favourite: (params.qfav ? params.qfav : "" )
             };
-            $scope.selectedTab = TabsService.getActiveTab();
-            $scope.tabs = TabsService.getTabs();
-            $scope.filterOptions = "";
 
-            var templateTables = [
-                {"table": 'my_patterns/tables/stocks_table.tpl.html',
-                    "filter": 'my_patterns/filters/stocks_filters.tpl.html'},
-
-                {"table": 'my_patterns/tables/pairs_table.tpl.html',
-                    "filter": 'my_patterns/filters/pairs_filters.tpl.html'},
-
-                [
-                    {"table": 'my_patterns/tables/index_table.tpl.html',
-                        "filter": 'my_patterns/filters/index_filters.tpl.html'},
-                    {"table": 'my_patterns/tables/pairs_index_table.tpl.html',
-                        "filter": 'my_patterns/filters/index_filters.tpl.html'}
-                ],
-
-                {"table": 'my_patterns/tables/futures_table.tpl.html',
-                    "filter": 'my_patterns/filters/futures_filters.tpl.html'}
-            ];
-
-            $scope.restartFilter = function () {
-                var restartMonth = true;
-                var restartMonthList = true;
-                if ($scope.filterOptions.filters) {
-                    if ($scope.filterOptions.filters.month) {
-                        restartMonth = false;
-                    }
-                    if ($scope.filterOptions.selectors.months) {
-                        restartMonthList = false;
+            //special cases:
+            var tabChanged = false;
+            //if the params tab is different of the actual tab
+            if (($scope.filterOptions.filters.active_tab !== params.qacttab)) {
+                //change tab
+                TabsService.changeActiveTab((params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab()));
+                for (i = 0; i < $scope.tabs.length; i++) {
+                    if ($scope.tabs[i].value === TabsService.getActiveTab()) {
+                        $scope.tabs[i].active = true;
+                        tabChanged = true;
+                    } else {
+                        $scope.tabs[i].active = false;
                     }
                 }
-                $scope.filterOptions = {
-                    filters: {
-                        filterName: "",
-                        selectedRegion: "",
-                        selectedMarket: "",
-                        selectedSector: "",
-                        selectedIndustry: "",
-                        selectedOperation: "",
-                        selectedRent: "",
-                        rentInput: "",
-                        selectedAverage: "",
-                        rentAverageInput: "",
-                        selectedRentDiary: "",
-                        rentDiaryInput: "",
-                        selectedVolatility: "",
-                        volatilityInput: "",
-                        selectedDuration: "",
-                        durationInput: "",
-                        index_type: TabsService.getActiveIndexType(),
-                        tab_type: $scope.tabs[TabsService.getActiveTab()].title,
-                        active_tab: TabsService.getActiveTab(),
-                        //if month is set, we keep the value
-                        month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
-                        favourite: false},
-                    selectors: {
-                        regions: [
+            }
+            //if the month is defined in the params
+            if (params.month) {
+                var date = params.month.split("_");
+                var d = new Date(date[1], date[0] - 1, 1);
+                filters.month = MonthSelectorService.setDate(d);
 
-                        ],
 
-                        markets: [
-                        ],
+            } else {
+                //if the date is not passed as param, we load the default date
+                var date_restart = new Date();
+                filters.month = MonthSelectorService.restartDate();
+            }
 
-                        sectors: [
-                            {"id": 1, "description": "Sector1"},
-                            {"id": 2, "description": "Sector2"}
-                        ],
-
-                        industries: [
-                            {"id": 1, "description": "Industry1"},
-                            {"id": 2, "description": "Industry2"}
-                        ],
-
-                        operations: [
-                            {"id": 1, "description": "buy"},
-                            {"id": 2, "description": "sell"}
-                        ],
-                        comparators: [
-                            {"id": 1, "description": "Menor que"},
-                            {"id": 2, "description": "Mayor que"}
-                        ]
-
-                    }
-                };
-                if (!$scope.filterOptions.months) {
-                    $scope.filterOptions.months = MonthSelectorService.getListMonths();
-                }
-                //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
-                $scope.updateSelectorMonth();
-
-                /*check that all rent filters have  values and a selector*/
-                $scope.checkFilters = function () {
-                    //for each input filter filled, the selector linked must be set
-                    if (!($scope.filterOptions.filters.selectedAverage &&
-                        $scope.filterOptions.filters.rentAverageInput)) {
-                        $scope.filterOptions.filters.selectedAverage = "";
-                        $scope.filterOptions.filters.rentAverageInput = "";
-                    }
-                    if (!($scope.filterOptions.filters.rentInput &&
-                        $scope.filterOptions.filters.selectedRent)) {
-                        $scope.filterOptions.filters.rentInput = "";
-                        $scope.filterOptions.filters.selectedRent = "";
-                    }
-                    if (!($scope.filterOptions.filters.rentDiaryInput &&
-                        $scope.filterOptions.filters.selectedRentDiary)) {
-                        $scope.filterOptions.filters.rentDiaryInput = "";
-                        $scope.filterOptions.filters.selectedRentDiary = "";
-                    }
-                    if (!($scope.filterOptions.filters.volatilityInput &&
-                        $scope.filterOptions.filters.selectedVolatility)) {
-                        $scope.filterOptions.filters.volatilityInput = "";
-                        $scope.filterOptions.filters.selectedVolatility = "";
-                    }
-                    if (!($scope.filterOptions.filters.durationInput &&
-                        $scope.filterOptions.filters.selectedDuration)) {
-                        $scope.filterOptions.filters.durationInput = "";
-                        $scope.filterOptions.filters.selectedDuration = "";
-                    }
-                };
-                //refresh all the selectors
+            //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
+            if (tabChanged) {
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
-                        $scope.refreshSelectors(['months', 'regions', 'markets']);
+                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
                         break;
                     case 1:     //pairs
-                        $scope.refreshSelectors(['regions', 'industries']);
+                        $scope.refreshSelectors(['regions', 'industries', 'sectors']);
                         break;
                     case 2:     //index (pair and index)
                         break;
@@ -279,314 +653,74 @@ angular.module('ngMo.volatility', [
                         $scope.refreshSelectors(['markets']);
                         break;
                 }
-
-            };
-            //synchronize the selector with the month of the filter
-            $scope.updateSelectorMonth = function () {
-                for (i = 0; i < $scope.filterOptions.months.length; i++) {
-                    if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
-                        $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[i];
-                    }
-                }
-            };
-
-            $scope.refreshSelectors = function (selectors) {
-                PatternsService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
-                    //checks the data received, when a selector is refreshed, the value selected is also cleaned
-                    if (data.hasOwnProperty("markets")) {
-                        $scope.filterOptions.selectors.markets = data.markets;
-                        $scope.filterOptions.filters.selectedMarket = "";
-                    }
-                    if (data.hasOwnProperty("regions")) {
-                        $scope.filterOptions.selectors.regions = data.regions;
-                        $scope.filterOptions.filters.selectedRegion = "";
-                    }
-                    if (data.hasOwnProperty("industries")) {
-                        $scope.filterOptions.selectors.industries = data.industries;
-                        $scope.filterOptions.filters.selectedIndustry = "";
-                    }
-                    if (data.hasOwnProperty("sectors")) {
-                        $scope.filterOptions.selectors.sectors = data.sectors;
-                        $scope.filterOptions.filters.selectedSector = "";
-                    }
-                });
-            };
-            $scope.getTemplateTable = function () {
-                switch (TabsService.getActiveTab()) {
-                    case 2:         //index
-                        return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].table;
-                    default:        //others
-                        return templateTables[TabsService.getActiveTab()].table;
-                }
-
-            };
-            $scope.loadPage = function () {
-                var data = PatternsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
-                    $scope.myData = data.patterns;//data.page;
-                    $scope.results = data.results;//data.results;
-                    $scope.found = data.found;//data.found;
-                    $scope.myData.product = 'PEPE';
-                });
+            }
 
 
-            };
-            $scope.getTemplateFilter = function () {
-                switch (TabsService.getActiveTab()) {
-                    case 2:         //index
-                        return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].filter;
-                    default:        //others
-                        return templateTables[TabsService.getActiveTab()].filter;
-                }
-            };
+            //for a special case to load the selectors, we need save the region,market,...
+            //if the location.search region,market.. values are not the same that the filters, we need
+            //to reload the selectors...
+            if ((typeof params.qregion !== 'undefined') && ($scope.filterOptions.filters.selectedRegion !== params.qregion)) {
+                //if region is distinct, refresh all selectors
+                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
+                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
+                $scope.refreshRegion();
+                filters.selectedMarket = (params.qmarket ? params.qmarket : "");
+                filters.selectedSector = (params.qsector ? params.qsector : "" );
+                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
+            }
+            else if ((typeof params.qmarket !== 'undefined') && ($scope.filterOptions.filters.selectedMarket !== params.qmarket)) {
+                //region similar, but not market
+                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
+                $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
+                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
+                filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
+                $scope.refreshMarket();
+                filters.selectedSector = (params.qsector ? params.qsector : "" );
+                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
+            } else if ((typeof params.qsector !== 'undefined') && ($scope.filterOptions.filters.selectedSector !== params.qsector)) {
+                //region and market similar, but not sector
+                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
+                $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
+                $scope.filterOptions.filters.selectedSector = (params.qsector ? params.qsector : "" );
+                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
+                filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
+                filters.selectedSector = $scope.filterOptions.filters.selectedSector;
 
-            $scope.changeTab = function (idTab) {
-                //we change the page to 1, to load the new tab
-                TabsService.changeActiveTab(idTab);
-                $scope.selectedTab = TabsService.getActiveTab();
-                $scope.restartFilter();
-                $scope.applyFilters();
-                $scope.loadPage();
-            };
+                $scope.refreshSector();
+                $scope.filterOptions.filters.selectedIndustry = (params.qindust ? params.qindust : "" );
+            } else {
+                //or all are similar, or only industry is distinct (in that case all selectors are the same)
+                filters.selectedRegion = (params.qregion ? params.qregion : "" );
+                filters.selectedMarket = (params.qmarket ? params.qmarket : "");
+                filters.selectedSector = (params.qsector ? params.qsector : "" );
+                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
+            }
+            $scope.filterOptions.filters = filters;
+            $scope.updateSelectorMonth();
+            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
 
-            $scope.restoreData = function () {
-                $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
-            };
+        };
 
-            $scope.applyFilters = function () {
-                $scope.pagingOptions.currentPage = 1; //restart the page
-                $scope.checkFilters();//check if selectors and inputs are right
-                $scope.saveUrlParams();
-                //$scope.loadPage();
-            };
+        $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
+            $scope.loadUrlParams();
+            $scope.loadPage();
+        });
+        /*First load on page ready*/
+        $scope.restartFilter();
+        if ($location.search()) {
+            //if the paramsUrl are  passed, we load the page with the filters
+            $scope.loadUrlParams();
+        }
 
-            $scope.saveUrlParams = function () {
-                var urlParams = $scope.filterOptions.filters;
-                urlParams.page = $scope.pagingOptions.currentPage;
-                //we ask each param to include in the url or not
-                var urlParamsSend = {};
-                if (urlParams.filterName) {
-                    urlParamsSend.qname = urlParams.filterName;
-                }
-
-                if (urlParams.selectedRegion) {
-                    urlParamsSend.qregion = urlParams.selectedRegion;
-                }
-
-                if (urlParams.selectedMarket) {
-                    urlParamsSend.qmarket = urlParams.selectedMarket;
-                }
-
-                if (urlParams.selectedSector) {
-                    urlParamsSend.qsector = urlParams.selectedSector;
-                }
-
-                if (urlParams.selectedIndustry) {
-                    urlParamsSend.qindust = urlParams.selectedIndustry;
-                }
-                if (urlParams.selectedOperation) {
-                    urlParamsSend.qop = urlParams.selectedOperation;
-                }
-                if (urlParams.selectedRent) {
-                    urlParamsSend.qselrent = urlParams.selectedRent;
-                }
-                if (urlParams.rentInput) {
-                    urlParamsSend.qrent = urlParams.rentInput;
-                }
-                if (urlParams.selectedAverage) {
-                    urlParamsSend.qselaver = urlParams.selectedAverage;
-                }
-                if (urlParams.rentAverageInput) {
-                    urlParamsSend.qaver = urlParams.rentAverageInput;
-                }
-                if (urlParams.selectedRentDiary) {
-                    urlParamsSend.qseldiar = urlParams.selectedRentDiary;
-                }
-                if (urlParams.rentDiaryInput) {
-                    urlParamsSend.qdiar = urlParams.rentDiaryInput;
-                }
-                if (urlParams.selectedVolatility) {
-                    urlParamsSend.qselvol = urlParams.selectedVolatility;
-                }
-                if (urlParams.volatilityInput) {
-                    urlParamsSend.qvol = urlParams.volatilityInput;
-                }
-                if (urlParams.selectedDuration) {
-                    urlParamsSend.qseldur = urlParams.selectedDuration;
-                }
-                if (urlParams.durationInput) {
-                    urlParamsSend.qdur = urlParams.durationInput;
-                }
-                if (urlParams.index_type) {
-                    urlParamsSend.qindex = urlParams.index_type;
-                }
-                if (urlParams.tab_type) {
-                    urlParamsSend.qtab = urlParams.tab_type;
-                }
-                if (urlParams.active_tab === 0 || (urlParams.active_tab)) {
-                    urlParamsSend.qacttab = urlParams.active_tab;
-                }
-                if (urlParams.favourite) {
-                    urlParamsSend.qfav = urlParams.favourite;
-                }
-                urlParamsSend.pag = urlParams.page;
-                urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
-
-                $location.path('/volatility').search(urlParamsSend);
-            };
-
-            $scope.loadUrlParams = function () {
-                var params = $location.search();
-
-                var filters = {
-                    filterName: (params.qname ? params.qname : "" ),
-                    selectedOperation: (params.qop ? params.qop : "" ),
-                    selectedRent: (params.qselrent ? params.qselrent : "" ),
-                    rentInput: (params.qrent ? params.qrent : "" ),
-                    selectedAverage: (params.qselaver ? params.qselaver : "" ),
-                    rentAverageInput: (params.qaver ? params.qaver : "" ),
-                    selectedRentDiary: (params.qseldiar ? params.qseldiar : "" ),
-                    rentDiaryInput: (params.qdiar ? params.qdiar : "" ),
-                    selectedVolatility: (params.qselvol ? params.qselvol : "" ),
-                    volatilityInput: (params.qvol ? params.qvol : "" ),
-                    selectedDuration: (params.qseldur ? params.qseldur : "" ),
-                    durationInput: (params.qdur ? params.qdur : "" ),
-                    index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
-                    tab_type: (params.qtab ? params.qtab : "" ),
-                    active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                    favourite: (params.qfav ? params.qfav : "" )
-                };
-
-                //special cases:
-                var tabChanged = false;
-                //if the params tab is different of the actual tab
-                if (($scope.filterOptions.filters.active_tab !== params.qacttab)) {
-                    //change tab
-                    TabsService.changeActiveTab((params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab()));
-                    for (i = 0; i < $scope.tabs.length; i++) {
-                        if ($scope.tabs[i].value === TabsService.getActiveTab()) {
-                            $scope.tabs[i].active = true;
-                            tabChanged = true;
-                        } else {
-                            $scope.tabs[i].active = false;
-                        }
-                    }
-                }
-                //if the month is defined in the params
-                if (params.month) {
-                    var date = params.month.split("_");
-                    var d = new Date(date[1], date[0] - 1, 1);
-                    filters.month = MonthSelectorService.setDate(d);
+        //$scope.loadPage();
+        $scope.myData = myPatternsData.patterns;
+        $scope.results = myPatternsData.results;
+        $scope.found = myPatternsData.found;
 
 
-                } else {
-                    //if the date is not passed as param, we load the default date
-                    var date_restart = new Date();
-                    filters.month = MonthSelectorService.restartDate();
-                }
 
-                //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
-                if (tabChanged) {
-                    switch (TabsService.getActiveTab()) {
-                        case 0:     //stocks
-                            $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
-                            break;
-                        case 1:     //pairs
-                            $scope.refreshSelectors(['regions', 'industries', 'sectors']);
-                            break;
-                        case 2:     //index (pair and index)
-                            break;
-                        case 3:     //futures
-                            $scope.refreshSelectors(['markets']);
-                            break;
-                    }
-                }
-
-
-                //for a special case to load the selectors, we need save the region,market,...
-                //if the location.search region,market.. values are not the same that the filters, we need
-                //to reload the selectors...
-                if ((typeof params.qregion !== 'undefined') && ($scope.filterOptions.filters.selectedRegion !== params.qregion)) {
-                    //if region is distinct, refresh all selectors
-                    $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                    filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                    $scope.refreshRegion();
-                    filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                    filters.selectedSector = (params.qsector ? params.qsector : "" );
-                    filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-                }
-                else if ((typeof params.qmarket !== 'undefined') && ($scope.filterOptions.filters.selectedMarket !== params.qmarket)) {
-                    //region similar, but not market
-                    $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                    $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                    filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                    filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
-                    $scope.refreshMarket();
-                    filters.selectedSector = (params.qsector ? params.qsector : "" );
-                    filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-                } else if ((typeof params.qsector !== 'undefined') && ($scope.filterOptions.filters.selectedSector !== params.qsector)) {
-                    //region and market similar, but not sector
-                    $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                    $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                    $scope.filterOptions.filters.selectedSector = (params.qsector ? params.qsector : "" );
-                    filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                    filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
-                    filters.selectedSector = $scope.filterOptions.filters.selectedSector;
-
-                    $scope.refreshSector();
-                    $scope.filterOptions.filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-                } else {
-                    //or all are similar, or only industry is distinct (in that case all selectors are the same)
-                    filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                    filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                    filters.selectedSector = (params.qsector ? params.qsector : "" );
-                    filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-                }
-                $scope.filterOptions.filters = filters;
-                $scope.updateSelectorMonth();
-                $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
-
-            };
-
-            $scope.loadGraphic = function (name) {
-
-                var elemDiv = document.createElement('div');
-                elemDiv.innerHTML = name.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
-                var img = document.createElement('img');
-                img.src = "assets/img/graphic.png";
-                img.style.cssText = "display:block;padding-top:30px;height:100;width:750;style:margin-right:20px;class:historyImagePar";
-                elemDiv.style.cssText = 'position:absolute;padding-top:30px; height:600px;text-align:center;color:#996600;position:absolute;width:68%;top:238px;left:45%;z-index:100;background:white;';
-                var closeButton = document.createElement('img');
-                closeButton.src = "assets/img/close_modal.png";
-                closeButton.style.cssText = 'position:relative;top:0px;left:300px;height:15px;width:15px';
-                closeButton.onclick = function (event) {
-
-                    setTimeout(function(){
-                        event.srcElement.parentElement.className ='move-to-the-right';
-                        event.srcElement.parentElement.addEventListener('webkitTransitionEnd', function(event2) {
-                            event.srcElement.parentElement.style.cssText = 'display:none';
-
-                        });
-                    },0);
-
-
-                };
-                elemDiv.appendChild(closeButton);
-                elemDiv.appendChild(img);
-                document.body.appendChild(elemDiv);
-
-                setTimeout(function(){
-                    elemDiv.className+=' move';
-
-                },0);
-
-                return 0;
-
-            };
-
-       });
     })
-
-    .service("PatternsService", function ($http, $window, $rootScope, $q) {
+    .service("VolatilityService", function ($http, $window, $rootScope, $q) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -647,8 +781,6 @@ angular.module('ngMo.volatility', [
                 deferred.resolve();
                 return response.data;
             });
-
-            //window.location.href =$rootScope.urlService+'/patterns';
             return result;
         };
 
@@ -835,8 +967,3 @@ angular.module('ngMo.volatility', [
         };
 
     });
-
-
-
-
-
