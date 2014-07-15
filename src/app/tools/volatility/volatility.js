@@ -320,7 +320,16 @@ angular.module('ngMo.volatility', [
                 }
 
             };
+            $scope.loadPage = function () {
+                var data = PatternsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
+                    $scope.myData = data.patterns;//data.page;
+                    $scope.results = data.results;//data.results;
+                    $scope.found = data.found;//data.found;
+                    $scope.myData.product = 'PEPE';
+                });
 
+
+            };
             $scope.getTemplateFilter = function () {
                 switch (TabsService.getActiveTab()) {
                     case 2:         //index
@@ -336,6 +345,7 @@ angular.module('ngMo.volatility', [
                 $scope.selectedTab = TabsService.getActiveTab();
                 $scope.restartFilter();
                 $scope.applyFilters();
+                $scope.loadPage();
             };
 
             $scope.restoreData = function () {
@@ -637,6 +647,8 @@ angular.module('ngMo.volatility', [
                 deferred.resolve();
                 return response.data;
             });
+
+            //window.location.href =$rootScope.urlService+'/patterns';
             return result;
         };
 
