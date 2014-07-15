@@ -215,17 +215,19 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.addToCorrelationList = function (pattern) {
-            var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.correlationList,function (data) {
-                    $scope.myData = data.patterns;//data.page;
-                    $scope.correlationList = data.correlationPatterns;
-                    /*mocked, this info is loaded from data*/
-                    $scope.results = data.results;//data.results;
-                    $scope.found = data.found;//data.found;
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
-                    }
-                });
+            if ($scope.correlationList.length < 10 ) {
+                var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                    $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.correlationList, function (data) {
+                        $scope.myData = data.patterns;//data.page;
+                        $scope.correlationList = data.correlationPatterns;
+                        /*mocked, this info is loaded from data*/
+                        $scope.results = data.results;//data.results;
+                        $scope.found = data.found;//data.found;
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
+                    });
+            }
         };
 
         $scope.deleteFromCorrelationList = function (pattern) {
@@ -636,10 +638,11 @@ angular.module('ngMo.correlation', [
             var data;
             var urlParam = this.createParamsFromFilter(filtering);
 
-            var correlationIdsList;
+            var correlationIdsList = [];
             if (correlationList.length > 0) {
                 for (var i = 0; i < correlationList.length; i++) {
-                    correlationIdsList.put(correlationList[i]);
+                    correlationIdsList.push(correlationList[i].id);
+
                 }
             }
 

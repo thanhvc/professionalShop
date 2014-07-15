@@ -14,7 +14,7 @@
             <td>{{pattern.id}}</td>
             <td>{{pattern.asset.longName}}</td>
             <td>{{pattern.asset.exchange.name}}</td>
-            <td class="correlation-button">>></td>
+            <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 10}" ng-click="addToCorrelationList(pattern.id);">>></span></td>
         </tr>
         </tbody>
     </table>
