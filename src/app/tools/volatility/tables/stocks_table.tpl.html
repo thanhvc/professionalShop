@@ -1,0 +1,26 @@
+
+<tbody style="background-color: red">
+<tr ng-repeat="data in myData" class="rich-table-row rich-table-firstrow tableSRowEven" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style="color:#996600 !important;">
+    <td class="green" class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
+        <span class="tableDiaryLinks toolTipObj" title="4IMPRINT GROUP PLC (LSE)">{{data.asset.longName}}</span>
+        <div class="toolTipJS" style="display:none;">
+            <div class="toolTipFor">PREV</div>
+            <div class="toolTipContent">4IMPRINT GROUP PLC (LSE)</div>
+        </div>
+    </td>
+    <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="London Stock Exchange">
+        <span  class="pepe" class="tableDiaryLinks toolTipObj cursorHelp"></span>
+        <div class="toolTipJS" style="display:none;">
+            <div class="toolTipFor"></div>
+            <div class="toolTipContent">London Stock Exchange</div>
+        </div>
+    </td>
+    <td class="blackFont"  class="rich-table-cell subscribeTableCols" ></td>
+    <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
+        <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | currency}}</a>
+    </td>
+    <td style="width: 32px;" class="table-cell-patterns border-right-table">
+        <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
+    </td>
+</tr>
+</tbody>

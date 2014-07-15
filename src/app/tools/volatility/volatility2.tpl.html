@@ -1,0 +1,219 @@
+<div class="super-border private-black-title">Volatilidad</div>
+<div class="private-container-text">
+    <p>
+        La volatilidad de las cotizaciones es un parámetro que se asocia con el riesgo de un Activo. <span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
+    <div ng-show="show">
+        <p>
+            Hay otras dos fuentes de riesgo, la Liquidez y el Apalancamiento. Un correcto dimensionado de la Cartera debe tener en cuenta los tres parámetros de forma conjunta.
+        </p>
+        <p>
+            Además para tener una Cartera “óptima” debería incluir determinados activos de mayor volatilidad. Y antes de tomar una decisión sobre los valores a invertir recuerde evaluar los Datos Fundamentales.
+        </p>
+        <p><a ng-click="openModalInstance('services/detailed_description/volatility')">Más información.</a></p>
+
+        <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
+
+    </div>
+    <div >
+        <div class="volatilityContent">
+            <div ng-app="ngMo.volatility"  class="simpleTab">
+                <p class="tableMenuOpt selected homeTableMenuOpt1" ng-click="changeTab(0)">Acciones</p>
+                <p class="tableMenuOpt homeTableMenuOpt2" href="javascript:void(0)" ng-click="changeTabVol(1)">Par Acciones</p>
+                <p class="tableMenuOpt homeTableMenuOpt3" href="javascript:void(0)" ng-click="changeTab(2)">Índices</p>
+                <p class="tableMenuOpt homeTableMenuOpt4" href="javascript:void(0)" ng-click="changeTab(3)">Futuros</p>
+
+            </div>
+
+
+            <div  class="grey">
+                <div style="width: 800px; margin: 0 auto;">
+                    <div class="fontVerdana">
+                        <div class="VolatilityHeaderFilter">
+                            <div>
+                                <div class="divTablaCalendarioFiltro" style="width: 800px;">
+                                    <div class="menuFiltroCorrelar" style="width: 800px"></div>
+                                    <form  name="findNameS" method="post" >
+                                        <div class="volatility-filters">
+                                            <!--<input type="text" name="findNameS:boxFindNameS" class="fontVerdana suscribeInputText displayNone">-->
+                                            <input class="filterSelect" type="text" name="findNameS:boxFindName25" value="Nombre" class="fontVerdana suscribeInputText" onfocus="changeBoxFindNameVolatility('S')">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <form class="monthSelector" name="formSMeses" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+
+                                <div class="month-select">
+                                    <select disabled="true" class="monthSelector"  name="formSMeses:meses" size="1" style="width:115px;">
+                                        <option value="-10">Agosto 2013</option>
+                                        <option value="-9">Septiembre 2013</option>
+                                        <option value="-8">Octubre 2013</option>
+                                        <option value="-7">Noviembre 2013</option>
+                                        <option value="-6">Diciembre 2013</option>
+                                        <option value="-5">Enero 2014</option>
+                                        <option value="-4">Febrero 2014</option>
+                                        <option value="-3">Marzo 2014</option>
+                                        <option value="-2">Abril 2014</option>
+                                        <option value="-1">Mayo 2014</option>
+                                        <option value="0" selected="selected">Junio 2014</option>
+                                        <option value="1">Julio 2014</option>
+
+                                    </select>
+                                </div>
+                            </form>
+                            <form name="j_id2164" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+                                <div class="region-select">
+                                    <select disabled="true" class="regionSelector" name="j_id2164:regVola" size="1" style="width:90px;">
+                                        <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Región -</option>
+                                        <option value="20">Estados Unidos</option>
+                                        <option value="2">EURO Zona</option>
+                                        <option value="17">Japón</option>
+                                        <option value="43">Reino Unido</option>
+                                        <option value="35">Sudáfrica</option>
+                                        <option value="28">Taiwan</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <form name="j_id2168" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+                                <div class="market-select">
+                                    <select disabled="true" class="marketSelector" name="j_id2168:j_id2170" class="fontVerdana" size="1" style="width:95px;" >
+                                        <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Mercado -</option>
+                                        <option value="63">American Stock Exchange</option>
+                                        <option value="32">Athens Stock Exchange</option>
+                                        <option value="34">Berlin Stock Exchange</option>
+                                        <option value="36">Euronext - Brussels</option>
+                                        <option value="42">Euronext - Lisbon</option>
+                                        <option value="48">Euronext - Paris</option>
+                                        <option value="31">Euronext-amsterdam</option>
+                                        <option value="39">Frankfurt Stock Exchange</option>
+                                        <option value="52">Fukuoka Stock Exchange</option>
+                                        <option value="60">Gretai Securities Market (taiwan) Otc</option>
+                                        <option value="41">Irish Stock Exchange</option>
+                                        <option value="46">Italian Stock Exchange</option>
+                                        <option value="71">Johannesburg Stock Exchange</option>
+                                        <option value="92">London Stock Exchange</option>
+                                        <option value="47">Munich Stock Exchange</option>
+                                        <option value="53">Nagoya Stock Exchange</option>
+                                        <option value="64">Nasdaq Stock Exchange</option>
+                                        <option value="65">New York Stock Exchange</option>
+                                        <option value="40">Omx Nordic - Helsinki</option>
+                                        <option value="55">Sapporo Stock Exchange</option>
+                                        <option value="45">Sociedad De Bolsas</option>
+                                        <option value="49">Stuttgart Stock Exchange</option>
+                                        <option value="58">Taiwan Stock Exchange</option>
+                                        <option value="56">Tokyo Stock Exchange</option>
+                                        <option value="51">Vienna Stock Exchange</option>
+                                        <option value="38">Xetra</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <form name="j_id2173" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+                                <div class="operation-select">
+                                    <select disabled="true" class="operationSelector" name="j_id2173:j_id2175" class="fontVerdana" size="1" style="width:106px;">
+                                        <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Operación -</option>
+                                        <option value="0">Compra</option>
+                                        <option value="1">Venta</option>
+                                    </select>
+                                </div>
+
+                            </form>
+                            <form class="vol-select"  name="findVol" method="post" >
+                                <div class="casillaCol1MisPatrones" >
+                                    <div>
+                                        <select disabled="true" class="volatilitySelector" name="findVol:j_id2180" class="fontVerdana" size="1" style="margin-right: 2px; width: 95px !important;" >
+                                            <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Volatilidad -</option>
+                                            <option value="0">Mayor que</option>
+                                            <option value="1">Menor que</option>
+                                        </select>
+                                        <input class="percent-input" type="text" name="findVol:volatilidadInput2S" value="%" class=" fontVerdana subscribeInputText" maxlength="3" onfocus="changeInput(this)" style="width: 35px;color: #BDBDBD; text-align: center;">
+                                    </div>
+                                </div>
+                            </form>
+                            <form class="favourite-check" name="j_id2184" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+                                <div style=" color: white; font-family: 'fontpo'; font-size: 10px; height: 17px; text-align: center; width: 70px;">
+                                    <div >
+                                        <input class="" type="checkbox" name="j_id2184:j_id2187" style="margin-top: 2px !important; -ms-transform: scale(1.3); -moz-transform: scale(1.3); -o-transform: scale(1.3); -webkit-transform: scale(1.3, 1);">
+                                    </div>
+                                    <div class="favourite-text">Favoritos</div>
+                                </div>
+                            </form>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="float:left; width:800px; min-height :228px;"></div>
+
+    </div>
+</div>
+</div>
+<div class="black" style="float: left; width: 800px; min-height: 228px; margin-top: 25px">
+    <table class="rich-table tablaDiaryS"  style="width: 800px !important;" border="0" cellpadding="0" cellspacing="0">
+        <colgroup span="5"></colgroup>
+        <thead class="rich-table-thead">
+        <tr class="rich-table-header">
+            <th  class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead" >
+                <span style="margin-left: 70px;position: relative;left: 15px;"class=tableHead" style="font-size: 12px;">Nombre</span>
+            </th>
+            <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead" >
+                <span style="margin-left: 25px;position: relative;left: 15px;"style="font-size: 12px;">Mercado</span>
+            </th>
+            <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
+                <span style="margin-left: 40px;position: relative;left: 15px;" style="font-size: 12px;">Fecha Cálculo</span>
+            </th>
+            <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead" >
+                <span style="margin-left: 30px;position: relative;left: 15px;" style="font-size: 12px;">Volatilidad %</span>
+            </th>
+            <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead" >
+                <span title="Favoritos">Fav.</span>
+                <div  class="toolTipJS" style="display:none;">
+                    <div class="toolTipFor">PREV</div>
+                    <div class="toolTipContent">Favoritos</div>
+                </div>
+            </th>
+        </tr>
+        </thead>
+
+
+        <div class="table-container">
+            <tbody>
+            <tr ng-repeat="data in myData" class="rich-table-row rich-table-firstrow tableSRowEven" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style="color:#996600 !important;">
+                <td class="green" class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
+                    <span class="tableDiaryLinks toolTipObj" title="4IMPRINT GROUP PLC (LSE)">{{data.asset.longName}}</span>
+                    <div class="toolTipJS" style="display:none;">
+                        <div class="toolTipFor">PREV</div>
+                        <div class="toolTipContent">4IMPRINT GROUP PLC (LSE)</div>
+                    </div>
+                </td>
+                <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="London Stock Exchange">
+                    <span  class="pepe" class="tableDiaryLinks toolTipObj cursorHelp">{{data.asset.exchange.name}}</span>
+                    <div class="toolTipJS" style="display:none;">
+                        <div class="toolTipFor"></div>
+                        <div class="toolTipContent">London Stock Exchange</div>
+                    </div>
+                </td>
+                <td class="blackFont"  class="rich-table-cell subscribeTableCols" >27 mayo 2014</td>
+                <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
+                    <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | currency}}</a>
+                </td>
+                <td style="width: 32px;" class="table-cell-patterns border-right-table">
+                    <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
+                </td>
+            </tr>
+            </tbody>
+        </div>
+    </table>
+</div>
+<span class="copyRight" class="diaryTablaMailText diaryTableCopyText">Copyright © 2014 Market Observatory</span>
+</div>
+<div class="pagination-container" ng-show="results > 10" style="margin-top:72px; clear:both; margin-bottom:20px;">
+    <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                next-text="&gt;"
+                first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+</div>
+</div>
+
+
