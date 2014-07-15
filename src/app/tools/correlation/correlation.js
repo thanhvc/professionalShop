@@ -44,7 +44,7 @@ angular.module('ngMo.correlation', [
         $scope.totalServerItems = 0;
         /*paging options*/
         $scope.pagingOptions = {
-            pageSize: 10,
+            pageSize: 15,
             currentPage: 1
         };
 
@@ -197,12 +197,14 @@ angular.module('ngMo.correlation', [
             $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
         };
 
+        $scope.correlationList = [];
+
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
+                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.correlationList, function (data) {
                     $scope.myData = data.patterns;//data.page;
-                    $scope.correlationList = [];
+                    //$scope.correlationList = data.correlationPatterns;
                     /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
@@ -213,22 +215,24 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.addToCorrelationList = function (pattern) {
-            var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, function (data) {
-                    $scope.myData = data.patterns;//data.page;
-                    $scope.correlationList = data.correlationPatterns;
-                    /*mocked, this info is loaded from data*/
-                    $scope.results = data.results;//data.results;
-                    $scope.found = data.found;//data.found;
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
-                    }
-                });
+            if ($scope.correlationList.length < 10 ) {
+                var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                    $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.correlationList, function (data) {
+                        $scope.myData = data.patterns;//data.page;
+                        $scope.correlationList = data.correlationPatterns;
+                        /*mocked, this info is loaded from data*/
+                        $scope.results = data.results;//data.results;
+                        $scope.found = data.found;//data.found;
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
+                    });
+            }
         };
 
         $scope.deleteFromCorrelationList = function (pattern) {
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1, function (data) {
+                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1,$scope.correlationList, function (data) {
                     $scope.myData = data.patterns;//data.page;
                     $scope.correlationList = data.correlationPatterns;
                     /*mocked, this info is loaded from data*/
@@ -630,9 +634,17 @@ angular.module('ngMo.correlation', [
         };
 
         /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
-        this.getPagedDataAsync = function (pageSize, page, filtering, patternId, operation, callbackFunc) {
+        this.getPagedDataAsync = function (pageSize, page, filtering, patternId, operation, correlationList, callbackFunc) {
             var data;
             var urlParam = this.createParamsFromFilter(filtering);
+
+            var correlationIdsList = [];
+            if (correlationList.length > 0) {
+                for (var i = 0; i < correlationList.length; i++) {
+                    correlationIdsList.push(correlationList[i].id);
+
+                }
+            }
 
             //Operation -> Add or delete Pattern to correlationList
 
@@ -643,7 +655,8 @@ angular.module('ngMo.correlation', [
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': parseInt(filtering.active_tab, 10)
+                    'indexType': parseInt(filtering.active_tab, 10),
+                    'correlationList': correlationIdsList
                 }
             };
 

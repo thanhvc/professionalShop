@@ -1,6 +1,7 @@
 .tools-container{
   background-color: @greyBorderColor;
   padding: 15px;
+  height: 394px;
   div{
     text-align: center;
     display: inline;
@@ -8,13 +9,14 @@
 }
 
 .table-correlation{
-  display: inline-table;
+  //display: inline-table;
   thead{
     tr{
       td{
         text-align: center;
         background-color: @greyPaginator;
         color: @black;
+        border: 1px solid #ACBECE;
         &:nth-child(1){
           background-color: @orangeColor;
           color: @white;
@@ -42,10 +44,12 @@
           border: 1px solid @white;
           font-size: 9px;
           font-family: fontpo-bold;
+          width: 76px;
         }
         &:nth-child(2){
           text-align: left;
           text-indent: 1px;
+          width: 165px;
         }
       }
     }
@@ -154,4 +158,9 @@
   font-size: 11px;
   position: relative;
   top: -3px;
+}
+
+.disable-arrow{
+  color: @greyBorderColor;
+  cursor: default;
 }
