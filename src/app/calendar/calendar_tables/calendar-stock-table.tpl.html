@@ -32,7 +32,7 @@
     <tbody>
     <tr ng-repeat="pattern in myData">
         <td>
-            <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.name}}) {{pattern.id}}" class="cursor-help">{{pattern.asset.longName}}</span>
+            <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.id}}" class="cursor-help">{{pattern.asset.longName | limitTo:25}}</span>
         </td>
         <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
             <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} == month.value" class="bearish-year calendar-letter">S</span>
@@ -51,7 +51,7 @@
     Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
 </div>
 <!--pagination-->
-<div class="pagination-container" style="margin-top:72px; clear:both;" ng-show="results > 10">
+<div class="pagination-container" style="margin-top:72px; clear:both;" ng-show="results > 15">
     <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                 items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                 page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
