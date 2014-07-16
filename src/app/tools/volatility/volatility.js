@@ -150,7 +150,10 @@ angular.module('ngMo.volatility', [
             var img = document.createElement('img');
             img.src = "assets/img/graphic.png";
             img.style.cssText = "display:block;padding-top:30px;height:100;width:750;style:margin-right:20px;class:historyImagePar";
-            elemDiv.style.cssText = 'position:absolute;padding-top:30px; height:600px;text-align:center;color:#996600;position:absolute;width:68%;top:238px;left:45%;z-index:100;background:white;';
+
+            elemDiv.style.cssText = 'position:absolute;padding-top:30px;text-align:center;color:#996600;position:absolute;width:68%;top:238px;left:45%;z-index:100;background:white; height:66px';
+
+
             var closeButton = document.createElement('img');
             closeButton.src = "assets/img/close_modal.png";
             closeButton.style.cssText = 'position:relative;top:0px;left:300px;height:15px;width:15px';
@@ -183,9 +186,9 @@ angular.module('ngMo.volatility', [
         /** templates of filters/tables for each tab**/
         var templateTables = [
             {"table": 'tools/volatility/tables/stocks_table.tpl.html',
-                "filter": 'tools/volatility/filters/stocks_filters.tpl.html'},
+                "filter": 'tools/volatility/filters/stocks_filters.tpl.html'}
 
-            {"table": 'tools/volatility/volatility.tpl.html',
+            /*{"table": 'tools/volatility/volatility.tpl.html',
                 "filter": 'my_patterns/filters/pairs_filters.tpl.html'},
 
             [
@@ -196,7 +199,7 @@ angular.module('ngMo.volatility', [
             ],
 
             {"table": 'my_patterns/tables/futures_table.tpl.html',
-                "filter": 'my_patterns/filters/futures_filters.tpl.html'}
+                "filter": 'my_patterns/filters/futures_filters.tpl.html'}*/
         ];
 
 
