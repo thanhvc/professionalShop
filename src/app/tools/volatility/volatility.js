@@ -182,16 +182,15 @@ angular.module('ngMo.volatility', [
 
         };
 
-
         /** templates of filters/tables for each tab**/
         var templateTables = [
             {"table": 'tools/volatility/tables/stocks_table.tpl.html',
-                "filter": 'tools/volatility/filters/stocks_filters.tpl.html'}
+                "filter": 'tools/volatility/filters/stocks_filters.tpl.html'},
 
-            /*{"table": 'tools/volatility/volatility.tpl.html',
-                "filter": 'my_patterns/filters/pairs_filters.tpl.html'},
+            {"table": 'tools/volatility/tables/pairs_table.tpl.html',
+                "filter": 'tools/volatility/filters/pairs_filters.tpl.html'}
 
-            [
+            /*[
                 {"table": 'my_patterns/tables/index_table.tpl.html',
                     "filter": 'my_patterns/filters/index_filters.tpl.html'},
                 {"table": 'my_patterns/tables/pairs_index_table.tpl.html',
@@ -323,11 +322,11 @@ angular.module('ngMo.volatility', [
             }
         };
         /*changeTab, launches the http get*/
-        $scope.changeTabVol = function (idTab) {
+        $scope.changeTab = function (idTab) {
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
-            $scope.applyFilters();
+            //$scope.applyFilters();
         };
 
 
@@ -385,7 +384,7 @@ angular.module('ngMo.volatility', [
             $scope.pagingOptions.currentPage = 1; //restart the page
             $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
-            $scope.loadPage();
+            //$scope.loadPage();
         };
 
         /*check that all rent filters have  values and a selector*/
