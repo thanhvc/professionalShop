@@ -1,5 +1,5 @@
 <div class="super-border private-black-title">Volatilidad</div>
-<div class="private-container-text">
+<div class="private-container-text" style="margin:10px">
     <p>
         La volatilidad de las cotizaciones es un parámetro que se asocia con el riesgo de un Activo. <span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
     <div ng-show="show">
@@ -10,34 +10,29 @@
             Además para tener una Cartera “óptima” debería incluir determinados activos de mayor volatilidad. Y antes de tomar una decisión sobre los valores a invertir recuerde evaluar los Datos Fundamentales.
         </p>
         <p><a ng-click="openModalInstance('services/detailed_description/volatility')">Más información.</a></p>
-
             <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
-
     </div>
-    <div style="margin-top: 15px;">
-
+    <div style="margin-top: 27px;margin-left: 67px">
         <tabset>
             <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
                  active="ctab.active" disabled="tab.disabled">
-
                 <div class="filter-container" style="width:775px; height:40px">
                     <!--filters-->
                     <div ng-include="getTemplateFilter()"></div>
                 </div>
+                <table>
                 <div>
-                    <div ng-include="getTemplateTable()"></div>
-
+                    <div ng-include="getTemplateTable()" style="width:775px"></div>
                 </div>
-
+                </table>
                 <span class="copyRight" class="diaryTablaMailText diaryTableCopyText">Copyright © 2014 Market Observatory</span>
-
             </tab>
-
         </tabset>
     </div>
     </div>
-
-
+    <div class="copyright">
+        Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+    </div>
     <div class="pagination-container" ng-show="results > 10" style="margin-top:72px; clear:both; margin-bottom:20px;">
         <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                     items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
