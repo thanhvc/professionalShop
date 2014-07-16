@@ -150,8 +150,7 @@ angular.module('ngMo.volatility', [
             var img = document.createElement('img');
             img.src = "assets/img/graphic.png";
             img.style.cssText = "display:block;padding-top:30px;height:100;width:750;style:margin-right:20px;class:historyImagePar";
-
-            elemDiv.style.cssText = 'position:absolute;padding-top:30px;text-align:center;color:#996600;position:absolute;width:68%;top:238px;left:45%;z-index:100;background:white; height:66px';
+            elemDiv.style.cssText = 'position:absolute;padding-top:30px;text-align:center;color:#996600;position:absolute;width:68%;top:238px;left:45%;z-index:100;background:white; height:600px';
 
 
             var closeButton = document.createElement('img');
@@ -188,17 +187,14 @@ angular.module('ngMo.volatility', [
                 "filter": 'tools/volatility/filters/stocks_filters.tpl.html'},
 
             {"table": 'tools/volatility/tables/pairs_table.tpl.html',
-                "filter": 'tools/volatility/filters/pairs_filters.tpl.html'}
+                "filter": 'tools/volatility/filters/pairs_filters.tpl.html'},
 
-            /*[
-                {"table": 'my_patterns/tables/index_table.tpl.html',
-                    "filter": 'my_patterns/filters/index_filters.tpl.html'},
-                {"table": 'my_patterns/tables/pairs_index_table.tpl.html',
-                    "filter": 'my_patterns/filters/index_filters.tpl.html'}
-            ],
+            {"table": 'tools/volatility/tables/index_table.tpl.html',
+                "filter": 'tools/volatility/filters/index_filters.tpl.html'},
 
-            {"table": 'my_patterns/tables/futures_table.tpl.html',
-                "filter": 'my_patterns/filters/futures_filters.tpl.html'}*/
+
+            {"table": 'tools/volatility/tables/futures_table.tpl.html',
+                "filter": 'tools/volatility/filters/futures_filters.tpl.html'}
         ];
 
 
@@ -306,17 +302,16 @@ angular.module('ngMo.volatility', [
         $scope.getTemplateTable = function () {
             switch (TabsService.getActiveTab()) {
                 case 2:         //index
-                    return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].table;
+                    return templateTables[TabsService.getActiveTab()].table;
                 default:        //others
                     return templateTables[TabsService.getActiveTab()].table;
             }
-
         };
         /*load the filter template*/
         $scope.getTemplateFilter = function () {
             switch (TabsService.getActiveTab()) {
                 case 2:         //index
-                    return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].filter;
+                    return templateTables[TabsService.getActiveTab()].filter;
                 default:        //others
                     return templateTables[TabsService.getActiveTab()].filter;
             }

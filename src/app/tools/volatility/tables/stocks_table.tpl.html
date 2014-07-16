@@ -30,7 +30,7 @@
                     <span class="tableDiaryLinks toolTipObj" title="4IMPRINT GROUP PLC (LSE)">{{data.asset.longName}}</span>
                 </td>
                 <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="London Stock Exchange">
-                    <span  class="pepe" class="tableDiaryLinks toolTipObj cursorHelp">{{data.asset.exchange.name}}</span>
+                    <span  class="pepe" class="tableDiaryLinks toolTipObj cursorHelp">{{data.asset.exchange.symbol}}</span>
                     <div class="toolTipJS" style="display:none;">
                         <div class="toolTipFor"></div>
                         <div class="toolTipContent">London Stock Exchange</div>
@@ -38,7 +38,7 @@
                 </td>
                 <td class="blackFont"  class="rich-table-cell subscribeTableCols" >27 mayo 2014</td>
                 <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-                    <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | currency}}</a>
+                    <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | currency:"€"}}</a>
                 </td>
                 <td style="width: 62px;" class="table-cell-patterns border-right-table">
                     <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>

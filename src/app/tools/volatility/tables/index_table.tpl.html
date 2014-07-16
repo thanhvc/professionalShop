@@ -1,8 +1,8 @@
-<div class="fontVerdana">
-    <table  class="pairs-table-vol" class="rich-table tablaDiaryS"  style="width: 774px !important; position:relative; top:-3px" border="0" cellpadding="0" cellspacing="0">
+<div class="black" style="padding-top: 10px;font-size: 12px; ">
+    <table class="rich-table tablaDiaryS"  style="position: relative;top: -5px;width: 774px !important;" border="0" cellpadding="0" cellspacing="0">
         <colgroup span="5"></colgroup>
         <thead class="rich-table-thead">
-        <tr class="rich-table-header" style="background-color:black; color:white;font-family: fontpo">
+        <tr class="rich-table-header" style="font-family: fontpo">
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
                 <span style="text-align: center; padding-left:133px; display:inline-block; width:120px; ">Nombre</span>
             </th>
@@ -25,7 +25,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:12px;color:#996600 !important;">
+
+        <tr class="rich-table-row rich-table-firstrow tableSRowEven" ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:12px;color:#996600 !important;">
             <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
                 <span class="tableDiaryLinks toolTipObj" title="4IMPRINT GROUP PLC (LSE)">{{data.asset.longName}}</span>
             </td>
@@ -45,7 +46,6 @@
             </td>
         </tr>
         </tbody>
-        </table>
+    </table>
 </div>
-
 
