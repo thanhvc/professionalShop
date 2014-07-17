@@ -4,10 +4,10 @@
         <thead class="rich-table-thead">
         <tr class="rich-table-header" style="font-family: fontpo; height:24px">
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
-                <span style="text-align: center; padding-left:133px; display:inline-block; width:120px; ">Índice</span>
+                <span style="text-align: center; padding-left:200px; display:inline-block; width:220px; ">Índice</span>
             </th>
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
-                <span style="padding-left:70px;">Fecha Cálculo</span>
+                <span style="padding-left:20px;">Fecha Cálculo</span>
             </th>
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead">
                 <span style="padding-left:20px;">Volatilidad %</span>
@@ -24,13 +24,13 @@
         <tbody>
 
         <tr class="rich-table-row rich-table-firstrow tableSRowEven" ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:11px;color:#996600 !important;">
-            <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
+            <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:462px;">
                 <span class="tableDiaryLinks toolTipObj" ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
             </td>
 
             <td class="blackFont"  class="rich-table-cell subscribeTableCols">{{data.entryDate | date: 'dd MMM yyyy'}}</td>
             <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-                <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | currency:""}}</a>
+                <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | number:0}}</a>
             </td>
             <td style="width: 62px;" class="table-cell-patterns border-right-table">
                 <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>

@@ -4,19 +4,19 @@
         <thead class="rich-table-thead">
             <tr class="rich-table-header" style="font-family: fontpo; height:26px">
                 <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
-                    <span style="text-align: center; padding-left:133px; display:inline-block; width:120px; ">Nombre</span>
+                    <span style="padding-bottom: 2px;text-align: center; padding-left:133px; display:inline-block; width:120px; ">Nombre</span>
                 </th>
                 <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead" >
-                    <span style="padding-left:36px;">Mercado</span>
+                    <span style="padding-bottom: 2px;padding-left:36px;">Mercado</span>
                 </th>
                 <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
-                    <span style="padding-left:15px;">Fecha Cálculo</span>
+                    <span style="padding-bottom: 2px;padding-left:15px;">Fecha Cálculo</span>
                 </th>
                 <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead">
-                    <span style="padding-left:34px;">Volatilidad %</span>
+                    <span style="padding-bottom: 2px;padding-left:34px;">Volatilidad %</span>
                 </th>
                 <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead" >
-                    <span style="padding-left: 15px;" title="Favoritos">Fav.</span>
+                    <span style="padding-bottom: 2px;padding-left: 15px;" title="Favoritos">Fav.</span>
                     <div class="toolTipJS" style="display:none;">
                         <div class="toolTipFor">PREV</div>
                         <div class="toolTipContent">Favoritos</div>
@@ -38,7 +38,7 @@
                 </td>
                 <td class="blackFont"  class="rich-table-cell subscribeTableCols" >{{data.entryDate | date: 'dd MMM yyyy'}}</td>
                 <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-                    <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{ data.asset.volatility| currency:""}}</a>
+                    <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{ data.asset.volatility| number:0}}</a>
                 </td>
                 <td style="width: 62px;" class="table-cell-patterns border-right-table">
                     <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
