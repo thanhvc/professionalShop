@@ -59,7 +59,7 @@ angular.module('ngMo.volatility', [
                 value: 0
             },
             {
-                title: 'Pares',
+                title: 'Par Acciones',
                 active: activeTab === 1,
                 value: 1
             },
@@ -186,8 +186,8 @@ angular.module('ngMo.volatility', [
             {"table": 'tools/volatility/tables/stocks_table.tpl.html',
                 "filter": 'tools/volatility/filters/stocks_filters.tpl.html'},
 
-            {"table": 'tools/volatility/tables/pairs_table.tpl.html',
-                "filter": 'tools/volatility/filters/pairs_filters.tpl.html'},
+            {"table": 'tools/volatility/tables/pairs_index_table.tpl.html',
+                "filter": 'tools/volatility/filters/pairs_index_filters.tpl.html'},
 
             {"table": 'tools/volatility/tables/index_table.tpl.html',
                 "filter": 'tools/volatility/filters/index_filters.tpl.html'},
@@ -196,6 +196,7 @@ angular.module('ngMo.volatility', [
             {"table": 'tools/volatility/tables/futures_table.tpl.html',
                 "filter": 'tools/volatility/filters/futures_filters.tpl.html'}
         ];
+
 
 
         $scope.setPage = function (page) {

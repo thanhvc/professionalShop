@@ -7,7 +7,7 @@
                 <span style="text-align: center; padding-left:133px; display:inline-block; width:120px; ">Nombre</span>
             </th>
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead" >
-                <span style="padding-left:56px;">Mercado</span>
+                <span style="padding-left:45px;">Mercado</span>
             </th>
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
                 <span style="padding-left:15px;">Fecha Cálculo</span>
@@ -38,7 +38,7 @@
             </td>
             <td class="blackFont"  class="rich-table-cell subscribeTableCols" >{{data.entryDate | date: 'dd MMM yyyy'}}</td>
             <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-                <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | currency:""}}</a>
+                <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | number:0}}</a>
             </td>
             <td style="width: 62px;" class="table-cell-patterns border-right-table">
                 <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
