@@ -1,19 +1,20 @@
 <div class="fontVerdana">
-    <table  class="pairs-table-vol" class="rich-table tablaDiaryS"  style="width: 774px !important; position:relative; top:-3px" border="0" cellpadding="0" cellspacing="0">
+    <table  class="pairs-table-vol" class="rich-table tablaDiaryS"  style="width: 775px !important; position:relative; top:-3px" border="0" cellpadding="0" cellspacing="0">
         <colgroup span="5"></colgroup>
         <thead class="rich-table-thead">
-        <tr class="rich-table-header" style="background-color:black; color:white;font-family: fontpo">
+        <tr class="rich-table-header" style="background-color:black; color:white;font-family: fontpo; height:30px">
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
-                <span style="text-align: center; padding-left:133px; display:inline-block; width:120px; ">Nombre</span>
+                <span style="text-align: center; padding-left:0px; display:inline-block; width:295px; ">Nombre Compañías PAR</span>
             </th>
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead" >
-                <span style="padding-left:56px;">Mercado</span>
+                <span style="">Mercado</span>
+            </th>
+
+            <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead">
+                <span style="padding-left:20px;">Volatilidad COMPONENTES (%)</span>
             </th>
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
                 <span style="padding-left:15px;">Fecha Cálculo</span>
-            </th>
-            <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead">
-                <span style="padding-left:20px;">Volatilidad %</span>
             </th>
             <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead" >
                 <span style="padding-left: 15px;" title="Favoritos">Fav.</span>
@@ -25,9 +26,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:12px;color:#996600 !important;">
+        <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:11px;color:#996600 !important;">
             <td class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-                <span class="tableDiaryLinks toolTipObj" title="4IMPRINT GROUP PLC (LSE)">{{data.asset.longName}}</span>
+                <span class="tableDiaryLinks toolTipObj" ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
             </td>
             <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="London Stock Exchange">
                 <span  class="pepe" class="tableDiaryLinks toolTipObj cursorHelp">{{data.asset.exchange.symbol}}</span>
@@ -36,9 +37,9 @@
                     <div class="toolTipContent">London Stock Exchange</div>
                 </div>
             </td>
-            <td class="blackFont"  class="rich-table-cell subscribeTableCols" >27 mayo 2014</td>
+            <td class="blackFont"  class="rich-table-cell subscribeTableCols" >{{data.entryDate | date: 'dd MMM yyyy'}}</td>
             <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-                <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | currency:"€"}}</a>
+                <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{data.asset.volatility | currency:""}}</a>
             </td>
             <td style="width: 62px;" class="table-cell-patterns border-right-table">
                 <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>

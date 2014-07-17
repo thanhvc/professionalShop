@@ -321,7 +321,7 @@ angular.module('ngMo.volatility', [
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
-            //$scope.applyFilters();
+            $scope.applyFilters();
         };
 
 
@@ -379,7 +379,7 @@ angular.module('ngMo.volatility', [
             $scope.pagingOptions.currentPage = 1; //restart the page
             $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
-            //$scope.loadPage();
+            $scope.loadPage();
         };
 
         /*check that all rent filters have  values and a selector*/
@@ -583,7 +583,7 @@ angular.module('ngMo.volatility', [
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
 
-            $location.path('/patterns').search(urlParamsSend);
+            $location.path('/volatility').search(urlParamsSend);
         };
         $scope.loadUrlParams = function () {
             var params = $location.search();
