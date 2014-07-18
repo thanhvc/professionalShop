@@ -246,10 +246,18 @@ angular.module('ngMo.services', [
                 } else {
                     scope.boolChangeClassDetailed = false;
                 }*/
+                var footerPosition = document.getElementsByClassName("footer")[0].offsetTop;
+                var footerHeight = document.getElementsByClassName("footer")[0].offsetHeight;
                 if (this.pageYOffset >= 150) {
-                    scope.boolChangeClassDetailed = true;
+                    scope.positionFix = true;
+                    if (footerPosition > (this.pageYOffset+(this.screen.availHeight - footerHeight))){
+                        scope.boolChangeClassDetailed = true;
+                    }else{
+                        scope.boolChangeClassDetailed = false;
+                    }
                 } else {
                     scope.boolChangeClassDetailed = false;
+                    scope.positionFix = false;
                 }
                 scope.$apply();
 
@@ -258,6 +266,8 @@ angular.module('ngMo.services', [
                 if (typeof anchors === 'undefined') {
                     anchors = PositionAnchorsDetailed.getPositionAnchors();
                 }
+
+
 
                 if (this.pageYOffset < anchors[0].position){
                     scope.selectedOption = anchors[0].id;
