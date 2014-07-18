@@ -76,7 +76,7 @@
                     Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
                 </div>
                 <!--pagination-->
-                <div class="pagination-container" ng-show="results > 10" style="margin-top:72px; clear:both; margin-bottom:20px;">
+                <div class="pagination-container" ng-show="found > pagingOptions.pageSize" style="margin-top:72px; clear:both; margin-bottom:20px;">
                     <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                                 items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                                 page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"

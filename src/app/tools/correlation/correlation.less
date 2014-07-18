@@ -110,6 +110,7 @@
             width: 24px;
             border: none;
             margin-left: 0;
+            border-right: 1px solid @white;
           }
         }
         a {
@@ -145,6 +146,7 @@
     a{
       border-top: 2px solid @greyPaginator;
       background-color: @greyPaginator !important;
+      border-right: none !important;
     }
   }
 }
@@ -196,12 +198,19 @@
   tbody{
     tr {
       td{
-        border: 1px solid silver;
+        &:nth-child(1) {
+          border-right: none;
+        }
+        border-right: 1px solid @greyLabel;
         text-align: center;
-        width: 52px;
       }
       &:nth-child(1) {
         td{
+          //width: 40px;
+          border-right: none;
+          &:last-child{
+            border-right: 1px solid silver;
+          }
           &:nth-child(1) {
             background-color: @white;
           }
@@ -210,7 +219,6 @@
       height: 25px;
       &:nth-child(odd) {
         background-color: @smokeGrey;
-        border: 1px solid silver;
         .high-correlation{
             background-color: @lightYellowEven;
         }
@@ -222,7 +230,6 @@
           }
         }
         background-color: @white;
-        border: 1px solid silver;
         .high-correlation{
           background-color: @lightYellowOdd;
         }
@@ -236,9 +243,8 @@
   width: 324px;
   border-top: 1px solid @silver;
   border-left: 1px solid @silver;
-  text-align: center;
   float: left;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   thead{
     tr{
       background-color: @black;
@@ -246,10 +252,12 @@
       height: 20px;
       th{
         border-left: 1px solid @white;
+        text-align: center;
       }
     }
   }
   tbody{
+    text-align: left;
     tr{
       height: 20px;
       &:nth-child(odd) {
@@ -257,6 +265,9 @@
       }
       &:nth-child(even) {
         background-color: @smokeGrey;
+      }
+      td{
+        padding-left: 3px;
       }
     }
   }
