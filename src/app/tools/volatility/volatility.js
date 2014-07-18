@@ -332,7 +332,8 @@ angular.module('ngMo.volatility', [
         };
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
-        $scope.loadPage = function () {
+
+       window.onload = $scope.loadPage = function () {
             var data = VolatilityService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                 $scope.myData = data.patterns;//data.page;
                 $scope.results = data.results;//data.results;
