@@ -69,7 +69,7 @@
             <!--pagination-->
             <div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;">
                 <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
-                            ng-show="myData.size() > 10"
+                            ng-show="found > pagingOptions.pageSize"
                             items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                             page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
                             next-text="&gt;"
