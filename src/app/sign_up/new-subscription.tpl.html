@@ -1,0 +1,158 @@
+<div class="panel">
+
+    <div ng-controller="SignupCtrl" novalidate>
+        <div class="margin-top-header">
+            <div><span class="black-title-bold super-border">ACCESO SERVICIO ONLINE</span>
+            </div>
+            <div class="sign-text default-format-text prices-font12">Lorem ipsum dolor sit amet,
+                consectetur adipisicing
+                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+            </div>
+        </div>
+        <div class="prices-font11">
+
+            <div class="sign-up-block">
+                <div class="orange-border" style="font-size:12px; margin-bottom:15px;">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="radio" ng-model="newSubscriptionMode" value="login"> Soy
+                                cliente </input>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <form name="loginForm">
+                                    <table  class="signup-table" style="height:60px;">
+                                        <tr>
+                                            <td>
+                                                <span class="grey-label">Usuario (email)</span>
+                                            </td>
+                                            <td>
+                                                <input ng-model="login.email" type="email"
+                                                       ng-change="clearState()"
+                                                       name="uEmail" style="width:200px;" required="true" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="grey-label">Contraseña</span>
+                                            </td>
+                                            <td>
+                                                <input ng-model="login.password"  type="password"
+                                                       name="password1" required="true"
+                                                       ng-pattern="passwordPatten" ng-trim="false"
+                                                       style="width:200px;" ng-minlength="8"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" ng-model="newSubscriptionMode" value="signup"> No soy
+                                cliente </input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <form name="form">
+                                    <table class="signup-table">
+                                        <tbody>
+                                        <tr>
+                                            <td><span class="grey-label">Email</span></td>
+                                            <td><input class="signup-input" ng-model="user.email" type="email"
+                                                       ng-change="clearState()"
+                                                       name="uEmail" style="width:200px;" required="true">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="grey-label">Repetir email</span></td>
+                                            <td><input class="signup-input" type="email" ng-model="user.email2"
+                                                       name="username2" style="width:200px;" required="true"
+                                                       match="user.email">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="grey-label">Contrase&ntilde;a</span></td>
+                                            <td><input class="signup-input" ng-model="user.password" type="password"
+                                                       name="password1" required="true"
+                                                       ng-pattern="passwordPatten" ng-trim="false"
+                                                       style="width:200px;" ng-minlength="8"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="grey-label">Repetir contrase&ntilde;a</span></td>
+                                            <td><input class="signup-input" ng-model="user.password2" type="password"
+                                                       name="password2" required="true" match="user.password"
+                                                       style="width:200px;">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button class="mo-button" name="continue" ng-disabled="((loginForm.$invalid && newSubscriptionMode == 'login') || (form.$invalid && newSubscriptionMode == 'signup'))"
+                        ng-click="createNewSubs()" style="float:right;" type="button">Continuar
+                </button>
+                <!--login errors -->
+                <div ng-show="loginForm.uEmail.$error.email && (loginForm.uEmail.$dirty &&  newSubscriptionMode== 'login' )"
+                     class="red-color-form prices-font12">
+                    Email inv&aacute;lido
+                </div>
+                <div class="red-color-form prices-font12"
+                     ng-show="loginForm.$error.required && (loginForm.$dirty && newSubscriptionMode== 'login' )">
+                    Faltan campos obligatorios
+                </div>
+                <div class="red-color-form prices-font12" ng-show="errorSignIn && (loginForm.$dirty && newSubscriptionMode== 'login' )">
+                    Email o password inválidos
+                </div>
+                <!-- signup errors -->
+                <div class="red-color-form prices-font12"
+                     ng-show="(form.password2.$error.mismatch  && newSubscriptionMode== 'signup' ) && (form.password2.$dirty &&form.password1.$dirty)">Las
+                    contrase&ntilde;as no coinciden
+                </div>
+                <div ng-show="form.uEmail.$error.email && (form.uEmail.$dirty &&  newSubscriptionMode== 'signup' )"
+                     class="red-color-form prices-font12">
+                    Email inv&aacute;lido
+                </div>
+                <div class="red-color-form prices-font12"
+                     ng-show="(form.username2.$error.mismatch  && newSubscriptionMode== 'signup' ) && (form.uEmail.$dirty && form.username2.$dirty )">Los
+                    emails no coinciden
+                </div>
+                <div class="red-color-form prices-font12"
+                     ng-show="(result.username == 'used' && (form.uEmail.$dirty  && newSubscriptionMode== 'signup' ))">El
+                    e-mail ya est&aacute; siendo usado
+                </div>
+                <div class="red-color-form prices-font12"
+                     ng-show="form.password1.$error.minlength && (form.password1.$dirty && newSubscriptionMode== 'signup' )">La
+                    contrase&ntilde;a requiere de un m&iacute;nimo 8 caracteres
+                </div>
+                <div class="red-color-form prices-font12"
+                     ng-show="(form.password1.$error.pattern  && newSubscriptionMode== 'signup' ) && (form.password1.$dirty && form.password2.$dirty)">
+                    Caracteres inv&aacute;lidos en la contrase&ntilde;a
+                </div>
+                <div class="red-color-form prices-font12"
+                     ng-show="errorForm">Error en el formulario, por favor vuelva a intentarlo
+                </div>
+                <div class="red-color-form prices-font12"
+                     ng-show="form.$error.required && (form.$dirty && newSubscriptionMode== 'signup' )">
+                    Faltan campos obligatorios
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

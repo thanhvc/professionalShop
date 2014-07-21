@@ -13,8 +13,8 @@
         <th class="border-right-table">
             <span class="cursor-help">Salida</span>
         </th>
-        <th class="border-right-table" tooltip-html-unsafe="Volatilidad">
-            Vol.
+        <th class="border-right-table">
+            <span tooltip-html-unsafe="Volatilidad">Vol.</span>
         </th>
         <th class="border-right-table"
             colspan="2">
@@ -69,7 +69,7 @@
             <br/>
             <div class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.asset.shortName}}"
+                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})"
                   ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
                 {{data.asset.longName}}
             </span>

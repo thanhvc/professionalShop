@@ -86,14 +86,14 @@
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
             <td>{{pattern.asset.volatility | twoDecimals}}</td>
             <td><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
-                <div tooltip="Sin Comenzar" class="state-sphere no-started-state" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
-                <div tooltip="Comenzado" class="state-sphere started-state" ng-show="pattern.statePattern == 'STARTED'"></div>
-                <div tooltip="Finalizado" class="state-sphere finished-state" ng-show="pattern.statePattern == 'FINISHED'"></div>
+                <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
+                <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state" ng-show="pattern.statePattern == 'STARTED'"></div>
+                <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state" ng-show="pattern.statePattern == 'FINISHED'"></div>
             </td>
         </tr>
     </table>
     <!--pagination-->
-    <div class="pagination-container" ng-show="results > 10" style="margin-top:72px; clear:both; margin-bottom:20px;">
+    <div class="pagination-container" ng-show="results > 10" style="clear:both; margin-bottom:20px;">
         <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                     items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                     page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"

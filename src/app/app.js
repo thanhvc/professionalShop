@@ -60,7 +60,24 @@ angular.module('ngMo', [
                 selectItemSubmenu: '',
                 moMenuType: 'publicMenu'
              }
-        });
+        })
+        .state('faq', {
+            url: '/faq',
+            views: {
+                "main": {
+                    controller: 'HomeCtrl',
+                    templateUrl: 'faq/faq.tpl.html'
+                }
+            },
+            data: {
+                pageTitle: 'FAQ',
+                selectMenu: '',
+                selectSubmenu: '',
+                selectItemSubmenu: '',
+                moMenuType: 'publicMenu'
+            }
+        })
+        ;
         $urlRouterProvider.otherwise('/home');
     })
 
@@ -592,7 +609,16 @@ angular.module('ngMo', [
 
     .directive('cart', function() {
         return{
-            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope) {
+            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope,$state) {
+
+                //catch the event submitcart to send the packs to buy
+                $scope.$on('submitCart', function() {
+                    $scope.submitCart();
+                    $state.go('my-patterns');
+                });
+
+
+
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                 $scope.totalCart = ShoppingCartService.obtainTotalCart();
                 $scope.showCart = false;
@@ -879,6 +905,8 @@ angular.module('ngMo', [
                             .error(function (data, status) {
                                 $scope.callbackPurchase(data, status);
                             });
+                    } else {
+                        $state.go('new-subscription');
                     }
                 };
                 $scope.callbackPurchase = function (){

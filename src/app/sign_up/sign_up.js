@@ -95,12 +95,42 @@ angular.module('singUp', [])
                         captcha: ''
                     }
                 }
+            })
+            .state('new-subscription', {
+                url: '/new-subscription',
+                views: {
+                    "main": {
+                        templateUrl: 'sign_up/new-subscription.tpl.html'
+                    }
+                },
+                data: {
+                    /* empty the menu data*/
+                    pageTitle: '',
+                    selectMenu: '',
+                    selectSubmenu: '',
+                    selectItemSubmenu: '',
+                    moMenuType: 'publicMenu',
+                    user: {
+                        email: '',
+                        email2: '',
+                        password: '',
+                        password2: '',
+                        name: '',
+                        surname: '',
+                        address: '',
+                        city: '',
+                        postal: '',
+                        country: '',
+                        conditions: '',
+                        captcha: ''
+                    }
+                }
             });
     })
     .run(function run() {
     })
 
-    .controller('SignupCtrl', function ($scope, $state, SignUpService, IsLogged) {
+    .controller('SignupCtrl', function ($scope, $state, SignUpService, IsLogged, $rootScope, $window, authService,$http) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -109,6 +139,51 @@ angular.module('singUp', [])
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
 
+
+
+            //newSubscription vars:
+            $scope.login = {
+                email :"",
+                password:""
+            };
+            $scope.errorSignIn = false;
+
+            $scope.newSubscriptionMode = "login";
+
+
+            $scope.createNewSubs = function() {
+                if ($scope.newSubscriptionMode == "login") {
+                    $scope.submit();
+                } else {
+                    $scope.sendFirstStep();
+                }
+            };
+
+
+
+            $scope.submit = function() {
+                data = $scope.login;
+                $http.post($rootScope.urlService+'/login', data)
+                    .success(function (data, status, headers, config) {
+                        $window.sessionStorage.token = data.authToken;
+                        authService.loginConfirmed();
+                        $scope.errorSignIn = false;
+                       // $state.go('my-patterns');
+                        $scope.hideSignInForm();
+                        $scope.currentUser = data.name;
+                        $rootScope.$broadcast('submitCart');
+
+                    })
+                    .error(function (data, status, headers, config) {
+                        $scope.errorSignIn = true;
+                        if (data.reason == "not-activated") {
+                            //the user is not activated, we send him to resend mail status
+                            $state.go("reactivate");
+                        }
+                    });
+            };
+
+            //signup vars:
             //password Pattern, note that to not allow spaces must use ng-trim="false" in the input
             $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
             //user model

@@ -1,53 +1,10 @@
-<div ng-controller="MyPacksCtrl" class="myPacksContent">
-    <div class="simpleTab">
-        <p class="tableMenuOpt selected homeTableMenuOpt1">Acciones</p>
-        <p class="tableMenuOpt homeTableMenuOpt2">Par Acciones</p>
-        <p class="tableMenuOpt homeTableMenuOpt3">Índices</p>
-        <p class="tableMenuOpt homeTableMenuOpt4">Futuros</p>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
 
-    </div>
-    <div class="blackBlock" style="background-color: black; height: 40px; margin-left: -4px;width: 820px;" ></div>
-    <div  style="width: 760px; ! important; float: left; position: relative;">
-        <div class="standardHead blackHead fontVerdanaB" style="width:740px;"></div>
-        <table style="margin-left: -4px; margin-bottom: 25px;" class="rich-table noBorder" style="float: left; vertical-align: top;" border="0" cellpadding="0" cellspacing="0" width="820px !important">
-            <colgroup span="4"></colgroup>
-            <thead class="rich-table-thead">
-            <tr  class="rich-table-header homeTablePatrHead" style=" border-left: 1px solid black !important; border-top: 1px solid black !important; border-right: 1px solid black !important;">
-                <th style="width: 240px; border-left: 1px solid black; border-right: 2px solid gray;background-color: #868789 ;height:20px;font-size: 11px;color:white;text-align: center;" class="rich-table-headercell tableDiaryHeader noBorder borderRight1">Pack</th>
-                <th style="width: 240px; border-left: 1px solid black; border-right: 2px solid gray; background-color: #868789 ;height:20px;font-size: 11px;color:white;text-align: center;" class="tableHeader" class="rich-table-headercell tableDiaryHeader noBorder borderRight1" style="width: 95px; border-top:0px !important;">Inicio</th>
-                <th style="width: 240px; border-left: 1px solid black; border-right: 2px solid gray; background-color: #868789 ;height:20px;font-size: 11px;color:white;text-align: center;" class="tableHeader" class="rich-table-headercell tableDiaryHeader noBorder borderRight1" style="width: 90px; border-top:0px !important;">Fin</th>
-                <th style="width: 240px; border-left: 1px solid black; border-right: 2px solid gray;background-color: #868789 ;height:20px;font-size: 11px;color:white;text-align: center;" class="tableHeader" class="rich-table-headercell tableDiaryHeader noBorder" style="width:70px; border-top:0px !important; border-right:1px solid black;">Orden</th>
-            </tr>
-            <tbody>
-            <tr  ng-repeat="data in myData" class="rich-tablerow tableRowEvenM"  ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
-                <td class="packName rich-table-cell tableDiaryCols borderRight1 borderLeft1" style="border: 1px solid black; border-right: 2px solid gray;width: 500px;  text-align: center; border-bottom: 1px solid gray !important;">{{data.pack}}</td>
-                <td class="rich-table-cell tableDiaryCols borderRight1 borderLeft1" style="border: 1px solid black; border-right: 2px solid gray; text-align: center; border-bottom: 1px solid gray !important;">
-                    <div>
-                        <div class="start divSuscripcionTD">Ene 2014</div>
-                    </div>
-                </td>
-                <td class="rich-table-cell tableDiaryCols borderRight1 borderLeft1" style="border: 1px solid black;border-right: 2px solid gray; text-align: center; border-bottom: 1px solid gray !important;">
-                    <div>
-                        <div class="end divSuscripcionTD">Dic 2014</div>
-                    </div>
-                </td>
-                <td class="rich-table-cell tableDiaryCols borderRight1 borderLeft1" style="border: 1px solid black; border-right: 2px solid gray;text-align: center; border-bottom: 1px solid gray !important;">
-                    <div style="width: 84px; height: 19px; margin: auto;">
-                        <form name="homeTable1SId:0:j_id3581" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
-                                <span>
-                                    <span style="display: none"></span>
-                                    <span ></span>
-                                </span>
-                            <select disabled="true" name="homeTable1SId:0:j_id3581:selectorAccion" size="1">
-                                <option value="ELEGIR" selected="selected">Elegir</option>
-                                <option value="RENOVAR">Renovar</option>
-                                <option value="CANCELAR">Cancelar</option>
-                            </select>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+</body>
+</html>

@@ -27,7 +27,7 @@
 </div>
 
 <div style="margin-top: 15px;">
-<!--
+
     <tabset>
         <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
              active="ctab.active" disabled="tab.disabled">
@@ -41,25 +41,104 @@
 
             </div>
 
-
                 <div class="footer-table-correlation">
-                    <div class="pagination-correlation-container">
-                        <pagination ng-show="myData.size() > 10" boundary-links="true" on-select-page="setPage(page)" total-items="found"
-                                    items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                    <div class="pagination-correlation-container" >
+                        <pagination ng-show="found > pagingOptions.pageSize" boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                                    items-per-page="pagingOptions.pageSize" max-size="10"
                                     page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
                                     next-text="&gt;"
                                     first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
                     </div>
-                    <button style="width: 120px;margin-left: 50px;" class="mo-cancel-button">
-                            Cancelar
+                    <button style="width: 120px;margin-left: 165px;margin-right:35px;" class="mo-cancel-button" ng-click="clearCorrelationList();">
+                        Cancelar
                     </button>
-                    <button style="width: 120px;" class="mo-button">
+                    <button style="width: 120px;" class="mo-button" ng-click="correlate();">
                         Calcular
                     </button>
                 </div>
             </div>
 
         </tab>
-    </tabset> -->
+    </tabset>
+    <div ng-show="correlationData.length > 0">
+        <table class="table-correlation-result" style="margin-bottom: 30px;">
+            <thead>
+                <tr>
+                    <th colspan="{{correlationData.length}}"><span style="float:left;">COEFICIENTES DE CORRELACIÓN (%) </span> <span style="float:right;">({{lastUpdateDateCorrelation | date: 'dd MMM yyyy'}})</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in correlationData track by $index">
+                    <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column.value >= 80, 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">{{column.value}}</td>
+                </tr>
+            </tbody>
+        </table>
 
+        <table class="table-correlation-result" ng-show="filterOptions.filters.active_tab == 1 && pairCorrelationData.length > 2 || (filterOptions.filters.active_tab == 2 && filterOptions.filters.index_type == 1) && pairCorrelationData.length > 2">
+            <thead>
+            <tr>
+                <th colspan="{{pairCorrelationData.length}}"><span style="float:left;">COEFICIENTES DE CORRELACIÓN PARES (%) </span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in pairCorrelationData track by $index">
+                <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column >= 80}">{{column}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div style="margin: 0 auto; width: 740px;">
+            <table class="correlation-caption-table" ng-show="correlationCaption1.length > 0">
+                <thead>
+                    <tr>
+                        <th><span tooltip="Favoritos">Fav.</span></th>
+                        <th>Código</td>
+                        <th>Símbolo</td>
+                        <th>Nombre</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in correlationCaption1 track by $index">
+                        <td>
+                            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
+                                  ng-class="{'favourite-added': row.favorite == true}"></div>
+                        </td>
+                        <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
+                        <td>{{row.symbol}}</td>
+                        <td>{{row.name | limitTo: 35}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="correlation-caption-table" style="margin-left: 75px;">
+                <thead>
+                <tr>
+                    <th><span tooltip="Favoritos">Fav.</span></th>
+                    <th>Código</td>
+                    <th>Símbolo</td>
+                    <th>Nombre</td>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in correlationCaption2 track by $index">
+                        <td>
+                            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
+                                 ng-class="{'favourite-added': row.favorite == true}"></div>
+                        </td>
+                        <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
+                        <td>{{row.symbol}}</td>
+                        <td>{{row.name | limitTo: 35}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button style="width: 120px;float:right;" class="mo-button" ng-click="clearCorrelationList();">
+                Aceptar
+            </button>
+            <div class="excel-correlation-icon"></div>
+            <div class="pdf-correlation-icon"></div>
+            <div class="copyright">
+                Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+            </div>
+        </div>
+    </div>
 </div>

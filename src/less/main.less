@@ -55,6 +55,7 @@ th{
 body{
   color:@black;
   font-family: 'fontpo';
+  //font-family: Helvetica Neue, Helvetica, Ariall;
   font-size: 12px;
   /*-webkit-font-smoothing: antialiased; -- this change the font */
   -webkit-font-smoothing: auto;
@@ -231,7 +232,7 @@ b , strong {
     li {
       list-style-type: none;
       display: inline-block;
-      margin-left: 2px;
+      padding-left: 2px;
       height: 24px;
       cursor: pointer;
     }
@@ -509,10 +510,7 @@ b , strong {
 
 .text-block-title{
   font-size: 18px !important;
-  /*margin-bottom: 20px !important;
-  clear: both !important;
-  float: left !important;*/
-  margin-top:40px;
+  margin-top:10px;
 }
 
 .public-zone-text {
@@ -540,7 +538,7 @@ a{
   li{
     list-style-image: url('../assets/img/public-list-li.png');
     /*margin-bottom: 0.5em;*/
-    margin-bottom: 4px;
+    margin-bottom: 4px !important;
     padding-left: 1px;
     clear: left;
   }
@@ -551,7 +549,7 @@ a{
   font-size: 12px;
   line-height: 1.2em;
   text-align: left;
-  color:@black;
+  color: @black;
   padding: 3px 20px;
   max-width: none;
   opacity: 1;
@@ -576,12 +574,14 @@ a{
 .tooltip-arrow {
   margin-left: 50px;
   border-top: none;
+  display: none;
 }
 
 .element-with-tooltip{
   border-bottom: 1px dashed #999;
   cursor: help;
   font-family: "fontpo-bold", "verdana" !important;
+  color: @tooltipsDarkBlue;
 }
 
 .menu-not-logged{
@@ -638,10 +638,15 @@ a{
   }
 }
 
-
-
 .submenu-content{
   width: 740px;
+  float: left;
+  line-height: 150%;
+  /*margin-top: 35px;*/
+}
+
+.content-detailed{
+  width: 735px;
   float: left;
   line-height: 150%;
   /*margin-top: 35px;*/
@@ -676,6 +681,15 @@ a{
   position: relative;
   z-index: 0;
   margin-top: 35px;
+}
+
+.lat-menu-detailed-nav{
+  width: 200px;
+  float: left;
+  min-height: 10px;
+  margin-right: 10px;
+  position: relative;
+  z-index: 0;
 }
 
 
@@ -792,7 +806,6 @@ Flags styles
   padding: 5px 54px 20px 15px !important;
   margin: 0;
   text-indent: 12px;
-  text-transform: capitalize;
   label{
     text-indent: 0;
   }
@@ -933,6 +946,13 @@ Flags styles
   font-size: 11px;
   text-align: right;
   padding: 12px 0;
+  a{
+    color:@white;
+    &:hover{
+      color:@white;
+      text-decoration: none;
+    }
+  }
 }
 
 .footer-body {
@@ -1076,9 +1096,9 @@ table{
 
 .table-pack {
   border: 1px solid silver;
-  font-size: 10px;
+  font-size: 11px;
   color: @white;
-  font-family: fontpo;
+  font-family: Arial;
   tbody {
     tr {
       cursor: pointer;
@@ -1144,10 +1164,6 @@ table{
   background-color: #ECECED;
   td{
     padding: 0.8em 5px 0.8em 10px;
- /*   padding-left: 10px;
-    padding-top: 0.8em;
-    padding-bottom: 0.8em;
-    padding-right: 5px;*/
     line-height: 1.2em;
     vertical-align: top;
   }
@@ -1252,6 +1268,7 @@ table{
   text-align: center;
   padding: 5px 10px;
 }
+
 
 /******** end Tabs Classes ****/
 .home-text-container {
@@ -1554,30 +1571,40 @@ table{
 * TODO: replace modal-content for modal-lg and modal-sm when angular-bootstrap publish version 0.11.0
 **/
 
-.modal-content{
-  border-radius: 0;
-  width: 1010px;
-  left:-190px;
-}
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: transparent;
+  }
+  .modal-dialog{
+    width: 100%;
+    height: 100%;
+  }
 
-.advertising-modal{
-  width: 1010px;
-  border: 5px outset gray;
-}
+  .advertising-modal {
+    width: 1010px;
+    border: 5px outset gray;
+    background-color: @white;
+    margin: 0 auto;
 
-.modal-header{
-  border-bottom:0;
-  margin-bottom: 25px;
-}
+    .modal-header {
+      border-bottom: 0;
+      margin-bottom: 25px;
+    }
 
-.modal-body{
-  width: 946px;
-  height: 550px;
-  overflow-y: scroll;
-  text-align: justify;
-  margin-left: 25px;
-  margin-bottom: 40px;
-}
+    .modal-body {
+      width: 946px;
+      height: 550px;
+      overflow-y: scroll;
+      text-align: justify;
+      margin-left: 25px;
+      margin-bottom: 40px;
+    }
+    img{
+      width: 80%;
+    }
+  }
 
 .btn-close{
   float:right;
@@ -1594,6 +1621,11 @@ table{
     outline-color:transparent;
   }
 }
+.btn-close-alert{
+  height: 18px;
+  width: 18px;
+  background-size: 18px 18px;
+}
 
 .modal-backdrop {
   .in {
@@ -1602,9 +1634,9 @@ table{
 }
 
 .modal-text{
-    width: 1010px;
-    border-radius: 0;
-    left:-190px;
+  width: 500px;
+  background-color: @white;
+  margin: 0 auto;
 
   .modal-header{
     border-bottom:0;
@@ -1612,12 +1644,58 @@ table{
   }
 
   .modal-body{
-    width: 1000px;
-    height: 20px;
+    width: 490px;
+    height: 40px;
+    padding: 5px;
     margin-left: 5px;
     overflow: hidden;
     text-align: center;
     color: @darkGrey;
+  }
+}
+
+.modal-alert{
+  width: 354px;
+  background-color: @white;
+  margin: 0 auto;
+
+  .modal-header{
+    text-align: left;
+    color: white;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 1px;
+    height: 23px;
+    border-bottom: 0;
+    .header{
+      background-color: black;
+      padding: 2px 2px 2px 10px;
+      height: 20px;
+    }
+  }
+
+  .modal-body{
+    width: 354px;
+    height: 100px;
+    padding: 0;
+    margin-left: 10px;
+    overflow: hidden;
+    text-align: left;
+    font-size: 10px;
+    color: @darkGrey;
+    line-height: 2.5;
+    input{
+      line-height: 0;
+      margin-left: 5px;
+      font-size: 11px;
+    }
+  }
+
+  .modal-footer{
+    border-top: 0;
+    margin: 0;
+    padding: 0 10px 10px 10px;
   }
 }
 
@@ -1655,7 +1733,6 @@ select{
     float: left;
     font-size: 18px;
     margin-bottom: 0.4em;
-    border-top: 1px solid @black;
   }
 
   .underlined-title{
@@ -1694,6 +1771,13 @@ select{
     background-color: @black;
     padding: 3px;
     color: @white;
+  }
+
+  .public-images{
+    text-align: center !important;
+    img {
+      width: 80%;
+    }
   }
 
 
@@ -1943,11 +2027,60 @@ tooltip-placement=" top ultra-left-tooltip" **/
   }
 }
 
+.alarm-icon{
+  background:  url('../assets/img/alarm.png');
+  background-size: 27px 19px;
+  width: 27px;
+  height: 19px;
+  display: inline-block;
+}
+
+.has-alarm-icon{
+  background:  url('../assets/img/has-alarm.png');
+  background-size: 16px 11px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+}
+
+.checkbox-filters{
+  width: 13px;
+}
+
+.prices-font11{
+  font-family: fontpo, verdana !important;
+  font-size: 11px;
+}
+
+.prices-font10{
+  font-family: fontpo, verdana !important;
+  font-size: 10px;
+}
+
+.prices-font12{
+  font-family: fontpo, verdana !important;
+  font-size: 12px;
+}
+
 
 .reactivate-box {
   width: 450px;
   height: 130px;
   margin: auto;
+}
+
+.faq-index{
+  font-family: fontpo-bold, verdana;
+  li{
+    cursor: pointer;
+  }
+}
+
+.custom-tooltip{
+  padding: 5px;
+  p, ul{
+    margin-top: 5px;
+  }
 }
 
 /**
@@ -1968,3 +2101,4 @@ tooltip-placement=" top ultra-left-tooltip" **/
 @import '../app/tools/volatility/volatility.less';
 @import '../app/my_subscriptions/my_packs.less';
 @import '../app/my_profile/my_profile.less';
+@import '../app/tools/correlation/correlation.less';

@@ -16,8 +16,8 @@
         <th class="border-right-table">
             <span class="cursor-help">Salida</span>
         </th>
-        <th class="border-right-table" tooltip-html-unsafe="Volatilidad">
-            Vol.
+        <th class="border-right-table">
+            <span tooltip-html-unsafe="Volatilidad">Vol.</span>
         </th>
         <th class="border-right-table"
             colspan="2">
@@ -72,14 +72,14 @@
         <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
             <span>Comprar</span>
             <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.asset.shortName}}">
+                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
                  {{data.asset.longName}}
             </span>
             <br/>
             <div class="text-limitator">
             <span>Vender</span>
             <span class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.bearishAsset.shortName}}">
+                  tooltip-html-unsafe="{{data.bearishAsset.longName}} ({{data.bearishAsset.exchange.symbol}})">
                 {{data.bearishAsset.longName}}
             </span>
             </div>
