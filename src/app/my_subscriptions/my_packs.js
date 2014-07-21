@@ -24,8 +24,32 @@ angular.module('ngMo.my_packs', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu',
                 subPage: 'my-packs'
+            },
+            resolve: {
+                MonthSelectorService: "MonthSelectorService",
+                VolatilityService: "VolatilityService",
+                TabsService: "TabsService",
+                filtering : function(TabsService,MonthSelectorService){
+                    return {
+                        active_tab: TabsService.getActiveTab(),
+                        month: MonthSelectorService.restartDate()
+                    };
+                },
+                myPacksData: function(MyPacksService, filtering) {
+                    return MyPacksService.getPagedDataAsync().then(function (data){
+                        return {
+                            patterns: data.patterns,
+                            results: data.results,
+                            found: data.found
+                        };
+
+                    });
+                }
             }
         })
+
+
+
         ;
     })
 
@@ -115,11 +139,13 @@ angular.module('ngMo.my_packs', [
                     return futuresPacks;
             }
         };
+
+
     })
 
 
 
-    .controller('MyPacksCtrl', function ($scope, ActiveTabService, MyPacksService, IsLogged) {
+    .controller('MyPacksCtrl', function ($scope, ActiveTabService, MyPacksService, IsLogged,$http,$window,$rootScope ) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
             alert('my packs controller');
@@ -129,10 +155,19 @@ angular.module('ngMo.my_packs', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
-
+               // $location.path('/packs');
             }
         });
 
+        window.onload = $scope.loadPage = function () {
+            var data = $scope.getPagedDataAsync().then(function (data) {
+                $scope.myData = data.patterns;//data.page;
+                $scope.results = data.results;//data.results;
+                $scope.found = data.found;//data.found;
+            });
+
+
+        };
         $scope.myPacksTablePacks = [
         {
             title: 'Acciones',
@@ -147,7 +182,6 @@ angular.module('ngMo.my_packs', [
             active: ActiveTabService.activeTab() === 1,
             value: 1,
             content: MyPacksService.obtainPacks('pairs'),
-
             url: 'my_subscriptions/tables_my_packs/pairs_table.tpl.html'
         },
         {
@@ -155,7 +189,6 @@ angular.module('ngMo.my_packs', [
             active: ActiveTabService.activeTab() === 2,
             value: 2,
             content: MyPacksService.obtainPacks('indices'),
-
             url: 'my_subscriptions/tables_my_packs/indices_table.tpl.html'
         },
         {
@@ -168,7 +201,28 @@ angular.module('ngMo.my_packs', [
         ];
 
 
+        $scope.getPagedDataAsync = function () {
+
+            var data;
+            var indexType = null;
+
+            config = {
+                params: {
+                    'page': 0,
+                    'token': $window.sessionStorage.token
+
+                }
+            };
+
+            var result = $http.get($rootScope.urlService+'/patterns', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
 
     })
+
 
 ;
