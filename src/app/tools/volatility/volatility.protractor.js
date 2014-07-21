@@ -50,10 +50,10 @@ describe('The volatility page ', function() {
         expect(browser.isElementPresent(by.css('.private-black-title'))).toBe(false);
     });
 
-   it('should have 32 lines', function(){
+   it('should have 10 lines', function(){
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(12);
+        expect(a.n).toBe(10);
     });
 
 

@@ -116,7 +116,7 @@ angular.module('ngMo.volatility', [
             activeTab = active;
         };
     })
-    .controller('VolatilityCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
