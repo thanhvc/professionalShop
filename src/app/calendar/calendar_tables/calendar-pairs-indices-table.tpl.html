@@ -23,7 +23,7 @@
     <tbody>
     <tr ng-repeat="pattern in myData">
         <td class="pair-pattern">
-            <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.name}}) {{pattern.id}}">{{pattern.asset.longName}}</span>
+            <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.id}}">{{pattern.asset.longName}}</span>
             <br/>
             <span tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.name}}) {{pattern.id}}">{{pattern.asset.longName}}</span>
         </td>
@@ -41,7 +41,7 @@
     Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
 </div>
 <!--pagination-->
-<div class="pagination-container" style="margin-top:72px; clear:both;" ng-show="results > 10">
+<div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;" ng-show="results > 15">
     <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                 items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                 page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"

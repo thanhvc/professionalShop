@@ -36,11 +36,11 @@
         </th>
         <th class="border-right-table"
             title="Favorito">
-            <span class="cursor-help" tooltip-html-unsafe="Favorito">Fav.</span>
+            <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="Favorito">Fav.</span>
         </th>
         <th class="sub-border-right-table"
             title="Estado">
-            <span class="cursor-help" tooltip-html-unsafe="Estado">Est.</span>
+            <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="Estado">Est.</span>
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
@@ -157,7 +157,7 @@
             </div>
         </td>
         <td style="width: 44px;" class="table-cell-patterns border-right-table">
-            <b> {{data.dailyPairReturn | twoDecimals}}</b>
+            <b> {{data.dailyReturn | twoDecimals}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
             <b> {{data.duration | twoDecimals}}</b>
@@ -166,13 +166,13 @@
             <b> {{data.pairVolatility | twoDecimals}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
-            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita"
-                 g-class="{'favourite-added': data.Fav == 'true'}"></div>
+            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" tooltip-placement="left"
+                 ng-class="{'favourite-added': data.Fav == 'true'}"></div>
         </td>
         <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
-            <div tooltip="Sin Comenzar" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>
-            <div tooltip="Comenzado" class="state-sphere started-state" ng-show="data.statePattern == 'STARTED'"></div>
-            <div tooltip="Finalizado" class="state-sphere finished-state" ng-show="data.statePattern == 'FINISHED'"></div>
+            <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>
+            <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state" ng-show="data.statePattern == 'STARTED'"></div>
+            <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state" ng-show="data.statePattern == 'FINISHED'"></div>
         </td>
 
     </tr>

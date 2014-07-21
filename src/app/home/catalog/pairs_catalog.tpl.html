@@ -100,9 +100,9 @@
             <td>{{pattern.asset.volatility | twoDecimals}}</td>
             <td><!--<div tooltip="{{pattern.state}}"
             class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
-                <div tooltip="Sin Comenzar" class="state-sphere no-started-state" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
-                <div tooltip="Comenzado" class="state-sphere started-state" ng-show="pattern.statePattern == 'STARTED'"></div>
-                <div tooltip="Finalizado" class="state-sphere finished-state" ng-show="pattern.statePattern == 'FINISHED'"></div>
+                <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
+                <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state" ng-show="pattern.statePattern == 'STARTED'"></div>
+                <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state" ng-show="pattern.statePattern == 'FINISHED'"></div>
             </td>
         </tr>
     </table>
