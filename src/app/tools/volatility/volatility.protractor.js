@@ -79,7 +79,7 @@ describe('The volatility page ', function() {
    it('should have 10 lines', function(){
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(10);
+        expect(a.n).toBe(12);
     });
 
 
@@ -120,7 +120,7 @@ describe('The volatility page ', function() {
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(10);
+        expect(a.n).toBe(12);
 
         a.changeIndexTab();
         expect(a.cell).toBeDefined();
@@ -138,7 +138,7 @@ describe('The volatility page ', function() {
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(10);
+        expect(a.n).toBe(12);
 
         a.changeFuturesTab();
         expect(a.cell).toBeDefined();
@@ -156,7 +156,7 @@ describe('The volatility page ', function() {
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(10);
+        expect(a.n).toBe(12);
 
         a.changeIndexTab();
         expect(a.cell).toBeDefined();
