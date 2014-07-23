@@ -141,6 +141,15 @@ angular.module('singUp', [])
 
 
 
+
+
+            //form navigation
+
+            $scope.nextInput = function(input) {
+                document.getElementById(input).focus();
+            };
+
+
             //newSubscription vars:
             $scope.login = {
                 email :"",
