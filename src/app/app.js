@@ -82,8 +82,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       //$rootScope.urlService = 'http://localhost:9000';
+       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       $rootScope.urlService = 'http://localhost:63342/mo-shopclient/build/index.html#';
     })
 
     .service('ActiveTabService', function (){
@@ -941,7 +941,6 @@ angular.module('ngMo', [
             templateUrl: 'layout_templates/cart.tpl.html'
         };
     })
-
 ;
 //modalPanel
  var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {

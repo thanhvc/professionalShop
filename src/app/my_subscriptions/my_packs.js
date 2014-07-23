@@ -143,12 +143,22 @@ angular.module('ngMo.my_packs', [
 
     })
 
+    .service('MyService', function($q,$http,$rootScope){
+        this.getPagedDataAsync = function (page, filtering) {
+            var deferred = $q.defer();
+            var result = $http.get($rootScope.urlService+'/volatility').then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
+    })
 
-
-    .controller('MyPacksCtrl', function ($scope, ActiveTabService, MyPacksService, IsLogged,$http,$window,$rootScope ) {
+    .controller('MyPacksCtrl', function ($scope, ActiveTabService, $q, MyPacksService, IsLogged,$http,$window,$rootScope,MyService ) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
-            alert('my packs controller');
+
         });
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -159,15 +169,9 @@ angular.module('ngMo.my_packs', [
             }
         });
 
-        window.onload = $scope.loadPage = function () {
-            var data = $scope.getPagedDataAsync().then(function (data) {
-                $scope.myData = data.patterns;//data.page;
-                $scope.results = data.results;//data.results;
-                $scope.found = data.found;//data.found;
-            });
 
 
-        };
+        $scope.loadPage();
         $scope.myPacksTablePacks = [
         {
             title: 'Acciones',
@@ -201,26 +205,7 @@ angular.module('ngMo.my_packs', [
         ];
 
 
-        $scope.getPagedDataAsync = function () {
 
-            var data;
-            var indexType = null;
-
-            config = {
-                params: {
-                    'page': 0,
-                    'token': $window.sessionStorage.token
-
-                }
-            };
-
-            var result = $http.get($rootScope.urlService+'/patterns', config).then(function (response) {
-                // With the data succesfully returned, call our callback
-                deferred.resolve();
-                return response.data;
-            });
-            return result;
-        };
 
     })
 

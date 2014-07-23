@@ -49,6 +49,7 @@ angular.module('ngMo.volatility', [
             }
         });
     })
+
     .service('TabsService', function () {
 
         /**Tabs services for private zone**/

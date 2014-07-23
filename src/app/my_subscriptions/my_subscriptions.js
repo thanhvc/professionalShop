@@ -64,7 +64,7 @@ angular.module('ngMo.my_subscriptions', [
         var stocksPacks = [
             {
                 id: 1,
-                packName: "Canada",
+                packName: "Holanda",
                 startDate: new Date(2014, 05, 01),
                 finishDate: new Date(2014, 11, 01)
             },
@@ -413,17 +413,40 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
+    .service('MyServiceOne', function($q,$http,$rootScope){
+        this.getPagedDataAsync = function (page, filtering) {
+            var deferred = $q.defer();
+            var result = $http.get($rootScope.urlService+'/volatility').then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
+    })
     .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            $scope.vector=[1,2,3];
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
             }
+
         });
+
+        $scope.loadPage = function () {
+            var data = MyServiceOne.getPagedDataAsync($q,$http,$rootScope).then(function (data) {
+                $scope.myData = 'hola tu';//data.patterns;//data.page;
+                $scope.results = data.results;//data.results;
+                $scope.found = data.found;//data.found;
+            });
+
+
+        };
 
         $scope.mySubscriptionsTablePacks = [
             {
