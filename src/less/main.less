@@ -533,11 +533,13 @@ a{
   }
 }
 .public-list-first-level{
+  /*for chrome padding in UL*/
+  -webkit-padding-start: 24px;
   li{
     list-style-image: url('../assets/img/public-list-li.png');
     /*margin-bottom: 0.5em;*/
     margin-bottom: 4px !important;
-    padding-left: 1px;
+    padding-left: 4px;
     clear: left;
   }
 }
@@ -1094,9 +1096,11 @@ table{
 
 .table-pack {
   border: 1px solid silver;
-  font-size: 11px;
+
   color: @white;
-  font-family: Arial;
+  /*  font-size: 11px; font-family: Arial;*/
+  font-family: fontpo, verdana;
+  font-size: 10px;
   tbody {
     tr {
       cursor: pointer;
@@ -1791,6 +1795,7 @@ select{
 
 .ordered-list-first-level {
   padding-left: 25px;
+  -webkit-padding-start: 0px;
   li {
     margin-bottom: 0.5em;
     padding-left: 5px;
