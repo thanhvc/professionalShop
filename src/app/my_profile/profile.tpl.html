@@ -1,9 +1,11 @@
 <div class="public-zone-text container" ng-controller="ProfileCtrl">
 
-    <table class="table-page-index" style="width: 115px;">
+    <div class="super-border private-black-title">Mi Cuenta</div>
+
+    <table class="table-page-index" style="width: 115px; clear:both; margin-top: 20px;">
         <tr>
             <td>
-                  <span><a ui-sref="profile.edit" ng-class="{'orange-text': subPage == 'edit'}">
+                  <span><a ui-sref="profile.edit" ng-class="{'orange-text':( subPage == 'edit')}">
                     Editar
                   </a>
                     </span>
@@ -11,7 +13,7 @@
         </tr>
         <tr>
             <td>
-                <span><a ui-sref="profile.orders" ng-class="{'orange-text': subPage == 'orders'}">
+                <span><a ui-sref="profile.orders" ng-class="{'orange-text': (subPage == 'orders')}">
                     Mis ordenes
                 </a>
                  </span>
