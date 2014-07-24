@@ -114,7 +114,7 @@
                             <td colspan="3" style="height: 60px; padding-right: 105px;">
                                 <div  class="text-warning-form"
                                    >
-                                    <span ng-show="formReg.$error.required && formReg.$dirty">
+                                    <span ng-show="(formReg.$error.required && formSubmited)">
                                     Faltan campos obligatorios</span>
                                 </div>
                                 <div   class="text-warning-form"
@@ -128,7 +128,7 @@
                                     </span>
                                 </div>
                                 <div  class="text-warning-form"
-                                     ><span ng-show="formReg.conditions.$error.required && formReg.$dirty">
+                                     ><span ng-show="formReg.conditions.$error.required && formSubmited">
                                     Debe aceptar las condiciones del servicio
                                     </span>
                                 </div>

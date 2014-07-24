@@ -42,44 +42,36 @@
             </td>
         </tr>
         <tr class="accountRowHeight">
-            <td class="red-color-form">*</td>
+            <td class="red-color-form"></td>
             <td class="width-first-td"><span class="grey-label">Dirección</span></td>
-            <td><input type="text" name="address" required="true"
+            <td><input type="text" name="address"
                        ng-model="user.address" class="profile-input"
-                       ng-class="{'warning-input': (profileForm.address.$error.required)
-                                                  || (profileForm.address.$error.maxlength)}"
-                       alt="Direccion" required="true" ng-maxlength="200"></td>
-            <td><span
-                    class="red-color-form prices-font11"
-                    ng-show="profileForm.address.$error.required">Campo obligatorio</span>
+                       ng-class="{'warning-input':  (profileForm.address.$error.maxlength)}"
+                       alt="Direccion" ng-maxlength="200"></td>
+            <td>
             </td>
         </tr>
         <tr class="accountRowHeight">
-            <td class="red-color-form">*</td>
+            <td class="red-color-form"></td>
             <td class="width-first-td"><span class="grey-label">Ciudad</span></td>
-            <td><input type="text" name="city" required="true"
+            <td><input type="text" name="city"
                        ng-model="user.city" class="profile-input"
-                       ng-class="{'warning-input': (profileForm.city.$error.required)
-                                                  || (profileForm.city.$error.maxlength)}"
+                       ng-class="{'warning-input': (profileForm.city.$error.maxlength)}"
                        alt="Ciudad"></td>
             <td>
-                <span class="red-color-form prices-font11"
-                      ng-show="profileForm.city.$error.required">Campo obligatorio</span>
+
             </td>
         </tr>
         <tr class="accountRowHeight">
             <td class="red-color-form">*</td>
             <td class="width-first-td"><span class="grey-label">Código Postal</span></td>
-            <td><input type="text" name="zipCode" required="true"
+            <td><input type="text" name="zipCode"
                        ng-pattern="zipPattern"
-                       ng-class="{'warning-input': (profileForm.zipCode.$error.required)
-                                                  || ((profileForm.zipCode.$error.pattern)
+                       ng-class="{'warning-input': ((profileForm.zipCode.$error.pattern)
                                                   || profileForm.zipCode.$error.maxlength)}"
                        ng-model="user.postalCode" class="profile-input"
                        alt="Codigo Postal"></td>
-            <td><span
-                    class="red-color-form prices-font11"
-                    ng-show="profileForm.zipCode.$error.required">Campo obligatorio</span>
+            <td>
 
                 <span ng-show="profileForm.zipCode.$error.pattern" class="red-color-form prices-font11">El campo introducido contiene caracteres especiales</span>
             </td>
@@ -88,14 +80,14 @@
             <td class="red-color-form">*</td>
             <td class="width-first-td"><span class="grey-label">País</span></td>
             <td>
-                <select class="signup-select" name="country" size="1"
-                        ng-model="user.country"
 
-                        ng-options="opt as opt.name for opt in countries"
-                        required="true"
-                        ng-class="{'warning-input': (profileForm.country.$error.required)}">
-                    <option style="display:none" value="">select a type</option>
-
+                <select class="signup-select"  name="country"   required="true"  ng-class="{'warning-input': (profileForm.country.$error.required)}"
+                        ng-model="user.country">
+                    <option value="">Selecciona País</option>
+                    <option ng-repeat="item in countries" value="{{item.value}}"
+                            ng-selected="{{item.value == user.country}}">
+                        {{item.name}}
+                    </option>
                 </select>
 
 
