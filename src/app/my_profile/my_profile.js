@@ -23,7 +23,7 @@ angular.module('ngMo.my_profile', [
             },
             data: {
                 pageTitle: 'Profile',
-                selectMenu: 'my-patterns-nav',
+                selectMenu: '',
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
@@ -61,13 +61,14 @@ angular.module('ngMo.my_profile', [
     })
 
     .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state) {
-        $scope.subPage = $state.$current.data.subPage;
+
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+                $scope.subPage = $state.$current.data.subPage;
             }
         });
 
