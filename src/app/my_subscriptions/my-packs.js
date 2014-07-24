@@ -44,6 +44,7 @@ angular.module('ngMo.my_packs', [
                         };
 
                     });
+
                 }
             }
         })
