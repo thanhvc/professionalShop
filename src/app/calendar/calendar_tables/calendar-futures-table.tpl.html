@@ -1,15 +1,14 @@
 <div class="calendar-filters-container">
-    <select disabled="true" data-ng-model="selectedMonth">
-        <option ng-repeat="month in calendarMonths" value="{{month.value}}">{{month.description}}</option>
+    <select data-ng-model="filterOptions.filters.selectMonth" ng-change="goToMonth()"
+            ng-options="item.name for item in filterOptions.months">
     </select>
-    <select disabled="true" data-ng-model="selectedOperation">
+    <select data-ng-model="filterOptions.filters.selectedOperation" ng-change="search();">
         <option selected value="">- Operación -</option>
-        <option value="0">Compra</option>
-        <option value="1">Venta</option>
+        <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}" >{{item.description}}</option>
     </select>
-    <input type="checkbox" ng-model="favouriteCalendar"><label>Favoritos</label>
-    <input type="text" placeholder="Día">
-    <select disabled="true" data-ng-model="filterOptions.filters.order" class="select-order">
+    <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>Favoritos</label>
+    <input type="text" placeholder="Día" data-ng-model="filterOptions.filters.dayDateInput" ng-change="search();">
+    <select data-ng-model="filterOptions.filters.order" class="select-order" ng-change="search();">
         <option selected="selected" value="0">Ordenar por Fecha Entrada</option>
         <option value="1">Ordenar por Fecha Salida</option>
     </select>
@@ -27,10 +26,10 @@
             <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.id}}">{{pattern.asset.longName}}</span>
         </td>
         <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
-            <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="bearish-year calendar-letter">S</span>
-            <span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="bullish-year calendar-letter">L</span>
-            <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="bearish-year calendar-letter">S</span>
-            <span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="bullish-year calendar-letter">L</span>
+            <span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="bearish-year calendar-letter">S</span>
+            <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="bullish-year calendar-letter">L</span>
+            <span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="bearish-year calendar-letter">S</span>
+            <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="bullish-year calendar-letter">L</span>
         </td>
     </tr>
 
@@ -42,7 +41,7 @@
     Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
 </div>
 <!--pagination-->
-<div class="pagination-container" style="margin-top:72px; clear:both;" ng-show="results > 15">
+<div class="pagination-container" style="margin-top:72px; clear:both;" ng-show="found > pagingOptions.pageSize">
     <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                 items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                 page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"

@@ -2,11 +2,11 @@
     <table>
         <tr>
             <td>
-                <input class="border-filters input-filter" style="width: 112px;" placeholder="Nombre"
+                <input class="border-filters input-filter" ng-change="search();" style="width: 112px;" placeholder="Nombre"
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
-                <select disabled="true" class="border-filters select-filter-correlation" style="color: black;"
+                <select class="border-filters select-filter-correlation" style="color: black;"
                         data-ng-model="filterOptions.filters.selectMonth"
                         ng-change="goToMonth()"
                         ng-options="item.name for item in filterOptions.months"
@@ -24,7 +24,7 @@
                 </select>
             </td>
             <td>
-                <select disabled="true" ng-change="selectMarket()" class="border-filters select-filter-correlation"
+                <select ng-change="selectMarket()" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedMarket">
                     <option value="">- Mercado -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"
@@ -34,17 +34,17 @@
                 </select>
             </td>
             <td>
-                <select disabled="true" ng-change="search()" style="width: 100px;" class="border-filters select-filter-correlation"
+                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- Operacion -</option>
                     <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedOperation}}" ><!---->
+                             ><!---->
                         {{item.description}}
                     </option>
                 </select>
             </td>
             <td style="text-align: center;">
-                <input type="checkbox" ng-model="filterOptions.filters.favourite">
+                <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();">
                 <span class="filter-label-select-correlation">Favoritos</span>
             </td>
         </tr>

@@ -116,7 +116,9 @@ angular.module('ngMo.lookup_diary', [
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
                     month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
-                    favourite: false},
+                    favourite: false,
+                    alarm: false
+                },
                 selectors: {
                     regions: [
 
@@ -126,22 +128,18 @@ angular.module('ngMo.lookup_diary', [
                     ],
 
                     sectors: [
-                        {"id": 1, "description": "Sector1"},
-                        {"id": 2, "description": "Sector2"}
                     ],
 
                     industries: [
-                        {"id": 1, "description": "Industry1"},
-                        {"id": 2, "description": "Industry2"}
                     ],
 
                     operations: [
-                        {"id": 1, "description": "buy"},
-                        {"id": 2, "description": "sell"}
+                        {"id": 0, "description": "Comprar"},
+                        {"id": 1, "description": "Vender"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Menor que"},
-                        {"id": 2, "description": "Mayor que"}
+                        {"id": 0, "description": "Menor que"},
+                        {"id": 1, "description": "Mayor que"}
                     ]
 
                 }
@@ -281,19 +279,19 @@ angular.module('ngMo.lookup_diary', [
                 //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
                     $scope.filterOptions.selectors.markets = data.markets;
-                    $scope.filterOptions.filters.selectedMarket = "";
+                    //$scope.filterOptions.filters.selectedMarket = "";
                 }
                 if (data.hasOwnProperty("regions")) {
                     $scope.filterOptions.selectors.regions = data.regions;
-                    $scope.filterOptions.filters.selectedRegion = "";
+                    //$scope.filterOptions.filters.selectedRegion = "";
                 }
                 if (data.hasOwnProperty("industries")) {
                     $scope.filterOptions.selectors.industries = data.industries;
-                    $scope.filterOptions.filters.selectedIndustry = "";
+                    //$scope.filterOptions.filters.selectedIndustry = "";
                 }
                 if (data.hasOwnProperty("sectors")) {
                     $scope.filterOptions.selectors.sectors = data.sectors;
-                    $scope.filterOptions.filters.selectedSector = "";
+                    //$scope.filterOptions.filters.selectedSector = "";
                 }
             });
         };
@@ -352,6 +350,9 @@ angular.module('ngMo.lookup_diary', [
          */
 
         $scope.refreshRegion = function () {
+            if ($scope.filterOptions.filters.selectedRegion === ""){
+                $scope.filterOptions.filters.selectedMarket = "";
+            }
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
                     $scope.refreshSelectors(['markets', 'industries', 'sectors']);
@@ -512,6 +513,9 @@ angular.module('ngMo.lookup_diary', [
             }
             if (urlParams.favourite) {
                 urlParamsSend.qfav = urlParams.favourite;
+            }
+            if (urlParams.alarm) {
+                urlParamsSend.qalarm = urlParams.alarm;
             }
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
@@ -680,7 +684,25 @@ angular.module('ngMo.lookup_diary', [
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
-                    'year': filtering.month.year
+                    'year': filtering.month.year,
+                    'name': filtering.filterName,
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'operation': filtering.selectedOperation,
+                    'accumulatedReturn': filtering.selectedRent,
+                    'accumulatedInput': filtering.rentInput,
+                    'averageReturn': filtering.selectedAverage,
+                    'averageInput': filtering.rentAverageInput,
+                    'dailyReturn': filtering.selectedRentDiary,
+                    'dailyInput': filtering.rentDiaryInput,
+                    'volatility': filtering.selectedVolatility,
+                    'volatilityInput': filtering.volatilityInput,
+                    'duration': filtering.selectedDuration,
+                    'durationInput': filtering.durationInput,
+                    'favourites': filtering.favourite,
+                    'alarmas': filtering.alarm
                 }
             };
 
@@ -735,68 +757,35 @@ angular.module('ngMo.lookup_diary', [
             //the filtering object could contains some filters that are required for get the specified selectors
             //for example, to get the markets, the selected region is required (if there is not region, means all..)
             //the http petition will use the callback function to load the info received from server
-            var data = {};
-            /*mocked -- we are going to check the selectors needed and check filters */
-            //mocked lists:
-            var eeuuMarkets = [
-                {"id": 1, "description": "American Stock Exchange"},
-                {"id": 2, "description": "Nasdaq Stock Exchange"},
-                {"id": 3, "description": "New York Stock Exchange"}
-            ];
-            var indianMarkets = [
-                {"id": 4, "description": "Bombay Stock Exchange"},
-                {"id": 5, "description": "National Stock Exchange"}
-            ];
+            var data;
 
-            var chinaMarkets = [
-                {"id": 6, "description": "Shangai Stock Exchange"},
-                {"id": 7, "description": "Shenzhen Stock Exchange"}
-            ];
+            var indexType = null;
 
-            if (selectorsToRefresh.indexOf("regions") > -1) {
-                //load regions (always all regions)
-                data.regions = [
-                    {"id": 1, "description": "America"},
-                    {"id": 2, "description": "India"},
-                    {"id": 3, "description": "China"}
-                ];
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
             }
-            if (selectorsToRefresh.indexOf("markets") > -1) {
-                //load markets , check if region is selected.
-                //NOTE: IN A REAL CASE ALL THE FILTERS INFLUENCE THE LIST RECEIVED, NOT ONLY THE REGION
-                //the cases are in string (not INT) so we use expressions to check the value
-                switch (true) {
-                    case /1/.test(filtering.selectedRegion): //america
-                        data.markets = eeuuMarkets;
-                        break;
-                    case /2/.test(filtering.selectedRegion):
-                        data.markets = indianMarkets;
-                        break;
-                    case /3/.test(filtering.selectedRegion):
-                        data.markets = chinaMarkets;
-                        break;
-                    default :
-                        data.markets = eeuuMarkets.concat(indianMarkets.concat(chinaMarkets));
+
+            config = {
+                params: {
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'view': location.hash.replace("#/","").substring(0, (location.hash.indexOf("?")-2))
                 }
-            }
+            };
 
-            //the sectors and industries are always same, to dont make large code
-            if (selectorsToRefresh.indexOf("sectors") > -1) {
-                data.sectors = [
-                    {"id": 1, "description": "Sector1"},
-                    {"id": 2, "description": "Sector2"}
-                ];
-            }
-
-            if (selectorsToRefresh.indexOf("industries") > -1) {
-                data.industries = [
-                    {"id": 1, "description": "Industry1"},
-                    {"id": 2, "description": "Industry2"}
-                ];
-            }
-
-            callback(data);
-
+            var result = $http.get($rootScope.urlService+'/patternfilters', config).success(function (data) {
+                // With the data succesfully returned, call our callback
+                callback(data);
+            });
         };
     })
 

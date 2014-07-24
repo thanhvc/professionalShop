@@ -92,19 +92,7 @@ angular.module('ngMo.correlation', [
                     filterName: "",
                     selectedRegion: "",
                     selectedMarket: "",
-                    selectedSector: "",
-                    selectedIndustry: "",
                     selectedOperation: "",
-                    selectedRent: "",
-                    rentInput: "",
-                    selectedAverage: "",
-                    rentAverageInput: "",
-                    selectedRentDiary: "",
-                    rentDiaryInput: "",
-                    selectedVolatility: "",
-                    volatilityInput: "",
-                    selectedDuration: "",
-                    durationInput: "",
                     index_type: TabsService.getActiveIndexType(),
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
@@ -113,29 +101,18 @@ angular.module('ngMo.correlation', [
                     favourite: false},
                 selectors: {
                     regions: [
-
                     ],
 
                     markets: [
                     ],
 
-                    sectors: [
-                        {"id": 1, "description": "Sector1"},
-                        {"id": 2, "description": "Sector2"}
-                    ],
-
-                    industries: [
-                        {"id": 1, "description": "Industry1"},
-                        {"id": 2, "description": "Industry2"}
-                    ],
-
                     operations: [
-                        {"id": 1, "description": "buy"},
-                        {"id": 2, "description": "sell"}
+                        {"id": 0, "description": "Comprar"},
+                        {"id": 1, "description": "Vender"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Menor que"},
-                        {"id": 2, "description": "Mayor que"}
+                        {"id": 0, "description": "Menor que"},
+                        {"id": 1, "description": "Mayor que"}
                     ]
 
                 }
@@ -149,10 +126,10 @@ angular.module('ngMo.correlation', [
             //refresh all the selectors
             switch (TabsService.getActiveTab()) {
                 case 0:     //stocks
-                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions', 'markets']);
                     break;
                 case 1:     //pairs
-                    $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions']);
                     break;
                 case 2:     //index (pair and index)
                     break;
@@ -367,19 +344,14 @@ angular.module('ngMo.correlation', [
                 //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
                     $scope.filterOptions.selectors.markets = data.markets;
-                    $scope.filterOptions.filters.selectedMarket = "";
+                    if (typeof data.selectedRegion != 'undefined') {
+                        $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                    }
+                    //$scope.filterOptions.filters.selectedMarket = "";
                 }
                 if (data.hasOwnProperty("regions")) {
                     $scope.filterOptions.selectors.regions = data.regions;
-                    $scope.filterOptions.filters.selectedRegion = "";
-                }
-                if (data.hasOwnProperty("industries")) {
-                    $scope.filterOptions.selectors.industries = data.industries;
-                    $scope.filterOptions.filters.selectedIndustry = "";
-                }
-                if (data.hasOwnProperty("sectors")) {
-                    $scope.filterOptions.selectors.sectors = data.sectors;
-                    $scope.filterOptions.filters.selectedSector = "";
+                    //$scope.filterOptions.filters.selectedRegion = "";
                 }
             });
         };
@@ -388,15 +360,12 @@ angular.module('ngMo.correlation', [
          *  make a new search with the filters, restart the page and search, for the button Search in the page
          */
         $scope.search = function () {
-
-
             $scope.applyFilters();
         };
 
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
             $scope.pagingOptions.currentPage = 1; //restart the page
-            $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
             //$scope.loadPage();
         };
@@ -406,35 +375,6 @@ angular.module('ngMo.correlation', [
             currentPage: 1
         };
 
-        /*check that all rent filters have  values and a selector*/
-        $scope.checkFilters = function () {
-            //for each input filter filled, the selector linked must be set
-            if (!($scope.filterOptions.filters.selectedAverage &&
-                $scope.filterOptions.filters.rentAverageInput)) {
-                $scope.filterOptions.filters.selectedAverage = "";
-                $scope.filterOptions.filters.rentAverageInput = "";
-            }
-            if (!($scope.filterOptions.filters.rentInput &&
-                $scope.filterOptions.filters.selectedRent)) {
-                $scope.filterOptions.filters.rentInput = "";
-                $scope.filterOptions.filters.selectedRent = "";
-            }
-            if (!($scope.filterOptions.filters.rentDiaryInput &&
-                $scope.filterOptions.filters.selectedRentDiary)) {
-                $scope.filterOptions.filters.rentDiaryInput = "";
-                $scope.filterOptions.filters.selectedRentDiary = "";
-            }
-            if (!($scope.filterOptions.filters.volatilityInput &&
-                $scope.filterOptions.filters.selectedVolatility)) {
-                $scope.filterOptions.filters.volatilityInput = "";
-                $scope.filterOptions.filters.selectedVolatility = "";
-            }
-            if (!($scope.filterOptions.filters.durationInput &&
-                $scope.filterOptions.filters.selectedDuration)) {
-                $scope.filterOptions.filters.durationInput = "";
-                $scope.filterOptions.filters.selectedDuration = "";
-            }
-        };
         /**
          * specific functions to refresh each selector,
          * This functions are defined to be used in onchange events, this way
@@ -443,12 +383,15 @@ angular.module('ngMo.correlation', [
          */
 
         $scope.refreshRegion = function () {
+            if ($scope.filterOptions.filters.selectedRegion === ""){
+                $scope.filterOptions.filters.selectedMarket = "";
+            }
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
-                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets']);
                     break;
                 case 1://pairs doesnt have markets
-                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets']);
                     break;
                 case 3: //futures ONLY have markets
                     $scope.refreshSelectors(['markets']);
@@ -466,22 +409,14 @@ angular.module('ngMo.correlation', [
         //refresh selectors depending of market
         $scope.refreshMarket = function () {
             if (TabsService.getActiveTab() === 0) {
-                $scope.refreshSelectors(['industries', 'sectors']);
+                $scope.refreshSelectors();
             }
         };
+
         $scope.selectMarket = function () {
             //in stock is required refresh industries, sectors, in futures and
             //others tabs dont have this selectors
             $scope.refreshMarket();
-            $scope.applyFilters();
-        };
-
-        //only used in stock
-        $scope.refreshSector = function () {
-            $scope.refreshSelectors(['industries']);
-        };
-        $scope.selectSector = function () {
-            $scope.refreshSector();
             $scope.applyFilters();
         };
 
@@ -553,46 +488,10 @@ angular.module('ngMo.correlation', [
                 urlParamsSend.qmarket = urlParams.selectedMarket;
             }
 
-            if (urlParams.selectedSector) {
-                urlParamsSend.qsector = urlParams.selectedSector;
-            }
-
-            if (urlParams.selectedIndustry) {
-                urlParamsSend.qindust = urlParams.selectedIndustry;
-            }
             if (urlParams.selectedOperation) {
                 urlParamsSend.qop = urlParams.selectedOperation;
             }
-            if (urlParams.selectedRent) {
-                urlParamsSend.qselrent = urlParams.selectedRent;
-            }
-            if (urlParams.rentInput) {
-                urlParamsSend.qrent = urlParams.rentInput;
-            }
-            if (urlParams.selectedAverage) {
-                urlParamsSend.qselaver = urlParams.selectedAverage;
-            }
-            if (urlParams.rentAverageInput) {
-                urlParamsSend.qaver = urlParams.rentAverageInput;
-            }
-            if (urlParams.selectedRentDiary) {
-                urlParamsSend.qseldiar = urlParams.selectedRentDiary;
-            }
-            if (urlParams.rentDiaryInput) {
-                urlParamsSend.qdiar = urlParams.rentDiaryInput;
-            }
-            if (urlParams.selectedVolatility) {
-                urlParamsSend.qselvol = urlParams.selectedVolatility;
-            }
-            if (urlParams.volatilityInput) {
-                urlParamsSend.qvol = urlParams.volatilityInput;
-            }
-            if (urlParams.selectedDuration) {
-                urlParamsSend.qseldur = urlParams.selectedDuration;
-            }
-            if (urlParams.durationInput) {
-                urlParamsSend.qdur = urlParams.durationInput;
-            }
+
             if (urlParams.index_type) {
                 urlParamsSend.qindex = urlParams.index_type;
             }
@@ -616,16 +515,6 @@ angular.module('ngMo.correlation', [
             var filters = {
                 filterName: (params.qname ? params.qname : "" ),
                 selectedOperation: (params.qop ? params.qop : "" ),
-                selectedRent: (params.qselrent ? params.qselrent : "" ),
-                rentInput: (params.qrent ? params.qrent : "" ),
-                selectedAverage: (params.qselaver ? params.qselaver : "" ),
-                rentAverageInput: (params.qaver ? params.qaver : "" ),
-                selectedRentDiary: (params.qseldiar ? params.qseldiar : "" ),
-                rentDiaryInput: (params.qdiar ? params.qdiar : "" ),
-                selectedVolatility: (params.qselvol ? params.qselvol : "" ),
-                volatilityInput: (params.qvol ? params.qvol : "" ),
-                selectedDuration: (params.qseldur ? params.qseldur : "" ),
-                durationInput: (params.qdur ? params.qdur : "" ),
                 index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
                 tab_type: (params.qtab ? params.qtab : "" ),
                 active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
@@ -664,10 +553,10 @@ angular.module('ngMo.correlation', [
             if (tabChanged) {
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
-                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                        $scope.refreshSelectors(['regions', 'markets']);
                         break;
                     case 1:     //pairs
-                        $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                        $scope.refreshSelectors(['regions']);
                         break;
                     case 2:     //index (pair and index)
                         break;
@@ -687,8 +576,6 @@ angular.module('ngMo.correlation', [
                 filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
                 $scope.refreshRegion();
                 filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
             }
             else if ((typeof params.qmarket !== 'undefined') && ($scope.filterOptions.filters.selectedMarket !== params.qmarket)) {
                 //region similar, but not market
@@ -696,26 +583,10 @@ angular.module('ngMo.correlation', [
                 $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
                 filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
                 filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
-                $scope.refreshMarket();
-                filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            } else if ((typeof params.qsector !== 'undefined') && ($scope.filterOptions.filters.selectedSector !== params.qsector)) {
-                //region and market similar, but not sector
-                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                $scope.filterOptions.filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
-                filters.selectedSector = $scope.filterOptions.filters.selectedSector;
-
-                $scope.refreshSector();
-                $scope.filterOptions.filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            } else {
+            }else {
                 //or all are similar, or only industry is distinct (in that case all selectors are the same)
                 filters.selectedRegion = (params.qregion ? params.qregion : "" );
                 filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
             }
             $scope.filterOptions.filters = filters;
             $scope.updateSelectorMonth();
@@ -780,12 +651,19 @@ angular.module('ngMo.correlation', [
             config = {
                 params: {
                     'patternId': patternId,
-                    'operation': operation,
+                    'add_delete': operation,
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
-                    'correlationList': correlationIdsList
+                    'correlationList': correlationIdsList,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'name': filtering.filterName,
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'operation': filtering.selectedOperation,
+                    'favourites': filtering.favourite
                 }
             };
 
@@ -840,67 +718,33 @@ angular.module('ngMo.correlation', [
             //the filtering object could contains some filters that are required for get the specified selectors
             //for example, to get the markets, the selected region is required (if there is not region, means all..)
             //the http petition will use the callback function to load the info received from server
-            var data = {};
-            /*mocked -- we are going to check the selectors needed and check filters */
-            //mocked lists:
-            var eeuuMarkets = [
-                {"id": 1, "description": "American Stock Exchange"},
-                {"id": 2, "description": "Nasdaq Stock Exchange"},
-                {"id": 3, "description": "New York Stock Exchange"}
-            ];
-            var indianMarkets = [
-                {"id": 4, "description": "Bombay Stock Exchange"},
-                {"id": 5, "description": "National Stock Exchange"}
-            ];
+            var data;
 
-            var chinaMarkets = [
-                {"id": 6, "description": "Shangai Stock Exchange"},
-                {"id": 7, "description": "Shenzhen Stock Exchange"}
-            ];
+            var indexType = null;
 
-            if (selectorsToRefresh.indexOf("regions") > -1) {
-                //load regions (always all regions)
-                data.regions = [
-                    {"id": 1, "description": "America"},
-                    {"id": 2, "description": "India"},
-                    {"id": 3, "description": "China"}
-                ];
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
             }
-            if (selectorsToRefresh.indexOf("markets") > -1) {
-                //load markets , check if region is selected.
-                //NOTE: IN A REAL CASE ALL THE FILTERS INFLUENCE THE LIST RECEIVED, NOT ONLY THE REGION
-                //the cases are in string (not INT) so we use expressions to check the value
-                switch (true) {
-                    case /1/.test(filtering.selectedRegion): //america
-                        data.markets = eeuuMarkets;
-                        break;
-                    case /2/.test(filtering.selectedRegion):
-                        data.markets = indianMarkets;
-                        break;
-                    case /3/.test(filtering.selectedRegion):
-                        data.markets = chinaMarkets;
-                        break;
-                    default :
-                        data.markets = eeuuMarkets.concat(indianMarkets.concat(chinaMarkets));
+
+            config = {
+                params: {
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'view': location.hash.replace("#/","").substring(0, (location.hash.indexOf("?")-2))
                 }
-            }
+            };
 
-            //the sectors and industries are always same, to dont make large code
-            if (selectorsToRefresh.indexOf("sectors") > -1) {
-                data.sectors = [
-                    {"id": 1, "description": "Sector1"},
-                    {"id": 2, "description": "Sector2"}
-                ];
-            }
-
-            if (selectorsToRefresh.indexOf("industries") > -1) {
-                data.industries = [
-                    {"id": 1, "description": "Industry1"},
-                    {"id": 2, "description": "Industry2"}
-                ];
-            }
-
-            callback(data);
+            var result = $http.get($rootScope.urlService+'/patternfilters', config).success(function (data) {
+                // With the data succesfully returned, call our callback
+                callback(data);
+            });
 
         };
     })
