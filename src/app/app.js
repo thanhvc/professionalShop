@@ -941,6 +941,7 @@ angular.module('ngMo', [
             templateUrl: 'layout_templates/cart.tpl.html'
         };
     })
+
 ;
 //modalPanel
  var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {

@@ -79,7 +79,11 @@ angular.module('ngMo.my_profile', [
         $scope.zipPattern = /[a-z0-9\s]+/ig;
         //only numbers
 
-        $scope.countries = SignUpService.getCountries();
+          SignUpService.getCountries(function(data) {
+            if (data.length>0) {
+                $scope.countries = data;
+            }
+        });
 
         $scope.actualPassword = "";
         $scope.passwordUser = "";
