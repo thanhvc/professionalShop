@@ -127,7 +127,7 @@
                 {{data.asset.exchange.symbol}}
             </div>
             <div tooltip-html-unsafe="{{data.bearishAsset.exchange.name}}" class="sell-color">
-                {{data.bearishAsset.exchange.symbol}}
+                {{data.bearishAsset.exchange.symbol | limitTo: 4}}
             </div>
         </td>
         <td style="width: 32px;" class="table-cell-patterns sub-border-right-table">
@@ -166,8 +166,8 @@
             <b> {{data.pairVolatility | twoDecimals}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
-            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" tooltip-placement="left"
-                 ng-class="{'favourite-added': data.Fav == 'true'}"></div>
+            <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);"
+                 ng-class="{'favourite-added': data.favorite == true}"></div>
         </td>
         <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
             <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>

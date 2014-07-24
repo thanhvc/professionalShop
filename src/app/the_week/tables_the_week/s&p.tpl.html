@@ -20,18 +20,18 @@
         <tbody  ng-repeat="sector in sypSectors">
         <tr>
             <td rowspan="2" class="sector-name"><span tooltip="{{sector.name}}">{{sector.name}}</span></td>
-            <td ng-class="{'positive-percent': sector.global_daily_return >= 0, 'negative-percent': sector.global_daily_return < 0}"><span tooltip="Rentabilidad">{{sector.global_daily_return}}%</span></td>
+            <td ng-class="{'positive-percent': sector.global_daily_return >= 0, 'week-negative-percent': sector.global_daily_return < 0}"><span tooltip="Rentabilidad">{{sector.global_daily_return}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.global_bullish_years}}</span></td>
             <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,sector.name, sector.daily_return_graphic);$event.stopPropagation();"/></td>
-            <td ng-class="{'positive-percent': sector.returns.L >= 0, 'negative-percent': sector.returns.L < 0}"><span tooltip="Rentabilidad">{{sector.returns.L}}%</span></td>
+            <td ng-class="{'positive-percent': sector.returns.L >= 0, 'week-negative-percent': sector.returns.L < 0}"><span tooltip="Rentabilidad">{{sector.returns.L}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.L}}</span></td>
-            <td ng-class="{'positive-percent': sector.returns.M >= 0, 'negative-percent': sector.returns.M < 0}"><span tooltip="Rentabilidad">{{sector.returns.M}}%</span></td>
+            <td ng-class="{'positive-percent': sector.returns.M >= 0, 'week-negative-percent': sector.returns.M < 0}"><span tooltip="Rentabilidad">{{sector.returns.M}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.M}}</span></td>
-            <td ng-class="{'positive-percent': sector.returns.X >= 0, 'negative-percent': sector.returns.X < 0}"><span tooltip="Rentabilidad">{{sector.returns.X}}%</span></td>
+            <td ng-class="{'positive-percent': sector.returns.X >= 0, 'week-negative-percent': sector.returns.X < 0}"><span tooltip="Rentabilidad">{{sector.returns.X}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.X}}</span></td>
-            <td ng-class="{'positive-percent': sector.returns.J >= 0, 'negative-percent': sector.returns.J < 0}"><span tooltip="Rentabilidad">{{sector.returns.J}}%</span></td>
+            <td ng-class="{'positive-percent': sector.returns.J >= 0, 'week-negative-percent': sector.returns.J < 0}"><span tooltip="Rentabilidad">{{sector.returns.J}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.J}}</span></td>
-            <td ng-class="{'positive-percent': sector.returns.V >= 0, 'negative-percent': sector.returns.V < 0}"><span tooltip="Rentabilidad">{{sector.returns.V}}%</span></td>
+            <td ng-class="{'positive-percent': sector.returns.V >= 0, 'week-negative-percent': sector.returns.V < 0}"><span tooltip="Rentabilidad">{{sector.returns.V}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.V}}</span></td>
         </tr>
         <tr ng-repeat-end>
@@ -68,18 +68,18 @@
         </tr>
         <tr ng-repeat-start="indice in sector.indices" ng-hide="showIndices">
             <td rowspan="2" class="index-name"><span tooltip="{{indice.name}}">{{indice.name}}</span></td>
-            <td ng-class="{'positive-percent': indice.global_daily_return >= 0, 'negative-percent': indice.global_daily_return < 0}"><span tooltip="Rentabilidad">{{indice.global_daily_return}}%</span></td>
+            <td ng-class="{'positive-percent': indice.global_daily_return >= 0, 'week-negative-percent': indice.global_daily_return < 0}"><span tooltip="Rentabilidad">{{indice.global_daily_return}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.global_bullish_years}}</span></td>
             <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,indice.name, indice.daily_return_graphic);$event.stopPropagation();"/></td>
-            <td ng-class="{'positive-percent': indice.returns.L >= 0, 'negative-percent': indice.returns.L < 0}"><span tooltip="Rentabilidad">{{indice.returns.L}}%</span></td>
+            <td ng-class="{'positive-percent': indice.returns.L >= 0, 'week-negative-percent': indice.returns.L < 0}"><span tooltip="Rentabilidad">{{indice.returns.L}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.L}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.M >= 0, 'negative-percent': indice.returns.M < 0}"><span tooltip="Rentabilidad">{{indice.returns.M}}%</span></td>
+            <td ng-class="{'positive-percent': indice.returns.M >= 0, 'week-negative-percent': indice.returns.M < 0}"><span tooltip="Rentabilidad">{{indice.returns.M}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.M}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.X >= 0, 'negative-percent': indice.returns.X < 0}"><span tooltip="Rentabilidad">{{indice.returns.X}}%</span></td>
+            <td ng-class="{'positive-percent': indice.returns.X >= 0, 'week-negative-percent': indice.returns.X < 0}"><span tooltip="Rentabilidad">{{indice.returns.X}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.X}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.J >= 0, 'negative-percent': indice.returns.J < 0}"><span tooltip="Rentabilidad">{{indice.returns.J}}%</span></td>
+            <td ng-class="{'positive-percent': indice.returns.J >= 0, 'week-negative-percent': indice.returns.J < 0}"><span tooltip="Rentabilidad">{{indice.returns.J}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.J}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.V >= 0, 'negative-percent': indice.returns.V < 0}"><span tooltip="Rentabilidad">{{indice.returns.V}}%</span></td>
+            <td ng-class="{'positive-percent': indice.returns.V >= 0, 'week-negative-percent': indice.returns.V < 0}"><span tooltip="Rentabilidad">{{indice.returns.V}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.V}}</span></td>
         </tr>
         <tr ng-repeat-end ng-hide="showIndices">
