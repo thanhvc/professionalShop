@@ -13,7 +13,9 @@
         <tbody>
             <tr ng-repeat="pattern in myData">
                 <td>{{pattern.id}}</td>
-                <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }">{{pattern.asset.longName | limitTo: 25}}</td>
+                <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"
+                   >
+                    <span class="cursor-help"  tooltip-html-unsafe="{{pattern.asset.longName}}" >{{pattern.asset.longName | limitTo: 23}}</span></td>
                 <td>{{pattern.asset.exchange.symbol}}</td>
                 <td>
                     <span tooltip="Venta" ng-if="pattern.patternType == 'BULLISH'">V</span>
@@ -39,7 +41,8 @@
             <tr ng-repeat="pattern in correlationList">
                 <td>{{pattern.id}}</td>
                 <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }">
-                    <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName | limitTo: 25}}</span></td>
+                    <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"  class="cursor-help"
+                          tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 23}}</span></td>
                 <td>{{pattern.asset.exchange.symbol}}</td>
                 <td>
                     <span tooltip="Venta" ng-if="pattern.patternType == 'BULLISH'">V</span>
