@@ -1,17 +1,17 @@
-<div class="fontVerdana">
-    <div class="VolatilityHeaderFilter">
+<div >
+    <div class="volatility-header-filter">
         <div>
             <div class="divTablaCalendarioFiltro" style="width: 800px;">
                 <div class="menuFiltroCorrelar" style="width: 800px"></div>
                 <form  name="findNameS" method="post" >
                     <div class="volatility-filters">
-                        <input class="filterSelect" style='color:grey; font-family: "fontpo", "verdana" !important;; font-size: 8pt; width:110px;' type="text"  value="Nombre Índice" class="fontVerdana suscribeInputText" onfocus="changeBoxFindNameVolatility('S')">
+                        <input class="filter-select" style='color:grey; font-family: "fontpo", "verdana" !important;; font-size: 8pt; width:110px;' type="text"  value="Nombre Índice" class="fontVerdana suscribeInputText" onfocus="changeBoxFindNameVolatility('S')">
                     </div>
                 </form>
             </div>
         </div>
 
-        <form class="monthSelector" name="formSMeses" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+        <form class="month-selector" >
 
             <div class="month-select">
                 <select disabled="true" class="monthSelector"  name="formSMeses:meses" size="1" style="width:115px;">
@@ -38,9 +38,9 @@
                 <option value="1">Par Índices</option>
             </select>
         </td>
-        <form name="j_id2173" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+        <form>
             <div class="operation-select-index">
-                <select disabled="true" class="operationSelector" name="j_id2173:j_id2175" class="fontVerdana" size="1" style="width:106px;">
+                <select disabled="true" class="operationSelector" name="j_id2173:j_id2175"  size="1" style="width:106px;">
                     <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Operación -</option>
                     <option value="0">Compra</option>
                     <option value="1">Venta</option>
@@ -48,19 +48,19 @@
             </div>
 
         </form>
-        <form class="volatility-select-index"  name="findVol" method="post" >
+        <form class="volatility-select-index" >
             <div class="casillaCol1MisPatrones" >
                 <div>
-                    <select disabled="true" class="volatilitySelector" name="findVol:j_id2180" class="fontVerdana" size="1" style="margin-right: 2px; width: 95px !important;" >
+                    <select disabled="true" class="volatilitySelector" name="findVol:j_id2180"  size="1" style="margin-right: 2px; width: 95px !important;" >
                         <option value="org.jboss.seam.ui.NoSelectionConverter.noSelectionValue" selected="selected">- Volatilidad -</option>
                         <option value="0">Mayor que</option>
                         <option value="1">Menor que</option>
                     </select>
-                    <input class="percent-input-index" type="text" name="findVol:volatilidadInput2S" value="%" class=" fontVerdana subscribeInputText" maxlength="3" onfocus="changeInput(this)" style="height:19px; font-size:11px; width: 37px; color: #BDBDBD; text-align: center;">
+                    <input class="percent-input-index" type="text" name="findVol:volatilidadInput2S" value="%" class="  subscribeInputText" maxlength="3" onfocus="changeInput(this)" style="height:19px; font-size:11px; width: 37px; color: #BDBDBD; text-align: center;">
                 </div>
             </div>
         </form>
-        <form class="favourite-check-index" name="j_id2184" method="post" action="/prices_observatory/privateZone" enctype="application/x-www-form-urlencoded">
+        <form class="favourite-check-index" >
             <div style=" color: white; font-family: 'fontpo'; font-size: 10px; height: 17px; text-align: center; width: 70px;">
                 <div >
                     <input class="" type="checkbox" name="j_id2184:j_id2187" style="margin-top: 2px !important; -ms-transform: scale(1.3); -moz-transform: scale(1.3); -o-transform: scale(1.3); -webkit-transform: scale(1.3, 1);">

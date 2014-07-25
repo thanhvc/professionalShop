@@ -27,7 +27,6 @@ angular.module('ngMo.my_packs', [
             },
             resolve: {
                 MonthSelectorService: "MonthSelectorService",
-                VolatilityService: "VolatilityService",
                 TabsService: "TabsService",
                 filtering : function(TabsService,MonthSelectorService){
                     return {
@@ -58,7 +57,7 @@ angular.module('ngMo.my_packs', [
 
     })
 
-    .controller('MyPacksCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService) {
+    .controller('MyPacksCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
 
