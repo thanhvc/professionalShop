@@ -69,7 +69,7 @@ angular.module('ngMo.services', [
                 url: '/detailed_description',
                 views: {
                     "main": {
-                        controller: 'ServicesCtrl',
+                        controller: 'DetailedCtrl',
                         templateUrl: 'services/detailed_description/detailed_description.tpl.html'
                     }/*,
                      "subPage@detailed_description": {
@@ -237,8 +237,10 @@ angular.module('ngMo.services', [
         $scope.pack_year = prices.pack_year;
     })
 
-    .directive("scrollDetailed", function ($window, PositionAnchorsDetailed) {
-        return function(scope, element, attrs) {
+    /*.directive("scrollDetailed", function ($window, PositionAnchorsDetailed) {
+        return function(scope, element, attrs) {*/
+    .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService){
+        $scope.scrollTo = AnchorLinkService.scrollTo;
             angular.element($window).bind("scroll", function() {
                 //menu position
                 /*if (this.pageYOffset >= 27845) {
@@ -248,41 +250,77 @@ angular.module('ngMo.services', [
                  }*/
                 var footerPosition = document.getElementsByClassName("footer")[0].offsetTop;
                 var footerHeight = document.getElementsByClassName("footer")[0].offsetHeight;
-                if (this.pageYOffset >= 150) {
-                    scope.positionFix = true;
-                    if (footerPosition > (this.pageYOffset+(this.screen.availHeight - footerHeight))){
-                        scope.boolChangeClassDetailed = true;
+                if (window.pageYOffset >= 150) {
+                    $scope.positionFix = true;
+                    if (footerPosition > (window.pageYOffset+(window.screen.availHeight - footerHeight))){
+                        $scope.boolChangeClassDetailed = true;
                     }else{
-                        scope.boolChangeClassDetailed = false;
+                        $scope.boolChangeClassDetailed = false;
                     }
                 } else {
-                    scope.boolChangeClassDetailed = false;
-                    scope.positionFix = false;
+                    $scope.boolChangeClassDetailed = false;
+                    $scope.positionFix = false;
                 }
-                scope.$apply();
+                $scope.$apply();
 
                 //scrollSpy
                 //Obtain anchors
-                if (typeof anchors === 'undefined') {
-                    anchors = PositionAnchorsDetailed.getPositionAnchors();
+                if (typeof $scope.anchors === 'undefined') {
+                    $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
                 }
 
 
 
-                if (this.pageYOffset < anchors[0].position){
-                    scope.selectedOption = anchors[0].id;
-                }else if(this.pageYOffset > anchors[anchors.length-1].position) {
-                    scope.selectedOption = anchors[anchors.length-1].id;
+                if (window.pageYOffset < $scope.anchors[0].position){
+                    $scope.selectedOption = $scope.anchors[0].id;
+                }else if(window.pageYOffset > $scope.anchors[$scope.anchors.length-1].position) {
+                    $scope.selectedOption = $scope.anchors[$scope.anchors.length-1].id;
                 }else {
-                    for (var j = 1; j < anchors.length-1; j++) {
-                        if (this.pageYOffset >= anchors[j].position && this.pageYOffset < anchors[j + 1].position) {
-                            scope.selectedOption = anchors[j].id;
+                    for (var j = 1; j < $scope.anchors.length-1; j++) {
+                        if (window.pageYOffset >= $scope.anchors[j].position && window.pageYOffset < $scope.anchors[j + 1].position) {
+                            $scope.selectedOption = $scope.anchors[j].id;
                         }
                     }
                 }
 
             });
-        };
+
+        $scope.contentLoaded = 0;
+
+        $scope.$on('$includeContentLoaded', function(event,$location) {
+            setTimeout(function(){
+                //do your will
+                console.log("loaded2");
+                $scope.contentLoaded++;
+                if ($scope.contentLoaded == 15) {
+                    subRoute =location.hash.split("#/detailed_description#");
+                    if (subRoute.length == 2) {
+                        subRoute = subRoute[1];
+                        if (subRoute === ""){
+                            return;
+                        } else {
+                            console.log(subRoute);
+                            if (document.getElementById(subRoute) == null) {
+                                console.log("element doestn exist");
+                            } else {
+                                console.log(subRoute + " exists!!!");
+                            }
+                            if (typeof $scope.anchors === 'undefined') {
+                                $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
+                            }
+                            for (var j = 1; j < $scope.anchors.length-1; j++) {
+                                if ($scope.anchors[j].id === subRoute) {
+                                    $scope.selectedOption = $scope.anchors[j].id;
+                                    window.scrollTo(0,$scope.anchors[j].position);
+                                }
+                            }
+                        }
+                    }
+                }
+            },1000);
+
+        });
+       /* };*/
     })
     .service("PositionAnchorsDetailed", function() {
         this.getPositionAnchors = function() {
