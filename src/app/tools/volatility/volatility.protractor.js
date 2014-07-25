@@ -7,6 +7,7 @@ var App = function(){
     this.open = function(){
 
         browser.get('http://mo.devel.edosoftfactory.com/#/volatility');
+
         browser.ignoreSynchronization = true;
     };
 
@@ -22,8 +23,8 @@ var App = function(){
         this.n = element.all(by.css('tr')).count();
     };
 
-    this.checkDataLoaded = function(){
-        this.row = element.all(by.css(".tableDiaryLinks")).get(0);
+    this.checkTableLoaded = function(){
+        this.row = element(by.css('.pairs-table-vol'));
     };
 
     this.showMoreInfo = function(){
@@ -37,7 +38,32 @@ var App = function(){
 
     this.showMoreInfoButton = function(){
         this.element = element.all(by.css('a')).get(49);
-    }
+    };
+
+    this.loadGraphic = function(){
+        this.vol = element(by.repeater('data in myData').row(0).column('{{data.asset.volatility}}'));
+
+    };
+
+    this.changePairsTab = function(){
+        this.tab = element.all(by.css('nav-tabs > ng-isolate-scope')).get(1);
+
+    };
+
+    this.changeIndexTab = function(){
+        this.tab = element.all(by.css('nav-tabs > ng-isolate-scope')).get(2);
+        this.cell = element(by.css('pairs-table-vol'));
+    };
+
+    this.changeFuturesTab = function(){
+        this.tab = element.all(by.css('nav-tabs > ng-isolate-scope')).get(3);
+        this.cell = element(by.css('pairs-table-vol'));
+    };
+
+    this.pagination = function(){
+        element.all(by.css('.ng-scope')).get(1).click();
+
+    };
 };
 
 describe('The volatility page ', function() {
@@ -47,21 +73,20 @@ describe('The volatility page ', function() {
 
     it('should appear when volatility link is clicked', function () {
 
-        expect(browser.isElementPresent(by.css('.private-black-title'))).toBe(false);
+        expect(browser.isElementPresent(by.css('.ng-isolate-scope'))).toBeDefined();
     });
 
-   it('should have 32 lines', function(){
+   it('should have 10 lines', function(){
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(12);
+        expect(a.n).toBe(64);
     });
 
 
-    it ('should load the data', function(){
-        /*a.checkDataLoaded();
-        expect(a.row.getText()).toBe('4IMPRINT GROUP PLC');*/
+    it ('should load the table', function(){
+        a.checkTableLoaded();
+        expect(a.row).toBeDefined();
     });
-
 
     if('should show more info', function(){
 
@@ -79,5 +104,71 @@ describe('The volatility page ', function() {
 
         a.showMoreLessButton();
         expect(a.element).not.toBeDefined();
+    });
+
+    it('should load a graphic', function(){
+        a.loadGraphic();
+        expect(browser.isElementPresent(by.css('move'))).toBeDefined();
+    });
+
+    it('should change to pairs tab',function(){
+
+        a.changePairsTab();
+        //expect(browser.isElementPresent(by.css('subscribeTableHead'))).toBeDefined();
+
+        a.loadGraphic();
+        expect(browser.isElementPresent(by.css('move'))).toBeDefined();
+
+        a.checkNumberOfLines();
+        expect(a.n).toBe(64);
+
+        a.changeIndexTab();
+        expect(a.cell).toBeDefined();
+
+        a.pagination();
+        expect(a.cell).toBeDefined();
+    });
+
+    it('should change index tab',function(){
+
+        a.changeIndexTab();
+        expect(a.cell).toBeDefined();
+
+        a.loadGraphic();
+        expect(browser.isElementPresent(by.css('move'))).toBeDefined();
+
+        a.checkNumberOfLines();
+        expect(a.n).toBe(64);
+
+        a.changeFuturesTab();
+        expect(a.cell).toBeDefined();
+
+        a.pagination();
+        expect(a.cell).toBeDefined();
+    });
+
+    it('should futures tab',function(){
+
+        a.changeFuturesTab();
+        expect(a.cell).toBeDefined();
+
+        a.loadGraphic();
+        expect(browser.isElementPresent(by.css('move'))).toBeDefined();
+
+        a.checkNumberOfLines();
+        expect(a.n).toBe(64);
+
+        a.changeIndexTab();
+        expect(a.cell).toBeDefined();
+
+        a.pagination();
+        expect(a.cell).toBeDefined();
+    });
+
+    it('should have the pagination working ok',function(){
+
+        a.pagination();
+        expect(a.cell).toBeDefined();
+
     });
 });

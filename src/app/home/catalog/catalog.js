@@ -209,7 +209,7 @@ angular.module('ngMo.catalog', [
         $scope.search = function () {
             $scope.pagingOptions.currentPage = 1;
             $scope.loadPage();
-        }
+        };
 
         $scope.setPage = function (page) {
             $scope.pagingOptions.currentPage = page;

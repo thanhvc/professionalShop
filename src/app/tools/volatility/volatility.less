@@ -1,4 +1,6 @@
-
+.body{
+  height:100%;
+}
 .button-scroller-enabled {
   color: #FFFFFF !important;
   font-size: 12px !important;
@@ -68,18 +70,93 @@
   margin-left: 1px;
 }
 
-.diaryTableCopyText {
+.volatility-header-filter{
+  height: 90px;
+}
+
+.percent-input{
+  position: relative;
+  left: 111px;
+  height: 20px;
+  width: 40px;
+}
+
+.favourite-check{
+  float: left;
+  left: 644px;
+  top: -33px;
+  position: relative;
+}
+.favourite-text{
+  float: left;
+  left: 504px;
+  top: -11px;
+  position: relative;
+  position: relative;
+  top: -17px;
+  left: 45px;
+}
+
+
+.vol-select{
+  float: right;
+  position: relative;
+  right: -35px;
+  top: -33px;
+
+
+}
+.operation-select{
+  float: right;
+  position: relative;
+  right: 5px;
+  top: -33px;
+}
+.market-select{
+  float: right;
+  position: relative;
+  right:474px;
+  top: 23px;
+}
+.volatility-filters{
+  float:left;
+  margin-left: 60px;
+  margin-top: 5px;
+}
+
+.region-select{
+  display: inline-block;
+  position: relative;
+  left: 151px;
+  top: -12px;
+}
+
+.diary-table-copy-text {
   float: right;
   color: #3D3D3F;
   font-size: 11px;
   margin-bottom: 10px;
 }
 
-.diaryTablaMailText {
+.move {
+  -webkit-transition:all 1s;
+  -webkit-transform: translateX(-350px);
+
+}
+
+td{
+  padding-left:4px;
+}
+.move-to-the-right{
+  -webkit-transition:all 1s;
+  -webkit-transform: translateX(650px);
+}
+
+.diary-tabla-mail-text {
   float: right;
   margin-right: 10px;
 }
-.tableMenuOpt {
+.table-menu-opt {
   display:inline-block;
   font-weight: bold;
   background-color: #BBBBBB;
@@ -92,11 +169,95 @@
   font-family: "fontpo-bold", "verdana";
   font-size: 12px;
   margin-bottom: 0;
-  width:150px;
+  width:160px;
   margin: 0px;
   position:relative;
   margin-left:-4px;
   border-right: 1px solid #6f7072;
+
+}
+
+.pairs-table-vol{
+  position:relative;
+  top:0px;
+}
+
+.favourite-check-futures{
+  float: left;
+  left: 283px;
+  top: -16px;
+  position: relative;
+}
+.percent-input-futures{
+  position: relative;
+  left: 0px;
+}
+
+.vol-select-futures{
+  float: right;
+  position: relative;
+  right: 142px;
+  top: -17px;
+
+}
+.operation-select-futures{
+  float: right;
+  position: relative;
+  right: 394px;
+  top: -16px;
+}
+.favourite-check-index{
+  float: left;
+  left: 538px;
+  top: -35px;
+  position: relative;
+}
+
+.percent-input-index{
+  position: relative;
+  left: 0px;
+}
+.volatility-select-index{
+  position: relative;
+  left: 248px;
+  top: -18px;
+}
+.operation-select-index {
+  float: right;
+  position: relative;
+  right: 310px;
+  top: -17px;
+}
+
+.vol-selector-futures{
+  position: relative;
+  top: 1px;
+}
+
+.index-select{
+  position: relative;
+  left: -63px;
+}
+
+.percent-input-pairs{
+  position: relative;
+  left: 0px;
+}
+.vol-select-pairs{
+  float: right;
+  position: relative;
+  right: 263px;
+  top: -33px;
+}
+
+.favourite-check-pairs{
+  float: left;
+  left: 437px;
+  top: -33px;
+  position: relative;
+}
+.table-menu-opt:hover{
+  background-color: #FF8200;
 }
 
 .selected{
@@ -110,172 +271,75 @@
   text-align: center;
 }
 
-.black {
-  background-color: black;
-
-  left:76px;
-  top:-315px;
-  position:relative;
-  color:white;
-}
-
-.filterSelect{
+.filter-select{
   display:inline-block;
   position:relative;
-  top:5px;
-  left:-53px;
+  left: -70px;
+  top: -2px;
+  width: 115px;
+  height:20px;
 }
 .cell1{
   background-color: white;
   text-align: center;
   color:brown;
 }
-.monthSelector{
+.month-selector{
   display: inline-block;
   position: relative;
-  top: -17px;
-  left: 140px;
+  top: 1px;
+  left: -64px;
+
 }
-.regionSelector{
+.region-selector{
   display: inline-block;
   position: relative;
-  top: -17px;
-  left: 140px;
+  left: -98px;
+  top: -4px;
 }
 
-.rich-table-header{
-  height: 30px;
-  text-align: center;
-  margin-left: 10px;
+.table-container{
+  position:relative;;
+  top:-300px;
 }
 
-.marketSelector{
+.market-selector{
   display: inline-block;
   position: relative;
-  top: -35px;
-  left: 355px;
+  top: -56px;
+  left: 165px;
 }
 
-.operationSelector{
-  display: inline-block;
+.copy-right{
   position: relative;
-  top: -35px;
-  left: 355px;
+  top: 701px;
+  left: 584px;
+  font-family: "fontpo", "verdana" !important;
+  font-size: 11px;
+  color: #3D3D3F;
 }
 
-.volatilitySelector{
-  display: inline-block;
-  position: relative;
-  top: -52px;
-  left: 540px;
-}
-
-.copyRight{
-  position: relative;
-  top: 555px;
-  left: 477px;
-}
-
-.inputSelector{
+.input-selector{
   display: inline-block;
   position: relative;
   top: -70px;
   left: 608px;
 }
 
-.favoriteSelector{
+.favorite-selector{
   display: inline-block;
   position: relative;
   top: -50px;
   left: 566px;
 }
 
-.volatilityContent{
-  position:relative;
-  left:80px;
-}
 
-.pagesNavigation{
-
-  position:relative;
-  top:580px;
-}
-
-.cellA{
-
-  background-color: #eeeeee;
-  color:#996600;
-  font-size:11px;
-  border-right: 1px black;
-}
-.cellB{
-  background-color: white;
-  color:#996600;
-  font-size:11px;
-  border-left: 1px black;
-  border-right: 1px black;
-
-}
-
-
-.blackFont{
-  color:black;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
-  text-align: center;
-  margin: 5px;
-  height: 25px;
-  margin-left: 10px;
-}
-
-.tableHead{
-  text-align: center;
-  position: relative;
-  left: 20px;
-}
-
-.blackFontMarket{
+.black-font-market{
   color:black;
   border-left: 1px solid black;
   text-align: center;
   margin: 5px;
   height: 25px;
 }
-.volatilityCell{
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  text-align: center;
-  margin: 5px;
-  height: 25px;
-  color:#0663D7;
-}
 
-.greenFont{
-  color: #54BA1E;
-  margin: 5px;
-  height: 25px;
-}
-/*
-.homeTableMenuOpt1 {
-  width: 185px;
-}
 
-.homeTableMenuOpt2 {
-  width: 169px;
-  top: -30px;
-  left: 186px;
-  padding-top: 7px;
-}
-
-.homeTableMenuOpt3 {
-  width: 169px;
-  top: -61px;
-  left: 357px;
-}
-
-.homeTableMenuOpt4 {
-  width: 169px;
-  top: -92px;
-  left: 525px;
-}
-*/
