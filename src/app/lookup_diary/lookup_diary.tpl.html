@@ -33,7 +33,7 @@
                 <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
 
                 <div>
-                    <select disabled="true" class="border-filters select-filter month-filter" style="color: black;"
+                    <select class="border-filters select-filter month-filter" style="color: black;"
                             data-ng-model="filterOptions.filters.selectMonth"
                             ng-change="goToMonth()"
                             ng-options="item.name for item in filterOptions.months"

@@ -17,8 +17,8 @@
                 <span class="sell-color" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})">{{pattern.bearishAsset.longName | limitTo: 23}}</span>
             </td>
             <td>
-                <span tooltip="pattern.asset.exchange.name">{{pattern.asset.exchange.symbol}}</span><br>
-                <span tooltip="pattern.bearishAsset.exchange.name">{{pattern.bearishAsset.exchange.symbol}}</span>
+                <span tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span><br>
+                <span tooltip="{{pattern.bearishAsset.exchange.name}}">{{pattern.bearishAsset.exchange.symbol}}</span>
             </td>
             <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 10}" ng-click="addToCorrelationList(pattern.id);">>></span></td>
         </tr>

@@ -141,6 +141,15 @@ angular.module('singUp', [])
 
 
 
+
+
+            //form navigation
+
+            $scope.nextInput = function(input) {
+                document.getElementById(input).focus();
+            };
+
+
             //newSubscription vars:
             $scope.login = {
                 email :"",
@@ -243,7 +252,11 @@ angular.module('singUp', [])
             //countries list of select (the value <option> could not be the same as the id in the html, but its works well)
             //angularjs sets internally the id in the object
             //the country selected is set in the user directly
-            $scope.countries = SignUpService.getCountries();//default option set in the view html
+             SignUpService.getCountries(function(data) {
+                 if (data.length>0) {
+                     $scope.countries = data;
+                 }
+             });//default option set in the view html
 
             //patterns for validation
             //letters and special characters (like dieresis) (with spaces) but not numbers or other special chars
@@ -316,7 +329,7 @@ angular.module('singUp', [])
             }
         };
     })
-    .factory('SignUpService', function ($http, $rootScope) {
+    .factory('SignUpService', function ($http, $rootScope, $q) {
         var signUpService = {};
         signUpService.firstStep = function (user, callback) {
             data = user;
@@ -347,7 +360,11 @@ angular.module('singUp', [])
         };
 
         //countries get by json (extract from server)
-        signUpService.getCountries = function () {
+        signUpService.getCountries = function (callback) {
+
+            var result = $http.get($rootScope.urlService+'/countries').success(callback).error(callback);
+
+            /*
             return [
                 {value: "1", name: "Afganistán"},
                 {value: "2", name: "Albania"},
@@ -601,7 +618,9 @@ angular.module('singUp', [])
                 {value: "236", name: "la Ciudad del Vaticano"},
                 {value: "197", name: "las Islas Salom&oacute;n"},
                 {value: "247", name: "Åland"}
-            ];
+            ];*/
+
+
         };
         return signUpService;
 
