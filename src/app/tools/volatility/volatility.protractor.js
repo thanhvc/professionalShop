@@ -114,7 +114,7 @@ describe('The volatility page ', function() {
     it('should change to pairs tab',function(){
 
         a.changePairsTab();
-        expect(browser.isElementPresent(by.css('subscribeTableHead'))).toBeDefined();
+        //expect(browser.isElementPresent(by.css('subscribeTableHead'))).toBeDefined();
 
         a.loadGraphic();
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();

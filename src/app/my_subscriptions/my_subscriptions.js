@@ -89,7 +89,7 @@ angular.module('ngMo.my_subscriptions', [
         var stocksPacks = [
             {
                 id: 1,
-                packName: "Holanda",
+                packName: "Canada",
                 startDate: new Date(2014, 05, 01),
                 finishDate: new Date(2014, 11, 01)
             },
@@ -438,7 +438,7 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
-    .service('MyServiceOne', function($q,$http,$rootScope,$window){
+    .service('MyPacksService', function($q,$http,$rootScope,$window){
         this.getPagedDataAsync = function (page, filtering) {
             var deferred = $q.defer();
             var data;
@@ -551,9 +551,9 @@ angular.module('ngMo.my_subscriptions', [
             activeTab = active;
         };
     })
-    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$rootScope,$http,MyServiceOne) {
+    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$rootScope,$http) {
 
-        $scope.d ='hola qué tal';
+
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -569,7 +569,7 @@ angular.module('ngMo.my_subscriptions', [
 
         $scope.loadPage = function () {
             var defer = $q.defer();
-            var data = MyServiceOne.getPagedDataAsync($q,$http,$rootScope,$window).then(function (data) {
+            var data = MyPacksService.getPagedDataAsync($q,$http,$rootScope,$window).then(function (data) {
                 $scope.myData = [data];//data.page;
 
 

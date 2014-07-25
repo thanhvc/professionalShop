@@ -1,44 +1,44 @@
 <div class="black" style="padding-top: 10px;font-size: 12px; ">
-    <table class="rich-table tablaDiaryS"  style="position: relative;top: -286px;width: 774px !important;" border="0" cellpadding="0" cellspacing="0">
+    <table class="rich-table "  style="position: relative;top: -286px;width: 774px !important;" border="0" cellpadding="0" cellspacing="0">
         <colgroup span="5"></colgroup>
         <thead class="rich-table-thead">
             <tr class="rich-table-header" style="line-height:35px; background-color:black;color:white; font-family: fontpo; height:26px">
-                <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
+                <th class="rich-table-headercell ">
                     <span style="padding-bottom: 2px;text-align: center; padding-left:133px; display:inline-block; width:120px; ">Nombre</span>
                 </th>
-                <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead" >
+                <th class="rich-table-headercell " >
                     <span style="padding-bottom: 2px;padding-left:36px;">Mercado</span>
                 </th>
-                <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite volatilityHeightRow blackHead">
+                <th class="rich-table-headercell ">
                     <span style="padding-bottom: 2px;padding-left:15px;">Fecha Cálculo</span>
                 </th>
-                <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead">
+                <th class="rich-table-headercell ">
                     <span style="padding-bottom: 2px;padding-left:34px;">Volatilidad %</span>
                 </th>
-                <th class="rich-table-headercell subscribeTableHead subscribeTableHeadBorBotWhite blackHead" >
+                <th class="rich-table-headercell " >
                     <span style="padding-bottom: 2px;padding-left: 15px;" title="Favoritos">Fav.</span>
-                    <div class="toolTipJS" style="display:none;">
-                        <div class="toolTipFor">PREV</div>
-                        <div class="toolTipContent">Favoritos</div>
+                    <div  style="display:none;">
+                        <div >PREV</div>
+                        <div >Favoritos</div>
                     </div>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="data in myData" class="rich-table-row rich-table-firstrow tableSRowEven" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:11px;color:#996600 !important;">
-                <td class="green" class="rich-table-cell subscribeTableCols sellColor toolTipObj" style="text-align: left; width:330px;">
-                    <span class="tableDiaryLinks toolTipObj"ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
+            <tr ng-repeat="data in myData" class="rich-table-row rich-table-firstrow" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:11px;color:#996600 !important;">
+                <td class="green" class="rich-table-cell   " style="text-align: left; width:330px;">
+                    <span ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
                 </td>
-                <td class="blackFontMarket" class="rich-table-cell subscribeTableCols"  title="London Stock Exchange">
-                    <span  class="pepe" class="tableDiaryLinks toolTipObj cursorHelp">{{data.asset.exchange.symbol}}</span>
-                    <div class="toolTipJS" style="display:none;">
-                        <div class="toolTipFor"></div>
-                        <div class="toolTipContent">London Stock Exchange</div>
+                <td class="blac-font-market" class="rich-table-cell "  title="London Stock Exchange">
+                    <span   >{{data.asset.exchange.symbol}}</span>
+                    <div  style="display:none;">
+                        <div ></div>
+                        <div class="">London Stock Exchange</div>
                     </div>
                 </td>
-                <td class="blackFont"  class="rich-table-cell subscribeTableCols" >{{data.entryDate | date: 'dd MMM yyyy'}}</td>
-                <td class="volatilityCell" class="rich-table-cell subscribeTableCols" >
-                    <a ng-click="loadGraphic($event,data.vol)" name="tablaVolatilidadS:0:formVolatiS:volatiS">{{ data.asset.volatility| number:0}}</a>
+                <td   class="rich-table-cell " >{{data.entryDate | date: 'dd MMM yyyy'}}</td>
+                <td  class="rich-table-cell " >
+                    <a ng-click="loadGraphic($event,data.vol)" >{{ data.asset.volatility| number:0}}</a>
                 </td>
                 <td style="width: 62px;" class="table-cell-patterns border-right-table">
                     <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
