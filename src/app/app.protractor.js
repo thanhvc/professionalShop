@@ -8,7 +8,8 @@ var App = function(){
 
     this.open = function(){
 
-        browser.get('http://api.mo.devel.edosoftfactory.com/#/home');
+        browser.get('http://mo.devel.edosoftfactory.com/#/home');
+
 
         browser.ignoreSynchronization = true;
     };

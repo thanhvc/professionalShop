@@ -23,7 +23,32 @@ angular.module('ngMo.my_subscriptions', [
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu',
-                subPage: 'my-subscriptions'
+                subPage: 'my-subscriptions',
+                d:'text'
+            },
+            resolve:{
+                MonthSelectorService: "MonthSelectorService",
+                VolatilityService: "VolatilityService",
+                TabsService: "TabsService",
+                filtering : function(TabsService,MonthSelectorService){
+                    return {
+                        active_tab: TabsService.getActiveTab(),
+                        month: "January"
+                        //month: MonthSelectorService.restartDate()
+                    };
+                },
+                myPatternsData: function(VolatilityService, filtering) {
+                    return VolatilityService.getPagedDataAsync(1, filtering).then(function (data){
+                        return {
+                            d: data.patterns,
+                            patterns: data.patterns,
+                            results: data.results,
+                            found: data.found
+                        };
+
+                    });
+                }
+
             }
         })
             //substates of my-subscriptions
@@ -413,24 +438,128 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
-    .service('MyServiceOne', function($q,$http,$rootScope){
+    .service('MyServiceOne', function($q,$http,$rootScope,$window){
         this.getPagedDataAsync = function (page, filtering) {
             var deferred = $q.defer();
-            var result = $http.get($rootScope.urlService+'/volatility').then(function (response) {
+            var data;
+            var urlParam = this.createParamsFromFilter(filtering);
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+            config = {
+                params: {
+                    'page': page,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': "July",
+                    'year': "2014"
+                }
+            };
+
+            var result = $http.get('http://localhost:9000/pack').then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
+
                 return response.data;
             });
             return result;
         };
+
+        this.createParamsFromFilter = function (filtering) {
+            var urlParams = "";
+            for (var property in filtering) {
+                if (filtering.hasOwnProperty(property)) { //check if its a property (to exclude technicals property of js)
+                    // create the params
+                    if ((filtering[property] != null) && (filtering[property] !== "")) {
+                        urlParams += "&" + property + "=" + filtering[property];
+                    }
+                }
+            }
+            return urlParams;
+        };
     })
-    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService) {
+
+    .service('TabsService', function () {
+
+        /**Tabs services for private zone**/
+        var tabs = [
+            {
+                title: 'Acciones',
+                active: activeTab === 0,
+                value: 0
+            },
+            {
+                title: 'Par Acciones',
+                active: activeTab === 1,
+                value: 1
+            },
+            {
+                title: 'Indices',
+                active: activeTab === 2,
+                value: 2
+            },
+            {
+                title: 'Futuros',
+                active: activeTab === 3,
+                value: 3
+            }
+        ];
+
+        var indexTypes = [
+            {
+                title: "Indices",
+                active: activeIndex === 0,
+                value: 0
+            },
+            {
+                title: "Pares Indices",
+                active: activeIndex === 1,
+                value: 1
+
+            }
+        ];
+
+        var activeTab = 0;
+        var activeIndex = 0;
+
+        this.getIndexType = function () {
+            return indexTypes;
+        };
+
+        this.getActiveIndexType = function () {
+            return activeIndex;
+        };
+
+        this.changeActiveIndexType = function (active) {
+            activeIndex = active;
+        };
+
+        this.getTabs = function () {
+            return tabs;
+        };
+
+        this.getActiveTab = function () {
+            return activeTab;
+        };
+
+        this.changeActiveTab = function (active) {
+            activeTab = active;
+        };
+    })
+    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$rootScope,$http,MyServiceOne) {
+
+        $scope.d ='hola qué tal';
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            $scope.vector=[1,2,3];
+
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
@@ -439,14 +568,19 @@ angular.module('ngMo.my_subscriptions', [
         });
 
         $scope.loadPage = function () {
-            var data = MyServiceOne.getPagedDataAsync($q,$http,$rootScope).then(function (data) {
-                $scope.myData = 'hola tu';//data.patterns;//data.page;
-                $scope.results = data.results;//data.results;
-                $scope.found = data.found;//data.found;
+            var defer = $q.defer();
+            var data = MyServiceOne.getPagedDataAsync($q,$http,$rootScope,$window).then(function (data) {
+                $scope.myData = [data];//data.page;
+
+
+               /* $scope.results = data.results;//data.results;
+                $scope.found = data.found;//data.found;*/
+
             });
 
-
         };
+
+        $scope.loadPage();
 
         $scope.mySubscriptionsTablePacks = [
             {

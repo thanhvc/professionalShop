@@ -18,7 +18,7 @@ var SigunMenu = function() {
 
     this.open = function() {
         // Goto the login page
-        browser.get('http://api.mo.devel.edosoftfactory.com/#/sign-up');
+        browser.get('http://mo.devel.edosoftfactory.com/#/sign-up');
     };
 
     this.checkIdenticalInputs = function(){
@@ -129,7 +129,7 @@ var SignupMenuStep2 = function() {
     this.errorI = element.all(by.css('text-warning-form'));
 
     this.open = function () {
-        browser.get('http://api.mo.devel.edosoftfactory.com/sign-up-step2');
+        browser.get('http://mo.devel.edosoftfactory.com/#/sign-up-step2');
         browser.ignoreSynchronization = true;
     };
 
@@ -179,11 +179,11 @@ var SignupMenuStep2 = function() {
 describe('Signup step2 should work', function(){
 
     var sMenu2 = new SignupMenuStep2();
-
+    sMenu2.open();
 
     it('should have a valid name',function(){
 
-        sMenu2.open();
+
 
         sMenu2.checkValidName();
         expect(sMenu2.errorI.first()).toBeDefined();
@@ -208,10 +208,10 @@ describe('Signup step2 should work', function(){
     });
 
     it('should have a country selected', function(){
-
+        sMenu2.open();
         sMenu2.checkCountrySelected();
         sMenu2.country.getAttribute('value').then(function(result) {
-            expect(result).toBe('1');
+            expect(result).toBe('');
         });
 
 

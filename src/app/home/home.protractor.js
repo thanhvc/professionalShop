@@ -12,7 +12,7 @@
      this.open = function () {
          // Goto the login page
 
-         browser.get('http://localhost:63342/mo-shopclient/build/index.html#/home');
+         browser.get('http://mo.devel.edosoftfactory.com');
 
          browser.ignoreSynchronization = true;
      };
