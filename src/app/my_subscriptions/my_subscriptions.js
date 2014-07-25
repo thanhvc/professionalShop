@@ -28,7 +28,6 @@ angular.module('ngMo.my_subscriptions', [
             },
             resolve:{
                 MonthSelectorService: "MonthSelectorService",
-                VolatilityService: "VolatilityService",
                 TabsService: "TabsService",
                 filtering : function(TabsService,MonthSelectorService){
                     return {
@@ -461,7 +460,7 @@ angular.module('ngMo.my_subscriptions', [
                 }
             };
 
-            var result = $http.get('http://localhost:9000/pack').then(function (response) {
+            var result = $http.get($rootScope.urlService+'/pack').then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
 

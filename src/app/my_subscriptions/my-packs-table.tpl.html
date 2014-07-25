@@ -22,17 +22,17 @@
             </tr>
             <div style="background-color: black">row</div>
             <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
-                <td class="pack-name-cell packCell" width="30" >
+                <td class="pack-name-cell" width="30" >
                     {{data.name}}
                 </td>
-                <td class="pack-name-cell packCell" width="30" >
+                <td class="pack-name-cell" width="30" >
                     {{data.start.substring(4,7)}} {{data.start.substring(24,29)}}
                 </td>
-                <td class="pack-name-cell packCell" width="30" >
+                <td class="pack-name-cell" width="30" >
 
                     {{data.end}}
                 </td>
-                <td class="pack-name-cell packCell" width="30" >
+                <td class="pack-name-cell" width="30" >
                     <select size="1">
                         <option value="ELEGIR" selected="selected">Elegir</option>
                         <option value="RENOVAR">Renovar</option>

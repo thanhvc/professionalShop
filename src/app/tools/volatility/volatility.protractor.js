@@ -24,7 +24,7 @@ var App = function(){
     };
 
     this.checkTableLoaded = function(){
-        this.row = element(by.css('.rich-table'));
+        this.row = element(by.css('.pairs-table-vol'));
     };
 
     this.showMoreInfo = function(){

@@ -13,7 +13,7 @@
                 <span style="padding-left:20px;">Volatilidad %</span>
             </th>
             <th  >
-                <span style="padding-left: 15px;" title="Favoritos">Fav.</span>
+                <span style="padding-left: 15px;" >Fav.</span>
                 <div  style="display:none;">
                     <div >PREV</div>
                     <div >Favoritos</div>
@@ -23,13 +23,13 @@
         </thead>
         <tbody>
 
-        <tr class="rich-table-firstrow " ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:11px;color:#996600 !important;">
+        <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:11px;color:#996600 !important;">
             <td  style="text-align: left; width:462px;">
                 <span  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
             </td>
 
-            <td   class="rich-table-cell ">{{data | date: 'dd MMM yyyy'}}</td>
-            <td  class="rich-table-cell " >
+            <td   >{{data | date: 'dd MMM yyyy'}}</td>
+            <td   >
                 <a ng-click="loadGraphic($event,data.vol)">{{data.asset.volatility | number:0}}</a>
             </td>
             <td style="width: 62px;" class="table-cell-patterns border-right-table">
