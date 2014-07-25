@@ -82,8 +82,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       //$rootScope.urlService = 'http://localhost:9000';
+       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       $rootScope.urlService = 'http://localhost:9000';
     })
 
     .service('ActiveTabService', function (){
@@ -375,7 +375,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService) {
 
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
@@ -386,6 +386,59 @@ angular.module('ngMo', [
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+
+            if (toState.name === 'faq') {
+                switch (fromState.name){
+                    case 'home':
+                        AnchorLinkService.scrollTo('home'); //home
+                        break;
+                    case 'organization':
+                    case 'what-is-and-what-is-not':
+                    case 'service-conditions':
+                    case 'data-protection': //market-observatory
+                        AnchorLinkService.scrollTo('market-observatory');
+                        break;
+                    case 'summary':
+                    case 'products-and-exchanges':
+                    case 'detailed-description':
+                    case 'fundamentals': //services
+                        AnchorLinkService.scrollTo('services');
+                        break;
+                    case 'stocks':
+                    case 'funds':
+                    case 'etf_cfd':
+                    case 'futures':
+                    case 'pairs':
+                    case 'advanced':
+                    case 'diversification':  //application-service
+                        AnchorLinkService.scrollTo('service-applications');
+                        break;
+                    case 'prices':
+                    case 'products':
+                    case 'subscription-types':
+                    case 'purchases':
+                    case 'free-subscription':
+                    case 'shopping-guide': //subscription-and-prices
+                        AnchorLinkService.scrollTo('subscriptions-and-prices');
+                        break;
+                    case 'resources':
+                    case 'articles':
+                    case 'symbols-and-exchanges':
+                    case 'mo-template-collections': //investor-tools
+                        AnchorLinkService.scrollTo('investor-tools');
+                        break;
+                    case 'support':
+                    case 'business':
+                    case 'job':
+                    case 'localization': //contact
+                        AnchorLinkService.scrollTo('contact');
+                        break;
+                    default:
+                        AnchorLinkService.scrollTo('home');
+                }
+
+                AnchorLinkService.scrollTo(fromState.name);
+            }
             $scope.selectMenu = toState.data.selectMenu;
             $scope.selectSubmenu = toState.data.selectSubmenu;
             $scope.selectItemSubmenu = toState.data.selectItemSubmenu;
@@ -925,6 +978,56 @@ angular.module('ngMo', [
                 $scope.$watch('subtotalStock', function(){});
             },
             templateUrl: 'layout_templates/cart.tpl.html'
+        };
+    })
+
+    .directive("scrollFaq", function ($window, PositionAnchorsFaq, AnchorLinkService) {
+        return function(scope, element, attrs) {
+            angular.element($window).bind("scroll", function() {
+                if (this.pageYOffset >= 150) {
+                    scope.positionFix = true;
+                    scope.boolChangeClassDetailed = true;
+                } else {
+                    scope.boolChangeClassDetailed = false;
+                    scope.positionFix = false;
+                }
+                scope.$apply();
+
+                //scrollSpy
+                //Obtain anchors
+                if (typeof anchorsFaq === 'undefined') {
+                    anchorsFaq = PositionAnchorsFaq.getPositionAnchors();
+                }
+
+                if (this.pageYOffset < anchorsFaq[0].position){
+                    scope.selectedOption = anchorsFaq[0].id;
+                }else if(this.pageYOffset > anchorsFaq[anchorsFaq.length-1].position) {
+                    scope.selectedOption = anchorsFaq[anchorsFaq.length-1].id;
+                }else {
+                    for (var j = 1; j < anchorsFaq.length-1; j++) {
+                        if (this.pageYOffset >= anchorsFaq[j].position && this.pageYOffset < anchorsFaq[j + 1].position) {
+                            scope.selectedOption = anchorsFaq[j].id;
+                        }
+                    }
+                }
+
+            });
+        };
+    })
+
+    .service("PositionAnchorsFaq", function() {
+        this.getPositionAnchors = function() {
+            var anchorsFaq = document.getElementsByClassName("anchor-faq");
+            var positions = [];
+            for (var i = 0; i<anchorsFaq.length;i++){
+                positions.push(
+                    {
+                        "position": (anchorsFaq[i]).offsetTop,
+                        "id": (anchorsFaq[i]).getAttribute('id')
+                    });
+            }
+            return positions;
+
         };
     })
 
