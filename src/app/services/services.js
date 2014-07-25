@@ -241,6 +241,7 @@ angular.module('ngMo.services', [
         return function(scope, element, attrs) {*/
     .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService){
         $scope.scrollTo = AnchorLinkService.scrollTo;
+        $scope.location = $location;
             angular.element($window).bind("scroll", function() {
                 //menu position
                 /*if (this.pageYOffset >= 27845) {
@@ -279,6 +280,8 @@ angular.module('ngMo.services', [
                     for (var j = 1; j < $scope.anchors.length-1; j++) {
                         if (window.pageYOffset >= $scope.anchors[j].position && window.pageYOffset < $scope.anchors[j + 1].position) {
                             $scope.selectedOption = $scope.anchors[j].id;
+                            //added
+
                         }
                     }
                 }
