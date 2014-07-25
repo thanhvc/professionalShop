@@ -242,7 +242,11 @@ angular.module('ngMo.services', [
     .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService){
         $scope.scrollTo = AnchorLinkService.scrollTo;
         $scope.location = $location;
-            angular.element($window).bind("scroll", function() {
+            angular.element($window).bind("scroll", function(scope, element, attrs) {
+
+                if (location.hash.indexOf("#/detailed_description") == -1) {
+                    return; //only in detailed description url
+                }
                 //menu position
                 /*if (this.pageYOffset >= 27845) {
                  scope.boolChangeClassDetailed = true;
@@ -281,19 +285,18 @@ angular.module('ngMo.services', [
                         if (window.pageYOffset >= $scope.anchors[j].position && window.pageYOffset < $scope.anchors[j + 1].position) {
                             $scope.selectedOption = $scope.anchors[j].id;
                             //added
-
+                            //$scope.location.hash($scope.selectedOption);
                         }
                     }
                 }
 
             });
-
+/*
         $scope.contentLoaded = 0;
-
+        //event launched when the content of all ng-cinlude are rendered
         $scope.$on('$includeContentLoaded', function(event,$location) {
             setTimeout(function(){
-                //do your will
-                console.log("loaded2");
+                //when the 15 ngInclude are rendered, will load the hash
                 $scope.contentLoaded++;
                 if ($scope.contentLoaded == 15) {
                     subRoute =location.hash.split("#/detailed_description#");
@@ -322,6 +325,35 @@ angular.module('ngMo.services', [
                 }
             },1000);
 
+        });
+        */
+
+        //try when 1 page
+        angular.element(document).ready(function () {
+            console.log("loaded");
+            subRoute =location.hash.split("#/detailed_description#");
+            if (subRoute.length == 2) {
+                subRoute = subRoute[1];
+                if (subRoute === ""){
+                    return;
+                } else {
+                    console.log(subRoute);
+                    if (document.getElementById(subRoute) == null) {
+                        console.log("element doestn exist");
+                    } else {
+                        console.log(subRoute + " exists!!!");
+                    }
+                    if (typeof $scope.anchors === 'undefined') {
+                        $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
+                    }
+                    for (var j = 1; j < $scope.anchors.length-1; j++) {
+                        if ($scope.anchors[j].id === subRoute) {
+                            $scope.selectedOption = $scope.anchors[j].id;
+                            window.scrollTo(0,$scope.anchors[j].position);
+                        }
+                    }
+                }
+            }
         });
        /* };*/
     })

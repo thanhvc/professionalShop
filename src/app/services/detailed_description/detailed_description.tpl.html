@@ -1,106 +1,2528 @@
-<div class="public-zone-text container"   id="top"  >
+<div class="public-zone-text container" id="top">
 
-    <div class="lat-menu-detailed-nav">
-        <table class="table-page-index-detailed" ng-class="{'menu-position' : boolChangeClassDetailed, 'menu-bottom-position' : !boolChangeClassDetailed && positionFix , 'menu-fix' : positionFix}">
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('description'); selectedOption = 'description';" ng-class="{'orange-text': selectedOption =='description'}">Descripci&oacute;n</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('basic'); selectedOption = 'basic';" ng-class="{'orange-text': selectedOption =='basic'}">Informaci&oacute;n B&aacute;sica de un Patr&oacute;n</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('phases'); selectedOption = 'phases';" ng-class="{'orange-text': selectedOption =='phases'}">Fases Principales del Servicio</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('monthly'); selectedOption = 'monthly';" ng-class="{'orange-text': selectedOption =='monthly'}">Publicaci&oacute;n Mensual</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('buy'); selectedOption = 'buy';" ng-class="{'orange-text': selectedOption =='buy'}">Comprar Suscripci&oacute;n</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('patterns'); selectedOption = 'patterns';" ng-class="{'orange-text': selectedOption =='patterns'}">Mis Patrones</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('diary'); selectedOption = 'diary';" ng-class="{'orange-text': selectedOption =='diary'}">Seguimiento Diario</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('historic'); selectedOption = 'historic';" ng-class="{'orange-text': selectedOption =='historic'}">Hist&oacute;ricos</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-class="{'orange-text': selectedOption =='drawdown' || selectedOption =='correlation' || selectedOption =='volatility' }">Herramientas</a>
-                </td>
-            </tr>
-            <tr>
-                <td class="parent-item-menu">
-                    <a ng-click="scrollTo('drawdown'); selectedOption = 'drawdown';" ng-class="{'orange-text': selectedOption =='drawdown'}">Cartera</a>
-                </td>
-            </tr>
-            <tr>
-                <td class="parent-item-menu">
-                    <a ng-click="scrollTo('correlation'); selectedOption = 'correlation';" ng-class="{'orange-text': selectedOption =='correlation'}">Correlaci&oacute;n</a>
-                </td>
-            </tr>
-            <tr>
-                <td class="parent-item-menu">
-                    <a ng-click="scrollTo('volatility'); selectedOption = 'volatility';" ng-class="{'orange-text': selectedOption =='volatility'}">Volatilidad Hist&oacute;rica</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('week'); selectedOption = 'week';" ng-class="{'orange-text': selectedOption =='week'}">La Semana, Estad&iacute;sticas</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('calendar');selectedOption = 'calendar';" ng-class="{'orange-text': selectedOption =='calendar'}">Calendario</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('suscriptions');selectedOption = 'suscriptions';" ng-class="{'orange-text': selectedOption =='suscriptions'}">Mis Suscripciones</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a ng-click="scrollTo('account'); selectedOption = 'account';" ng-class="{'orange-text': selectedOption =='account'}">Mi Cuenta</a>
-                </td>
-            </tr>
-        </table>
+<div class="lat-menu-detailed-nav">
+    <table class="table-page-index-detailed"
+           ng-class="{'menu-position' : boolChangeClassDetailed, 'menu-bottom-position' : !boolChangeClassDetailed && positionFix , 'menu-fix' : positionFix}">
+        <tr>
+            <td>
+                <a ng-click="scrollTo('description'); selectedOption = 'description';"
+                   ng-class="{'orange-text': selectedOption =='description'}">Descripci&oacute;n</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('basic'); selectedOption = 'basic';"
+                   ng-class="{'orange-text': selectedOption =='basic'}">Informaci&oacute;n B&aacute;sica de un Patr&oacute;n</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('phases'); selectedOption = 'phases';"
+                   ng-class="{'orange-text': selectedOption =='phases'}">Fases Principales del Servicio</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('monthly'); selectedOption = 'monthly';"
+                   ng-class="{'orange-text': selectedOption =='monthly'}">Publicaci&oacute;n Mensual</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('buy'); selectedOption = 'buy';"
+                   ng-class="{'orange-text': selectedOption =='buy'}">Comprar Suscripci&oacute;n</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('patterns'); selectedOption = 'patterns';"
+                   ng-class="{'orange-text': selectedOption =='patterns'}">Mis Patrones</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('diary'); selectedOption = 'diary';"
+                   ng-class="{'orange-text': selectedOption =='diary'}">Seguimiento Diario</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('historic'); selectedOption = 'historic';"
+                   ng-class="{'orange-text': selectedOption =='historic'}">Hist&oacute;ricos</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-class="{'orange-text': selectedOption =='drawdown' || selectedOption =='correlation' || selectedOption =='volatility' }">Herramientas</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="parent-item-menu">
+                <a ng-click="scrollTo('drawdown'); selectedOption = 'drawdown';"
+                   ng-class="{'orange-text': selectedOption =='drawdown'}">Cartera</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="parent-item-menu">
+                <a ng-click="scrollTo('correlation'); selectedOption = 'correlation';"
+                   ng-class="{'orange-text': selectedOption =='correlation'}">Correlaci&oacute;n</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="parent-item-menu">
+                <a ng-click="scrollTo('volatility'); selectedOption = 'volatility';"
+                   ng-class="{'orange-text': selectedOption =='volatility'}">Volatilidad Hist&oacute;rica</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('week'); selectedOption = 'week';"
+                   ng-class="{'orange-text': selectedOption =='week'}">La Semana, Estad&iacute;sticas</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('calendar');selectedOption = 'calendar';"
+                   ng-class="{'orange-text': selectedOption =='calendar'}">Calendario</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('suscriptions');selectedOption = 'suscriptions';"
+                   ng-class="{'orange-text': selectedOption =='suscriptions'}">Mis Suscripciones</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('account'); selectedOption = 'account';"
+                   ng-class="{'orange-text': selectedOption =='account'}">Mi Cuenta</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="content-detailed">
+<!--
+<div class="anchor-detailed" id="description" ng-include="'services/detailed_description/description.tpl.html'"></div>
+<div class="anchor-detailed" id="basic" ng-include="'services/detailed_description/basic.tpl.html'"></div>
+<div class="anchor-detailed" id="phases" ng-include="'services/detailed_description/phases.tpl.html'"></div>
+<div class="anchor-detailed" id="monthly" ng-include="'services/detailed_description/monthly.tpl.html'"></div>
+<div class="anchor-detailed" id="buy" ng-include="'services/detailed_description/buy.tpl.html'"></div>
+<div class="anchor-detailed" id="patterns" ng-include="'services/detailed_description/patterns.tpl.html'"></div>
+<div class="anchor-detailed" id="diary" ng-include="'services/detailed_description/diary.tpl.html'"></div>
+<div class="anchor-detailed" id="historic" ng-include="'services/detailed_description/historic.tpl.html'"></div>
+<div class="anchor-detailed" id="drawdown" ng-include="'services/detailed_description/drawdown.tpl.html'"></div>
+<div class="anchor-detailed" id="correlation" ng-include="'services/detailed_description/correlation.tpl.html'"></div>
+<div class="anchor-detailed" id="volatility" ng-include="'services/detailed_description/volatility.tpl.html'"></div>
+<div class="anchor-detailed" id="week" ng-include="'services/detailed_description/week.tpl.html'"></div>
+<div class="anchor-detailed" id="calendar" ng-include="'services/detailed_description/calendar.tpl.html'"></div>
+<div class="anchor-detailed" id="suscriptions" ng-include="'services/detailed_description/suscriptions.tpl.html'"></div>
+<div class="anchor-detailed" id="account" ng-include="'services/detailed_description/account.tpl.html'"></div>
+-->
+<!--all pages here now-->
+<div class="anchor-detailed" id="description">
+<div>
+<p class="text-block-title">Descripci&oacute;n</p>
+
+<p>
+    <em> “La diferencia entre un buen inversor y uno excelente, es que el primero sabe Cuándo invertir y el segundo
+        además, en Qué”. (Aforismo de Bolsa).</em>.
+</p>
+
+<p>
+    Market Observatory ofrece un <strong>servicio</strong> innovador y novedoso basado en el análisis temporal y
+    estacional que identifica las mejores inversiones de los
+    principales Activos de Bolsa, Bonos, Materias Primas, inversiones Inmobiliarias cotizadas o Divisas, en
+    cualquier región
+    del mundo incluyendo los principales mercados industrializados y emergentes.
+</p>
+
+<p>
+    La información de Market Observatory es sencilla de poner en práctica mediante un intermediario financiero o
+    bróker online, usando diferentes
+    instrumentos como Acciones, Fondos de Inversión, Fondos de Pensiones, ETF’s –Exchange Traded Fund-, Futuros o
+    CFD’s –Contract for Difference-.
+</p>
+
+<p>
+    La <strong>misión</strong> de Market Observatory es ofrecer a ahorradores o inversores, información ventajosa,
+    imparcial, objetiva,
+    basada exclusivamente en Hechos verificables para extraer la máxima rentabilidad del mercado con el menor
+    riesgo.
+    El servicio proporciona los ingredientes imprescindibles para realizar una mayoría de inversiones exitosas
+    durante
+    periodos prolongados del tiempo.
+</p>
+
+<p>
+    El <strong>fundamento</strong> del servicio de Market Observatory radica en el concepto de “Patrón de
+    comportamiento recurrente en el tiempo”, originado por pautas repetitivas
+    en los hábitos de los diferentes agentes económicos, oferta y demanda, empresas y consumidores, que concurren en
+    los diferentes meses del año.
+    Para saber más leer <a ui-sref="fundamentals">Fundamentos</a>.
+</p>
+
+<p>
+    En <strong>resumen</strong>, el servicio se alinea con el citado <em>“aforismo de Bolsa”</em>, identifica, entre
+    otras muchas cosas, en
+    <strong>Qué</strong> invertir seleccionando únicamente Activos con
+        <span class="element-with-tooltip"
+              tooltip-html-unsafe="{{tooltipReliability}}"><b>Fiabilidad 90%</b></span>
+    , Cuándo especificando el
+    <span class="element-with-tooltip" tooltip-html-unsafe="{{tooltipPeriods}}">Periodo Óptimo</span>
+    o fechas de compra o venta y <strong>Cantidad</strong> o proporción de efectivo a asignar en cada operación.
+</p>
+
+<p>
+    Los datos publicados en la Web se basan en
+        <span class="element-with-tooltip"
+              tooltip-html-unsafe="{{tooltipFact}}"><strong>Hechos</strong></span>
+    objetivos y comprobables. No encontrará
+        <span class="element-with-tooltip"
+              tooltip-html-unsafe="{{tooltipOpinions}}"><strong>opiniones.</strong></span>.
+</p>
+
+<p class="orange-title">Base del Análisis</p>
+
+<p>
+    La identificación de un Patrón, conlleva el cumplimiento de diferentes requisitos tales como la recurrencia en
+    el comportamiento de las
+    cotizaciones de los activos durante los últimos 15 años. Mediante técnicas de data mining, se consiguen patrones
+    con frecuencia de aciertos o fiabilidad de 90%. Una
+    <span class="element-with-tooltip" tooltip-html-unsafe="{{tooltipReliability}}">Fiabilidad 90%</span>
+    significa que los Patrones publicados por Market Observatory tienen:
+</p>
+
+<ul class="public-list-first-level">
+    <li><p>
+        0 fallos en 15 años o frecuencia aciertos de 100%.
+    </p></li>
+    <li><p>
+        1 fallo en 15 años o frecuencia aciertos de 93%.
+    </p></li>
+    <li><p>
+        2 fallos en 15 años o frecuencia aciertos de 87%
+    </p></li>
+</ul>
+
+<p>
+    Una vez preseleccionados los potenciales Patrones, se usan técnicas
+    de rechazo de patrones casuales y algoritmos financieros para obtener
+    la mejor Estrategia maximizando la rentabilidad y frecuencia de aciertos
+    al mismo tiempo que se minimiza el riesgo y <em>drawdown</em>.
+</p>
+
+<p class="orange-title">Servicios contratables en Market Observatory</p>
+
+<p>
+    Puesto que la misión del servicio es ayudar a mejorar la rentabilidad del dinero a una amplia variedad de
+    clientes,
+    desde pequeños ahorradores, neófitos de Bolsa, grandes inversores, profesionales, organizaciones relacionadas
+    con
+    la gestión de Dinero u operadores comerciales, es muy amplia la gama de productos o Paquetes –Pack’s-
+    contratables
+    vía suscripción. Así puede desde acceder a los contenidos de un Pack por 29 EUR a disponer de una
+    suscripción profesional.
+</p>
+
+<p>
+    Una Cartera diversificada debe estar constituida por diferentes Activos y Valores no correlacionados,
+    es decir que no se deprecien al mismo tiempo. Los principales Activos no correlacionados son las
+    Acciones o renta variable, Bonos o renta fija, Materias Primas, Inversiones Inmobiliarias y Divisas.
+</p>
+
+<p>
+    El servicio de Market Observatory ofrece la posibilidad de reconocer las mejores oportunidades en
+    los Activos mencionados incluidos en alguno de los grupos siguientes: Acciones, Par Acciones,
+    Índices y Futuros. Dentro de cada grupo encontrará los Pack’s que puede comprar.
+    Si desea saber más sobre qué contratar lea
+</p>
+
+<p class="public-images">
+    <img src="assets/img/services/detailed_description/descripcion1.png">
+</p>
+
+<ul class="public-list-first-level list-left-first-level">
+    <li><p>
+        <strong>Acciones:</strong> Identifica estrategias a corto, medio o largo plazo para posicionar dinero
+        en Renta Variable en Acciones de Compañías cotizadas. En los Pack’s se incluyen las mejores estrategias
+        de Bolsa encontradas al analizar unas 70,000 Compañías de cualquier Región del Mundo. Es una suscripción
+        ideal para inversores en Bolsa.
+    </p></li>
+    <li><p>
+        <strong>PAR de Acciones:</strong> Identifica estrategias neutrales de Bolsa de menor riesgo a priori.
+        Un Par conlleva 2 operaciones simultáneas, una posición de Compra en acciones de compañías con fuertes
+        expectativas y otra de Venta en empresas con débiles perspectivas. Los Pares de Acciones no tiene
+        correlación con la Bolsa, así pueden incluirse como un Activo más en la Cartera. Se ponen en práctica
+        con CFD’s, Acciones o Futuros sobre Acciones. Necesitará un buen bróker que facilite Ventas a corto y
+        bajas comisiones. Es una suscripción atractiva para inversores en Bolsa que no desean sufrir grandes
+        sobresaltos.
+    </p></li>
+    <li><p>
+        <strong>&iacute;ndices:</strong> : Identifica estrategias a corto, medio o largo plazo para usar diferentes
+        instrumentos financieros. Las estrategias sobre Índices, por definición, están más diversificadas que sus
+        componentes y con menor riesgo. Podrá invertir en cualquier País, Región, Sector o Segmento del mercado.
+        Además diversificar por Activos con diferentes Índices de Bolsa, Bonos, Materias Primas, Sectores de
+        Materias Primas o Inmuebles –REIT’s,<em> Real Estate Investment Trust-.</em>
+    </p>
+
+        <p>
+            Un Índice lo puede poner en práctica con su dinero mediante los siguientes instrumentos financieros
+            a través de un intermediario financiero o bróker online:
+        </p>
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                <span class="underline-text">Índices de Bolsa</span> o renta variable:
+                <ul class="public-list-third-level list-left-first-level">
+                    <li>
+                        En operaciones a corto plazo -1 mes- debería utilizar CFD’s, Futuros sobre índices y
+                        ETF’s.
+                    </li>
+                    <li>
+                        Para invertir a medio plazo -3 meses- lo idóneo son ETF’s.
+                    </li>
+                    <li>
+                        En operaciones a largo plazo -más de 5 o 6 meses-, debería usar ETF’s, Fondos de
+                        Inversión Indexados o Fondos de Pensiones Indexados.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                </e><span class="underline-text">Índices de Bonos</span> o renta fija:
+                <ul class="public-list-third-level list-left-first-level">
+                    <li>
+                        En operaciones a corto y medio plazo, use Futuros sobre Tipos de Interés.
+                    </li>
+                    <li>
+                        A largo plazo -más de 5 o 6 meses- debería utilizar Fondos de Inversión Indexados, Fondos de
+                        Pensiones Indexados o ETF’s.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="underline-text">Índices de Materias Primas</span>:
+                <ul class="public-list-third-level list-left-first-level">
+                    <li>
+                        En operaciones a corto plazo -1 mes- debería usar Futuros sobre Índices de Commodities.
+                    </li>
+                    <li>
+                        A medio y largo plazo, debería usar ETF’s, Fondos de Inversión o Fondos de Pensiones sobre
+                        Materias Primas.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="underline-text">Índices de explotación de Inmuebles: </span>Identificados
+                como REIT’s, Properties.
+                <ul class="public-list-third-level list-left-first-level">
+                    <li>
+                        Para el corto y medio plazo - 1 – 3 meses- debería usar ETF’s
+                    </li>
+                    <li>
+                        En operaciones a largo plazo -más de 5 o 6 meses- debería utilizar ETF’s, Fondos de Inversión
+                        Indexados o Fondos de Pensiones Indexados.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="underline-text list-left-first-level">PAR de Índices</span>Son estrategias neutrales entre
+                Índices,
+                a priori de menor riesgo. No tienen correlación con los Activos tradicionales. Se simultanea la
+                Compra del Índice con expectativa fuerte con la Venta del débil. Los instrumentos para poner
+                en práctica estas estrategias son:
+                <ul class="public-list-third-level list-left-first-level">
+                    <li>
+                        ETF’s, CFD’s y Futuros sobre Índices. En el caso de ETF’s necesitará un buen bróker que
+                        facilite:
+                        <ul class="public-list-fourth-level list-left-first-level">
+                            <li>
+                                La Venta a corto de ETF’s alcistas.
+                            </li>
+                            <li>
+                                La Compra de ETF’s bajistas que se identifican como “short, inverse, bear”.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        </p></li>
+    <li><p>
+        <strong>Futuros:</strong> Contiene estrategias sobre los productos que cotizan a Futuro
+        en los principales mercados del mundo. Encontrará Futuros sobre Índices Bursátiles, Bonos,
+        Depósitos, Divisas, Energía, Metales Preciosos, Metales Industriales, Mercaderías Agrícolas, Ganados,
+        Productos Tropicales o Fibras. Es una suscripción imprescindible para la supervivencia a largo plazo de
+        los operadores de Futuros en mercados de alto riesgo. Las estrategias sobre Futuros se pueden poner en
+        práctica con los siguientes instrumentos:
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                En operaciones a corto plazo -menos de 1 mes- con Futuros
+            </li>
+            <li>
+                En operaciones a medio o largo plazo puede usar Futuros o ETF’s para largo plazo.
+                Así en un Patrón que dura 6 meses sobre el Futuro del Brent podría usar el ETF siguiente
+            </li>
+
+        </ul>
+        </p></li>
+</ul>
+<p style="text-align: center;">
+    <img style="margin: auto; height: 40px;" src="assets/img/services/detailed_description/desc1.png">
+</p>
+
+<p>
+    Recuerde usar siempre técnicas de Gestión del Dinero con cualquier instrumento financiero, para procurar a
+    largo plazo la permanencia en los mercados.
+</p>
+
+<p>
+    Operando con cualquier instrumento financiero, las t&eacute;cnicas de Gesti&oacute;n del Dinero son
+    obligatorias, sin su
+    aplicaci&oacute;n es dif&iacute;cil la supervivencia en los mercados a largo plazo. Se hace m&aacute;s
+    imprescindible cuando el apalancamiento es alto, caso de los Futuros.
+</p>
+
+</div>
+</div>
+<div class="anchor-detailed" id="basic">
+<div ng-controller="HomeCtrl">
+<p class="text-block-title">
+    Información Básica de un Patrón
+</p>
+
+<p>
+    El servicio de Market Observatory se basa en el concepto de “Patrón”
+    o estrategia que contiene información completa y suficiente, para resolver las necesidades y
+    dudas de un inversionista:
+</p>
+<ul class="list-left-first-level public-list-first-level">
+    <li>
+        Decidir en <strong>Qué</strong> invertir y <strong>Cuándo</strong> hacerlo. Para ello el servicio provee los
+        siguientes elementos y funciones :
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                Tabla de Patrón, Gráfico de Patrón con análisis de Performances, Volatilidad, Drawdowns o
+                Correlaciones.
+            </li>
+        </ul>
+    </li>
+    <li>
+        Decidir entre los potenciales candidatos <strong>Cuáles</strong> y <strong>Cuánto</strong> efectivo a cada uno.
+        Para ello el servicio dispone de las funciones siguientes:
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                Valoración de Patrones, Componentes de Cartera y análisis de Volatilidad o Correlaciones
+            </li>
+        </ul>
+    </li>
+    <li>
+        Verificar <strong>Resultados</strong> de las estrategias y decisiones tomadas sobre potenciales operaciones.
+        Para ello proporciona:
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                Informes Históricos de Patrones recién terminados.
+            </li>
+        </ul>
+    </li>
+</ul>
+<p>
+    La información que contiene un Patrón es auto-descriptiva, completa y suficiente, que constituye por sí misma
+    un método de inversión que requiere poco tiempo de dedicación y muy sencillo. Además es un
+    buen complemento para otros tipos de métodos en particular para el Análisis Técnico.
+</p>
+
+<p>
+    Una vez entendida la información de un Patrón estará en disposición de aprovechar todas las funciones esenciales
+    del servicio de Market Observatory. Veamos a continuación ejemplos de información que contiene un patrón
+    que consta de cuatro elementos clave:
+</p>
+<ol class="ordered-list-first-level">
+    <li>
+        Tabla de Detalle Patrón
+    </li>
+    <li>
+        Tabla Resumen y Benchmarking
+    </li>
+    <li>
+        Gráfico Seguimiento Diario
+    </li>
+    <li>
+        Gráfico de Patrones 15 – 6 años
+    </li>
+</ol>
+
+<p class="orange-title">
+    Tabla de detalle de un Patrón
+</p>
+
+<p>
+    Observer la siguiente tabla de Detalle:
+</p>
+
+<p class="public-images"><img src="assets/img/services/detailed_description/basic.png"></p>
+
+<p>
+    ¿Qué dice la tabla?
+</p>
+
+<p>
+    Identifica un patrón –o estrategia- que consiste en <strong>Comprar</strong> acciones de la compañía “<strong>Tata
+    Elxsi</strong>” que cotiza en la Bolsa de Bombay “<strong>BO</strong>”,
+    pertenece al sector de “<strong>Computers – Software</strong>”, con los resultados de la estrategia durante los
+    últimos 15 años. Los parámetros esenciales son
+</p>
+<ul class="public-list-first-level list-left-first-level">
+    <li><strong>Operación:</strong> Comprar (acciones)</li>
+    <li><strong>Compañía:</strong> “Tata Elxsi” con la cotización en Bolsa de Bombay “BO”</li>
+    <li><strong>Fecha Entrada:</strong> O apertura de la Compra de acciones el <strong>13 de Agosto</strong>.</li>
+    <li><strong>Fecha Salida:</strong> o cierre de la posición con la Venta de acciones el <strong>10
+        septiembre</strong>.
+    </li>
+    <li>La <strong>Moneda</strong> de cotización es “<strong>INR</strong>” -Indian Rupee- símbolo de la Rupia India</li>
+    <li><strong>15 L&iacute;neas:</strong> Entre 1997 a 2011 resultados de aplicar la estrategia. Todos los datos son
+        <strong>precios de cierre</strong> del mercado.
+        <ul class="public-list-second-level list-left-first-level">
+            <li>Por ejemplo en el año <strong>2008</strong> el 13 agosto hacia la hora de cierre del mercado, se
+                hubieran comprado acciones a 167 INR y el 10 septiembre
+                hacia la hora de cierre del mercado se hubieran vendido a 161,95 INR con una rentabilidad de la
+                operación de -3,02 %.
+            </li>
+            <li>En el año <strong>2008</strong> mientras la posición estuvo en vigor, la mayor Ganancia se hubiera
+                producido el 4 septiembre
+                con un rendimiento de 0,21 % y la peor Pérdida -Drawdown- el 28 agosto con 3,65 %. .
+            </li>
+            <li>La estrategia ha obtenido Ganancias en 14 años y en uno de ellos, en 2008 generó una Pérdida de 3,02%.
+            </li>
+            <li>
+                La evolución de los precios durante 2008 se puede observar haciendo clic sobre la celda de columna
+                <strong>“Año” 2008</strong>
+            </li>
+        </ul>
+    </li>
+</ul>
+<p class="public-images">
+    <img src="assets/img/services/detailed_description/basic2.png">
+</p>
+
+<p>
+    <strong>Convenio fechas</strong> de Market Observatory:
+<ul class="list-left-first-level public-list-first-level">
+    <li>
+        Cuando <strong><em>“Fecha Entrada”</em></strong> coincide en fin de semana o festivo:
+        <ul class="list-left-first-level public-list-second-level">
+            <li>
+                La fecha efectiva es el día <strong><em>“Siguiente”</em></strong> con sesión de mercado.
+            </li>
+        </ul>
+    </li>
+</ul>
+</p>
+
+<p class="orange-title">Tablas Resumen y Benchmarking</p>
+
+<p>
+    El siguiente cuadro resume la operativa histórica de la estrategia de Comprar “Tata Elxsi” durante las fechas
+    mencionadas.
+</p>
+
+<p class="public-images">
+    <img src="assets/img/services/detailed_description/basic3.png">
+</p>
+
+<p>¿Qué dice la tabla?</p>
+<ul class="public-list-first-level list-left-first-level">
+    <li><strong>Número de Años</strong> analizados es 15, generó Ganancias en 14 y sufrió Pérdidas en 1.
+    </li>
+    <li><strong>Rentabilidad acumulada</strong> es 232,42 % durante los 15 años de aplicación de la estrategia.
+    </li>
+    <li><strong>Rentabilidad promedio</strong> por operación es 15,49 % obtenida en 1 mes (13 de agosto a 10 de
+        septiembre).
+    </li>
+    <li><strong>Rentabilidad diaria</strong> es 0,53 %;</li>
+    <li><strong>Duración</strong> de la estrategia u operación es 29 días.
+    </li>
+</ul>
+<p>
+    La siguiente tabla muestra los datos de rendimiento y frecuencia de fallos de los principales
+    Índices Bursátiles de India durante idéntico
+    periodo de tiempo que la estrategia de “Tata Elxsi”.
+    Los datos sirven para propósitos tan diversos como comparador contra índices de benchmarking o
+    para usar en coberturas de carteras con acciones de compañías indias.
+</p>
+
+<p class="public-images">
+    <img src="assets/img/services/detailed_description/basic4.png"></p>
+
+<p class="orange-title">Gr&aacute;fico Seguimiento Diario</p>
+
+<p>
+    Muestra la evolución diaria de la cotización de la compañía, permitiendo la vigilancia de la
+    estrategia mediante Gráficos de Seguimiento. A continuación se ilustra un ejemplo:
+</p>
+
+<p class="public-images">
+    <img src="assets/img/services/detailed_description/basic5.png"></p>
+
+<p>&iquest;Qu&eacute; representa este gr&aacute;fico?</p>
+
+<ul class="public-list-first-level list-left-first-level">
+    <li>La <em>línea marrón</em> es el Patrón de rentabilidad de 15 años (desde 1998 hasta 2012)
+        de la acción de “Tata Elxsi”. Se observan altos y bajos relativos asociados a periodos
+        de mayor y menor rendimientos, fases con tendencias alcistas y bajistas, zonas de cambio
+        de tendencia, periodos con oscilaciones, etc.
+    </li>
+    <li>La <em>linea azul</em> representa la evolución diaria de la cotización de cierre de “Tata Elxsi” en la Bolsa de
+        Bombay.
+        Los precios se superponen sobre el Patrón 15 años para establecer posibles objetivos de ganancia, stop loss,
+        etc.
+    </li>
+    <li>La zona de fondo coloreado identifica la <em>“ventana operativa”</em> de
+        <span id="fiabilidad" class="element-with-tooltip" tooltip-html-unsafe="{{tooltipReliability}}">Fiabilidad
+            90%</span> o periodo óptimo para invertir, que comprende el intervalo desde el 13 agosto al 10 septiembre
+    </li>
+</ul>
+<p class="orange-title">Gr&aacute;fico Patrones 15 - 6 a&ntilde;os</p>
+
+<p>
+    Muestra dos Patrones de rentabilidad promedio, de 15 y 6 años más recientes. Hay inversores que dan mayor
+    preponderancia a los acontecimientos más próximos. Observando ambos patrones puede comparar comportamientos,
+    identificar desviaciones, confirmar una tendencias o aceleración, etc. Los valores 0 y 100 indican respectivamente
+    menor y mayor rendimientos. Se ilustra con un ejemplo:
+</p>
+
+<p class="public-images">
+    <img src="assets/img/services/detailed_description/basic6.png">
+</p>
+
+<p>&iquest;Qu&eacute; representa este gr&aacute;fico?</p>
+<ul class="public-list-first-level list-left-first-level">
+    <li>
+        La <em>línea marrón</em> es el Patrón de rentabilidad de 15 años (desde 1998 hasta 2012)
+        de la acción de “Tata Elxsi”, como ya se ha mencionado en un párrafo anterior
+    </li>
+    <li>La <em>línea anaranjada</em> es el Patrón de rentabilidad de los últimos 6 años (desde 2007 hasta 2012).
+        Como ejemplo observe como en los años recientes se han acelerado las subidas durante marzo - mayo.
+    </li>
+</ul>
+
+</div>
+
+</div>
+<div class="anchor-detailed" id="phases">
+
+    <div>
+        <p class="text-block-title">Fases Principales del Servicio</p>
+
+        <p>Se ha estructurado por áreas funcionales:</p>
+        <ol class="ordered-list-first-level">
+            <li>Listado de Paquetes –Pack’s- disponibles para suscripción,
+                con un resumen de Activos y Patrones -o estrategias- que se publican cada mes.
+                <a ui-sref="detailed_description.monthly">Publicaci&oacute;n Mensual</a>
+            </li>
+            <li>
+                Compra de Pack’s permite el acceso pleno a los contenidos via online, a la información completa
+                de Patrones, funciones de análisis, seguimiento, control, alarmas y uso del resto de herramientas para
+                toma de decisiones.
+                <a ui-sref="detailed_description.buy">Comprar Suscripci&oacute;n</a>
+            </li>
+            <li>
+                Listado de Patrones contenidos en los Pack’s comprados. Al acceder a la web como cliente descubrirá el
+                detalle
+                completo de las mejores estrategias. Podrá poner en práctica algunas de ellas con su intermediario
+                financiero habitual.
+                <a ui-sref="detailed_description.patterns">Mis Patrones</a>
+            </li>
+            <li>
+                Control y seguimiento diario de estrategias con informes, gráficos y alarmas a su correo electrónico.
+                <a ui-sref="detailed_description.diary">Seguimiento Diario</a>
+            </li>
+            <li>
+                Histórico de estrategias publicadas con los resultados finales obtenidos.
+                <a ui-sref="detailed_description.historic">Hist&oacute;ricos</a>
+            </li>
+            <li>
+                Herramientas para Toma de Decisiones, valoración de estrategias, diversificación
+                de activos y valores, riesgo esperado, composición de carteras y asignación de efectivo
+                <a ui-sref="detailed_description.drawdown">Herramientas</a>
+            </li>
+            <li>
+                Estadísticas diarias de la Semana en curso para facilitar el ajuste de operaciones de Compra o Venta.
+                <a ui-sref="detailed_description.week">La Semana</a>
+            </li>
+            <li>
+                Calendario para organización de estrategias, con Entradas y Salidas –aperturas y cierres- de potenciales
+                operaciones.
+                <a ui-sref="detailed_description.calendar">Calendario</a>
+            </li>
+            <li>
+                Gestión de compras, cancelaciones, pagos o devoluciones.
+                <a ui-sref="detailed_description.suscriptions">Mis Suscripciones</a>
+            </li>
+            <li>
+                Histórico de órdenes. Usuario y contraseña
+                <a ui-sref="detailed_description.account">Mi Cuenta</a>
+            </li>
+
+        </ol>
+    </div>
+</div>
+<div class="anchor-detailed" id="monthly">
+    <div>
+
+        <p class="text-block-title">
+            Publicaci&oacute;n Mensual
+        </p>
+
+        <p class="orange-title">
+            Los Pack’s
+        </p>
+
+
+        <p>
+            Los <strong>Paquetes -o Pack’s-</strong> son los elementos que puede <strong>Comprar</strong> en
+            Market Observatory. La compra de un Pack da acceso online a la web de Market
+            Observatory donde dispone de la información completa de los Patrones y una
+            amplia gama de funciones y herramientas para evaluación, seguimiento, control y
+            toma de decisiones.
+        </p>
+
+        <p>
+            Un Pack contiene hasta 100 Patrones de distintos Activos, Acciones,
+            Par Acciones, índices, Par Índices, Futuros, clasificados por mes de publicación, distribuidos por regiones
+            geográficas o Países.
+        </p>
+
+        <p>
+            Hay Packs de los principales mercados del mundo industrializado y emergente. Los países con una moneda común
+            se han agrupado juntos. Los mercados pequeños se han agrupado con otros por cercanía geográfica.
+            En regiones o mercados grandes, se publican varios Pack’s distribuyendo las Compañías por orden
+            alfabético. Esta forma de proceder conlleva que el corte en la clasificación sea diferente de un
+            mes a otro. Ejemplo usted ha comprado una suscripción duración anual al USA Pack III:
+        </p>
+
+        <p>
+        <ul class="list-left-first-level public-list-first-level">
+            <li>
+                Durante septiembre podría encontrar en el Pack 100 estrategias sobre compañías que comienzan entre “F” y
+                “M”.
+            </li>
+            <li>
+                Durante octubre podría encontrar en el Pack 100 estrategias sobre compañías que comienzan entre “H” y
+                “N”,
+                es decir el corte es diferente de un mes a otro.
+            </li>
+        </ul>
+        </p>
+
+        <p>En cualquier momento puede ver los Activos y Compañías agregados a cada Pack visitando <a>www.MarketObservatory.com</a>
+        </p>
+
+        <p class="orange-title">
+            Avance Contenido de Pack’s
+        </p>
+
+        <p>
+            Mensualmente Market Observatory publica los nuevos Pack’s donde se incluyen los Patrones o estrategias de
+            los
+            diferentes Activos analizados. Como visitante sin necesidad de ser cliente puede observar un adelanto de
+            contenidos
+            con las 100 mejores estrategias sobre los diferentes activos y un avance sobre rentabilidad, frecuencia de
+            aciertos,
+            plazos, etc.
+        </p>
+
+        <p>
+            <span style="text-decoration: underline; "><strong>Ejemplo:</strong></span> Un ahorrador -No cliente-
+            dispondrá
+            de dinero
+            en septiembre y desea colocarlo en Bolsa en acciones de
+            compañías de Canadá. Como sabe que Market Observatory publica las mejores oportunidades, en agosto
+            podrá comprar la suscripción al Pack del grupo de <strong>Acciones</strong> / mes de
+            <strong>Septiembre</strong>
+            2012 /
+            región <strong>Canadá</strong> /
+            que contiene los 100 mejores Patrones sobre compañías de Canadá. A continuación se ilustra el aspecto
+            parcial
+            del home de la web.
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/monthly1.png" alt=""></p>
+
+        <p>Al hacer clic sobre Canadá se muestra un avance de los contenidos que encontrará al comprar el Pack.</p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/monthly2.png" alt=""></p>
+
+        <p>¿Qué dice esta tabla?</p>
+        <ul class="list-left-first-level public-list-first-level">
+            <li>Lista un avance del contenido de las 100 estrategias por orden alfabético –se muestran las 10 primeras -
+                disponibles para invertir en compañías que cotizan en Canadá y un resumen de parámetros que descubrirá
+                en
+                detalle cuando acceda como cliente.
+            </li>
+            <li>
+                <strong>Nombres</strong> de la Compañías: “Acme Resources”, “Aqua Pure”, etc.
+            </li>
+            <li>
+                <strong>Mercados</strong> donde cotizan, Venture, Toronto.
+            </li>
+            <li>
+                <strong>Sector e Industria</strong> al que pertenece el negocio.
+            </li>
+            <li>Frecuencia de aciertos o <strong>Número de años</strong> que el Patrón ha producido Ganancias y
+                Pérdidas.
+                <ul class="public-list-second-level list-left-first-level">
+                    <li>
+                        Ejemplo: última línea, la estrategia sobre la compañía “Avcorp Industries”
+                        ha funcionado con éxito durante los últimos 15 años, en ninguno ha sufrido
+                        pérdidas
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <strong>Rentabilidad Acumulada</strong> en 15 años y la Rentabilidad Promedio por operación.
+                <ul class="public-list-second-level list-left-first-level">
+                    <li>
+                        La renta acumulada es 288 % se obtiene sumando la rentabilidad
+                        individual de cada uno de los 15 años sobre “Avcorp Industries”.
+                    </li>
+                    <li>
+                        La rentabilidad promedio por operación ha sido 19,18 %. No es rentabilidad anual sino
+                        la conseguida durante el periodo que dura la operación (entre 1 y 3 meses).
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <strong>Duración</strong> o plazo de la Inversión -holding days-, desde la apertura hasta el cierre.
+                <ul class="public-list-second-level list-left-first-level">
+                    <li>
+                        La operación sobre “Avcorp Industries” dura entre 1 y 3 meses
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <strong>Volatilidad</strong> histórica de 3 meses.
+            </li>
+            <li>
+                <strong>Semáforo</strong> de estado del Patrón que significa:
+                <ul class="public-list-second-level list-left-first-level">
+                    <li>
+                        <em>Verde:</em> Estrategia sin comenzar. Puede usarla para futuras inversiones.
+                    </li>
+                    <li>
+                        <em>Naranja:</em> Estrategia en curso. En la tabla anterior se observa que
+                        “Acme Resources” posee semáforo naranja, indicando que si hoy es 3 septiembre, el patrón se
+                        inició con anterioridad, el día 1 o 2.
+                    </li>
+                    <li>
+                        <em>Rojo:</em> Estrategia comenzada y finalizada. La información ya no sirve para ponerla en
+                        práctica
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p>Antes de realizar cualquier inversión debe examinar los datos Fundamentales de la Compañía.
+            Para ello introduzca el Nombre de la empresa y haga clic sobre un buscador de datos financieros.
+        </p>
+
+        <p>
+            En ciertos países y mercados de Asia –Japón, China, Corea, Taiwán-, se usan <strong>Códigos
+            Numéricos</strong> para facilitar las distintas caligrafías occidental y asiática.
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/monthly3.png" alt=""></p>
+
+        <p>
+            Por ejemplo, para acceder a datos fundamentales de la compañía “China Electric”
+            que cotiza en Taiwán usar el código numérico “1611” que proporciona Market Observatory
+            y con el buscador elija idioma deseado.
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/monthly4.png" alt=""></p>
+
     </div>
 
-    <div class="content-detailed">
-        <div class="anchor-detailed" id="description" ng-include="'services/detailed_description/description.tpl.html'"></div>
-        <div class="anchor-detailed" id="basic" ng-include="'services/detailed_description/basic.tpl.html'"></div>
-        <div class="anchor-detailed" id="phases" ng-include="'services/detailed_description/phases.tpl.html'"></div>
-        <div class="anchor-detailed" id="monthly" ng-include="'services/detailed_description/monthly.tpl.html'"></div>
-        <div class="anchor-detailed" id="buy" ng-include="'services/detailed_description/buy.tpl.html'"></div>
-        <div class="anchor-detailed" id="patterns" ng-include="'services/detailed_description/patterns.tpl.html'"></div>
-        <div class="anchor-detailed" id="diary" ng-include="'services/detailed_description/diary.tpl.html'"></div>
-        <div class="anchor-detailed" id="historic" ng-include="'services/detailed_description/historic.tpl.html'"></div>
-        <div class="anchor-detailed" id="drawdown" ng-include="'services/detailed_description/drawdown.tpl.html'"></div>
-        <div class="anchor-detailed" id="correlation" ng-include="'services/detailed_description/correlation.tpl.html'"></div>
-        <div class="anchor-detailed" id="volatility" ng-include="'services/detailed_description/volatility.tpl.html'"></div>
-        <div class="anchor-detailed" id="week" ng-include="'services/detailed_description/week.tpl.html'"></div>
-        <div class="anchor-detailed" id="calendar" ng-include="'services/detailed_description/calendar.tpl.html'"></div>
-        <div class="anchor-detailed" id="suscriptions" ng-include="'services/detailed_description/suscriptions.tpl.html'"></div>
-        <div class="anchor-detailed" id="account" ng-include="'services/detailed_description/account.tpl.html'"></div>
+
+</div>
+<div class="anchor-detailed" id="buy">
+
+<div>
+<p class="text-block-title">
+    Comprar Suscripción –Pack’s-
+</p>
+
+<p>
+    El Paquete –Pack- es la unidad de Compra en el servicio de Market Observatory.
+    El Pack incluye el contenido completo de hasta 100 Patrones (*). Cuando compra
+    un Pack accede mediante suscripción al servicio online en la web <a>www.MarketObservatory.com</a>
+    desde donde puede consultar contenidos, utilizar las funciones y herramientas disponibles.
+</p>
+
+<p>
+    <em>(*) En mercados pequeños y durante ciertos meses puede no alcanzar la cifra de 100.</em>
+</p>
+
+<p>
+    Para comprar alguno de los Pack’s publicados, hay dos modos de proceder:
+</p>
+<ol class="ordered-list-first-level list-left-first-level">
+    <li>
+        No es Cliente, no está registrado. Al no disponer de “Usuario” y “Contraseña”
+        la única modalidad es mediante el <strong>Carro de la Compra.</strong>
+    </li>
+    <li>
+        Es Cliente. Además del Carro de la Compra puede usar un <strong>Mapa de
+        Suscripciones</strong> para realizar de forma rápida la adhesión a los diversos Pack’s.
+    </li>
+</ol>
+<p></p>
+
+<p>En ambos casos la Compra de Pack’s conlleva elegir 3 parámetros:</p>
+<ol class="list-left-first-level" type="a">
+    <li>
+        <strong>Mes Publicación</strong> de Patrones o estrategias
+    </li>
+    <li>
+        Los Pack’s están agregados en los siguientes grupos de <strong>Productos:</strong> Acciones, Par Acciones,
+        índices, Futuros.
+        <ul class="public-list-second-level list-left-first-level">
+            <li>En Acciones encontrará Pack’s por Regiones o Mercados.</li>
+            <li>En Par Acciones encontrará Pack’s por Regiones.</li>
+            <li>En Índices encontrará un Pack de Índices de diversos activos, Bolsa, Commodities o Bonos.</li>
+            <li>En Índices también hallará un Pack con Par de Índices de Bolsa.</li>
+            <li>En Futuros encontrará un Pack con los productos que cotizan en los principales mercados de futuros
+                del mundo.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Duración</strong> de la suscripción que indica el acceso ininterrumpido al contenido de
+        los Pack’s que se publiquen durante los siguientes meses. Las posibilidades son Mensual, Trimestral o Anual.
+    </li>
+</ol>
+
+<p>
+    La tarifa base depende de la duración de la suscripción. Mayor duración supone mayor descuento:
+</p>
+
+<p>Las Suscripciones Trimestral y Anual pueden ser canceladas de forma anticipada, con correspondiente
+    devoluci&oacute;n de fondos.
+</p>
+
+<p>
+<ul class="list-left-first-level list-left-first-level">
+    <li>
+        Suscripción mensual: {{month_price}} EUR al mes
+    </li>
+    <li>
+        Suscripción trimestral: {{three_months_price}} EUR al mes (incluido 5 % descuento)
+    </li>
+    <li>
+        Suscripción anual: {{one_year_price}} EUR al mes (incluido 10 % descuento)
+    </li>
+
+</ul>
+</p>
+<p>
+    Las Suscripciones Trimestral y Anual pueden ser canceladas de forma anticipada con la correspondiente devolución
+    de fondos.
+</p>
+
+<p>
+    Hay una Suscripción Profesional que incluye <strong>“All Securities + All Markets + All World + All Outrights +
+    All Pairs” </strong>
+    idónea para inversores profesionales, empresas u organizaciones relacionadas con la gestión del dinero, fondos,
+    finanzas,
+    inversiones o comercio internacional. El servicio es de duración anual, incluye <strong>todos los
+    Activos</strong> (alrededor de 100,000),
+    <strong>todos los Productos</strong> (Acciones, Par Acciones, Índices, Par Índices, Futuros, ETF`s, Fondos), los
+    principales <strong>Mercados del mundo</strong>,
+    Outrights y Pares, con registro de los últimos 12 meses. Para gestionar y explotar esta completa Base de Datos
+    se dispone de
+    herramientas especializadas. Si está interesado en esta suscripción escriba a <a
+        href="mailto:sales@MarketObservatory.com">sales@MarketObservatory.com</a> indicando
+    “Suscripción Profesional” y nos pondremos en contacto con usted.
+</p>
+
+<p class="orange-title">Comprar con Carro de la Compra</p>
+
+<p>Desde el Home de la Web elegir:</p>
+<ul class="list-left-first-level public-list-first-level">
+    <li>Un grupo de <strong>Productos:</strong> Acciones, Par Acciones, Índices o Futuros.
+    </li>
+    <li><strong>Mes</strong> de Publicación.
+    </li>
+</ul>
+<p>
+    <img src="assets/img/services/detailed_description/buy_1.png" width="900px">
+</p>
+<ul class="list-left-first-level public-list-first-level">
+    <li>
+        Elegido el grupo de Producto y Mes hay una lista de <b>Pack’s</b> que son los elementos contratables. Al
+        hacer clic sobre un Pack se despliega un avance del contenido de las estrategias. Así en el grupo de
+        “Acciones”,
+        mes de “septiembre 2012” y “Canadá” se mostrará un resumen de las 100 mejores estrategias:
+    </li>
+</ul>
+<p>
+    <img src="assets/img/services/detailed_description/buy_2.png" width="800px">
+</p>
+
+<p>
+    Con la opción “Al Carro” se incorpora el Pack a la suscripción y a continuación debe elegir la
+    <strong>Duración</strong> cuyas
+    opciones son Mensual, Trimestral o Anual.
+</p>
+
+<p>
+    <img src="assets/img/services/detailed_description/buy_3.png" width="400px">
+</p>
+<ul class="list-left-first-level public-list-first-level">
+    <li>Desde el Carro de Compra podría “Añadir más” Pack’s o “Proceder al Pago”.
+    </li>
+</ul>
+<p class="orange-title">Comprar con Mapa Suscripciones</p>
+
+<p>
+    Además de gestionar las suscripciones, órdenes de compra, cancelación, pagos o devoluciones,
+    esta modalidad permite planificar las Compras de forma rápida. Desde esta función se tiene acceso
+    a todos los Pack’s disponibles en la Web y únicamente debe elegir los parámetros de la suscripción y
+    <strong>Seleccionar</strong> los Packs de su interés.
+</p>
+
+<p>
+    <img src="assets/img/services/detailed_description/buy_4.png" width="900px">
+</p>
+
+<p class="orange-title">
+    Cancelación de una Suscripción
+</p>
+
+<p>
+    Los Pack’s correspondientes a un nuevo mes, se publican en <a>www.MarketObservatory.com</a> el <strong>día 15
+    del
+    mes anterior</strong>, que es la Fecha de Publicación <strong>(FP)</strong>. A partir de la fecha FP, los nuevos
+    contenidos están disponibles a los suscriptores.
+    Por ejemplo los Patrones asociados a Diciembre 2011 se publican el 15 Noviembre 2011.<br>
+    La devolución de fondos por Cancelación depende de la fecha FP y los meses de suscripción consumidos:
+</p>
+
+<p>
+<ul class="list-left-first-level public-list-first-level">
+    <li>Cancelación <strong>antes</strong> del día FP CET -Central European Time-: no se ha consumido suscripción
+        del
+        mes siguiente.
+    </li>
+    <li>Cancelación <strong>desde</strong> el día FP CET incluido: los Patrones del mes siguiente han sido
+        publicados y
+        se considera consumida la suscripción de un nuevo mes.
+    </li>
+</ul>
+</p>
+<p>
+    La <strong>política de Cancelación y Devolución</strong> de fondos es como sigue:
+</p>
+
+<p>
+<ul class="list-left-first-level public-list-first-level">
+    <li>
+        Suscripción Mensual: No es cancelable.
+    </li>
+    <li>
+        Suscripción Trimestral: El coste es los meses consumidos con la tarifa base mensual.
+        Se devolverá la diferencia del total de la suscripción Trimestral.
+    </li>
+    <li>
+        Suscripción Anual: Si cancela la suscripción durante los meses 1 a 3,
+        el coste es los meses consumidos con la tarifa base mensual. Si cancela entre
+        los meses 4 al 12, el coste es los meses consumidos con la tarifa mensual de la
+        suscripción Trimestral. Se devolverá la diferencia del total de la Suscripción Anual.
+    </li>
+</ul>
+</p>
+<p><span style="text-decoration: underline">Ejemplo.</span> Un cliente tiene una Suscripción Anual a un Pack de
+    Acciones
+    de compañías de Latinoamérica con coste total de 313 EUR. Veamos algunos escenarios de cancelación:</p>
+
+<ul class="list-left-first-level public-list-third-level">
+    <li>
+        Caso 1. Cancelación antes de publicado el mes 3 (se han consumido 2 meses). El coste es 2 meses x
+        {{month_price}} EUR/mes
+        = {{month_price * 2}} EUR. Se devuelve (313 – {{month_price * 2}}) EUR.
+    </li>
+    <li>Caso 2. Cancelación antes de publicado mes 8, se aplica tarifa base trimestral con un 5% descuento. El coste
+        es 7 meses x {{three_months_price}} EUR/mes = {{three_months_price * 7}} EUR. Se devuelve (313 –
+        {{three_months_price * 7}}) EUR.
+    </li>
+</ul>
+
+</div>
+</div>
+<div class="anchor-detailed" id="patterns">
+    <div>
+
+
+        <p class="text-block-title">Mis Patrones
+        </p>
+
+
+        <p>
+            Está la lista de Patrones incluidos en los Pack’s comprados. Permite evaluar las estrategias,
+            tipo de negocio, planificar operaciones y preseleccionar Patrones “Favoritos”. Esta primera selección
+            de estrategias debería refinarlas usando herramientas de cartera, volatilidad, correlación y además de
+            con los datos fundamentales de las compañías. El objetivo último es elegir unas estrategias adecuadas y
+            ponerlas en práctica con su intermediario financiero.
+        </p>
+
+        <p>NOTA: Market Observatory <strong>no</strong> ajusta los datos por dividendos, lo que significa que:
+        </p>
+        <ul class="list-left-first-level public-list-first-level">
+            <li>Los <strong>Patrones <em>Alcistas</em> están <em>Infravalorados.</em></strong> A la renta Acumulada por
+                el
+                Patrón hay que sumar los dividendos repartidos durante el periodo.
+                <ul class="list-left-first-level public-list-second-level">
+                    <li>Ejemplo: La Compañía XYZ tiene un Patrón alcista que indica Comprar acciones el 1 abril y
+                        Venderlas
+                        el 30 agosto. Las acciones acumulan en los 15 años una renta de 145 %. Pero además la compañía
+                        distribuye
+                        cada año un dividendo de 1% el día 30 de mayo. Esto significa que la rentabilidad real acumulada
+                        por
+                        el
+                        Patrón de acciones de XYZ es la suma de la variación de la cotización más los dividendos
+                        percibidos
+                        en
+                        15 años, esto es 145 % + 15 % = 160%.
+                    </li>
+                </ul>
+            </li>
+            <li>Los <strong>Patrones <em>Bajistas</em> están <em>Sobrevalorados.</em></strong> A la renta Acumulada por
+                el
+                Patrón hay que restar los dividendos repartidos durante el periodo.
+                <ul class="list-left-first-level public-list-second-level">
+                    <li>Ejemplo: La Compañía IJK tiene un Patrón bajista que indica Vender -a corto- acciones el
+                        1 abril y Comprarlas el 30 agosto. Las acciones acumulan en 15 años una renta de 110 %. Además
+                        la compañía distribuye cada año un dividendo de 1% el día 30 de mayo. Esto significa que la
+                        rentabilidad real acumulada por el Patrón de acciones de IJK es la suma de la variación de
+                        la cotización menos los dividendos distribuidos, esto es 110 % - 15 % = 95% (los dividendos
+                        pertenecen al propietario de las acciones que las prestó para su venta a corto).
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p class="orange-title">Mis Patrones</p>
+
+        <p>
+            Las estrategias contenidas en los Pack’s comprados se listan en la tabla por orden de Fecha de Entrada o
+            inicio
+            de las operaciones:
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/pattern1.png" alt=""></p>
+
+        <p>¿Qué hay en esta tabla?</p>
+        <ul class="list-left-first-level public-list-first-level">
+            <li>
+                Hay cuatro grupos de <strong>Productos:</strong> Acciones, Par Acciones, Índices y Futuros.
+            </li>
+            <li>
+                Mes de publicación. Puede cambiar de mes mediante el selector de fechas o haciendo clic
+                en los símbolos “<span class="blue-text">>></span>”, “<span class="blue-text"><<</span>”.
+            </li>
+            <li>El <strong>Buscador</strong>
+                <ul class="public-list-second-level list-left-first-level">
+                    <li>Nombre Compañía: Lista nombres con cadena de caracteres coincidentes.</li>
+                    <li>Región: Selecciona un país incluido en la suscripción.</li>
+                    <li>Mercado: Permite seleccionar mercados.</li>
+                    <li>
+                        Sector e Industria: Selecciona los diferentes tipos de negocio de las compañías.
+                    </li>
+                    <li>
+                        Operación: Discierne entre Comprar –posición larga- o Vender a corto –posición corta-. En el
+                        caso de
+                        Índices las opciones son Alcista o Bajista
+                    </li>
+                    <li>
+                        Rentabilidades: Acumulada en 15 años, Promedio por operación y Diaria se preseleccionan
+                        indicando un
+                        valor umbral.
+                    </li>
+                    <li>Volatilidad: Selecciona Activos de acuerdo con unos valores. La Volatilidad se asocia con
+                        rentabilidad
+                        y riesgo esperado. Hay otras dos fuentes de riesgo que son la Liquidez y el Apalancamiento.
+                    </li>
+                    <li>Duración del Patrón: O días de mantenimiento –holding days- de una operación que posibilita la
+                        planificación del dinero.
+                    </li>
+                    <li>
+                        Etiqueta de Favoritos: Facilita el tratamiento separado de las estrategias preferidas.
+                    </li>
+                </ul>
+            </li>
+            <li>Contenido de Tabla:
+                <ul class="public-list-second-level list-left-first-level">
+                    <li><strong>Identificador</strong> numérico. Haciendo clic se accede al Detalle del Patrón</li>
+                    <li><strong>Operación</strong> asociada a la estrategia –Comprar o Vender- y <strong>Nombre</strong>
+                        del
+                        valor.
+                    </li>
+                    <li>
+                        <strong>Sector e Industria</strong> del negocio de la compañía.
+                    </li>
+                    <li><strong>Número de años</strong> o frecuencia de aciertos de la estrategia con Ganancias y
+                        Pérdidas
+                        en los últimos 15 años.
+                    </li>
+                    <li><strong>Fechas de Entrada y Salida</strong> -o apertura y cierre- de la operación, especifican
+                        las fechas óptimas para una posible
+                        inversión. Hay que tener en cuenta algunas salvedades:
+
+                        <ol class="list-left-first-level" type="I">
+                            <li style="list-style-image: none !important;">Las fechas son aproximadas, la mejor fecha no
+                                se
+                                alcanza exactamente el mismo día
+                                todos los años. Si el mercado está fuerte, alcista, las Compras se pueden adelantar
+                                y las Ventas retrasar. Y viceversa, si el mercado está débil, bajista, las Ventas se
+                                pueden adelantar y las Comprar retrasar.
+                            </li>
+                            <li style="list-style-image: none !important;">Convenio de Fechas de Market Observatory.
+                                <ul class="list-left-first-level public-list-third-level">
+                                    <li>
+                                        Si la <strong>fecha de Entrada</strong> es fin de semana o festivo,
+                                        el día efectivo de entrada será el <strong>Siguiente día</strong> con sesión.
+                                    </li>
+                                    <li>
+                                        Si la <strong>fecha de Salida</strong> es fin de semana o festivo,
+                                        el día efectivo de salida será el <strong>Anterior día</strong> con sesión.
+                                    </li>
+                                    <li>
+                                        Los datos usados son <strong>Precios de Cierre</strong> en la sesión regular del
+                                        mercado.
+                                        En sentido estricto la operación habría que realizarla el día señalado hacia la
+                                        hora de Cierre.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        La <strong>Renta Acumulada</strong> indica el valor en % obtenido por la estrategia durante 15
+                        años
+                        de aplicación. La <strong>Renta Media</strong> en % es
+                        el promedio obtenido por operación individual. La <strong>Renta Diaria</strong> en % es la renta
+                        media distribuida entre el número de días que dura la operación.
+                    </li>
+                    <li>
+                        <strong>Duración</strong> es el promedio de días entre la apertura y cierre de la operación.
+                    </li>
+                    <li>
+                        La <strong>Volatilidad</strong> -histórica de 3 meses- refleja el valor en curso de la
+                        cotización.
+                    </li>
+                    <li>
+                        <strong>Mercado.</strong> Hay Activos que cotizan en múltiples mercados. Los datos que muestra
+                        la
+                        tabla corresponden exclusivamente al mercado citado.
+                    </li>
+                    <li>
+                        Etiqueta <strong>Favoritos</strong> permite marcar estrategias para realizar una gestión y
+                        seguimiento “separado”.
+                    </li>
+                    <li>
+                        El <strong>Semáforo</strong> de Estado informa si la estrategia está Sin Iniciar, Comenzada o
+                        Finalizada. Ejemplo hoy es 21 de agosto:
+                        <ol class="list-left-first-level" type="I">
+                            <li style="list-style-image: none !important;">
+                                Si el patrón comienza el 22 de agosto el semáforo está Verde (sin Iniciar).
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                Si el patrón comienza el 2 de agosto y termina el 1 de octubre, el semáforo está Naranja
+                                (Comenzado).
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                Si el patrón comienza el 2 de agosto y termina el 20 de agosto, el semáforo está Rojo
+                                (Finalizado).
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
+</div>
+<div class="anchor-detailed" id="diary">
+<div>
+
+
+<p class="text-block-title">Seguimiento Diario
+</p>
+
+<p>
+    Diariamente puede controlar y vigilar la evolución de las estrategias. Las cotizaciones
+    se actualizan al cierre de los mercados activándose los cálculos y algoritmos de rastreo. Para funciones
+    de vigilancia dispone de Alarmas sobre precios o rentabilidades con notificación a su correo electrónico,
+    así podrá colocar alertas sobre stops de protección de pérdidas, de recogida de beneficios, objetivos de
+    rentabilidad, etc. Durante la vigencia de la estrategia en la tabla se informa de operaciones de splits
+    -reajustando las series de precios- y de dividendos repartidos.
+</p>
+
+<p>
+    NOTA: Market Observatory <strong>no</strong> ajusta los datos por dividendos, lo que significa que:
+</p>
+<ul class="public-list-first-level list-left-first-level">
+    <li>
+        Los <strong>Patrones <em>Alcistas</em> están <em>Infravalorados.</em></strong> A la renta Acumulada por el
+        Patrón hay que sumar los dividendos repartidos durante el periodo.
+        <ul class="public-list-second-level">
+            <li>
+                Ejemplo: La Compañía XYZ tiene un Patrón alcista que indica Comprar acciones el 1 abril y Venderlas
+                el 30 agosto. Las acciones acumulan en los 15 años una renta de 145 %. Pero además la compañía
+                distribuye
+                cada año un dividendo de 1% el día 30 de mayo. Esto significa que la rentabilidad real acumulada por el
+                Patrón
+                de acciones de XYZ es la suma de la variación de la cotización más los dividendos percibidos en 15 años,
+                esto
+                es 145 % + 15 % = 160%.
+            </li>
+        </ul>
+    </li>
+    <li>
+        Los <strong>Patrones <em>Bajistas</em> están <em>Sobrevalorados.</em></strong> A la renta Acumulada por
+        el Patrón hay que restar los dividendos repartidos durante el periodo.
+        <ul class="public-list-second-level">
+            <li>Ejemplo: La Compañía IJK tiene un Patrón bajista que indica Vender -a corto- acciones el 1
+                abril y Comprarlas el 30 agosto. Las acciones acumulan en 15 años una renta de 110 %. Además la
+                compañía distribuye cada año un dividendo de 1% el día 30 de mayo. Esto significa que la rentabilidad
+                real acumulada por el Patrón de acciones de IJK es la suma de la variación de la cotización menos
+                los dividendos distribuidos, esto es 110 % - 15 % = 95% (los dividendos pertenecen al propietario
+                de las acciones que las prestó para su venta a corto).
+            </li>
+        </ul>
+    </li>
+</ul>
+<p class="orange-title">Seguimiento Diario</p>
+
+<p>
+    Las estrategias contenidas en los Pack’s se listan en la tabla clasificadas
+    por mes de publicación y ordenadas por Fecha de Entrada o inicio de las operaciones:
+</p>
+
+<p class="public-images"><img src="assets/img/services/detailed_description/diary1.png" alt=""></p>
+
+<p>&iquest;Qu&eacute; hay en esta tabla?</p>
+<ul class="list-left-first-level public-list-first-level">
+    <li>Hay cuatro grupos de <strong>Productos:</strong> Acciones, Par Acciones, Índices y Futuros.
+    </li>
+    <li>
+        Mes de publicación. Puede cambiar de mes mediante el selector de fechas o haciendo clic en los símbolos
+        &ldquo;<span class="blue-text">&lt;&lt;</span>&rdquo; o &ldquo;<span class="blue-text">&gt;&gt;</span>&rdquo;.
+    </li>
+    <li>
+        El <strong>Buscador</strong>
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                Nombre Compañía: Lista nombres con cadena de caracteres coincidentes.
+            </li>
+            <li>
+                Región: Selecciona un país incluido en la suscripción.
+            </li>
+            <li>
+                Mercado: Permite seleccionar mercados.
+            </li>
+            <li>
+                Sector e Industria: Selecciona los diferentes tipos de negocio de las compañías.
+            </li>
+            <li>
+                Operación: Discierne entre Comprar –posición larga- o Vender a corto –posición corta-. En el caso de
+                Índices las opciones son Alcista o Bajista
+            </li>
+            <li>
+                Última Rentabilidad: Valor del último día.
+            </li>
+            <li>
+                Renta Mejor Ganancia: Mayor rendimiento desde la fecha de Entrada –o apertura- de la estrategia.
+            </li>
+            <li>
+                Renta Peor Pérdida: Menor rendimiento desde la fecha de Entrada –o apertura- de la estrategia.
+            </li>
+            <li>
+                Volatilidad: Preselecciona activos con determinada variabilidad de cotizaciones.
+            </li>
+            <li>
+                Duración del Patrón: O días que perdura la operación –holding days-.
+            </li>
+            <li>
+                Etiqueta de Favoritos: Facilita el tratamiento separado de las estrategias preferidas.
+            </li>
+        </ul>
+    </li>
+    <li>Contenido de Tabla:
+        <ul class="public-list-second-level list-left-first-level">
+            <li><strong>Identificador</strong> numérico. Haciendo clic se accede al Detalle del Patrón
+            </li>
+            <li><strong>Operación</strong> asociada a la estrategia –Comprar o Vender- y <strong>Nombre</strong> del
+                valor.
+            </li>
+            <li><strong>Fechas de Entrada y Salida</strong> -o apertura y cierre- de la operación, especifican las
+                fechas
+                óptimas para una posible inversión. Hay que tener en cuenta algunas salvedades:
+                <ol type="I" class="list-left-first-level">
+                    <li style="list-style-image: none !important;">Las fechas son aproximadas, la mejor
+                        fecha no se alcanza exactamente el mismo día todos los años. Si el mercado está fuerte,
+                        alcista, las Compras se pueden adelantar y las Ventas retrasar. Y viceversa, si el mercado
+                        está débil, bajista, las Ventas se pueden adelantar y las Comprar retrasar.
+                    </li>
+                    <li style="list-style-image: none !important;">Convenio de Fechas de Market Observatory.
+                        <ul class="public-list-fourth-level list-left-first-level">
+                            <li>Si la <strong>fecha de Entrada</strong> es fin de semana o festivo, el día efectivo de
+                                entrada será el <strong>Siguiente</strong> día con sesión.
+                            </li>
+                            <li>Si la <strong>fecha de Salida</strong> es fin de semana o festivo, el día efectivo de
+                                salida será el <strong>Anterior día</strong> con sesión.
+                            </li>
+                            <li>Los datos usados son <strong>Precios de Cierre</strong> en la sesión regular del
+                                mercado. En sentido estricto
+                                la operación habría que realizarla el día señalado hacia la hora de Cierre.
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="list-style-image: none !important;">Ejemplos de la tabla:
+                        <ul class="public-list-fourth-level list-left-first-level">
+                            <li>
+                                El 1 de agosto 2012, Fecha de Entrada, se anota la compra de acciones de “Agnico Eagle
+                                Mines”
+                                con la cotización de cierre de la sesión a 43,75 CAD.
+                            </li>
+                            <li>
+                                El 30 de septiembre 2012 es la Fecha de Salida o venta de acciones de “Agnico Eagle
+                                Mines”.
+                                Si el día 30 fuera festivo, la operación se adelantará al anterior día laboral.
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+            </li>
+            <li>Columnas coloreadas agrupadas en <strong>Último</strong>, corresponden a los últimos datos de cierre
+                diarios.
+                <ul class="public-list-third-level list-left-first-level">
+                    <li>
+                        <strong>Última Fecha</strong> muestra el último día con registro de datos.
+                    </li>
+                    <li><strong>Último Precio</strong> es la cotización de cierre asociada a la Última Fecha. Haciendo
+                        clic se obtiene un gráfico de la evolución de la cotización en curso.
+                    </li>
+                    <li>
+                        <strong>Última Rentabilidad</strong> (%) es el rendimiento obtenido entre los precios del día de
+                        apertura
+                        y de última fecha registrada. Recordar que los datos usados por Market Observatory no están
+                        ajustados por dividendos. Por ejemplo, si durante el periodo en que la estrategia está en vigor
+                        se distribuye 1% de dividendos, entonces debe:
+                        <ul class="list-left-first-level public-list-fourth-level">
+                            <li>
+                                Sumar 1% a Última Rentabilidad en caso de Operación de Compra.
+                            </li>
+                            <li>
+                                Restar 1% a Última Rentabilidad en caso de Operación de Venta (A Corto)
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Como ejemplo, la tabla recoge el último registro de la cotización de “Agnico Eagle Mines”
+                        correspondientes al 22 agosto 2012, con cierre 46,91 CAD y rendimiento hasta la fecha de 7,22 %.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <strong>Volatilidad</strong> (%) recoge el valor reciente de este parámetro con posibilidad de
+                representación gráfica.
+            </li>
+            <li>
+                Columnas agrupadas en <strong>Mejor Ganancia.</strong>
+                <ul class="public-list-fourth-level left-align">
+                    <li><strong>Fecha</strong> muestra el día de mayor rentabilidad desde el inicio de la estrategia.
+                    </li>
+                    <li><strong>Rentabilidad</strong> (%), es el mejor rendimiento obtenido desde el inicio de la
+                        estrategia.
+                    </li>
+                    <li>La tabla indica que la Mejor Ganancia para de la operación en curso sobre “Agnico Eagle Mines”
+                        se obtuvo el 22 agosto con rentabilidad de 7,22 %.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Columnas agrupadas en <strong>Peor Pérdida.</strong>
+                <ul class="public-list-third-level list-left-first-level">
+                    <li><strong>Fecha</strong> expone el día de menor rentabilidad desde el inicio de la estrategia.
+                    </li>
+                    <li><strong>Rentabilidad</strong> (%), es el peor rendimiento obtenido desde el inicio de la
+                        estrategia.
+                    </li>
+                    <li>La tabla indica que la Peor Pérdida para la operación en curso sobre “Agnico Eagle Mines” se
+                        obtuvo el 15 agosto con renta de -0,53 %.
+                    </li>
+                </ul>
+            </li>
+            <li><strong>Notas</strong> recoge información sobre splits acaecidos mientras la estrategia permanece en
+                vigor.
+            </li>
+            <li><strong>Alarma</strong> diaria al cierre del mercado, permite alertar sobre los valores en los precios o
+                rentabilidades de los activos.
+                El usuario establece unas condiciones de vigilancia que perduran mientras no se cumplan, sea desactivada
+                por el cliente
+                o finalice la estrategia. Las alarmas se evalúan con la cotización de cierre del mercado y en el caso de
+                que se cumpla
+                la condición establecida en la alarma, se notifica al correo electrónico.
+            </li>
+
+        </ul>
+    </li>
+</ul>
+<p style="text-align: center;">
+    <img src="assets/img/services/detailed_description/diary_1.png" alt="" width="300px">
+</p>
+
+</div>
+
+</div>
+<div class="anchor-detailed" id="historic">
+
+    <div>
+
+
+        <p class="text-block-title">Hist&oacute;ricos
+        </p>
+
+
+        <p>
+            Cuando una estrategia alcanza la Fecha de Salida -o cierre- deja de estar en vigor e ingresa en una tabla de
+            históricos
+            con los resultados definitivos. Los informes y gráficos permiten un análisis a posteriori con diferentes
+            propósitos
+            de revisión, aprendizaje o acciones correctoras.
+        </p>
+
+        <p>
+            Referente a la rentabilidad final mostrada en la tabla hay dos aspectos a considerar:
+        </p>
+        <ol class="list-left-first-level">
+            <li>No todas las estrategias deberían tener el mismo peso o porcentaje en la Cartera. En la
+                práctica deberá refinar cada estrategia con algún modelo de Composición y Asignación de Carteras
+                –Market Observatory proporciona un modelo empírico- y con el análisis fundamental. En sentido estricto
+                debería aplicar a la rentabilidad un factor corrector por el peso asignado.
+            </li>
+            <li>La rentabilidad última <strong>no</strong> está corregida por reparto de dividendos, lo que significa
+                que:
+                que:
+                <ul class="public-list-second-level list-left-first-level">
+                    <li>Si mientras la estrategia <strong><em>Alcista</em></strong> ha estado abierta, en vigor –holding
+                        days- se ha distribuido
+                        un dividendo, el rendimiento final será el que muestra la tabla <strong><em>“más”</em></strong>
+                        el
+                        dividendo percibido. Se dice
+                        que el patrón alcista está infravalorado.
+                    </li>
+                    <li>Si mientras la estrategia <strong><em>Bajista</em></strong> ha estado abierta, en vigor –holding
+                        days- se ha distribuido un dividendo,
+                        el rendimiento final será el que muestra la tabla <strong><em>“menos”</em></strong> el
+                        dividendo. Se
+                        dice que el patrón bajista está sobrevalorado.
+                    </li>
+                </ul>
+            </li>
+        </ol>
+        <p class="orange-title">Contenido Tabla Históricos</p>
+
+        <p>
+            La información está clasificada por mes de terminación de las estrategias y ordenadas por Fecha de Salida.
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/historic1.png" alt=""></p>
+
+        <p>¿Qué hay en esta tabla?</p>
+        <ul class="public-list-first-level list-left-first-level">
+            <li>
+                Hay cuatro grupos de <strong>Productos:</strong> Acciones, Par Acciones, Índices y Futuros.
+            </li>
+            <li><strong>Mes de Salida</strong> o terminación de las Estrategias. Para cambiar de mes usar el selector de
+                fechas o desplazarse con
+                &ldquo;<span class="blue-text">&lt;&lt;</span>&rdquo; o &ldquo;<span class="blue-text">&gt;&gt;</span>&rdquo;.
+            </li>
+            <li>
+                El Buscador
+                <ul class="public-list-second-level list-left-first-level">
+                    <li>
+                        Nombre de la compañía: Lista nombres con cadena de caracteres coincidentes.
+                    </li>
+                    <li>
+                        País: Selecciona uno incluido en la suscripción
+                    </li>
+                    <li>
+                        Mercado: Permite elegir mercados.
+                    </li>
+                    <li>
+                        Sector e Industria: Selecciona los diferentes tipos de negocio de las compañías.
+                    </li>
+                    <li>
+                        Operación: Discierne entre Comprar –posición larga- o Vender a corto –posición corta-. En el
+                        caso de
+                        Índices las opciones son Alcista o Bajista
+                    </li>
+                    <li>
+                        Renta Última o definitiva: Filtra rendimientos conseguidos por las estrategias recién
+                        finalizadas.
+                    </li>
+                    <li>
+                        Mayor Ganancia: Filtra “drawups” o mejor ganancia obtenidas desde la apertura.
+                    </li>
+                    <li>
+                        Mayor Pérdida: Filtra “drawdowns” o peor pérdida obtenida desde la apertura.
+                    </li>
+                    <li>
+                        Duración: O días que se mantiene la estrategia –holding days-.
+                    </li>
+                    <li>
+                        Etiqueta Favoritos: Facilita el tratamiento separado de las estrategias preferidas.
+                    </li>
+                </ul>
+            </li>
+            <li>Contenido de Tabla:
+                <ul class="public-list-second-level list-left-first-level">
+                    <li><strong>Identificador</strong> numérico. Haciendo clic se accede al Detalle del Patrón.
+                    </li>
+                    <li><strong>Operación</strong> asociada a la estrategia –Comprar o Vender- y <strong>Nombre</strong>
+                        del valor.
+                    </li>
+                    <li>
+                        Columna <strong>Entrada</strong> muestra la información de la apertura de la estrategia recién
+                        concluida:
+                        <ol class="list-left-first-level" type="I">
+                            <li style="list-style-image: none !important;">
+                                Fecha efectiva de entrada o apertura de operación.
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                Precio de cierre el día de la entrada.
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                Ejemplo 1ª línea tabla: Operación de entrada es Vender -a corto- “Covenant
+                                Transportation” se inició el 14
+                                septiembre 2012 con precio de cierre 4,91 USD.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        Columna <strong>Salida</strong> recoge información del Cierre de la estrategia recién concluida
+                        :
+                        <ol class="list-left-first-level" type="I">
+
+                            <li style="list-style-image: none !important;">
+                                Fecha efectiva de salida de operación.
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                Precio de cierre el día de la salida.
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                Ejemplo 1ª línea tabla: Operación de salida es Comprar “Covenant Transportation”
+                                para liquidar la operación previa de Venta a corto. La compra se realizó el 2 octubre
+                                2012 con precio de cierre 4,52 USD.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Renta</strong> (%) muestra el dato definitivo del Rendimiento de la estrategia recién
+                        finalizada. Recordar que los datos usados por Market
+                        Observatory no están ajustados por dividendos. Por ejemplo, si durante el periodo en que la
+                        estrategia está en vigor se distribuye 1% de dividendos,
+                        entonces debe:
+                        <ol class="list-left-first-level" type="I">
+                            <li style="list-style-image: none !important;">
+                                Sumar 1% al rendimiento en caso de Operación de Compra.
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                Restar 1% al rendimiento en caso de Operación de Venta -a corto-
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        Columnas agrupadas en <strong>Mejor Ganancia.</strong>
+                        <ol class="list-left-first-level" type="I">
+                            <li style="list-style-image: none !important;">
+                                <strong>Fecha</strong> muestra el día de mayor rentabilidad obtenida desde el inicio de
+                                la estrategia.
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                <strong>(%)</strong> es la mejor rentabilidad obtenida desde el inicio de la estrategia.
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                Ejemplo 1ª línea tabla: La mejor ganancia –transitoria- se obtuvo el 1 de octubre con un
+                                valor de 9,37 %
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        Columnas agrupadas en <strong>Peor Pérdida.</strong>
+                        <ol class="list-left-first-level" type="I">
+                            <li style="list-style-image: none !important;">
+                                <strong>Fecha</strong> muestra el día de menor rentabilidad obtenida desde el inicio de
+                                la estrategia.
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                <strong>(%)</strong> es la peor rentabilidad obtenida desde el inicio de la estrategia
+                            </li>
+                            <li style="list-style-image: none !important;">
+                                Ejemplo 1ª línea tabla: La peor pérdida –transitoria- se obtuvo el 17 de septiembre con
+                                un valor de 0,2 %.
+                                Un valor positivo significa que no generó pérdidas durante el periodo.
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Mercado</strong> de cotización.
+                    </li>
+                    <li>
+                        <strong>Notas</strong> recoge información sobre splits acaecidos mientras la estrategia
+                        permanece en vigor
+                    </li>
+
+                </ul>
+            </li>
+            <li>Si hace clic en Id. de la columna izquierda se observa la evolución gráfica del precio
+                de la estrategia recién finalizada comparada con el Patrón 15 años. Tomando la 1ª línea de tabla como
+                ejemplo:
+            </li>
+        </ul>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/historic2.png" alt=""></p>
+
+
+    </div>
+</div>
+<div class="anchor-detailed" id="drawdown">
+    <div>
+
+
+        <p class="text-block-title">Herramientas. Cartera
+        </p>
+
+        <p>
+            Para obtener buenos rendimientos en los mercados durante tiempos prolongados necesitará disponer
+            de buenas técnicas o estrategias de inversión y usar una adecuada gestión del dinero. Market Observatory
+            incluye un conjunto de Herramientas para ayudar en la toma de decisiones sobre aspectos clave de la gestión
+            del dinero: Qué activos, Qué valores del conjunto de activos, Cuántos valores, Cuándo, Plazos, Cantidad de
+            efectivo, Porcentaje de la Cartera, Pérdidas transitorias esperadas, etc.
+        </p>
+
+        <p class="orange-title">CARTERAS: Componentes y Asignaci&oacute;n</p>
+
+        <p>
+            Para evaluar las estrategias y dimensionar las operaciones, Market Observatory ha desarrollado un modelo
+            empírico
+            basado en 15 años de datos, analizando y recomponiendo la Forma de la distribución, el recuento de valores
+            Centrales,
+            Extremos de las colas, drawups y drawdowns.
+        </p>
+
+        <p>El <em>drawdown</em> se define como la peor pérdida –transitoria- sufrida desde el inicio de una Inversión.
+        </p>
+
+        <p>Cuando el objetivo de un inversor no solo es la preservación del capital sino su crecimiento, necesitará
+            incorporar –no evitar- algunos activos de mayor volatilidad y disminuir –no eliminar- otros con mayor <em>drawdown.</em>
+        </p>
+
+        <p>
+            Evitar drawdowns y volatilidad colocando la mayoría del capital en un depósito financiero al 2 % anual, es
+            ejemplo de cartera
+            no óptima, pues excluye la posibilidad de obtener rentabilidades atractivas.
+        </p>
+
+        <p>
+            El modelo de Market Observatory le ayuda a balancear la volatilidad y drawdowns con el rendimiento. Cuando
+            con
+            la
+            ayuda de cualquier modelo haya decidido qué activos incorporar a su Cartera, no olvide revisar los datos
+            fundamentales,
+            por ejemplo si va a Vender Soja, debería abstenerse si hay una fuerte sequía en alguno de los principales
+            países
+            productores.
+        </p>
+
+        <p>
+            La forma de evaluar las estrategias y pesos de los componentes se hace con el siguiente formulario
+            incluyendo
+            las posiciones
+            actuales en Cartera y aquellas que quieren ser valoradas para su próxima incorporación:
+        </p>
+
+        <p class="public-images">
+            <img src="assets/img/services/detailed_description/drawdown_1.png" alt="" width="900">
+        </p>
+
+        <p>
+            El <strong>Buscador</strong> permite seleccionar las estrategias a valorar. Seleccionar meses anteriores
+            para
+            localizar los componentes que ya posee en Cartera y meses futuros o en curso para valorar potenciales
+            posiciones.
+        </p>
+
+        <p>
+            La <strong>Duración</strong> permite que la evaluación de estrategias sea equiparable. Un valor con una
+            exposición al mercado de
+            7 meses tiene mayor riesgo que si se mantiene durante 1 mes.
+        </p>
+
+        <p>
+            Usar la marca de <strong>Favoritos</strong> para trabajar con estrategias pre-evaluadas.
+        </p>
+
+        <p>
+            A continuación se describe cómo usar la herramienta de Cartera para la toma de
+            decisiones en los dos escenarios habituales de un inversionista:
+        </p>
+
+        <p>
+        <ol class="ordered-list-letters">
+            <li>
+                Cartera actual con diversas posiciones y desea incorporar nuevos componentes.
+            </li>
+            <li>
+                Constituir una nueva Cartera.
+            </li>
+        </ol>
+        </p>
+
+        <p style="text-decoration: underline">
+            <strong>Escenario a): Cartera con posiciones. Desea incluir nuevos componentes.</strong>
+        </p>
+
+        <p style="text-decoration: underline">
+            <strong><em>Ejemplo:</em></strong>
+        </p>
+
+        <p>
+            Un inversor abrió en octubre seis posiciones en Acciones de compañías de Estados Unidos
+            y Reino Unido. En diciembre dispone de nuevos ahorros y quiere ampliar su Cartera con acciones
+            de Japón. En la tabla “Mis Patrones” de Market Observatory ha pre-evaluado y pre-seleccionado 5
+            potenciales estrategias en el mercado T –Tokio- y necesita saber qué componentes elegir finalmente
+            y porcentaje a asignar.
+        </p>
+
+        <p>
+            Para resolver esta duda utilice el formulario anterior y realice los siguientes pasos:
+        </p>
+        <ul class="list-left-first-level public-list-first-level">
+            <li>
+                Incluir las estrategias que ya posee en Cartera iniciadas en octubre en los mercados NYSE –New York- y
+                LSE –London-
+            </li>
+            <li>
+                Incorporar las nuevas estrategias a valorar que comienzan en diciembre en el mercado T –Tokyo-.
+            </li>
+        </ul>
+        <p>
+            Una vez agregadas las posiciones antiguas y futuras la composición final de la Cartera se determina con la
+            función “<strong>Calcular</strong>”. Los resultados son los siguientes:
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown1.png" alt=""></p>
+
+        <p>
+            ¿Qué dice esta tabla?
+        </p>
+
+        <p>Las dos estrategias mejor valoradas del mercado de Tokio para iniciar en diciembre es la
+            <strong>Compra</strong> de las compañías
+            <strong>“Shizuki Electric”</strong> y de <strong>“Takisawa Machine”</strong>.
+            Ambas están mejor valoradas que las actuales posiciones en NYSE y LSE. </p>
+
+        <p>
+            Si quiere ampliar su Cartera por ejemplo con dos nuevas posiciones podría elegir ambas, evaluando
+            previamente
+            potenciales correlaciones indeseadas y los datos fundamentales. ¿Qué cantidad dedicar a cada una?
+        </p>
+
+        <p></p>
+        <ul class="public-list-first-level list-left-first-level">
+            <li>Puesto que su Cartera tiene acciones de “Anadarko Petroleum” (NYSE), según la tabla debería asignar
+                [2,5 – 3,2] veces más a las compañías de Tokio. Por ejemplo, si Compró “Anadarko” por 3,000 USD, podría
+                asignar
+                7,500 y 9,000 USD -el equivalente en Yenes- en “Takisawa” y “Shizuki” respectivamente.
+            </li>
+        </ul>
+        <p></p>
+
+        <p>Haciendo clic en “Id.” puede ver la descripción detallada de cada estrategia y valores de drawdown en la
+            columna “Peor Pérdida”.</p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown2.png" alt=""></p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown3.png" alt=""></p>
+
+        <p style="text-decoration: underline">
+            <strong>Escenario b): Formar nueva Cartera.</strong>
+        </p>
+
+        <p style="text-decoration: underline">
+            <strong><em>Ejemplo:</em></strong>
+        </p>
+
+        <p>Un cliente de Market Observatory desea formar una cartera de acciones usando información de Patrones. De la
+            lista de Mis Patrones
+            ha pre-seleccionado 20 potenciales estrategias sobre diferentes sectores y países de la Zona Euro,
+            necesitando saber
+            qué componentes elegir y porcentaje asignar a cada uno.</p>
+
+        <p>Para resolver esta necesidad utilice el formulario de Cartera haciendo lo siguiente: </p>
+
+        <ul class="public-list-first-level list-left-first-level">
+            <li>Incorporar las estrategias a valorar en diferentes mercados de la Zona Euro que comienzan en noviembre.
+            </li>
+        </ul>
+        <p>
+            Una vez agregadas las 20 estrategias, con la función “<strong>Calcular</strong>” se determina la composición
+            final de la Cartera. Los resultados son los siguientes:
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown4.png" alt=""></p>
+
+        <p>
+            ¿Qué dice esta tabla?
+        </p>
+
+        <p>
+            Las dos estrategias mejor valoradas para iniciar en noviembre son la Compra de
+            acciones de las compañías “<strong>CRH</strong>” en mercado <strong>IR</strong> –Irlanda- y <strong>“Amsterdam
+            Commodities”</strong> en mercado <strong>AS</strong> –Amsterdam-.
+        </p>
+
+        <p>Si el Usuario quiere realizar una sola operación, debe dedicar una pequeña fracción de su
+            dinero disponible -no más de un 5%-, una vez haya evaluado positivamente los datos fundamentales.
+            Recuerde para preservar el capital es preferible hacer múltiples operaciones pequeñas a una sola grande.</p>
+
+        <p>Si hace clic en columna “Id.” puede ver la información detallada del patrón:</p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown5.png" alt=""></p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown6.png" alt=""></p>
+
+        <p>Diariamente puede seguir la evolución gráfica de cotización de “CRH” reescalada contra el patrón de 15
+            años.</p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown7.png" alt=""></p>
+
+
+    </div>
+</div>
+<div class="anchor-detailed" id="correlation">
+    <div>
+
+
+        <p class="text-block-title">Herramientas. Correlaci&oacute;n
+        </p>
+
+        <p>
+            Una cartera de inversiones debe estar compuesta por diferentes Activos que no se deprecien al mismo tiempo.
+            Para mitigar este efecto se usan diferentes Activos no correlacionados como Bonos, Bolsa, Metales Preciosos,
+            Divisas, Obras de Arte, etc. Cuando se opta por un determinado Activo, a su vez hay que diversificar, por
+            ejemplo
+            en Bonos comprando diferentes emisores y duración –maturity- o en Bolsa comprando compañías de diferentes
+            países
+            y sectores.
+        </p>
+
+        <p>
+            La correlación es un concepto usado para diversificar una Cartera, el rango de valores está entre
+            (+100) y (-100). Sean A y B dos compañías con datos de correlación dentro de:
+        </p>
+
+        <p>&nbsp;</p>
+        <ul class="public-list-first-level list-left-first-level">
+            <li>Intervalo [+80, +100]: Las rentabilidades de A y B evolucionan de forma similar.
+                La compra de ambas no supone diversificación, sino lo contrario asociación, incrementando el riesgo.
+            </li>
+            <li>
+                Valor próximo a 0: No hay correlación entre A y B, puede diversificar.
+            </li>
+            <li>
+                Valor negativo: Las rentabilidades de A y B evolucionan de forma diferente, son compañías efectivas para
+                diversificar.
+            </li>
+            <li>Intervalo [-80, -100]: La evolución de rentabilidades de A y B es diametralmente opuesta. Cuando una
+                sube la
+                otra baja y viceversa.
+            </li>
+        </ul>
+        <p>&nbsp;</p>
+
+        <p>Recuerde que ante movimientos bruscos del mercado, todas las acciones tenderán a comportarse de manera
+            parecida,
+            disminuyendo la efectividad
+            de la correlación. Para mitigar el impacto de este escenario deberá usar otras técnicas de diversificación y
+            Gestión del Dinero. </p>
+
+        <p class="orange-title">CORRELACIÓN -180 días-</p>
+
+        <p>Para determinar la correlación entre valores –correlación en los últimos 180 días-, en el siguiente
+            formulario
+            debe seleccionar
+            aquellos que desea evaluar mediante la función <strong>“Calcular”</strong>.</p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/correlation1.png" alt=""></p>
+
+        <p>Como ejemplo se han elegido 10 compañías que cotizan en Reino Unido. Los resultados de correlación
+            en octubre se muestran a continuación subrayando los superiores a 80 en valor absoluto.</p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/correlation2.png" alt=""></p>
+
+        <p>¿Qué dice esta tabla?</p>
+
+        <p>
+        <ul class="list-left-first-level public-list-first-level">
+            <li>
+                La compañía “Prudential” <strong>PRU</strong> muestra en octubre 2012, una fuerte correlación directa
+                (mayor
+                de 80) con los índices FTSE 100 y FTSE MID 250.
+            </li>
+            <li>
+                Las compañía “BP-British Petroleum” <strong>–BP-</strong> y “Royal Dutch Shell” <strong>–RDSA-</strong>
+                tienen en octubre 2012, una fuerte correlación directa (mayor de 80).
+            </li>
+            <li>
+                Las compañías “Anglo Eastern Plantations” <strong>–AEP-</strong> o “Tate & Lyle” <strong>–TATE-</strong>
+                tiene correlación negativa con la mayoría y pueden ser alternativas para diversificar en octubre.
+            </li>
+        </ul>
+        </p>
+        <p>
+            En un mismo mercado y tipo de activo es difícil encontrar correlaciones inferiores a (- 80).
+            Para ello deberá buscar alternativas en otros activos o mercados. Por ejemplo si analiza los mercados de
+            Futuros
+            en febrero
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/correlation3.png" alt=""
+                                      width="850px"></p>
+
+        <p>
+            Los resultados que obtiene son los siguientes:
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/correlation4.png" alt=""
+                                      width="850px"></p>
+
+        <p>
+            ¿Qué dice esta tabla?
+        </p>
+
+        <p>
+        <ul class="list-left-first-level public-list-first-level">
+            <li>
+                El Índice S&P 500 <strong>–SPX-</strong> tiene fuerte correlación directa (mayor de 80):
+                <ul class="public-list-second-level list-left-first-level">
+                    <li>
+                        Con el futuro sobre el DAX Junio <strong>–DAX__M-</strong> o el –Dow Jones Industrial Diciembre
+                        <strong>-DJ__Z-.</strong>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                El futuro sobre el Bono 10 Year Gov. Canada Marzo <strong>–CGB__H-.</strong> tiene fuerte correlación
+                directa (mayor de 80):
+                <ul class="list-left-first-level public-list-second-level">
+                    <li>
+                        Con el futuro sobre el Bono 5 Year Gov. Germany Euro-Bobl Marzo <strong>–GBM__H-.</strong>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                El futuro sobre Libra Esterlina Junio <strong>–BP__M-.</strong> tiene fuerte correlación directa (mayor
+                de
+                80):
+                <ul class="list-left-first-level public-list-second-level">
+                    <li>
+                        Con el futuro sobre el DAX Junio <strong>–DAX__M-.</strong>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                El Índice S&P 500 <strong>–SPX-</strong> tiene fuerte correlación inversa (menor de -80):
+                <ul class="list-left-first-level public-list-second-level">
+                    <li>
+                        Con el futuro sobre el Bono 10 Year Gov. Canada Marzo <strong>–CGB__H-.</strong>
+                    </li>
+                    <li>
+                        Con el futuro sobre el Yen Marzo <strong>–JPY__H-.</strong>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Etc.
+            </li>
+        </ul>
+        </p>
+    </div>
+
+</div>
+<div class="anchor-detailed" id="volatility">
+    <div>
+
+        <p class="text-block-title">Herramientas. Volatilidad Hist&oacute;rica
+        </p>
+
+        <p>
+            La volatilidad se relaciona con la variación esperada en las cotizaciones y por tanto con el riesgo.
+            Con frecuencia se considera como indeseable, sin embargo una cartera óptima debería incluir algunos
+            componentes
+            de mayor volatilidad.
+        </p>
+
+        <p>Recordar que las principales fuentes de riesgo son la Volatilidad, la Liquidez y el Apalancamiento: </p>
+
+        <p>
+        <ul class="list-left-first-level public-list-first-level">
+            <li>
+                En el caso de las Acciones, el riesgo se incrementa notablemente en operaciones de Venta a corto,
+                ilíquidas
+                y de elevada volatilidad. Cuidado con estas operaciones.
+            </li>
+            <li>
+                En el caso de productos muy apalancados como los Futuros, debería usar los <em>“drawdown”</em> que
+                proporciona Market Observatory para dimensionar el número de contratos a
+                negociar y prevenir la posible liquidación anticipada de posiciones por falta de garantías –margin
+                call-.
+            </li>
+        </ul>
+        </p>
+
+        <p class="orange-title">VOLATILIDAD –Histórica de 3 meses-</p>
+
+        <p>
+            En la siguiente ilustración se muestran los datos de volatilidad histórica de 3 meses de las diferentes
+            compañías y si hace clic sobre
+            uno de los valores se obtiene la evolución gráfica
+            de la volatilidad asociada. Dispone de un <strong>Buscador</strong> para facilitar la gestión. La marca de
+            <strong>Favoritos</strong>
+            permite manipular y segregar estrategias ya pre-evaluadas.
+        </p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/volatility1.png" alt=""></p>
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/volatility2.png" alt=""></p>
+
+
+        <div id="tableSId" style="width: 800px; margin: 0 auto; background-color: red;">
+        </div>
+    </div>
+
+</div>
+<div class="anchor-detailed" id="week">
+
+<div>
+
+
+<p class="text-block-title">La Semana, Estad&iacute;sticas
+</p>
+
+<p>
+    Es un compendio de estadísticas de la semana en curso con los
+    principales indicadores de los mercados internacionales, que
+    permite conocer el comportamiento histórico de Índices Accionarios y
+    Materias Primas. Incluye además un módulo específico sobre el Índice S&P
+    500 (*) composición sectorial e industrial, puesto que es un indicador
+    mundialmente observado y negociado.
+</p>
+
+<p>
+    <em>(*) S&P 500 es una marca registrada de Standard & Poors</em>
+</p>
+
+<p>
+    La información se estructura en tres grupos: Índices Bursátiles internacionales,
+    Índices de Materias Primas –Commodities- e Índice S&P 500. Los datos estadísticos son semanales y diarios.
+</p>
+<!--
+<p><img src="assets/img/services/detailed_description/week2.png" alt=""></p>
+-->
+<p class="public-images"><img src="assets/img/services/detailed_description/week_tabs.png" alt="" width="850px"></p>
+
+<p>&iquest;C&oacute;mo se lee esta tabla?</p>
+
+<p>Cada Índice tiene asociados datos semanales y diarios en respectivas celdas. Y cada celda tiene los siguientes
+    parámetros:</p>
+
+<ul class="public-list-first-level list-left-first-level">
+    <li><strong>Número de años analizados</strong> o suma de periodos alcistas –color verde- y bajistas –color
+        marrón-.
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                Ejemplo de la tabla: La muestra semanal del 15 abril a 20 abril de 2014 para el “Dow Jones
+                Industrial Average” consta de 18 años.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Renta Promedio</strong> (%) del periodo, en color verde si ha sido positivo y rojo si ha sido
+        negativo.
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                Ejemplo: La renta semanal promedio en los 18 años analizados para el
+                “Dow Jones Industrial Average” fue de XXX %
+            </li>
+        </ul>
+    </li>
+    <li><strong>Número de veces alcista.</strong> Si el dato es semanal se interpreta como “número de <em>semanas</em>
+        alcistas”,
+        si es diario como “número de días alcistas”. Se representa en color verde.
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                Ejemplo: El día 22 abril ha sido para el “Dow Jones Industrial Average” 8 veces alcista.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Número de veces bajista.</strong> Si el dato es semanal se interpreta como “número de <em>semanas</em>
+        bajistas”,
+        si es diario como “número de <em>días</em> bajistas”. Se representa en color marrón.
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                Ejemplo: El día 22 abril ha sido para el “Dow Jones Industrial Average” 8 veces Bajista.
+            </li>
+        </ul>
+    </li>
+    <li>
+        <strong>Logo</strong> de predominio estadístico superior al 85%, se usa un Toro para alzas y un Oso para bajas.
+    </li>
+</ul>
+<p class="orange-title">&Iacute;NDICES DE BOLSA</p>
+
+<p>
+    Muestra las estadísticas básicas de los principales Índices Bursátiles internacionales que puede usar en diversas
+    tomas de decisiones de la semana en curso, para ajuste en días de apertura y cierre de operaciones, cobertura de
+    posiciones, etc.
+</p>
+
+<p class="public-images"><img src="assets/img/services/detailed_description/week1.png" alt="" width="850px"></p>
+
+<p>¿Cómo usar esta información? </p>
+
+<p style="text-decoration: underline;">
+    Ejemplos:
+</p>
+
+
+<ol class="list-left-first-level ordered-list-letters">
+    <li>
+        Un ahorrador quiere vender unas Acciones, observa las estadísticas de la semana en curso y cree
+        interesante hacer la venta hacia el final de la sesión más alcista de la semana. Al contrario,
+        en una Compra podría elegir el día más bajista. Los datos son más representativos cuanto mayor es la frecuencia
+        de aciertos.
+    </li>
+    <li>Un especulador aprovecha el elevado apalancamiento, bajas comisiones
+        de los Futuros y datos de probabilidades para
+        operar con spreads de corta duración, comprando el Futuro del Índice fuerte y vendiendo el Índice débil.
+        Los datos son más representativos cuanto mayor es la frecuencia de aciertos.
+        <ul class="public-list-second-level list-left-first-level">
+            <li>Un trader observa las estadísticas de Semana 5 a 9 de Mayo:
+                <ul class="public-list-third-level">
+                    <li>Corea bajista: (Renta media: -0,96%; Alcista 4 años y Bajista 11 años).</li>
+                    <li>Taiwán alcista: (Renta media: 0,55%, 10 veces Alcista, 5 Bajista).</li>
+                </ul>
+            </li>
+        </ul>
+        El día 5 mayo el trader inicia una estrategia de Comprar Futuros sobre Índice Taiwan SE y Vender por un valor
+        similar, Futuros sobre Índice Kospi 200. El día 9 cerraría la estrategia haciendo las operaciones contrarias.
+    </li>
+</ol>
+<p></p>
+
+<p class="orange-title">INDICES DE MATERIAS PRIMAS -COMMODITIES-</p>
+
+<p>Muestra estadísticas básicas de principales Índices de Materias Primas. Hay dos tipos de Índices “Composite”
+    -Compuestos- que son agregados de materias primas en diferentes porcentajes y “Sectoriales” o temáticos.
+    La información se puede en la toma de decisiones de la semana en curso sobre commodities, para ajuste en días
+    de apertura y cierre de operaciones, cobertura de posiciones, etc. </p>
+
+<p class="public-images"><img src="assets/img/services/detailed_description/week_1.png" alt="" width="850px"></p>
+
+<p>
+    ¿Cómo usar esta información?<br>
+    <span style="text-decoration: underline">Ejemplo</span> (Observe la tabla anterior)
+
+</p>
+
+<p>
+<ol class="list-left-first-level ordered-list-letters">
+    <li>
+        Un inversor tiene una Cartera de 500,000 EUR en Petróleo y Gas Natural
+        (recuerde que puede tener una Cartera de Commodities usando instrumentos como Fondos,
+        ETF’s, o Futuros). En la tabla anterior observa que el día 20 Febrero de 2014 ha sido históricamente
+        un día especialmente bajista, por lo cual decide cubrir su cartera durante 1 día con la siguiente operación:
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                El día 19 Febrero hacia el final de la sesión puede cubrirse de varias formas (cualquiera que sean los
+                instrumentos financieros que posee en su cartera):
+                <ul class="list-left-first-level public-list-third-level">
+                    <li>
+                        Vender 4 Futuros Marzo sobre el Índice GSCI –Goldman Sachs Commodity Index- (Globex – CME)
+                        compuesto de un 80 % de Energía.
+                    </li>
+                    <li>
+                        Vender a corto participaciones sobre el ETF GSG –ishares S&P Commodity Index-.
+                    </li>
+                    <li>
+                        Otros, vendiendo Futuros sobre Crude Oil (NYMEX), Brent Oil (ICE Europe), sus derivados y
+                        Natural Gas Henry Hub.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ol>
+</p>
+
+<p>El día 20 Febrero hacia el final de la sesión puede deshacer la cobertura realizando las operaciones
+    contrarias, por ejemplo si usó la primera opción, recomprando los 4 Futuros Marzo sobre el índice GSCI.
+    El coste total de la cobertura habrá sido aproximadamente 20 EUR. Si la Cartera hubiera bajado un 0,7% de media
+    como pronostican las estadísticas, la pérdida en el día hubiera sido de unos 3,500 EUR.</p>
+
+<p class="orange-title">S&amp;P 500. RADIOGRAF&Iacute;A</p>
+
+<p>Recoge las estadísticas del Índice de amplio espectro S&P 500, referencia mundial, desglosado en los Sectores e
+    Industrias que lo constituyen.<br>
+    El Índice lo conforman 10 Sectores que son negociables mediante diferentes instrumentos como ETF’s o Fondos y
+    operables en ambos sentidos al Alza y
+    a la Baja -a corto-. Cada Sector está compuesto por Industrias que también son negociables una parte de ellas.
+</p>
+
+
+<p class="public-images"><img src="assets/img/services/detailed_description/week3.png" alt=""></p>
+
+<p>El &Iacute;ndice lo conforman 10 Sectores que son negociables mediante diferentes instrumentos como ETF's o
+    Fondos y
+    operables en ambos sentidos al Alza y a la Baja (A Corto). Cada Sector est&aacute; constituido por Industrias
+    que a su
+    vez son negociables una parte de ellas.</p>
+
+<p>La siguiente ilustración exhibe un ejemplo. Sobre fondo naranja se muestras las estadísticas Sectoriales y al
+    desplegar el sector como en el caso de <em>“Information Technology”</em>, se exponen los datos asociados a los
+    subsectores
+    o Industrias que lo componen.
+</p>
+
+<p class="public-images"><img src="assets/img/services/detailed_description/week1.png" alt=""></p>
+
+<p>¿Cómo usar esta tabla?</p>
+
+<p>
+    Hay muy diversas formas de aprovechar esta información. Observar la siguiente ilustración. Durante la semana 17 a 21
+    de
+    febrero el “S&P 500 Energy” continua batiendo al “S&P 500 Telecommunications” una tendencia que se inicia a mitad de
+    febrero
+    y perdura hasta final de abril:
+</p>
+
+<p class="public-images"><img src="assets/img/services/detailed_description/week_2.png" width="900px" alt=""></p>
+
+<p>
+    Por definición el índice S&P 500 es un promedio, que significa que hay unos sectores con una rentabilidad
+    superior al Índice y otros con rentabilidad inferior. En determinados periodos de forma recurrente año tras
+    año, unos sectores son más –o menos- rentables que el Índice, por lo cual en vez de negociar directamente el
+    Índice S&P 500 se deberían rediseñar y optimizar las operaciones de inversión o coberturas. A continuación algunos
+    ejemplos:
+</p>
+
+<ol class="list-left-first-level ordered-list-letters">
+    <li>“Inversión Rotatoria”. En vez de tomar posiciones directamente en el promedio S&P 500 se podría invertir en los
+        2
+        o 3 Sectores más rentables. Esta forma de invertir conlleva “rotación cíclica” traspasando las posiciones a los
+        sectores de mayor rendimiento esperado.
+    </li>
+    <li>“Inversión Relativa Índice / Sectorial”. Se lleva a la práctica mediante Pares o Spreads que consiste en
+        simultanear posiciones contrarias <em>Comprando</em> 2 o 3 Sectores o Industrias más rentables y
+        <em>Vendiendo</em> Futuros sobre S&P 500.
+    </li>
+    <li>“Inversión Relativa Sectorial / Sectorial”: Se lleva a la práctica mediante Pares o Spreads que consiste en
+        simultanear
+        posiciones contrarias <em>Comprando</em> 2 o 3 Sectores e Industrias fuertes y <em>Vendiendo</em> 2 o 3 Sectores
+        e Industrias débiles.
+    </li>
+    <li>Coberturas de Carteras:
+        <ul class="public-list-second-level list-left-first-level">
+            <li>Cobertura de “Compra Sectorial”: Compra 2 o 3 Sectores fuertes.</li>
+            <li>Cobertura de “Compra Mixta”: Compra 2 o 3 Sectores fuertes y Futuros de S&P 500.</li>
+            <li>Cobertura de “Venta Sectorial”: Vende 2 o 3 Sectores débiles.</li>
+            <li>Cobertura de “Venta Mixta”: Vende 2 o 3 Sectores débiles y Futuros de S&P 500.</li>
+
+        </ul>
+    </li>
+</ol>
+
+
+</div>
+</div>
+<div class="anchor-detailed" id="calendar"  >
+    <div>
+        <p class="text-block-title">Calendario
+        </p>
+
+
+        <p>
+            Permite organizar y planificar las operaciones de apertura –Entrada- y cierre –Salida- segregando por fechas,
+            región, mercado o evaluados como Favoritos.
+        </p>
+
+        <p>
+            Si desea organizar las operaciones de apertura use el selector <em>Ordenar por Fecha Entrada desde el día
+            “d”.</em><br>
+            Si desea organizar las operaciones de cierre use el selector <em>Ordenar por Fecha Salida desde el día “d”.</em><br>
+            Se utiliza “L” para designar operación de Compra o posición larga o -long- y “S” de Venta a corto o posición
+            -short-<br>
+
+        </p>
+
+        <p><strong>Convenio fechas</strong> de Market Observatory:</p>
+        <ul class="public-list-first-level list-left-first-level">
+            <li>Si Fecha Entrada coincide en fin de semana o festivo, el día efectivo de inicio de operación será:o
+                <ul class="list-left-first-level public-list-second-level">
+                    <li>
+                        El <em>“Siguiente”</em> día con sesión.
+                    </li>
+
+                </ul>
+            </li>
+            <li>Si Fecha Salida coincide en fin de semana o festivo, el día efectivo para de cierre de operación será:
+                <ul class="list-left-first-level public-list-second-level">
+                    <li>
+                        El <em>“Anterior”</em> día con sesión.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>Convenio horario</strong> de Market Observatory: </p>
+
+        <p>
+        <ul class="public-list-first-level list-left-first-level">
+            <li>
+                Todas las referencias sobre Precios -o rentabilidades- que se muestran en la Web,
+                son Precios de Cierre –end of day- de la sesión regular del mercado.<br>
+                A efectos de la ejecución de operaciones significa que debería hacer las operaciones de compra o venta el día indicado
+                <em>“hacia el final de la sesión”.</em>
+            </li></ul>
+
+        </p>
+        <p style="text-decoration: underline">
+            Ejemplo:
+        </p>
+        <p>
+            Observar el siguiente Calendario:
+        </p>
+
+
+        <p class="public-images"><img src="assets/img/services/detailed_description/calendar1.png"></p>
+        <p>La primera línea del calendario indica una Compra de acciones de la compañía <strong>“Coal of Africa” </strong>
+            que cotiza en Australia <strong>–AX-</strong> y está planificada para el domingo 13 octubre 2013. Como es festivo,
+            la entrada u operación de Compra se trasladará al día laborable lunes 14. En sentido estricto se
+            debería ejecutar la operación hacia la hora de cierre del mercado o 16:11 EST –Eastern Standard Time-
+            New South Wales.</p>
+        <p>
+            Haciendo clic sobre la celda “Compañía” se accede a tabla Detalle de la estrategia y grafo de evolución.
+        </p>
+
+
+    </div>
+
+</div>
+<div class="anchor-detailed" id="suscriptions" >
+    <div>
+        <p class="text-block-title">Mis Suscripciones</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+    </div>
+
+</div>
+<div class="anchor-detailed" id="account"  >
+
+    <div>
+        <p class="text-block-title">Mi Cuenta
+        </p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+
+    </div>
+</div>
+</div>
 
 </div>
