@@ -82,7 +82,7 @@ angular.module('ngMo.my_subscriptions', [
     .run(function run() {
     })
 
-    .service('MyPacksService', function (){
+   /* .service('MyPacksService', function (){
 
         //Dummies Packs
         var stocksPacks = [
@@ -148,7 +148,7 @@ angular.module('ngMo.my_subscriptions', [
             }
         ];
 
-        //******
+        /*//******
 
         this.obtainPacks = function (area) {
             switch (area){
@@ -165,8 +165,8 @@ angular.module('ngMo.my_subscriptions', [
             }
         };
     })
-
-    .service('MySubscriptionPacksService', function (){
+*/
+   .service('MySubscriptionPacksService', function (){
 
         //Dummies Packs
         var americanPacks = [
@@ -481,6 +481,92 @@ angular.module('ngMo.my_subscriptions', [
             }
             return urlParams;
         };
+
+        this.obtainPacks = function (area) {
+            switch (area){
+                case 'america':
+                    return americanPacks;
+                case 'asia':
+                    return asiaPacks;
+                case 'europe':
+                    return europePacks;
+                case 'americaPairs':
+                    return americanPairsPacks;
+                case 'asiaPairs':
+                    return asiaPairsPacks;
+                case 'europePairs':
+                    return europePairsPacks;
+                case 'indices':
+                    return indicesPacks;
+                case 'pairs_indices':
+                    return pairs_indicesPacks;
+                case 'futures':
+                    return futuresPacks;
+            }
+        };
+
+        var stocksPacks = [
+            {
+                id: 1,
+                packName: "Canada",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            },
+            {
+                id: 2,
+                packName: "Estados Unidos Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            },
+            {
+                id: 3,
+                packName: "Latino América Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var pairsPacks = [
+            {
+                id: 1,
+                packName: "Estados Unidos Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            },
+            {
+                id: 2,
+                packName: "Estados Unidos Pack II",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var indicesPacks = [
+            {
+                id: 1,
+                packName: "INDICES Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var pairsIndicesPacks = [
+            {
+                id: 1,
+                packName: "PARES INDICES Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var futuresPacks = [
+            {
+                id: 1,
+                packName: "Futures Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
     })
 
     .service('TabsService', function () {
