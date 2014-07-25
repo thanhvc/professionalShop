@@ -6,7 +6,7 @@
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
-                <select disabled="true" ng-change="selectRegion()" class="border-filters select-filter"
+                <select ng-change="selectRegion()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedRegion">
                     <option value="">- País -</option>
                     <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
@@ -17,7 +17,7 @@
             </td>
 
             <td>
-                <select disabled="true" ng-change="selectSector()" class="border-filters select-filter"
+                <select disabled="{{filterOptions.filters.selectedRegion != ''}}" ng-change="selectSector()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedSector">
                     <option value="">- Sector -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
@@ -27,7 +27,7 @@
                 </select>
             </td>
             <td>
-                <select disabled="true" ng-change="applyFilters()" class="border-filters select-filter"
+                <select disabled="{{filterOptions.filters.selectedRegion != ''}}" ng-change="applyFilters()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedIndustry">
                     <option value="">- Industria -</option>
                     <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
@@ -51,7 +51,7 @@
                 <td>
 
                     <span class="filter-label-select">Última Rentabilidad</span><br>
-                    <select disabled="true" class="border-filters select-filter small-select-filter"
+                    <select class="border-filters select-filter small-select-filter"
                             data-ng-model="filterOptions.filters.selectedRent">
                         <option value="">- Elegir -</option>
                         <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
@@ -67,7 +67,7 @@
                 </td>
                 <td>
                     <span class="filter-label-select">Mejor Ganancia</span><br>
-                    <select disabled="true" class="border-filters select-filter small-select-filter"
+                    <select class="border-filters select-filter small-select-filter"
                             data-ng-model="filterOptions.filters.selectedAverage">
                         <option value="">- Elegir -</option>
                         <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
@@ -83,7 +83,7 @@
                 </td>
                 <td>
                     <span class="filter-label-select">Peor Pérdida</span><br>
-                    <select disabled="true" class="border-filters select-filter small-select-filter"
+                    <select class="border-filters select-filter small-select-filter"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
                         <option value="">- Elegir -</option>
                         <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
@@ -99,7 +99,7 @@
                 </td>
                 <td>
                     <span class="filter-label-select">Volatilidad (%)</span><br>
-                    <select disabled="true" class="border-filters select-filter small-select-filter"
+                    <select class="border-filters select-filter small-select-filter"
                             data-ng-model="filterOptions.filters.selectedVolatility">
                         <option value="">- Elegir -</option>
                         <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
@@ -114,7 +114,7 @@
                 </td>
                 <td>
                     <span class="filter-label-select">Duración (Días)</span><br>
-                    <select disabled="true" class="border-filters select-filter small-select-filter"
+                    <select class="border-filters select-filter small-select-filter"
                             data-ng-model="filterOptions.filters.selectedDuration">
                         <option value="">- Elegir -</option>
                         <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
@@ -132,7 +132,7 @@
                     <table style="position: relative; left: -15px;">
                         <tr>
                             <td style="text-align: center;"><span class="filter-label-select">Favoritos</span><br>
-                                <input type="checkbox"
+                                <input type="checkbox" ng-change="search();"
                                        ng-model="filterOptions.filters.favourite">
                             </td>
 
