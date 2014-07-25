@@ -13,8 +13,10 @@
         <tr ng-repeat="pattern in myData">
             <td>{{pattern.id}}</td>
             <td>
-                <span class="buy-color" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName | limitTo: 23}}</span><br>
-                <span class="sell-color" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})">{{pattern.bearishAsset.longName | limitTo: 23}}</span>
+                <span class="buy-color cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"
+                        >{{pattern.asset.longName | limitTo: 23}}</span><br>
+                <span class="sell-color cursor-help" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})"
+                        >{{pattern.bearishAsset.longName | limitTo: 23}}</span>
             </td>
             <td>
                 <span tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span><br>
@@ -39,8 +41,10 @@
             <tr ng-repeat="pattern in correlationList">
                 <td>{{pattern.id}}</td>
                 <td>
-                    <span class="buy-color" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName | limitTo: 25}}</span><br>
-                    <span class="sell-color" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})">{{pattern.bearishAsset.longName | limitTo: 25}}</span>
+                    <span class="buy-color cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"
+                            >{{pattern.asset.longName | limitTo: 23}}</span><br>
+                    <span class="sell-color cursor-help" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})"
+                            >{{pattern.bearishAsset.longName | limitTo: 23}}</span>
                 </td>
                 <td>
                     <span tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span><br>

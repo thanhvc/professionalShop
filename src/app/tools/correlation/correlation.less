@@ -81,6 +81,7 @@
     background-color: @white;
   /*  border: 1px solid @white;*/
     border-radius: 0;
+    height: 19px; /*new*/
   }
   text-align: center;
   //padding: 0 85px;
@@ -91,6 +92,8 @@
   .pagination {
     margin: 0;
       li {
+
+
         &:nth-last-child(1), &:nth-last-child(2) {
           a {
             background-color: @orangeColor;
@@ -99,6 +102,11 @@
             padding: 1px 0;
             width: 24px;
             border: none;
+          }
+        }
+        &:nth-last-child(1) {
+          a{
+            border-right: 1px solid @white;
           }
         }
         &:nth-child(1), &:nth-child(2) {
@@ -110,9 +118,10 @@
             width: 24px;
             border: none;
             margin-left: 0;
+            padding: 2px 0px 0px 0px;/*new*/
           /*  border-right: 1px solid @white;*/
           }
-          border-left: 1px solid white;
+          /*border-left: 1px solid white;*/
         }
         a {
           color: @greyLabel;
@@ -143,12 +152,20 @@
         color: @greyBorderColor !important;
         cursor: default;
       }
-      display: none;
+      /*display: none;*/
+      border: none;
+
     }
     a{
       border-top: 2px solid @greyPaginator;
       background-color: @greyPaginator !important;
       border-right: none !important;
+    }
+    &:last-child{
+      a {
+        border-right: none !important;
+        height: 21px;
+      }
     }
   }
 }
@@ -156,8 +173,9 @@
 .pagination-correlation-container .pagination li {
   border-top: 1px solid @white;
   border-bottom: 1px solid @white;
-  border-right: 1px solid @white;
+  border-left: 1px solid @white;
   float:left;
+  background-color: @white;
 }
 
 
