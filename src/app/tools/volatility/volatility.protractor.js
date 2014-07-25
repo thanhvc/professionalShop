@@ -6,8 +6,8 @@ var App = function(){
 
     this.open = function(){
 
-       // browser.get('http://mo.devel.edosoftfactory.com/#/volatility');
-        browser.get('http://localhost:63342/mo-shopclient/build/index.html#/volatility');
+        browser.get('http://mo.devel.edosoftfactory.com/#/volatility');
+
         browser.ignoreSynchronization = true;
     };
 
@@ -79,7 +79,7 @@ describe('The volatility page ', function() {
    it('should have 10 lines', function(){
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(12);
+        expect(a.n).toBe(64);
     });
 
 
@@ -120,7 +120,7 @@ describe('The volatility page ', function() {
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(12);
+        expect(a.n).toBe(64);
 
         a.changeIndexTab();
         expect(a.cell).toBeDefined();
@@ -138,7 +138,7 @@ describe('The volatility page ', function() {
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(12);
+        expect(a.n).toBe(64);
 
         a.changeFuturesTab();
         expect(a.cell).toBeDefined();
@@ -156,7 +156,7 @@ describe('The volatility page ', function() {
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();
 
         a.checkNumberOfLines();
-        expect(a.n).toBe(12);
+        expect(a.n).toBe(64);
 
         a.changeIndexTab();
         expect(a.cell).toBeDefined();

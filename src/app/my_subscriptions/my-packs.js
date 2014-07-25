@@ -11,10 +11,10 @@ angular.module('ngMo.my_packs', [
             views: {
                 "main": {
                     controller: 'MyPacksCtrl',
-                    templateUrl: 'my_packs/my_packs.tpl.html'
+                    templateUrl: 'my_subscriptions/my_packs.tpl.html'
                 },
                 "my-packs-view@my-packs": {
-                    templateUrl: 'my_packs/my-packs-table.tpl.html'
+                    templateUrl: 'my_subscriptions/my-packs-table.tpl.html'
                 }
             },
             data: {
@@ -55,5 +55,14 @@ angular.module('ngMo.my_packs', [
     })
 
     .run(function run() {
+
+    })
+
+    .controller('MyPacksCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService) {
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            IsLogged.isLogged();
+
+        });
+
 
     });

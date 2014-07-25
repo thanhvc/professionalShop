@@ -43,17 +43,18 @@ angular.module('ngMo.the_week', [
 
                 var monthsDays = [31,28,31,30,31,30,31,31,30,31,30,31];
                 var m = monday.getMonth();
-                var day = monday.getDay();
+                var day = monday.getDate();
                 var year = monday.getYear();
 
                 if(year % 4 === 0 && year % 100 !== 0 || year% 400 === 0) {
                     monthsDays[1] = 29;
                 }
 
-                $scope.nextDay = (day % monthsDays[m]);
+                $scope.nextDay = (day % monthsDays[m]) + 7;
 
             });
         };
+
 
         /**
          * TODO: replace number for service
