@@ -52,12 +52,12 @@ var App = function(){
 
     this.changeIndexTab = function(){
         this.tab = element.all(by.css('nav-tabs > ng-isolate-scope')).get(2);
-        this.cell = element(by.css('rich-table-headercell'));
+        this.cell = element(by.css('pairs-table-vol'));
     };
 
     this.changeFuturesTab = function(){
         this.tab = element.all(by.css('nav-tabs > ng-isolate-scope')).get(3);
-        this.cell = element(by.css('rich-table-headercell'));
+        this.cell = element(by.css('pairs-table-vol'));
     };
 
     this.pagination = function(){
