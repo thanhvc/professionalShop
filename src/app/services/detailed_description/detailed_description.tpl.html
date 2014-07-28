@@ -102,27 +102,10 @@
 </div>
 
 <div class="content-detailed">
-<!--
-<div class="anchor-detailed" id="description" ng-include="'services/detailed_description/description.tpl.html'"></div>
-<div class="anchor-detailed" id="basic" ng-include="'services/detailed_description/basic.tpl.html'"></div>
-<div class="anchor-detailed" id="phases" ng-include="'services/detailed_description/phases.tpl.html'"></div>
-<div class="anchor-detailed" id="monthly" ng-include="'services/detailed_description/monthly.tpl.html'"></div>
-<div class="anchor-detailed" id="buy" ng-include="'services/detailed_description/buy.tpl.html'"></div>
-<div class="anchor-detailed" id="patterns" ng-include="'services/detailed_description/patterns.tpl.html'"></div>
-<div class="anchor-detailed" id="diary" ng-include="'services/detailed_description/diary.tpl.html'"></div>
-<div class="anchor-detailed" id="historic" ng-include="'services/detailed_description/historic.tpl.html'"></div>
-<div class="anchor-detailed" id="drawdown" ng-include="'services/detailed_description/drawdown.tpl.html'"></div>
-<div class="anchor-detailed" id="correlation" ng-include="'services/detailed_description/correlation.tpl.html'"></div>
-<div class="anchor-detailed" id="volatility" ng-include="'services/detailed_description/volatility.tpl.html'"></div>
-<div class="anchor-detailed" id="week" ng-include="'services/detailed_description/week.tpl.html'"></div>
-<div class="anchor-detailed" id="calendar" ng-include="'services/detailed_description/calendar.tpl.html'"></div>
-<div class="anchor-detailed" id="suscriptions" ng-include="'services/detailed_description/suscriptions.tpl.html'"></div>
-<div class="anchor-detailed" id="account" ng-include="'services/detailed_description/account.tpl.html'"></div>
--->
-<!--all pages here now-->
+
 <div class="anchor-detailed" id="description">
 <div>
-<p class="text-block-title">Descripci&oacute;n</p>
+<span class="text-block-title">Descripci&oacute;n</span>
 
 <p>
     <em> “La diferencia entre un buen inversor y uno excelente, es que el primero sabe Cuándo invertir y el segundo
@@ -386,9 +369,9 @@
 </div>
 <div class="anchor-detailed" id="basic">
 <div ng-controller="HomeCtrl">
-<p class="text-block-title">
+<span class="text-block-title">
     Información Básica de un Patrón
-</p>
+</span>
 
 <p>
     El servicio de Market Observatory se basa en el concepto de “Patrón”
@@ -611,30 +594,34 @@
 <div class="anchor-detailed" id="phases">
 
     <div>
-        <p class="text-block-title">Fases Principales del Servicio</p>
+        <span class="text-block-title">Fases Principales del Servicio</span>
 
         <p>Se ha estructurado por áreas funcionales:</p>
         <ol class="ordered-list-first-level">
             <li>Listado de Paquetes –Pack’s- disponibles para suscripción,
                 con un resumen de Activos y Patrones -o estrategias- que se publican cada mes.
-                <a href="#/detailed_description#monthly" ng-click="scrollTo('monthly'); selectedOption = 'monthly';">Publicaci&oacute;n Mensual</a>
+                <a href="#/detailed_description#monthly" ng-click="scrollTo('monthly'); selectedOption = 'monthly';">Publicaci&oacute;n
+                    Mensual</a>
             </li>
             <li>
                 Compra de Pack’s permite el acceso pleno a los contenidos via online, a la información completa
                 de Patrones, funciones de análisis, seguimiento, control, alarmas y uso del resto de herramientas para
                 toma de decisiones.
-                <a href="#/detailed_description#buy" ng-click="scrollTo('buy'); selectedOption = 'buy';">Comprar Suscripci&oacute;n</a>
+                <a href="#/detailed_description#buy" ng-click="scrollTo('buy'); selectedOption = 'buy';">Comprar
+                    Suscripci&oacute;n</a>
             </li>
             <li>
                 Listado de Patrones contenidos en los Pack’s comprados. Al acceder a la web como cliente descubrirá el
                 detalle
                 completo de las mejores estrategias. Podrá poner en práctica algunas de ellas con su intermediario
                 financiero habitual.
-                <a href="#/detailed_description#patterns" ng-click="scrollTo('patterns'); selectedOption = 'patterns';">Mis Patrones</a>
+                <a href="#/detailed_description#patterns" ng-click="scrollTo('patterns'); selectedOption = 'patterns';">Mis
+                    Patrones</a>
             </li>
             <li>
                 Control y seguimiento diario de estrategias con informes, gráficos y alarmas a su correo electrónico.
-                <a href="#/detailed_description#diary" ng-click="scrollTo('diary'); selectedOption = 'diary';">Seguimiento Diario</a>
+                <a href="#/detailed_description#diary" ng-click="scrollTo('diary'); selectedOption = 'diary';">Seguimiento
+                    Diario</a>
             </li>
             <li>
                 Histórico de estrategias publicadas con los resultados finales obtenidos.
@@ -647,7 +634,8 @@
             </li>
             <li>
                 Estadísticas diarias de la Semana en curso para facilitar el ajuste de operaciones de Compra o Venta.
-                <a href="#/detailed_description#week" ng-click="scrollTo('week'); selectedOption = 'week';">La Semana</a>
+                <a href="#/detailed_description#week" ng-click="scrollTo('week'); selectedOption = 'week';">La
+                    Semana</a>
             </li>
             <li>
                 Calendario para organización de estrategias, con Entradas y Salidas –aperturas y cierres- de potenciales
@@ -656,11 +644,13 @@
             </li>
             <li>
                 Gestión de compras, cancelaciones, pagos o devoluciones.
-                <a href="#/detailed_description#suscriptions" ng-click="scrollTo('suscriptions'); selectedOption = 'suscriptions';">Mis Suscripciones</a>
+                <a href="#/detailed_description#suscriptions"
+                   ng-click="scrollTo('suscriptions'); selectedOption = 'suscriptions';">Mis Suscripciones</a>
             </li>
             <li>
                 Histórico de órdenes. Usuario y contraseña
-                <a href="#/detailed_description#account" ng-click="scrollTo('account'); selectedOption = 'account';">Mi Cuenta</a>
+                <a href="#/detailed_description#account" ng-click="scrollTo('account'); selectedOption = 'account';">Mi
+                    Cuenta</a>
             </li>
 
         </ol>
@@ -669,9 +659,9 @@
 <div class="anchor-detailed" id="monthly">
     <div>
 
-        <p class="text-block-title">
+        <span class="text-block-title">
             Publicaci&oacute;n Mensual
-        </p>
+        </span>
 
         <p class="orange-title">
             Los Pack’s
@@ -846,9 +836,9 @@
 <div class="anchor-detailed" id="buy">
 
 <div>
-<p class="text-block-title">
+<span class="text-block-title">
     Comprar Suscripción –Pack’s-
-</p>
+</span>
 
 <p>
     El Paquete –Pack- es la unidad de Compra en el servicio de Market Observatory.
@@ -1060,8 +1050,8 @@
     <div>
 
 
-        <p class="text-block-title">Mis Patrones
-        </p>
+        <span class="text-block-title">Mis Patrones
+        </span>
 
 
         <p>
@@ -1251,8 +1241,8 @@
 <div>
 
 
-<p class="text-block-title">Seguimiento Diario
-</p>
+<span class="text-block-title">Seguimiento Diario
+</span>
 
 <p>
     Diariamente puede controlar y vigilar la evolución de las estrategias. Las cotizaciones
@@ -1483,436 +1473,437 @@
 </div>
 <div class="anchor-detailed" id="historic">
 
-    <div>
+<div>
 
 
-        <p class="text-block-title">Hist&oacute;ricos
-        </p>
+<span class="text-block-title">Hist&oacute;ricos
+</span>
 
 
-        <p>
-            Cuando una estrategia alcanza la Fecha de Salida -o cierre- deja de estar en vigor e ingresa en una tabla de
-            históricos
-            con los resultados definitivos. Los informes y gráficos permiten un análisis a posteriori con diferentes
-            propósitos
-            de revisión, aprendizaje o acciones correctoras.
-        </p>
+<p>
+    Cuando una estrategia alcanza la Fecha de Salida -o cierre- deja de estar en vigor e ingresa en una tabla de
+    históricos
+    con los resultados definitivos. Los informes y gráficos permiten un análisis a posteriori con diferentes
+    propósitos
+    de revisión, aprendizaje o acciones correctoras.
+</p>
 
-        <p>
-            Referente a la rentabilidad final mostrada en la tabla hay dos aspectos a considerar:
-        </p>
-        <ol class="list-left-first-level">
-            <li>No todas las estrategias deberían tener el mismo peso o porcentaje en la Cartera. En la
-                práctica deberá refinar cada estrategia con algún modelo de Composición y Asignación de Carteras
-                –Market Observatory proporciona un modelo empírico- y con el análisis fundamental. En sentido estricto
-                debería aplicar a la rentabilidad un factor corrector por el peso asignado.
+<p>
+    Referente a la rentabilidad final mostrada en la tabla hay dos aspectos a considerar:
+</p>
+<ol class="list-left-first-level">
+    <li>No todas las estrategias deberían tener el mismo peso o porcentaje en la Cartera. En la
+        práctica deberá refinar cada estrategia con algún modelo de Composición y Asignación de Carteras
+        –Market Observatory proporciona un modelo empírico- y con el análisis fundamental. En sentido estricto
+        debería aplicar a la rentabilidad un factor corrector por el peso asignado.
+    </li>
+    <li>La rentabilidad última <strong>no</strong> está corregida por reparto de dividendos, lo que significa
+        que:
+        que:
+        <ul class="public-list-second-level list-left-first-level">
+            <li>Si mientras la estrategia <strong><em>Alcista</em></strong> ha estado abierta, en vigor –holding
+                days- se ha distribuido
+                un dividendo, el rendimiento final será el que muestra la tabla <strong><em>“más”</em></strong>
+                el
+                dividendo percibido. Se dice
+                que el patrón alcista está infravalorado.
             </li>
-            <li>La rentabilidad última <strong>no</strong> está corregida por reparto de dividendos, lo que significa
-                que:
-                que:
-                <ul class="public-list-second-level list-left-first-level">
-                    <li>Si mientras la estrategia <strong><em>Alcista</em></strong> ha estado abierta, en vigor –holding
-                        days- se ha distribuido
-                        un dividendo, el rendimiento final será el que muestra la tabla <strong><em>“más”</em></strong>
-                        el
-                        dividendo percibido. Se dice
-                        que el patrón alcista está infravalorado.
-                    </li>
-                    <li>Si mientras la estrategia <strong><em>Bajista</em></strong> ha estado abierta, en vigor –holding
-                        days- se ha distribuido un dividendo,
-                        el rendimiento final será el que muestra la tabla <strong><em>“menos”</em></strong> el
-                        dividendo. Se
-                        dice que el patrón bajista está sobrevalorado.
-                    </li>
-                </ul>
-            </li>
-        </ol>
-        <p class="orange-title">Contenido Tabla Históricos</p>
-
-        <p>
-            La información está clasificada por mes de terminación de las estrategias y ordenadas por Fecha de Salida.
-        </p>
-
-        <p class="public-images"><img src="assets/img/services/detailed_description/historic1.png" alt=""></p>
-
-        <p>¿Qué hay en esta tabla?</p>
-        <ul class="public-list-first-level list-left-first-level">
-            <li>
-                Hay cuatro grupos de <strong>Productos:</strong> Acciones, Par Acciones, Índices y Futuros.
-            </li>
-            <li><strong>Mes de Salida</strong> o terminación de las Estrategias. Para cambiar de mes usar el selector de
-                fechas o desplazarse con
-                &ldquo;<span class="blue-text">&lt;&lt;</span>&rdquo; o &ldquo;<span class="blue-text">&gt;&gt;</span>&rdquo;.
-            </li>
-            <li>
-                El Buscador
-                <ul class="public-list-second-level list-left-first-level">
-                    <li>
-                        Nombre de la compañía: Lista nombres con cadena de caracteres coincidentes.
-                    </li>
-                    <li>
-                        País: Selecciona uno incluido en la suscripción
-                    </li>
-                    <li>
-                        Mercado: Permite elegir mercados.
-                    </li>
-                    <li>
-                        Sector e Industria: Selecciona los diferentes tipos de negocio de las compañías.
-                    </li>
-                    <li>
-                        Operación: Discierne entre Comprar –posición larga- o Vender a corto –posición corta-. En el
-                        caso de
-                        Índices las opciones son Alcista o Bajista
-                    </li>
-                    <li>
-                        Renta Última o definitiva: Filtra rendimientos conseguidos por las estrategias recién
-                        finalizadas.
-                    </li>
-                    <li>
-                        Mayor Ganancia: Filtra “drawups” o mejor ganancia obtenidas desde la apertura.
-                    </li>
-                    <li>
-                        Mayor Pérdida: Filtra “drawdowns” o peor pérdida obtenida desde la apertura.
-                    </li>
-                    <li>
-                        Duración: O días que se mantiene la estrategia –holding days-.
-                    </li>
-                    <li>
-                        Etiqueta Favoritos: Facilita el tratamiento separado de las estrategias preferidas.
-                    </li>
-                </ul>
-            </li>
-            <li>Contenido de Tabla:
-                <ul class="public-list-second-level list-left-first-level">
-                    <li><strong>Identificador</strong> numérico. Haciendo clic se accede al Detalle del Patrón.
-                    </li>
-                    <li><strong>Operación</strong> asociada a la estrategia –Comprar o Vender- y <strong>Nombre</strong>
-                        del valor.
-                    </li>
-                    <li>
-                        Columna <strong>Entrada</strong> muestra la información de la apertura de la estrategia recién
-                        concluida:
-                        <ol class="list-left-first-level" type="I">
-                            <li style="list-style-image: none !important;">
-                                Fecha efectiva de entrada o apertura de operación.
-                            </li>
-                            <li style="list-style-image: none !important;">
-                                Precio de cierre el día de la entrada.
-                            </li>
-                            <li style="list-style-image: none !important;">
-                                Ejemplo 1ª línea tabla: Operación de entrada es Vender -a corto- “Covenant
-                                Transportation” se inició el 14
-                                septiembre 2012 con precio de cierre 4,91 USD.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Columna <strong>Salida</strong> recoge información del Cierre de la estrategia recién concluida
-                        :
-                        <ol class="list-left-first-level" type="I">
-
-                            <li style="list-style-image: none !important;">
-                                Fecha efectiva de salida de operación.
-                            </li>
-                            <li style="list-style-image: none !important;">
-                                Precio de cierre el día de la salida.
-                            </li>
-                            <li style="list-style-image: none !important;">
-                                Ejemplo 1ª línea tabla: Operación de salida es Comprar “Covenant Transportation”
-                                para liquidar la operación previa de Venta a corto. La compra se realizó el 2 octubre
-                                2012 con precio de cierre 4,52 USD.
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        <strong>Renta</strong> (%) muestra el dato definitivo del Rendimiento de la estrategia recién
-                        finalizada. Recordar que los datos usados por Market
-                        Observatory no están ajustados por dividendos. Por ejemplo, si durante el periodo en que la
-                        estrategia está en vigor se distribuye 1% de dividendos,
-                        entonces debe:
-                        <ol class="list-left-first-level" type="I">
-                            <li style="list-style-image: none !important;">
-                                Sumar 1% al rendimiento en caso de Operación de Compra.
-                            </li>
-                            <li style="list-style-image: none !important;">
-                                Restar 1% al rendimiento en caso de Operación de Venta -a corto-
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Columnas agrupadas en <strong>Mejor Ganancia.</strong>
-                        <ol class="list-left-first-level" type="I">
-                            <li style="list-style-image: none !important;">
-                                <strong>Fecha</strong> muestra el día de mayor rentabilidad obtenida desde el inicio de
-                                la estrategia.
-                            </li>
-                            <li style="list-style-image: none !important;">
-                                <strong>(%)</strong> es la mejor rentabilidad obtenida desde el inicio de la estrategia.
-                            </li>
-                            <li style="list-style-image: none !important;">
-                                Ejemplo 1ª línea tabla: La mejor ganancia –transitoria- se obtuvo el 1 de octubre con un
-                                valor de 9,37 %
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        Columnas agrupadas en <strong>Peor Pérdida.</strong>
-                        <ol class="list-left-first-level" type="I">
-                            <li style="list-style-image: none !important;">
-                                <strong>Fecha</strong> muestra el día de menor rentabilidad obtenida desde el inicio de
-                                la estrategia.
-                            </li>
-                            <li style="list-style-image: none !important;">
-                                <strong>(%)</strong> es la peor rentabilidad obtenida desde el inicio de la estrategia
-                            </li>
-                            <li style="list-style-image: none !important;">
-                                Ejemplo 1ª línea tabla: La peor pérdida –transitoria- se obtuvo el 17 de septiembre con
-                                un valor de 0,2 %.
-                                Un valor positivo significa que no generó pérdidas durante el periodo.
-                        </ol>
-                    </li>
-                    <li>
-                        <strong>Mercado</strong> de cotización.
-                    </li>
-                    <li>
-                        <strong>Notas</strong> recoge información sobre splits acaecidos mientras la estrategia
-                        permanece en vigor
-                    </li>
-
-                </ul>
-            </li>
-            <li>Si hace clic en Id. de la columna izquierda se observa la evolución gráfica del precio
-                de la estrategia recién finalizada comparada con el Patrón 15 años. Tomando la 1ª línea de tabla como
-                ejemplo:
+            <li>Si mientras la estrategia <strong><em>Bajista</em></strong> ha estado abierta, en vigor –holding
+                days- se ha distribuido un dividendo,
+                el rendimiento final será el que muestra la tabla <strong><em>“menos”</em></strong> el
+                dividendo. Se
+                dice que el patrón bajista está sobrevalorado.
             </li>
         </ul>
+    </li>
+</ol>
+<p class="orange-title">Contenido Tabla Históricos</p>
 
-        <p class="public-images"><img src="assets/img/services/detailed_description/historic2.png" alt=""></p>
+<p>
+    La información está clasificada por mes de terminación de las estrategias y ordenadas por Fecha de Salida.
+</p>
+
+<p class="public-images"><img src="assets/img/services/detailed_description/historic1.png" alt=""></p>
+
+<p>¿Qué hay en esta tabla?</p>
+<ul class="public-list-first-level list-left-first-level">
+    <li>
+        Hay cuatro grupos de <strong>Productos:</strong> Acciones, Par Acciones, Índices y Futuros.
+    </li>
+    <li><strong>Mes de Salida</strong> o terminación de las Estrategias. Para cambiar de mes usar el selector de
+        fechas o desplazarse con
+        &ldquo;<span class="blue-text">&lt;&lt;</span>&rdquo; o &ldquo;<span class="blue-text">&gt;&gt;</span>&rdquo;.
+    </li>
+    <li>
+        El Buscador
+        <ul class="public-list-second-level list-left-first-level">
+            <li>
+                Nombre de la compañía: Lista nombres con cadena de caracteres coincidentes.
+            </li>
+            <li>
+                País: Selecciona uno incluido en la suscripción
+            </li>
+            <li>
+                Mercado: Permite elegir mercados.
+            </li>
+            <li>
+                Sector e Industria: Selecciona los diferentes tipos de negocio de las compañías.
+            </li>
+            <li>
+                Operación: Discierne entre Comprar –posición larga- o Vender a corto –posición corta-. En el
+                caso de
+                Índices las opciones son Alcista o Bajista
+            </li>
+            <li>
+                Renta Última o definitiva: Filtra rendimientos conseguidos por las estrategias recién
+                finalizadas.
+            </li>
+            <li>
+                Mayor Ganancia: Filtra “drawups” o mejor ganancia obtenidas desde la apertura.
+            </li>
+            <li>
+                Mayor Pérdida: Filtra “drawdowns” o peor pérdida obtenida desde la apertura.
+            </li>
+            <li>
+                Duración: O días que se mantiene la estrategia –holding days-.
+            </li>
+            <li>
+                Etiqueta Favoritos: Facilita el tratamiento separado de las estrategias preferidas.
+            </li>
+        </ul>
+    </li>
+    <li>Contenido de Tabla:
+        <ul class="public-list-second-level list-left-first-level">
+            <li><strong>Identificador</strong> numérico. Haciendo clic se accede al Detalle del Patrón.
+            </li>
+            <li><strong>Operación</strong> asociada a la estrategia –Comprar o Vender- y <strong>Nombre</strong>
+                del valor.
+            </li>
+            <li>
+                Columna <strong>Entrada</strong> muestra la información de la apertura de la estrategia recién
+                concluida:
+                <ol class="list-left-first-level" type="I">
+                    <li style="list-style-image: none !important;">
+                        Fecha efectiva de entrada o apertura de operación.
+                    </li>
+                    <li style="list-style-image: none !important;">
+                        Precio de cierre el día de la entrada.
+                    </li>
+                    <li style="list-style-image: none !important;">
+                        Ejemplo 1ª línea tabla: Operación de entrada es Vender -a corto- “Covenant
+                        Transportation” se inició el 14
+                        septiembre 2012 con precio de cierre 4,91 USD.
+                    </li>
+                </ol>
+            </li>
+            <li>
+                Columna <strong>Salida</strong> recoge información del Cierre de la estrategia recién concluida
+                :
+                <ol class="list-left-first-level" type="I">
+
+                    <li style="list-style-image: none !important;">
+                        Fecha efectiva de salida de operación.
+                    </li>
+                    <li style="list-style-image: none !important;">
+                        Precio de cierre el día de la salida.
+                    </li>
+                    <li style="list-style-image: none !important;">
+                        Ejemplo 1ª línea tabla: Operación de salida es Comprar “Covenant Transportation”
+                        para liquidar la operación previa de Venta a corto. La compra se realizó el 2 octubre
+                        2012 con precio de cierre 4,52 USD.
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <strong>Renta</strong> (%) muestra el dato definitivo del Rendimiento de la estrategia recién
+                finalizada. Recordar que los datos usados por Market
+                Observatory no están ajustados por dividendos. Por ejemplo, si durante el periodo en que la
+                estrategia está en vigor se distribuye 1% de dividendos,
+                entonces debe:
+                <ol class="list-left-first-level" type="I">
+                    <li style="list-style-image: none !important;">
+                        Sumar 1% al rendimiento en caso de Operación de Compra.
+                    </li>
+                    <li style="list-style-image: none !important;">
+                        Restar 1% al rendimiento en caso de Operación de Venta -a corto-
+                    </li>
+                </ol>
+            </li>
+            <li>
+                Columnas agrupadas en <strong>Mejor Ganancia.</strong>
+                <ol class="list-left-first-level" type="I">
+                    <li style="list-style-image: none !important;">
+                        <strong>Fecha</strong> muestra el día de mayor rentabilidad obtenida desde el inicio de
+                        la estrategia.
+                    </li>
+                    <li style="list-style-image: none !important;">
+                        <strong>(%)</strong> es la mejor rentabilidad obtenida desde el inicio de la estrategia.
+                    </li>
+                    <li style="list-style-image: none !important;">
+                        Ejemplo 1ª línea tabla: La mejor ganancia –transitoria- se obtuvo el 1 de octubre con un
+                        valor de 9,37 %
+                    </li>
+                </ol>
+            </li>
+            <li>
+                Columnas agrupadas en <strong>Peor Pérdida.</strong>
+                <ol class="list-left-first-level" type="I">
+                    <li style="list-style-image: none !important;">
+                        <strong>Fecha</strong> muestra el día de menor rentabilidad obtenida desde el inicio de
+                        la estrategia.
+                    </li>
+                    <li style="list-style-image: none !important;">
+                        <strong>(%)</strong> es la peor rentabilidad obtenida desde el inicio de la estrategia
+                    </li>
+                    <li style="list-style-image: none !important;">
+                        Ejemplo 1ª línea tabla: La peor pérdida –transitoria- se obtuvo el 17 de septiembre con
+                        un valor de 0,2 %.
+                        Un valor positivo significa que no generó pérdidas durante el periodo.
+                </ol>
+            </li>
+            <li>
+                <strong>Mercado</strong> de cotización.
+            </li>
+            <li>
+                <strong>Notas</strong> recoge información sobre splits acaecidos mientras la estrategia
+                permanece en vigor
+            </li>
+
+        </ul>
+    </li>
+    <li>Si hace clic en Id. de la columna izquierda se observa la evolución gráfica del precio
+        de la estrategia recién finalizada comparada con el Patrón 15 años. Tomando la 1ª línea de tabla como
+        ejemplo:
+    </li>
+</ul>
+
+<p class="public-images"><img src="assets/img/services/detailed_description/historic2.png" alt=""></p>
 
 
-    </div>
+</div>
 </div>
 <div class="anchor-detailed" id="drawdown">
-    <div>
+<div>
 
 
-        <p class="text-block-title">Herramientas. Cartera
-        </p>
+<span class="text-block-title">Herramientas. Cartera
+</span>
 
-        <p>
-            Para obtener buenos rendimientos en los mercados durante tiempos prolongados necesitará disponer
-            de buenas técnicas o estrategias de inversión y usar una adecuada gestión del dinero. Market Observatory
-            incluye un conjunto de Herramientas para ayudar en la toma de decisiones sobre aspectos clave de la gestión
-            del dinero: Qué activos, Qué valores del conjunto de activos, Cuántos valores, Cuándo, Plazos, Cantidad de
-            efectivo, Porcentaje de la Cartera, Pérdidas transitorias esperadas, etc.
-        </p>
+<p>
+    Para obtener buenos rendimientos en los mercados durante tiempos prolongados necesitará disponer
+    de buenas técnicas o estrategias de inversión y usar una adecuada gestión del dinero. Market Observatory
+    incluye un conjunto de Herramientas para ayudar en la toma de decisiones sobre aspectos clave de la gestión
+    del dinero: Qué activos, Qué valores del conjunto de activos, Cuántos valores, Cuándo, Plazos, Cantidad de
+    efectivo, Porcentaje de la Cartera, Pérdidas transitorias esperadas, etc.
+</p>
 
-        <p class="orange-title">CARTERAS: Componentes y Asignaci&oacute;n</p>
+<p class="orange-title">CARTERAS: Componentes y Asignaci&oacute;n</p>
 
-        <p>
-            Para evaluar las estrategias y dimensionar las operaciones, Market Observatory ha desarrollado un modelo
-            empírico
-            basado en 15 años de datos, analizando y recomponiendo la Forma de la distribución, el recuento de valores
-            Centrales,
-            Extremos de las colas, drawups y drawdowns.
-        </p>
+<p>
+    Para evaluar las estrategias y dimensionar las operaciones, Market Observatory ha desarrollado un modelo
+    empírico
+    basado en 15 años de datos, analizando y recomponiendo la Forma de la distribución, el recuento de valores
+    Centrales,
+    Extremos de las colas, drawups y drawdowns.
+</p>
 
-        <p>El <em>drawdown</em> se define como la peor pérdida –transitoria- sufrida desde el inicio de una Inversión.
-        </p>
+<p>El <em>drawdown</em> se define como la peor pérdida –transitoria- sufrida desde el inicio de una Inversión.
+</p>
 
-        <p>Cuando el objetivo de un inversor no solo es la preservación del capital sino su crecimiento, necesitará
-            incorporar –no evitar- algunos activos de mayor volatilidad y disminuir –no eliminar- otros con mayor <em>drawdown.</em>
-        </p>
+<p>Cuando el objetivo de un inversor no solo es la preservación del capital sino su crecimiento, necesitará
+    incorporar –no evitar- algunos activos de mayor volatilidad y disminuir –no eliminar- otros con mayor
+    <em>drawdown.</em>
+</p>
 
-        <p>
-            Evitar drawdowns y volatilidad colocando la mayoría del capital en un depósito financiero al 2 % anual, es
-            ejemplo de cartera
-            no óptima, pues excluye la posibilidad de obtener rentabilidades atractivas.
-        </p>
+<p>
+    Evitar drawdowns y volatilidad colocando la mayoría del capital en un depósito financiero al 2 % anual, es
+    ejemplo de cartera
+    no óptima, pues excluye la posibilidad de obtener rentabilidades atractivas.
+</p>
 
-        <p>
-            El modelo de Market Observatory le ayuda a balancear la volatilidad y drawdowns con el rendimiento. Cuando
-            con
-            la
-            ayuda de cualquier modelo haya decidido qué activos incorporar a su Cartera, no olvide revisar los datos
-            fundamentales,
-            por ejemplo si va a Vender Soja, debería abstenerse si hay una fuerte sequía en alguno de los principales
-            países
-            productores.
-        </p>
+<p>
+    El modelo de Market Observatory le ayuda a balancear la volatilidad y drawdowns con el rendimiento. Cuando
+    con
+    la
+    ayuda de cualquier modelo haya decidido qué activos incorporar a su Cartera, no olvide revisar los datos
+    fundamentales,
+    por ejemplo si va a Vender Soja, debería abstenerse si hay una fuerte sequía en alguno de los principales
+    países
+    productores.
+</p>
 
-        <p>
-            La forma de evaluar las estrategias y pesos de los componentes se hace con el siguiente formulario
-            incluyendo
-            las posiciones
-            actuales en Cartera y aquellas que quieren ser valoradas para su próxima incorporación:
-        </p>
+<p>
+    La forma de evaluar las estrategias y pesos de los componentes se hace con el siguiente formulario
+    incluyendo
+    las posiciones
+    actuales en Cartera y aquellas que quieren ser valoradas para su próxima incorporación:
+</p>
 
-        <p class="public-images">
-            <img src="assets/img/services/detailed_description/drawdown_1.png" alt="" width="900">
-        </p>
+<p class="public-images">
+    <img src="assets/img/services/detailed_description/drawdown_1.png" alt="" width="900">
+</p>
 
-        <p>
-            El <strong>Buscador</strong> permite seleccionar las estrategias a valorar. Seleccionar meses anteriores
-            para
-            localizar los componentes que ya posee en Cartera y meses futuros o en curso para valorar potenciales
-            posiciones.
-        </p>
+<p>
+    El <strong>Buscador</strong> permite seleccionar las estrategias a valorar. Seleccionar meses anteriores
+    para
+    localizar los componentes que ya posee en Cartera y meses futuros o en curso para valorar potenciales
+    posiciones.
+</p>
 
-        <p>
-            La <strong>Duración</strong> permite que la evaluación de estrategias sea equiparable. Un valor con una
-            exposición al mercado de
-            7 meses tiene mayor riesgo que si se mantiene durante 1 mes.
-        </p>
+<p>
+    La <strong>Duración</strong> permite que la evaluación de estrategias sea equiparable. Un valor con una
+    exposición al mercado de
+    7 meses tiene mayor riesgo que si se mantiene durante 1 mes.
+</p>
 
-        <p>
-            Usar la marca de <strong>Favoritos</strong> para trabajar con estrategias pre-evaluadas.
-        </p>
+<p>
+    Usar la marca de <strong>Favoritos</strong> para trabajar con estrategias pre-evaluadas.
+</p>
 
-        <p>
-            A continuación se describe cómo usar la herramienta de Cartera para la toma de
-            decisiones en los dos escenarios habituales de un inversionista:
-        </p>
+<p>
+    A continuación se describe cómo usar la herramienta de Cartera para la toma de
+    decisiones en los dos escenarios habituales de un inversionista:
+</p>
 
-        <p>
-        <ol class="ordered-list-letters">
-            <li>
-                Cartera actual con diversas posiciones y desea incorporar nuevos componentes.
-            </li>
-            <li>
-                Constituir una nueva Cartera.
-            </li>
-        </ol>
-        </p>
+<p>
+<ol class="ordered-list-letters">
+    <li>
+        Cartera actual con diversas posiciones y desea incorporar nuevos componentes.
+    </li>
+    <li>
+        Constituir una nueva Cartera.
+    </li>
+</ol>
+</p>
 
-        <p style="text-decoration: underline">
-            <strong>Escenario a): Cartera con posiciones. Desea incluir nuevos componentes.</strong>
-        </p>
+<p style="text-decoration: underline">
+    <strong>Escenario a): Cartera con posiciones. Desea incluir nuevos componentes.</strong>
+</p>
 
-        <p style="text-decoration: underline">
-            <strong><em>Ejemplo:</em></strong>
-        </p>
+<p style="text-decoration: underline">
+    <strong><em>Ejemplo:</em></strong>
+</p>
 
-        <p>
-            Un inversor abrió en octubre seis posiciones en Acciones de compañías de Estados Unidos
-            y Reino Unido. En diciembre dispone de nuevos ahorros y quiere ampliar su Cartera con acciones
-            de Japón. En la tabla “Mis Patrones” de Market Observatory ha pre-evaluado y pre-seleccionado 5
-            potenciales estrategias en el mercado T –Tokio- y necesita saber qué componentes elegir finalmente
-            y porcentaje a asignar.
-        </p>
+<p>
+    Un inversor abrió en octubre seis posiciones en Acciones de compañías de Estados Unidos
+    y Reino Unido. En diciembre dispone de nuevos ahorros y quiere ampliar su Cartera con acciones
+    de Japón. En la tabla “Mis Patrones” de Market Observatory ha pre-evaluado y pre-seleccionado 5
+    potenciales estrategias en el mercado T –Tokio- y necesita saber qué componentes elegir finalmente
+    y porcentaje a asignar.
+</p>
 
-        <p>
-            Para resolver esta duda utilice el formulario anterior y realice los siguientes pasos:
-        </p>
-        <ul class="list-left-first-level public-list-first-level">
-            <li>
-                Incluir las estrategias que ya posee en Cartera iniciadas en octubre en los mercados NYSE –New York- y
-                LSE –London-
-            </li>
-            <li>
-                Incorporar las nuevas estrategias a valorar que comienzan en diciembre en el mercado T –Tokyo-.
-            </li>
-        </ul>
-        <p>
-            Una vez agregadas las posiciones antiguas y futuras la composición final de la Cartera se determina con la
-            función “<strong>Calcular</strong>”. Los resultados son los siguientes:
-        </p>
+<p>
+    Para resolver esta duda utilice el formulario anterior y realice los siguientes pasos:
+</p>
+<ul class="list-left-first-level public-list-first-level">
+    <li>
+        Incluir las estrategias que ya posee en Cartera iniciadas en octubre en los mercados NYSE –New York- y
+        LSE –London-
+    </li>
+    <li>
+        Incorporar las nuevas estrategias a valorar que comienzan en diciembre en el mercado T –Tokyo-.
+    </li>
+</ul>
+<p>
+    Una vez agregadas las posiciones antiguas y futuras la composición final de la Cartera se determina con la
+    función “<strong>Calcular</strong>”. Los resultados son los siguientes:
+</p>
 
-        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown1.png" alt=""></p>
+<p class="public-images"><img src="assets/img/services/detailed_description/drawdown1.png" alt=""></p>
 
-        <p>
-            ¿Qué dice esta tabla?
-        </p>
+<p>
+    ¿Qué dice esta tabla?
+</p>
 
-        <p>Las dos estrategias mejor valoradas del mercado de Tokio para iniciar en diciembre es la
-            <strong>Compra</strong> de las compañías
-            <strong>“Shizuki Electric”</strong> y de <strong>“Takisawa Machine”</strong>.
-            Ambas están mejor valoradas que las actuales posiciones en NYSE y LSE. </p>
+<p>Las dos estrategias mejor valoradas del mercado de Tokio para iniciar en diciembre es la
+    <strong>Compra</strong> de las compañías
+    <strong>“Shizuki Electric”</strong> y de <strong>“Takisawa Machine”</strong>.
+    Ambas están mejor valoradas que las actuales posiciones en NYSE y LSE. </p>
 
-        <p>
-            Si quiere ampliar su Cartera por ejemplo con dos nuevas posiciones podría elegir ambas, evaluando
-            previamente
-            potenciales correlaciones indeseadas y los datos fundamentales. ¿Qué cantidad dedicar a cada una?
-        </p>
+<p>
+    Si quiere ampliar su Cartera por ejemplo con dos nuevas posiciones podría elegir ambas, evaluando
+    previamente
+    potenciales correlaciones indeseadas y los datos fundamentales. ¿Qué cantidad dedicar a cada una?
+</p>
 
-        <p></p>
-        <ul class="public-list-first-level list-left-first-level">
-            <li>Puesto que su Cartera tiene acciones de “Anadarko Petroleum” (NYSE), según la tabla debería asignar
-                [2,5 – 3,2] veces más a las compañías de Tokio. Por ejemplo, si Compró “Anadarko” por 3,000 USD, podría
-                asignar
-                7,500 y 9,000 USD -el equivalente en Yenes- en “Takisawa” y “Shizuki” respectivamente.
-            </li>
-        </ul>
-        <p></p>
+<p></p>
+<ul class="public-list-first-level list-left-first-level">
+    <li>Puesto que su Cartera tiene acciones de “Anadarko Petroleum” (NYSE), según la tabla debería asignar
+        [2,5 – 3,2] veces más a las compañías de Tokio. Por ejemplo, si Compró “Anadarko” por 3,000 USD, podría
+        asignar
+        7,500 y 9,000 USD -el equivalente en Yenes- en “Takisawa” y “Shizuki” respectivamente.
+    </li>
+</ul>
+<p></p>
 
-        <p>Haciendo clic en “Id.” puede ver la descripción detallada de cada estrategia y valores de drawdown en la
-            columna “Peor Pérdida”.</p>
+<p>Haciendo clic en “Id.” puede ver la descripción detallada de cada estrategia y valores de drawdown en la
+    columna “Peor Pérdida”.</p>
 
-        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown2.png" alt=""></p>
+<p class="public-images"><img src="assets/img/services/detailed_description/drawdown2.png" alt=""></p>
 
-        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown3.png" alt=""></p>
+<p class="public-images"><img src="assets/img/services/detailed_description/drawdown3.png" alt=""></p>
 
-        <p style="text-decoration: underline">
-            <strong>Escenario b): Formar nueva Cartera.</strong>
-        </p>
+<p style="text-decoration: underline">
+    <strong>Escenario b): Formar nueva Cartera.</strong>
+</p>
 
-        <p style="text-decoration: underline">
-            <strong><em>Ejemplo:</em></strong>
-        </p>
+<p style="text-decoration: underline">
+    <strong><em>Ejemplo:</em></strong>
+</p>
 
-        <p>Un cliente de Market Observatory desea formar una cartera de acciones usando información de Patrones. De la
-            lista de Mis Patrones
-            ha pre-seleccionado 20 potenciales estrategias sobre diferentes sectores y países de la Zona Euro,
-            necesitando saber
-            qué componentes elegir y porcentaje asignar a cada uno.</p>
+<p>Un cliente de Market Observatory desea formar una cartera de acciones usando información de Patrones. De la
+    lista de Mis Patrones
+    ha pre-seleccionado 20 potenciales estrategias sobre diferentes sectores y países de la Zona Euro,
+    necesitando saber
+    qué componentes elegir y porcentaje asignar a cada uno.</p>
 
-        <p>Para resolver esta necesidad utilice el formulario de Cartera haciendo lo siguiente: </p>
+<p>Para resolver esta necesidad utilice el formulario de Cartera haciendo lo siguiente: </p>
 
-        <ul class="public-list-first-level list-left-first-level">
-            <li>Incorporar las estrategias a valorar en diferentes mercados de la Zona Euro que comienzan en noviembre.
-            </li>
-        </ul>
-        <p>
-            Una vez agregadas las 20 estrategias, con la función “<strong>Calcular</strong>” se determina la composición
-            final de la Cartera. Los resultados son los siguientes:
-        </p>
+<ul class="public-list-first-level list-left-first-level">
+    <li>Incorporar las estrategias a valorar en diferentes mercados de la Zona Euro que comienzan en noviembre.
+    </li>
+</ul>
+<p>
+    Una vez agregadas las 20 estrategias, con la función “<strong>Calcular</strong>” se determina la composición
+    final de la Cartera. Los resultados son los siguientes:
+</p>
 
-        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown4.png" alt=""></p>
+<p class="public-images"><img src="assets/img/services/detailed_description/drawdown4.png" alt=""></p>
 
-        <p>
-            ¿Qué dice esta tabla?
-        </p>
+<p>
+    ¿Qué dice esta tabla?
+</p>
 
-        <p>
-            Las dos estrategias mejor valoradas para iniciar en noviembre son la Compra de
-            acciones de las compañías “<strong>CRH</strong>” en mercado <strong>IR</strong> –Irlanda- y <strong>“Amsterdam
-            Commodities”</strong> en mercado <strong>AS</strong> –Amsterdam-.
-        </p>
+<p>
+    Las dos estrategias mejor valoradas para iniciar en noviembre son la Compra de
+    acciones de las compañías “<strong>CRH</strong>” en mercado <strong>IR</strong> –Irlanda- y <strong>“Amsterdam
+    Commodities”</strong> en mercado <strong>AS</strong> –Amsterdam-.
+</p>
 
-        <p>Si el Usuario quiere realizar una sola operación, debe dedicar una pequeña fracción de su
-            dinero disponible -no más de un 5%-, una vez haya evaluado positivamente los datos fundamentales.
-            Recuerde para preservar el capital es preferible hacer múltiples operaciones pequeñas a una sola grande.</p>
+<p>Si el Usuario quiere realizar una sola operación, debe dedicar una pequeña fracción de su
+    dinero disponible -no más de un 5%-, una vez haya evaluado positivamente los datos fundamentales.
+    Recuerde para preservar el capital es preferible hacer múltiples operaciones pequeñas a una sola grande.</p>
 
-        <p>Si hace clic en columna “Id.” puede ver la información detallada del patrón:</p>
+<p>Si hace clic en columna “Id.” puede ver la información detallada del patrón:</p>
 
-        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown5.png" alt=""></p>
+<p class="public-images"><img src="assets/img/services/detailed_description/drawdown5.png" alt=""></p>
 
-        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown6.png" alt=""></p>
+<p class="public-images"><img src="assets/img/services/detailed_description/drawdown6.png" alt=""></p>
 
-        <p>Diariamente puede seguir la evolución gráfica de cotización de “CRH” reescalada contra el patrón de 15
-            años.</p>
+<p>Diariamente puede seguir la evolución gráfica de cotización de “CRH” reescalada contra el patrón de 15
+    años.</p>
 
-        <p class="public-images"><img src="assets/img/services/detailed_description/drawdown7.png" alt=""></p>
+<p class="public-images"><img src="assets/img/services/detailed_description/drawdown7.png" alt=""></p>
 
 
-    </div>
+</div>
 </div>
 <div class="anchor-detailed" id="correlation">
     <div>
 
 
-        <p class="text-block-title">Herramientas. Correlaci&oacute;n
-        </p>
+        <span class="text-block-title">Herramientas. Correlaci&oacute;n
+        </span>
 
         <p>
             Una cartera de inversiones debe estar compuesta por diferentes Activos que no se deprecien al mismo tiempo.
@@ -2060,8 +2051,8 @@
 <div class="anchor-detailed" id="volatility">
     <div>
 
-        <p class="text-block-title">Herramientas. Volatilidad Hist&oacute;rica
-        </p>
+        <span class="text-block-title">Herramientas. Volatilidad Hist&oacute;rica
+        </span>
 
         <p>
             La volatilidad se relaciona con la variación esperada en las cotizaciones y por tanto con el riesgo.
@@ -2114,8 +2105,8 @@
 <div>
 
 
-<p class="text-block-title">La Semana, Estad&iacute;sticas
-</p>
+<span class="text-block-title">La Semana, Estad&iacute;sticas
+</span>
 
 <p>
     Es un compendio de estadísticas de la semana en curso con los
@@ -2352,21 +2343,23 @@
 
 </div>
 </div>
-<div class="anchor-detailed" id="calendar"  >
+<div class="anchor-detailed" id="calendar">
     <div>
-        <p class="text-block-title">Calendario
-        </p>
+        <span class="text-block-title">Calendario
+        </span>
 
 
         <p>
-            Permite organizar y planificar las operaciones de apertura –Entrada- y cierre –Salida- segregando por fechas,
+            Permite organizar y planificar las operaciones de apertura –Entrada- y cierre –Salida- segregando por
+            fechas,
             región, mercado o evaluados como Favoritos.
         </p>
 
         <p>
             Si desea organizar las operaciones de apertura use el selector <em>Ordenar por Fecha Entrada desde el día
             “d”.</em><br>
-            Si desea organizar las operaciones de cierre use el selector <em>Ordenar por Fecha Salida desde el día “d”.</em><br>
+            Si desea organizar las operaciones de cierre use el selector <em>Ordenar por Fecha Salida desde el día
+            “d”.</em><br>
             Se utiliza “L” para designar operación de Compra o posición larga o -long- y “S” de Venta a corto o posición
             -short-<br>
 
@@ -2397,25 +2390,32 @@
             <li>
                 Todas las referencias sobre Precios -o rentabilidades- que se muestran en la Web,
                 son Precios de Cierre –end of day- de la sesión regular del mercado.<br>
-                A efectos de la ejecución de operaciones significa que debería hacer las operaciones de compra o venta el día indicado
+                A efectos de la ejecución de operaciones significa que debería hacer las operaciones de compra o venta
+                el día indicado
                 <em>“hacia el final de la sesión”.</em>
-            </li></ul>
+            </li>
+        </ul>
 
         </p>
         <p style="text-decoration: underline">
             Ejemplo:
         </p>
+
         <p>
             Observar el siguiente Calendario:
         </p>
 
 
         <p class="public-images"><img src="assets/img/services/detailed_description/calendar1.png"></p>
-        <p>La primera línea del calendario indica una Compra de acciones de la compañía <strong>“Coal of Africa” </strong>
-            que cotiza en Australia <strong>–AX-</strong> y está planificada para el domingo 13 octubre 2013. Como es festivo,
+
+        <p>La primera línea del calendario indica una Compra de acciones de la compañía <strong>“Coal of
+            Africa” </strong>
+            que cotiza en Australia <strong>–AX-</strong> y está planificada para el domingo 13 octubre 2013. Como es
+            festivo,
             la entrada u operación de Compra se trasladará al día laborable lunes 14. En sentido estricto se
             debería ejecutar la operación hacia la hora de cierre del mercado o 16:11 EST –Eastern Standard Time-
             New South Wales.</p>
+
         <p>
             Haciendo clic sobre la celda “Compañía” se accede a tabla Detalle de la estrategia y grafo de evolución.
         </p>
@@ -2424,98 +2424,138 @@
     </div>
 
 </div>
-<div class="anchor-detailed" id="suscriptions" >
+<div class="anchor-detailed" id="suscriptions">
     <div>
-        <p class="text-block-title">Mis Suscripciones</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+        <span class="text-block-title">Mis Suscripciones</span>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum</p>
 
     </div>
 
 </div>
-<div class="anchor-detailed" id="account"  >
+<div class="anchor-detailed" id="account">
 
     <div>
-        <p class="text-block-title">Mi Cuenta
-        </p>
+        <span class="text-block-title">Mi Cuenta
+        </span>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,
             sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,
             sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,
             sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,
             sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,
             sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,
             sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,
             sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,
             sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,
             sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
             magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis
             aute irure dolor
             in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident,

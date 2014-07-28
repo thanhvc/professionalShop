@@ -1,21 +1,24 @@
-<div class="public-zone-text container" style="padding-top:40px;" ng-controller="HomeCtrl">
+<div class="public-zone-text container" style="padding-top:40px;" >
 
-    <table class="table-page-index" style="width:110px; margin-top: 0px; margin-right: 15px;">
+    <table class="table-page-index" style="width:110px; margin-top: 0px; margin-right: 15px;" ng-class="{'menu-position' : boolChangeClassDetailed,   'menu-fix' : positionFix}">
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('brokers')">
+                <div class="page-index-resource" ng-click="scrollTo('brokers'); selectedOption = 'brokers';"
+                     ng-class="{'orange-text': selectedOption =='brokers'}">
                         Brokers
                 </div>
             </td>
         </tr>
         <td>
-            <div class="page-index-resource" ng-click="scrollTo('financial-services')">
+            <div class="page-index-resource" ng-click="scrollTo('financial-services'); selectedOption = 'financial-services';"
+                 ng-class="{'orange-text': selectedOption =='financial-services'}" >
                         Financial Services
             </div>
         </td>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('training')">
+                <div class="page-index-resource" ng-click="scrollTo('training'); selectedOption = 'training';"
+                     ng-class="{'orange-text': selectedOption =='training'}"  >
 
                         Training
                 </div>
@@ -23,7 +26,8 @@
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('providers')" >
+                <div class="page-index-resource" ng-click="scrollTo('providers'); selectedOption = 'providers';"
+                     ng-class="{'orange-text': selectedOption =='providers'}"   >
 
                     Data Provider
 
@@ -32,14 +36,16 @@
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('software')">
+                <div class="page-index-resource" ng-click="scrollTo('software'); selectedOption = 'software';"
+                     ng-class="{'orange-text': selectedOption =='software'}" >
                     Software
                 </div>
             </td>
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('books')">
+                <div class="page-index-resource" ng-click="scrollTo('books'); selectedOption = 'books';"
+                     ng-class="{'orange-text': selectedOption =='books'}" >
                     Books, Journals, Magazines
                 </div>
             </td>
@@ -48,7 +54,8 @@
 
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('conferences')">
+                <div class="page-index-resource" ng-click="scrollTo('conferences'); selectedOption = 'conferences';"
+                     ng-class="{'orange-text': selectedOption =='conferences'}"  >
 
                         Conferences, Meetings
 
@@ -59,7 +66,8 @@
 
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('books2')">
+                <div class="page-index-resource" ng-click="scrollTo('books2'); selectedOption = 'books2';"
+                     ng-class="{'orange-text': selectedOption =='books2'}"  >
                     Information Tech. Companies
                 </div>
             </td>
