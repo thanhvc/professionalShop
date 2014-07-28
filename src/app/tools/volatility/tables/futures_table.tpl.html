@@ -19,7 +19,7 @@
                 <span style="padding-left: 15px;">Fav.</span>
                 <div c style="display:none;">
                     <div >PREV</div>
-                    <div">Favoritos</div>
+                    <div>Favoritos</div>
                 </div>
             </th>
         </tr>
@@ -41,7 +41,7 @@
                 <a ng-click="loadGraphic($event,data.vol)" >{{data.asset.volatility | number:0}}</a>
             </td>
             <td style="width: 62px;" class="table-cell-patterns border-right-table">
-                <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
+                <div class="current-favourite" ng-class="{'favourite-added': data.Fav == 'true'}"></div>
             </td>
         </tr>
         </tbody>

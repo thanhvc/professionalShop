@@ -12,7 +12,7 @@
         <p><a ng-click="openModalInstance('services/detailed_description/volatility')">Más información.</a></p>
             <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
     </div>
-    <div style="margin-top: 27px;margin-left: 67px">
+    <div class="volatility-content">
         <tabset>
             <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
                  active="ctab.active" disabled="tab.disabled">
