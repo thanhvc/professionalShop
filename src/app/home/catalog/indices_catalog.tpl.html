@@ -22,6 +22,7 @@
     <div class="header-catalog-table">
         <div class="catalog-filter">
             <input placeholder="Nombre" ng-model="filterOptions.filters.filterName" ng-change="search();">
+            <!--
             <select ng-model="filterOptions.filters.selectedSector" ng-change="selectSector()" >
                 <option value="">- Elegir Sector -</option>
                 <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
@@ -35,7 +36,7 @@
                         ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}">
                     {{item.description}}
                 </option>
-            </select>
+            </select>-->
             <select ng-model="filterOptions.filters.durationInterval" ng-change="search();">
                 <option selected="selected" value="">- Elegir duración -</option>
                 <option value="[*/1]">Hasta 1 mes</option>
@@ -54,11 +55,10 @@
             N&uacute;mero total de patrones: {{results}}; Patrones encontrados: {{found}}
         </div>
     </div>
-    <table class="patterns-table-catalog">
+    <table class="patterns-table-index-catalog">
         <tr>
             <th>Patr&oacute;n Acciones</th>
             <th>Mercado</th>
-            <th>Sector / Industria</th>
             <th colspan="2">N&uacute;mero de A&ntilde;os</th>
             <th colspan="2">Rentabilidad (%)</th>
             <th>Duraci&oacute;n</th>
@@ -68,8 +68,7 @@
         <tr>
             <th>Nombre</th>
             <th>C&oacute;digo</th>
-            <th></th>
-            <th>Ganancia</th>
+            <th >Ganancia</th>
             <th>Pérdida</th>
             <th>Acumulada</th>
             <th>Promedio</th>
@@ -78,12 +77,9 @@
             <th></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 33}}</span></td>
+            <td style="width: 446px;"><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 33}}</span></td>
             <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
-            <td><span tooltip-html-unsafe="{{pattern.asset.exchange.sector}}">{{pattern.asset.sector}} </span>
-                <span ng-show="pattern.asset.sector != null && pattern.asset.industry != null">/</span>
-                <span tooltip-html-unsafe="{{pattern.asset.exchange.industry}}">{{pattern.asset.industry}}</span></td>
-            <td>{{pattern.win | twoDecimals}}</td>
+            <td >{{pattern.win | twoDecimals}}</td>
             <td>{{pattern.loss | twoDecimals}}</td>
             <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
             <td>{{pattern.averageReturn | twoDecimals}}</td>
