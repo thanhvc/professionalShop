@@ -7,14 +7,14 @@ angular.module('ngMo.my_subscriptions', [
 
     .config(function config($stateProvider) {
         $stateProvider.state('my-subscriptions', {
-            url: '/my-subscriptions',
+            url: '/my-packs',
             views: {
                 "main": {
                     controller: 'MySubscriptionsCtrl',
                     templateUrl: 'my_subscriptions/my_subscriptions.tpl.html'
                 },
                 "my-subscriptions-view@my-subscriptions": {
-                    templateUrl: 'my_subscriptions/my-subscriptions-table.tpl.html'
+                    templateUrl: 'my_subscriptions/my-packs-table.tpl.html'
                 }
             },
             data: {
@@ -23,7 +23,7 @@ angular.module('ngMo.my_subscriptions', [
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu',
-                subPage: 'my-subscriptions',
+                subPage: 'my-packs',
                 d:'text'
             },
             resolve:{
