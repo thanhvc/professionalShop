@@ -1,6 +1,7 @@
 <div >
-    <div ng-show="subPage == 'my-subscriptions'" class="super-border private-black-title">Mis Suscripciones</div>
     <div ng-show="subPage == 'my-packs'" class="super-border private-black-title">Mis Packs</div>
+    <div ng-show="subPage == 'my-subscriptions'" class="super-border private-black-title">Mis Suscripciones</div>
+
     <div class="private-container-text">
         <p>Permite la gestión de suscripciones, controlar las que están en vigor, realizar nuevas Compras o cancelar anticipadamente.</p>
         <div ng-show="subPage == 'my-subscriptions'">
@@ -28,14 +29,6 @@
         <table class="table-page-index" style="margin-top:0;width: 115px;">
             <tr>
                 <td>
-                      <span ng-controller="MySubscriptionsCtrl"><a ui-sref="my-subscriptions.my-subscriptions" ng-class="{'orange-text': subPage == 'my-subscriptions'}">
-                          Mis Subscripciones
-                      </a>
-                        </span>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <span ng-controller="MyPacksCtrl"><a ui-sref="my-subscriptions.my-packs" ng-class="{'orange-text': subPage == 'my-packs'}">
                         Mis Packs
                     </a>
@@ -43,6 +36,15 @@
 
                 </td>
             </tr>
+            <tr>
+                <td>
+                      <span ng-controller="MySubscriptionsCtrl"><a ui-sref="my-subscriptions.my-subscriptions" ng-class="{'orange-text': subPage == 'my-subscriptions'}">
+                          Mis Subscripciones
+                      </a>
+                        </span>
+                </td>
+            </tr>
+
         </table>
 
         <div class="submenu-content" style="width:810px;" ui-view="my-subscriptions-view">
