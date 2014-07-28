@@ -246,7 +246,7 @@ angular.module('ngMo.services', [
         $scope.location = $location;
             angular.element($window).bind("scroll", function(scope, element, attrs) {
 
-                if ((location.hash.indexOf("#/detailed_description") == -1) && (location.hash.indexOf("#/summary") == -1)) {
+                if ((location.hash.indexOf("#/detailed_description") == -1)  && ((location.hash.indexOf("#/summary") == -1) && (location.hash.indexOf("#/resources") == -1))) {
                     return; //only in detailed description url
                 }
                 //menu position
@@ -293,20 +293,18 @@ angular.module('ngMo.services', [
             console.log("loaded");
             subRoute =location.hash.split("#/detailed_description#");
             if (subRoute.length == 1) {
-                //if detailed_description is not the actual page, the length is 1... so we must check if is summary page
+                //if detailed_description is not the actual page, the length is 1... so we must check if is summary page or resources page
                 subRoute =location.hash.split("#/summary#");
+                if (subRoute.length == 1) {
+                    //if detailed_description is not the actual page, the length is 1... so we must check if is summary page
+                    subRoute = location.hash.split("#/resources#");
+                }
             }
             if (subRoute.length == 2) {
                 subRoute = subRoute[1];
                 if (subRoute === ""){
                     return;
                 } else {
-                    console.log(subRoute);
-                    if (document.getElementById(subRoute) == null) {
-                        console.log("element doestn exist");
-                    } else {
-                        console.log(subRoute + " exists!!!");
-                    }
                     if ((typeof $scope.anchors === 'undefined') || ($scope.anchors == null) ) {
                         $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
                     }
