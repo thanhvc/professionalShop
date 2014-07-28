@@ -10,12 +10,13 @@ angular.module('ngMo.services', [
             url: '/summary',
             views: {
                 "main": {
-                    controller: 'ServicesCtrl',
+                    controller: 'DetailedCtrl',
                     templateUrl: 'services/summary/summary.tpl.html'
-                },
+                }
+                /*,
                 'sum-view@summary': {
                     templateUrl: 'services/summary/sub-summary.tpl.html'
-                }
+                }*/
             },
             data: {
                 pageTitle: 'Resumen',
@@ -27,7 +28,7 @@ angular.module('ngMo.services', [
             }
         })
             //substates of summary
-            .state('summary.basic', {
+            /*.state('summary.basic', {
                 url: '/basic',
                 views: {
                     "sum-view": {
@@ -48,7 +49,7 @@ angular.module('ngMo.services', [
                 data: {
                     subPage: 'diary'
                 }
-            })
+            })*/
             .state('products_and_exchanges', {
                 url: '/products_and_exchanges',
                 views: {
@@ -241,10 +242,11 @@ angular.module('ngMo.services', [
         return function(scope, element, attrs) {*/
     .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService){
         $scope.scrollTo = AnchorLinkService.scrollTo;
+        $scope.anchors = null;
         $scope.location = $location;
             angular.element($window).bind("scroll", function(scope, element, attrs) {
 
-                if (location.hash.indexOf("#/detailed_description") == -1) {
+                if ((location.hash.indexOf("#/detailed_description") == -1) && (location.hash.indexOf("#/summary") == -1)) {
                     return; //only in detailed description url
                 }
                 //menu position
@@ -265,7 +267,7 @@ angular.module('ngMo.services', [
 
                 //scrollSpy
                 //Obtain anchors
-                if (typeof $scope.anchors === 'undefined') {
+                if ((typeof $scope.anchors === 'undefined') ||  ($scope.anchors  == null) ) {
                     $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
                 }
 
@@ -290,6 +292,10 @@ angular.module('ngMo.services', [
         angular.element(document).ready(function () {
             console.log("loaded");
             subRoute =location.hash.split("#/detailed_description#");
+            if (subRoute.length == 1) {
+                //if detailed_description is not the actual page, the length is 1... so we must check if is summary page
+                subRoute =location.hash.split("#/summary#");
+            }
             if (subRoute.length == 2) {
                 subRoute = subRoute[1];
                 if (subRoute === ""){
@@ -301,7 +307,7 @@ angular.module('ngMo.services', [
                     } else {
                         console.log(subRoute + " exists!!!");
                     }
-                    if (typeof $scope.anchors === 'undefined') {
+                    if ((typeof $scope.anchors === 'undefined') || ($scope.anchors == null) ) {
                         $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
                     }
                     for (var j = 1; j < $scope.anchors.length-1; j++) {

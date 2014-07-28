@@ -1,9 +1,11 @@
-<div class="public-zone-text container" ng-controller="HomeCtrl">
+<div class="public-zone-text container" >
 
-    <table class="table-page-index">
+    <div class="lat-menu-detailed-nav">
+    <table class="table-page-index"   ng-class="{'menu-position' : boolChangeClassDetailed,   'menu-fix' : positionFix}">
         <tr>
             <td>
-                  <span><a ui-sref="summary.basic" ng-class="{'orange-text': subPage == 'basic'}">
+                  <span><a ng-click="scrollTo('basic'); selectedOption = 'basic';"
+                           ng-class="{'orange-text': selectedOption =='basic'}">
                         Informaci&oacute;n b&aacute;sica de un patr&oacute;n
                   </a>
                     </span>
@@ -11,7 +13,8 @@
         </tr>
         <tr>
             <td>
-                <span><a ui-sref="summary.diary" ng-class="{'orange-text': subPage == 'diary'}">
+                <span><a ng-click="scrollTo('diary'); selectedOption = 'diary';"
+                         ng-class="{'orange-text': selectedOption =='diary'}">
                     Seguimiento Diario
                     </a>
                  </span>
@@ -19,10 +22,109 @@
             </td>
         </tr>
     </table>
+    </div>
 
-    <div class="submenu-content" ui-view="sum-view">
+    <!--<div class="submenu-content" ui-view="sum-view">
+
+    </div>-->
+
+    <div class="submenu-content content-detailed">
+        <div id="basic" class="anchor-detailed">
+
+            <p class="text-block-title">Informaci&oacute;n b&aacute;sica de un Patr&oacute;n</p>
+
+            <p>
+                Ejemplo Gr&aacute;fico de Patr&oacute;n. Expone el patr&oacute;n de la Compa&ntilde;&iacute;a en
+                los &uacute;ltimos 15 a&ntilde;os -en marr&oacute;n- y la evoluci&oacute;n de la cotizaci&oacute;n actual del a&ntilde;o en curso
+                -en azul-, marcando el periodo para invertir -en fondo coloreado-.
+            </p>
+            <p>
+                <img src="assets/img/services/summary/basic-info1.png" width="750">
+            </p>
+            <p>
+                Para saber m&aacute;s sobre este gr&aacute;fico <a href="#/detailed_description#basic">leer</a>
+            </p>
+            <p>
+                Ejemplo Informe de Seguimiento Diario. Muestra lista de estrategias en vigor, con las fechas de Entrada o apertura,
+                fecha esperada de Salida o cierre, la fecha actual y cotizaci&oacute;n &uacute;ltima:
+
+            </p>
+            <p>
+                <img src="assets/img/services/summary/basic-info2.png" width="750">
+            </p>
+            <p>
+                Para saber m&aacute;s sobre esta tabla <a href="#/detailed_description#diary">leer</a> <!--<a ui-sref="detailed_description.diary">leer</a>-->
+            </p>
+        </div>
+
+
+    <div id="diary" class="anchor-detailed">
+
+        <p class="text-block-title">Seguimiento Diario</p>
+
+        <p class="orange-title">
+            Fases Principales del Servicio
+        </p>
+
+        <p>
+            Una vez comprada una suscripci&oacute;n puede acceder al web como cliente para gestionar y analizar de forma sencilla y
+            profesional todas las estrategias -o patrones- de cualquiera de los Activos adquiridos. Para facilitar
+            la toma de decisiones Market Observatory proporciona el siguiente conjunto de herramientas y funcionalidades:
+        <ol class="ordered-list-first-level">
+            <li>
+                <b>Mis Patrones</b> contiene lista de Activos contratados. Permite tomar decisiones sobre sectores de negocio, tipo
+                de
+                industrias, plazos para colocar el dinero o perfil de riesgo
+            </li>
+            <li>
+                <b>Seguimiento Diario</b> permite vigilancia y control de estrategias en curso. El uso de Alarmas, informes y
+                gr&aacute;fico
+                s diarios, permite seguimiento de inversiones con stop loss, stop de beneficios o ajuste del timing de las
+                operaciones.
+            </li>
+            <li>
+                <b>Hist&oacute;rico</b> incluye estrategias reci&eacute;n concluidas permitiendo evaluar los resultados conseguidos bien por el
+                servicio y por las potenciales inversiones que haya realizado.
+            </li>
+            <li>
+                La Herramienta de <b>Gesti&oacute;n de Carteras</b> eval&uacute;a y valora estrategias as&iacute; como los Componentes de una Cartera
+                asignando a cada uno, porcentaje y cantidad de efectivo.
+            </li>
+            <li>
+                La Herramienta de <b>An&aacute;lisis de Volatilidad</b> posibilita adaptar el perfil de riesgo de un inversor versus
+                estrategias,
+                para obtener una cartera &oacute;ptima
+            </li>
+            <li>
+                La Herramienta de <b>An&aacute;lisis de Correlaci&oacute;n</b> permite una correcta diversificaci&oacute;n de activos.
+            </li>
+            <li>
+                <b>Calendario</b> es la agenda de Entradas -aperturas- y Salidas -cierres- de operaciones basadas en patrones.
+            </li>
+            <li>
+                <b>La Semana</b> contiene las estad&iacute;sticas de la semana actual y d&iacute;as en curso sobre los principales indicadores
+                mundiales de Bolsa y Commodities. La utilidad es muy diversa sirviendo para ajustar el timing de operaciones
+                de compra o venta o para operar con spread o pares.
+            </li>
+            <li>
+                <b>Suscripciones</b> incluye apartado de gesti&oacute;n de suscripciones en curso y un Mapa de Compras de f&aacute;cil uso
+                para futuras compras.
+            </li>
+            <li>
+                <b>Mi Cuenta</b> permite gestionar historial de &oacute;rdenes, compras, pagos, as&iacute; como usuarios y contrase&ntilde;as.
+            </li>
+
+        </ol>
+        </p>
+        <p>
+            <a ui-sref="detailed_description" onclick="scrollTo('diary');">Mas informaci&oacute;n</a>
+        </p>
 
     </div>
+
+
+
+</div>
 
 </div>
 
