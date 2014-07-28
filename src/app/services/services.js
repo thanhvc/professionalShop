@@ -248,11 +248,6 @@ angular.module('ngMo.services', [
                     return; //only in detailed description url
                 }
                 //menu position
-                /*if (this.pageYOffset >= 27845) {
-                 scope.boolChangeClassDetailed = true;
-                 } else {
-                 scope.boolChangeClassDetailed = false;
-                 }*/
                 var footerPosition = document.getElementsByClassName("footer")[0].offsetTop;
                 var footerHeight = document.getElementsByClassName("footer")[0].offsetHeight;
                 if (window.pageYOffset >= 150) {
@@ -284,49 +279,12 @@ angular.module('ngMo.services', [
                     for (var j = 1; j < $scope.anchors.length-1; j++) {
                         if (window.pageYOffset >= $scope.anchors[j].position && window.pageYOffset < $scope.anchors[j + 1].position) {
                             $scope.selectedOption = $scope.anchors[j].id;
-                            //added
-                            //$scope.location.hash($scope.selectedOption);
                         }
                     }
                 }
 
             });
-/*
-        $scope.contentLoaded = 0;
-        //event launched when the content of all ng-cinlude are rendered
-        $scope.$on('$includeContentLoaded', function(event,$location) {
-            setTimeout(function(){
-                //when the 15 ngInclude are rendered, will load the hash
-                $scope.contentLoaded++;
-                if ($scope.contentLoaded == 15) {
-                    subRoute =location.hash.split("#/detailed_description#");
-                    if (subRoute.length == 2) {
-                        subRoute = subRoute[1];
-                        if (subRoute === ""){
-                            return;
-                        } else {
-                            console.log(subRoute);
-                            if (document.getElementById(subRoute) == null) {
-                                console.log("element doestn exist");
-                            } else {
-                                console.log(subRoute + " exists!!!");
-                            }
-                            if (typeof $scope.anchors === 'undefined') {
-                                $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
-                            }
-                            for (var j = 1; j < $scope.anchors.length-1; j++) {
-                                if ($scope.anchors[j].id === subRoute) {
-                                    $scope.selectedOption = $scope.anchors[j].id;
-                                    window.scrollTo(0,$scope.anchors[j].position);
-                                }
-                            }
-                        }
-                    }
-                }
-            },1000);
 
-        });
-        */
 
         //try when 1 page
         angular.element(document).ready(function () {

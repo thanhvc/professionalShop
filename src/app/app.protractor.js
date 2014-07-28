@@ -8,12 +8,14 @@ var App = function(){
 
     this.open = function(){
 
-        browser.get('http://api.mo.devel.edosoftfactory.com/#/home');
+        browser.get('http://mo.devel.edosoftfactory.com/#/home');
+
+
         browser.ignoreSynchronization = true;
     };
 
     this.clickF = function(){
-        element(by.css(".no-logged-box")).click();
+        element(by.css('.no-logged-box')).click();
     };
 
     this.fadeIn = function(){
@@ -45,7 +47,7 @@ describe('The login box', function() {
 
     it('should fade out', function () {
         a.fadeOut();
-        //expect(browser.isElementPresent(by.css('.sign-in-box'))).not.toBeDefined();
+       // expect(browser.isElementPresent(by.css('.sign-in-box'))).not.toBeDefined();
     });
 });
 

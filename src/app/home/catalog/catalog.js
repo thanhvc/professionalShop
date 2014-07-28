@@ -26,21 +26,10 @@ angular.module('ngMo.catalog', [
                     filterOptions = {
                         filters: {
                             filterName: "",
-                            selectedRegion: "",
-                            selectedMarket: "",
                             selectedSector: "",
                             selectedIndustry: "",
-                            selectedOperation: "",
-                            selectedRent: "",
-                            rentInput: "",
-                            selectedAverage: "",
-                            rentAverageInput: "",
-                            selectedRentDiary: "",
-                            rentDiaryInput: "",
-                            selectedVolatility: "",
-                            volatilityInput: "",
-                            selectedDuration: "",
-                            durationInput: "",
+                            volatilityInterval: "",
+                            durationInterval: "",
                             index_type: "",
                             active_tab: "",
                             packCode: $stateParams.packCode,
@@ -82,12 +71,25 @@ angular.module('ngMo.catalog', [
             var deferred = $q.defer();
             var data;
             var urlParam = this.createParamsFromFilter(filtering);
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
 
             config = {
                 params: {
                     'page': page,
                     'packCode': filtering.packCode,
-                    'month': filtering.month
+                    'month': filtering.month,
+                    'year': filtering.month.year,
+                    'name': filtering.filterName,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'volatilityInterval': filtering.volatilityInterval,
+                    'durationInterval': filtering.durationInterval
                 }
             };
 
@@ -163,20 +165,10 @@ angular.module('ngMo.catalog', [
         $scope.filterOptions = {
             filters: {
                 filterName: "",
-                selectedRegion: "",
-                selectedMarket: "",
                 selectedSector: "",
                 selectedIndustry: "",
-                selectedOperation: "",
-                selectedRent: "",
-                rentInput: "",
-                selectedAverage: "",
-                rentAverageInput: "",
-                selectedRentDiary: "",
-                rentDiaryInput: "",
-                selectedVolatility: "",
-                volatilityInput: "",
-                selectedDuration: "",
+                volatilityInterval: "",
+                durationInterval: "",
                 durationInput: "",
                 index_type: TabsService.getActiveIndexType(),
                 active_tab: ActiveTabService.activeTab(),
@@ -185,19 +177,15 @@ angular.module('ngMo.catalog', [
             },
             selectors: {
                 sectors: [
-                    {"id": 1, "description": "Sector1"},
-                    {"id": 2, "description": "Sector2"}
                 ],
 
                 industries: [
-                    {"id": 1, "description": "Industry1"},
-                    {"id": 2, "description": "Industry2"}
                 ]
 
             }
         };
 
-        $scope.loadPatterns = function () {
+        $scope.loadPage = function () {
             var data = SelectedPackService.obtainPatternsPack($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                 $scope.selectedPack = data.pack;
                 $scope.startDate = data.startDate;
@@ -218,18 +206,32 @@ angular.module('ngMo.catalog', [
             });
         };
 
+        $scope.search = function () {
+            $scope.pagingOptions.currentPage = 1;
+            $scope.loadPage();
+        };
+
         $scope.setPage = function (page) {
             $scope.pagingOptions.currentPage = page;
-            $scope.loadPatterns();
+            $scope.loadPage();
         };
 
         //if the preload input is already, dont load patterns..
         if ($scope.selectedPack == null) {
-            $scope.loadPatterns();
+            $scope.loadPage();
         }
 
         $scope.getContentUrl = function () {
             return urlTemplatesCatalogTexts[$scope.selectedTab].url;
+        };
+
+        //only used in stock
+        $scope.refreshSector = function () {
+            $scope.refreshSelectors(['industries']);
+        };
+        $scope.selectSector = function () {
+            $scope.refreshSector();
+            $scope.applyFilters();
         };
 
     }
