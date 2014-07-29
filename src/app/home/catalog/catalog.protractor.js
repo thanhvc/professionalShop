@@ -21,7 +21,7 @@ var Cart = function() {
 
     this.open = function () {
 
-        browser.get('http://api.mo.devel.edosoftfactory.com/#/catalog/1');
+        browser.get('http://mo.devel.edosoftfactory.com/#/catalog/1');
         browser.ignoreSynchronization = true;
     };
 

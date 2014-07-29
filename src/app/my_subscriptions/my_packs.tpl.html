@@ -1,4 +1,4 @@
-<div >
+<div ng-controller="MySubscriptionsCtrl">
     <div ng-show="subPage == 'my-subscriptions'" class="super-border private-black-title">Mis Suscripciones</div>
     <div ng-show="subPage == 'my-packs'" class="super-border private-black-title">Mis Packs</div>
     <div class="private-container-text">
@@ -15,20 +15,20 @@
         <div ng-show="subPage == 'my-packs'">
             <p class="orange-title">Mis Suscripciones</p>
             <p>
-                <ul class="public-list-first-level">
-                    <li>Para evitar interrupción del servicio al expirar la suscripción, active el modo de Renovar automáticamente.</li>
-                    <li>Para cancelar de forma anticipada haga click en Cancelar. Lea <a ng-controller="AppCtrl" ng-click="openModalInstance('subscriptions_and_prices/subscription_types/subscription_types')">política de cancelación.</a></li>
-                </ul>
+            <ul class="public-list-first-level">
+                <li>Para evitar interrupción del servicio al expirar la suscripción, active el modo de Renovar automáticamente.</li>
+                <li>Para cancelar de forma anticipada haga click en Cancelar. Lea <a ng-controller="AppCtrl" ng-click="openModalInstance('subscriptions_and_prices/subscription_types/subscription_types')">política de cancelación.</a></li>
+            </ul>
             </p>
         </div>
     </div>
 
-    <div class="container" style="clear:both;">
+    <!--<div class="container" style="clear:both;">
 
         <table class="table-page-index" style="margin-top:0;width: 115px;">
             <tr>
                 <td>
-                      <span ng-controller="MySubscriptionsCtrl"><a ui-sref="my-subscriptions.my-subscriptions" ng-class="{'orange-text': subPage == 'my-subscriptions'}">
+                      <span><a ui-sref="my-subscriptions.my-subscriptions" ng-class="{'orange-text': subPage == 'my-subscriptions'}">
                           Mis Subscripciones
                       </a>
                         </span>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>
-                    <span ng-controller="MyPacksCtrl"><a ui-sref="my-subscriptions.my-packs" ng-class="{'orange-text': subPage == 'my-packs'}">
+                    <span><a ui-sref="my-subscriptions.my-packs" ng-class="{'orange-text': subPage == 'my-packs'}">
                         Mis Packs
                     </a>
                      </span>
@@ -49,5 +49,5 @@
 
         </div>
 
-    </div>
+    </div>-->
 </div>

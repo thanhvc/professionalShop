@@ -23,7 +23,31 @@ angular.module('ngMo.my_subscriptions', [
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu',
-                subPage: 'my-subscriptions'
+                subPage: 'my-subscriptions',
+                d:'text'
+            },
+            resolve:{
+                MonthSelectorService: "MonthSelectorService",
+                TabsService: "TabsService",
+                filtering : function(TabsService,MonthSelectorService){
+                    return {
+                        active_tab: TabsService.getActiveTab(),
+                        month: "January"
+                        //month: MonthSelectorService.restartDate()
+                    };
+                },
+                myPatternsData: function(VolatilityService, filtering) {
+                    return VolatilityService.getPagedDataAsync(1, filtering).then(function (data){
+                        return {
+                            d: data.patterns,
+                            patterns: data.patterns,
+                            results: data.results,
+                            found: data.found
+                        };
+
+                    });
+                }
+
             }
         })
             //substates of my-subscriptions
@@ -58,7 +82,7 @@ angular.module('ngMo.my_subscriptions', [
     .run(function run() {
     })
 
-    .service('MyPacksService', function (){
+   /* .service('MyPacksService', function (){
 
         //Dummies Packs
         var stocksPacks = [
@@ -124,7 +148,7 @@ angular.module('ngMo.my_subscriptions', [
             }
         ];
 
-        //******
+        /*//******
 
         this.obtainPacks = function (area) {
             switch (area){
@@ -141,8 +165,8 @@ angular.module('ngMo.my_subscriptions', [
             }
         };
     })
-
-    .service('MySubscriptionPacksService', function (){
+*/
+   .service('MySubscriptionPacksService', function (){
 
         //Dummies Packs
         var americanPacks = [
@@ -413,17 +437,235 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
-    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService) {
+    .service('MyPacksService', function($q,$http,$rootScope,$window){
+        this.getPagedDataAsync = function (page, filtering) {
+            var deferred = $q.defer();
+            var data;
+            var urlParam = this.createParamsFromFilter(filtering);
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+            config = {
+                params: {
+                    'page': page,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': "July",
+                    'year': "2014"
+                }
+            };
+
+            var result = $http.get($rootScope.urlService+'/pack').then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+
+                return response.data;
+            });
+            return result;
+        };
+
+        this.createParamsFromFilter = function (filtering) {
+            var urlParams = "";
+            for (var property in filtering) {
+                if (filtering.hasOwnProperty(property)) { //check if its a property (to exclude technicals property of js)
+                    // create the params
+                    if ((filtering[property] != null) && (filtering[property] !== "")) {
+                        urlParams += "&" + property + "=" + filtering[property];
+                    }
+                }
+            }
+            return urlParams;
+        };
+
+        this.obtainPacks = function (area) {
+            switch (area){
+                case 'america':
+                    return americanPacks;
+                case 'asia':
+                    return asiaPacks;
+                case 'europe':
+                    return europePacks;
+                case 'americaPairs':
+                    return americanPairsPacks;
+                case 'asiaPairs':
+                    return asiaPairsPacks;
+                case 'europePairs':
+                    return europePairsPacks;
+                case 'indices':
+                    return indicesPacks;
+                case 'pairs_indices':
+                    return pairs_indicesPacks;
+                case 'futures':
+                    return futuresPacks;
+            }
+        };
+
+        var stocksPacks = [
+            {
+                id: 1,
+                packName: "Canada",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            },
+            {
+                id: 2,
+                packName: "Estados Unidos Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            },
+            {
+                id: 3,
+                packName: "Latino América Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var pairsPacks = [
+            {
+                id: 1,
+                packName: "Estados Unidos Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            },
+            {
+                id: 2,
+                packName: "Estados Unidos Pack II",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var indicesPacks = [
+            {
+                id: 1,
+                packName: "INDICES Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var pairsIndicesPacks = [
+            {
+                id: 1,
+                packName: "PARES INDICES Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+
+        var futuresPacks = [
+            {
+                id: 1,
+                packName: "Futures Pack I",
+                startDate: new Date(2014, 05, 01),
+                finishDate: new Date(2014, 11, 01)
+            }
+        ];
+    })
+
+    .service('TabsService', function () {
+
+        /**Tabs services for private zone**/
+        var tabs = [
+            {
+                title: 'Acciones',
+                active: activeTab === 0,
+                value: 0
+            },
+            {
+                title: 'Par Acciones',
+                active: activeTab === 1,
+                value: 1
+            },
+            {
+                title: 'Indices',
+                active: activeTab === 2,
+                value: 2
+            },
+            {
+                title: 'Futuros',
+                active: activeTab === 3,
+                value: 3
+            }
+        ];
+
+        var indexTypes = [
+            {
+                title: "Indices",
+                active: activeIndex === 0,
+                value: 0
+            },
+            {
+                title: "Pares Indices",
+                active: activeIndex === 1,
+                value: 1
+
+            }
+        ];
+
+        var activeTab = 0;
+        var activeIndex = 0;
+
+        this.getIndexType = function () {
+            return indexTypes;
+        };
+
+        this.getActiveIndexType = function () {
+            return activeIndex;
+        };
+
+        this.changeActiveIndexType = function (active) {
+            activeIndex = active;
+        };
+
+        this.getTabs = function () {
+            return tabs;
+        };
+
+        this.getActiveTab = function () {
+            return activeTab;
+        };
+
+        this.changeActiveTab = function (active) {
+            activeTab = active;
+        };
+    })
+    .controller('MySubscriptionsCtrl', function ($scope, ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$rootScope,$http) {
+
+
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
             }
+
         });
+
+        $scope.loadPage = function () {
+            var defer = $q.defer();
+            var data = MyPacksService.getPagedDataAsync($q,$http,$rootScope,$window).then(function (data) {
+                $scope.myData = [data];//data.page;
+
+
+               /* $scope.results = data.results;//data.results;
+                $scope.found = data.found;//data.found;*/
+
+            });
+
+        };
+
+        $scope.loadPage();
 
         $scope.mySubscriptionsTablePacks = [
             {

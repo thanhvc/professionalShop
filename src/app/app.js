@@ -376,7 +376,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService) {
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
 
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
@@ -387,59 +387,6 @@ angular.module('ngMo', [
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
-
-            if (toState.name === 'faq') {
-                switch (fromState.name){
-                    case 'home':
-                        AnchorLinkService.scrollTo('home'); //home
-                        break;
-                    case 'organization':
-                    case 'what-is-and-what-is-not':
-                    case 'service-conditions':
-                    case 'data-protection': //market-observatory
-                        AnchorLinkService.scrollTo('market-observatory');
-                        break;
-                    case 'summary':
-                    case 'products-and-exchanges':
-                    case 'detailed-description':
-                    case 'fundamentals': //services
-                        AnchorLinkService.scrollTo('services');
-                        break;
-                    case 'stocks':
-                    case 'funds':
-                    case 'etf_cfd':
-                    case 'futures':
-                    case 'pairs':
-                    case 'advanced':
-                    case 'diversification':  //application-service
-                        AnchorLinkService.scrollTo('service-applications');
-                        break;
-                    case 'prices':
-                    case 'products':
-                    case 'subscription-types':
-                    case 'purchases':
-                    case 'free-subscription':
-                    case 'shopping-guide': //subscription-and-prices
-                        AnchorLinkService.scrollTo('subscriptions-and-prices');
-                        break;
-                    case 'resources':
-                    case 'articles':
-                    case 'symbols-and-exchanges':
-                    case 'mo-template-collections': //investor-tools
-                        AnchorLinkService.scrollTo('investor-tools');
-                        break;
-                    case 'support':
-                    case 'business':
-                    case 'job':
-                    case 'localization': //contact
-                        AnchorLinkService.scrollTo('contact');
-                        break;
-                    default:
-                        AnchorLinkService.scrollTo('home');
-                }
-
-                AnchorLinkService.scrollTo(fromState.name);
-            }
             $scope.selectMenu = toState.data.selectMenu;
             $scope.selectSubmenu = toState.data.selectSubmenu;
             $scope.selectItemSubmenu = toState.data.selectItemSubmenu;

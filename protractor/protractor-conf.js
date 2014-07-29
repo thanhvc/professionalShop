@@ -5,11 +5,11 @@ exports.config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
     suites: {
         homepage: '../src/app/home/*protractor.js',
-        //layout: '../src/app/*protractor.js',
-        //signup:' ../src/app/sign_up/*protractor.js',
+        layout: '../src/app/*protractor.js',
+        signup:' ../src/app/sign_up/*protractor.js',
         cart:' ../src/app/home/catalog/*protractor.js',
         menu:' ../src/app/layout_templates/*protractor.js',
-        //patterns:' ../src/app/my_patterns/*protractor.js',
+        patterns:' ../src/app/my_patterns/*protractor.js',
         volatility: ' ../src/app/tools/volatility/*protractor.js',
         packs: '../src/app/my_subscriptions/*protractor.js'
 
@@ -43,12 +43,12 @@ exports.config = {
          browserName:'firefox'
          }*/
     ],
-    onPrepare: function () {
+    /*onPrepare: function () {
         // The require statement must be down here, since jasmine-reporters
         // needs jasmine to be in the global and protractor does not guarantee
         // this until inside the onPrepare function.
         require('jasmine-reporters');
         jasmine.getEnv().addReporter(
             new jasmine.JUnitXmlReporter('e2e-test-results/', true, true));
-    }
+    }*/
 }
