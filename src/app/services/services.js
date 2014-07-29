@@ -263,20 +263,20 @@ angular.module('ngMo.services', [
 
                 //scrollSpy
                 //Obtain anchors
-                if (typeof anchors === 'undefined') {
-                    anchors = PositionAnchorsDetailed.getPositionAnchors();
+                if (typeof anchorsDetailed === 'undefined') {
+                    anchorsDetailed = PositionAnchorsDetailed.getPositionAnchors();
                 }
 
 
 
-                if (this.pageYOffset < anchors[0].position){
-                    scope.selectedOption = anchors[0].id;
-                }else if(this.pageYOffset > anchors[anchors.length-1].position) {
-                    scope.selectedOption = anchors[anchors.length-1].id;
+                if (this.pageYOffset < anchorsDetailed[0].position){
+                    scope.selectedOption = anchorsDetailed[0].id;
+                }else if(this.pageYOffset > anchorsDetailed[anchorsDetailed.length-1].position) {
+                    scope.selectedOption = anchorsDetailed[anchorsDetailed.length-1].id;
                 }else {
-                    for (var j = 1; j < anchors.length-1; j++) {
-                        if (this.pageYOffset >= anchors[j].position && this.pageYOffset < anchors[j + 1].position) {
-                            scope.selectedOption = anchors[j].id;
+                    for (var j = 1; j < anchorsDetailed.length-1; j++) {
+                        if (this.pageYOffset >= anchorsDetailed[j].position && this.pageYOffset < anchorsDetailed[j + 1].position) {
+                            scope.selectedOption = anchorsDetailed[j].id;
                         }
                     }
                 }
@@ -286,13 +286,13 @@ angular.module('ngMo.services', [
     })
     .service("PositionAnchorsDetailed", function() {
         this.getPositionAnchors = function() {
-            var anchors = document.getElementsByClassName("anchor-detailed");
+            var anchorsDetailed = document.getElementsByClassName("anchor-detailed");
             var positions = [];
-            for (var i = 0; i<anchors.length;i++){
+            for (var i = 0; i<anchorsDetailed.length;i++){
                 positions.push(
                     {
-                        "position": (anchors[i]).offsetTop,
-                        "id": (anchors[i]).getAttribute('id')
+                        "position": (anchorsDetailed[i]).offsetTop,
+                        "id": (anchorsDetailed[i]).getAttribute('id')
                     });
             }
             return positions;

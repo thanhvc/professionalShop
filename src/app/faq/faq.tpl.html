@@ -1,31 +1,36 @@
-<div class="public-zone-text container" ng-controller="HomeCtrl">
+<div class="lat-menu-detailed-nav" scroll-faq>
+    <table class="table-page-index-detailed" ng-class="{'menu-position' : boolChangeClassDetailed , 'menu-fix' : positionFix}">
+        <tr>
+            <td>
+                <a ng-click="scrollTo('home'); selectedOption = 'home';" ng-class="{'orange-text': selectedOption =='home'}">Principal</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('service-applications'); selectedOption = 'service-applications';" ng-class="{'orange-text': selectedOption =='service-applications'}">Aplicación del Servicio</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="content-detailed public-zone-text" ng-controller="HomeCtrl" style="margin-bottom: 20px;">
     <p class="text-block-title">FAQ</p>
 
-    <ol class="faq-index">
-        <li ng-click="scrollTo('faq1')">No localizo una compañía en los packs de un mes. ¿qué debo hacer?</li>
-        <li ng-click="scrollTo('faq2')">Mi intermediario financiero – bróker – no me permite invertir con ventas a corto ¿puedo elegir una suscripción con tan solo patrones alcistas?</li>
-        <li ng-click="scrollTo('faq3')">Al observar el nombre de las compañías que se publican durante un mes, a veces se repite el nombre de la compañía ¿esto es posible o es un error?</li>
-        <li ng-click="scrollTo('faq4')">¿Cómo usar los Patrones de Market Observatory conjuntamente con el Análisis Técnico?</li>
-        <li ng-click="scrollTo('faq5')">¿Es práctico usar las Fechas de Entrada y Salida directamente como se especifica en el Patrón?</li>
-        <li ng-click="scrollTo('faq6')">En la identificación de Patrones no se han considerado las Comisiones ¿No puede invalidar este hecho la rentabilidad de muchos Patrones?</li>
-        <li ng-click="scrollTo('faq7')">Hay Índices que no tienen instrumentos negociables. ¿Cómo se puede aprovechar la información de los Patrones en estos casos?</li>
-    </ol>
-
-
-    <p class="orange-title" id="faq1">No localizo una Compañía en los packs de un mes. ¿Qué debo hacer?</p>
+    <p class="orange-title anchor-faq" id="home">Principal</p>
+    <p><b>No localizo una Compañía en los packs de un mes. ¿Qué debo hacer?</b></p>
     <p>
         Lo que sucede es que la Compañía no tiene estrategias estadísticamente significativas durante ese mes y es el motivo para no publicarlo.
         Lo que debería hacer es consultar la web de Market Observatory en los próximos meses para ver si se publican patrones sobre la Compañía (u otras compañías de su interés) y cuando esto ocurra comprar una suscripción al Pack.
         Si en el futuro utiliza los servicios de Market Observatory siempre sabrá cuándo debe comprar y vender acciones de cualquier compañía. Comprará (y venderá) las acciones alrededor de las fechas indicadas por el servicio.
     </p>
-    <p class="orange-title" id="faq2">Mi Intermediario Financiero - Bróker - no me permite invertir con Ventas a corto ¿Puedo elegir una suscripción con tan solo Patrones Alcistas?</p>
+    <p><b>Mi Intermediario Financiero - Bróker - no me permite invertir con Ventas a corto ¿Puedo elegir una suscripción con tan solo Patrones Alcistas?</b></p>
 
     <p>
         Durante la suscripción no es posible diferenciar entre patrones Alcistas y Bajistas. Esta decisión tiene dos
 
         objetivos:
 
-        <ol>
+        <ol class="ordered-list-first-level">
             <li>Incluso para un ahorrador que solo toma posiciones al Alza –largas-, si su Compañía favorita tiene durante
 
             un periodo del año un Patrón Bajista, la información es útil para “retrasar sus Compras”.</li>
@@ -45,12 +50,12 @@
         exactamente igual que una Compra.
     </p>
 
-    <p class="orange-title" id="faq3">Al observar el nombre de las Compañías que se publican durante un mes, a veces se repite el Nombre de la Compañía
+    <p>Al observar el nombre de las Compañías que se publican durante un mes, a veces se repite el Nombre de la Compañía
 
         ¿esto es posible o es un error?</p>
 
     <p>No es un error. Lo que indica es que una compañía puede tener más de un Patrón por mes. Hay varios casos:</p>
-    <ol style="list-style-type: lower-alpha;">
+    <ol style="list-style-type: lower-alpha" class="ordered-list-letters">
         <li>Dos Patrones con igual tendencia. Por ejemplo, uno de ellos puede indicar una compra a “corto plazo” que
 
             dura 40 días y otro una compra a “largo plazo” superior a 6 meses.</li>
@@ -63,7 +68,8 @@
             iniciarse un patrón Alcista.</li>
     </ol>
 
-    <p class="orange-title" id="faq4">¿Cómo usar los Patrones de Market Observatory conjuntamente con el Análisis Técnico?</p>
+    <p class="orange-title anchor-faq" id="service-applications">Aplicación del Servicio</p>
+    <p><b>¿Cómo usar los Patrones de Market Observatory conjuntamente con el Análisis Técnico?</b></p>
     <p>En esencia un Patrón de Market Observatory indica el mejor periodo para hacer una inversión con fechas de
 
         apertura y cierre, pero las fechas son “aproximadas” en el sentido de que no todos los años, los suelos y techos del
@@ -96,7 +102,7 @@
 
         matemático- se estará disminuyendo el poder predictivo.</p>
 
-    <p class="orange-title" id="faq5">¿Es práctico usar las Fechas de Entrada y Salida directamente como se especifica en el Patrón?</p>
+    <p><b>¿Es práctico usar las Fechas de Entrada y Salida directamente como se especifica en el Patrón?</b></p>
     <p>A los patrones publicados por Market Observatory se les exige una frecuencia de aciertos o Fiabilidad 90 % y que
 
         con el objeto de descartar Patrones casuales, además hayan mantenido esa fiabilidad en fechas adyacentes a
@@ -112,7 +118,7 @@
         usar las fechas publicadas u otras que pivoten alrededor de ellas. Siempre es aconsejable observar los datos
 
         Fundamentales de las compañías y activos.</p>
-    <p class="orange-title" id="faq6">En la identificación de Patrones no se han considerado las Comisiones ¿No puede invalidar este hecho la rentabilidad de muchos Patrones?</p>
+    <p><b>En la identificación de Patrones no se han considerado las Comisiones ¿No puede invalidar este hecho la rentabilidad de muchos Patrones?</b></p>
     <p>Hay muy pocos casos publicados de estrategias de muy baja rentabilidad. Si para ponerlas en práctica usted
 
         utiliza un intermediario financiero de costes muy elevados –los hay-, pues el resultado podría reducirse de forma
@@ -127,7 +133,7 @@
 
         comisiones y todavía es más necesario que elija un bróker apropiado.</p>
 
-    <p class="orange-title" id="faq7">Hay Índices que no tienen instrumentos negociables. ¿Cómo se puede aprovechar la información de los Patrones en estos casos?</p>
+    <p><b>Hay Índices que no tienen instrumentos negociables. ¿Cómo se puede aprovechar la información de los Patrones en estos casos?</b></p>
     <p>Efectivamente, aunque el desarrollo de ETF’s está acelerándose –hay miles-, existen Índices que todavía no
 
         tiene instrumentos que se puedan negociar directamente o son muy ilíquidos. Una aproximación indirecta de
