@@ -24,7 +24,8 @@ angular.module('ngMo', [
         'gettext' ,
         'singUp',
         'auth',
-        'ngMo.Activate'
+        'ngMo.Activate',
+        'ngMo.detail'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
@@ -82,8 +83,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       //$rootScope.urlService = 'http://localhost:9000';
+       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       $rootScope.urlService = 'http://localhost:9000';
     })
 
     .service('ActiveTabService', function (){
@@ -1012,15 +1013,16 @@ angular.module('ngMo', [
                 if (typeof anchorsFaq === 'undefined') {
                     anchorsFaq = PositionAnchorsFaq.getPositionAnchors();
                 }
-
-                if (this.pageYOffset < anchorsFaq[0].position){
-                    scope.selectedOption = anchorsFaq[0].id;
-                }else if(this.pageYOffset > anchorsFaq[anchorsFaq.length-1].position) {
-                    scope.selectedOption = anchorsFaq[anchorsFaq.length-1].id;
-                }else {
-                    for (var j = 1; j < anchorsFaq.length-1; j++) {
-                        if (this.pageYOffset >= anchorsFaq[j].position && this.pageYOffset < anchorsFaq[j + 1].position) {
-                            scope.selectedOption = anchorsFaq[j].id;
+                if (typeof anchorsFaq !== 'undefined') {
+                    if (this.pageYOffset < anchorsFaq[0].position) {
+                        scope.selectedOption = anchorsFaq[0].id;
+                    } else if (this.pageYOffset > anchorsFaq[anchorsFaq.length - 1].position) {
+                        scope.selectedOption = anchorsFaq[anchorsFaq.length - 1].id;
+                    } else {
+                        for (var j = 1; j < anchorsFaq.length - 1; j++) {
+                            if (this.pageYOffset >= anchorsFaq[j].position && this.pageYOffset < anchorsFaq[j + 1].position) {
+                                scope.selectedOption = anchorsFaq[j].id;
+                            }
                         }
                     }
                 }
