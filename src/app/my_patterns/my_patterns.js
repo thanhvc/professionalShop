@@ -40,6 +40,13 @@ angular.module('ngMo.my_patterns', [
                     },{
                         id: 1,
                         "description": "something"}];
+                    //keep separatly in case of change
+                    var operations =  [{
+                        id: 0,
+                        "description": "something"
+                    },{
+                        id: 1,
+                        "description": "something"}];
 
                     return {
                         active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
@@ -55,7 +62,7 @@ angular.module('ngMo.my_patterns', [
                         selectedDuration: (typeof params.qseldur !== "undefined" ? selectors[parseInt(params.qseldur,10)] : "" ),
                         selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "" ),
                         selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
-                        selectedOperation: (typeof params.qop !== "undefined" ? params.qop : "" ),
+                        selectedOperation: (typeof params.qop !== "undefined" ? operations[parseInt(params.qop,10)] : "" ),
                         selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
                         selectedRent:  (typeof params.qselrent !== "undefined" ? selectors[parseInt(params.qselrent,10)] : "" ),
                         selectedRentDiary:  (typeof params.qseldiar !== "undefined" ? selectors[parseInt(params.qseldiar,10)] : "" ),
@@ -534,7 +541,7 @@ angular.module('ngMo.my_patterns', [
                 urlParamsSend.qindust = urlParams.selectedIndustry;
             }
             if (urlParams.selectedOperation) {
-                urlParamsSend.qop = urlParams.selectedOperation;
+                urlParamsSend.qop = urlParams.selectedOperation.id;
             }
             if (urlParams.selectedRent) {
                 urlParamsSend.qselrent = urlParams.selectedRent.id;
@@ -588,7 +595,7 @@ angular.module('ngMo.my_patterns', [
 
             var filters = {
                 filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
-                selectedOperation: (typeof params.qop !== "undefined" ? params.qop : "" ),
+                selectedOperation: (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" ),
                 selectedRent: (typeof params.qselrent !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselrent,10)] : "" ),
                 rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
                 selectedAverage: (typeof params.qselaver !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselaver,10)] : "" ),
@@ -757,7 +764,7 @@ angular.module('ngMo.my_patterns', [
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'operation': filtering.selectedOperation,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
                     'accumulatedReturn': (filtering.selectedRent  ? filtering.selectedRent.id : ""),
                     'accumulatedInput': filtering.rentInput,
                     'averageReturn': (filtering.selectedAverage  ? filtering.selectedAverage.id : ""),
