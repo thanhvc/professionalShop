@@ -47,11 +47,9 @@
             </td>
             <td>
                 <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
+                        ng-options="item.description for item in filterOptions.selectors.operations"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- Operacion -</option>
-                    <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}" ><!---->
-                        {{item.description}}
-                    </option>
                 </select>
             </td>
         </tr>
