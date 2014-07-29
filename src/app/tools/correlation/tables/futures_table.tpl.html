@@ -37,7 +37,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="pattern in correlationList">
-                <td>{{pattern.id}}</td>
+                <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName | limitTo: 25}}</td>
                 <td><span tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
                 <td>

@@ -83,8 +83,8 @@
         <th class="border-right-table"></th>
         <th class="sub-border-right-table"></th>
     </tr>
-    <tr ui-sref="detail({id: data.id})" ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
-        <td width="30" class="table-id-orange">
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="detail({patternId:data.id})">
+        <td width="30" class="table-id-orange" >
             {{data.id}}
         </td>
         <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
