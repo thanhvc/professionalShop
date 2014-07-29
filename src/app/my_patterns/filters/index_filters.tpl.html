@@ -13,12 +13,11 @@
             </td>
             <td>
 
-                <select ng-show="filterOptions.filters.index_type == 'index'"
+                <select ng-show="filterOptions.filters.index_type == '0'"
                         ng-change="applyFilters()" style="width: 100px;" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- Operacion -</option>
-                    <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}"
-                            ><!--ng-selected="{{item.id == filterOptions.filters.selectedOperation}}"-->
+                    <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}">
                         {{item.description}}
                     </option>
                 </select>

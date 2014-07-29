@@ -263,6 +263,9 @@ angular.module('ngMo.calendar', [
 
             var data = CalendarService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
+                    if (data.patterns.length > 0){
+
+                    }
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
@@ -308,12 +311,8 @@ angular.module('ngMo.calendar', [
             }
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
-                    $scope.refreshSelectors(['markets']);
-                    break;
-                case 1://pairs doesnt have markets
-                    $scope.refreshSelectors(['markets']);
-                    break;
-                case 3: //futures ONLY have markets
+                case 1:
+                case 3://futures ONLY have markets
                     $scope.refreshSelectors(['markets']);
                     break;
                 default://others doesnt have selectors to refresh
