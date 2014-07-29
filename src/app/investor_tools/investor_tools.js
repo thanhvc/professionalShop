@@ -10,7 +10,7 @@ angular.module('ngMo.investor_tools', [
             url: '/resources',
             views: {
                 "main": {
-                    controller: 'Investor_ToolsCtrl',
+                    controller: 'DetailedCtrl',
                     templateUrl: 'investor_tools/resources/resources.tpl.html'
                 }
             },

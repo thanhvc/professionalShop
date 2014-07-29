@@ -19,7 +19,7 @@
                 <span style="padding-left: 15px;">Fav.</span>
                 <div c style="display:none;">
                     <div >PREV</div>
-                    <div">Favoritos</div>
+                    <div>Favoritos</div>
                 </div>
             </th>
         </tr>
@@ -27,10 +27,10 @@
         <tbody>
         <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:11px;color:#996600 !important;">
             <td  style="text-align: left; width:330px;">
-                <span  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
+                <span class="cursor-help" tooltip="{{data.asset.longName}} {{data.asset.yearExpiration}}"  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
             </td>
             <td class="black-font-market" >
-                <span  >{{data.asset.exchange.symbol}}</span>
+                <span lass="cursor-help" tooltip="{{data.asset.exchange.name}}" >{{data.asset.exchange.symbol}}</span>
                 <div  style="display:none;">
                     <div ></div>
                     <div >London Stock Exchange</div>
@@ -41,7 +41,7 @@
                 <a ng-click="loadGraphic($event,data.vol)" >{{data.asset.volatility | number:0}}</a>
             </td>
             <td style="width: 62px;" class="table-cell-patterns border-right-table">
-                <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
+                <div class="current-favourite" ng-class="{'favourite-added': data.Fav == 'true'}"></div>
             </td>
         </tr>
         </tbody>
