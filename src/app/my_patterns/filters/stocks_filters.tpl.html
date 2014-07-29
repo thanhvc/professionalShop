@@ -26,7 +26,7 @@
                 </select>
             </td>
             <td>
-                <select disabled="{{filterOptions.filters.selectedRegion != ''}}" ng-change="selectSector()" class="border-filters select-filter"
+                <select ng-disabled="filterOptions.selectors.sectors.length <= 0" ng-change="selectSector()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedSector">
                     <option value="">- Sector -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
@@ -36,7 +36,7 @@
                 </select>
             </td>
             <td>
-                <select disabled="{{filterOptions.filters.selectedRegion != ''}}" ng-change="applyFilters()" class="border-filters select-filter"
+                <select ng-disabled="filterOptions.selectors.industries.length <= 0" ng-change="applyFilters()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedIndustry">
                     <option value="">- Industria -</option>
                     <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"

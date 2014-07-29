@@ -263,6 +263,9 @@ angular.module('ngMo.calendar', [
 
             var data = CalendarService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
+                    if (data.patterns.length > 0){
+
+                    }
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
