@@ -13,9 +13,8 @@ angular.module('ngMo.my_patterns', [
             views: {
                 "main": {
                     controller: 'PatternsCtrl',
-                    templateUrl: 'my_patterns/my_patterns.tpl.html',
-                    reloadOnSearch: false//with this option, the controller will not reload the page when it change
-                    //the params on url
+                    templateUrl: 'my_patterns/my_patterns.tpl.html'
+
                 }
             },
             data: {
@@ -25,15 +24,45 @@ angular.module('ngMo.my_patterns', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false,
+            reloadOnSearch: false,//with this option, the controller will not reload the page when it change
+            //the params on url
             resolve: {
                 MonthSelectorService: "MonthSelectorService",
                 PatternsService: "PatternsService",
                 TabsService: "TabsService",
-                filtering : function(TabsService,MonthSelectorService){
+                filtering : function(TabsService,MonthSelectorService,$location){
+
+                    var params = $location.search();
+                    //just to select a item like a selector for load params
+                    var selectors = [{
+                        id: 0,
+                        "description": "something"
+                    },{
+                        id: 1,
+                        "description": "something"}];
+
                     return {
-                        active_tab: TabsService.getActiveTab(),
-                        month: MonthSelectorService.restartDate()
+                        active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
+                        month: MonthSelectorService.restartDate(),
+                        durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
+                        favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
+                        filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
+                        index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
+                        rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
+                        rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
+                        rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
+                        selectedAverage: (typeof params.qselaver !== "undefined" ? selectors[parseInt(params.qselaver,10)] : "" ),
+                        selectedDuration: (typeof params.qseldur !== "undefined" ? selectors[parseInt(params.qseldur,10)] : "" ),
+                        selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "" ),
+                        selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
+                        selectedOperation: (typeof params.qop !== "undefined" ? params.qop : "" ),
+                        selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
+                        selectedRent:  (typeof params.qselrent !== "undefined" ? selectors[parseInt(params.qselrent,10)] : "" ),
+                        selectedRentDiary:  (typeof params.qseldiar !== "undefined" ? selectors[parseInt(params.qseldiar,10)] : "" ),
+                        selectedSector: (typeof params.qsector !== "undefined" ? $scope.qsector : ""),
+                        selectedVolatility: (typeof params.qselvol !== "undefined" ? selectors[parseInt(params.qselvol ,10)] : "" ),
+                        tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
+                        volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" )
                     };
                 },
                 myPatternsData: function(PatternsService, filtering) {
@@ -506,31 +535,31 @@ angular.module('ngMo.my_patterns', [
                 urlParamsSend.qop = urlParams.selectedOperation;
             }
             if (urlParams.selectedRent) {
-                urlParamsSend.qselrent = urlParams.selectedRent;
+                urlParamsSend.qselrent = urlParams.selectedRent.id;
             }
             if (urlParams.rentInput) {
                 urlParamsSend.qrent = urlParams.rentInput;
             }
             if (urlParams.selectedAverage) {
-                urlParamsSend.qselaver = urlParams.selectedAverage;
+                urlParamsSend.qselaver = urlParams.selectedAverage.id;
             }
             if (urlParams.rentAverageInput) {
                 urlParamsSend.qaver = urlParams.rentAverageInput;
             }
             if (urlParams.selectedRentDiary) {
-                urlParamsSend.qseldiar = urlParams.selectedRentDiary;
+                urlParamsSend.qseldiar = urlParams.selectedRentDiary.id;
             }
             if (urlParams.rentDiaryInput) {
                 urlParamsSend.qdiar = urlParams.rentDiaryInput;
             }
             if (urlParams.selectedVolatility) {
-                urlParamsSend.qselvol = urlParams.selectedVolatility;
+                urlParamsSend.qselvol = urlParams.selectedVolatility.id;
             }
             if (urlParams.volatilityInput) {
                 urlParamsSend.qvol = urlParams.volatilityInput;
             }
             if (urlParams.selectedDuration) {
-                urlParamsSend.qseldur = urlParams.selectedDuration;
+                urlParamsSend.qseldur = urlParams.selectedDuration.id;
             }
             if (urlParams.durationInput) {
                 urlParamsSend.qdur = urlParams.durationInput;
@@ -556,23 +585,24 @@ angular.module('ngMo.my_patterns', [
             var params = $location.search();
 
             var filters = {
-                filterName: (params.qname ? params.qname : "" ),
-                selectedOperation: (params.qop ? params.qop : "" ),
-                selectedRent: (params.qselrent ? params.qselrent : "" ),
-                rentInput: (params.qrent ? params.qrent : "" ),
-                selectedAverage: (params.qselaver ? params.qselaver : "" ),
-                rentAverageInput: (params.qaver ? params.qaver : "" ),
-                selectedRentDiary: (params.qseldiar ? params.qseldiar : "" ),
-                rentDiaryInput: (params.qdiar ? params.qdiar : "" ),
-                selectedVolatility: (params.qselvol ? params.qselvol : "" ),
-                volatilityInput: (params.qvol ? params.qvol : "" ),
-                selectedDuration: (params.qseldur ? params.qseldur : "" ),
-                durationInput: (params.qdur ? params.qdur : "" ),
-                index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
-                tab_type: (params.qtab ? params.qtab : "" ),
-                active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                favourite: (params.qfav ? params.qfav : "" )
+                filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
+                selectedOperation: (typeof params.qop !== "undefined" ? params.qop : "" ),
+                selectedRent: (typeof params.qselrent !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselrent,10)] : "" ),
+                rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
+                selectedAverage: (typeof params.qselaver !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselaver,10)] : "" ),
+                rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
+                selectedRentDiary: (typeof params.qseldiar !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qseldiar,10)] : "" ),
+                rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
+                selectedVolatility: (typeof params.qselvol !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselvol ,10)] : "" ),
+                volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" ),
+                selectedDuration: (typeof params.qseldur !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qseldur,10)] : "" ),
+                durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
+                index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
+                tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
+                active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
+                favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" )
             };
+
 
             //special cases:
             var tabChanged = false;
@@ -669,19 +699,23 @@ angular.module('ngMo.my_patterns', [
             $scope.loadUrlParams();
             $scope.loadPage();
         });
+
+
+
+
+
         /*First load on page ready*/
         $scope.restartFilter();
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
+            $scope.loadPage();
         }
 
         //$scope.loadPage();
         $scope.myData = myPatternsData.patterns;
         $scope.results = myPatternsData.results;
         $scope.found = myPatternsData.found;
-
-
 
 
     })
@@ -694,7 +728,12 @@ angular.module('ngMo.my_patterns', [
                 if (filtering.hasOwnProperty(property)) { //check if its a property (to exclude technicals property of js)
                     // create the params
                     if ((filtering[property] != null) && (filtering[property] !== "")) {
-                        urlParams += "&" + property + "=" + filtering[property];
+                        if (typeof filtering[property].id !== "undefined" ) {
+                            urlParams += "&" + property + "=" + filtering[property].id;
+                        } else {
+                            urlParams += "&" + property + "=" + filtering[property];
+                        }
+
                     }
                 }
             }
@@ -744,15 +783,15 @@ angular.module('ngMo.my_patterns', [
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
                     'operation': filtering.selectedOperation,
-                    'accumulatedReturn': filtering.selectedRent,
+                    'accumulatedReturn': (filtering.selectedRent  ? filtering.selectedRent.id : ""),
                     'accumulatedInput': filtering.rentInput,
-                    'averageReturn': filtering.selectedAverage,
+                    'averageReturn': (filtering.selectedAverage  ? filtering.selectedAverage.id : ""),
                     'averageInput': filtering.rentAverageInput,
-                    'dailyReturn': filtering.selectedRentDiary,
+                    'dailyReturn': (filtering.selectedRentDiary  ? filtering.selectedRentDiary.id : ""),
                     'dailyInput': filtering.rentDiaryInput,
-                    'volatility': filtering.selectedVolatility,
+                    'volatility':  (filtering.selectedVolatility  ? filtering.selectedVolatility.id : ""),
                     'volatilityInput': filtering.volatilityInput,
-                    'duration': filtering.selectedDuration,
+                    'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
                     'durationInput': filtering.durationInput,
                     'favourites': filtering.favourite
                 }
@@ -806,6 +845,9 @@ angular.module('ngMo.my_patterns', [
             });
         };
     })
+
+
+
     .factory('MonthSelectorService', function () {
         var actualDate = {};
 
