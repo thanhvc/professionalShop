@@ -68,7 +68,7 @@ angular.module('ngMo.historic', [
                         volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" )
                     };
                 },
-                historicDataData: function(PatternsService, filtering) {
+                historicDataData: function(HistoricsService, filtering) {
                     return HistoricsService.getPagedDataAsync(1, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
@@ -626,7 +626,7 @@ angular.module('ngMo.historic', [
 
 
     })
-    .service("HistoricsService", function ($http, $window, $rootScope) {
+    .service("HistoricsService", function ($http, $window, $rootScope,$q) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
