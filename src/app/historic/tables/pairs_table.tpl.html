@@ -65,7 +65,7 @@
 
         </th>
     </tr>
-    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="pairDetail({patternId:data.id})">
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
