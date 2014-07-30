@@ -24,10 +24,10 @@
     <div class="header-catalog-table">
         <div class="catalog-filter">
             <input placeholder="Nombre" ng-model="filterOptions.filters.filterName" ng-change="search();">
-            <select ng-model="filterOptions.filters.selectedSector" ng-change="selectSector()" >
-                <option value="">- Elegir Sector -</option>
-                <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
-                        ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
+            <select ng-model="filterOptions.filters.selectedIndustry" ng-change="selectIndustry();">
+                <option value="">- Elegir Grupo -</option>
+                <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
+                        ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}">
                     {{item.description}}
                 </option>
             </select>
@@ -73,7 +73,7 @@
             <th></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 33}}</span></td>
+            <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.asset.expirationYear}} ">{{pattern.asset.longName | limitTo: 33}}</span></td>
             <td>{{pattern.asset.expirationYear}}</td>
             <td style="width: 85px;"><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
             <td>{{pattern.win | twoDecimals}}</td>
