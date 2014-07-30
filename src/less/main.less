@@ -104,6 +104,8 @@ b , strong {
   clear: left;
   margin-bottom: 0.5em !important;
   margin-top: 0.5em !important;
+  -webkit-padding-start: 0px;
+  padding-left: 25px !important;
   li{
     list-style-image: url('../assets/img/circle-list-li.png') !important;
     margin-bottom: 0.5em !important;
@@ -538,13 +540,13 @@ a{
 }
 .public-list-first-level{
   text-align: justify;
-  /*for chrome padding in UL*/
-  -webkit-padding-start: 24px;
+  -webkit-padding-start: 0px;
+  padding-left: 25px !important;
   li{
     list-style-image: url('../assets/img/public-list-li.png');
     /*margin-bottom: 0.5em;*/
     margin-bottom: 4px !important;
-    padding-left: 4px;
+    padding-left: 1px;
     clear: left;
   }
 }
@@ -1100,7 +1102,7 @@ table{
 
 .table-pack {
   border: 1px solid silver;
-
+  font-size: 11px;
   color: @white;
   /*  font-size: 11px; font-family: Arial;*/
   font-family: fontpo, verdana;
@@ -1811,11 +1813,16 @@ select{
   padding-left: 25px;
   -webkit-padding-start: 0px;
   text-align: justify;
+  padding-left: 25px !important;
+  -webkit-padding-start: 0px;
   li {
     margin-bottom: 0.5em;
     padding-left: 5px;
     list-style: decimal;
     margin-left: 25px;
+  }
+  .public-list-first-level li {
+    list-style-image: url('../assets/img/public-list-li.png') !important;
   }
 }
 
@@ -1831,6 +1838,10 @@ select{
 
 .list-left-first-level {
   padding-left: 25px; /*to move to the left the <ul><ol>*/
+}
+
+.list-left-first-level-no-padding {
+  padding-left: 0px !important;
 }
 
 .img-width-public {
@@ -2145,4 +2156,3 @@ tooltip-placement=" top ultra-left-tooltip" **/
 @import '../app/my_subscriptions/my_packs.less';
 @import '../app/my_profile/my_profile.less';
 @import '../app/tools/correlation/correlation.less';
-@import '../app/detail/detail.less';
