@@ -60,7 +60,26 @@ angular.module('ngMo.detail', [
         });
 
         $scope.tabs = TabsService.getTabs();
-        $scope.actualTab = $scope.tabs[TabsService.getActiveTab()].title;
+
+        $scope.obtainActualTab = function () {
+
+          switch (detailData.infoPattern.productType){
+              case 'STOCK':
+                  $scope.actualTab = "Acciones";
+                  break;
+              case 'INDICE':
+                  $scope.actualTab = "Indices";
+                  break;
+              case 'FUTURE':
+                  $scope.actualTab = "Futuros";
+                  break;
+          }
+          if (detailData.infoPattern.indexType === 1){
+            $scope.actualTab = "Par "+$scope.actualTab;
+          }
+        };
+
+        $scope.obtainActualTab();
 
         $scope.myData = detailData.myData;
         $scope.infoPattern = detailData.infoPattern;

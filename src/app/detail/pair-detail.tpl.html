@@ -48,7 +48,7 @@
     <table class="pair-detail-table">
         <thead>
         <tr>
-            <th colspan="10">
+            <th colspan="11">
                 <table class="detail-header">
                     <tr>
                         <th style="padding-left: 20px;">
@@ -78,7 +78,7 @@
             <td rowspan="2" >Año</td>
             <td colspan="2" class="border-right-table">Entrada <img src='assets/img/entry_arrow.png'></td>
             <td colspan="2" class="border-right-table"><img src='assets/img/exit_arrow.png'> Salida</td>
-            <td class="border-right-table">Rentabilidad</td>
+            <td colspan="2" class="border-right-table">Rentabilidad</td>
             <td colspan="2" class="border-right-table">Mejor Ganancia</td>
             <td colspan="2" class="border-right-table">Peor Pérdida</td>
         </tr>
@@ -87,6 +87,7 @@
             <td class="border-right-table">Precio</td>
             <td class="sub-border-right-table">Fecha</td>
             <td class="border-right-table">Precio</td>
+            <td class="sub-border-right-table">Lados %</td>
             <td class="border-right-table">Total %</td>
             <td class="sub-border-right-table">Fecha</td>
             <td class="border-right-table">%</td>
@@ -96,9 +97,22 @@
         <tr ng-repeat="row in myData">
             <td>{{row.year}}</td>
             <td class="sub-border-right-table">{{row.entryDate | date: 'dd/MMM/yy'}}</td>
-            <td class="border-right-table"><b>{{row.entryValue}}</b></td>
+            <td class="border-right-table">
+                <span class="buy-color"><b>{{row.entryValue}}</b></span>
+                <br>
+                <span class="sell-color"><b>{{row.bearishEntryValue}}</b></span>
+            </td>
             <td class="sub-border-right-table">{{row.exitDate | date: 'dd/MMM/yy'}}</td>
-            <td class="border-right-table"><b>{{row.exitValue}}</b></td>
+            <td class="border-right-table">
+                <span class="buy-color"><b>{{row.exitValue}}</b></span>
+                <br>
+                <span class="sell-color"><b>{{row.bearishExitValue}}</b></span>
+            </td>
+            <td class="sub-border-right-table">
+                <span class="buy-color"><b>{{row.bullishReturn}}</b></span>
+                <br>
+                <span class="sell-color"><b>{{row.bearishReturn}}</b></span>
+            </td>
             <td class="border-right-table"><b>{{row.returnValue}}</b></td>
             <td class="sub-border-right-table">{{row.bestGainDate | date: 'dd/MMM/yy'}}</td>
             <td class="border-right-table"><b>{{row.bestGainValue}}</b></td>
