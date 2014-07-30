@@ -610,7 +610,6 @@ angular.module('ngMo.my_patterns', [
                 tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
                 active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
                 favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
-                //TEST
                 selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
                 selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" )
 
@@ -653,24 +652,15 @@ angular.module('ngMo.my_patterns', [
 
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
-                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'],filters, function(data) {
-                            $scope.callBackRefreshSelectors(data);
-                           // $scope.$broadcast("$loadSelectors");
-                        });
+                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'],filters, $scope.callBackRefreshSelectors);
                         break;
                     case 1:     //pairs
-                        $scope.refreshSelectors(['regions', 'industries', 'sectors'],filters,function(data) {
-                            $scope.callBackRefreshSelectors(data);
-                           // $scope.$broadcast("$loadSelectors");
-                        });
+                        $scope.refreshSelectors(['regions', 'industries', 'sectors'],filters,$scope.callBackRefreshSelectors);
                         break;
                     case 2:     //index (pair and index)
                         break;
                     case 3:     //futures
-                        $scope.refreshSelectors(['markets'],filters,function(data) {
-                            $scope.callBackRefreshSelectors(data);
-                           // $scope.$broadcast("$loadSelectors");
-                        });
+                        $scope.refreshSelectors(['markets'],filters, $scope.callBackRefreshSelectors);
                         break;
                 }
             }
@@ -681,11 +671,6 @@ angular.module('ngMo.my_patterns', [
             $scope.loadUrlParams();
             $scope.loadPage();
         });
-
-
-
-
-
         /*First load on page ready*/
         $scope.restartFilter();
         if ($location.search()) {

@@ -20,6 +20,64 @@ angular.module('ngMo.historic', [
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
+            },
+            reloadOnSearch: false,
+            resolve: {
+                MonthSelectorService: "MonthSelectorService",
+                PatternsService: "PatternsService",
+                TabsService: "TabsService",
+                filtering : function(TabsService,MonthSelectorService,$location){
+
+                    var params = $location.search();
+                    //just to select a item like a selector for load params
+                    var selectors = [{
+                        id: 0,
+                        "description": "something"
+                    },{
+                        id: 1,
+                        "description": "something"}];
+                    //keep separatly in case of change
+                    var operations =  [{
+                        id: 0,
+                        "description": "something"
+                    },{
+                        id: 1,
+                        "description": "something"}];
+
+                    return {
+                        active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
+                        month: MonthSelectorService.restartDate(),
+                        durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
+                        favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
+                        filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
+                        index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
+                        rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
+                        rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
+                        rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
+                        selectedAverage: (typeof params.qselaver !== "undefined" ? selectors[parseInt(params.qselaver,10)] : "" ),
+                        selectedDuration: (typeof params.qseldur !== "undefined" ? selectors[parseInt(params.qseldur,10)] : "" ),
+                        selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "" ),
+                        selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
+                        selectedOperation: (typeof params.qop !== "undefined" ? operations[parseInt(params.qop,10)] : "" ),
+                        selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
+                        selectedRent:  (typeof params.qselrent !== "undefined" ? selectors[parseInt(params.qselrent,10)] : "" ),
+                        selectedRentDiary:  (typeof params.qseldiar !== "undefined" ? selectors[parseInt(params.qseldiar,10)] : "" ),
+                        selectedSector: (typeof params.qsector !== "undefined" ? $scope.qsector : ""),
+                        selectedVolatility: (typeof params.qselvol !== "undefined" ? selectors[parseInt(params.qselvol ,10)] : "" ),
+                        tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
+                        volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" )
+                    };
+                },
+                historicDataData: function(PatternsService, filtering) {
+                    return HistoricsService.getPagedDataAsync(1, filtering).then(function (data){
+                        return {
+                            patterns: data.patterns,
+                            results: data.results,
+                            found: data.found
+                        };
+
+                    });
+                }
             }
         });
     })
@@ -27,7 +85,7 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, HistoricsService) {
+    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, HistoricsService, historicDataData) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -77,6 +135,13 @@ angular.module('ngMo.historic', [
             $scope.pagingOptions.currentPage = page;
             $scope.saveUrlParams();
         };
+
+        $scope.toggleFavorite = function (patternId){
+            var data = PatternsService.setFavorite(patternId).then(function (data) {
+                $scope.loadPage();
+            });
+        };
+
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
         $scope.restartFilter = function () {
@@ -149,15 +214,15 @@ angular.module('ngMo.historic', [
             //refresh all the selectors
             switch (TabsService.getActiveTab()) {
                 case 0:     //stocks
-                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 1:     //pairs
-                    $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 2:     //index (pair and index)
                     break;
                 case 3:     //futures
-                    $scope.refreshSelectors(['markets']);
+                    $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
             }
 
@@ -199,8 +264,7 @@ angular.module('ngMo.historic', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
-            var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
+            var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
                     $scope.myData = data.patterns;//data.page;
                     /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
@@ -215,26 +279,32 @@ angular.module('ngMo.historic', [
         /**
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
-        $scope.refreshSelectors = function (selectors) {
-            HistoricsService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
-                //checks the data received, when a selector is refreshed, the value selected is also cleaned
-                if (data.hasOwnProperty("markets")) {
-                    $scope.filterOptions.selectors.markets = data.markets;
-                    //$scope.filterOptions.filters.selectedMarket = "";
+        $scope.refreshSelectors = function (selectors,filters,callback) {
+            HistoricsService.getSelectors(filters, selectors,callback);
+        };
+
+
+        $scope.callBackRefreshSelectors = function (data) {
+            //checks the data received, when a selector is refreshed, the value selected is also cleaned
+            if (data.hasOwnProperty("markets")) {
+                $scope.filterOptions.selectors.markets = data.markets;
+                if (typeof data.selectedRegion != 'undefined') {
+                    $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
                 }
-                if (data.hasOwnProperty("regions")) {
-                    $scope.filterOptions.selectors.regions = data.regions;
-                    //$scope.filterOptions.filters.selectedRegion = "";
-                }
-                if (data.hasOwnProperty("industries")) {
-                    $scope.filterOptions.selectors.industries = data.industries;
-                    //$scope.filterOptions.filters.selectedIndustry = "";
-                }
-                if (data.hasOwnProperty("sectors")) {
-                    $scope.filterOptions.selectors.sectors = data.sectors;
-                    //$scope.filterOptions.filters.selectedSector = "";
-                }
-            });
+                //$scope.filterOptions.filters.selectedMarket = "";
+            }
+            if (data.hasOwnProperty("regions")) {
+                $scope.filterOptions.selectors.regions = data.regions;
+                //$scope.filterOptions.filters.selectedRegion = "";
+            }
+            if (data.hasOwnProperty("industries")) {
+                $scope.filterOptions.selectors.industries = data.industries;
+                //$scope.filterOptions.filters.selectedIndustry = "";
+            }
+            if (data.hasOwnProperty("sectors")) {
+                $scope.filterOptions.selectors.sectors = data.sectors;
+                //$scope.filterOptions.filters.selectedSector = "";
+            }
         };
 
         /**
@@ -296,13 +366,13 @@ angular.module('ngMo.historic', [
             }
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
-                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 1://pairs doesnt have markets
-                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 3: //futures ONLY have markets
-                    $scope.refreshSelectors(['markets']);
+                    $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 default://others doesnt have selectors to refresh
                     break;
@@ -317,7 +387,7 @@ angular.module('ngMo.historic', [
         //refresh selectors depending of market
         $scope.refreshMarket = function () {
             if (TabsService.getActiveTab() === 0) {
-                $scope.refreshSelectors(['industries', 'sectors']);
+                $scope.refreshSelectors(['industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
             }
         };
         $scope.selectMarket = function () {
@@ -329,7 +399,7 @@ angular.module('ngMo.historic', [
 
         //only used in stock
         $scope.refreshSector = function () {
-            $scope.refreshSelectors(['industries']);
+            $scope.refreshSelectors(['industries'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
         };
         $scope.selectSector = function () {
             $scope.refreshSector();
@@ -411,34 +481,34 @@ angular.module('ngMo.historic', [
                 urlParamsSend.qindust = urlParams.selectedIndustry;
             }
             if (urlParams.selectedOperation) {
-                urlParamsSend.qop = urlParams.selectedOperation;
+                urlParamsSend.qop = urlParams.selectedOperation.id;
             }
             if (urlParams.selectedRent) {
-                urlParamsSend.qselrent = urlParams.selectedRent;
+                urlParamsSend.qselrent = urlParams.selectedRent.id;
             }
             if (urlParams.rentInput) {
                 urlParamsSend.qrent = urlParams.rentInput;
             }
             if (urlParams.selectedAverage) {
-                urlParamsSend.qselaver = urlParams.selectedAverage;
+                urlParamsSend.qselaver = urlParams.selectedAverage.id;
             }
             if (urlParams.rentAverageInput) {
                 urlParamsSend.qaver = urlParams.rentAverageInput;
             }
             if (urlParams.selectedRentDiary) {
-                urlParamsSend.qseldiar = urlParams.selectedRentDiary;
+                urlParamsSend.qseldiar = urlParams.selectedRentDiary.id;
             }
             if (urlParams.rentDiaryInput) {
                 urlParamsSend.qdiar = urlParams.rentDiaryInput;
             }
             if (urlParams.selectedVolatility) {
-                urlParamsSend.qselvol = urlParams.selectedVolatility;
+                urlParamsSend.qselvol = urlParams.selectedVolatility.id;
             }
             if (urlParams.volatilityInput) {
                 urlParamsSend.qvol = urlParams.volatilityInput;
             }
             if (urlParams.selectedDuration) {
-                urlParamsSend.qseldur = urlParams.selectedDuration;
+                urlParamsSend.qseldur = urlParams.selectedDuration.id;
             }
             if (urlParams.durationInput) {
                 urlParamsSend.qdur = urlParams.durationInput;
@@ -464,24 +534,26 @@ angular.module('ngMo.historic', [
             var params = $location.search();
 
             var filters = {
-                filterName: (params.qname ? params.qname : "" ),
-                selectedOperation: (params.qop ? params.qop : "" ),
-                selectedRent: (params.qselrent ? params.qselrent : "" ),
-                rentInput: (params.qrent ? params.qrent : "" ),
-                selectedAverage: (params.qselaver ? params.qselaver : "" ),
-                rentAverageInput: (params.qaver ? params.qaver : "" ),
-                selectedRentDiary: (params.qseldiar ? params.qseldiar : "" ),
-                rentDiaryInput: (params.qdiar ? params.qdiar : "" ),
-                selectedVolatility: (params.qselvol ? params.qselvol : "" ),
-                volatilityInput: (params.qvol ? params.qvol : "" ),
-                selectedDuration: (params.qseldur ? params.qseldur : "" ),
-                durationInput: (params.qdur ? params.qdur : "" ),
-                index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
-                tab_type: (params.qtab ? params.qtab : "" ),
-                active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                favourite: (params.qfav ? params.qfav : "" )
-            };
+                filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
+                selectedOperation: (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" ),
+                selectedRent: (typeof params.qselrent !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselrent,10)] : "" ),
+                rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
+                selectedAverage: (typeof params.qselaver !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselaver,10)] : "" ),
+                rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
+                selectedRentDiary: (typeof params.qseldiar !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qseldiar,10)] : "" ),
+                rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
+                selectedVolatility: (typeof params.qselvol !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselvol ,10)] : "" ),
+                volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" ),
+                selectedDuration: (typeof params.qseldur !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qseldur,10)] : "" ),
+                durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
+                index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
+                tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
+                active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
+                favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
+                selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
+                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" )
 
+            };
             //special cases:
             var tabChanged = false;
             //if the params tab is different of the actual tab
@@ -510,68 +582,31 @@ angular.module('ngMo.historic', [
                 filters.month = MonthSelectorService.restartDate();
             }
 
+            $scope.filterOptions.filters = filters;
+            $scope.updateSelectorMonth();
+            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
-                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'],filters, $scope.callBackRefreshSelectors);
                         break;
                     case 1:     //pairs
-                        $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                        $scope.refreshSelectors(['regions', 'industries', 'sectors'],filters, $scope.callBackRefreshSelectors);
                         break;
                     case 2:     //index (pair and index)
                         break;
                     case 3:     //futures
-                        $scope.refreshSelectors(['markets']);
+                        $scope.refreshSelectors(['markets'],filters, $scope.callBackRefreshSelectors);
                         break;
                 }
             }
 
 
-            //for a special case to load the selectors, we need save the region,market,...
-            //if the location.search region,market.. values are not the same that the filters, we need
-            //to reload the selectors...
-            if ((typeof params.qregion !== 'undefined') && ($scope.filterOptions.filters.selectedRegion !== params.qregion)) {
-                //if region is distinct, refresh all selectors
-                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                $scope.refreshRegion();
-                filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            }
-            else if ((typeof params.qmarket !== 'undefined') && ($scope.filterOptions.filters.selectedMarket !== params.qmarket)) {
-                //region similar, but not market
-                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
-                $scope.refreshMarket();
-                filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            } else if ((typeof params.qsector !== 'undefined') && ($scope.filterOptions.filters.selectedSector !== params.qsector)) {
-                //region and market similar, but not sector
-                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                $scope.filterOptions.filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
-                filters.selectedSector = $scope.filterOptions.filters.selectedSector;
-
-                $scope.refreshSector();
-                $scope.filterOptions.filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            } else {
-                //or all are similar, or only industry is distinct (in that case all selectors are the same)
-                filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            }
-            $scope.filterOptions.filters = filters;
-            $scope.updateSelectorMonth();
-            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
-
         };
+
+
+        //};
 
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
             $scope.loadUrlParams();
@@ -582,9 +617,12 @@ angular.module('ngMo.historic', [
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
+            $scope.loadPage();
         }
 
-        $scope.loadPage();
+        $scope.myData = historicDataData.patterns;
+        $scope.results = historicDataData.results;
+        $scope.found = historicDataData.found;
 
 
     })
@@ -597,7 +635,11 @@ angular.module('ngMo.historic', [
                 if (filtering.hasOwnProperty(property)) { //check if its a property (to exclude technicals property of js)
                     // create the params
                     if ((filtering[property] != null) && (filtering[property] !== "")) {
-                        urlParams += "&" + property + "=" + filtering[property];
+                        if (typeof filtering[property].id !== "undefined" ) {
+                            urlParams += "&" + property + "=" + filtering[property].id;
+                        } else {
+                            urlParams += "&" + property + "=" + filtering[property];
+                        }
                     }
                 }
             }
@@ -605,16 +647,23 @@ angular.module('ngMo.historic', [
         };
 
         /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
-        this.getPagedDataAsync = function (pageSize, page, filtering, callbackFunc) {
+        this.getPagedDataAsync = function (page, filtering) {
+            var deferred = $q.defer();
             var data;
             var urlParam = this.createParamsFromFilter(filtering);
+            var indexType = null;
 
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
             config = {
                 params: {
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
                     'name': filtering.filterName,
@@ -622,25 +671,26 @@ angular.module('ngMo.historic', [
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'operation': filtering.selectedOperation,
-                    'accumulatedReturn': filtering.selectedRent,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
+                    'accumulatedReturn': (filtering.selectedRent  ? filtering.selectedRent.id : ""),
                     'accumulatedInput': filtering.rentInput,
-                    'averageReturn': filtering.selectedAverage,
+                    'averageReturn': (filtering.selectedAverage  ? filtering.selectedAverage.id : ""),
                     'averageInput': filtering.rentAverageInput,
-                    'dailyReturn': filtering.selectedRentDiary,
+                    'dailyReturn': (filtering.selectedRentDiary  ? filtering.selectedRentDiary.id : ""),
                     'dailyInput': filtering.rentDiaryInput,
-                    'volatility': filtering.selectedVolatility,
+                    'volatility':  (filtering.selectedVolatility  ? filtering.selectedVolatility.id : ""),
                     'volatilityInput': filtering.volatilityInput,
-                    'duration': filtering.selectedDuration,
+                    'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
                     'durationInput': filtering.durationInput,
                     'favourites': filtering.favourite
                 }
             };
-
-            var result = $http.get($rootScope.urlService+'/historicpatterns', config).success(function (data) {
+            var result = $http.get($rootScope.urlService+'/historicpatterns', config).then(function (response) {
                 // With the data succesfully returned, call our callback
-                callbackFunc(data);
+                deferred.resolve();
+                return response.data;
             });
+            return result;
         };
 
         /**
