@@ -425,6 +425,7 @@ angular.module('ngMo.correlation', [
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.applyFilters();
             loadCorrelationList();
+            $scope.loadPage();
         };
 
 
@@ -670,7 +671,10 @@ angular.module('ngMo.correlation', [
             var result = $http.get($rootScope.urlService+'/correlationpatterns', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callbackFunc(data);
-            });
+            }).
+                error(function(data) {
+                    callbackFunc(data);
+                });
         };
 
         this.getCorrelationData = function (correlationList, filtering) {

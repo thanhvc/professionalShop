@@ -49,12 +49,14 @@
                                     next-text="&gt;"
                                     first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
                     </div>
-                    <button style="width: 120px;margin-left: 165px;margin-right:35px;" class="mo-cancel-button" ng-click="clearCorrelationList();">
-                        Cancelar
-                    </button>
-                    <button style="width: 120px;" class="mo-button" ng-click="correlate();">
-                        Calcular
-                    </button>
+                    <div>
+                        <button style="width: 120px;margin-left: 165px;margin-right:35px;" class="mo-cancel-button" ng-click="clearCorrelationList();">
+                            Cancelar
+                        </button>
+                        <button style="width: 120px;" class="mo-button" ng-click="correlate();">
+                            Calcular
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -91,7 +93,7 @@
             <table class="correlation-caption-table" ng-show="correlationCaption1.length > 0">
                 <thead>
                     <tr>
-                        <th><span tooltip="Favoritos">Fav.</span></th>
+                        <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
                         <th>Código</td>
                         <th>Símbolo</td>
                         <th>Nombre</td>
@@ -99,10 +101,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="row in correlationCaption1 track by $index">
-                        <td>
+                        <!--<td>
                             <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
                                   ng-class="{'favourite-added': row.favorite == true}"></div>
-                        </td>
+                        </td> -->
                         <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
                         <td>{{row.symbol}}</td>
                         <td>{{row.name | limitTo: 35}}</td>
@@ -113,7 +115,7 @@
             <table class="correlation-caption-table" style="margin-left: 75px;">
                 <thead>
                 <tr>
-                    <th><span tooltip="Favoritos">Fav.</span></th>
+                    <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
                     <th>Código</td>
                     <th>Símbolo</td>
                     <th>Nombre</td>
@@ -121,10 +123,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="row in correlationCaption2 track by $index">
-                        <td>
+                        <!--<td>
                             <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
                                  ng-class="{'favourite-added': row.favorite == true}"></div>
-                        </td>
+                        </td> -->
                         <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
                         <td>{{row.symbol}}</td>
                         <td>{{row.name | limitTo: 35}}</td>

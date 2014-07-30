@@ -1104,7 +1104,9 @@ table{
   border: 1px solid silver;
   font-size: 11px;
   color: @white;
-  font-family: fontpo;
+  /*  font-size: 11px; font-family: Arial;*/
+  font-family: fontpo, verdana;
+  font-size: 10px;
   tbody {
     tr {
       cursor: pointer;
@@ -1218,7 +1220,7 @@ table{
 }
 
 .header-table-pack{
-  font-size: 11px;
+  font-size: 12px;
   background-color: @black;
   height:40px;
   td{
@@ -1425,7 +1427,7 @@ table{
   border: 1px solid @white;
   text-align: center;
   float: right;
-  padding: 9px 32px;
+  padding: 6px 6px;
   margin: 20px 10px;
 }
 
@@ -1582,6 +1584,10 @@ table{
 * TODO: replace modal-content for modal-lg and modal-sm when angular-bootstrap publish version 0.11.0
 **/
 
+.modal {
+  overflow: auto;
+  overflow-y: hidden;
+}
   .modal-content {
     width: 100%;
     height: 100%;
@@ -1804,6 +1810,8 @@ select{
 }
 
 .ordered-list-first-level {
+  padding-left: 25px;
+  -webkit-padding-start: 0px;
   text-align: justify;
   padding-left: 25px !important;
   -webkit-padding-start: 0px;
@@ -1815,6 +1823,16 @@ select{
   }
   .public-list-first-level li {
     list-style-image: url('../assets/img/public-list-li.png') !important;
+  }
+}
+
+.ordered-list-letters {
+  padding-left: 25px;
+  text-align: justify;
+  li {
+    margin-bottom: 0.5em;
+    padding-left: 5px;
+    margin-left: 25px;
   }
 }
 
@@ -1846,7 +1864,7 @@ select{
 }
 
 .text-warning-form{
-  color: @red;
+  color: @darkRed;
   font-size: 11px;
   font-family: fontpo, verdana;
 }
@@ -2084,6 +2102,11 @@ tooltip-placement=" top ultra-left-tooltip" **/
 .prices-font12{
   font-family: fontpo, verdana !important;
   font-size: 12px;
+}
+
+.prices-font16 {
+  font-family: fontpo, verdana !important;
+  font-size: 16px !important;
 }
 
 

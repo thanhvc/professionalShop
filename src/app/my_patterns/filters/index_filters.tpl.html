@@ -13,12 +13,11 @@
             </td>
             <td>
 
-                <select ng-show="filterOptions.filters.index_type == 'index'"
+                <select ng-show="filterOptions.filters.index_type == '0'"
                         ng-change="applyFilters()" style="width: 100px;" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- Operacion -</option>
-                    <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}"
-                            ><!--ng-selected="{{item.id == filterOptions.filters.selectedOperation}}"-->
+                    <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}">
                         {{item.description}}
                     </option>
                 </select>
@@ -32,12 +31,10 @@
 
                     <span class="filter-label-select">Renta Acumulada</span><br>
                     <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRent">
                         <option value="">- Elegir -</option>
-                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                                ><!--  ng-selected="{{item.id == filterOptions.filters.selectedRent}}"-->
-                            {{item.description}}
-                        </option>
+
                     </select>
                     <input name="rentInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-class=" {'warning-input':  (rentForm.rentInput.$error.pattern && (rentForm.rentInput.$dirty))}"
@@ -48,12 +45,10 @@
                 <td>
                     <span class="filter-label-select">Renta media</span><br>
                     <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedAverage">
                         <option value="">- Elegir -</option>
-                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                                ><!--ng-selected="{{item.id == filterOptions.filters.selectedAverage}}"-->
-                            {{item.description}}
-                        </option>
+
                     </select>
                     <input name="rentAverageInput" class="border-filters input-filter small-input-filter"
                            placeholder="%"
@@ -64,12 +59,10 @@
                 <td>
                     <span class="filter-label-select">Renta diaria</span><br>
                     <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
                         <option value="">- Elegir -</option>
-                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                                ><!--ng-selected="{{item.id == filterOptions.filters.selectedRentDiary}}"-->
-                            {{item.description}}
-                        </option>
+
                     </select>
                     <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            placeholder="%"
@@ -80,12 +73,10 @@
                 <td>
                     <span class="filter-label-select">Volatilidad (%)</span><br>
                     <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedVolatility">
                         <option value="">- Elegir -</option>
-                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                                ><!-- ng-selected="{{item.id == filterOptions.filters.selectedVolatility}}"-->
-                            {{item.description}}
-                        </option>
+
                     </select>
                     <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="daysPattern" ng-trim="false"
@@ -95,12 +86,10 @@
                 <td>
                     <span class="filter-label-select">Duración (Días)</span><br>
                     <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedDuration">
                         <option value="">- Elegir -</option>
-                        <option ng-repeat="item in filterOptions.selectors.comparators" value="{{item.id}}"
-                        "><!--ng-selected="{{item.id == filterOptions.filters.selectedDuration}}-->
-                        {{item.description}}
-                        </option>
+
                     </select>
                     <input name="durationInput" class="border-filters input-filter small-input-filter"
                            placeholder="días"
