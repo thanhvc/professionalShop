@@ -111,6 +111,29 @@ angular.module('ngMo.my_patterns', [
             }
         ];
 
+
+        var portfolioTabs = [
+            {
+                title: 'Acciones',
+                active: activeTab === 0,
+                value: 0
+            },
+            {
+                title: 'Par Acciones',
+                active: activeTab === 1,
+                value: 1
+            },
+            {
+                title: 'Indices',
+                active: activeTab === 2,
+                value: 2
+            },
+            {
+                title: 'Par Indices',
+                active: activeTab === 3,
+                value: 3
+            }
+        ];
         var indexTypes = [
             {
                 title: "Indices",
@@ -127,6 +150,7 @@ angular.module('ngMo.my_patterns', [
 
         var activeTab = 0;
         var activeIndex = 0;
+        var portfolioFlag = false;
 
         this.getIndexType = function () {
             return indexTypes;
@@ -141,14 +165,33 @@ angular.module('ngMo.my_patterns', [
         };
 
         this.getTabs = function () {
+            portfolioFlag = false;
             return tabs;
         };
 
+        this.getPortfolioTabs = function () {
+            portfolioFlag = true;
+            return portfolioTabs;
+        };
+
         this.getActiveTab = function () {
+            if (portfolioFlag){
+                activeTab = 2;
+                portfolioFlag = false;
+            }
             return activeTab;
         };
 
         this.changeActiveTab = function (active) {
+            activeTab = active;
+        };
+
+        this.changePortfolioActiveTab = function (active) {
+            if (active === 3){
+                this.changeActiveIndexType(1);
+            }else if (active === 2){
+                this.changeActiveIndexType(0);
+            }
             activeTab = active;
         };
     })

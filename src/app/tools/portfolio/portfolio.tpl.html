@@ -2,8 +2,7 @@
 <div class="private-container-text">
     <p>Herramienta que permite valorar las estrategias a incluir en una Cartera y la proporción de efectivo a asignar.</p>
     <p>Usa un modelo basado en la forma empírica de la Distribución, valores centrales y extremos de las colas.</p>
-    <p>NOTA: En general una estrategia con 8 meses de “exposición” al mercado sufrirá mayor volatilidad que otra expuesta 1 solo mes.
-        Para un análisis coherente debería incluir estrategias con “Duración” comparable.</p>
+    <p>NOTA: En general una estrategia con 8 meses de “exposición” al mercado sufrirá mayor volatilidad que otra expuesta 1 solo mes. Para un análisis coherente debería incluir estrategias con “Duración” comparable.</p>
 
     <p>El modo de uso es como sigue: <span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
     <div ng-show="show">
@@ -16,15 +15,104 @@
             <li>Utilice la marca de Favoritos para separar sus patrones preferidos.</li>
             <li>Evaluar los datos Fundamentales de las compañías favoritas.</li>
         </ul>
+
         <p>Haga click sobre las celdas de columna 'Id.' para ver:</p>
         <ul class="public-list-first-level">
             <li>Detalle de la estrategia.</li>
             <li>Evolución gráfica de la cotización en curso.</li>
         </ul>
 
-        <p><a ng-click="openModalInstance('services/detailed_description/drawdown')">Más información.</a></p>
+        <p><a ng-click="openModalInstance('services/detailed_description/portfolio')">Más información.</a></p>
 
         <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
     </div>
 
+</div>
+
+<div style="margin-top: 15px;">
+
+    <tabset>
+        <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+             active="ctab.active" disabled="tab.disabled">
+            <div class="portfolio-filter-container">
+
+                <div ng-include="getTemplateFilter()"></div>
+            </div>
+            <div>
+                <div ng-include="getTemplateTable()">
+
+
+            </div>
+
+                <div class="footer-table-portfolio">
+                    <div class="pagination-portfolio-container" >
+                        <pagination ng-show="found > pagingOptions.pageSize" boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                                    items-per-page="pagingOptions.pageSize" max-size="10"
+                                    page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                                    next-text="&gt;"
+                                    first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+                    </div>
+                    <div>
+                        <button style="width: 120px;margin-left: 165px;margin-right:35px;" class="mo-cancel-button" ng-click="clearPortfolioList();">
+                            Cancelar
+                        </button>
+                        <button style="width: 120px;" class="mo-button" ng-click="drawdown();">
+                            Calcular
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </tab>
+    </tabset>
+    <div ng-show="portfolioData.length > 0">
+        <table class="table-portfolio-result" style="margin-bottom: 30px;">
+            <thead>
+                <tr>
+                    <th colspan="8">COMPOSICIÓN - ASIGNACIÓN DE LA CARTERA</th>
+                </tr>
+            <tr>
+                <th>Id</th>
+                <th>Nombre Estrategia</th>
+                <th>Mercado</th>
+                <th>Inicio</th>
+                <th>Duración (mes)</th>
+                <th>Porcentaje (%)</th>
+                <th>Proporción</th>
+                <th>Fav.</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in portfolioData track by $index">
+                    <td>{{row.patternId}}</td>
+                    <td ng-if="row.patternType != null">
+                        <span ng-show="row.patternType == 'BULLISH'">Comprar</span>
+                        <span ng-show="row.patternType == 'BEARISH'">Vender</span>
+                        <br>
+                        <span ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.bullishAssetName | limitTo: 30}}</span>
+                    </td>
+                    <td ng-if="row.patternType == null">
+                        <span>Comprar</span>
+                        <span class="buy-color">{{row.bullishAssetName | limitTo: 30}}</span>
+                        <br>
+                        <span>Vender</span>
+                        <span class="sell-color">{{row.bearishAssetName | limitTo: 30}}</span>
+                    </td>
+                    <td>{{row.marketSymbol}}</td>
+                    <td>{{row.entryDate | date: 'MMM yy'}}</td>
+                    <td>
+                        <span ng-show="(row.length <31)">Hasta 1</span>
+                        <span ng-show="(row.length >30 && row.length <93)">De 1 a 3</span>
+                        <span ng-show="(row.length >92)">Más de 3</span>
+                    </td>
+                    <td>{{row.portfolioPercentage | twoDecimals}}</td>
+                    <td>{{row.portfolioRatio | twoDecimals}}</td>
+                    <td>
+                        <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
+                             ng-class="{'favourite-added': row.favorite == true}"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
