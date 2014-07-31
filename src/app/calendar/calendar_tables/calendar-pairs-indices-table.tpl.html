@@ -22,7 +22,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="pattern in myData">
-        <td class="pair-pattern">
+        <td class="pair-pattern" ui-sref="pairDetail({patternId:pattern.id})">
             <span class="buy-color" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName}}</span>
             <br/>
             <span class="sell-color" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.name}})">{{pattern.asset.longName}}</span>

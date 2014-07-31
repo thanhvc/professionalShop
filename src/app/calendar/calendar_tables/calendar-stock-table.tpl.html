@@ -31,7 +31,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="pattern in myData">
-        <td>
+        <td ui-sref="detail({patternId:pattern.id})">
             <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})" class="cursor-help" ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH'}">{{pattern.asset.longName | limitTo:25}}</span>
         </td>
         <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">

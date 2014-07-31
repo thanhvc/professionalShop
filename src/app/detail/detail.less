@@ -12,29 +12,375 @@
   vertical-align: middle;
 }
 
+.detail-header{
+  width: 960px;
+  background-color: @header-detail;
+  tr{
+    th{
+      background-color: @header-detail !important;
+      border: none !important;
+      color: @white;
+      &:nth-child(6){
+        width: 55px;
+      }
+      &:nth-child(4){
+        width: 110px;
+      }
+    }
+  }
+    &:nth-child(2){
+      td {
+        &:first-child {
+          color: @white;
+        }
+      }
+    }
+}
+
 .detail-table{
   width: 960px;
-  th{
+  text-align: center;
+  border-collapse: separate;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #6f7072;
+  img{
+    margin-right: 5px;
+  }
+  thead {
     background: @black;
-    color: @white;
-    font-size: 11px;
+    th {
+      background: @black;
+      color: @white;
+      font-size: 11px;
+      .buy-color, .sell-color{
+        font-size: 12px;
+      }
+    }
   }
   tbody{
+    font-size: 10px;
     tr{
+      height: 25px;
+      &:nth-child(odd) {
+        background-color: @white;
+        td{
+          &:nth-child(6){
+             background-color: @lightYellowOdd;
+          }
+        }
+      }
+      &:nth-child(even) {
+        background-color: @smokeGrey;
+        td{
+          &:nth-child(6){
+            background-color: @lightYellowEven;
+          }
+        }
+      }
       &:first-child{
         background: @greyBorderColor;
         color: @white;
         font-size: 11px;
-
+        td{
+          border-top: 3px solid @white;
+          &:nth-child(6){
+            background: @greyBorderColor;
+          }
+        }
       }
       &:nth-child(2){
+        td {
+          &:first-child {
+            border-right: 1px solid #6F7071;
+            border-top: 0;
+            background: @greyPaginator;
+            color: @black;
+            font-family: fontpo, Verdana;
+          }
+          &:nth-child(6){
+            background: @greyPaginator;
+          }
+        }
         background: @greyPaginator;
+      }
+      &:last-child{
+        td {
+          border-bottom: 3px solid @white;
+        }
       }
       td{
         &:first-child{
+          border-right: 5px solid @white;
+          border-top: 3px solid @white;
           background: @orangeColor;
           color: @white;
           font-family: 'fontpo-bold';
+        }
+        &:nth-child(1){
+          width: 73px;
+        }
+        &:nth-child(2), &:nth-child(4), &:nth-child(7), &:nth-child(9){
+          width: 105px;
+        }
+      }
+    }
+  }
+}
+
+.currency-detail{
+  font-size: 13px;
+}
+
+.label-date-header-detail{
+  color: @white !important;
+  font-size: 11px;
+}
+
+.graphic-header{
+  background: @black;
+  color: @white;
+  display: inline-block;
+  width: 960px;
+  padding: 5px 10px;
+  font-family: fontpo-bold;
+  float:left;
+}
+
+.year-caption{
+  background: @brown-caption;
+  width: 27px;
+  height: 3px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.price-caption{
+  background: @blue-caption;
+  width: 27px;
+  height: 3px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.six-year-caption{
+  background: @orange-caption;
+  width: 27px;
+  height: 3px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.index-same-period-table{
+  margin-bottom: 20px;
+  width: 960px;
+  color: @black;
+  text-align: center;
+  border-bottom: 1px solid @greyLabel;
+  thead {
+    color: @white;
+    tr {
+      th {
+        background: @black;
+        text-align: center;
+      }
+    }
+  }
+  tbody{
+    font-family: fontpo-bold;
+    color: @black;
+    tr{
+      &:nth-child(odd) {
+        background-color: @smokeGrey;
+      }
+      &:nth-child(even) {
+        background-color: @white;
+      }
+      td{
+        &:first-child{
+          font-family: fontpo;
+          background: @orangeColor;
+          color: @white;
+        }
+      }
+    }
+  }
+}
+
+.summary-table{
+  margin-bottom: 20px;
+  width: 960px;
+  color: @black;
+  text-align: center;
+  border-bottom: 1px solid @greyLabel;
+  thead {
+    tr {
+      th {
+        color: @white;
+        text-align: center;
+        background: @black;
+        border: 1px solid @greyLabel;
+      }
+    }
+  }
+  tbody{
+    font-family: fontpo-bold;
+    tr{
+      &:nth-child(odd) {
+        background-color: @smokeGrey;
+      }
+      &:nth-child(even) {
+        background-color: @white;
+      }
+      td{
+        font-size: 10px;
+        &:first-child{
+          font-family: fontpo;
+          background: @black;
+          color: @white;
+        }
+      }
+    }
+  }
+}
+
+.graphic-container{
+  clear: both;
+  float: left;
+  width: 960px;
+  height: 425px;
+  border-left: 1px solid @greyColor;
+  border-right: 1px solid @greyColor;
+}
+
+.detail-container{
+  border: 1px solid @greyColor;
+  width: 962px;
+  float:left;
+  margin-bottom: 80px;
+}
+
+.pdf-icon-detail{
+  background-image: url('../assets/img/pdf_icon.png');
+  height: 30px;
+  width: 30px;
+  float: right;
+  background-repeat: no-repeat;
+  margin-top: -35px;
+  background-position: 50%;
+  cursor: pointer;
+  margin-bottom: 5px;
+  &:hover{
+    background-color: @orangeColor;
+  }
+}
+
+.pair-detail-table{
+  width: 960px;
+  text-align: center;
+  border-collapse: separate;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #6f7072;
+  img{
+    margin-right: 5px;
+  }
+  thead {
+    background: @black;
+    th {
+      background: @black;
+      color: @white;
+      font-size: 11px;
+      .buy-color, .sell-color{
+        font-size: 12px;
+      }
+    }
+    tr{
+      &:nth-child(1){
+        th{
+          &:nth-child(1), &:nth-child(2), &:nth-child(3){
+            vertical-align: bottom;
+          }
+        }
+
+      }
+      &:nth-child(2){
+        th{
+          &:nth-child(1), &:nth-child(2), &:nth-child(3){
+            vertical-align: top;
+          }
+        }
+      }
+    }
+  }
+  tbody{
+    font-size: 10px;
+    tr{
+      height: 25px;
+      &:nth-child(odd) {
+        background-color: @white;
+        td{
+          &:nth-child(6), &:nth-child(7){
+            background-color: @lightYellowOdd;
+          }
+        }
+      }
+      &:nth-child(even) {
+        background-color: @smokeGrey;
+        td{
+          &:nth-child(6), &:nth-child(7){
+            background-color: @lightYellowEven;
+          }
+        }
+      }
+      &:first-child{
+        background: @greyBorderColor;
+        color: @white;
+        font-size: 11px;
+        td{
+          border-top: 3px solid @white;
+          &:nth-child(6), &:nth-child(7){
+            background-color: @greyBorderColor;
+          }
+        }
+      }
+      &:nth-child(2){
+        td {
+          &:first-child {
+            border-right: 1px solid #6F7071;
+            border-top: 0;
+            background: @greyPaginator;
+            color: @black;
+            font-family: fontpo, Verdana;
+          }
+          &:nth-child(6), &:nth-child(7){
+            background-color: @greyPaginator;
+          }
+        }
+        background: @greyPaginator;
+      }
+      &:last-child{
+        td {
+          border-bottom: 3px solid @white;
+        }
+      }
+      td{
+        &:first-child{
+          border-right: 5px solid @white;
+          border-top: 3px solid @white;
+          background: @orangeColor;
+          color: @white;
+          font-family: 'fontpo-bold';
+        }
+        &:nth-child(1){
+          width: 73px;
+        }
+        &:nth-child(2), &:nth-child(8), &:nth-child(10){
+          width: 105px;
+        }
+        &:nth-child(4){
+          width: 70px;
+        }
+        &:nth-child(6), &:nth-child(7){
+          width: 65px;
         }
       }
     }

@@ -43,54 +43,202 @@
 </p>
 
 <div class="detail-tab">{{actualTab}}</div>
-<table class="detail-table">
-    <thead>
-    <tr>
-        <th colspan="10">
-            <table class="detail-header">
-                <tr>
-                    <td rowspan="2"></td>
-                    <td rowspan="2"></td>
-                    <td></td>
-                    <td></td>
-                    <td rowspan="2"><img src="'../assets/img/currency-detail.png"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-        </th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="pdf-icon-detail"></div>
+<div class="detail-container">
+    <table class="detail-table">
+        <thead>
         <tr>
-            <td rowspan="2">Año</td>
-            <td colspan="2">Entrada --></td>
-            <td colspan="2"><-- Salida</td>
-            <td>Rentabilidad</td>
-            <td colspan="2">Mejor Ganancia</td>
-            <td colspan="2">Peor Pérdida</td>
+            <th colspan="10">
+                <table class="detail-header">
+                    <tr>
+                        <th rowspan="2" style="padding-left: 10px;">
+                            <span class="buy-color" ng-show="infoPattern.patternType == 'BULLISH'"><b>COMPRAR</b></span>
+                            <span class="sell-color" ng-show="infoPattern.patternType == 'BEARISH'"><b>VENDER (A corto)</b></span>
+                        </th>
+                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}"><b>{{infoPattern.name}}</b></th>
+                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}"><b>{{infoPattern.sector}} <span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></th>
+                        <th class="label-date-header-detail"><img src='assets/img/entry_orange_arrow.png'>Fecha Entrada</th>
+                        <th>{{ infoPattern.entryDate | date: 'dd MMM'}}</th>
+                        <th class="currency-detail" rowspan="2"><img src='assets/img/currency-detail.png'> {{infoPattern.currency}}</th>
+                    </tr>
+                    <tr>
+                        <th class="label-date-header-detail"><img src='assets/img/exit_orange_arrow.png'>Fecha Salida</th>
+                        <th>{{ infoPattern.exitDate | date: 'dd MMM'}}</th>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2" >Año</td>
+                <td colspan="2" class="border-right-table">Entrada <img src='assets/img/entry_arrow.png'></td>
+                <td colspan="2" class="border-right-table"><img src='assets/img/exit_arrow.png'> Salida</td>
+                <td class="border-right-table">Rentabilidad</td>
+                <td colspan="2" class="border-right-table">Mejor Ganancia</td>
+                <td colspan="2" class="border-right-table">Peor Pérdida</td>
+            </tr>
+            <tr>
+                <td>Fecha</td>
+                <td class="border-right-table">Precio</td>
+                <td class="sub-border-right-table">Fecha</td>
+                <td class="border-right-table">Precio</td>
+                <td class="border-right-table">Total %</td>
+                <td class="sub-border-right-table">Fecha</td>
+                <td class="border-right-table">%</td>
+                <td class="sub-border-right-table">Fecha</td>
+                <td class="border-right-table">%</td>
+            </tr>
+            <tr ng-repeat="row in myData">
+                <td>{{row.year}}</td>
+                <td class="sub-border-right-table">{{row.entryDate | date: 'dd/MMM/yy'}}</td>
+                <td class="border-right-table"><b>{{row.entryValue}}</b></td>
+                <td class="sub-border-right-table">{{row.exitDate | date: 'dd/MMM/yy'}}</td>
+                <td class="border-right-table"><b>{{row.exitValue}}</b></td>
+                <td class="border-right-table"><b>{{row.returnValue}}</b></td>
+                <td class="sub-border-right-table">{{row.bestGainDate | date: 'dd/MMM/yy'}}</td>
+                <td class="border-right-table"><b>{{row.bestGainValue}}</b></td>
+                <td class="sub-border-right-table">{{row.worstLostDate | date: 'dd/MMM/yy'}}</td>
+                <td class="border-right-table"><span ng-class="{'negative-percent': row.worstLost < 0}"><b>{{row.worstLostValue}}</b></span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="summary-table">
+        <thead>
+            <tr>
+                <th rowspan="2">Resumen</th>
+                <th rowspan="2">Años</th>
+                <th colspan="3">Rentabilidad (%)</th>
+                <th rowspan="2">Duración Estrategia (días)</th>
+            </tr>
+            <tr>
+                <th>Acumulada</th>
+                <th>Promedio</th>
+                <th>Diaria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ganancias</td>
+                <td class="sub-border-right-table">{{infoPattern.win}}</td>
+                <td class="sub-border-right-table">{{infoPattern.accumulatedWin |  twoDecimals}}</td>
+                <td class="sub-border-right-table">{{infoPattern.accumulatedWin / infoPattern.win |  twoDecimals}}</td>
+                <td class="sub-border-right-table">-</td>
+                <td class="sub-border-right-table">-</td>
+            </tr>
+            <tr>
+                <td>Pérdidas</td>
+                <td class="sub-border-right-table">{{infoPattern.loss}}</td>
+                <td class="sub-border-right-table">{{infoPattern.accumulatedLoss |  twoDecimals}}</td>
+                <td class="sub-border-right-table">{{infoPattern.accumulatedLoss / infoPattern.loss |  twoDecimals}}</td>
+                <td class="sub-border-right-table">-</td>
+                <td class="sub-border-right-table">-</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td class="sub-border-right-table">{{infoPattern.win + infoPattern.loss}}</td>
+                <td class="sub-border-right-table">{{infoPattern.accumulatedWin + infoPattern.accumulatedLoss |  twoDecimals}}</td>
+                <td class="sub-border-right-table">{{(infoPattern.accumulatedWin / infoPattern.win) + (infoPattern.accumulatedLoss / infoPattern.loss) |  twoDecimals}}</td>
+                <td class="sub-border-right-table">{{infoPattern.dailyReturn |  twoDecimals}}</td>
+                <td class="sub-border-right-table">{{infoPattern.duration}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="index-same-period-table" ng-show="infoPattern.samePeriodIndices.length > 0">
+        <thead>
+        <tr>
+            <th rowspan="2">Índice (Igual Periodo)</th>
+            <th><img src='assets/img/entry_orange_arrow.png'>Fecha Entrada</th>
+            <th>{{infoPattern.entryDate | date: 'dd MMM'}}</th>
+            <th colspan="2">Rentabilidad (%)</th>
+            <th colspan="2">Años</th>
         </tr>
         <tr>
-            <td rowspan="2">Año</td>
-            <td colspan="2">Entrada --></td>
-            <td colspan="2"><-- Salida</td>
-            <td>Rentabilidad</td>
-            <td colspan="2">Mejor Ganancia</td>
-            <td colspan="2">Peor Pérdida</td>
+            <th><img src='assets/img/exit_orange_arrow.png'>Fecha Salida</th>
+            <th>{{infoPattern.exitDate | date: 'dd MMM'}}</th>
+            <th>Acumulada</th>
+            <th>Promedio</th>
+            <th>Subida</th>
+            <th>Bajada</th>
         </tr>
-        <tr ng-repeat="row in myData">
-            <td>{{row.year}}</td>
-            <td>{{row.entryDate}}</td>
-            <td><b>{{row.entryValue}}</b></td>
-            <td>{{row.exitDate}}</td>
-            <td><b>{{row.exitValue}}</b></td>
-            <td><b>{{row.returnValue}}</b></td>
-            <td>{{row.bestGainDate}}</td>
-            <td><b>{{row.bestGain}}</b></td>
-            <td>{{row.worstLostDate}}</td>
-            <td><span ng-class="{'negative-percent': row.worstLost < 0}"><b>{{row.worstLost}}</b></span></td>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in infoPattern.samePeriodIndices">
+            <td>{{row.asset.longName}}</td>
+            <td ng-class="{'negative-percent': row.accumulatedReturn < 0}">{{row.accumulatedReturn}}</td>
+            <td ng-class="{'negative-percent': row.averageReturn < 0}">{{row.averageReturn}}</td>
+            <td>{{row.win}}</td>
+            <td>{{row.loss}}</td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    <div class="copyright">
+        Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+    </div>
+</div>
+
+<div class="pdf-icon-detail"></div>
+<div class="graphic-header">
+    <div class="float-left">
+        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
+        <br>
+        Precio / Patrón Estacional 15 años (00-14)
+    </div>
+    <div class="float-right" style="margin-top: 15px;">
+        <div class="year-caption"></div>15 Años Patrón <div class="price-caption"></div> Precio
+    </div>
+</div>
+<div class="graphic-container">
+    <img src="{{infoPattern.priceChartURL}}" class="graphic-detail">
+</div>
+<div class="graphic-header">
+    <div class="float-left">
+        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
+        <br>
+        Patrones Estacionales 15 años (00-14) / 6 años (09-14)
+    </div>
+    <div class="float-right" style="margin-top: 15px;">
+        <div class="year-caption"></div>15 Años Patrón <div class="six-year-caption"></div> 6 Años Patrón
+    </div>
+</div>
+<div class="graphic-container" style="margin-bottom: 80px;border-bottom: 1px solid #9B9C9E;">
+    <img src="{{infoPattern.sixYearChartURL}}" class="graphic-detail">
+    <div class="copyright">
+        Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+    </div>
+</div>
+
+
+
+<div class="pdf-icon-detail"></div>
+<div class="graphic-header">
+    <div class="float-left">
+        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
+        <br>
+        Gráfico Semanal
+    </div>
+    <div class="float-right" style="margin-top: 15px;">
+        <div class="price-caption"></div> Precio
+    </div>
+</div>
+<div class="graphic-container">
+    <img src="{{infoPattern.weekChartURL}}" class="graphic-detail">
+</div>
+<div class="graphic-header">
+    <div class="float-left">
+        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
+        <br>
+        Gráfico Mensual
+    </div>
+    <div class="float-right" style="margin-top: 15px;">
+        <div class="price-caption"></div> Precio
+    </div>
+</div>
+<div class="graphic-container" style="border-bottom: 1px solid #9B9C9E;margin-bottom: 20px;">
+    <img src="{{infoPattern.monthChartURL}}" class="graphic-detail">
+    <div class="copyright">
+        Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+    </div>
+</div>
