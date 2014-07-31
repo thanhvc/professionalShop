@@ -154,7 +154,7 @@ angular.module('ngMo.services', [
          url: '/correlation',
          views: {
          "subPage": {
-         templateUrl: 'services/detailed_description/correlation.tpl.html'
+         templateUrl: 'services/detailed_description/portfolio.tpl.html'
          }
          }
          })
