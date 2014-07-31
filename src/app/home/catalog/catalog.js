@@ -323,7 +323,6 @@ angular.module('ngMo.catalog', [
                     selectedIndustry: "",
                     volatilityInterval: "",
                     durationInterval: "",
-                    durationInput: "",
                     index_type: TabsService.getActiveIndexType(),
                     active_tab: ActiveTabService.activeTab(),
                     packCode: $stateParams.packCode,
