@@ -90,6 +90,7 @@ angular.module('ngMo.portfolio', [
                     selectedRegion: "",
                     selectedMarket: "",
                     selectedOperation: "",
+                    durationInterval: "",
                     index_type: TabsService.getActiveIndexType(),
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
@@ -158,8 +159,6 @@ angular.module('ngMo.portfolio', [
 
         $scope.clearResults = function () {
             $scope.portfolioData = [];
-            $scope.portfolioCaption1 = [];
-            $scope.portfolioCaption2 = [];
             $scope.portfolioList = [];
         };
 
@@ -184,21 +183,12 @@ angular.module('ngMo.portfolio', [
                     if (typeof $scope.portfolioList === 'undefined'){ $scope.portfolioList = [];}
                     break;
                 case 2:
-                    //if ($scope.filterOptions.filters.index_type === "0") {
                     if ($window.sessionStorage.portfolioIndices !== 'undefined') {
                         $scope.portfolioList = angular.fromJson($window.sessionStorage.portfolioIndices);
                     }
-                    /*} else {
-                                         if ($window.sessionStorage.portfolioIndicePairs !== 'undefined') {
-                                            $scope.portfolioList = angular.fromJson($window.sessionStorage.portfolioIndicePairs);
-                                         }
-                                    }*/
                     if (typeof $scope.portfolioList === 'undefined'){ $scope.portfolioList = [];}
                     break;
                 case 3:
-                    /*if ($window.sessionStorage.portfolioFutures !== 'undefined') {
-                                        $scope.portfolioList = angular.fromJson($window.sessionStorage.portfolioFutures);
-                                    }*/
                     if ($window.sessionStorage.portfolioIndicePairs !== 'undefined') {
                         $scope.portfolioList = angular.fromJson($window.sessionStorage.portfolioIndicePairs);
                     }
@@ -238,23 +228,16 @@ angular.module('ngMo.portfolio', [
                     $window.sessionStorage.portfolioStockPairs = JSON.stringify(portfolioPatterns);
                     break;
                 case 2:
-                    if ($scope.filterOptions.filters.index_type === "0"){
-                        if (typeof $window.sessionStorage.portfolioIndices === 'undefined'){
-                            $window.sessionStorage.portfolioIndices = [];
-                        }
-                        $window.sessionStorage.portfolioIndices = JSON.stringify(portfolioPatterns);
-                    }else{
-                        if (typeof $window.sessionStorage.portfolioIndicePairs === 'undefined'){
-                            $window.sessionStorage.portfolioIndicePairs = [];
-                        }
-                        $window.sessionStorage.portfolioIndicePairs = JSON.stringify(portfolioPatterns);
+                    if (typeof $window.sessionStorage.portfolioIndices === 'undefined'){
+                        $window.sessionStorage.portfolioIndices = [];
                     }
+                    $window.sessionStorage.portfolioIndices = JSON.stringify(portfolioPatterns);
                     break;
                 case 3:
-                    if (typeof $window.sessionStorage.portfolioFutures === 'undefined'){
-                        $window.sessionStorage.portfolioFutures = [];
+                    if (typeof $window.sessionStorage.portfolioIndicePairs === 'undefined'){
+                        $window.sessionStorage.portfolioIndicePairs = [];
                     }
-                    $window.sessionStorage.portfolioFutures = JSON.stringify(portfolioPatterns);
+                    $window.sessionStorage.portfolioIndicePairs = JSON.stringify(portfolioPatterns);
                     break;
             }
         };
@@ -266,9 +249,6 @@ angular.module('ngMo.portfolio', [
                         $scope.myData = data.patterns;//data.page;
                         $scope.portfolioList = data.portfolioPatterns;
                         updatePortfolioListSessionStorage(data.portfolioPatterns);
-                        /*if ($scope.portfolioList.length > 0){
-                                            $scope.filterOptions.filters.selectedRegion = 1;
-                                        }*/
                         $scope.results = data.results;//data.results;
                         $scope.found = data.found;//data.found;
                         if (!$scope.$$phase) {
@@ -308,14 +288,10 @@ angular.module('ngMo.portfolio', [
                     $window.sessionStorage.removeItem("portfolioStockPairs");
                     break;
                 case 2:
-                    if ($scope.filterOptions.filters.index_type === "0"){
                         $window.sessionStorage.removeItem("portfolioIndices");
-                    }else{
-                        $window.sessionStorage.removeItem("portfolioIndicePairs");
-                    }
                     break;
                 case 3:
-                    $window.sessionStorage.removeItem("portfolioFutures");
+                    $window.sessionStorage.removeItem("portfolioIndicePairs");
                     break;
             }
             $scope.portfolioData = [];
@@ -366,7 +342,7 @@ angular.module('ngMo.portfolio', [
         };
 
         $scope.pagingOptions = {
-            pageSize: 15,
+            pageSize: 20,
             currentPage: 1
         };
 
@@ -383,12 +359,6 @@ angular.module('ngMo.portfolio', [
             }
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
-                    $scope.refreshSelectors(['markets']);
-                    break;
-                case 1://pairs doesnt have markets
-                    $scope.refreshSelectors(['markets']);
-                    break;
-                case 3: //futures ONLY have markets
                     $scope.refreshSelectors(['markets']);
                     break;
                 default://others doesnt have selectors to refresh
@@ -486,6 +456,10 @@ angular.module('ngMo.portfolio', [
 
             if (urlParams.selectedOperation) {
                 urlParamsSend.qop = urlParams.selectedOperation;
+            }
+
+            if (urlParams.durationInput) {
+                urlParamsSend.qdur = urlParams.durationInterval;
             }
 
             if (urlParams.index_type) {
@@ -659,6 +633,7 @@ angular.module('ngMo.portfolio', [
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'operation': filtering.selectedOperation,
+                    'durationInterval': filtering.durationInterval,
                     'favourites': filtering.favourite
                 }
             };

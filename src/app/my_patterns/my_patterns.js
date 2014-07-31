@@ -191,6 +191,8 @@ angular.module('ngMo.my_patterns', [
                 this.changeActiveIndexType(1);
             }else if (active === 2){
                 this.changeActiveIndexType(0);
+            }else{
+                this.changeActiveIndexType(0);
             }
             activeTab = active;
         };
