@@ -150,7 +150,7 @@ angular.module('ngMo.my_patterns', [
 
         var activeTab = 0;
         var activeIndex = 0;
-        var portfolioFlag = false;
+        var porfolioFlag = false;
 
         this.getIndexType = function () {
             return indexTypes;
@@ -165,20 +165,26 @@ angular.module('ngMo.my_patterns', [
         };
 
         this.getTabs = function () {
-            portfolioFlag = false;
+            if (porfolioFlag) {
+                if (activeTab === 3){
+                    activeTab = 2;
+                }
+                porfolioFlag = false;
+            }
             return tabs;
         };
 
         this.getPortfolioTabs = function () {
-            portfolioFlag = true;
+            porfolioFlag = true;
+            if (activeTab === 3){
+                activeTab = 0;
+            }else if (activeTab === 2 && activeIndex === 1){
+                activeTab = 3;
+            }
             return portfolioTabs;
         };
 
         this.getActiveTab = function () {
-            if (portfolioFlag){
-                activeTab = 2;
-                portfolioFlag = false;
-            }
             return activeTab;
         };
 
@@ -189,8 +195,6 @@ angular.module('ngMo.my_patterns', [
         this.changePortfolioActiveTab = function (active) {
             if (active === 3){
                 this.changeActiveIndexType(1);
-            }else if (active === 2){
-                this.changeActiveIndexType(0);
             }else{
                 this.changeActiveIndexType(0);
             }
@@ -1001,4 +1005,20 @@ angular.module('ngMo.my_patterns', [
             }
         };
 
-    });
+    })
+
+    .service("SelectedMonthService", function () {
+        var selectedMonth = 10;
+
+        this.getSelectedMonth = function () {
+            return selectedMonth;
+        };
+
+        this.changeSelectedMonth = function (month) {
+            selectedMonth = month;
+        };
+
+    })
+
+
+;
