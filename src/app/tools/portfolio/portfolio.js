@@ -307,6 +307,14 @@ angular.module('ngMo.portfolio', [
             }
         };
 
+        $scope.clearAllPortfolioLists = function () {
+            $window.sessionStorage.removeItem("portfolioStocks");
+            $window.sessionStorage.removeItem("portfolioStockPairs");
+            $window.sessionStorage.removeItem("portfolioIndices");
+            $window.sessionStorage.removeItem("portfolioIndicePairs");
+            $window.sessionStorage.removeItem("portfolioFutures");
+        };
+
         /**
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
@@ -581,145 +589,4 @@ angular.module('ngMo.portfolio', [
     })
     .service("PortfolioService", function ($http, $window, $rootScope, $q) {
 
-        /*make the string with the params for all the properties of the filter*/
-        this.createParamsFromFilter = function (filtering) {
-            var urlParams = "";
-            for (var property in filtering) {
-                if (filtering.hasOwnProperty(property)) { //check if its a property (to exclude technicals property of js)
-                    // create the params
-                    if ((filtering[property] != null) && (filtering[property] !== "")) {
-                        urlParams += "&" + property + "=" + filtering[property];
-                    }
-                }
-            }
-            return urlParams;
-        };
-
-        /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
-        this.getPagedDataAsync = function (pageSize, page, filtering, patternId, operation, portfolioList, callbackFunc) {
-            var data;
-            var urlParam = this.createParamsFromFilter(filtering);
-
-            var portfolioIdsList = [];
-            if (portfolioList.length > 0) {
-                for (var i = 0; i < portfolioList.length; i++) {
-                    portfolioIdsList.push(portfolioList[i].id);
-
-                }
-            }
-
-            var indexType = null;
-
-            if (typeof filtering.index_type !== "undefined") {
-                indexType = parseInt(filtering.index_type, 10);
-            } else {
-                indexType = 0;
-            }
-
-            //Operation -> Add or delete Pattern to portfolioList
-
-            config = {
-                params: {
-                    'patternId': patternId,
-                    'add_delete': operation,
-                    'page': page,
-                    'token': $window.sessionStorage.token,
-                    'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': indexType,
-                    'portfolioList': portfolioIdsList,
-                    'month': filtering.month.month,
-                    'year': filtering.month.year,
-                    'name': filtering.filterName,
-                    'region': filtering.selectedRegion,
-                    'market': filtering.selectedMarket,
-                    'operation': filtering.selectedOperation,
-                    'durationInterval': filtering.durationInterval,
-                    'favourites': filtering.favourite
-                }
-            };
-
-            var result = $http.get($rootScope.urlService+'/portfoliopatterns', config).success(function (data) {
-                // With the data succesfully returned, call our callback
-                callbackFunc(data);
-            }).
-                error(function(data) {
-                    callbackFunc(data);
-                });
-        };
-
-        this.getPortfolioData = function (portfolioList, filtering) {
-            var deferred = $q.defer();
-
-            var portfolioIdsList = [];
-            if (portfolioList.length > 0) {
-                for (var i = 0; i < portfolioList.length; i++) {
-                    portfolioIdsList.push(portfolioList[i].id);
-
-                }
-            }
-
-            var indexType = null;
-
-            if (typeof filtering.index_type !== "undefined") {
-                indexType = parseInt(filtering.index_type, 10);
-            } else {
-                indexType = 0;
-            }
-
-            config = {
-                params: {
-                    'patternIdList': portfolioIdsList,
-                    'token': $window.sessionStorage.token,
-                    'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': indexType
-                }
-            };
-
-            var result = $http.get($rootScope.urlService+'/computePortfolio', config).then(function (response) {
-                // With the data succesfully returned, call our callback
-                deferred.resolve();
-                return response.data;
-            });
-            return result;
-        };
-
-        /**
-         *
-         * @param filtering - is the object with the filters
-         * @param selectorsToRefresh - the list of selectors requested
-         */
-        this.getSelectors = function (filtering, selectorsToRefresh, callback) {
-            //the filtering object could contains some filters that are required for get the specified selectors
-            //for example, to get the markets, the selected region is required (if there is not region, means all..)
-            //the http petition will use the callback function to load the info received from server
-            var data;
-
-            var indexType = null;
-
-            if (typeof filtering.index_type !== "undefined") {
-                indexType = parseInt(filtering.index_type, 10);
-            } else {
-                indexType = 0;
-            }
-
-            config = {
-                params: {
-                    'region': filtering.selectedRegion,
-                    'market': filtering.selectedMarket,
-                    'token': $window.sessionStorage.token,
-                    'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': indexType,
-                    'month': filtering.month.month,
-                    'year': filtering.month.year,
-                    'view': location.hash.replace("#/","").substring(0, (location.hash.indexOf("?")-2))
-                }
-            };
-
-            var result = $http.get($rootScope.urlService+'/patternfilters', config).success(function (data) {
-                // With the data succesfully returned, call our callback
-                callback(data);
-            });
-
-        };
-    })
-;
+    ;

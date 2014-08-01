@@ -317,6 +317,15 @@ angular.module('ngMo.correlation', [
             });
         };
 
+        $scope.clearAllCorrelationLists = function () {
+            $window.sessionStorage.removeItem("correlationStocks");
+            $window.sessionStorage.removeItem("correlationStockPairs");
+            $window.sessionStorage.removeItem("correlationIndices");
+            $window.sessionStorage.removeItem("correlationIndicePairs");
+            $window.sessionStorage.removeItem("correlationFutures");
+        };
+
+
         $scope.clearCorrelationList = function () {
             $scope.correlationList = [];
             switch ($scope.filterOptions.filters.active_tab) {
