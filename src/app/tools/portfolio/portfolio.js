@@ -587,6 +587,4 @@ angular.module('ngMo.portfolio', [
         $scope.loadPage();
 
     })
-    .service("PortfolioService", function ($http, $window, $rootScope, $q) {
-
-    ;
+;
