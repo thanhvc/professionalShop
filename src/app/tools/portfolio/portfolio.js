@@ -30,6 +30,13 @@ angular.module('ngMo.portfolio', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
-    })
 
-    ;
+
+    $scope.clearAllPortfolioLists = function () {
+        $window.sessionStorage.removeItem("portfolioStocks");
+        $window.sessionStorage.removeItem("portfolioStockPairs");
+        $window.sessionStorage.removeItem("portfolioIndices");
+        $window.sessionStorage.removeItem("portfolioIndicePairs");
+        $window.sessionStorage.removeItem("portfolioFutures");
+    };
+});

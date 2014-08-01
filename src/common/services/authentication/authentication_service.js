@@ -102,7 +102,6 @@ angular.module('auth',['http-auth-interceptor'])
                             $state.go('my-patterns');
                             $scope.hideSignInForm();
                             $scope.currentUser = data.name;
-
                         })
                         .error(function (data, status, headers, config) {
                                 $scope.errorSignIn = true;
@@ -127,6 +126,8 @@ angular.module('auth',['http-auth-interceptor'])
                             $state.go('home');
                             $window.sessionStorage.removeItem('token');
                             $window.sessionStorage.removeItem('username');
+                            $scope.clearAllCorrelationLists();
+                            //$scope.clearAllPortfolioLists();
                         });
                 };
             },
