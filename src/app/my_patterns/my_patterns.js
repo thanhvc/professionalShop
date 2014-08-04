@@ -28,9 +28,10 @@ angular.module('ngMo.my_patterns', [
             //the params on url
             resolve: {
                 MonthSelectorService: "MonthSelectorService",
+                SelectedMonthService: "SelectedMonthService",
                 PatternsService: "PatternsService",
                 TabsService: "TabsService",
-                filtering : function(TabsService,MonthSelectorService,$location){
+                filtering : function(TabsService,MonthSelectorService,$location, SelectedMonthService){
 
                     var params = $location.search();
                     //just to select a item like a selector for load params
@@ -50,7 +51,7 @@ angular.module('ngMo.my_patterns', [
 
                     return {
                         active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                        month: MonthSelectorService.restartDate(),
+                        month: SelectedMonthService.getSelectedMonth(),
                         durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
                         favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
                         filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
@@ -201,7 +202,7 @@ angular.module('ngMo.my_patterns', [
             activeTab = active;
         };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -293,7 +294,7 @@ angular.module('ngMo.my_patterns', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    month: SelectedMonthService.getSelectedMonth(),
                     favourite: false
                 },
                 selectors: {
@@ -529,12 +530,14 @@ angular.module('ngMo.my_patterns', [
 
         $scope.nextMonth = function () {
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -543,6 +546,7 @@ angular.module('ngMo.my_patterns', [
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -689,8 +693,12 @@ angular.module('ngMo.my_patterns', [
 
             } else {
                 //if the date is not passed as param, we load the default date
+                //var date_restart = new Date();
+                //filters.month = MonthSelectorService.restartDate();
                 var date_restart = new Date();
-                filters.month = MonthSelectorService.restartDate();
+                date_restart.setDate(1);
+                date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
+                filters.month = MonthSelectorService.setDate(date_restart);
             }
 
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
@@ -992,8 +1000,8 @@ angular.module('ngMo.my_patterns', [
 
     })
 
-    .service("SelectedMonthService", function () {
-        var selectedMonth = 10;
+    .service("SelectedMonthService", function (MonthSelectorService) {
+        var selectedMonth = MonthSelectorService.restartDate();
 
         this.getSelectedMonth = function () {
             return selectedMonth;
