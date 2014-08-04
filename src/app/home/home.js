@@ -319,5 +319,9 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
     $scope.close = function () {
         $modalInstance.close();
     };
+
+    $scope.openNewWindow = function (url) {
+        window.open("#/"+url, "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, width=1000, height=700, top=120, left=500");
+    };
 };
 

@@ -121,11 +121,9 @@ angular.module('ngMo.catalog', [
                 params: {
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
-                    'month': filtering.month.month,
-                    'year': filtering.month.year,
+                    'month': filtering.month,
                     'packCode': filtering.packCode,
                     'view': view.substring(0, (view.indexOf("/")))
                 }

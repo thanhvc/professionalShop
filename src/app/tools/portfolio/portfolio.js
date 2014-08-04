@@ -307,14 +307,6 @@ angular.module('ngMo.portfolio', [
             }
         };
 
-        $scope.clearAllPortfolioLists = function () {
-            $window.sessionStorage.removeItem("portfolioStocks");
-            $window.sessionStorage.removeItem("portfolioStockPairs");
-            $window.sessionStorage.removeItem("portfolioIndices");
-            $window.sessionStorage.removeItem("portfolioIndicePairs");
-            $window.sessionStorage.removeItem("portfolioFutures");
-        };
-
         /**
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
