@@ -25,7 +25,8 @@ angular.module('ngMo', [
         'singUp',
         'auth',
         'ngMo.Activate',
-        'ngMo.detail'
+        'ngMo.detail',
+        'ngMo.payment'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
@@ -924,7 +925,11 @@ angular.module('ngMo', [
                         $state.go('new-subscription');
                     }
                 };
-                $scope.callbackPurchase = function (){
+                $scope.callbackPurchase = function (data){
+                    /**TEST FOR REDIRECT TO PAYPAL*/
+                    if (typeof data.urlRedirect !== "undefined") {
+                        $window.location.href = data.urlRedirect;
+                    }
 
                 };
             },
