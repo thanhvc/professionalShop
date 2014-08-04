@@ -27,7 +27,7 @@ angular.module('ngMo.lookup_diary', [
     .run(function run() {
     })
 
-    .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService, LookupDiaryService, $http, $state, $stateParams, $location, $modal) {
+    .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService, LookupDiaryService, $http, $state, $stateParams, $location, $modal, SelectedMonthService) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -115,7 +115,7 @@ angular.module('ngMo.lookup_diary', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    month: SelectedMonthService.getSelectedMonth(),
                     favourite: false,
                     alarm: false
                 },
@@ -409,12 +409,14 @@ angular.module('ngMo.lookup_diary', [
 
         $scope.nextMonth = function () {
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -423,6 +425,7 @@ angular.module('ngMo.lookup_diary', [
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -569,7 +572,10 @@ angular.module('ngMo.lookup_diary', [
             } else {
                 //if the date is not passed as param, we load the default date
                 var date_restart = new Date();
-                filters.month = MonthSelectorService.restartDate();
+                date_restart.setDate(1);
+                date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
+                filters.month = MonthSelectorService.setDate(date_restart);
+
             }
 
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)

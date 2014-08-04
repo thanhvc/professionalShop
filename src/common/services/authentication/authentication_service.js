@@ -126,9 +126,25 @@ angular.module('auth',['http-auth-interceptor'])
                             $state.go('home');
                             $window.sessionStorage.removeItem('token');
                             $window.sessionStorage.removeItem('username');
-                            $scope.clearAllCorrelationLists();
-                            //$scope.clearAllPortfolioLists();
+                            clearAllCorrelationLists();
+                            clearAllPortfolioLists();
                         });
+                };
+
+                clearAllCorrelationLists = function () {
+                    $window.sessionStorage.removeItem("correlationStocks");
+                    $window.sessionStorage.removeItem("correlationStockPairs");
+                    $window.sessionStorage.removeItem("correlationIndices");
+                    $window.sessionStorage.removeItem("correlationIndicePairs");
+                    $window.sessionStorage.removeItem("correlationFutures");
+                };
+
+
+                clearAllPortfolioLists = function () {
+                    $window.sessionStorage.removeItem("portfolioStocks");
+                    $window.sessionStorage.removeItem("portfolioStockPairs");
+                    $window.sessionStorage.removeItem("portfolioIndices");
+                    $window.sessionStorage.removeItem("portfolioIndicePairs");
                 };
             },
             link: function($scope) {
