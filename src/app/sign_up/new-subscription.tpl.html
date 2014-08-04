@@ -28,7 +28,7 @@
                         <tr>
                             <td>
                                 <form name="loginForm">
-                                    <table  class="signup-table" style="height:60px;">
+                                    <table  class="signup-new-subscription-table" style="height:60px;">
                                         <tr>
                                             <td>
                                                 <span class="grey-label">Usuario (email)</span>
@@ -36,7 +36,7 @@
                                             <td>
                                                 <input ng-model="login.email" type="email"
                                                        ng-change="clearState()"
-                                                       name="uEmail" style="width:200px;" required="true" />
+                                                       name="uEmail" required="true" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -47,7 +47,7 @@
                                                 <input ng-model="login.password"  type="password"
                                                        name="password1" required="true"
                                                        ng-pattern="passwordPatten" ng-trim="false"
-                                                       style="width:200px;" ng-minlength="8"/>
+                                                       ng-minlength="8"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -68,30 +68,29 @@
                                         <tbody>
                                         <tr>
                                             <td><span class="grey-label">Email</span></td>
-                                            <td><input class="signup-input" ng-model="user.email" type="email"
+                                            <td><input ng-model="user.email" type="email"
                                                        ng-change="clearState()"
-                                                       name="uEmail" style="width:200px;" required="true">
+                                                       name="uEmail" required="true">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="grey-label">Repetir email</span></td>
-                                            <td><input class="signup-input" type="email" ng-model="user.email2"
-                                                       name="username2" style="width:200px;" required="true"
+                                            <td><input type="email" ng-model="user.email2"
+                                                       name="username2" required="true"
                                                        match="user.email">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><span class="grey-label">Contrase&ntilde;a</span></td>
-                                            <td><input class="signup-input" ng-model="user.password" type="password"
+                                            <td><input ng-model="user.password" type="password"
                                                        name="password1" required="true"
                                                        ng-pattern="passwordPatten" ng-trim="false"
-                                                       style="width:200px;" ng-minlength="8"></td>
+                                                       ng-minlength="8"></td>
                                         </tr>
                                         <tr>
                                             <td><span class="grey-label">Repetir contrase&ntilde;a</span></td>
                                             <td><input class="signup-input" ng-model="user.password2" type="password"
-                                                       name="password2" required="true" match="user.password"
-                                                       style="width:200px;">
+                                                       name="password2" required="true" match="user.password">
                                             </td>
                                         </tr>
                                         </tbody>
@@ -103,7 +102,7 @@
                     </table>
                 </div>
                 <button class="mo-button" name="continue" ng-disabled="((loginForm.$invalid && newSubscriptionMode == 'login') || (form.$invalid && newSubscriptionMode == 'signup'))"
-                        ng-click="createNewSubs()" style="float:right;" type="button">Continuar
+                        ng-click="createNewSubs()" style="float:right;margin-bottom: 25px;" type="button">Continuar
                 </button>
                 <!--login errors -->
                 <div ng-show="loginForm.uEmail.$error.email && (loginForm.uEmail.$dirty &&  newSubscriptionMode== 'login' )"
