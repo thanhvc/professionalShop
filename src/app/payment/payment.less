@@ -1,0 +1,70 @@
+.tab-table-summary {
+  background-color: @orangeColor;
+  color: @white;
+  font-family: "fontpo-bold", "verdana";
+  font-size: 12px;
+  margin-bottom: 0;
+  height: 28px;
+  padding-bottom: 5px;
+  padding-left: 58px;
+  padding-top: 6px;
+  width: 187px;
+}
+
+.orange-separator-summary {
+  background-color: @orangeColor;
+  width: 900px;
+  height: 10px;
+  margin: 0 auto;
+
+}
+
+.container-table-summary-pay {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.table-summary-pay {
+
+  thead {
+    tr {
+      background-color: @greyPaginator;
+      font-size: 11px;
+
+      td {
+        padding: 4px;
+        &:nth-child(1) {
+          width: 260px;
+        }
+        &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+          width: 160px;
+        }
+      }
+
+    }
+  }
+  tbody {
+    tr {
+
+      &:nth-child(odd) {
+        background-color: @smokeGrey;
+      }
+      &:nth-child(even) {
+        background-color: @white;
+      }
+      td {
+        border-right: 1px solid @greyLabel;
+        font-size: 10px;
+        &:first-child{
+          text-align: left;
+          padding-left: 5px;
+        }
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+  text-align: center;
+  font-size: 10px;
+}

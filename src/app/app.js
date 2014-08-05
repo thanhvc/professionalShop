@@ -641,9 +641,9 @@ angular.module('ngMo', [
             controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope,$state,$q) {
 
                 //catch the event submitcart to send the packs to buy
-                $scope.$on('submitCart', function() {
-                    $scope.submitCart();
-                    $state.go('my-patterns');
+                $scope.$on('goToSummaryPay', function() {
+                    //$scope.submitCart();
+                    $state.go('summary-pay');
                 });
 
                 //load the prices from server (monthly, trhee months and anual)
@@ -890,6 +890,10 @@ angular.module('ngMo', [
                     $scope.subtotalStock = 0;
                 };
 
+                $scope.goToPay= function() {
+                    $state.go('summary-pay');
+                };
+                //makes the petition to Pay with Paypal
                 $scope.submitCart = function () {
                     token = $window.sessionStorage.token;
                     if (token != null) {
