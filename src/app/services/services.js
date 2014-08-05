@@ -259,9 +259,19 @@ angular.module('ngMo.services', [
                 }else{
                     $scope.boolChangeClassDetailed = false;
                 }
+
+                //horizontal scroll control when the menu is fixed
+                if(window.pageXOffset > 0){
+                    menuOffset = document.getElementsByClassName("lat-menu-detailed-nav")[0].offsetLeft;
+                    $scope.menuLeft = (menuOffset-window.pageXOffset)+'px';
+                }else{
+                    $scope.menuLeft = '';
+                }
+
             } else {
                 $scope.boolChangeClassDetailed = false;
                 $scope.positionFix = false;
+                $scope.menuLeft = '';
             }
             $scope.$apply();
 
@@ -290,7 +300,6 @@ angular.module('ngMo.services', [
 
         //try when 1 page
         angular.element(document).ready(function () {
-            console.log("loaded");
             subRoute =location.hash.split("#/detailed_description#");
             if (subRoute.length == 1) {
                 //if detailed_description is not the actual page, the length is 1... so we must check if is summary page or resources page
