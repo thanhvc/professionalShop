@@ -180,7 +180,7 @@ angular.module('singUp', [])
                        // $state.go('my-patterns');
                         $scope.hideSignInForm();
                         $scope.currentUser = data.name;
-                        $rootScope.$broadcast('submitCart');
+                        $rootScope.$broadcast('goToSummaryPay'); //now goes to summary
 
                     })
                     .error(function (data, status, headers, config) {
