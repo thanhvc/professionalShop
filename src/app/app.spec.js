@@ -123,22 +123,53 @@ describe('The cart directive', function () {
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
-            $compile = _$compile_;
-            $scope = _$rootScope_.$new();
-            $state = _$state_;
+        // define the mock Parse service
+//        beforeEach(function() {
+//            ShoppingCartService = {
+//               getPrices: function() {
+//                   return [29,82,313];
+//               },
+//            openCart: function(){},
+//            closeCart: function(){},
+//            obtainCartItems: function(){},
+//            addItemCart: function(){},
+//            obtainSubtotal: function(){},
+//            removeItemCart: function(){},
+//            changeDuration: function(){},
+//            removeAllItemsCart: function(){},
+//            obtainNumItemsCar: function(){},
+//            obtainTotalCart : function(){}
+//            };
+//        });
+
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend,$controller) {
+
             httpMock = $httpBackend;
-            httpMock.when('GET', $scope.urlService+'/islogged').respond(200);
+            $compile = _$compile_;
+            $state = _$state_;
+            httpMock.when('GET', _$rootScope_.urlService+'/islogged').respond(200);
+            httpMock.when('GET', _$rootScope_.urlService+"/prices").respond({
+                "data":{
+                    "prices":[29,82,313]
+                }});
+            $scope = _$rootScope_.$new();
         }));
 
+
+
         addItemsToCart = function (numItems) {
+            startDate= 1406934000000;
             for (var i = 0; i < numItems; i++) {
                 item = {
                     "code": i,
+                    name: "pack test",
                     "patternType": 0,
-                    "productType": "STOCK"
+                    "productType": "STOCK",
+                    publicationDate: 1404472269488
                 };
-                $scope.addNewItemCart(item);
+
+
+                $scope.addNewItemCart(item,startDate);
                 $scope.$apply();
             }
         };
