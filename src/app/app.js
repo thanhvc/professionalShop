@@ -143,7 +143,7 @@ angular.module('ngMo', [
             return str;
         };
     })
-    .service('ShoppingCartService', function (ActiveTabService){
+    .service('ShoppingCartService', function (ActiveTabService,$q,$http,$rootScope){
 
         var stockItems =  [];
 
@@ -161,6 +161,19 @@ angular.module('ngMo', [
         var indicesSubtotal = 0;
         var pairsIndicesSubtotal = 0;
         var futuresSubtotal = 0;
+
+
+        this.getPrices = function () {
+            var deferred = $q.defer();
+            var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
+                deferred.resolve(data.data.prices);
+                console.log("loading");
+                return data.data.prices;
+            });
+
+
+            return deferred.promise;
+        };
 
         var showCart = false;
         this.openCart = function (){
@@ -625,7 +638,7 @@ angular.module('ngMo', [
 
     .directive('cart', function() {
         return{
-            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope,$state) {
+            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope,$state,$q) {
 
                 //catch the event submitcart to send the packs to buy
                 $scope.$on('submitCart', function() {
@@ -633,7 +646,15 @@ angular.module('ngMo', [
                     $state.go('my-patterns');
                 });
 
-
+                //load the prices from server (monthly, trhee months and anual)
+                $scope.prices = [29,82,313];//default price, dont worry if the server changes the price and doesnt work
+                /*
+                in that case the price will load the default prices in this JS, but in the previous step to pay, the right prices will load and showed to the user.
+                the default prices is needed for the tests
+                 */
+                ShoppingCartService.getPrices().then(function(data) {
+                    $scope.prices =   data;
+                });
 
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                 $scope.totalCart = ShoppingCartService.obtainTotalCart();
@@ -779,22 +800,49 @@ angular.module('ngMo', [
                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
 
                 };
+
+
+                /**
+                 * get the prices of the server
+                 */
+                $scope.getPrices = function() {
+                    ShoppingCartService.getPrices().then(function(data) {
+                        $scope.prices =   data;
+                    } );
+                };
+
                 /**
                  * TODO: replace enter parameter 'id' for 'item'
                  * @param id
                  */
                 $scope.addNewItemCart = function(newItem, startDate){
+//                    var deferred = $q.defer();
+//                    var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
+//                        deferred.resolve(data.data.prices);
+//                        return data.data.prices;
+//                    });
+//
+//
+//                    var pricesArray = deferred.promise;
+                    //load prices in scope
+                   // $scope.getPrices();
+
+//                    ShoppingCartService.getPrices().then(function(data) {
+//                        $scope.prices =   data;
+//                    });
+
+
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                     item = {
                         "code": newItem.code,
                         "packName": newItem.name,
                         "startDate": $filter('date')(startDate, 'MMMM yyyy'),
                         "duration": "Mensual",
-                        "price": 29,
+                        "price": $scope.prices[0],
                         "date": $filter('date')(startDate, 'dd/MM/yyyy'),
                         "patternType": newItem.patternType,
                         "productType": newItem.productType,
-                        prices: [29,82,313]
+                        prices: $scope.prices/*[29,82,313]*/
                     };
                     var totalList = [];
                     if ((typeof $scope.stockItems != "undefined")) {
