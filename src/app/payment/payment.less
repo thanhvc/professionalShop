@@ -55,7 +55,7 @@
       td {
         border-right: 1px solid @greyLabel;
         font-size: 10px;
-        &:first-child{
+        &:first-child {
           text-align: left;
           padding-left: 5px;
         }
@@ -63,8 +63,52 @@
           border-right: none;
         }
       }
+
+      &:last-child {
+        border-bottom: 1px solid @greyLabel;
+      }
     }
   }
   text-align: center;
   font-size: 10px;
 }
+
+.summary-subtotal-container {
+  clear: both;
+  width: 900px;
+  height: 50px;
+  margin-left: 50%;
+  position: relative;
+  left: -450px;
+  padding-top: 10px;
+}
+
+.summary-subtotal-format{
+  height: 20px;
+  font-size: 12px;
+  font-family: 'fontpo';
+  text-align: right;
+  float:left;
+}
+
+.summary-subtotal {
+  width: 150px;
+  margin-left: 550px;
+  float: left;
+}
+
+.summary-subtotal-ammount{
+  width:95px;
+}
+
+.separator-pay{
+  border-top: 1px @black solid;
+  width: 900px;
+  margin-left: 50%;
+  position: relative;
+  left: -450px;
+  margin-bottom: 10px;
+}
+
+
+

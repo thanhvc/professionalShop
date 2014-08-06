@@ -1,82 +1,386 @@
 <div>
 
+<div>
+
+<div class="container-table-summary-pay" ng-if="stocks.length >0">
+    <div class="tab-table-summary">
+        Acciones
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in stocks">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
     <div>
-        <div class="container-table-summary-pay">
-            <div class="tab-table-summary">
-                Acciones
+        <!--sub total the taxes are 0% by now-->
+
+        <div id="idTotalS"
+             class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
             </div>
-            <div class="orange-separator-summary"></div>
-            <table class="table-summary-pay">
-                <thead>
-                <tr>
-                    <td>
-                        Región
-                    </td>
-
-                    <td>
-                        Mes Inicio
-                    </td>
-
-                    <td>
-                        Mes Expiración
-                    </td>
-
-                    <td>
-                        Duración
-                    </td>
-
-                    <td>
-                        Precio
-                    </td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="data in stocks">
-                    <td>
-                        {{data.name}}
-                    </td>
-                    <td>
-                        {{getMonthName(data.startDate )}}
-                    </td>
-                    <td>
-                        {{getMonthName(data.endDate )}}
-                    </td>
-                    <td>
-                        {{translateDuration(data.duration)}}
-                    </td>
-                    <td>
-                        {{data.price | twoDecimals}}
-                    </td>
-
-                </tr>
-                </tbody>
-            </table>
-
-
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalStocks | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
         </div>
-        <div class="container-table-summary-pay">
-            <div class="tab-table-summary">
-                Pares
+
+    </div>
+</div>
+<div class="container-table-summary-pay" ng-if="pairs.length >0">
+    <div class="tab-table-summary">
+        Pares
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in pairs">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div
+                class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
             </div>
-            <div class="orange-separator-summary"></div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalPairs | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
         </div>
-        <div class="container-table-summary-pay">
-            <div class="tab-table-summary">
-                Indices
+
+    </div>
+</div>
+<div class="container-table-summary-pay" ng-if="index.length >0">
+    <div class="tab-table-summary">
+        Indices
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in index">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div
+                class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
             </div>
-            <div class="orange-separator-summary"></div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalIndex | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
         </div>
-        <div class="container-table-summary-pay">
-            <div class="tab-table-summary">
-                Par Indices
+
+    </div>
+</div>
+<div class="container-table-summary-pay" ng-if="pairsIndex.length >0">
+    <div class="tab-table-summary">
+        Par Indices
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in pairsIndex">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div
+                class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
             </div>
-            <div class="orange-separator-summary"></div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalPairsIndex | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
         </div>
-        <div class="container-table-summary-pay">
-            <div class="tab-table-summary">
-                Futuros
+
+    </div>
+</div>
+<div class="container-table-summary-pay" ng-if="futures.length >0">
+    <div class="tab-table-summary">
+        Futuros
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in futures">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div
+                class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
             </div>
-            <div class="orange-separator-summary"></div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalFutures | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<div>
+    <!--total-->
+    <div id="idTotales" style="clear: both; width: 900px; margin: 0 auto; ">
+        <div id="j_id382" style="font-size: 0px;">
+            <div class="separator-pay"></div>
+        </div>
+        <div
+             class="summary-subtotal-format summary-subtotal">
+            Total:
+        </div>
+        <div class="summary-subtotal-format summary-subtotal-ammount">
+             {{total | twoDecimals | number:2}} EUR
         </div>
     </div>
+</div>
 </div>
