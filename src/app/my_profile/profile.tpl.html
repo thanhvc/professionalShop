@@ -1,20 +1,28 @@
 <div class="public-zone-text container" ng-controller="ProfileCtrl">
 
-    <div class="super-border private-black-title">Mi Cuenta</div>
-
-    <table class="table-page-index" style="width: 115px; clear:both; margin-top: 20px;">
+    <table class="table-page-index" style="width: 115px;">
         <tr>
             <td>
-                  <span><a ui-sref="profile.edit" ng-class="{'orange-text':( subPage == 'edit')}">
-                    Editar
+                  <span>
+                     <a ui-sref="profile.identification" ng-class='{"myclass":tog==0}' ng-click='tog=0'>
+                    Identificación personal
                   </a>
                     </span>
             </td>
         </tr>
         <tr>
             <td>
-                <span><a ui-sref="profile.orders" ng-class="{'orange-text': (subPage == 'orders')}">
-                    Mis ordenes
+                  <span>
+                      <a ui-sref="profile.edit"   ng-class='{"myclass":tog==1}' ng-click='tog=1'>
+                    Datos de acceso
+                  </a>
+                    </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span><a ui-sref="profile.orders"   ng-class='{"myclass":tog==2}' ng-click='tog=2'>
+                    Mis órdenes
                 </a>
                  </span>
 
