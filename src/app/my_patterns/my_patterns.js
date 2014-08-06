@@ -393,11 +393,17 @@ angular.module('ngMo.my_patterns', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors,filters,callback) {
-            PatternsService.getSelectors(filters, selectors,callback);
+            viewName = $state.$current.self.name;
+            PatternsService.getSelectors(filters, selectors,callback,viewName);
         };
 
         $scope.callBackRefreshSelectors =  function (data) {
             //checks the data received, when a selector is refreshed, the value selected is also cleaned
+            if (data.hasOwnProperty("regions")) {
+                $scope.filterOptions.selectors.regions = data.regions;
+                //$scope.filterOptions.filters.selectedRegion = "";
+            }
+
             if (data.hasOwnProperty("markets")) {
                 $scope.filterOptions.selectors.markets = data.markets;
                 if (typeof data.selectedRegion != 'undefined') {
@@ -405,10 +411,7 @@ angular.module('ngMo.my_patterns', [
                 }
                 //$scope.filterOptions.filters.selectedMarket = "";
             }
-            if (data.hasOwnProperty("regions")) {
-                $scope.filterOptions.selectors.regions = data.regions;
-                //$scope.filterOptions.filters.selectedRegion = "";
-            }
+
             if (data.hasOwnProperty("industries")) {
                 $scope.filterOptions.selectors.industries = data.industries;
                 //$scope.filterOptions.filters.selectedIndustry = "";
@@ -664,7 +667,9 @@ angular.module('ngMo.my_patterns', [
                 active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
                 favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
                 selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
-                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" )
+                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
+                selectedSector: (typeof params.qsector !== "undefined" ? params.qsector : ""),
+                selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "")
 
             };
 
@@ -743,7 +748,7 @@ angular.module('ngMo.my_patterns', [
 
 
     })
-    .service("PatternsService", function ($http, $window, $rootScope, $q) {
+    .service("PatternsService", function ($location,$http, $window, $rootScope, $q) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -834,7 +839,7 @@ angular.module('ngMo.my_patterns', [
          * @param filtering - is the object with the filters
          * @param selectorsToRefresh - the list of selectors requested
          */
-        this.getSelectors = function (filtering, selectorsToRefresh, callback) {
+        this.getSelectors = function (filtering, selectorsToRefresh, callback, viewName) {
             //the filtering object could contains some filters that are required for get the specified selectors
             //for example, to get the markets, the selected region is required (if there is not region, means all..)
             //the http petition will use the callback function to load the info received from server
@@ -859,7 +864,7 @@ angular.module('ngMo.my_patterns', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'view': location.hash.replace("#/","").substring(0, (location.hash.indexOf("?")-2))
+                    'view': viewName
                 }
             };
 
