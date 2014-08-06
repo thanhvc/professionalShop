@@ -23,7 +23,7 @@ angular.module('ngMo.my_profile', [
             },
             data: {
                 pageTitle: 'Profile',
-                selectMenu: '',
+                selectMenu: 'my-patterns-nav',
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
@@ -31,6 +31,18 @@ angular.module('ngMo.my_profile', [
             reloadOnSearch: false
         })
             //substates of summary
+            .state('profile.identification', {
+                url: '/identification',
+                views: {
+                    "sub-profile": {
+                        templateUrl: 'my_profile/identification.tpl.html'
+                    }
+                },
+                data: {
+                    subPage: 'identification',
+                    pageTitle: 'Identification personal'
+                }
+            })
             .state('profile.edit', {
                 url: '/edit',
                 views: {
@@ -40,7 +52,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: {
                     subPage: 'edit',
-                    pageTitle: 'Profile Edit'
+                    pageTitle: 'Editar perfil'
                 }
             })
             .state('profile.orders', {
@@ -52,7 +64,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: {
                     subPage: 'orders',
-                    pageTitle: 'My orders'
+                    pageTitle: 'Mis órdenes'
                 }
             });
     })
@@ -61,17 +73,17 @@ angular.module('ngMo.my_profile', [
     })
 
     .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state) {
-
+        $scope.subPage = $state.$current.data.subPage;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
-                $scope.subPage = $state.$current.data.subPage;
             }
         });
 
+        $scope.tog = 0;
         $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
         //patterns for validation
         //letters and special characters (like dieresis) (with spaces) but not numbers or other special chars
@@ -80,11 +92,7 @@ angular.module('ngMo.my_profile', [
         $scope.zipPattern = /[a-z0-9\s]+/ig;
         //only numbers
 
-          SignUpService.getCountries(function(data) {
-            if (data.length>0) {
-                $scope.countries = data;
-            }
-        });
+        $scope.countries = SignUpService.getCountries();
 
         $scope.actualPassword = "";
         $scope.passwordUser = "";
@@ -100,6 +108,7 @@ angular.module('ngMo.my_profile', [
             $scope.user =
             {   name: "",
                 surname: "",
+                emailAddress: "",
                 address: "",
                 city: "",
                 postalCode: "",
