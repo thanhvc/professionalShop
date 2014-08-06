@@ -385,9 +385,12 @@
 </div>
 <!--payment-->
 <div class="summary-payment-container">
+    <div style="height: 20px;">
+    <div id="noAceptaCondicionesCamp" style="color: red; font-size: 11px; font-family: fontpo; display: block;" ng-show="errorConditions">Debe aceptar las condiciones del servicio</div>
+    </div>
     <form id="paymentForm" name="paymentForm">
         <div class="summary-payment-button-container">
-            <input class="mo-button" name="pay-button" onclick="if (!mostrarAviso()) return false" value="Pagar"
+            <input class="mo-button" name="pay-button" ng-click="doPayment()" value="Pagar"
                    type="button">
             <input class="mo-button" name="cancel-pay"
                    onclick="A4J.AJAX.Submit('pagoForm',event,{'similarityGroupingId':'pagoForm:j_id402','parameters':{'pagoForm:j_id402':'pagoForm:j_id402'} ,'actionUrl':'/cartShop'} );return false;"
@@ -455,26 +458,8 @@
                 </div>
                 *
             </div>
-            <script type="text/javascript">
-                comprobarSelect();
-            </script>
+
         </div>
-        <input type="hidden" autocomplete="off" name="selectPagoForm" value="selectPagoForm"><input type="hidden"
-                                                                                                    autocomplete="off"
-                                                                                                    name="autoScroll"
-                                                                                                    value="">
-        <script type="text/javascript">function clear_selectPagoForm() {
-            _clearJSFFormParameters('selectPagoForm', '', ['selectPagoForm:j_idcl', 'selectPagoForm:_link_hidden_']);
-        }
-        function clearFormHiddenParams_selectPagoForm() {
-            clear_selectPagoForm();
-        }
-        function clearFormHiddenParams_selectPagoForm() {
-            clear_selectPagoForm();
-        }
-        clear_selectPagoForm();</script>
-        <script type="text/javascript">A4J.setupForm('selectPagoForm');</script>
-        <input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState"
-               value="-440428861179606594:-4401074789549287202" autocomplete="off"></form>
+         </form>
 </div>
 </div>
