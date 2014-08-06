@@ -375,12 +375,106 @@
             <div class="separator-pay"></div>
         </div>
         <div
-             class="summary-subtotal-format summary-subtotal">
+                class="summary-subtotal-format summary-subtotal">
             Total:
         </div>
         <div class="summary-subtotal-format summary-subtotal-ammount">
-             {{total | twoDecimals | number:2}} EUR
+            {{total | twoDecimals | number:2}} EUR
         </div>
     </div>
+</div>
+<!--payment-->
+<div class="summary-payment-container">
+    <form id="paymentForm" name="paymentForm">
+        <div class="summary-payment-button-container">
+            <input class="mo-button" name="pay-button" onclick="if (!mostrarAviso()) return false" value="Pagar"
+                   type="button">
+            <input class="mo-button" name="cancel-pay"
+                   onclick="A4J.AJAX.Submit('pagoForm',event,{'similarityGroupingId':'pagoForm:j_id402','parameters':{'pagoForm:j_id402':'pagoForm:j_id402'} ,'actionUrl':'/cartShop'} );return false;"
+                   value="Cancelar Compra" style="margin-left: 10px !important;" type="button">
+        </div>
+    </form>
+    <form id="selectPagoForm" name="selectPagoForm" method="post"
+          action="javascript:A4J.AJAX.SubmitForm('selectPagoForm',{'similarityGroupingId':'selectPagoForm','parameters':{'selectPagoForm':'selectPagoForm','ajaxSingle':'selectPagoForm'} ,'actionUrl':'/cartShop'} )"
+          target="">
+        <div id="selectPagoForm:idTablas" style="height: 50px; width: 400px;">
+
+            <table style="height: 50px; font-size: 11px; font-family: 'fontpo'; float: right;">
+                <tbody>
+                <tr>
+                    <td><img id="selectPagoForm:imgPaypal" src="assets/img/paypal_icon.jpg"
+                             ng-click="paymentType= 'EXPRESSCHECKOUT'"
+                             style="float: left;  " ng-class="{ 'unselected-payment': paymentType == 'DIRECTPAYMENT' }">
+                    </td>
+                </tr>
+                <tr>
+                    <td><img id="selectPagoForm:imgCard" src="assets/img/cc_icons.jpg"
+                             ng-click="paymentType= 'DIRECTPAYMENT'"
+                             style="float: left;" ng-class="{ 'unselected-payment': paymentType == 'EXPRESSCHECKOUT' }">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table   class="selector-pay-table">
+                <tbody>
+                <tr>
+                    <td>
+
+                        <input type="radio" name="expressCheckoutSelect"
+                               value="EXPRESSCHECKOUT" ng-model="paymentType"
+                                ></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="directPaymentSelect"
+                               ng-model="paymentType"
+                               value="DIRECTPAYMENT"></td>
+
+                </tbody>
+            </table>
+            <div
+                    style="float: right; font-size: 11px; font-family: 'fontpot'; margin-top:15px;">
+                Seleccione el método de pago
+            </div>
+            <div id="selectPagoForm:j_id412"
+                 style="clear:both;float: right;font-family: 'fontpo';font-size: 11px;margin-top:10px;">
+
+                <!--
+                <div id="terms-conditions-link" ng-click="openModalInstance('sign_up/terms-and-conditions');" style="display:inline;">
+                                    <span style="color:#0663D7;cursor:pointer;">condiciones del servicio</span>
+                                </div>
+                                <input  type="checkbox" name="conditions" id="conditions" ng-enter="nextInput('submit2')"
+                                       style="margin-left:20px !important;" ng-model="user.conditions" required="true">-->
+
+
+                <input  type="checkbox" name="conditions" id="conditions" ng-model="conditions" required="true"
+                         style="margin-right:5px !important;">
+                Acepto las
+                <div id="terms-conditions-link" ng-click="openModalInstance('sign_up/terms-and-conditions');"  style="display: inline; "><span
+                        class="link" style="text-decoration: none;">condiciones del servicio</span>
+                </div>
+                *
+            </div>
+            <script type="text/javascript">
+                comprobarSelect();
+            </script>
+        </div>
+        <input type="hidden" autocomplete="off" name="selectPagoForm" value="selectPagoForm"><input type="hidden"
+                                                                                                    autocomplete="off"
+                                                                                                    name="autoScroll"
+                                                                                                    value="">
+        <script type="text/javascript">function clear_selectPagoForm() {
+            _clearJSFFormParameters('selectPagoForm', '', ['selectPagoForm:j_idcl', 'selectPagoForm:_link_hidden_']);
+        }
+        function clearFormHiddenParams_selectPagoForm() {
+            clear_selectPagoForm();
+        }
+        function clearFormHiddenParams_selectPagoForm() {
+            clear_selectPagoForm();
+        }
+        clear_selectPagoForm();</script>
+        <script type="text/javascript">A4J.setupForm('selectPagoForm');</script>
+        <input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState"
+               value="-440428861179606594:-4401074789549287202" autocomplete="off"></form>
 </div>
 </div>

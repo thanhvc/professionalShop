@@ -640,10 +640,22 @@ angular.module('ngMo', [
         return{
             controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope,$state,$q) {
 
-                //catch the event submitcart to send the packs to buy
+                //catch the event submitcart to send the packs to buy, this event is launched by login form when the user logins to pay
                 $scope.$on('goToSummaryPay', function() {
                     //$scope.submitCart();
                     $state.go('summary-pay');
+                });
+                //the cart must dessapears in some views, so when the state is one of the list, the cart will be invisible to the user
+                $scope.showCartinState=true;//show the cart by default
+                $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                  //list of states where the cart is invisible
+                    var states = ["summary-pay"];
+                    if (states.indexOf(toState.name) > -1) {
+                        //the new state will not show the cart
+                        $scope.showCartinState= false;
+                    } else {
+                        $scope.showCartinState = true;
+                    }
                 });
 
                 //load the prices from server (monthly, trhee months and anual)

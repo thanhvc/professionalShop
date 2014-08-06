@@ -1,4 +1,4 @@
-<div class="shopping-cart-container" ng-show="numItemsCart > 0" ng-class="{'show-summary-cart': showCart, 'hide-summary-cart': !showCart, 'show-summary-cart-top': boolChangeClass}">
+<div class="shopping-cart-container" ng-show="((numItemsCart > 0) && (showCartinState))" ng-class="{'show-summary-cart': showCart, 'hide-summary-cart': !showCart, 'show-summary-cart-top': boolChangeClass}">
     <div class="shopping-cart-summary" >
         <span class="title-cart">Carro de Compra</span>
         <table class="cart-summary-table" ng-show="stockItems.length > 0">

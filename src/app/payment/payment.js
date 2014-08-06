@@ -120,6 +120,12 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.total=0;
         $scope.totalTaxes=0;
 
+
+        //payment Selector
+        $scope.paymentType = "EXPRESSCHECKOUT";
+        $scope.conditions= false;
+
+
         //load the info from server with all the fields of the summary
         $scope.loadPayment = function () {
             PaymentService.getPayments(function (data) {
