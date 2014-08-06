@@ -74,10 +74,20 @@ angular.module('ngMo.payment', [  'ui.router'])
                         payerId: $stateParams.payerId
                 }
             };
+            //status of the payment returned by server
+            $scope.status = "NONE";
             $http.post($rootScope.urlService+"/confirm-pay",config).then( function(data) {
-
+                if (data.data.status === "OK") {
+                    $scope.status = "OK";
+                } else {
+                    $scope.status = "ERROR";
+                }
             });
         }
+
+        $scope.goToPatterns = function() {
+            $state.go('my-patterns');
+        };
     })
 //controller of summary-pay
 
@@ -124,6 +134,7 @@ angular.module('ngMo.payment', [  'ui.router'])
         //payment Selector
         $scope.paymentType = "EXPRESSCHECKOUT";
         $scope.conditions= false;
+        $scope.errorConditions= false;
 
 
         //load the info from server with all the fields of the summary
@@ -151,10 +162,23 @@ angular.module('ngMo.payment', [  'ui.router'])
             return month+" "+date.year;
         };
 
-
+        //transform 0,1,2 to legible names of durations
         $scope.translateDuration = function(id) {
             return PaymentService.getDurationFromId(id);
         };
+
+        //start the payment
+        $scope.doPayment = function() {
+            //the terms and conditions must be accepted by user
+            if ($scope.conditions) {
+                $scope.errorConditions= false;
+                $rootScope.$broadcast('submitCart', $scope.paymentType);
+            } else{
+                $scope.errorConditions= true;
+            }
+
+        };
+
         //first load of the summary
         $scope.loadPayment();
 

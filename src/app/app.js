@@ -645,6 +645,19 @@ angular.module('ngMo', [
                     //$scope.submitCart();
                     $state.go('summary-pay');
                 });
+
+                $scope.$on('submitCart', function(event,paymentType){
+                    if (paymentType === "EXPRESSCHECKOUT") {
+                        //the expresscheckout submit the Cart with return to url payment
+                        $scope.submitCart();
+                    } else if (paymentType === "DIRECTPAYMENT") {
+                        //payment with card
+                        return;
+                    } else {
+                        return;
+                    }
+
+                });
                 //the cart must dessapears in some views, so when the state is one of the list, the cart will be invisible to the user
                 $scope.showCartinState=true;//show the cart by default
                 $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -903,7 +916,12 @@ angular.module('ngMo', [
                 };
 
                 $scope.goToPay= function() {
-                    $state.go('summary-pay');
+                    token = $window.sessionStorage.token;
+                    if (token != null) {
+                        $state.go('summary-pay');
+                    } else {
+                        $state.go('new-subscription');
+                    }
                 };
                 //makes the petition to Pay with Paypal
                 $scope.submitCart = function () {
@@ -1062,6 +1080,8 @@ angular.module('ngMo', [
 
         };
     })
+
+
 
 ;
 //modalPanel

@@ -36,6 +36,7 @@ angular.module('ngMo.catalog', [
                             month: $stateParams.month
                         }};
                     return SelectedPackService.obtainPatternsPack(pagingOptions.currentPage, filterOptions.filters).then(function (data) {
+
                         return {
                             pack: data.pack,
                             startDate: data.startDate,
