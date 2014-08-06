@@ -12,7 +12,7 @@ angular.module('ngMo.correlation', [
                 }
             },
             data: {
-                pageTitle: 'Correlation',
+                pageTitle: 'Correlación',
                 selectMenu: 'tools-nav',
                 selectSubmenu: 'submenu1',
                 selectItemSubmenu: 'correlation-nav',
@@ -234,8 +234,12 @@ angular.module('ngMo.correlation', [
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.correlationList, function (data) {
                     $scope.myData = data.patterns;//data.page;
+                    $scope.refreshRegion();
                     $scope.correlationList = data.correlationPatterns;
                     updateCorrelationListSessionStorage(data.correlationPatterns);
+                    if ($scope.correlationList.length > 0){
+                        $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                    }
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     if (!$scope.$$phase) {
@@ -287,9 +291,9 @@ angular.module('ngMo.correlation', [
                         $scope.myData = data.patterns;//data.page;
                         $scope.correlationList = data.correlationPatterns;
                         updateCorrelationListSessionStorage(data.correlationPatterns);
-                        /*if ($scope.correlationList.length > 0){
-                                            $scope.filterOptions.filters.selectedRegion = 1;
-                                        }*/
+                        if ($scope.correlationList.length > 0){
+                            $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                        }
                         $scope.results = data.results;//data.results;
                         $scope.found = data.found;//data.found;
                         if (!$scope.$$phase) {
@@ -304,6 +308,9 @@ angular.module('ngMo.correlation', [
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1,$scope.correlationList, function (data) {
                     $scope.myData = data.patterns;//data.page;
                     $scope.correlationList = data.correlationPatterns;
+                    if ($scope.correlationList.length === 0){
+                        $scope.filterOptions.filters.selectedRegion = '';
+                    }
                     updateCorrelationListSessionStorage(data.correlationPatterns);
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
@@ -318,6 +325,15 @@ angular.module('ngMo.correlation', [
                 $scope.loadPage();
             });
         };
+
+        $scope.clearAllCorrelationLists = function () {
+            $window.sessionStorage.removeItem("correlationStocks");
+            $window.sessionStorage.removeItem("correlationStockPairs");
+            $window.sessionStorage.removeItem("correlationIndices");
+            $window.sessionStorage.removeItem("correlationIndicePairs");
+            $window.sessionStorage.removeItem("correlationFutures");
+        };
+
 
         $scope.clearCorrelationList = function () {
             $scope.correlationList = [];

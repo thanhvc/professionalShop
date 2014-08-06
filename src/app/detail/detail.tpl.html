@@ -55,8 +55,8 @@
                             <span class="buy-color" ng-show="infoPattern.patternType == 'BULLISH'"><b>COMPRAR</b></span>
                             <span class="sell-color" ng-show="infoPattern.patternType == 'BEARISH'"><b>VENDER (A corto)</b></span>
                         </th>
-                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}"><b>{{infoPattern.name}}</b></th>
-                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}"><b>{{infoPattern.sector}} <span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></th>
+                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}"><div><b>{{infoPattern.name}}</b></div></th>
+                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}"><div><b>{{infoPattern.sector}} <span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></div></th>
                         <th class="label-date-header-detail"><img src='assets/img/entry_orange_arrow.png'>Fecha Entrada</th>
                         <th>{{ infoPattern.entryDate | date: 'dd MMM'}}</th>
                         <th class="currency-detail" rowspan="2"><img src='assets/img/currency-detail.png'> {{infoPattern.currency}}</th>

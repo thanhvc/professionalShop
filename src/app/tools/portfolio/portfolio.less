@@ -1,14 +1,14 @@
-.correlation-tools-container{
+.portfolio-tools-container{
   background-color: @greyBorderColor;
   padding: 15px;
-  height: 394px;
+  height: 510px;
   div{
     text-align: center;
     //display: inline;
   }
 }
 
-.table-correlation{
+.table-portfolio{
   //display: inline-table;
   thead{
     tr{
@@ -21,6 +21,7 @@
           background-color: @orangeColor;
           color: @white;
           border: 1px solid @white;
+          font-size: 11px;
         }
       }
     }
@@ -56,18 +57,18 @@
   }
 }
 
-.correlation-button{
+.portfolio-button{
   color: @blue;
   font-family: fontpo-bold;
   font-size: 16px !important;
   cursor: pointer;
 }
 
-.correlation-note{
+.portfolio-note{
   color: @white;
   font-size: 11px;
 }
-.correlation-filter-container{
+.portfolio-filter-container{
   padding: 8px 25px 0 25px;
   width: 100%;
   background-color: @greyBorderColor;
@@ -76,7 +77,7 @@
   }
 }
 
-.pagination-correlation-container {
+.pagination-portfolio-container {
   ul{
     background-color: @white;
   /*  border: 1px solid @white;*/
@@ -170,7 +171,7 @@
   }
 }
 
-.pagination-correlation-container .pagination li {
+.pagination-portfolio-container .pagination li {
   border-top: 1px solid @white;
   border-bottom: 1px solid @white;
   border-left: 1px solid @white;
@@ -179,7 +180,7 @@
 }
 
 
-.footer-table-correlation {
+.footer-table-portfolio {
   height: 38px;
   position: relative;
   padding: 8px 25px;
@@ -190,18 +191,15 @@
   font-size: 11px;
 }
 
-.select-filter-correlation {
+.select-filter-portfolio {
   float: left;
-  width: 125px;
+  width: 110px;
   font-size: 10px !important;
   font-weight: 100;
   height: 17px !important;
-  &:disabled{
-    color: gray;
-  }
 }
 
-.filter-label-select-correlation {
+.filter-label-select-portfolio {
   color: #ffffff;
   font-size: 11px;
   position: relative;
@@ -213,98 +211,102 @@
   cursor: default;
 }
 
-.table-correlation-result{
-  border: 1px solid silver;
+.table-portfolio-result{
   margin: 0 auto;
   margin-bottom: 10px;
   font-size: 10px;
+  width: 745px;
  thead{
-   th{
-     background-color: @orangeColor;
-     color: @white;
-     height: 30px;
-     padding: 0 5px;
+   tr {
+     &:first-child{
+       height: 40px;
+       th{
+         background: @black;
+         color: @white;
+         font-size: 12px;
+         font-family: fontpo-bold;
+         text-align: left;
+         padding-left: 55px;
+       }
+     }
+     &:nth-child(2) {
+       border-top: 3px solid @white;
+       height: 24px;
+       th {
+         color: @white;
+         text-align: center;
+         background: @greyBorderColor;
+         border-right: 2px solid @greyLabel;
+         &:first-child {
+           background-color: @orangeColor;
+           border-bottom: 3px solid @white;
+           color: @white;
+           padding: 0 5px;
+           border-right: 5px solid @white;
+         }
+
+       }
+     }
    }
  }
   tbody{
     tr {
+      height: 24px;
+      line-height: 1;
       td{
         &:nth-child(1) {
-          border-right: none;
+          border-right: 5px solid @white;
+          background: @orangeColor;
+          color: @white;
+          border-bottom: 3px solid @white;
+          font-family: fontpo-bold;
+          font-size: 8px;
+          width: 40px;
         }
-        border-right: 1px solid @greyLabel;
+        &:nth-child(2){
+          text-align: left;
+          width: 240px;
+        }
+        &:nth-child(3), &:nth-child(4){
+          width: 80px;
+        }
+        &:nth-child(5){
+          width: 120px;
+        }
+        &:nth-child(6), &:nth-child(7){
+          width: 100px;
+        }
+        &:nth-child(8){
+          width: 33px;
+        }
+        border-right: 2px solid @greyLabel;
         text-align: center;
-      }
-      &:nth-child(1) {
-        td{
-          //width: 40px;
-          border-right: none;
-          &:last-child{
-            border-right: 1px solid silver;
-          }
-          &:nth-child(1) {
-            background-color: @white;
-          }
-        }
       }
       height: 25px;
       &:nth-child(odd) {
-        background-color: @smokeGrey;
-        .high-correlation{
-            background-color: @lightYellowEven;
-        }
-      }
-      &:nth-child(even) {
+        background-color: @white;
         td{
-          &:first-child{
-            background-color: @smokeGrey;
+          &:nth-child(6), &:nth-child(7) {
+            background-color: @lightYellowOdd;
           }
         }
-        background-color: @white;
-        .high-correlation{
-          background-color: @lightYellowOdd;
-        }
-      }
-    }
-  }
-}
-
-.correlation-caption-table{
-  font-size: 10px;
-  width: 324px;
-  border-top: 1px solid @silver;
-  border-left: 1px solid @silver;
-  float: left;
-  margin-bottom: 10px;
-  thead{
-    tr{
-      background-color: @black;
-      color: @white;
-      height: 20px;
-      th{
-        border-left: 1px solid @white;
-        text-align: center;
-      }
-    }
-  }
-  tbody{
-    text-align: left;
-    tr{
-      height: 20px;
-      &:nth-child(odd) {
-        background-color: @white;
       }
       &:nth-child(even) {
         background-color: @smokeGrey;
+        td{
+          &:nth-child(6), &:nth-child(7) {
+            background-color: @lightYellowEven;
+          }
+        }
       }
-      td{
-        padding-left: 3px;
+      &:last-child{
+        border-bottom: 1px solid @greyLabel;
       }
     }
   }
 }
 
-.pdf-correlation-icon{
+.pdf-portfolio-icon{
   background:  url('../assets/img/pdf_icon.png');
   height: 25px;
   width: 25px;
@@ -312,7 +314,7 @@
   float: left;
 }
 
-.excel-correlation-icon{
+.excel-portfolio-icon{
   background:  url('../assets/img/excel_icon.png');
   background-size: 25px;
   margin-right: 5px;
