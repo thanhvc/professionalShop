@@ -130,8 +130,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.totalPairs = data.total_pairs;
                 $scope.index= data.index;
                 $scope.totalIndex= data.total_index;
-                $scope.pairsIndex= data.pairsIndex;
-                $scope.totalPairsIndex= data.total_pairsIndex;
+                $scope.pairsIndex= data.indexPairs;
+                $scope.totalPairsIndex= data.total_indexPairs;
                 $scope.futures=data.futures;
                 $scope.totalFutures=data.total_futures;
                 $scope.total=data.total;
@@ -139,8 +139,9 @@ angular.module('ngMo.payment', [  'ui.router'])
         };
 
         //date must be a object with fields: month: M and year: YYYY, return the string with monthName YYYY
-        $scope.getMonthName = function(date) {
+        $scope.getMonthShortName = function(date) {
             month = MonthSelectorService.getMonthName(date);
+            month = month.substring(0,3); //format MMM YYYY
             return month+" "+date.year;
         };
 
