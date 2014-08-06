@@ -86,7 +86,9 @@ angular.module('ngMo.lookup_diary', [
     .run(function run() {
     })
 
-    .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService, LookupDiaryService, $http, $state, $stateParams, $location, $modal,diaryData,SelectedMonthService) {
+    .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
+                                             LookupDiaryService, $http, $state, $stateParams, $location,
+                                             $modal,diaryData,SelectedMonthService,PatternsService) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -334,7 +336,8 @@ angular.module('ngMo.lookup_diary', [
          */
 
         $scope.refreshSelectors = function (selectors,filters,callback) {
-            PatternsService.getSelectors(filters, selectors,callback);
+            viewName = $state.$current.self.name;
+            LookupDiaryServicegit commit .getSelectors(filters, selectors,callback,viewName);
         };
 
         $scope.callBackRefreshSelectors =  function (data) {
@@ -605,7 +608,9 @@ angular.module('ngMo.lookup_diary', [
                 active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
                 favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
                 selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
-                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" )
+                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
+                selectedSector: (typeof params.qsector !== "undefined" ? params.qsector : ""),
+                selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "")
 
             };
             //special cases:
@@ -787,7 +792,7 @@ angular.module('ngMo.lookup_diary', [
          * @param filtering - is the object with the filters
          * @param selectorsToRefresh - the list of selectors requested
          */
-        this.getSelectors = function (filtering, selectorsToRefresh, callback) {
+        this.getSelectors = function (filtering, selectorsToRefresh, callback, viewName) {
             //the filtering object could contains some filters that are required for get the specified selectors
             //for example, to get the markets, the selected region is required (if there is not region, means all..)
             //the http petition will use the callback function to load the info received from server
@@ -812,7 +817,7 @@ angular.module('ngMo.lookup_diary', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'view': location.hash.replace("#/","").substring(0, (location.hash.indexOf("?")-2))
+                    'view': viewName
                 }
             };
 
