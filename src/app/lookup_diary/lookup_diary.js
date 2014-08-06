@@ -337,7 +337,7 @@ angular.module('ngMo.lookup_diary', [
 
         $scope.refreshSelectors = function (selectors,filters,callback) {
             viewName = $state.$current.self.name;
-            LookupDiaryServicegit commit .getSelectors(filters, selectors,callback,viewName);
+            LookupDiaryService.getSelectors(filters, selectors,callback,viewName);
         };
 
         $scope.callBackRefreshSelectors =  function (data) {
