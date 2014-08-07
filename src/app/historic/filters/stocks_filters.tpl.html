@@ -60,7 +60,7 @@
             <tr>
                 <td>
 
-                    <span class="filter-label-select">Renta Acumulada</span><br>
+                    <span class="filter-label-select">Mejor Renta Final</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRent">
@@ -74,7 +74,7 @@
 
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta media</span><br>
+                    <span class="filter-label-select">Mejor Ganancia</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedAverage">
@@ -87,7 +87,7 @@
                            data-ng-model="filterOptions.filters.rentAverageInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta diaria</span><br>
+                    <span class="filter-label-select">Peor Pérdida</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
@@ -99,6 +99,7 @@
                            ng-class=" {'warning-input':  (rentForm.rentDiaryInput.$error.pattern && (rentForm.rentDiaryInput.$dirty))}"
                            data-ng-model="filterOptions.filters.rentDiaryInput">
                 </td>
+                <!--
                 <td>
                     <span class="filter-label-select">Volatilidad (%)</span><br>
                     <select class="border-filters select-filter small-select-filter"
@@ -111,7 +112,8 @@
                            ng-pattern="daysPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.volatilityInput.$error.pattern && (rentForm.volatilityInput.$dirty))}"
                            data-ng-model="filterOptions.filters.volatilityInput">
-                </td>
+                </td>-->
+
                 <td>
                     <span class="filter-label-select">Duración (Días)</span><br>
                     <select class="border-filters select-filter small-select-filter"
@@ -125,21 +127,22 @@
                            ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
                            data-ng-model="filterOptions.filters.durationInput">
                 </td>
-                <td>
+                <td style="width:85px;">
                     <table style="position: relative; left: -15px;">
                         <tr>
-                            <td style="text-align: center;"><span class="filter-label-select">Favoritos</span><br>
-                                <input type="checkbox"
-                                       ng-model="filterOptions.filters.favourite">
-                            </td>
+                            <td style="text-align: center;">
 
-                            <td style="vertical-align: bottom; text-align: center;">
-                                <button class="mo-button" ng-click="search()">Buscar</button>
+                            <span class="filter-label-select">Favoritos</span><br>
+                            <input type="checkbox"
+                                   ng-model="filterOptions.filters.favourite">
                             </td>
                         </tr>
                     </table>
 
 
+                </td>
+                <td style="vertical-align: bottom; text-align: right; width:165px;">
+                    <button class="mo-button" ng-click="search()">Buscar</button>
                 </td>
             </tr>
 

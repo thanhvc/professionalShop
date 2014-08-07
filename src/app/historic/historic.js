@@ -693,7 +693,7 @@ angular.module('ngMo.historic', [
                     'favourites': filtering.favourite
                 }
             };
-            var result = $http.get($rootScope.urlService+'/historicpatterns', config).then(function (response) {
+            var result = $http.get($rootScope.urlService+'/patterns'/*'/historicpatterns'*/, config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;
