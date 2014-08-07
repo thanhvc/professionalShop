@@ -57,6 +57,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             }
         });
 
+
         if ($stateParams.token != null && $stateParams.PayerID != null) {
             /*
             this State is loaded when paypal redirects the payment to our server, so
@@ -79,6 +80,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             $http.post($rootScope.urlService+"/confirm-pay",config).then( function(data) {
                 if (data.data.status === "OK") {
                     $scope.status = "OK";
+                    $rootScope.$broadcast('removeItemsCart');
                 } else {
                     $scope.status = "ERROR";
                 }
