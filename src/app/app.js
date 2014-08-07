@@ -77,6 +77,22 @@ angular.module('ngMo', [
                 moMenuType: 'publicMenu'
             }
         })
+        .state('privacy_policy', {
+            url: '/privacy_policy',
+            views: {
+                "main": {
+                    controller: 'HomeCtrl',
+                    templateUrl: 'privacy_policy/privacy_policy.tpl.html'
+                }
+            },
+            data: {
+                pageTitle: 'Política de privacidad',
+                selectMenu: '',
+                selectSubmenu: '',
+                selectItemSubmenu: '',
+                moMenuType: 'publicMenu'
+            }
+        })
         ;
         $urlRouterProvider.otherwise('/home');
     })
@@ -390,7 +406,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService) {
 
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
@@ -410,6 +426,7 @@ angular.module('ngMo', [
             $scope.errorSignIn = false;
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
+            AnchorLinkService.scrollTo('top');
         });
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
