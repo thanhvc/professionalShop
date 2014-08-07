@@ -23,10 +23,10 @@ angular.module('ngMo.historic', [
             },
             reloadOnSearch: false,
             resolve: {
-                MonthSelectorService: "MonthSelectorService",
+                MonthSelectorHistoricService: "MonthSelectorHistoricService",
                 PatternsService: "PatternsService",
                 TabsService: "TabsService",
-                filtering : function(TabsService,MonthSelectorService,$location){
+                filtering : function(TabsService,MonthSelectorHistoricService,$location){
 
                     var params = $location.search();
                     //just to select a item like a selector for load params
@@ -46,7 +46,7 @@ angular.module('ngMo.historic', [
 
                     return {
                         active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                        month: MonthSelectorService.restartDate(),
+                        month: MonthSelectorHistoricService.restartDate(),
                         durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
                         favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
                         filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
@@ -85,7 +85,7 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, HistoricsService,SelectedMonthService,historicDataData) {
+    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService,historicDataData) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -206,7 +206,7 @@ angular.module('ngMo.historic', [
                 }
             };
             if (!$scope.filterOptions.months) {
-                $scope.filterOptions.months = MonthSelectorService.getListMonths();
+                $scope.filterOptions.months = MonthSelectorHistoricService.getHistoricsListMonths();
             }
             //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
             $scope.updateSelectorMonth();
@@ -420,14 +420,14 @@ angular.module('ngMo.historic', [
 
 
         $scope.nextMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
+            $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
+            $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(-1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
@@ -436,7 +436,7 @@ angular.module('ngMo.historic', [
         $scope.goToMonth = function () {
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
-            $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+            $scope.filterOptions.filters.month = MonthSelectorHistoricService.setDate(d);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
@@ -452,7 +452,7 @@ angular.module('ngMo.historic', [
 
         $scope.canMove = function (direction) {
             if (direction > 0) {
-                return (($scope.filterOptions.months[11].value !== $scope.filterOptions.filters.month.value));
+                return (($scope.filterOptions.months[2].value !== $scope.filterOptions.filters.month.value));
             }
             else {
                 return (($scope.filterOptions.months[0].value !== $scope.filterOptions.filters.month.value));
@@ -579,15 +579,16 @@ angular.module('ngMo.historic', [
             if (params.month) {
                 var date = params.month.split("_");
                 var d = new Date(date[1], date[0] - 1, 1);
-                filters.month = MonthSelectorService.setDate(d);
+                filters.month = MonthSelectorHistoricService.setDate(d);
 
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = new Date();
+               /* var date_restart = new Date();
                 date_restart.setDate(1);
                 date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
-                filters.month = MonthSelectorService.setDate(date_restart);
+                filters.month = MonthSelectorHistoricService.setDate(date_restart);*/
+                filters.month = MonthSelectorHistoricService.restartDate();
             }
 
             $scope.filterOptions.filters = filters;
@@ -693,7 +694,7 @@ angular.module('ngMo.historic', [
                     'favourites': filtering.favourite
                 }
             };
-            var result = $http.get($rootScope.urlService+'/patterns'/*'/historicpatterns'*/, config).then(function (response) {
+            var result = $http.get($rootScope.urlService+'/historicpatterns', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;
@@ -740,6 +741,134 @@ angular.module('ngMo.historic', [
                 callback(data);
             });
         };
+    })
+    .factory('MonthSelectorHistoricService', function () {
+        var actualDate = {};
+
+        return {
+
+            getMonthName: function (date) {
+
+                var monthString = "";
+                switch (date.month) {
+                    case 1:
+                        monthString = "Enero";
+                        break;
+                    case 2:
+                        monthString = "Febrero";
+                        break;
+                    case 3:
+                        monthString = "Marzo";
+                        break;
+                    case 4:
+                        monthString = "Abril";
+                        break;
+                    case 5:
+                        monthString = "Mayo";
+                        break;
+                    case 6:
+                        monthString = "Junio";
+                        break;
+                    case 7:
+                        monthString = "Julio";
+                        break;
+                    case 8:
+                        monthString = "Agosto";
+                        break;
+                    case 9:
+                        monthString = "Septiembre";
+                        break;
+                    case 10:
+                        monthString = "Octubre";
+                        break;
+                    case 11:
+                        monthString = "Noviembre";
+                        break;
+                    case 12:
+                        monthString = "Diciembre";
+                        break;
+                    default :
+                        monthString = "notFound";
+                        break;
+
+                }
+                return monthString;
+            },
+            restartDate: function () {
+                var today = new Date();
+                var mm = today.getMonth(); //January is 0, so really we are going 1 month before always!
+                var yyyy = today.getFullYear();
+                actualDate = {
+                    month: mm,
+                    year: yyyy,
+                    monthString: "",
+                    value: mm + "_" + yyyy
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            setDate: function (date) {
+                var mm = date.getMonth() + 1; //January is 0!
+                var yyyy = date.getFullYear();
+                actualDate = {
+                    month: mm,
+                    year: yyyy,
+                    monthString: "",
+                    value: mm + "_" + yyyy
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            addMonths: function (months, date) { /*add Months accepts months in positive (to add) or negative (to substract)*/
+                var d = new Date(date.year, date.month - 1, 1);
+                d.setMonth(d.getMonth() + months);
+                actualDate = {
+                    month: d.getMonth() + 1,
+                    year: d.getFullYear(),
+                    monthString: "",
+                    value: (d.getMonth() + 1) + "_" + d.getFullYear()
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            getListMonths: function () {
+                var today = new Date();
+                var monthList = [];
+                //the list is 10 last months + actual month + next month
+                var d = new Date(today.getFullYear(), today.getMonth() - 10, 1);
+                for (i = 0; i < 12; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
+
+            },
+            getHistoricsListMonths: function () {
+                var today = new Date();
+                var monthList = [];
+                //the list is 10 last months + actual month + next month
+                var d = new Date(today.getFullYear(), today.getMonth() - 3, 1);
+                for (i = 0; i < 3; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
+
+            }
+        };
+
     })
 
 ;
