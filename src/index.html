@@ -8,7 +8,6 @@
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>"/>
     <% }); %>
-
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script>
     <% }); %>
@@ -129,7 +128,7 @@
         <div class="footer-bottom">
             <footer class="container">
                 <span class="footerBottomText">&copy; Market Observatory | {{actualDate | date: 'yyyy'}} | </span>
-                    <a href="#/privacy_policy">Pol&iacute;tica de privacidad</a>
+                    <a ui-sref="privacy_policy">Pol&iacute;tica de privacidad</a>
                 <span class="footer-bottom-text">0.3.14 build 4</span>
                 <span class="footer-bottom-text">Version</span>
             </footer>

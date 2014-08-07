@@ -108,7 +108,7 @@
                     <td>{{row.portfolioPercentage | twoDecimals}}</td>
                     <td>{{row.portfolioRatio | twoDecimals}}</td>
                     <td>
-                        <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
+                        <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.patternId);drawdown();"
                              ng-class="{'favourite-added': row.favorite == true}"></div>
                     </td>
                 </tr>
