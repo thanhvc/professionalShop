@@ -123,7 +123,7 @@
                 <td>Ganancias</td>
                 <td class="sub-border-right-table">{{infoPattern.win}}</td>
                 <td class="sub-border-right-table">{{infoPattern.accumulatedWin |  twoDecimals}}</td>
-                <td class="sub-border-right-table">{{infoPattern.accumulatedWin / infoPattern.win |  twoDecimals}}</td>
+                <td class="sub-border-right-table">{{(infoPattern.win > 0 ? infoPattern.accumulatedWin / infoPattern.win : 0) |  twoDecimals}}</td>
                 <td class="sub-border-right-table">-</td>
                 <td class="sub-border-right-table">-</td>
             </tr>
@@ -131,7 +131,7 @@
                 <td>Pérdidas</td>
                 <td class="sub-border-right-table">{{infoPattern.loss}}</td>
                 <td class="sub-border-right-table">{{infoPattern.accumulatedLoss |  twoDecimals}}</td>
-                <td class="sub-border-right-table">{{infoPattern.accumulatedLoss / infoPattern.loss |  twoDecimals}}</td>
+                <td class="sub-border-right-table">{{(infoPattern.loss > 0 ? infoPattern.accumulatedLoss / infoPattern.loss : 0) |  twoDecimals}}</td>
                 <td class="sub-border-right-table">-</td>
                 <td class="sub-border-right-table">-</td>
             </tr>
@@ -139,7 +139,7 @@
                 <td>Total</td>
                 <td class="sub-border-right-table">{{infoPattern.win + infoPattern.loss}}</td>
                 <td class="sub-border-right-table">{{infoPattern.accumulatedWin + infoPattern.accumulatedLoss |  twoDecimals}}</td>
-                <td class="sub-border-right-table">{{(infoPattern.accumulatedWin / infoPattern.win) + (infoPattern.accumulatedLoss / infoPattern.loss) |  twoDecimals}}</td>
+                <td class="sub-border-right-table">{{(infoPattern.win > 0 ? infoPattern.accumulatedWin / infoPattern.win : 0) + (infoPattern.loss > 0 ? infoPattern.accumulatedLoss / infoPattern.loss : 0) |  twoDecimals}}</td>
                 <td class="sub-border-right-table">{{infoPattern.dailyReturn |  twoDecimals}}</td>
                 <td class="sub-border-right-table">{{infoPattern.duration}}</td>
             </tr>
@@ -152,24 +152,24 @@
             <th rowspan="2">Índice (Igual Periodo)</th>
             <th><img src='assets/img/entry_orange_arrow.png'>Fecha Entrada</th>
             <th>{{infoPattern.entryDate | date: 'dd MMM'}}</th>
-            <th colspan="2">Rentabilidad (%)</th>
+            <th colspan="2" class="border-right-table">Rentabilidad (%)</th>
             <th colspan="2">Años</th>
         </tr>
         <tr>
             <th><img src='assets/img/exit_orange_arrow.png'>Fecha Salida</th>
             <th>{{infoPattern.exitDate | date: 'dd MMM'}}</th>
             <th>Acumulada</th>
-            <th>Promedio</th>
+            <th class="border-right-table">Promedio</th>
             <th>Subida</th>
             <th>Bajada</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="row in infoPattern.samePeriodIndices">
-            <td>{{row.asset.longName}}</td>
-            <td ng-class="{'negative-percent': row.accumulatedReturn < 0}">{{row.accumulatedReturn}}</td>
-            <td ng-class="{'negative-percent': row.averageReturn < 0}">{{row.averageReturn}}</td>
-            <td>{{row.win}}</td>
+            <td colspan="3">{{row.asset.longName}}</td>
+            <td class="border-right-table" ng-class="{'negative-percent': row.accumulatedReturn < 0}">{{row.accumulatedReturn}}</td>
+            <td class="border-right-table" ng-class="{'negative-percent': row.averageReturn < 0}">{{row.averageReturn}}</td>
+            <td class="border-right-table">{{row.win}}</td>
             <td>{{row.loss}}</td>
         </tr>
         </tbody>
@@ -205,7 +205,7 @@
 </div>
 <div class="graphic-container" style="margin-bottom: 80px;border-bottom: 1px solid #9B9C9E;">
     <img src="{{infoPattern.sixYearChartURL}}" class="graphic-detail">
-    <div class="copyright">
+    <div class="copyright" style="margin-top: -18px;">
         Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
     </div>
 </div>
@@ -238,7 +238,7 @@
 </div>
 <div class="graphic-container" style="border-bottom: 1px solid #9B9C9E;margin-bottom: 20px;">
     <img src="{{infoPattern.monthChartURL}}" class="graphic-detail">
-    <div class="copyright">
+    <div class="copyright" style="margin-top: -18px;">
         Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
     </div>
 </div>

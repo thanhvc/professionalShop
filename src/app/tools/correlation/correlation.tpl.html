@@ -62,7 +62,7 @@
 
         </tab>
     </tabset>
-    <div ng-show="correlationData.length > 0">
+    <div ng-if="correlationData.length > 0" id="correlation-result-container">
         <table class="table-correlation-result" style="margin-bottom: 30px;">
             <thead>
                 <tr>
@@ -76,7 +76,7 @@
             </tbody>
         </table>
 
-        <table class="table-correlation-result" ng-show="filterOptions.filters.active_tab == 1 && pairCorrelationData.length > 2 || (filterOptions.filters.active_tab == 2 && filterOptions.filters.index_type == 1) && pairCorrelationData.length > 2">
+        <table class="table-correlation-result" ng-if="filterOptions.filters.active_tab == 1 && pairCorrelationData.length > 2 || (filterOptions.filters.active_tab == 2 && filterOptions.filters.index_type == 1) && pairCorrelationData.length > 2">
             <thead>
             <tr>
                 <th colspan="{{pairCorrelationData.length}}"><span style="float:left;">COEFICIENTES DE CORRELACIÓN PARES (%) </span></th>
@@ -90,7 +90,7 @@
         </table>
 
         <div style="margin: 0 auto; width: 740px;">
-            <table class="correlation-caption-table" ng-show="correlationCaption1.length > 0">
+            <table class="correlation-caption-table" ng-if="correlationCaption1.length > 0">
                 <thead>
                     <tr>
                         <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
@@ -112,7 +112,7 @@
                 </tbody>
             </table>
 
-            <table class="correlation-caption-table" style="margin-left: 75px;">
+            <table class="correlation-caption-table" style="margin-left: 75px;" ng-if="correlationCaption2.length > 0">
                 <thead>
                 <tr>
                     <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
@@ -137,7 +137,7 @@
                 Aceptar
             </button>
             <div class="excel-correlation-icon"></div>
-            <div class="pdf-correlation-icon"></div>
+            <div class="pdf-correlation-icon" ng-click="generatePdf();"></div>
             <div class="copyright">
                 Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
             </div>

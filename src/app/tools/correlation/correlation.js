@@ -622,6 +622,12 @@ angular.module('ngMo.correlation', [
 
         };
 
+        $scope.generatePdf = function () {
+            var data = CorrelationService.getCorrelationPdf($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
+                window.open("data:application/pdf;base64, " + data);
+            });
+        };
+
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
             $scope.loadUrlParams();
             $scope.loadPage();
@@ -777,6 +783,42 @@ angular.module('ngMo.correlation', [
                 callback(data);
             });
 
+        };
+
+        this.getCorrelationPdf = function (correlationList, filtering) {
+            var deferred = $q.defer();
+
+            var correlationIdsList = [];
+            if (correlationList.length > 0) {
+                for (var i = 0; i < correlationList.length; i++) {
+                    correlationIdsList.push(correlationList[i].id);
+
+                }
+            }
+
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+
+            config = {
+                params: {
+                    'correlationList': correlationIdsList,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType
+                }
+            };
+
+            var result = $http.get($rootScope.urlService+'/correlationpdf', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
     })
 ;
