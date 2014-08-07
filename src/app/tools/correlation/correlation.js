@@ -126,15 +126,15 @@ angular.module('ngMo.correlation', [
             //refresh all the selectors
             switch (TabsService.getActiveTab()) {
                 case 0:     //stocks
-                    $scope.refreshSelectors(['regions', 'markets']);
+                    $scope.refreshSelectors(['regions', 'markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 1:     //pairs
-                    $scope.refreshSelectors(['regions']);
+                    $scope.refreshSelectors(['regions'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 2:     //index (pair and index)
                     break;
                 case 3:     //futures
-                    $scope.refreshSelectors(['markets']);
+                    $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
             }
 
@@ -186,35 +186,42 @@ angular.module('ngMo.correlation', [
             $scope.correlationList = [];
             switch ($scope.filterOptions.filters.active_tab) {
                 case 0:
-                    if ($window.sessionStorage.correlationStocks !== 'undefined'){
+                    if (typeof $window.sessionStorage.correlationStocks !== "undefined") {
                         $scope.correlationList = angular.fromJson($window.sessionStorage.correlationStocks);
                     }
-
-                    if (typeof $scope.correlationList === 'undefined'){ $scope.correlationList = [];}
+                    else{
+                        $scope.correlationList = [];
+                    }
                     break;
                 case 1:
-                    if ($window.sessionStorage.correlationStockPairs !== 'undefined') {
+                    if (typeof $window.sessionStorage.correlationStockPairs !== "undefined") {
                         $scope.correlationList = angular.fromJson($window.sessionStorage.correlationStockPairs);
+                    } else {
+                        $scope.correlationList = [];
                     }
-                    if (typeof $scope.correlationList === 'undefined'){ $scope.correlationList = [];}
                     break;
                 case 2:
                     if ($scope.filterOptions.filters.index_type === "0") {
-                        if (typeof $window.sessionStorage.correlationIndices !== 'undefined') {
+                        if (typeof $window.sessionStorage.correlationIndices !== "undefined") {
                             $scope.correlationList = angular.fromJson($window.sessionStorage.correlationIndices);
+                        }else {
+                            $scope.correlationList = [];
                         }
                     } else {
-                        if ($window.sessionStorage.correlationIndicePairs !== 'undefined') {
+                        if (typeof $window.sessionStorage.correlationIndicePairs !== "undefined") {
                             $scope.correlationList = angular.fromJson($window.sessionStorage.correlationIndicePairs);
+                        } else {
+                            $scope.correlationList = [];
                         }
                     }
-                    if (typeof $scope.correlationList === 'undefined'){ $scope.correlationList = [];}
                     break;
                 case 3:
-                    if ($window.sessionStorage.correlationFutures !== 'undefined') {
+                    if (typeof $window.sessionStorage.correlationFutures !== "undefined") {
                         $scope.correlationList = angular.fromJson($window.sessionStorage.correlationFutures);
                     }
-                    if (typeof $scope.correlationList === 'undefined'){ $scope.correlationList = [];}
+                    else {
+                        $scope.correlationList = [];
+                    }
                     break;
             }
 
@@ -222,6 +229,8 @@ angular.module('ngMo.correlation', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
+
+            loadCorrelationList();
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.correlationList, function (data) {
                     $scope.myData = data.patterns;//data.page;
@@ -517,7 +526,7 @@ angular.module('ngMo.correlation', [
             }
 
             if (urlParams.selectedOperation) {
-                urlParamsSend.qop = urlParams.selectedOperation;
+                urlParamsSend.qop = urlParams.selectedOperation.id;
             }
 
             if (urlParams.index_type) {
@@ -542,11 +551,13 @@ angular.module('ngMo.correlation', [
 
             var filters = {
                 filterName: (params.qname ? params.qname : "" ),
-                selectedOperation: (params.qop ? params.qop : "" ),
+                selectedOperation: (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" ),
                 index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
                 tab_type: (params.qtab ? params.qtab : "" ),
                 active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                favourite: (params.qfav ? params.qfav : "" )
+                favourite: (params.qfav ? params.qfav : "" ),
+                selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
+                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" )
             };
 
             //special cases:
@@ -577,6 +588,9 @@ angular.module('ngMo.correlation', [
                 filters.month = MonthSelectorService.restartDate();
             }
 
+            $scope.filterOptions.filters = filters;
+            $scope.updateSelectorMonth();
+            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {
                 switch (TabsService.getActiveTab()) {
@@ -598,7 +612,7 @@ angular.module('ngMo.correlation', [
             //for a special case to load the selectors, we need save the region,market,...
             //if the location.search region,market.. values are not the same that the filters, we need
             //to reload the selectors...
-            if ((typeof params.qregion !== 'undefined') && ($scope.filterOptions.filters.selectedRegion !== params.qregion)) {
+           /* if ((typeof params.qregion !== 'undefined') && ($scope.filterOptions.filters.selectedRegion !== params.qregion)) {
                 //if region is distinct, refresh all selectors
                 $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
                 filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
@@ -615,10 +629,8 @@ angular.module('ngMo.correlation', [
                 //or all are similar, or only industry is distinct (in that case all selectors are the same)
                 filters.selectedRegion = (params.qregion ? params.qregion : "" );
                 filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-            }
-            $scope.filterOptions.filters = filters;
-            $scope.updateSelectorMonth();
-            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
+            }*/
+
 
         };
 
@@ -690,7 +702,7 @@ angular.module('ngMo.correlation', [
                     'name': filtering.filterName,
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
-                    'operation': filtering.selectedOperation,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
                     'favourites': filtering.favourite
                 }
             };
