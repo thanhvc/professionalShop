@@ -1,0 +1,154 @@
+.tab-table-summary {
+  background-color: @orangeColor;
+  color: @white;
+  font-family: "fontpo-bold", "verdana";
+  font-size: 12px;
+  margin-bottom: 0;
+  height: 28px;
+  padding-bottom: 5px;
+  padding-left: 58px;
+  padding-top: 6px;
+  width: 187px;
+}
+
+.orange-separator-summary {
+  background-color: @orangeColor;
+  width: 900px;
+  height: 10px;
+  margin: 0 auto;
+
+}
+
+.container-table-summary-pay {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.table-summary-pay {
+
+  thead {
+    tr {
+      background-color: @greyPaginator;
+      font-size: 11px;
+
+      td {
+        padding: 4px;
+        &:nth-child(1) {
+          width: 260px;
+        }
+        &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+          width: 160px;
+        }
+      }
+
+    }
+  }
+  tbody {
+    tr {
+
+      &:nth-child(odd) {
+        background-color: @smokeGrey;
+      }
+      &:nth-child(even) {
+        background-color: @white;
+      }
+      td {
+        border-right: 1px solid @greyLabel;
+        font-size: 10px;
+        &:first-child {
+          text-align: left;
+          padding-left: 5px;
+        }
+        &:last-child {
+          border-right: none;
+        }
+      }
+
+      &:last-child {
+        border-bottom: 1px solid @greyLabel;
+      }
+    }
+  }
+  text-align: center;
+  font-size: 10px;
+}
+
+.summary-subtotal-container {
+  clear: both;
+  width: 900px;
+  height: 50px;
+  margin-left: 50%;
+  position: relative;
+  left: -450px;
+  padding-top: 10px;
+}
+
+.summary-subtotal-format{
+  height: 20px;
+  font-size: 12px;
+  font-family: 'fontpo';
+  text-align: right;
+  float:left;
+}
+
+.summary-subtotal {
+  width: 150px;
+  margin-left: 550px;
+  float: left;
+}
+
+.summary-subtotal-ammount{
+  width:95px;
+}
+
+.separator-pay{
+  border-top: 1px @black solid;
+  width: 900px;
+  margin-left: 50%;
+  position: relative;
+  left: -450px;
+  margin-bottom: 10px;
+}
+
+.summary-payment-container{
+  width: 900px;
+  height: 100px;
+  margin-left: 50%;
+  position: relative;
+  left: -450px;
+  margin-bottom:30px;
+}
+
+.summary-payment-button-container{
+  width: 200px;
+  height: 27px;
+  float: right;
+  padding-top: 25px;
+}
+
+.unselected-payment{
+  opacity: 0.5;
+}
+
+.selector-pay-table{
+  width: 30px;
+  height: 50px;
+  float: right;
+  text-align: center;
+}
+
+.confirm-pay{
+  width: 500px;
+  margin-left: 50%;
+  position: relative;
+  left: -250px;
+  height: 300px;
+  margin-top: 20px;
+  text-align: center;
+  margin-bottom: 200px;
+  border: 4px solid #C5C6C8;
+  padding-top: 20px;
+  padding: 10px;
+  font-size: 12px;
+  font-family: "fontpo";
+}

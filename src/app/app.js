@@ -25,7 +25,8 @@ angular.module('ngMo', [
         'singUp',
         'auth',
         'ngMo.Activate',
-        'ngMo.detail'
+        'ngMo.detail',
+        'ngMo.payment'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
@@ -158,7 +159,7 @@ angular.module('ngMo', [
             return str;
         };
     })
-    .service('ShoppingCartService', function (ActiveTabService){
+    .service('ShoppingCartService', function (ActiveTabService,$q,$http,$rootScope){
 
         var stockItems =  [];
 
@@ -176,6 +177,19 @@ angular.module('ngMo', [
         var indicesSubtotal = 0;
         var pairsIndicesSubtotal = 0;
         var futuresSubtotal = 0;
+
+
+        this.getPrices = function () {
+            var deferred = $q.defer();
+            var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
+                deferred.resolve(data.data.prices);
+                console.log("loading");
+                return data.data.prices;
+            });
+
+
+            return deferred.promise;
+        };
 
         var showCart = false;
         this.openCart = function (){
@@ -641,15 +655,48 @@ angular.module('ngMo', [
 
     .directive('cart', function() {
         return{
-            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope,$state) {
+            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope,$state,$q) {
 
-                //catch the event submitcart to send the packs to buy
-                $scope.$on('submitCart', function() {
-                    $scope.submitCart();
-                    $state.go('my-patterns');
+                //catch the event submitcart to send the packs to buy, this event is launched by login form when the user logins to pay
+                $scope.$on('goToSummaryPay', function() {
+                    //$scope.submitCart();
+                    $state.go('summary-pay');
                 });
 
+                $scope.$on('submitCart', function(event,paymentType){
+                    if (paymentType === "EXPRESSCHECKOUT") {
+                        //the expresscheckout submit the Cart with return to url payment
+                        $scope.submitCart();
+                    } else if (paymentType === "DIRECTPAYMENT") {
+                        //payment with card
+                        return;
+                    } else {
+                        return;
+                    }
 
+                });
+                //the cart must dessapears in some views, so when the state is one of the list, the cart will be invisible to the user
+                $scope.showCartinState=true;//show the cart by default
+                $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                  //list of states where the cart is invisible
+                    var states = ["summary-pay"];
+                    if (states.indexOf(toState.name) > -1) {
+                        //the new state will not show the cart
+                        $scope.showCartinState= false;
+                    } else {
+                        $scope.showCartinState = true;
+                    }
+                });
+
+                //load the prices from server (monthly, trhee months and anual)
+                $scope.prices = [29,82,313];//default price, dont worry if the server changes the price and doesnt work
+                /*
+                in that case the price will load the default prices in this JS, but in the previous step to pay, the right prices will load and showed to the user.
+                the default prices is needed for the tests
+                 */
+                ShoppingCartService.getPrices().then(function(data) {
+                    $scope.prices =   data;
+                });
 
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                 $scope.totalCart = ShoppingCartService.obtainTotalCart();
@@ -795,22 +842,49 @@ angular.module('ngMo', [
                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
 
                 };
+
+
+                /**
+                 * get the prices of the server
+                 */
+                $scope.getPrices = function() {
+                    ShoppingCartService.getPrices().then(function(data) {
+                        $scope.prices =   data;
+                    } );
+                };
+
                 /**
                  * TODO: replace enter parameter 'id' for 'item'
                  * @param id
                  */
                 $scope.addNewItemCart = function(newItem, startDate){
+//                    var deferred = $q.defer();
+//                    var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
+//                        deferred.resolve(data.data.prices);
+//                        return data.data.prices;
+//                    });
+//
+//
+//                    var pricesArray = deferred.promise;
+                    //load prices in scope
+                   // $scope.getPrices();
+
+//                    ShoppingCartService.getPrices().then(function(data) {
+//                        $scope.prices =   data;
+//                    });
+
+
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                     item = {
                         "code": newItem.code,
                         "packName": newItem.name,
                         "startDate": $filter('date')(startDate, 'MMMM yyyy'),
                         "duration": "Mensual",
-                        "price": 29,
+                        "price": $scope.prices[0],
                         "date": $filter('date')(startDate, 'dd/MM/yyyy'),
                         "patternType": newItem.patternType,
                         "productType": newItem.productType,
-                        prices: [29,82,313]
+                        prices: $scope.prices/*[29,82,313]*/
                     };
                     var totalList = [];
                     if ((typeof $scope.stockItems != "undefined")) {
@@ -858,6 +932,15 @@ angular.module('ngMo', [
                     $scope.subtotalStock = 0;
                 };
 
+                $scope.goToPay= function() {
+                    token = $window.sessionStorage.token;
+                    if (token != null) {
+                        $state.go('summary-pay');
+                    } else {
+                        $state.go('new-subscription');
+                    }
+                };
+                //makes the petition to Pay with Paypal
                 $scope.submitCart = function () {
                     token = $window.sessionStorage.token;
                     if (token != null) {
@@ -941,7 +1024,11 @@ angular.module('ngMo', [
                         $state.go('new-subscription');
                     }
                 };
-                $scope.callbackPurchase = function (){
+                $scope.callbackPurchase = function (data){
+                    /**TEST FOR REDIRECT TO PAYPAL*/
+                    if (typeof data.urlRedirect !== "undefined") {
+                        $window.location.href = data.urlRedirect;
+                    }
 
                 };
             },
@@ -1010,6 +1097,8 @@ angular.module('ngMo', [
 
         };
     })
+
+
 
 ;
 //modalPanel
