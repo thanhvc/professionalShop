@@ -646,6 +646,11 @@ angular.module('ngMo', [
                     $state.go('summary-pay');
                 });
 
+                $scope.$on('removeItemsCart', function() {
+                    //$scope.submitCart();
+                    $scope.removeItemCart();
+                });
+
                 $scope.$on('submitCart', function(event,paymentType){
                     if (paymentType === "EXPRESSCHECKOUT") {
                         //the expresscheckout submit the Cart with return to url payment
