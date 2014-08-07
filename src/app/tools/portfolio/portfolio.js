@@ -458,7 +458,7 @@ angular.module('ngMo.portfolio', [
                 urlParamsSend.qop = urlParams.selectedOperation;
             }
 
-            if (urlParams.durationInput) {
+            if (urlParams.durationInterval) {
                 urlParamsSend.qdur = urlParams.durationInterval;
             }
 
@@ -488,7 +488,8 @@ angular.module('ngMo.portfolio', [
                 index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
                 tab_type: (params.qtab ? params.qtab : "" ),
                 active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                favourite: (params.qfav ? params.qfav : "" )
+                favourite: (params.qfav ? params.qfav : "" ),
+                durationInterval: (params.qdur ? params.qdur : "")
             };
 
             //special cases:

@@ -12,16 +12,21 @@
   //display: inline-table;
   thead{
     tr{
+      &:first-child{
+        td{
+          height:24px;
+        }
+      }
       td{
         text-align: center;
         background-color: @greyPaginator;
         color: @black;
         border: 1px solid #ACBECE;
+        font-size: 11px;
         &:nth-child(1){
           background-color: @orangeColor;
           color: @white;
           border: 1px solid @white;
-          font-size: 11px;
         }
       }
     }
@@ -39,13 +44,19 @@
         text-align: center;
         font-size: 10px;
         border: 1px solid silver;
+        .name-pattern-container{
+          overflow: hidden;
+          height: 12px;
+          text-align: left;
+          word-break: break-all;
+        }
         &:nth-child(1){
           background-color: @orangeColor;
           color: @white;
           border: 1px solid @white;
-          font-size: 9px;
+          font-size: 8px;
           font-family: fontpo-bold;
-          width: 76px;
+          width: 51px;
         }
         &:nth-child(2){
           text-align: left;
@@ -60,7 +71,7 @@
 .portfolio-button{
   color: @blue;
   font-family: fontpo-bold;
-  font-size: 16px !important;
+  font-size: 14px !important;
   cursor: pointer;
 }
 

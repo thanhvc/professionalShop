@@ -27,11 +27,14 @@
       &:nth-child(6){
         width: 55px;
       }
+      &:nth-child(3){
+        max-width: 300px;
+      }
       &:nth-child(4){
-        width: 110px;
+        width: 115px;
       }
       &:nth-child(5){
-        width: 50px;
+        width: 55px;
       }
       div{
         height: 15px;
@@ -183,17 +186,40 @@
 }
 
 .index-same-period-table{
-  margin-bottom: 20px;
   width: 960px;
+  font-size: 11px;
   color: @black;
   text-align: center;
   border-bottom: 1px solid @greyLabel;
+  border-collapse: inherit;
   thead {
     color: @white;
     tr {
+      &:first-child{
+        th{
+          &:nth-child(2){
+            padding-left: 18px;
+          }
+        }
+      }
       th {
+        &:first-child{
+          text-align: left;
+          padding-left: 10px;
+          width: 311px;
+        }
+        img{
+          margin-right: 9px;
+        }
         background: @black;
         text-align: center;
+        height: 26px;
+      }
+      &:nth-child(2){
+        th {
+          text-align: center;
+          width: 180px;
+        }
       }
     }
   }
@@ -207,11 +233,19 @@
       &:nth-child(even) {
         background-color: @white;
       }
+      &:first-child{
+        border-top: 2px solid @white;
+      }
       td{
         &:first-child{
-          font-family: fontpo;
+          font-family: fontpo-bold;
           background: @orangeColor;
           color: @white;
+          text-align: left;
+          padding-left: 20px;
+          border-top: 2px solid @white;
+          border-right: 6px solid @white;
+          height: 25px;
         }
       }
     }
@@ -262,6 +296,10 @@
   height: 425px;
   border-left: 1px solid @greyColor;
   border-right: 1px solid @greyColor;
+  img{
+    margin: 25px auto;
+    display: inherit;
+  }
 }
 
 .detail-container{

@@ -17,10 +17,12 @@
         background-color: @greyPaginator;
         color: @black;
         border: 1px solid #ACBECE;
+        font-size: 11px;
         &:nth-child(1){
           background-color: @orangeColor;
           color: @white;
           border: 1px solid @white;
+          height: 24px;
         }
       }
     }
@@ -42,7 +44,7 @@
           background-color: @orangeColor;
           color: @white;
           border: 1px solid @white;
-          font-size: 9px;
+          font-size: 8px;
           font-family: fontpo-bold;
           width: 76px;
         }
@@ -50,6 +52,12 @@
           text-align: left;
           text-indent: 1px;
           width: 165px;
+          .name-pattern-container{
+            overflow: hidden;
+            height: 12px;
+            text-align: left;
+            word-break: break-all;
+          }
         }
       }
     }
@@ -59,7 +67,7 @@
 .correlation-button{
   color: @blue;
   font-family: fontpo-bold;
-  font-size: 16px !important;
+  font-size: 14px !important;
   cursor: pointer;
 }
 
@@ -310,6 +318,7 @@
   width: 25px;
   background-repeat: no-repeat;
   float: left;
+  cursor: pointer;
 }
 
 .excel-correlation-icon{
@@ -321,4 +330,5 @@
   background-repeat: no-repeat;
   clear: both;
   float: left;
+  cursor: pointer;
 }
