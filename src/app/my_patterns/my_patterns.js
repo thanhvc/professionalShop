@@ -983,7 +983,25 @@ angular.module('ngMo.my_patterns', [
                 }
                 return monthList;
 
+            },
+            getCalendarListMonths: function () {
+                var today = new Date();
+                var monthList = [];
+                var d = new Date(today.getFullYear(), today.getMonth(), 1);
+                //the list is actual month + next month
+                for (i = 0; i < 2; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
             }
+
 
         };
 

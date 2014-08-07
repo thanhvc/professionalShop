@@ -789,7 +789,7 @@ angular.module('ngMo.volatility', [
             callback(data);
 
         };
-    })
+    })/*
     .factory('MonthSelectorService', function () {
         var actualDate = {};
 
@@ -867,7 +867,7 @@ angular.module('ngMo.volatility', [
                 actualDate.monthString = this.getMonthName(actualDate);
                 return actualDate;
             },
-            addMonths: function (months, date) { /*add Months accepts months in positive (to add) or negative (to substract)*/
+            addMonths: function (months, date) { //add Months accepts months in positive (to add) or negative (to substract)
                 var d = new Date(date.year, date.month - 1, 1);
                 d.setMonth(d.getMonth() + months);
                 actualDate = {
@@ -899,4 +899,4 @@ angular.module('ngMo.volatility', [
             }
         };
 
-    });
+    })*/;
