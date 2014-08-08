@@ -1,43 +1,40 @@
 <div class="black" style="padding-top: 10px;font-size: 12px; ">
-    <table  style="position: relative;top: -286px;width: 774px !important;" border="0" cellpadding="0" cellspacing="0">
+    <table  class="stocks-table " border="0" cellpadding="0" cellspacing="0">
         <colgroup span="5"></colgroup>
         <thead >
-            <tr style="line-height:35px; background-color:black;color:white; font-family: fontpo; height:26px">
+            <tr class="stocks-header-table">
                 <th >
-                    <span style="padding-bottom: 2px;text-align: center; padding-left:133px; display:inline-block; width:120px; ">Nombre</span>
+                    <span class="stocks-name ">Nombre</span>
                 </th>
                 <th  >
-                    <span style="padding-bottom: 2px;padding-left:36px;">Mercado</span>
+                    <span class="stocks-market ">Mercado</span>
                 </th>
                 <th>
-                    <span style="padding-bottom: 2px;padding-left:15px;">Fecha Cálculo</span>
+                    <span class="stocks-date">Fecha Cálculo</span>
                 </th>
                 <th >
-                    <span style="padding-bottom: 2px;padding-left:34px;">Volatilidad %</span>
+                    <span class="stocks-vol">Volatilidad %</span>
                 </th>
                 <th >
-                    <span style="padding-bottom: 2px;padding-left: 15px;">Fav.</span>
-                    <div  style="display:none;">
-                        <div >PREV</div>
-                        <div >Favoritos</div>
-                    </div>
+                    <span class="stocks-fav">Fav.</span>
+
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="stocks-tbody">
             <tr ng-repeat="data in myData"  ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" style=" font-size:11px;color:#996600 !important;">
-                <td class="green"    style="text-align: left; width:330px;">
-                    <span ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
+                <td class="green"  >
+                    <span class="stocks-market-value" ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
                 </td>
-                <td class="blac-font-market" >
+                <td class="black-font-market" >
                     <span   >{{data.asset.exchange.symbol}}</span>
                     <div  style="display:none;">
                         <div ></div>
                         <div class="">London Stock Exchange</div>
                     </div>
                 </td>
-                <td >{{data.entryDate | date: 'dd MMM yyyy'}}</td>
-                <td  >
+                <td class="stocks-date-value">{{data.entryDate | date: 'dd MMM yyyy'}}</td>
+                <td class="stocks-vol-value">
                     <a ng-click="loadGraphic($event,data.vol)" >{{ data.asset.volatility| number:0}}</a>
                 </td>
                 <td style="width: 62px;" class="table-cell-patterns border-right-table">
