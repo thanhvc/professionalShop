@@ -24,7 +24,7 @@ angular.module('ngMo.historic', [
             reloadOnSearch: false,
             resolve: {
                 MonthSelectorHistoricService: "MonthSelectorHistoricService",
-                PatternsService: "PatternsService",
+                HistoricsService: "HistoricsService",
                 TabsService: "TabsService",
                 filtering : function(TabsService,MonthSelectorHistoricService,$location){
 
@@ -264,7 +264,7 @@ angular.module('ngMo.historic', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
-            var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
+            var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
                     /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
