@@ -222,7 +222,14 @@ angular.module('ngMo.services', [
     .run(function run() {
     })
 
-    .controller('ServicesCtrl', function ServicesCtrl($scope,PricesService, IsLogged) {
+    .controller('ServicesCtrl', function ServicesCtrl($scope,PricesService, IsLogged,$templateCache) {
+
+        $scope.tooltipOpinions = $templateCache.get("tooltips/opinion.tpl.html");
+        $scope.tooltipReliability = $templateCache.get("tooltips/reliatibility.tpl.html");
+        $scope.tooltipPeriods = $templateCache.get("tooltips/period.tpl.html");
+        $scope.tooltipFact = $templateCache.get("tooltips/fact.tpl.html");
+
+
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
