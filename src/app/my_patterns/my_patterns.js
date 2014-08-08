@@ -1001,6 +1001,8 @@ angular.module('ngMo.my_patterns', [
                 }
                 return monthList;
             }
+
+
         };
 
     })
