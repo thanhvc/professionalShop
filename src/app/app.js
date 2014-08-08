@@ -1005,7 +1005,7 @@ angular.module('ngMo', [
                         };
                         return $http.post($rootScope.urlService+'/addpacks', config)
                             .success(function (data, status) {
-                                $scope.removeAllItemsCart();
+                                //$scope.removeAllItemsCart();
                                 $scope.callbackPurchase(data, status);
                             })
                             .error(function (data, status) {
