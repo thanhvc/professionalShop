@@ -6,7 +6,7 @@
             <td>Id</td>
             <td>Nombre</td>
             <td>Mercado</td>
-            <td>Op.</td>
+            <td><span tooltip="Operación" class="cursor-help">Op.</span></td>
             <td>Añadir</td>
         </tr>
         </thead>
@@ -14,10 +14,10 @@
         <tr ng-repeat="pattern in myData">
             <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
             <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})" class="name-pattern-container"><span class="cursor-help">{{pattern.asset.longName | limitTo: 23}}</span></div></td>
-            <td><span tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
+            <td><span class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
             <td>
-                <span tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'">V</span>
-                <span tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'">C</span>
+                <span class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'">V</span>
+                <span class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'">C</span>
             </td>
             <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 10}" ng-click="addToCorrelationList(pattern.id);">>></span></td>
         </tr>
@@ -30,8 +30,8 @@
                 <td>Id</td>
                 <td>Nombre</td>
                 <td>Mercado</td>
-                <td>Op.</td>
-                <td>Fav.</td>
+                <td><span tooltip="Operación" class="cursor-help">Op.</span></td>
+                <td><span tooltip="Operación" class="cursor-help">Fav.</span></td>
                 <td>Quitar</td>
             </tr>
             </thead>
@@ -39,7 +39,7 @@
             <tr ng-repeat="pattern in correlationList">
                 <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})" class="name-pattern-container"><span class="cursor-help">{{pattern.asset.longName | limitTo: 25}}</span></div></td>
-                <td><span tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
+                <td><span class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
                 <td>
                     <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'">V</span>
                     <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'">C</span>
