@@ -1,30 +1,26 @@
 <div >
-    <table  class="pairs-table-vol"   style="width: 775px !important; position:relative; top:-3px" border="0" cellpadding="0" cellspacing="0">
+    <table  class="pairs-table-vol" cellpadding="0" cellspacing="0">
         <colgroup span="5"></colgroup>
         <thead >
-        <tr  style="background-color:black; color:white;font-family: fontpo; height:30px">
+        <tr  class="pairs-index-header">
             <th >
-                <span style="text-align: center; padding-left:0px; display:inline-block; width:240px; ">Nombre Compañías PAR</span>
+                <span class="pairs-index-company" >Nombre Compañías PAR</span>
             </th>
             <th  >
-                <span style="width:50px;padding-left: 10px;">Mercado</span>
+                <span class="pairs-index-market">Mercado</span>
             </th>
 
             <th >
                 <span style="padding-left:5px;">Volatilidad COMPONENTES (%)</span>
             </th>
             <th >
-                <span style="padding-left:5px;">Fecha Cálculo</span>
+                <span class="pairs-index-date">Fecha Cálculo</span>
             </th>
             <th >
-                <span style="padding-left:5px;">Volatilidad PAR (%)</span>
+                <span class="pairs-index-vol">Volatilidad PAR (%)</span>
             </th>
             <th  >
-                <span style="padding-left: 15px;">Fav.</span>
-                <div  style="display:none;">
-                    <div >PREV</div>
-                    <div >Favoritos</div>
-                </div>
+                <span class="pairs-index-fav">Fav.</span>
             </th>
         </tr>
         </thead>
@@ -35,20 +31,20 @@
                 <span  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}"style="display:block" >{{data.bearishAsset.longName}}</span>
 
             </td>
-            <td class="black-font-market" style="width:70px; class="  >
-                <span style="display:block" >{{data.asset.exchange.symbol}}</span>
+            <td class="black-font-market" style="width:70px;  >
+                <span style=" display:block" >{{data.asset.exchange.symbol}}</span>
                 <span style="display:block" >{{data.bearishAsset.exchange.symbol}}</span>
             </td>
 
-            <td  style="width:250px;padding-top: 2px;"  >
+            <td  class="pairs-vol-value">
                 <a style="display:block" >{{data.asset.volatility | number:0}}</a>
                 <a style="display:block">{{data.bearishAsset.volatility | number:0}}</a>
             </td>
-            <td class="black-font" style="width: 120px"  >{{data.entryDate | date: 'dd MMM yyyy'}}</td>
-            <td  style="width: 160px"  >
+            <td class="black-font-pairs" >{{data.entryDate | date: 'dd MMM yyyy'}}</td>
+            <td >
                 <a ng-click="loadGraphic($event,data.vol)" >{{data.pairVolatility}}</a>
             </td>
-            <td  style="width: 62px;" class="table-cell-patterns border-right-table">
+            <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
                 <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
             </td>
         </tr>

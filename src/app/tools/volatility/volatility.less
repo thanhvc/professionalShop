@@ -76,9 +76,10 @@
 
 .percent-input{
   position: relative;
-  left: 111px;
+  left: 108px;
   height: 20px;
   width: 40px;
+  top: 1px;
 }
 
 .favourite-check{
@@ -127,7 +128,7 @@
 .region-select{
   display: inline-block;
   position: relative;
-  left: 151px;
+  left: 154px;
   top: -12px;
 }
 
@@ -146,9 +147,6 @@
 .volatility-content {
   margin-top: 27px;
   margin-left: 67px;
-  td {
-    padding-left:4px;
-  }
 
 }
 
@@ -185,53 +183,60 @@
 .pairs-table-vol{
   position:relative;
   top:0px;
+  width: 775px !important;
+  position:relative;
+  top:-3px;
+  border:"0";
+
 }
 
 .favourite-check-futures{
   float: left;
   left: 283px;
-  top: -16px;
+  top: -15px;
   position: relative;
 }
 .percent-input-futures{
   position: relative;
   left: 0px;
+  top:1px;
 }
 
 .vol-select-futures{
   float: right;
   position: relative;
   right: 142px;
-  top: -17px;
+  top: -16px;
 
 }
 .operation-select-futures{
   float: right;
   position: relative;
   right: 394px;
-  top: -16px;
+  top: -15px;
 }
 .favourite-check-index{
   float: left;
   left: 538px;
-  top: -35px;
+  top: -33px;
   position: relative;
 }
 
 .percent-input-index{
   position: relative;
   left: 0px;
+  top:2px;
 }
 .volatility-select-index{
   position: relative;
   left: 248px;
-  top: -18px;
+  top: -17px;
 }
 .operation-select-index {
   float: right;
   position: relative;
   right: 310px;
-  top: -17px;
+  top: -16px;
 }
 
 .vol-selector-futures{
@@ -242,17 +247,18 @@
 .index-select{
   position: relative;
   left: -63px;
+  top:2px;
 }
 
 .percent-input-pairs{
   position: relative;
-  left: 0px;
+  left: -1px;
 }
 .vol-select-pairs{
   float: right;
   position: relative;
   right: 263px;
-  top: -33px;
+  top: -34px;
 }
 
 .favourite-check-pairs{
@@ -268,7 +274,41 @@
 .selected{
   background-color: #FF8200;
 }
+.index-header-index{
+  text-align: center;
+  display:inline-block;
+  width:470px;
+}
 
+.index-header-date{
+  text-align:center;
+  display:inline-block;
+  width:140px;
+}
+.index-header-fav{
+  text-align:center;
+  display:inline-block;
+  width:100px;
+
+  text-indent: -16px;
+}
+.index-header-vol{
+  text-align:center;
+  display:inline-block;
+  width:100px;
+}
+.index-header{
+  font-family: fontpo;
+  height:24px;
+  background-color: black;
+  color: white;
+  height: 35px;
+  position: relative;
+  top: -8px;
+  width:775px;
+  padding-top: 10px;
+  display: inline-block;
+}
 .grey {
   background-color: grey;
   left:-4px;
@@ -280,7 +320,7 @@
   display:inline-block;
   position:relative;
   left: -70px;
-  top: -2px;
+  top: -3px;
   width: 115px;
   height:20px;
 }
@@ -289,12 +329,18 @@
   text-align: center;
   color:brown;
 }
-.month-selector{
+
+.month-select-stocks{
   display: inline-block;
   position: relative;
-  top: 1px;
+  top: 2px;
   left: -64px;
-
+}
+.month-select-pairs{
+  display: inline-block;
+  position: relative;
+  top: 2px;
+  left: -64px;
 }
 .region-selector{
   display: inline-block;
@@ -345,6 +391,214 @@
   text-align: center;
   margin: 5px;
   height: 25px;
+  width: 98px;
+  text-indent: -6px;
+  border-right: 1px solid black;
+
+}
+
+.pairs-index-header{
+  background-color:black;
+  color:white;
+  font-family: fontpo;
+  height:35px;
+}
+.pairs-index-company{
+  text-align: center;
+  display:inline-block;
+  width:200px;
+}
+
+.pairs-index-market{
+  width:60px;
+  text-align: center;
+  display:inline-block;
+  text-indent: 3px;
 }
 
 
+.pairs-index-date{
+  padding-left:15px;
+}
+
+.pairs-index-vol{
+  padding-left:25px;
+}
+
+.pairs-index-fav{
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size:11px;
+}
+
+.futures-header{
+  background-color:black;
+  color:white;font-family:
+  fontpo; height:26px;
+}
+
+.futures-name{
+  text-align: center;
+  padding-left:133px;
+  display:inline-block;
+  width:120px;
+}
+
+.futures-market{
+  padding-left:45px;
+}
+
+.futures-date{
+  padding-left:15px;
+}
+
+.futures-vol{
+  padding-left:20px;
+}
+
+.futures-fav{
+  padding-left: 15px;
+  font-size:11px;
+}
+
+.stocks-header{
+  line-height:35px;
+  background-color:black;
+  color:white;
+  font-family: fontpo;
+  height:26px;
+}
+
+.stocks-name{
+  padding-bottom: 2px;
+  text-align: center;
+  width: 340px;
+  display: inline-block;
+}
+
+.stocks-market{
+  padding-bottom: 2px;
+  text-align: center;
+  display: inline-block;
+  width:100px;
+}
+
+.stocks-date{
+  padding-bottom: 2px;
+  text-align: center;
+  display: inline-block;
+  width:150px;
+
+}
+
+.stocks-vol{
+  padding-bottom: 2px;
+  text-align: center;
+  display: inline-block;
+  width:130px;
+}
+
+.stocks-fav{
+  padding-bottom: 2px;
+  text-align: center;
+  display: inline-block;
+  width: 64px;
+}
+
+.stocks-header-table{
+  position: relative;
+  width: 775px !important;
+  color: white;
+  height: 35px;
+  display: inline-block;
+  position: relative;
+  top: -286px;
+  background-color: black;
+  padding-top: 10px;
+}
+
+.month-selector-pairs{
+  display: inline-block;
+  position: relative;
+  top: 2px;
+  left: -64px;
+
+}
+
+.month-selector-index{
+  display: inline-block;
+  position: relative;
+  top: 2px;
+  left: -64px;
+
+}
+
+.stocks-tbody{
+  display: inline-block;
+  position: relative;
+  top: -286px;
+  width:775px;
+  td{
+    padding-left: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+.stocks-market-value{
+  text-align: left;
+  width:330px;
+  display:inline-block;
+}
+
+.stocks-date-value{
+  text-align: left;
+  width:170px;
+  text-indent: 36px;
+  color: black;
+  border-right: 1px solid black;
+}
+
+.stocks-vol-value{
+  width:140px;
+  text-indent: 50px;
+  color: #0663D7 !important;
+  border-right: 1px solid black;
+  a{
+    color: #0663D7;
+  }
+}
+
+.pairs-market-value{
+  padding-top: 4px;
+  text-align: left;
+  width:90px;
+}
+
+.pairs-vol-value{
+  width:194px;
+  padding-top: 2px;
+  text-indent: 86px;
+  border-right: 1px solid black;
+  a{
+    color: #0663D7 !important;
+  }
+}
+
+.pairs-tbody{
+  font-size:10px;
+  color:#996600 !important;
+  color:black;
+  margin-bottom: 10px;
+}
+
+.black-font-pairs{
+  color:black;
+  width: 110px;
+  text-indent:21px;
+  border-right: 1px solid black;
+}
+.pairs-fav-value{
+  width: 50px;
+  border-left: 1px solid black;
+}
