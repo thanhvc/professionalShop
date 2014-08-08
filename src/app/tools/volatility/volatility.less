@@ -184,8 +184,8 @@
   position:relative;
   top:0px;
   width: 775px !important;
-  position:relative;
-  top:-3px;
+  /*position:relative;
+  top:-3px;*/
   border:"0";
 
 }
@@ -277,7 +277,7 @@
 .index-header-index{
   text-align: center;
   display:inline-block;
-  width:470px;
+  width:492px;
 }
 
 .index-header-date{
@@ -286,16 +286,16 @@
   width:140px;
 }
 .index-header-fav{
-  text-align:center;
+ // text-align:center;
   display:inline-block;
-  width:100px;
+  width:62px;
 
-  text-indent: -16px;
 }
 .index-header-vol{
   text-align:center;
   display:inline-block;
   width:100px;
+  text-indent: -33px;
 }
 .index-header{
   font-family: fontpo;
@@ -303,8 +303,6 @@
   background-color: black;
   color: white;
   height: 35px;
-  position: relative;
-  top: -8px;
   width:775px;
   padding-top: 10px;
   display: inline-block;
@@ -445,15 +443,15 @@
 }
 
 .futures-market{
-  padding-left:45px;
+  padding-left:23px;
 }
 
 .futures-date{
-  padding-left:15px;
+  padding-left:27px;
 }
 
 .futures-vol{
-  padding-left:20px;
+  padding-left:37px;
 }
 
 .futures-fav{
@@ -511,8 +509,6 @@
   color: white;
   height: 35px;
   display: inline-block;
-  position: relative;
-  top: -286px;
   background-color: black;
   padding-top: 10px;
 }
@@ -535,8 +531,8 @@
 
 .stocks-tbody{
   display: inline-block;
-  position: relative;
-  top: -286px;
+/*  position: relative;
+  top: -286px;*/
   width:775px;
   td{
     padding-left: 10px;
@@ -601,4 +597,80 @@
 .pairs-fav-value{
   width: 50px;
   border-left: 1px solid black;
+}
+
+.index-name-value{
+  text-align: left;
+  width:512px;
+  border-right: 1px solid black;
+  height:25px;
+  padding-left: 5px;
+}
+
+.index-date-value{
+  width:100px;
+  border-right: 1px solid black;
+  display:inline-block;
+  height:25px;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.index-vol-value{
+  width:100px;
+  a{
+    color: #0663D7 !important;
+  }
+  border-right: 1px solid black;
+  display:inline-block;
+  height:25px;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.index-fav-value{
+  width: 62px;
+  display:inline-block;
+  height:25px;
+  padding-top: 5px;
+}
+
+.index-tbody{
+  font-size:10px;
+  color:#996600 !important;
+  color:black;
+  display: inline-block;
+
+}
+
+.month-select-futures{
+  left: -64px;
+  position: relative;
+  top: 2px;
+}
+
+.futures-name-value{
+  text-indent: 5px;
+}
+
+.futures-vol-value{
+  width:147px;
+  a{
+    color: #0663D7 !important;
+  }
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  display:inline-block;
+  height:25px;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.futures-date-value{
+  text-align: center;
+  width:147px;
+}
+
+.futures-fav-value{
+  width:60px;
 }
