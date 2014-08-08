@@ -4,7 +4,7 @@
             <td>
                 <input class="border-filters input-filter" placeholder="Nombre" ng-model="filterOptions.filters.filterName">
             </td>
-
+<!--
             <td>
                 <select ng-change="selectMarket()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedMarket">
@@ -15,7 +15,7 @@
                     </option>
                 </select>
             </td>
-
+-->
             <td>
                 <select ng-change="applyFilters()" style="width: 100px;" class="border-filters select-filter"
                         ng-options="item.description for item in filterOptions.selectors.operations"
@@ -31,7 +31,7 @@
             <tr>
                 <td>
 
-                    <span class="filter-label-select">Renta Acumulada</span><br>
+                    <span class="filter-label-select">Renta Final</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRent">
@@ -45,7 +45,7 @@
 
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta media</span><br>
+                    <span class="filter-label-select">Mejor Ganancia</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedAverage">
@@ -58,7 +58,7 @@
                            data-ng-model="filterOptions.filters.rentAverageInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta diaria</span><br>
+                    <span class="filter-label-select">Peor Pérdida</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
@@ -70,6 +70,7 @@
                            ng-class=" {'warning-input':  (rentForm.rentDiaryInput.$error.pattern && (rentForm.rentDiaryInput.$dirty))}"
                            data-ng-model="filterOptions.filters.rentDiaryInput">
                 </td>
+                <!--
                 <td>
                     <span class="filter-label-select">Volatilidad (%)</span><br>
                     <select class="border-filters select-filter small-select-filter"
@@ -83,6 +84,7 @@
                            ng-class=" {'warning-input':  (rentForm.volatilityInput.$error.pattern && (rentForm.volatilityInput.$dirty))}"
                            data-ng-model="filterOptions.filters.volatilityInput">
                 </td>
+                -->
                 <td>
                     <span class="filter-label-select">Duración (Días)</span><br>
                     <select class="border-filters select-filter small-select-filter"
