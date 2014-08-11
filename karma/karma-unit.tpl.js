@@ -28,9 +28,9 @@ module.exports = function ( karma ) {
     },
 
     /**
-     * How to report, by default. , 'junit', 'coverage'
+     * How to report, by default.
      */
-    reporters : ['dots'],
+    reporters : ['dots', 'junit', 'coverage'],
 
     junitReporter : {
         outputFile: 'test-results.xml'
