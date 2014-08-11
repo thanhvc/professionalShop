@@ -14,34 +14,36 @@
     </thead>
     <tbody>
     <tr>
-        <td class="area-cell">&Iacute;NDICES</td>
-        <td colspan="3">
+        <td class="area-cell" style="border-top: none;" rowspan="{{homeTablePack.indicesContent.length + 1}}">&Iacute;NDICES</td>
+       <!-- <td colspan="3">
             <table class="table-pack">
-                <tbody>
-                <tr ng-repeat="pack in homeTablePack.indicesContent track by $index"ui-sref="catalog({packCode: pack.code, month: 0})">
+                <tbody>-->
+                <tr ng-repeat="pack in homeTablePack.indicesContent track by $index"ui-sref="catalog({packCode: pack.code, month: 0})"
+                    ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
                 </tr>
-                </tbody>
-            </table>
+               <!--- </tbody>
+            </table>-->
         </td>
     </tr>
     <tr>
         <td class="separator"></td>
     </tr>
     <tr>
-        <td class="area-cell">PAR &Iacute;NDICES</td>
-        <td colspan="3">
+        <td class="area-cell" rowspan="{{homeTablePack.pairsIndicesContent.length + 1}}">PAR &Iacute;NDICES</td>
+       <!-- <td colspan="3">
             <table class="table-pack">
-                <tbody>
-                <tr ng-repeat="pack in homeTablePack.pairsIndicesContent track by $index" ui-sref="catalog({packCode: pack.code, month: 0})">
+                <tbody>-->
+                <tr ng-repeat="pack in homeTablePack.pairsIndicesContent track by $index" ui-sref="catalog({packCode: pack.code, month: 0})"
+                    ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
                 </tr>
-                </tbody>
-            </table>
+               <!-- </tbody>
+            </table>-->
         </td>
     </tr>
     </tbody>
