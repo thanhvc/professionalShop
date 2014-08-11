@@ -20,12 +20,12 @@
         </thead>
         <tbody class="index-tbody">
 
-        <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
+        <tr ng-repeat="data in myData" ng-class-even="'ngRow-odd'" ng-class-odd="'ngRow-even'">
             <td  class="index-name-value">
                 <span  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
             </td>
 
-            <td  class="index-date-value" >{{data.entryDate | date: 'dd MMM yyyy'}}</td>
+            <td  class="index-date-value" >{{data.entryDate | date: 'd MMM yyyy'}}</td>
             <td class="index-vol-value">
                 <a ng-click="loadGraphic($event,data.vol)">{{data.asset.volatility | number:0}}</a>
             </td>
