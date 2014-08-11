@@ -6,33 +6,35 @@
 <div>
     <table style="margin-bottom:25px;">
         <thead style="background-color: grey;">
-        <div style="background-color: black;position: relative;top: 0px;height:44px;width: 713px;}">r</div>
+        <div class="header-black-div">r</div>
         <tr class="table-header-bottom-patterns">
             <th  class="pack-cell border-right-table">
                 Pack
             </th>
-            <th class="pack-cell border-right-table" style="background-color: #808080;width:146px;color:white">
+            <th class="pack-cell border-right-table" class="packs-header">
                 Inicio
             </th>
-            <th class="pack-cell border-right-table"style="background-color: #808080;width:146px;color:white">Fin
+            <th class="pack-cell border-right-table" class="packs-header">Fin
             </th>
-            <th class="pack-cell sub-border-right-table" style="background-color: #808080;width:145px;color:white">
+            <th class="pack-cell sub-border-right-table" class="packs-header" >
                 Orden
             </th>
         </tr>
 
-        <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
-            <td class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" width="30" >
+        </thead>
+        <tbody style="width: 775px">
+        <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" >
+            <td  style="width: 340px" class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" >
                 {{data.name}}
             </td>
-            <td class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" width="30" >
+            <td  style="width: 132px" class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" >
                 {{data.start}}
             </td>
-            <td class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" width="30" >
+            <td  style="width: 120px" class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" >
 
                 {{data.end}}
             </td>
-            <td class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" width="30" >
+            <td style="width: 120px" class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" >
                 <select size="1">
                     <option value="ELEGIR" selected="selected">Elegir</option>
                     <option value="RENOVAR">Renovar</option>
@@ -40,7 +42,6 @@
                 </select>
             </td>
         </tr>
-        </thead>
         <tbody>
 
         </tbody>
