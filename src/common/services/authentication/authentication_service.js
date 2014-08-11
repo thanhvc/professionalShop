@@ -128,6 +128,7 @@ angular.module('auth',['http-auth-interceptor'])
                             $state.go('home');
                             $window.sessionStorage.removeItem('token');
                             $window.sessionStorage.removeItem('username');
+                            $window.sessionStorage.removeItem('cart');
                             clearAllCorrelationLists();
                             clearAllPortfolioLists();
                         });

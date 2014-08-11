@@ -179,7 +179,24 @@ angular.module('ngMo', [
         var futuresSubtotal = 0;
 
 
-
+        //save the currentCart in session storage
+        this.saveSessionCart = function () {
+            //restart the sessionCart and save all the info
+            this.restartSessionCart();
+            sessioncart = {};
+            sessioncart.stockItems = stockItems;
+            sessioncart.pairsItems = pairsItems;
+            sessioncart.indicesItems = indicesItems;
+            sessioncart.pairsIndicesItems = pairsIndicesItems;
+            sessioncart.stockSubtotal = stockSubtotal;
+            sessioncart.pairsSubtotal = pairsSubtotal;
+            sessioncart.indicesSubtotal = indicesSubtotal;
+            sessioncart.pairsIndicesSubtotal = pairsIndicesSubtotal;
+            sessioncart.futuresSubtotal = futuresSubtotal;
+            sessioncart.totalCart = totalCart;
+            sessioncart.numItemsCart = numItemsCart;
+            $window.sessionStorage.cart = JSON.stringify(sessioncart);
+        };
 
 
         this.getPrices = function () {
@@ -250,8 +267,7 @@ angular.module('ngMo', [
             showCart = true;
             numItemsCart++;
             totalCart+=item.price;
-
-
+            this.saveSessionCart();
         };
 
         this.obtainSubtotal = function(productType){
@@ -301,7 +317,7 @@ angular.module('ngMo', [
             numItemsCart--;
             totalCart-=item.price;
             //save the cart in the sessionStorage, every add/remove of the cart, must be refreshed
-
+            this.saveSessionCart();
 
         };
 
@@ -384,7 +400,7 @@ angular.module('ngMo', [
             }
 
 
-
+            this.saveSessionCart();
         };
 
         this.removeAllItemsCart = function () {
@@ -400,6 +416,7 @@ angular.module('ngMo', [
             futuresSubtotal = 0;
             totalCart = 0;
             numItemsCart = 0;
+            this.restartSessionCart();
         };
 
         this.obtainNumItemsCart = function () {
@@ -412,24 +429,7 @@ angular.module('ngMo', [
 
         //synchronize the session storage with the service
 
-        //save the currentCart
-        this.saveSessionCart = function () {
-            //restart the sessionCart and save all the info
-            this.restartSessionCart();
-            sessioncart = {};
-            sessioncart.stockItems = stockItems;
-            sessioncart.pairsItems = pairsItems;
-            sessioncart.indicesItems = indicesItems;
-            sessioncart.pairsIndicesItems = pairsIndicesItems;
-            sessioncart.stockSubtotal = stockSubtotal;
-            sessioncart.pairsSubtotal = pairsSubtotal;
-            sessioncart.indicesSubtotal = indicesSubtotal;
-            sessioncart.pairsIndicesSubtotal = pairsIndicesSubtotal;
-            sessioncart.futuresSubtotal = futuresSubtotal;
-            sessioncart.totalCart = totalCart;
-            sessioncart.numItemsCart = numItemsCart;
-            $window.sessionStorage.cart = JSON.stringify(sessioncart);
-        };
+
 
         //load the sessionCart
         this.loadSessionCart = function() {
@@ -731,7 +731,7 @@ angular.module('ngMo', [
 
                 $scope.$on('removeItemsCart', function() {
                     //$scope.submitCart();
-                    $scope.removeItemCart();
+                    $scope.removeAllItemsCart();
                 });
 
                 $scope.$on('submitCart', function(event,paymentType){

@@ -28,7 +28,7 @@ module.exports = function ( karma ) {
     },
 
     /**
-     * How to report, by default., 'junit', 'coverage'
+     * How to report, by default. , 'junit', 'coverage'
      */
     reporters : ['dots'],
 
