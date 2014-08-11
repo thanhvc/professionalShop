@@ -159,7 +159,7 @@ angular.module('ngMo', [
             return str;
         };
     })
-    .service('ShoppingCartService', function (ActiveTabService,$q,$http,$rootScope){
+    .service('ShoppingCartService', function (ActiveTabService,$q,$http,$rootScope,$window){
 
         var stockItems =  [];
 
@@ -177,6 +177,9 @@ angular.module('ngMo', [
         var indicesSubtotal = 0;
         var pairsIndicesSubtotal = 0;
         var futuresSubtotal = 0;
+
+
+
 
 
         this.getPrices = function () {
@@ -247,6 +250,8 @@ angular.module('ngMo', [
             showCart = true;
             numItemsCart++;
             totalCart+=item.price;
+
+
         };
 
         this.obtainSubtotal = function(productType){
@@ -295,6 +300,9 @@ angular.module('ngMo', [
             }
             numItemsCart--;
             totalCart-=item.price;
+            //save the cart in the sessionStorage, every add/remove of the cart, must be refreshed
+
+
         };
 
 
@@ -400,6 +408,64 @@ angular.module('ngMo', [
 
         this.obtainTotalCart = function () {
             return totalCart;
+        };
+
+        //synchronize the session storage with the service
+
+        //save the currentCart
+        this.saveSessionCart = function () {
+            //restart the sessionCart and save all the info
+            this.restartSessionCart();
+            sessioncart = {};
+            sessioncart.stockItems = stockItems;
+            sessioncart.pairsItems = pairsItems;
+            sessioncart.indicesItems = indicesItems;
+            sessioncart.pairsIndicesItems = pairsIndicesItems;
+            sessioncart.stockSubtotal = stockSubtotal;
+            sessioncart.pairsSubtotal = pairsSubtotal;
+            sessioncart.indicesSubtotal = indicesSubtotal;
+            sessioncart.pairsIndicesSubtotal = pairsIndicesSubtotal;
+            sessioncart.futuresSubtotal = futuresSubtotal;
+            sessioncart.totalCart = totalCart;
+            sessioncart.numItemsCart = numItemsCart;
+            $window.sessionStorage.cart = JSON.stringify(sessioncart);
+        };
+
+        //load the sessionCart
+        this.loadSessionCart = function() {
+            if (typeof $window.sessionStorage.cart === 'undefined') {
+                this.restartSessionCart();
+            }
+            cartSession =  angular.fromJson($window.sessionStorage.cart);
+            stockItems = cartSession.stockItems;
+            pairsItems=cartSession.pairsItems;
+            indicesItems=cartSession.indicesItems;
+            pairsIndicesItems = cartSession.pairsIndicesItems;
+            stockSubtotal = cartSession.stockSubtotal;
+            pairsSubtotal = cartSession.pairsSubtotal;
+            indicesSubtotal =cartSession.indicesSubtotal;
+            pairsIndicesSubtotal = cartSession.pairsIndicesSubtotal;
+            futuresSubtotal = cartSession.futuresSubtotal;
+            totalCart = cartSession.totalCart;
+            numItemsCart = cartSession.numItemsCart;
+        };
+
+        this.restartSessionCart = function () {
+            sessionCart = {
+                stockItems : [],
+                pairsItems : [],
+                indicesItems : [],
+                pairsIndicesItems : [],
+                futuresItems : [],
+                stockSubtotal : 0,
+                pairsSubtotal : 0,
+                indicesSubtotal : 0,
+                pairsIndicesSubtotal : 0,
+                futuresSubtotal : 0,
+                totalCart : 0,
+                numItemsCart : 0
+            };
+            $window.sessionStorage.cart =  JSON.stringify(sessionCart);//;
         };
 
 
@@ -680,6 +746,7 @@ angular.module('ngMo', [
                     }
 
                 });
+
                 //the cart must dessapears in some views, so when the state is one of the list, the cart will be invisible to the user
                 $scope.showCartinState=true;//show the cart by default
                 $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -712,6 +779,25 @@ angular.module('ngMo', [
                 $scope.subtotalPairsIndices = 0;
                 $scope.subtotalFutures = 0;
 
+
+                //By default we are going to load the cart from sessionStorage
+                ShoppingCartService.loadSessionCart();
+                $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+
+                $scope.totalCart = ShoppingCartService.obtainTotalCart();
+                $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
+                $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
+                $scope.subtotalPairs = ShoppingCartService.obtainSubtotal('pairs');
+                $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
+                $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
+                $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+
+
+
                 $scope.openCart = function () {
                    $scope.showCart = ShoppingCartService.openCart();
                 };
@@ -727,6 +813,13 @@ angular.module('ngMo', [
                         $scope.showCart = true;
                     }
                 };
+
+
+                //if the cart was loaded from session and has items, it mus be opened
+                if ($scope.numItemsCart > 0 ) {
+                    $scope.openCart();
+                }
+
 
                 $scope.removeItemCart =  function (productType,item){
                     ShoppingCartService.removeItemCart(productType, item);
@@ -863,22 +956,6 @@ angular.module('ngMo', [
                  * @param id
                  */
                 $scope.addNewItemCart = function(newItem, startDate){
-//                    var deferred = $q.defer();
-//                    var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
-//                        deferred.resolve(data.data.prices);
-//                        return data.data.prices;
-//                    });
-//
-//
-//                    var pricesArray = deferred.promise;
-                    //load prices in scope
-                   // $scope.getPrices();
-
-//                    ShoppingCartService.getPrices().then(function(data) {
-//                        $scope.prices =   data;
-//                    });
-
-
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                     item = {
                         "code": newItem.code,
@@ -923,6 +1000,9 @@ angular.module('ngMo', [
                         $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                         $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                         $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+
+                        //save the cart into session
+                        ShoppingCartService.saveSessionCart();
                     }
                 };
                 $scope.removeAllItemsCart = function () {
@@ -936,7 +1016,7 @@ angular.module('ngMo', [
                     $scope.numItemsCart = 0;
                     $scope.subtotalStock = 0;
                 };
-
+                //go to payment page
                 $scope.goToPay= function() {
                     token = $window.sessionStorage.token;
                     if (token != null) {
