@@ -80,31 +80,36 @@ angular.module('ngMo.volatility', [
         $scope.loadGraphic = function (name) {
 
             var elemDiv = document.createElement('div');
-            elemDiv.innerHTML = name.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
+            var h = name.srcElement.parentElement.parentElement.parentElement.offsetHeight+ 90;
+            var w = name.srcElement.parentElement.parentElement.parentElement.offsetWidth + 2;
+            var elemTitle = document.createElement('span');
+            elemTitle.innerHTML = name.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
             var img = document.createElement('img');
             img.src = "assets/img/graphic.png";
-            img.style.cssText = "display:block;padding-top:30px;height:100;width:750;style:margin-right:20px;class:historyImagePar";
-            elemDiv.style.cssText = 'position:absolute;padding-top:30px;text-align:center;color:#996600;position:absolute;width:68%;top:238px;left:45%;z-index:100;background:white; height:600px';
+            img.className ="graphic-image-div";
+            elemDiv.className = 'graphic-div';
+            elemDiv.style.cssText += 'height:' + h + 'px;';
+            elemDiv.style.cssText += 'width:' + w + 'px;';
 
 
             var closeButton = document.createElement('img');
             closeButton.src = "assets/img/close_modal.png";
-            closeButton.style.cssText = 'position:relative;top:0px;left:300px;height:15px;width:15px';
+            closeButton.className = 'close-graphic-button';
             closeButton.onclick = function (event) {
 
                 setTimeout(function(){
-                    event.srcElement.parentElement.className ='move-to-the-right';
+                    //event.srcElement.parentElement.className ='graphic-div';
+                    event.srcElement.parentElement.className='graphic-div move-to-the-right';
                     event.srcElement.parentElement.addEventListener('webkitTransitionEnd', function(event2) {
                         event.srcElement.parentElement.style.cssText = 'display:none';
 
                     });
                 },0);
-
-
             };
+            elemDiv.appendChild(elemTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
-            document.body.appendChild(elemDiv);
+            name.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
 
             setTimeout(function(){
                 elemDiv.className+=' move';

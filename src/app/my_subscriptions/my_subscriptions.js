@@ -497,7 +497,7 @@ angular.module('ngMo.my_subscriptions', [
                 value: 1
             },
             {
-                title: 'Indices',
+                title: 'Índices',
                 active: activeTab === 2,
                 value: 2
             },
@@ -722,7 +722,7 @@ angular.module('ngMo.my_subscriptions', [
                 url: 'my_subscriptions/tables_my_packs/pairs_table.tpl.html'
             },
             {
-                title: 'Indices',
+                title: 'Índices',
                 active: ActiveTabService.activeTab() === 2,
                 value: 2,
                 content: MyPacksService.obtainPacks('indices'),
