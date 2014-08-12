@@ -101,9 +101,13 @@
                         </tr>
                     </table>
                 </div>
-                <button class="mo-button" name="continue" ng-disabled="((loginForm.$invalid && newSubscriptionMode == 'login') || (form.$invalid && newSubscriptionMode == 'signup'))"
+                <button class="mo-button" name="continue" disabled ng-show="((loginForm.$invalid && newSubscriptionMode == 'login') || (form.$invalid && newSubscriptionMode == 'signup'))"
                         ng-click="createNewSubs()" style="float:right;margin-bottom: 25px;" type="button">Continuar
                 </button>
+                <button class="mo-button" name="continue" ng-show="!((loginForm.$invalid && newSubscriptionMode == 'login') || (form.$invalid && newSubscriptionMode == 'signup'))"
+                        ng-click="createNewSubs()" style="float:right;margin-bottom: 25px;" type="button">Continuar
+                </button>
+                 <!--ng-disabled="((loginForm.$invalid && newSubscriptionMode == 'login') || (form.$invalid && newSubscriptionMode == 'signup'))"-->
                 <!--login errors -->
                 <div ng-show="loginForm.uEmail.$error.email && (loginForm.uEmail.$dirty &&  newSubscriptionMode== 'login' )"
                      class="red-color-form prices-font12">
