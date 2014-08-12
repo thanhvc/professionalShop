@@ -142,7 +142,7 @@ describe('The cart directive', function () {
 //            };
 //        });
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend,$controller) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend,$controller, _$window_) {
 
             httpMock = $httpBackend;
             $compile = _$compile_;
@@ -153,6 +153,8 @@ describe('The cart directive', function () {
                     "prices":[29,82,313]
                 }});
             $scope = _$rootScope_.$new();
+            $window = _$window_;
+
         }));
 
 
@@ -216,6 +218,7 @@ describe('The cart directive', function () {
 
         //add three items to cart
         it('should have 3 items and total and subtotal equals 87', inject(function () {
+            delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(3);
@@ -234,6 +237,7 @@ describe('The cart directive', function () {
 
         //remove 1 item to cart
         it('should have 2 item and total and subtotal equals 58', inject(function () {
+            delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(2);
@@ -262,6 +266,7 @@ describe('The cart directive', function () {
 
         //remove All items to cart
         it('should have 0 items and total and subtotal equals 0', inject(function () {
+            delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(3);

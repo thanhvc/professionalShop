@@ -48,6 +48,7 @@ angular.module('ngMo.payment', [  'ui.router'])
     })
 
     .controller('ConfirmPaymentCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http,$stateParams) {
+        $scope.status = "NONE";
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -72,19 +73,23 @@ angular.module('ngMo.payment', [  'ui.router'])
                     'X-Session-Token': token
                 },
                 data: {token: $stateParams.token,
-                        payerId: $stateParams.payerId
+                        payerId: $stateParams.PayerID
                 }
             };
             //status of the payment returned by server
             $scope.status = "NONE";
-            $http.post($rootScope.urlService+"/confirm-pay",config).then( function(data) {
-                if (data.data.status === "OK") {
+            $http.post($rootScope.urlService+"/confirm-pay",config).success( function(data) {
+                if (data.status === "OK") {
                     $scope.status = "OK";
                     $rootScope.$broadcast('removeItemsCart');
                 } else {
                     $scope.status = "ERROR";
                 }
+            }).error(function(data) {
+                        $scope.status = "ERROR";
             });
+        } else {
+            $scope.status = "ERROR";
         }
 
         $scope.goToPatterns = function() {
