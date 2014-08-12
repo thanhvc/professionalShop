@@ -125,8 +125,9 @@
 
 
     <tr style="height:35px;">
-        <td style="vertical-align: bottom;"><input id="bill" type="checkbox" ng-model="editData"
-                                                   name="bill" onchange="comprobarFactura();"><span
+        <td style="vertical-align: bottom;">
+            <input id="bill" type="checkbox" ng-model="editData"
+                name="bill" ><span
                 style="margin-left:10px">Modificar Datos</span>
         </td>
         <td></td>
@@ -138,7 +139,7 @@
     </tr>
     <tr id="countryRow2" >
         <td>
-            <select ng-show="editData" class="signup-select"  name="country"   required="true"  ng-class="{'warning-input': (profileForm.country.$error.required)}"
+            <select ng-show="editData" class="signup-select" name="country" required="true" ng-class="{'warning-input': (profileForm.country.$error.required)}"
                     ng-model="user.country">
                 <option value="">Selecciona País</option>
                 <option ng-repeat="item in countries" value="{{item.value}}"
@@ -168,7 +169,7 @@
 
     <tr>
         <td></td>
-        <td><input class="mo-button" id="pay" name="pay"
+        <td><input class="mo-button" id="pay" name="pay" ng-click="payWithCard()"
                    value="Pagar" style="float:right;" type="button">
         </td>
     </tr>
@@ -176,9 +177,10 @@
 
     </tbody>
     </table>
-<div id="error" style="color: red; display: none;"><img src="assets/img/warning-icon.png" height="15"
-                                                                   style="margin-right: 8px;"></div>
-</div>
+    <div id="error" style="color: red; display: none;">
+        <img src="assets/img/warning-icon.png" height="15"
+        style="margin-right: 8px;"></div>
+    </div>
 </div>
 </form>
 

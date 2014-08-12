@@ -726,6 +726,7 @@ angular.module('ngMo', [
                         $scope.submitCart();
                     } else if (paymentType === "DIRECTPAYMENT") {
                         //payment with card
+                        $state.go('pay-card');
                         return;
                     } else {
                         return;
@@ -737,7 +738,7 @@ angular.module('ngMo', [
                 $scope.showCartinState=true;//show the cart by default
                 $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                   //list of states where the cart is invisible
-                    var states = ["summary-pay"];
+                    var states = ["summary-pay","pay-card"];
                     if (states.indexOf(toState.name) > -1) {
                         //the new state will not show the cart
                         $scope.showCartinState= false;
