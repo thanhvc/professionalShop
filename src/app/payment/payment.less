@@ -83,12 +83,12 @@
   padding-top: 10px;
 }
 
-.summary-subtotal-format{
+.summary-subtotal-format {
   height: 20px;
   font-size: 12px;
   font-family: 'fontpo';
   text-align: right;
-  float:left;
+  float: left;
 }
 
 .summary-subtotal {
@@ -97,11 +97,11 @@
   float: left;
 }
 
-.summary-subtotal-ammount{
-  width:95px;
+.summary-subtotal-ammount {
+  width: 95px;
 }
 
-.separator-pay{
+.separator-pay {
   border-top: 1px @black solid;
   width: 900px;
   margin-left: 50%;
@@ -110,34 +110,34 @@
   margin-bottom: 10px;
 }
 
-.summary-payment-container{
+.summary-payment-container {
   width: 900px;
   height: 100px;
   margin-left: 50%;
   position: relative;
   left: -450px;
-  margin-bottom:30px;
+  margin-bottom: 30px;
 }
 
-.summary-payment-button-container{
+.summary-payment-button-container {
   width: 200px;
   height: 27px;
   float: right;
   padding-top: 25px;
 }
 
-.unselected-payment{
+.unselected-payment {
   opacity: 0.5;
 }
 
-.selector-pay-table{
+.selector-pay-table {
   width: 30px;
   height: 50px;
   float: right;
   text-align: center;
 }
 
-.confirm-pay{
+.confirm-pay {
   width: 500px;
   margin-left: 50%;
   position: relative;
@@ -151,4 +151,115 @@
   padding: 10px;
   font-size: 12px;
   font-family: "fontpo";
+}
+
+/* credit card*/
+.summary-card-container {
+  width: 790px;
+  margin-top: 10px;
+  padding: 5px;
+  border: 2px solid @orangeColor;
+  padding: 5px;
+  div {
+    &:first-child {
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+  }
+}
+
+.summary-card-table {
+  width: 470px;
+  margin: 0 auto;
+  float: none !important;
+  border: solid 1px @silver;
+  th {
+    border-right: solid 1px @silver;
+    padding: 4px 4px 4px 4px;
+    text-align: center;
+    font-size: 11px;
+    color: @darkGrey;
+    font-family: fontpo;
+    white-space: nowrap;
+    background-color: @greyPaginator;
+  }
+  tbody {
+    tr {
+      text-align: center;
+      font-size: 10px;
+      td {
+        padding: 2px 0 2px 0;
+        &:first-child {
+          border-right: 1px solid  @silver;
+          width: 210px;
+        }
+        &:nth-child(2) {
+          width: 85px;
+        }
+        &:nth-child(3) {
+          width: 75px;
+        }
+        &:nth-child(4) {
+          width: 105px;
+        }
+      }
+      &:nth-child(odd) {
+        background-color: @smokeGrey;
+      }
+      &:nth-child(even) {
+        background-color: @white;
+      }
+    }
+  }
+
+}
+
+.total-card-summary-container {
+  margin: 0 auto;
+  height: 30px;
+  margin-top: 5px;
+  div{
+
+    float: left;
+    font-size: 12px;
+    font-family: fontpo;
+    &:first-child{
+      width: 60px;
+      height: 20px;
+      margin-left:460px;
+      float:left;
+      text-align:right;
+      margin-right:5px;
+    }
+    &:nth-child(2) {
+      width: 100px;
+      height: 20px;
+      text-align: center;
+    }
+  }
+}
+
+.container-card{
+  width: 790px;
+  font-size: 12px;
+  font-family: "fontpo";
+  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-right: 5px;
+  border: 2px solid @orangeColor;
+  padding: 5px;
+  div{
+    &:first-child{
+      margin-bottom:15px;
+      font-size:16px;
+    }
+  }
+}
+
+.table-card-data{
+  font-size: 11px;
+  font-family: 'fontpo';
+  width: 600px;
+  position: relative;
+  margin: 0 auto;
 }

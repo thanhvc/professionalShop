@@ -1,0 +1,185 @@
+<div>
+<!--payment with credit card-->
+
+<form id="payForm" name="payForm">
+
+<div style="width:790px; margin: 0 auto;">
+<div class="summary-card-container">
+    <div id="payForm:j_id230" style="margin-bottom:5px;">Resumen</div>
+    <table class="summary-card-table"
+           border="0" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+            <th>
+                Región
+            </th>
+            <th>
+                Tipo
+            </th>
+            <th>
+                Precio
+            </th>
+            <th>
+               Impuestos (0.0 %):
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in items">
+            <td>{{item.name}}
+            </td>
+            <td>{{item.type}}
+            </td>
+            <td>{{item.price | number:2}}
+            </td>
+            <td>0,00
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="total-card-summary-container">
+        <div style="font-size: 12px;">
+            Total
+        </div>
+        <div id="total">
+            {{total | number:2 }}
+        </div>
+    </div>
+</div>
+<div class="container-card">
+    <div>Datos de la tarjeta</div>
+    <table class="table-card-data">
+    <tbody>
+    <tr style="height: 35px">
+        <td style="width: 300px;vertical-align: middle;">Nombre (tal como aparece en la tarjeta)</td>
+        <td style="width: 300px;vertical-align: middle;">Apellido (tal como aparece en la tarjeta)</td>
+    </tr>
+    <tr>
+        <td><input id="name" type="text" name="name" ng-model="user.name" style="width:250px !important"></td>
+        <td><input id="lastName" type="text" name="lastName" ng-model="user.surname" style="width:250px !important">
+        </td>
+    </tr>
+
+    <tr style="height: 35px">
+        <td style="vertical-align: middle;">Tipo de tarjeta</td>
+        <td style="vertical-align: middle;">Numero de la tarjeta (sin espacios ni guiones)</td>
+    </tr>
+    <tr>
+        <td><select id="cardType" name="cardType" size="1" style="width:250px !important"
+                    data-ng-model="selectedCard"
+                    ng-options="item.name for item in creditCards"
+                    ng-change="maestro()"
+                    ><!--onchange="comprobarMaestro()"-->
+
+        </select>
+        </td>
+        <td><input id="acct" type="text" name="acct" ng-model="number" style="width:250px !important"></td>
+    </tr>
+
+
+    <tr style="height: 35px">
+        <td style="vertical-align: middle;">Fecha de vencimiento</td>
+        <td style="vertical-align: middle;">Código CVV2 (3 digitos, 4 en Amex)</td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top;">Mes:
+            <select name="month" size="1"  style="width:50px !important;margin-left: 5px !important; margin-right: 10px !important;"
+                    data-ng-model="expirationMonth" ng-options="item.description for item in months"
+                    >
+
+        </select><span style="position:relative;">Año:</span>
+            <select name="year" size="1" id="year" data-ng-model="expirationYear"
+                                                                     ng-options="item for item in nextYears"
+                                                                     style="width:55px !important;margin-left: 5px !important;">
+
+        </select>
+        </td>
+        <td><input id="cvv" type="text" name="cvv" ng-model="cvv"
+                   style="width:100px;position: relative; margin-right: 20px !important;"><img
+                src="assets/img/cc_code_icon.jpg">
+        </td>
+
+    </tr>
+
+
+    <tr id="trM1" style="height: 25px; display: none;">
+        <td>Fecha Inicio</td>
+    </tr>
+    <tr id="trM2" ng-show="selectedCard.code == 'MAESTRO'">
+        <td><span style="position:relative;">Mes:</span>
+            <select name="startMonth" size="1"
+                    style="width:50px !important; margin-left: 5px !important; margin-right: 10px !important;"
+                    data-ng-model="startMonth" ng-options="item.description for item in months"
+                    >
+                </select>
+                Año:
+                <select name="startYear" size="1"
+                             style="width:55px !important;margin-left: 5px !important; margin-right: 10px !important;"
+                        data-ng-model="startYear" ng-options="item for item in previousYears">
+        </select>
+            Issue:
+            <input type="text" name="issue" style="margin-left: 5px !important;width:30px !important" ng-model="issue">
+        </td>
+    </tr>
+
+
+    <tr style="height:35px;">
+        <td style="vertical-align: bottom;"><input id="bill" type="checkbox" ng-model="editData"
+                                                   name="bill" onchange="comprobarFactura();"><span
+                style="margin-left:10px">Modificar Datos</span>
+        </td>
+        <td></td>
+    </tr>
+
+    <tr id="countryRow1" style="height: 25px; display: none;">
+        <td style="vertical-align: middle;">País</td>
+        <td style="vertical-align: middle;">Estado o Provincia</td>
+    </tr>
+    <tr id="countryRow2" >
+        <td>
+            <select ng-show="editData" class="signup-select"  name="country"   required="true"  ng-class="{'warning-input': (profileForm.country.$error.required)}"
+                    ng-model="user.country">
+                <option value="">Selecciona País</option>
+                <option ng-repeat="item in countries" value="{{item.value}}"
+                        ng-selected="{{item.value == user.country}}">
+                    {{item.name}}
+                </option>
+            </select>
+        </td>
+    <td>
+        <input ng-show="editData" type="text" name="state" ng-model="user.state" style="width:250px !important"></td>
+    </tr>
+    <tr id="row3" style="height: 25px;"  >
+        <td style="width:250px !important;vertical-align: middle;"><span ng-show="editData">Ciudad</span></td>
+        <td style="width:250px !important;vertical-align: middle;"><span ng-show="editData">Calle</span></td>
+    </tr>
+    <tr id="row4" ng-show="editData">
+        <td><input ng-show="editData" type="text" name="city" ng-model="user.city" style="width:250px !important"></td>
+        <td><input ng-show="editData" type="text" name="address" ng-model="user.address" style="width:250px !important"></td>
+    </tr>
+
+    <tr id="row" style="height: 25px; "  >
+        <td style="width:250px !important;vertical-align: middle;"><span ng-show="editData">Codigo postal</span></td>
+    </tr>
+    <tr id="factura6"  >
+        <td><input ng-show="editData" type="text" name="zipCode" ng-model="user.postalCode" style="width:250px !important"></td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td><input class="mo-button" id="pay" name="pay"
+                   value="Pagar" style="float:right;" type="button">
+        </td>
+    </tr>
+
+
+    </tbody>
+    </table>
+<div id="error" style="color: red; display: none;"><img src="assets/img/warning-icon.png" height="15"
+                                                                   style="margin-right: 8px;"></div>
+</div>
+</div>
+</form>
+
+</div>

@@ -42,6 +42,24 @@ angular.module('ngMo.payment', [  'ui.router'])
                     selectItemSubmenu: '',
                     moMenuType: 'publicMenu'
 
+                }})
+            .state('pay-card', {
+                url: '/pay-card',
+                views: {
+                    "main": {
+
+                        controller: 'CreditPayCtrl',
+                        templateUrl: 'payment/summary-card.tpl.html'
+                    }
+                },
+                data: {
+                    /* empty the menu data*/
+                    pageTitle: '',
+                    selectMenu: '',
+                    selectSubmenu: '',
+                    selectItemSubmenu: '',
+                    moMenuType: 'publicMenu'
+
                 }});
     })
     .run(function run() {
@@ -159,6 +177,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.futures=data.futures;
                 $scope.totalFutures=data.total_futures;
                 $scope.total=data.total;
+
             });
         };
 
@@ -189,6 +208,204 @@ angular.module('ngMo.payment', [  'ui.router'])
         //first load of the summary
         $scope.loadPayment();
 
+
+    })
+    .controller('CreditPayCtrl',function($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService, ProfileService,SignUpService){
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            IsLogged.isLogged();
+        });
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+        });
+
+        $scope.stocks = [];
+        $scope.pairs=[];
+        $scope.index=[];
+        $scope.pairIndex=[];
+        $scope.futures=[];
+        //totals and taxes
+        $scope.totalStocks=0;
+        $scope.taxStock=0;
+        $scope.totalPairs=0;
+        $scope.taxPairs=0;
+        $scope.totalIndex=0;
+        $scope.taxIndex=0;
+        $scope.totalPairsIndex=0;
+        $scope.taxPairsIndex=0;
+        $scope.totalFutures=0;
+        $scope.taxFutures=0;
+        //total
+        $scope.total=0;
+        $scope.totalTaxes=0;
+        $scope.items = [];
+
+        //user data
+        $scope.user =  {
+            name: "",
+            surname: "",
+            address: "",
+            city: "",
+            postalCode: "",
+            country: "",
+            state: ""
+        };
+        $scope.countries= [];
+
+
+        $scope.creditCards = [
+            {
+                code: "VISA",
+                name: "Visa"
+            },
+            {
+                code: "MASTERCARD",
+                name: "MasterCard"
+            },
+            {
+                code: "DISCOVER",
+                name: "Discover"
+            },
+            {
+                code: "AMERICANEXPRESS",
+                name: "Amex"
+            },
+            {
+                code: "MAESTRO",
+                name: "Maestro"
+            }
+        ];
+        $scope.selectedCard= $scope.creditCards[0];
+        $scope.months = [{
+            id:1,
+            description:"01"
+        },
+            {
+                id:2,
+                description:"02"
+            },
+            {
+                id:3,
+                description:"03"
+            },{
+                id:4,
+                description:"04"
+            },{
+                id:5,
+                description:"05"
+            },{
+                id:6,
+                description:"06"
+            },{
+                id:7,
+                description:"07"
+            },{
+                id:8,
+                description:"08"
+            },{
+                id:9,
+                description:"09"
+            },{
+                id:10,
+                description:"10"
+            },{
+                id:11,
+                description:"11"
+            },
+            {
+                id:12,
+                description:"12"
+            }];
+        $scope.nextYears = [];
+        $scope.previousYears = [];//for maestro card
+            //fill 20 years in the selector
+        var date = new Date();
+        var nextYear = date.getFullYear();
+        var previousYear = date.getFullYear();
+        for (var i = 0; i<20; i++) {
+            $scope.nextYears.push(nextYear);
+            $scope.previousYears.push(previousYear);
+            nextYear++;
+            previousYear--;
+        }
+        $scope.expirationMonth = $scope.months[0];
+        $scope.startMonth = $scope.months[0];
+        $scope.expirationYear= $scope.nextYears[0];
+        $scope.startYear = $scope.previousYears[0];
+        $scope.number= "";
+        $scope.cvv="";
+        $scope.issue="";//only for maestro
+        $scope.editData= false;//if change userdata..
+        //lload user data for the bill
+        $scope.loadUser = function () {
+            ProfileService.loadUser(function (data, status) {
+                if (status === 200) {
+                    $scope.user = data;
+                    $scope.user.state = "";//the state is not in the DB
+                    $scope.internalError = false;
+                } else {
+                    $scope.internalError = true;
+                    $scope.restartUser();
+                }
+
+            });
+        };
+
+        $scope.maestro= function(){
+            console.log("a");
+        };
+
+        SignUpService.getCountries(function(data) {
+            if (data.length>0) {
+                $scope.countries = data;
+            }
+        });
+
+
+        //load the summary of payment, is the same call to SUMMARY
+        $scope.loadSummary = function(){
+            PaymentService.getPayments(function (data) {
+
+                $scope.stocks = data.stocks;
+                $scope.totalStocks = data.total_stocks;
+                $scope.pairs = data.pairs;
+                $scope.totalPairs = data.total_pairs;
+                $scope.index= data.index;
+                $scope.totalIndex= data.total_index;
+                $scope.pairsIndex= data.indexPairs;
+                $scope.totalPairsIndex= data.total_indexPairs;
+                $scope.futures=data.futures;
+                $scope.totalFutures=data.total_futures;
+                $scope.total=data.total;
+
+                //we put them all in one array
+                $scope.items =[];
+                var i=0;
+                for (i=0;i<$scope.stocks.length;i++) {
+                    $scope.stocks[i].type= "Acción";//for the row type
+                    $scope.items.push($scope.stocks[i]);
+                }
+                for (i=0;i<$scope.pairs.length;i++) {
+                    $scope.pairs[i].type= "Par";//for the row type
+                    $scope.items.push($scope.pairs[i]);
+                }
+                for (i=0;i<$scope.index.length;i++) {
+                    $scope.index[i].type= "Acción";//for the row type
+                    $scope.items.push($scope.index[i]);
+                }
+                for (i=0;i<$scope.pairsIndex.length;i++) {
+                    $scope.pairsIndex[i].type= "Par";//for the row type
+                    $scope.items.push($scope.pairsIndex[i]);
+                }
+                for (i=0;i<$scope.futures.length;i++) {
+                    $scope.futures[i].type= "Acción";//for the row type
+                    $scope.items.push($scope.stocks[i]);
+                }
+            });
+        };
+        $scope.loadSummary();
+        $scope.loadUser();
 
     })
     .factory('PaymentService', function ($http,$rootScope,$window,ShoppingCartService ) {
