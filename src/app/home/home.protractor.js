@@ -1,5 +1,6 @@
 
 var url = 'http://mo.devel.edosoftfactory.com/';
+
  /** LoginPage.js */
  var LoginPage = function() {
 
