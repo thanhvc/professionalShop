@@ -1,4 +1,5 @@
 
+var url = 'http://mo.devel.edosoftfactory.com/';
  /** LoginPage.js */
  var LoginPage = function() {
 
@@ -11,9 +12,7 @@
 
      this.open = function () {
          // Goto the login page
-
-         browser.get('http://mo.devel.edosoftfactory.com');
-
+         browser.get(url);
          browser.ignoreSynchronization = true;
      };
 
