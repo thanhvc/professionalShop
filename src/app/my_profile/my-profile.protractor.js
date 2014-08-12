@@ -2,20 +2,24 @@
  * Created by laia on 11/08/14.
  */
 
- var url = "http://mo.devel.edosoftfactory.com";
+ //var url = "http://mo.devel.edosoftfactory.com";
+ var url = '/#';
 
  var Profile = function() {
 
     this.open = function(){
-        this.element = element(by.css(".sign-background"));
+        this.element = element(by.css("no-logged-box sign-background"));
     };
 
     this.login = function(){
+
+        this.element = element(by.css("no-logged-box sign-background"));
         this.element.click();
         this.fields = element.all(by.css("float-right"));
         this.email = this.fields.get(0).sendKeys('laura@edosoft.es');
         this.pass = this.fields.get(1).sendKeys('prueba1');
         element(by.css('mo-button')).click();
+        this.text = element(by.css(".private-black-title")).getAttribute('text');
     };
 
     this.loadProfile = function(){
@@ -70,28 +74,25 @@
 
  describe(' homepage', function() {
 
-
-    var p = new Profile();
-
-  /*  it('should open the page', function() {
-         beforeEach(function() {
-                browser.get(url);
-                p.open();
-                expect(element(by.css(".sign-background"))).toBeDefined();
-        });
-    });
-
-    it('should let the user be log in' ,function(){
-
+     var p = new Profile();
      beforeEach(function() {
         browser.get(url);
-        p.login();
-        expect(element(by.css(".private-black-title")).getText().toBe("Mis Patrones"));
+
      });
+
+    it('should open the page', function() {
+        p.open();
+        expect(element(by.css(".sign-background"))).toBeDefined();
 
     });
 
-    it('should load profile ' ,function(){
+   /* it('should let the user be log in' ,function(){
+         p.login();
+        expect(p.text.toBe("Mis Patrones"));
+
+    });*/
+
+  /*  it('should load profile ' ,function(){
 
         beforeEach(function() {
            browser.get(url);
@@ -100,7 +101,7 @@
         });
 
     });
-*/
+
     it('should have three tabs' ,function(){
         beforeEach(function() {
            browser.get(url);
@@ -110,7 +111,7 @@
 
     });
 
-/*
+
     it('should a password tab' ,function(){
        p.checkData();
        expect(p.text.toBe('Cambiar Password'));

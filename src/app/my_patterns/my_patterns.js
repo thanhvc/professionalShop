@@ -203,6 +203,8 @@ angular.module('ngMo.my_patterns', [
         };
     })
     .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService) {
+        $scope.dataLoaded = false;
+
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -365,8 +367,9 @@ angular.module('ngMo.my_patterns', [
                     return templateTables[TabsService.getActiveTab()].filter;
             }
         };
-        /*changeTab, launches the http get*/
+        /*ab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            $scope.dataLoaded = false; //Not showming data until they have been loaded
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
@@ -385,6 +388,7 @@ angular.module('ngMo.my_patterns', [
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
+                    $scope.dataLoaded = true;
             });
 
 
