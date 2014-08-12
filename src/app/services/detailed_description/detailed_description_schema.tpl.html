@@ -1,0 +1,102 @@
+<div class="lat-menu-detailed-nav">
+    <table class="table-page-index-detailed" ng-class="{'menu-position' : boolChangeClassDetailed, 'menu-bottom-position' : !boolChangeClassDetailed && positionFix , 'menu-fix' : positionFix}">
+        <tr>
+            <td>
+                <a ng-click="scrollTo('description'); selectedOption = 'description';" ng-class="{'orange-text': selectedOption =='description'}">Descripci&oacute;n</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('basic'); selectedOption = 'basic';" ng-class="{'orange-text': selectedOption =='basic'}">Informaci&oacute;n B&aacute;sica de un Patr&oacute;n</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('phases'); selectedOption = 'phases';" ng-class="{'orange-text': selectedOption =='phases'}">Fases Principales del Servicio</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('monthly'); selectedOption = 'monthly';" ng-class="{'orange-text': selectedOption =='monthly'}">Publicaci&oacute;n Mensual</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('buy'); selectedOption = 'buy';" ng-class="{'orange-text': selectedOption =='buy'}">Comprar Suscripci&oacute;n</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('patterns'); selectedOption = 'patterns';" ng-class="{'orange-text': selectedOption =='patterns'}">Mis Patrones</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('diary'); selectedOption = 'diary';" ng-class="{'orange-text': selectedOption =='diary'}">Seguimiento Diario</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('historic'); selectedOption = 'historic';" ng-class="{'orange-text': selectedOption =='historic'}">Hist&oacute;ricos</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-class="{'orange-text': selectedOption =='drawdown' || selectedOption =='correlation' || selectedOption =='volatility' }">Herramientas</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="parent-item-menu">
+                <a ng-click="scrollTo('drawdown'); selectedOption = 'drawdown';" ng-class="{'orange-text': selectedOption =='drawdown'}">Cartera</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="parent-item-menu">
+                <a ng-click="scrollTo('correlation'); selectedOption = 'correlation';" ng-class="{'orange-text': selectedOption =='correlation'}">Correlaci&oacute;n</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="parent-item-menu">
+                <a ng-click="scrollTo('volatility'); selectedOption = 'volatility';" ng-class="{'orange-text': selectedOption =='volatility'}">Volatilidad Hist&oacute;rica</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('week'); selectedOption = 'week';" ng-class="{'orange-text': selectedOption =='week'}">La Semana, Estad&iacute;sticas</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('calendar');selectedOption = 'calendar';" ng-class="{'orange-text': selectedOption =='calendar'}">Calendario</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('suscriptions');selectedOption = 'suscriptions';" ng-class="{'orange-text': selectedOption =='suscriptions'}">Mis Suscripciones</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a ng-click="scrollTo('account'); selectedOption = 'account';" ng-class="{'orange-text': selectedOption =='account'}">Mi Cuenta</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="content-detailed">
+    <div class="anchor-detailed" id="description" ng-include="'services/detailed_description/description.tpl.html'"></div>
+    <div class="anchor-detailed" id="basic" ng-include="'services/detailed_description/basic.tpl.html'"></div>
+    <div class="anchor-detailed" id="phases" ng-include="'services/detailed_description/phases.tpl.html'"></div>
+    <div class="anchor-detailed" id="monthly" ng-include="'services/detailed_description/monthly.tpl.html'"></div>
+    <div class="anchor-detailed" id="buy" ng-include="'services/detailed_description/buy.tpl.html'"></div>
+    <div class="anchor-detailed" id="patterns" ng-include="'services/detailed_description/patterns.tpl.html'"></div>
+    <div class="anchor-detailed" id="diary" ng-include="'services/detailed_description/diary.tpl.html'"></div>
+    <div class="anchor-detailed" id="historic" ng-include="'services/detailed_description/historic.tpl.html'"></div>
+    <div class="anchor-detailed" id="drawdown" ng-include="'services/detailed_description/drawdown.tpl.html'"></div>
+    <div class="anchor-detailed" id="correlation" ng-include="'services/detailed_description/correlation.tpl.html'"></div>
+    <div class="anchor-detailed" id="volatility" ng-include="'services/detailed_description/volatility.tpl.html'"></div>
+    <div class="anchor-detailed" id="week" ng-include="'services/detailed_description/week.tpl.html'"></div>
+    <div class="anchor-detailed" id="calendar" ng-include="'services/detailed_description/calendar.tpl.html'"></div>
+    <div class="anchor-detailed" id="suscriptions" ng-include="'services/detailed_description/suscriptions.tpl.html'"></div>
+    <div class="anchor-detailed" id="account" ng-include="'services/detailed_description/account.tpl.html'"></div>
+</div>

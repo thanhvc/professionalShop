@@ -31,6 +31,18 @@ angular.module('ngMo.my_profile', [
             reloadOnSearch: false
         })
             //substates of summary
+            .state('profile.identification', {
+                url: '/identification',
+                views: {
+                    "sub-profile": {
+                        templateUrl: 'my_profile/identification.tpl.html'
+                    }
+                },
+                data: {
+                    subPage: 'identification',
+                    pageTitle: 'Identification personal'
+                }
+            })
             .state('profile.edit', {
                 url: '/edit',
                 views: {
@@ -40,7 +52,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: {
                     subPage: 'edit',
-                    pageTitle: 'Profile Edit'
+                    pageTitle: 'Editar perfil'
                 }
             })
             .state('profile.orders', {
@@ -52,7 +64,7 @@ angular.module('ngMo.my_profile', [
                 },
                 data: {
                     subPage: 'orders',
-                    pageTitle: 'My orders'
+                    pageTitle: 'Mis órdenes'
                 }
             });
     })
@@ -71,6 +83,7 @@ angular.module('ngMo.my_profile', [
             }
         });
 
+        $scope.tog = 0;
         $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
         //patterns for validation
         //letters and special characters (like dieresis) (with spaces) but not numbers or other special chars
@@ -95,6 +108,7 @@ angular.module('ngMo.my_profile', [
             $scope.user =
             {   name: "",
                 surname: "",
+                emailAddress: "",
                 address: "",
                 city: "",
                 postalCode: "",

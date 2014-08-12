@@ -50,7 +50,7 @@ angular.module('ngMo.calendar', [
         ];
 
         $scope.pagingOptions = {
-            pageSize: 10,
+            pageSize: 15,
             currentPage: 1
         };
 
@@ -77,6 +77,7 @@ angular.module('ngMo.calendar', [
                     selectedRegion: "",
                     selectedMarket: "",
                     selectedOperation: "",
+                    dayDateInput: "",
                     order: 0,
                     index_type: TabsService.getActiveIndexType(),
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
@@ -86,35 +87,19 @@ angular.module('ngMo.calendar', [
                     favourite: false},
                 selectors: {
                     regions: [
-
                     ],
 
                     markets: [
                     ],
 
-                    sectors: [
-                        {"id": 1, "description": "Sector1"},
-                        {"id": 2, "description": "Sector2"}
-                    ],
-
-                    industries: [
-                        {"id": 1, "description": "Industry1"},
-                        {"id": 2, "description": "Industry2"}
-                    ],
-
                     operations: [
-                        {"id": 1, "description": "buy"},
-                        {"id": 2, "description": "sell"}
-                    ],
-                    comparators: [
-                        {"id": 1, "description": "Menor que"},
-                        {"id": 2, "description": "Mayor que"}
+                        {"id": 0, "description": "Comprar"},
+                        {"id": 1, "description": "Vender"}
                     ]
-
                 }
             };
             if (!$scope.filterOptions.months) {
-                $scope.filterOptions.months = MonthSelectorService.getListMonths();
+                $scope.filterOptions.months = MonthSelectorService.getCalendarListMonths();
             }
             //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
             $scope.updateSelectorMonth();
@@ -122,10 +107,10 @@ angular.module('ngMo.calendar', [
             //refresh all the selectors
             switch (TabsService.getActiveTab()) {
                 case 0:     //stocks
-                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions', 'markets']);
                     break;
                 case 1:     //pairs
-                    $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions']);
                     break;
                 case 2:     //index (pair and index)
                     break;
@@ -136,12 +121,40 @@ angular.module('ngMo.calendar', [
         };
 
 
+///urlParams control
         $scope.saveUrlParams = function () {
-            var urlParams = {};
-            urlParams.pag = $scope.pagingOptions.currentPage;
-            urlParams.qacttab = $scope.selectedTab;
-            urlParams.qindex = TabsService.getActiveIndexType();
-            $location.path('/calendar').search(urlParams);
+            var urlParams = $scope.filterOptions.filters;
+            urlParams.page = $scope.pagingOptions.currentPage;
+            //we ask each param to include in the url or not
+            var urlParamsSend = {};
+            if (urlParams.dayDateInput) {
+                urlParamsSend.qday = urlParams.dayDateInput;
+            }
+            if (urlParams.selectedRegion) {
+                urlParamsSend.qregion = urlParams.selectedRegion;
+            }
+            if (urlParams.selectedMarket) {
+                urlParamsSend.qmarket = urlParams.selectedMarket;
+            }
+            if (urlParams.selectedOperation) {
+                urlParamsSend.qop = urlParams.selectedOperation;
+            }
+            if (urlParams.index_type) {
+                urlParamsSend.qindex = urlParams.index_type;
+            }
+            if (urlParams.tab_type) {
+                urlParamsSend.qtab = urlParams.tab_type;
+            }
+            if (urlParams.active_tab === 0 || (urlParams.active_tab)) {
+                urlParamsSend.qacttab = urlParams.active_tab;
+            }
+            if (urlParams.favourite) {
+                urlParamsSend.qfav = urlParams.favourite;
+            }
+            urlParamsSend.pag = urlParams.page;
+            urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
+
+            $location.path('/calendar').search(urlParamsSend);
         };
 
         //synchronize the selector with the month of the filter
@@ -154,26 +167,67 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.loadUrlParams = function () {
-            var urlParams = $location.search();
-            $scope.selectedTab = (urlParams.qacttab ? urlParams.qacttab : TabsService.getActiveTab());
-            $scope.selectedTypeIndice = (urlParams.qindex ? urlParams.qindex : TabsService.getActiveIndexType() );
-            $scope.selectedMonth = ($scope.calendarMonths[0]).value;
-            $scope.selectedOrder = 0;
-            TabsService.changeActiveTab(parseInt($scope.selectedTab, 10));
-            $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
-            $scope.tabs = TabsService.getTabs();
-            $scope.tabs[TabsService.getActiveTab()].active = true;
-            $scope.filterOptions.filters.active_tab = $scope.selectedTab;
-        };
+            var params = $location.search();
 
+            var filters = {
+                filterName: (params.qname ? params.qname : "" ),
+                selectedOperation: (params.qop ? params.qop : "" ),
+                dayInput: (params.qday ? params.qday : "" ),
+                durationInput: (params.qdur ? params.qdur : "" ),
+                index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
+                tab_type: (params.qtab ? params.qtab : "" ),
+                active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
+                favourite: (params.qfav ? params.qfav : "" )
+            };
+
+            //special cases:
+            var tabChanged = false;
+            //if the params tab is different of the actual tab
+            if (($scope.filterOptions.filters.active_tab !== params.qacttab)) {
+                //change tab
+                TabsService.changeActiveTab((params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab()));
+                for (i = 0; i < $scope.tabs.length; i++) {
+                    if ($scope.tabs[i].value === TabsService.getActiveTab()) {
+                        $scope.tabs[i].active = true;
+                        tabChanged = true;
+                    } else {
+                        $scope.tabs[i].active = false;
+                    }
+                }
+            }
+            //if the month is defined in the params
+            if (params.month) {
+                var date = params.month.split("_");
+                var d = new Date(date[1], date[0] - 1, 1);
+                filters.month = MonthSelectorService.setDate(d);
+
+
+            } else {
+                //if the date is not passed as param, we load the default date
+                var date_restart = new Date();
+                filters.month = MonthSelectorService.restartDate();
+            }
+
+            //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
+            if (tabChanged) {
+                switch (TabsService.getActiveTab()) {
+                    case 0:     //stocks
+                        $scope.refreshSelectors(['regions', 'markets']);
+                        break;
+                    case 1:     //pairs
+                        $scope.refreshSelectors(['regions']);
+                        break;
+                    case 2:     //index (pair and index)
+                        break;
+                    case 3:     //futures
+                        $scope.refreshSelectors(['markets']);
+                        break;
+                }
+            }
+        };
 
         $scope.changeTab = function (idTab) {
 
-
-            // $scope.obtainDays(idTab);
-            $scope.selectedMonth = ($scope.calendarMonths[0]).value;
-            $scope.selectedOrder = 0;
-            $scope.selectedTypeIndice = 0;
             $scope.urlSelected = templateTables[idTab];
             $scope.selectedTab = idTab;
 
@@ -185,41 +239,6 @@ angular.module('ngMo.calendar', [
             $scope.saveUrlParams();
         };
 
-        $scope.calendarMonths = [
-            {
-                value: 0,
-                description: "Junio 2014"
-            },
-            {
-                value: 1,
-                description: "Julio 2014"
-            }
-        ];
-
-        $scope.calendarRegions = [
-            {
-                id: 1,
-                description: "Estados Unidos"
-            },
-            {
-                id: 2,
-                description: "EURO Zona"
-            }
-        ];
-
-        $scope.calendarMarkets = [
-            {
-                id: 1,
-                description: "American Stock Exchange"
-            },
-            {
-                id: 2,
-                description: "NASDAQ Stock Exchange"
-            }
-        ];
-
-        $scope.selectedMonth = ($scope.calendarMonths[0]).value;
-        $scope.selectedOrder = 0;
         $scope.selectedTypeIndice = TabsService.getActiveIndexType();//now load index from service
 
 
@@ -230,7 +249,8 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.lastDateMonth = function () {
-            var dat = CalendarService.getLastDayOfMonth(6 - 1, function (data) {
+
+            var dat = CalendarService.getLastDayOfMonth(7 - 1, function (data) {
                 $scope.lastDayOfMonth = data.lastDateMonth;
 
                 if (!$scope.$$phase) {
@@ -243,6 +263,9 @@ angular.module('ngMo.calendar', [
 
             var data = CalendarService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
+                    if (data.patterns.length > 0){
+
+                    }
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
@@ -261,6 +284,14 @@ angular.module('ngMo.calendar', [
 
         };
 
+        $scope.checkFilters = function () {
+            //for each input filter filled, the selector linked must be set
+            if ($scope.filterOptions.filters.dayDateInput < 1  ||
+                $scope.filterOptions.filters.dayDateInput > $scope.lastDayOfMonth) {
+                return;
+            }
+        };
+
         $scope.search = function () {
             $scope.applyFilters();
         };
@@ -268,10 +299,57 @@ angular.module('ngMo.calendar', [
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
             $scope.pagingOptions.currentPage = 1; //restart the page
-            //$scope.checkFilters();//check if selectors and inputs are right
+            $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
             $scope.lastDateMonth();
             $scope.obtainDays();
+        };
+
+        $scope.refreshRegion = function () {
+            if ($scope.filterOptions.filters.selectedRegion === ""){
+                $scope.filterOptions.filters.selectedMarket = "";
+            }
+            switch (TabsService.getActiveTab()) {
+                case 0://stock have markets to refresh
+                case 1:
+                case 3://futures ONLY have markets
+                    $scope.refreshSelectors(['markets']);
+                    break;
+                default://others doesnt have selectors to refresh
+                    break;
+            }
+        };
+        $scope.selectRegion = function () {
+            $scope.refreshRegion();
+            $scope.applyFilters();
+
+        };
+
+        //refresh selectors depending of market
+        $scope.refreshMarket = function () {
+            if (TabsService.getActiveTab() === 0) {
+                $scope.refreshSelectors(['industries', 'sectors']);
+            }
+        };
+        $scope.selectMarket = function () {
+            //in stock is required refresh industries, sectors, in futures and
+            //others tabs dont have this selectors
+            $scope.refreshMarket();
+            $scope.applyFilters();
+        };
+
+        //when we change index type (pairs_index, or index)
+        $scope.selectIndexType = function () {
+            TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
+            $scope.applyFilters();
+        };
+
+        $scope.goToMonth = function () {
+            var date = $scope.filterOptions.filters.selectMonth.value.split("_");
+            var d = new Date(date[1], date[0] - 1, 1);
+            $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+            $scope.restartFilter();
+            $scope.saveUrlParams();
         };
 
         /**
@@ -282,32 +360,19 @@ angular.module('ngMo.calendar', [
                 //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
                     $scope.filterOptions.selectors.markets = data.markets;
-                    $scope.filterOptions.filters.selectedMarket = "";
+                    if (typeof data.selectedRegion != 'undefined') {
+                        $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                    }
+                    //$scope.filterOptions.filters.selectedMarket = "";
                 }
                 if (data.hasOwnProperty("regions")) {
                     $scope.filterOptions.selectors.regions = data.regions;
-                    $scope.filterOptions.filters.selectedRegion = "";
-                }
-                if (data.hasOwnProperty("industries")) {
-                    $scope.filterOptions.selectors.industries = data.industries;
-                    $scope.filterOptions.filters.selectedIndustry = "";
-                }
-                if (data.hasOwnProperty("sectors")) {
-                    $scope.filterOptions.selectors.sectors = data.sectors;
-                    $scope.filterOptions.filters.selectedSector = "";
+                    //$scope.filterOptions.filters.selectedRegion = "";
                 }
             });
         };
 
-        $scope.changeIndiceFilter = function (selectedTypeIndice) {
-            if (parseInt(selectedTypeIndice, 10) === 0) {
-                $scope.urlSelected = templateTables[2];
-            } else {
-                $scope.urlSelected = templateTables[4];
-            }
-            TabsService.changeActiveIndexType(parseInt(selectedTypeIndice, 10));
-            $scope.selectedTypeIndice = selectedTypeIndice;
-        };
+
         //function to convert the service tab to the local tab system
         $scope.transformTab = function (idTab, idIndex) {
             if (parseInt(idTab, 10) === 2) {//is Index
@@ -364,13 +429,28 @@ angular.module('ngMo.calendar', [
             var data;
             var urlParam = this.createParamsFromFilter(filtering);
 
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+
             config = {
                 params: {
                     'page': page,
                     'token': $window.sessionStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': parseInt(filtering.active_tab, 10),
-                    'order': parseInt(filtering.order, 10)
+                    'indexType': indexType,
+                    'order': parseInt(filtering.order, 10),
+                    'dayDateInput': filtering.dayDateInput,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'operation': filtering.selectedOperation,
+                    'favourites': filtering.favourite
                 }
             };
 
@@ -389,67 +469,35 @@ angular.module('ngMo.calendar', [
             //the filtering object could contains some filters that are required for get the specified selectors
             //for example, to get the markets, the selected region is required (if there is not region, means all..)
             //the http petition will use the callback function to load the info received from server
-            var data = {};
-            /*mocked -- we are going to check the selectors needed and check filters */
-            //mocked lists:
-            var eeuuMarkets = [
-                {"id": 1, "description": "American Stock Exchange"},
-                {"id": 2, "description": "Nasdaq Stock Exchange"},
-                {"id": 3, "description": "New York Stock Exchange"}
-            ];
-            var indianMarkets = [
-                {"id": 4, "description": "Bombay Stock Exchange"},
-                {"id": 5, "description": "National Stock Exchange"}
-            ];
+            var data;
 
-            var chinaMarkets = [
-                {"id": 6, "description": "Shangai Stock Exchange"},
-                {"id": 7, "description": "Shenzhen Stock Exchange"}
-            ];
+            var indexType = null;
 
-            if (selectorsToRefresh.indexOf("regions") > -1) {
-                //load regions (always all regions)
-                data.regions = [
-                    {"id": 1, "description": "America"},
-                    {"id": 2, "description": "India"},
-                    {"id": 3, "description": "China"}
-                ];
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
             }
-            if (selectorsToRefresh.indexOf("markets") > -1) {
-                //load markets , check if region is selected.
-                //NOTE: IN A REAL CASE ALL THE FILTERS INFLUENCE THE LIST RECEIVED, NOT ONLY THE REGION
-                //the cases are in string (not INT) so we use expressions to check the value
-                switch (true) {
-                    case /1/.test(filtering.selectedRegion): //america
-                        data.markets = eeuuMarkets;
-                        break;
-                    case /2/.test(filtering.selectedRegion):
-                        data.markets = indianMarkets;
-                        break;
-                    case /3/.test(filtering.selectedRegion):
-                        data.markets = chinaMarkets;
-                        break;
-                    default :
-                        data.markets = eeuuMarkets.concat(indianMarkets.concat(chinaMarkets));
+
+            config = {
+                params: {
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'view': location.hash.replace("/#","")
                 }
-            }
+            };
 
-            //the sectors and industries are always same, to dont make large code
-            if (selectorsToRefresh.indexOf("sectors") > -1) {
-                data.sectors = [
-                    {"id": 1, "description": "Sector1"},
-                    {"id": 2, "description": "Sector2"}
-                ];
-            }
-
-            if (selectorsToRefresh.indexOf("industries") > -1) {
-                data.industries = [
-                    {"id": 1, "description": "Industry1"},
-                    {"id": 2, "description": "Industry2"}
-                ];
-            }
-
-            callback(data);
+            var result = $http.get($rootScope.urlService+'/patternfilters', config).success(function (data) {
+                // With the data succesfully returned, call our callback
+                callback(data);
+            });
 
         };
 

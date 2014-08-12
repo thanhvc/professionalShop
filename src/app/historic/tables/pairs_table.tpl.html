@@ -1,33 +1,40 @@
-<table style="width: 950px;" class="table-pattern">
+<div class="no-patterns-container" ng-show="myData.length==0">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
+
+<table style="width: 950px;" class="table-pattern"  ng-show="myData.length>0">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
         <th class="table-id-header" rowspan="2">
             Id
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table patterns-stocks-column-width">
             Descripción
         </th>
         <th class="border-right-table">
-            Merc.
+            <span tooltip-html-unsafe="Mercado" class="cursor-help">Merc.</span>
         </th>
         <th class="border-right-table" colspan="2">
-            Entrada
+            <div style="width:75px; margin: 0 auto;">
+            <span style="float:left;">Entrada</span> <img src="assets/img/entryArrow.png">
+            </div>
+        </th>
+        <th class="border-right-table" colspan="2">
+            <div style="width:75px; margin: 0 auto;">
+            <img src="assets/img/exitArrow.png"  colspan="2">
+            <span style="float:left;" >Salida</span>
+                </div>
         </th>
         <th class="border-right-table">
-            <span class="cursor-help">Salida</span>
-        </th>
-        <th class="border-right-table" tooltip-html-unsafe="Volatilidad">
-            Vol.
+            <span tooltip-html-unsafe="Renta Final">Rent.</span>
         </th>
         <th class="border-right-table"
             colspan="2">
             Mejor Ganancia
         </th>
         <th class="border-right-table"  colspan="2">
-            <span class="cursor-help">Peor Pérdida</span>
+            <span >Peor Pérdida</span>
         </th>
-        <th>
-            <span class="cursor-help">Notas</span>
+        <th class="sub-border-right-table">
+            <span >Notas</span>
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
@@ -43,8 +50,11 @@
         <th class="border-right-table">
             Precio
         </th>
-        <th class="border-right-table">
+        <th class="sub-border-right-table">
             Fecha
+        </th>
+        <th class="border-right-table">
+            Precio
         </th>
         <th class="border-right-table">
             (%)
@@ -61,32 +71,32 @@
         <th class="border-right-table">
             (%)
         </th>
-        <th>
+        <th class="sub-border-right-table">
 
         </th>
     </tr>
-    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="pairDetail({patternId:data.id})">
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
         <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
             <span>Comprar</span>
             <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.asset.shortName}}">
+                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
                  {{data.asset.longName}}
             </span>
             <br/>
             <div class="text-limitator">
             <span>Vender</span>
             <span class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.bearishAsset.shortName}}">
+                  tooltip-html-unsafe="{{data.bearishAsset.longName}} ({{data.bearishAsset.exchange.symbol}})">
                 {{data.bearishAsset.longName}}
             </span>
             </div>
         </td>
-        <td>
-            <div>{{data.asset.exchange.symbol}}</div>
-            <div>{{data.bearishAsset.exchange.symbol}}</div>
+        <td class="border-right-table table-cell-patterns">
+            <span tooltip="{{data.asset.exchange.name}}">{{data.asset.exchange.symbol}}</span>
+            <span tooltip="{{data.bearishAsset.exchange.name}}">{{data.bearishAsset.exchange.symbol}}</span>
         </td>
         <td style="width: 70px;"
             class="table-cell-patterns sub-border-right-table">
@@ -96,11 +106,16 @@
             <div class="buy-color"><b>{{data.entryValue}}</b></div>
             <div class="sell-color"><b>{{data.bearishEntryValue}}</b></div>
         </td>
-        <td style="width: 70px;" class="table-cell-patterns border-right-table">
+        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table ">
             {{data.exitDate | date: 'dd/MMM/yyyy'}}
         </td>
+        <td style="width: 48px;" class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+            <div class="buy-color"><b>{{data.exitValue}}</b></div>
+            <div class="sell-color"><b>{{data.bearishExitValue}}</b></div>
+        </td>
+
         <td class="table-cell-patterns border-right-table">
-            <span class="link"><b>{{data.asset.volatility | twoDecimals}}</b></span>
+            <span class="link"><b>{{data.lastPerformance | twoDecimals}}</b></span>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
             {{data.bestGainDate | date: 'dd/MM/yyyy'}}
@@ -114,7 +129,7 @@
         <td class="table-cell-patterns border-right-table">
             <b>{{data.worstLoss |  twoDecimals}}</b>
         </td>
-        <td style="width: 30px;" class="table-cell-patterns">
+        <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
 
         </td>
     </tr>

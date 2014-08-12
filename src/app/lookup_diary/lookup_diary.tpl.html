@@ -33,7 +33,7 @@
                 <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
 
                 <div>
-                    <select disabled="true" class="border-filters select-filter month-filter" style="color: black;"
+                    <select class="border-filters select-filter month-filter" style="color: black;"
                             data-ng-model="filterOptions.filters.selectMonth"
                             ng-change="goToMonth()"
                             ng-options="item.name for item in filterOptions.months"
@@ -41,13 +41,12 @@
                     </select>
                 </div>
             </div>
-            <div class="filter-container">
+            <div class="filter-container" >
                 <!--filters-->
-                <div ng-include="getTemplateFilter()"></div>
+                <div ng-include="getTemplateFilter()" class="marginTop" ></div>
             </div>
             <div>
                 <div ng-include="getTemplateTable()"></div>
-
 
                 <!--footer-->
                 <div class="footer-table-private">
@@ -70,7 +69,7 @@
             <!--pagination-->
             <div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;">
                 <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
-                            ng-show="myData.size() > 10"
+                            ng-show="found > pagingOptions.pageSize"
                             items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                             page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
                             next-text="&gt;"
@@ -80,3 +79,32 @@
     </tabset>
 
 </div>
+
+
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-alert">
+        <div class="modal-header">
+            <div class="header">Alarma
+                <button class="btn-close btn-close-alert" ng-click="close()"></button>
+            </div>
+        </div>
+        <div class="modal-body">
+            Establecer Condición Aviso en Precio de Cierre
+            <br>
+            <span ng-class="{'buy-color': patternType == 'BULLISH', 'sell-color' : patternType == 'BEARISH'}" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{assetName}}</b></span>
+            <br>
+            <div ng-show="bearishAssetName != ''" style="line-height: 0;margin-bottom: 15px;">
+                <span ng-show="bearishAssetName != ''" class="sell-color" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{bearishAssetName}}</b></span>
+            </div>
+            <select data-ng-model="data.price_condition">
+                <option value="0">Mayor que</option>
+                <option value="1">Menor que</option>
+            </select>
+            <input type="text" data-ng-model="data.price">
+        </div>
+        <div class="modal-footer">
+            <button class="mo-button float-left" ng-click="ok()">Aceptar</button>
+            <button class="mo-button float-right" ng-click="cancel()">Eliminar</button>
+        </div>
+    </div>
+</script>

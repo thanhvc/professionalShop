@@ -9,7 +9,7 @@
                             <td class="red-color-form">*</td>
                             <td>Nombre</td>
                             <td >
-                                <input  type="text" name="name"
+                                <input  type="text" name="name" id="name" ng-enter="nextInput('surname')"
                                        class="signup-input "
                                        ng-class=" {'warning-input': (formReg.name.$error.required && (formReg.name.$dirty || formSubmited) )
                                                   || (formReg.name.$error.pattern && (formReg.name.$dirty|| formSubmited))
@@ -22,8 +22,8 @@
                             <td class="red-color-form">*</td>
                             <td>Apellido</td>
                             <td >
-                                <input  type="text" name="surname" class="signup-input"
-                                       alt="Apellido"
+                                <input  type="text" name="surname" class="signup-input" ng-enter="nextInput('address')"
+                                       alt="Apellido" id="surname"
                                        ng-model="user.surname" required="true" ng-pattern="namePattern"
                                        ng-maxlength="80"
                                         ng-class="{'warning-input': (formReg.surname.$error.required && (formReg.surname.$dirty || formSubmited))
@@ -31,33 +31,30 @@
                                                   || formReg.surname.$error.maxlength}"></td>
                         </tr>
                         <tr>
-                            <td class="red-color-form">*</td>
+                            <td class="red-color-form"></td>
                             <td>Direcci&oacute;n</td>
-                            <td ><input  type="text" name="address"
+                            <td ><input  type="text" name="address" id="address" ng-enter="nextInput('city')"
                                                            class="signup-input" alt="Direccion"
-                                                           ng-model="user.address" required="true" ng-maxlength="200"
-                                                           ng-class="{'warning-input': (formReg.address.$error.required && (formReg.address.$dirty || formSubmited))
-                                                           || (formReg.address.$error.maxlength)}"  >
+                                                           ng-model="user.address" ng-maxlength="200"
+                                                           ng-class="{'warning-input': (formReg.address.$error.maxlength)}"  >
                             </td>
                         </tr>
                         <tr>
-                            <td class="red-color-form">*</td>
+                            <td class="red-color-form"></td>
                             <td>Ciudad</td>
-                            <td ><input  type="text" name="city"
+                            <td ><input  type="text" name="city" id="city" ng-enter="nextInput('postal')"
                                                            class="signup-input" alt="Ciudad"
-                                                           ng-model="user.city" required="true" ng-maxlength="200"
-                                                           ng-class="{'warning-input': (formReg.city.$error.required && (formReg.city.$dirty|| formSubmited))
-                                                           || (formReg.city.$error.maxlength)}" ></td>
+                                                           ng-model="user.city"  ng-maxlength="200"
+                                                           ng-class="{'warning-input': (formReg.city.$error.maxlength)}" ></td>
                         </tr>
                         <tr>
-                            <td class="red-color-form">*</td>
+                            <td class="red-color-form"></td>
                             <td>C&oacute;digo Postal</td>
-                            <td ><input  type="text" name="postal"
+                            <td ><input  type="text" name="postal" id="postal" ng-enter="nextInput('country')"
                                                            class="signup-input" alt="Codigo Postal"
-                                                           ng-model="user.postal" required="true" ng-maxlength="80"
+                                                           ng-model="user.postal"  ng-maxlength="80"
                                                            ng-pattern="zipPattern"
-                                                           ng-class="{'warning-input': (formReg.postal.$error.pattern && (formReg.postal.$dirty|| formSubmited))
-                                                           || (formReg.postal.$error.required  && (formReg.postal.$dirty|| formSubmited))}"></td>
+                                                           ng-class="{'warning-input': (formReg.postal.$error.pattern && (formReg.postal.$dirty|| formSubmited))}"></td>
                         </tr>
                         <tr>
                             <td class="red-color-form">*</td>
@@ -66,12 +63,12 @@
 
 
                                 <select class="signup-select" name="country" size="1"
-                                        ng-model="user.country"
+                                        ng-model="user.country" id="country" ng-enter="nextInput('captcha')"
 
                                         ng-options="opt as opt.name for opt in countries"
                                         required="true"
                                         ng-class="{'warning-input': (formReg.country.$error.required && (formReg.country.$dirty || formSubmited))}" >
-                                    <option style="display:none" value="">select a type</option>
+                                    <option style="display:none" value="">select a Country</option>
 
                                 </select>
 
@@ -86,7 +83,7 @@
                                 <span>
                                 Pregunta de seguridad:</span>
                                     <img id="captchaImg" src="assets/img/captcha.png/captcha.png" class="captcha-img">
-                                    <input type="text" name="captcha" style="width:65px;"
+                                    <input type="text" name="captcha" style="width:65px;float:none;" id="captcha" ng-enter="nextInput('conditions')"
                                            class="signup-input"
                                            ng-model="user.captcha" required="true" ng-pattern="captchaPattern"
                                            ng-class="{'warning-input': ((formReg.captcha.$error.required &&
@@ -102,7 +99,7 @@
                                 <div id="terms-conditions-link" ng-click="openModalInstance('sign_up/terms-and-conditions');" style="display:inline;">
                                     <span style="color:#0663D7;cursor:pointer;">condiciones del servicio</span>
                                 </div>
-                                <input  type="checkbox" name="conditions"
+                                <input  type="checkbox" name="conditions" id="conditions" ng-enter="nextInput('submit2')"
                                        style="margin-left:20px !important;" ng-model="user.conditions" required="true">
                             </td>
 
@@ -117,7 +114,7 @@
                             <td colspan="3" style="height: 60px; padding-right: 105px;">
                                 <div  class="text-warning-form"
                                    >
-                                    <span ng-show="formReg.$error.required && formReg.$dirty">
+                                    <span ng-show="(formReg.$error.required && formSubmited)">
                                     Faltan campos obligatorios</span>
                                 </div>
                                 <div   class="text-warning-form"
@@ -131,7 +128,7 @@
                                     </span>
                                 </div>
                                 <div  class="text-warning-form"
-                                     ><span ng-show="formReg.conditions.$error.required && formReg.$dirty">
+                                     ><span ng-show="formReg.conditions.$error.required && formSubmited">
                                     Debe aceptar las condiciones del servicio
                                     </span>
                                 </div>
@@ -145,8 +142,8 @@
                         </tbody>
                     </table>
                 </div>
-                <input class="mo-button"
-                       name="button-submit"
+                <input class="mo-button" ng-enter="sendSecondStep()"
+                       name="button-submit" id="submit2"
                        value="Registrar" style="float:right;" type="button" ng-click="sendSecondStep()">
             </div>
 

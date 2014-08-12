@@ -1,9 +1,9 @@
 <div class="title-block-advertising" ng-controller="AppCtrl">
-    <p class="text-block-title title-position-advertising">
+    <p class="text-block-title title-position-advertising prices-font16">
         &iexcl;APRENDA a invertir como un Hedge Fund!
     </p>
 
-    <div class="orange-text-advert">"Helping our customers with cutting-edge knowledge"</div>
+    <div class="orange-text-advert" style="width: 290px;">"Helping our customers with cutting-edge knowledge"</div>
 </div>
 <div class="body-advertising">
     <p>Los Hedge Funds son Fondos que buscan
@@ -15,7 +15,7 @@
         las Compa&ntilde;&iacute;as d&eacute;biles caer&iacute;an m&aacute;s que las fuertes.</p>
 
     <p>Pero &iquest;c&oacute;mo invertir en Compa&ntilde;&iacute;as de Bolsa como lo hace un Hedge Fund?</p>
-    <ol class="list-left-first-level">
+    <ol class="ordered-list-first-level list-left-first-level-no-padding">
         <li>Con una suscripci&oacute;n a Market Observatory tendr&aacute; acceso a las mejores oportunidades para invertir en cada
             momento en <strong>Par de Acciones</strong> de las &aacute;reas Euro, Yen y D&oacute;lar US. El servicio solo
             identifica aquellas estrategias con mejor rentabilidad, mayor frecuencia de ganancias y el periodo
@@ -31,12 +31,12 @@
         patrones -o estrategias- sobre PAR de Acciones identificando la Compa&ntilde;&iacute;a fuerte -a comprar-, y d&eacute;bil -a
         vender-, durante el periodo de tiempo &oacute;ptimo de mejor rentabilidad y mayor frecuencia de ganancias. La
         informaci&oacute;n que publica el servicio NO son
-        <span class="element-with-tooltip" ng-controller="HomeCtrl" tooltip-html-unsafe="{{tooltipOpinions}}"><b>Opiniones</b></span>&nbsp;y por
+        <span class="element-with-tooltip" ng-controller="HomeCtrl" tooltip-placement="bottom right" tooltip-html-unsafe="{{tooltipOpinions}}"><b>Opiniones</b></span>&nbsp;y por
         tanto
         subjetivas, se usan datos de los &uacute;ltimos 15 a&ntilde;os y son
-        <span class="element-with-tooltip" ng-controller="HomeCtrl" tooltip-html-unsafe="{{tooltipFact}}"><b>Hechos</b></span>
+        <span class="element-with-tooltip" ng-controller="HomeCtrl" tooltip-placement="left" tooltip-html-unsafe="{{tooltipFact}}"><b>Hechos</b></span>
         verificables. Puede ampliar informaci&oacute;n en
-        <a ui-sref="fundamentals" ng-mouseup="close()">Fundamentos</a>.</p>
+        <a ng-click="openNewWindow('fundamentals');">Fundamentos</a>.</p>
 
     <p>La informaci&oacute;n de Patr&oacute;n de PAR de Acciones es <strong>f&aacute;cil</strong> de entender. Un ejemplo, Market
         Observatory ha identificado los 100 mejores Patrones para invertir en Par de Acciones de Compa&ntilde;&iacute;as de Jap&oacute;n
@@ -50,7 +50,7 @@
     <p>&iquest;Qu&eacute; dice esta Tabla?</p>
 
     <p class="orange-title">Tabla Detalle PAR Acciones</p>
-    <ul class="public-list-first-level list-left-first-level ">
+    <ul class="public-list-first-level">
         <li>Una estrategia de PAR de Acciones consiste en dos operaciones simult&aacute;neas sobre dos Compa&ntilde;&iacute;as, una de
             Compra y otra de Venta a corto. En el ejemplo hay que <strong>Comprar</strong>&nbsp;acciones de la
             compa&ntilde;&iacute;a <strong>Hitachi Chemical</strong> y <strong>Vender a corto</strong> la Compa&ntilde;&iacute;a <strong>Nippon
@@ -63,7 +63,7 @@
         <li>Las filas <strong>1998 a 2012</strong>&nbsp;muestran los resultados hist&oacute;ricos de la estrategia del PAR
             en 15 a&ntilde;os. En color verde los datos relativos a la posici&oacute;n Larga o Comprada y en marr&oacute;n a la Corta o
             Vendida. La forma de leer una l&iacute;nea, por ejemplo del a&ntilde;o <strong>2012</strong> es:
-            <ul class="public-list-second-level list-left-first-level ">
+            <ul class="public-list-second-level ">
                 <li>El 25 septiembre 2012 las dos operaciones simult&aacute;neas de apertura en JPY, fueron Compra de
                     &ldquo;Hitachi Chemical&rdquo; a 1108 y Venta (a corto) de &ldquo;Nippon Soda&rdquo; a 335. El 22 noviembre 2012 23 a 25
                     fue festivo- se cerraron posiciones con dos operaciones simult&aacute;neas, se vendi&oacute; &ldquo;Hitachi Chemical&rdquo; a
@@ -81,13 +81,13 @@
 
     <p><img width="890" src="assets/img/home/advertising/tab6/adv2.png" alt=""></p>
     <p>La tabla indica:</p>
-    <ul class="public-list-first-level list-left-first-level">
+    <ul class="public-list-first-level">
         <li><strong>N&uacute;mero de A&ntilde;os</strong> analizados es 15 y gener&oacute; Ganancias en todos.</li>
         <li><strong>Rentabilidad</strong> acumulada es 285,33 % en 15 a&ntilde;os en el periodo de 2 meses que se mantienen
             las posiciones (25 septiembre a 25 noviembre).
         </li>
         <li><strong>Rentabilidad promedio</strong>&nbsp;del PAR es 19,02 %.
-            <ul class="public-list-second-level list-left-first-level ">
+            <ul class="public-list-second-level">
                 <li>El Lado Comprado -o Largo- con renta de 7,54 % gener&oacute; un rendimiento algo menor
                     al lado Vendido-o Corto- con renta de 11,48 %.
                 </li>
@@ -116,7 +116,7 @@
     <p><img  width="890" src="assets/img/home/advertising/tab6/adv4.png" alt=""></p>
 
     <p>En el gr&aacute;fico hay varios elementos:</p>
-    <ul class="public-list-first-level list-left-first-level">
+    <ul class="public-list-first-level">
         <li>La l&iacute;nea marr&oacute;n representa el Patr&oacute;n de rentabilidad del Par en 15 a&ntilde;os. Se observan altos, bajos y
             tendencias. Un <em>alto relativo</em> indica la fase de mayor fuerza relativa del lado izquierdo
             &ldquo;tachi Chemical&rdquo; respecto al lado derecho &ldquo;ippon Soda&rdquo;. Un <em>bajo relativo</em> indica lo
@@ -132,7 +132,7 @@
             noviembre, identificado como periodo &oacute;ptimo para invertir con el PAR.
         </li>
     </ul>
-    <p style="text-align:center;"><em>&ldquo;Toda actividad y profesi&oacute;n evoluciona. Aprenda nuevas perspectivas e
+    <p class="slogan-advertising"><em>&ldquo;Toda actividad y profesi&oacute;n evoluciona. Aprenda nuevas perspectivas e
         innovaci&oacute;n del trading&rdquo;</em></p>
 
 </div>

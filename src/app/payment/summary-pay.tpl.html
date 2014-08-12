@@ -1,0 +1,460 @@
+<div>
+
+<div>
+
+<div class="container-table-summary-pay" ng-if="stocks.length >0">
+    <div class="tab-table-summary">
+        Acciones
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in stocks">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div id="idTotalS"
+             class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalStocks | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container-table-summary-pay" ng-if="pairs.length >0">
+    <div class="tab-table-summary">
+        Pares
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in pairs">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div
+                class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalPairs | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container-table-summary-pay" ng-if="index.length >0">
+    <div class="tab-table-summary">
+        Indices
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in index">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div
+                class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalIndex | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container-table-summary-pay" ng-if="pairsIndex.length >0">
+    <div class="tab-table-summary">
+        Par Indices
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in pairsIndex">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div
+                class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalPairsIndex | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container-table-summary-pay" ng-if="futures.length >0">
+    <div class="tab-table-summary">
+        Futuros
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in futures">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div
+                class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalFutures | twoDecimals | number:2}} EUR
+            </div>
+            <div class="summary-subtotal summary-subtotal-format">
+                Impuestos (0.0 %):
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                0,00 EUR
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<div>
+    <!--total-->
+    <div id="idTotales" style="clear: both; width: 900px; margin: 0 auto; ">
+        <div id="j_id382" style="font-size: 0px;">
+            <div class="separator-pay"></div>
+        </div>
+        <div
+                class="summary-subtotal-format summary-subtotal">
+            Total:
+        </div>
+        <div class="summary-subtotal-format summary-subtotal-ammount">
+            {{total | twoDecimals | number:2}} EUR
+        </div>
+    </div>
+</div>
+<!--payment-->
+<div class="summary-payment-container">
+    <div style="height: 20px;">
+    <div id="noAceptaCondicionesCamp" style="color: red; font-size: 11px; font-family: fontpo; display: block;" ng-show="errorConditions">Debe aceptar las condiciones del servicio</div>
+    </div>
+    <form id="paymentForm" name="paymentForm">
+        <div class="summary-payment-button-container">
+            <input class="mo-button" name="pay-button" ng-click="doPayment()" value="Pagar"
+                   type="button">
+            <input class="mo-button" name="cancel-pay"
+                   onclick="A4J.AJAX.Submit('pagoForm',event,{'similarityGroupingId':'pagoForm:j_id402','parameters':{'pagoForm:j_id402':'pagoForm:j_id402'} ,'actionUrl':'/cartShop'} );return false;"
+                   value="Cancelar Compra" style="margin-left: 10px !important;" type="button">
+        </div>
+    </form>
+    <form id="selectPagoForm" name="selectPagoForm" method="post"
+          action="javascript:A4J.AJAX.SubmitForm('selectPagoForm',{'similarityGroupingId':'selectPagoForm','parameters':{'selectPagoForm':'selectPagoForm','ajaxSingle':'selectPagoForm'} ,'actionUrl':'/cartShop'} )"
+          target="">
+        <div id="selectPagoForm:idTablas" style="height: 50px; width: 400px;">
+
+            <table style="height: 50px; font-size: 11px; font-family: 'fontpo'; float: right;">
+                <tbody>
+                <tr>
+                    <td><img id="selectPagoForm:imgPaypal" src="assets/img/paypal_icon.jpg"
+                             ng-click="paymentType= 'EXPRESSCHECKOUT'"
+                             style="float: left;  " ng-class="{ 'unselected-payment': paymentType == 'DIRECTPAYMENT' }">
+                    </td>
+                </tr>
+                <tr>
+                    <td><img id="selectPagoForm:imgCard" src="assets/img/cc_icons.jpg"
+                             ng-click="paymentType= 'DIRECTPAYMENT'"
+                             style="float: left;" ng-class="{ 'unselected-payment': paymentType == 'EXPRESSCHECKOUT' }">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table   class="selector-pay-table">
+                <tbody>
+                <tr>
+                    <td>
+
+                        <input type="radio" name="expressCheckoutSelect"
+                               value="EXPRESSCHECKOUT" ng-model="paymentType"
+                                ></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" name="directPaymentSelect"
+                               ng-model="paymentType"
+                               value="DIRECTPAYMENT"></td>
+
+                </tbody>
+            </table>
+            <div
+                    style="float: right; font-size: 11px; font-family: 'fontpot'; margin-top:15px;">
+                Seleccione el método de pago
+            </div>
+            <div
+                 style="clear:both;float: right;font-family: 'fontpo';font-size: 11px;margin-top:10px;">
+
+
+
+
+                <input  type="checkbox" name="conditions" id="conditions" ng-model="conditions" required="true"
+                         style="margin-right:5px !important;">
+                Acepto las
+                <div id="terms-conditions-link" ng-click="openModalInstance('sign_up/terms-and-conditions');"  style="display: inline; "><span
+                        class="link" style="text-decoration: none;">condiciones del servicio</span>
+                </div>
+                *
+            </div>
+
+        </div>
+         </form>
+</div>
+</div>

@@ -42,10 +42,10 @@
       content: "\00BFSon POCO Rentables sus Fondos de Inversi\00F3n?";
     }
     &:nth-child(3):after{
-      content: "\00BFNo Sabe invertir en mercados BRICS y EMERGENTES?";
+      content: "\00BFNo Sabe invertir en mercados EMERGENTES?";
     }
     &:nth-child(4):after{
-      content: "\00BFQuiere ser Experto inversor en ETF's o CFD's?";
+      content: "\00BFQuiere operar con \00E9xito en ETF's y CFD's?";
     }
     &:nth-child(5):after{
       content: "\00BF Descontento con su FONDO de PENSIONES?";
@@ -173,8 +173,8 @@
 
 .orange-text-advert {
   float: right;
-  width: 255px;
-  margin-right: 80px;
+  width: 288px;
+  margin-right: 50px;
   margin-bottom: 20px;
   //font-family: Verdana, Geneva, sans-serif !important;
   font-size: 20px;
@@ -196,8 +196,7 @@
 }
 
 .title-position-advertising {
-  position: absolute;
-  top: -35px;
+ /* position: absolute;*/
   float: left;
 }
 
@@ -364,9 +363,88 @@
   }
 }
 
+
+.patterns-table-index-catalog{
+  text-align: center;
+  font-size: 11px;
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid @greyLabel;
+  tr{
+    height: 24px;
+    &:nth-child(even) {
+      background-color: @smokeGrey;
+    }
+    &:nth-child(odd) {
+      background-color: @white !important;
+    }
+    &:nth-child(1){
+      color: @white;
+      background-color: @greyBorderColor !important;
+    }
+    &:nth-child(2){
+      background-color: @greyPaginator !important;
+    }
+    td{
+      font-size: 10px;
+      border-left: 1px solid @greyLabel !important;
+      border-right: 1px solid @greyLabel !important;
+      &:nth-child(1){
+        padding-left:5px;
+        text-align: left;
+        width: 221px;
+      }
+      &:nth-child(2){
+        width: 67px;
+        border-left: 2px solid @greyLabel  !important;
+        border-right:  2px solid @greyLabel !important;
+      }
+      &:nth-child(3){
+        width: 65px;
+      }
+      &:nth-child(4) {
+        width:65px;
+        font-family: fontpo-bold;
+        border-right:  2px solid @greyLabel !important;
+      }
+      &:nth-child(6), &:nth-child(7), &:nth-child(9) {
+        font-family: fontpo-bold;
+      }
+      &:nth-child(5) {
+        font-family: fontpo-bold;
+        border-right:  2px solid @greyLabel !important;
+      }
+      &:nth-child(7),&:nth-child(8),&:nth-child(9) {
+        border-right:  2px solid @greyLabel !important;
+      }
+    }
+    th{
+      text-align: center;
+      border-left: 1px solid @greyLabel !important;
+      border-right: 1px solid @greyLabel !important;
+      &:nth-child(2){
+        width: 67px;
+        border-left: 2px solid @greyLabel  !important;
+        border-right:  2px solid @greyLabel !important;
+      }
+      &:nth-child(3){
+        width: 65px;
+      }
+      &:nth-child(4) {
+        width: 65px;
+        border-right:  2px solid @greyLabel !important;
+      }
+      &:nth-child(5),&:nth-child(7),&:nth-child(8),&:nth-child(9) {
+        border-right:  2px solid @greyLabel !important;
+      }
+    }
+  }
+}
+
 .browser-data-catalog{
   font-size: 11px;
   margin-bottom: 20px;
+  margin-top: 28px;
   .orange-title{
     margin-bottom: 0.5em !important;
   }
@@ -402,6 +480,20 @@
 .grey-text-pair{
   color: @greyPair;
 }
+
+
+.resources-table {
+  .grey-row {
+    td {
+      border: 1px solid @greyLabel;
+    }
+  }
+  .white-row {
+    td {
+      border: 1px solid @greyLabel;
+    }
+  }
+}
 /************** end catalog classes   **********/
 /**home texts*/
 .home-text-left{
@@ -424,4 +516,9 @@
   width: 600px;
   text-align: center;
   margin: auto;
+}
+
+.slogan-advertising{
+  margin-top: 30px;
+  text-align: center;
 }

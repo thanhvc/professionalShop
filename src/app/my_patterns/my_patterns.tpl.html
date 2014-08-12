@@ -16,7 +16,7 @@
         <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
 
         <p>Haciendo clic en la celda de la columna izquierda 'Id'. puede ver:</p>
-        <ul class="public-list-first-level list-left-first-level">
+        <ul class="public-list-first-level">
             <li>Tablas de Detalle del Patrón.</li>
             <li>Evolución gráfica de la cotización en curso superpuesta sobre Patrón.</li>
         </ul>
@@ -40,7 +40,7 @@
                     <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
 
                     <div>
-                        <select disabled="true" class="border-filters select-filter month-filter" style="color: black;"
+                        <select class="border-filters select-filter month-filter" style="color: black;"
                                 data-ng-model="filterOptions.filters.selectMonth"
                                 ng-change="goToMonth()"
                                 ng-options="item.name for item in filterOptions.months"
@@ -54,6 +54,7 @@
                 </div>
                 <div>
                     <div ng-include="getTemplateTable()"></div>
+
 
 
                     <!--footer-->
@@ -75,7 +76,7 @@
                     Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
                 </div>
                 <!--pagination-->
-                <div class="pagination-container" ng-show="results > 10" style="margin-top:72px; clear:both; margin-bottom:20px;">
+                <div class="pagination-container" ng-show="found > pagingOptions.pageSize" style="margin-top:72px; clear:both; margin-bottom:20px;">
                     <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                                 items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                                 page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"

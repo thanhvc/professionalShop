@@ -1,15 +1,17 @@
 <div class="super-border private-black-title">Históricos</div>
-<div class="private-container-text">
-    <p>Expone los resultados definitivos de las estrategias, clasificadas por <strong>mes de finalización</strong> y ordenadas por Fecha de Salida. <span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
+<div class="private-container-text" style="width: 100%;">
+    <p>Expone los resultados definitivos de las estrategias, clasificadas por <strong>mes de finalización</strong> y ordenadas por Fecha de Salida.</p>
+
+    <p><span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
     <div ng-show="show">
-        <p>Puede cambiar de mes directamente en el desplegable de Fechas o desplazándose mediante los símbolos “<span class="blue-text"><<</span>” y “<span class="blue-text">>></span>”.</p>
-        <p>Use el Buscador con los diferentes parámetros para preseleccionar estrategias.</p>
+        <p>Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos “<span class="blue-text"><<</span>” y “<span class="blue-text">>></span>”.</p>
+        <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
         <p>Haciendo clic en la celda de la columna “Id.” puede ver:</p>
         <ul class="public-list-first-level">
             <li>Tabla de Detalle del Patrón.</li>
             <li>Evolución gráfica de la cotización recién finalizada superpuesta sobre Patrón.</li>
         </ul>
-        <p>La marca Favorito “Fav” diferencia las estrategias que señaló como preferidas. <a ng-click="openModalInstance('services/detailed_description/historic')">Más información.</a></p>
+        <p>La marca Favorito “Fav”, diferencia las estrategias que señaló como preferidas. <a ng-click="openModalInstance('services/detailed_description/historic')">Más información.</a></p>
 
         <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
     </div>
@@ -27,7 +29,7 @@
                 <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
 
                 <div>
-                    <select disabled="true" class="border-filters select-filter month-filter" style="color: black;"
+                    <select class="border-filters select-filter month-filter" style="color: black;"
                             data-ng-model="filterOptions.filters.selectMonth"
                             ng-change="goToMonth()"
                             ng-options="item.name for item in filterOptions.months"

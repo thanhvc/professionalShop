@@ -43,17 +43,18 @@ angular.module('ngMo.the_week', [
 
                 var monthsDays = [31,28,31,30,31,30,31,31,30,31,30,31];
                 var m = monday.getMonth();
-                var day = monday.getDay();
+                var day = monday.getDate();
                 var year = monday.getYear();
 
                 if(year % 4 === 0 && year % 100 !== 0 || year% 400 === 0) {
                     monthsDays[1] = 29;
                 }
 
-                $scope.nextDay = (day % monthsDays[m]);
+                $scope.nextDay = (day % monthsDays[m]) + 7;
 
             });
         };
+
 
         /**
          * TODO: replace number for service
@@ -720,6 +721,7 @@ angular.module('ngMo.the_week', [
 
                     if(e !== 'undefined') {
                         $scope.myTop = e.srcElement.y + e.srcElement.height + 'px';
+                        $scope.myLeft = e.srcElement.x + (e.srcElement.width+7) + 'px';
                     }
                 };
 
@@ -737,7 +739,7 @@ angular.module('ngMo.the_week', [
                 $scope.$watch('openGraph', function(){});
             },
 
-            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph }\"  ng-style=\"{'top': myTop}\" ng-click=\"$event.stopPropagation();\">"+
+            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph }\"  ng-style=\"{'top': myTop, 'left': myLeft}\" ng-click=\"$event.stopPropagation();\">"+
                 "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>"+
                 "<br/>"+
                 "<span>{{selectedGraphic.indiceName}}</span>"+

@@ -1,0 +1,47 @@
+<div class="black" style="font-size: 12px; ">
+    <table  class="stocks-table " border="0" cellpadding="0" cellspacing="0">
+        <colgroup span="5"></colgroup>
+        <thead >
+            <tr class="stocks-header-table">
+                <th >
+                    <span class="stocks-name ">Nombre</span>
+                </th>
+                <th  >
+                    <span class="stocks-market ">Mercado</span>
+                </th>
+                <th>
+                    <span class="stocks-date">Fecha Cálculo</span>
+                </th>
+                <th >
+                    <span class="stocks-vol">Volatilidad %</span>
+                </th>
+                <th >
+                    <span class="stocks-fav">Fav.</span>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody class="stocks-tbody">
+            <tr ng-repeat="data in myData"  ng-class-even="'ngRow-odd'" ng-class-odd="'ngRow-even'" style=" font-size:11px;color:#996600 !important;">
+                <td class="green"  >
+                    <span class="stocks-market-value" ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
+                </td>
+                <td class="black-font-market" >
+                    <span   >{{data.asset.exchange.symbol}}</span>
+                    <div  style="display:none;">
+                        <div ></div>
+                        <div class="">London Stock Exchange</div>
+                    </div>
+                </td>
+                <td class="stocks-date-value">{{data.entryDate | date: 'd MMM yyyy'}}</td>
+                <td class="stocks-vol-value">
+                    <a ng-click="loadGraphic($event,data.vol)" >{{ data.asset.volatility| number:0}}</a>
+                </td>
+                <td style="width: 62px;" class="table-cell-patterns border-right-table">
+                    <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

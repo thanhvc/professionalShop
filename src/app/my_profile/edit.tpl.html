@@ -140,6 +140,23 @@
         <tr>
             <td class="red-color-form">*</td>
             <td>
+                Email actual
+            </td>
+            <td>
+                <input type="text" class="signup-input"  style="width:200px;text-indent: 5px"
+                       ng-maxlength="80"
+                       ng-trim="false"
+                       name="email" disabled ng-model="user.emailAddress" required="true"
+                        alt="Email"
+                       ng-class="{'warning-input': (profileForm.name.$error.required)
+                                                  || ((profileForm.name.$error.pattern)
+                                                  || profileForm.name.$error.maxlength)}"
+                        >
+            </td>
+        </tr>
+        <tr>
+            <td class="red-color-form">*</td>
+            <td>
                 Password actual
             </td>
             <td>
@@ -205,9 +222,9 @@
             <td colspan="2" style="padding-top:10px;">
                 <button class="mo-button"
                         name="confirmPassword"
-                        ng-click="savePassword()"
+                        ng-click="savePassword()">
 
-                        ng-disabled="passwordForm.$invalid">
+                    <!--    ng-disabled="passwordForm.$invalid">-->
                     Cambiar Password
                 </button>
 

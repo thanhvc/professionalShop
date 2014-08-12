@@ -28,15 +28,16 @@
         <table class="table-page-index" style="margin-top:0;width: 115px;">
             <tr>
                 <td>
-                      <span><a ui-sref="my-subscriptions.my-subscriptions" ng-class="{'orange-text': subPage == 'my-subscriptions'}">
-                          Mis Subscriptiones
-                      </a>
-                        </span>
+
+                  <span ng-controller="MySubscriptionsCtrl"><a ui-sref="my-subscriptions.my-subscriptions" ng-class="{'orange-text': subPage == 'my-subscriptions'}">
+                      Mis Subscripciones
+                  </a>
+                  </span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span><a ui-sref="my-subscriptions.my-packs" ng-class="{'orange-text': subPage == 'my-packs'}">
+                    <span ng-controller="MyPacksCtrl"><a ui-sref="my-subscriptions.my-packs" ng-class="{'orange-text': subPage == 'my-packs'}">
                         Mis Packs
                     </a>
                      </span>

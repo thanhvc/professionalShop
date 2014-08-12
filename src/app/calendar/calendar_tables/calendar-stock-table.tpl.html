@@ -1,23 +1,23 @@
 <div class="calendar-filters-container">
-    <select disabled="true" data-ng-model="selectedMonth">
-        <option ng-repeat="month in calendarMonths" value="{{month.value}}">{{month.description}}</option>
+
+    <select data-ng-model="filterOptions.filters.selectMonth" ng-change="goToMonth()"
+            ng-options="item.name for item in filterOptions.months">
     </select>
-    <select disabled="true" data-ng-model="selectedRegion">
+    <select data-ng-model="filterOptions.filters.selectedRegion" ng-change="selectRegion();">
         <option selected value="">- Región -</option>
-        <option ng-repeat="region in calendarRegions" value="{{region.id}}">{{region.description}}</option>
+        <option ng-repeat="region in filterOptions.selectors.regions" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">{{region.description}}</option>
     </select>
-    <select disabled="true" data-ng-model="selectedMarket">
+    <select data-ng-model="filterOptions.filters.selectedMarket"  ng-change="selectMarket();">
         <option selected value="">- Mercado -</option>
-        <option ng-repeat="market in calendarMarkets" value="{{market.id}}">{{market.description}}</option>
+        <option ng-repeat="market in filterOptions.selectors.markets" ng-selected="{{market.id == filterOptions.filters.selectedMarket}}" value="{{market.id}}">{{market.description}}</option>
     </select>
-    <select disabled="true" data-ng-model="selectedOperation">
+    <select data-ng-model="filterOptions.filters.selectedOperation" ng-change="search();">
         <option selected value="">- Operación -</option>
-        <option value="0">Compra</option>
-        <option value="1">Venta</option>
+        <option ng-repeat="operation in filterOptions.selectors.operations" value="{{operation.id}}">{{operation.description}}</option>
     </select>
-    <input type="checkbox" ng-model="favouriteCalendar"><label>Favoritos</label>
-    <input type="text" placeholder="Día" data-ng-model="dayPattern">
-    <select disabled="true" data-ng-model="filterOptions.filters.order" class="select-order" ng-change="search()" >
+    <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>Favoritos</label>
+    <input type="text" placeholder="Día" data-ng-model="filterOptions.filters.dayDateInput" ng-change="search()">
+    <select data-ng-model="filterOptions.filters.order" class="select-order" ng-change="search()" >
         <option selected value="0">Ordenar por Fecha Entrada</option>
         <option value="1">Ordenar por Fecha Salida</option>
     </select>
@@ -31,12 +31,15 @@
     </thead>
     <tbody>
     <tr ng-repeat="pattern in myData">
-        <td>
-            <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.name}}) {{pattern.id}}" class="cursor-help">{{pattern.asset.longName}}</span>
+        <td ui-sref="detail({patternId:pattern.id})">
+            <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})" class="cursor-help" ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH'}">{{pattern.asset.longName | limitTo:25}}</span>
         </td>
         <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
-            <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}}" class="bearish-year calendar-letter">S</span>
-            <span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}}" class="bullish-year calendar-letter">L</span>
+            <span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= filterOptions.filters.dayDateInput  && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} == filterOptions.filters.month.month" class="bearish-year calendar-letter">S</span>
+            <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= filterOptions.filters.dayDateInput && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} == filterOptions.filters.month.month" class="bullish-year calendar-letter">L</span>
+
+            <span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} != filterOptions.filters.month.month" class="bearish-year calendar-letter">S</span>
+            <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} != filterOptions.filters.month.month" class="bullish-year calendar-letter">L</span>
         </td>
     </tr>
 
@@ -48,7 +51,7 @@
     Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
 </div>
 <!--pagination-->
-<div class="pagination-container" style="margin-top:72px; clear:both;" ng-show="results > 10">
+<div class="pagination-container" style="margin-top:72px; clear:both;" ng-show="found > pagingOptions.pageSize">
     <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                 items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                 page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"

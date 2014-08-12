@@ -1,4 +1,6 @@
-<table style="width: 950px;" class="table-pattern">
+<div class="no-patterns-container" ng-show="myData.length==0">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
+
+<table style="width: 950px;" class="table-pattern"  ng-show="myData.length>0">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
         <th class="table-id-header" rowspan="2">
@@ -30,11 +32,11 @@
         </th>
         <th class="border-right-table"
             title="Favorito">
-            <span class="cursor-help" tooltip-html-unsafe="Favorito">Fav.</span>
+            <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="Favorito">Fav.</span>
         </th>
         <th class="sub-border-right-table"
             title="Estado">
-            <span class="cursor-help" tooltip-html-unsafe="Estado">Est.</span>
+            <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="Estado">Est.</span>
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
@@ -77,7 +79,7 @@
         <th class="border-right-table"></th>
         <th class="sub-border-right-table"></th>
     </tr>
-    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="pairDetail({patternPairId:data.id})">
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
@@ -133,19 +135,13 @@
             <b> {{data.pairVolatility | twoDecimals}}</b>
         </td>
         <td style="width: 32px;" class="table-cell-patterns border-right-table">
-            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita"
-                 g-class="{'favourite-added': data.Fav == 'true'}"></div>
+            <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();"
+                 ng-class="{'favourite-added': data.favorite == true}"></div>
         </td>
         <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
-           <!-- <div class="state-sphere cursor-help" ng-class="{
-           'started-state':data.Est == 'Comenzado',
-            'no-started-state': data.Est == 'Sin Comenzar' ,
-            'finished-state': data.Est == 'Finalizado'}"
-                 tooltip-html-unsafe="{{data.Est}}"
-                    ></div>-->
-            <div tooltip="Sin Comenzar" class="state-sphere no-started-state" ng-show="data.statePattern == 0"></div>
-            <div tooltip="Comenzado" class="state-sphere started-state" ng-show="data.statePattern == 1"></div>
-            <div tooltip="Finalizado" class="state-sphere finished-state" ng-show="data.statePattern == 2"></div>
+            <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>
+            <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state" ng-show="data.statePattern == 'STARTED'"></div>
+            <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state" ng-show="data.statePattern == 'FINISHED'"></div>
         </td>
 
     </tr>

@@ -385,6 +385,7 @@ module.exports = function ( grunt ) {
                 }
             },
             e2edebug: {
+
                 options: {
                     configFile: "protractor/protractor-conf.js", // Target-specific config file
                     debug:true,

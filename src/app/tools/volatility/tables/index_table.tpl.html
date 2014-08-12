@@ -1,0 +1,39 @@
+<div class="black" style="font-size: 12px; ">
+    <table  style="width: 774px !important;" border="0" cellpadding="0" cellspacing="0">
+        <colgroup span="5"></colgroup>
+        <thead>
+        <tr  class="index-header">
+            <th>
+                <span class="index-header-index">Índice</span>
+            </th>
+            <th >
+                <span class=" index-header-date">Fecha Cálculo</span>
+            </th>
+            <th >
+                <span class="index-header-vol">Volatilidad %</span>
+            </th>
+            <th  >
+                <span class="index-header-fav" >Fav.</span>
+
+            </th>
+        </tr>
+        </thead>
+        <tbody class="index-tbody">
+
+        <tr ng-repeat="data in myData" ng-class-even="'ngRow-odd'" ng-class-odd="'ngRow-even'">
+            <td  class="index-name-value">
+                <span  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
+            </td>
+
+            <td  class="index-date-value" >{{data.entryDate | date: 'd MMM yyyy'}}</td>
+            <td class="index-vol-value">
+                <a ng-click="loadGraphic($event,data.vol)">{{data.asset.volatility | number:0}}</a>
+            </td>
+            <td class="index-fav-value" class="table-cell-patterns border-right-table">
+                <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

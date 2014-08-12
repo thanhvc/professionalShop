@@ -1,0 +1,25 @@
+<div ng-controller="MySubscriptionsCtrl">
+    <div ng-show="subPage == 'my-subscriptions'" class="super-border private-black-title">Mis Suscripciones</div>
+    <div ng-show="subPage == 'my-packs'" class="super-border private-black-title">Mis Packs</div>
+    <div class="private-container-text">
+        <p>Permite la gestión de suscripciones, controlar las que están en vigor, realizar nuevas Compras o cancelar anticipadamente.</p>
+        <div ng-show="subPage == 'my-subscriptions'">
+            <p>Muestra el estado de suscripciones en vigor y posibilita las Compras de manera rápida y sencilla. Elegir:</p>
+            <ul class="public-list-first-level">
+                <li>Productos, desplazándose por Pestañas y marcar “Seleccionar”</li>
+                <li>Mes de comienzo de la suscripción.</li>
+                <li>Duración</li>
+            </ul>
+            <p>Una vez completado el mapa de compras de suscripciones, continuar el proceso mediante la operación “Proceder Pago”</p>
+        </div>
+        <div ng-show="subPage == 'my-packs'">
+            <p class="orange-title">Mis Suscripciones</p>
+            <p>
+            <ul class="public-list-first-level">
+                <li>Para evitar interrupción del servicio al expirar la suscripción, active el modo de Renovar automáticamente.</li>
+                <li>Para cancelar de forma anticipada haga click en Cancelar. Lea <a ng-controller="AppCtrl" ng-click="openModalInstance('subscriptions_and_prices/subscription_types/subscription_types')">política de cancelación.</a></li>
+            </ul>
+            </p>
+        </div>
+    </div>
+</div>

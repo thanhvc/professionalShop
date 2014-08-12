@@ -13,9 +13,8 @@ angular.module('ngMo.my_patterns', [
             views: {
                 "main": {
                     controller: 'PatternsCtrl',
-                    templateUrl: 'my_patterns/my_patterns.tpl.html',
-                    reloadOnSearch: false//with this option, the controller will not reload the page when it change
-                    //the params on url
+                    templateUrl: 'my_patterns/my_patterns.tpl.html'
+
                 }
             },
             data: {
@@ -25,15 +24,53 @@ angular.module('ngMo.my_patterns', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false,
+            reloadOnSearch: false,//with this option, the controller will not reload the page when it change
+            //the params on url
             resolve: {
                 MonthSelectorService: "MonthSelectorService",
+                SelectedMonthService: "SelectedMonthService",
                 PatternsService: "PatternsService",
                 TabsService: "TabsService",
-                filtering : function(TabsService,MonthSelectorService){
+                filtering : function(TabsService,MonthSelectorService,$location, SelectedMonthService){
+
+                    var params = $location.search();
+                    //just to select a item like a selector for load params
+                    var selectors = [{
+                        id: 0,
+                        "description": "something"
+                    },{
+                        id: 1,
+                        "description": "something"}];
+                    //keep separatly in case of change
+                    var operations =  [{
+                        id: 0,
+                        "description": "something"
+                    },{
+                        id: 1,
+                        "description": "something"}];
+
                     return {
-                        active_tab: TabsService.getActiveTab(),
-                        month: MonthSelectorService.restartDate()
+                        active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
+                        month: SelectedMonthService.getSelectedMonth(),
+                        durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
+                        favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
+                        filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
+                        index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
+                        rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
+                        rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
+                        rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
+                        selectedAverage: (typeof params.qselaver !== "undefined" ? selectors[parseInt(params.qselaver,10)] : "" ),
+                        selectedDuration: (typeof params.qseldur !== "undefined" ? selectors[parseInt(params.qseldur,10)] : "" ),
+                        selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "" ),
+                        selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
+                        selectedOperation: (typeof params.qop !== "undefined" ? operations[parseInt(params.qop,10)] : "" ),
+                        selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
+                        selectedRent:  (typeof params.qselrent !== "undefined" ? selectors[parseInt(params.qselrent,10)] : "" ),
+                        selectedRentDiary:  (typeof params.qseldiar !== "undefined" ? selectors[parseInt(params.qseldiar,10)] : "" ),
+                        selectedSector: (typeof params.qsector !== "undefined" ? $scope.qsector : ""),
+                        selectedVolatility: (typeof params.qselvol !== "undefined" ? selectors[parseInt(params.qselvol ,10)] : "" ),
+                        tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
+                        volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" )
                     };
                 },
                 myPatternsData: function(PatternsService, filtering) {
@@ -75,6 +112,29 @@ angular.module('ngMo.my_patterns', [
             }
         ];
 
+
+        var portfolioTabs = [
+            {
+                title: 'Acciones',
+                active: activeTab === 0,
+                value: 0
+            },
+            {
+                title: 'Par Acciones',
+                active: activeTab === 1,
+                value: 1
+            },
+            {
+                title: 'Indices',
+                active: activeTab === 2,
+                value: 2
+            },
+            {
+                title: 'Par Indices',
+                active: activeTab === 3,
+                value: 3
+            }
+        ];
         var indexTypes = [
             {
                 title: "Indices",
@@ -91,6 +151,7 @@ angular.module('ngMo.my_patterns', [
 
         var activeTab = 0;
         var activeIndex = 0;
+        var porfolioFlag = false;
 
         this.getIndexType = function () {
             return indexTypes;
@@ -105,7 +166,23 @@ angular.module('ngMo.my_patterns', [
         };
 
         this.getTabs = function () {
+            if (porfolioFlag) {
+                if (activeTab === 3){
+                    activeTab = 2;
+                }
+                porfolioFlag = false;
+            }
             return tabs;
+        };
+
+        this.getPortfolioTabs = function () {
+            porfolioFlag = true;
+            if (activeTab === 3){
+                activeTab = 0;
+            }else if (activeTab === 2 && activeIndex === 1){
+                activeTab = 3;
+            }
+            return portfolioTabs;
         };
 
         this.getActiveTab = function () {
@@ -115,8 +192,17 @@ angular.module('ngMo.my_patterns', [
         this.changeActiveTab = function (active) {
             activeTab = active;
         };
+
+        this.changePortfolioActiveTab = function (active) {
+            if (active === 3){
+                this.changeActiveIndexType(1);
+            }else{
+                this.changeActiveIndexType(0);
+            }
+            activeTab = active;
+        };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -168,6 +254,12 @@ angular.module('ngMo.my_patterns', [
             $scope.saveUrlParams();
         };
 
+        $scope.toggleFavorite = function (patternId){
+            var data = PatternsService.setFavorite(patternId).then(function (data) {
+                $scope.loadPage();
+            });
+        };
+
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
         $scope.restartFilter = function () {
             var restartMonth = true;
@@ -202,8 +294,9 @@ angular.module('ngMo.my_patterns', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
-                    favourite: false},
+                    month: SelectedMonthService.getSelectedMonth(),
+                    favourite: false
+                },
                 selectors: {
                     regions: [
 
@@ -213,22 +306,18 @@ angular.module('ngMo.my_patterns', [
                     ],
 
                     sectors: [
-                        {"id": 1, "description": "Sector1"},
-                        {"id": 2, "description": "Sector2"}
                     ],
 
                     industries: [
-                        {"id": 1, "description": "Industry1"},
-                        {"id": 2, "description": "Industry2"}
                     ],
 
                     operations: [
-                        {"id": 1, "description": "buy"},
-                        {"id": 2, "description": "sell"}
+                        {"id": 0, "description": "Comprar"},
+                        {"id": 1, "description": "Vender"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Menor que"},
-                        {"id": 2, "description": "Mayor que"}
+                        {"id": 0, "description": "Menor que"},
+                        {"id": 1, "description": "Mayor que"}
                     ]
 
                 }
@@ -242,15 +331,15 @@ angular.module('ngMo.my_patterns', [
             //refresh all the selectors
             switch (TabsService.getActiveTab()) {
                 case 0:     //stocks
-                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 1:     //pairs
-                    $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 2:     //index (pair and index)
                     break;
                 case 3:     //futures
-                    $scope.refreshSelectors(['markets']);
+                    $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
             }
 
@@ -296,41 +385,47 @@ angular.module('ngMo.my_patterns', [
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
-                });
+            });
+
+
         };
-
-
         /**
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
-        $scope.refreshSelectors = function (selectors) {
-            PatternsService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
-                //checks the data received, when a selector is refreshed, the value selected is also cleaned
-                if (data.hasOwnProperty("markets")) {
-                    $scope.filterOptions.selectors.markets = data.markets;
-                    $scope.filterOptions.filters.selectedMarket = "";
+        $scope.refreshSelectors = function (selectors,filters,callback) {
+            viewName = $state.$current.self.name;
+            PatternsService.getSelectors(filters, selectors,callback,viewName);
+        };
+
+        $scope.callBackRefreshSelectors =  function (data) {
+            //checks the data received, when a selector is refreshed, the value selected is also cleaned
+            if (data.hasOwnProperty("regions")) {
+                $scope.filterOptions.selectors.regions = data.regions;
+                //$scope.filterOptions.filters.selectedRegion = "";
+            }
+
+            if (data.hasOwnProperty("markets")) {
+                $scope.filterOptions.selectors.markets = data.markets;
+                if (typeof data.selectedRegion != 'undefined') {
+                    $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
                 }
-                if (data.hasOwnProperty("regions")) {
-                    $scope.filterOptions.selectors.regions = data.regions;
-                    $scope.filterOptions.filters.selectedRegion = "";
-                }
-                if (data.hasOwnProperty("industries")) {
-                    $scope.filterOptions.selectors.industries = data.industries;
-                    $scope.filterOptions.filters.selectedIndustry = "";
-                }
-                if (data.hasOwnProperty("sectors")) {
-                    $scope.filterOptions.selectors.sectors = data.sectors;
-                    $scope.filterOptions.filters.selectedSector = "";
-                }
-            });
+                //$scope.filterOptions.filters.selectedMarket = "";
+            }
+
+            if (data.hasOwnProperty("industries")) {
+                $scope.filterOptions.selectors.industries = data.industries;
+                //$scope.filterOptions.filters.selectedIndustry = "";
+            }
+            if (data.hasOwnProperty("sectors")) {
+                $scope.filterOptions.selectors.sectors = data.sectors;
+                //$scope.filterOptions.filters.selectedSector = "";
+            }
         };
 
         /**
          *  make a new search with the filters, restart the page and search, for the button Search in the page
          */
         $scope.search = function () {
-
-
             $scope.applyFilters();
         };
 
@@ -379,15 +474,18 @@ angular.module('ngMo.my_patterns', [
          */
 
         $scope.refreshRegion = function () {
+           // if ($scope.filterOptions.filters.selectedRegion === ""){
+                $scope.filterOptions.filters.selectedMarket = "";
+           // }
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
-                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 1://pairs doesnt have markets
-                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 3: //futures ONLY have markets
-                    $scope.refreshSelectors(['markets']);
+                    $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 default://others doesnt have selectors to refresh
                     break;
@@ -402,7 +500,7 @@ angular.module('ngMo.my_patterns', [
         //refresh selectors depending of market
         $scope.refreshMarket = function () {
             if (TabsService.getActiveTab() === 0) {
-                $scope.refreshSelectors(['industries', 'sectors']);
+                $scope.refreshSelectors(['industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
             }
         };
         $scope.selectMarket = function () {
@@ -414,7 +512,7 @@ angular.module('ngMo.my_patterns', [
 
         //only used in stock
         $scope.refreshSector = function () {
-            $scope.refreshSelectors(['industries']);
+            $scope.refreshSelectors(['industries'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
         };
         $scope.selectSector = function () {
             $scope.refreshSector();
@@ -435,12 +533,14 @@ angular.module('ngMo.my_patterns', [
 
         $scope.nextMonth = function () {
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -449,6 +549,7 @@ angular.module('ngMo.my_patterns', [
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -496,34 +597,34 @@ angular.module('ngMo.my_patterns', [
                 urlParamsSend.qindust = urlParams.selectedIndustry;
             }
             if (urlParams.selectedOperation) {
-                urlParamsSend.qop = urlParams.selectedOperation;
+                urlParamsSend.qop = urlParams.selectedOperation.id;
             }
             if (urlParams.selectedRent) {
-                urlParamsSend.qselrent = urlParams.selectedRent;
+                urlParamsSend.qselrent = urlParams.selectedRent.id;
             }
             if (urlParams.rentInput) {
                 urlParamsSend.qrent = urlParams.rentInput;
             }
             if (urlParams.selectedAverage) {
-                urlParamsSend.qselaver = urlParams.selectedAverage;
+                urlParamsSend.qselaver = urlParams.selectedAverage.id;
             }
             if (urlParams.rentAverageInput) {
                 urlParamsSend.qaver = urlParams.rentAverageInput;
             }
             if (urlParams.selectedRentDiary) {
-                urlParamsSend.qseldiar = urlParams.selectedRentDiary;
+                urlParamsSend.qseldiar = urlParams.selectedRentDiary.id;
             }
             if (urlParams.rentDiaryInput) {
                 urlParamsSend.qdiar = urlParams.rentDiaryInput;
             }
             if (urlParams.selectedVolatility) {
-                urlParamsSend.qselvol = urlParams.selectedVolatility;
+                urlParamsSend.qselvol = urlParams.selectedVolatility.id;
             }
             if (urlParams.volatilityInput) {
                 urlParamsSend.qvol = urlParams.volatilityInput;
             }
             if (urlParams.selectedDuration) {
-                urlParamsSend.qseldur = urlParams.selectedDuration;
+                urlParamsSend.qseldur = urlParams.selectedDuration.id;
             }
             if (urlParams.durationInput) {
                 urlParamsSend.qdur = urlParams.durationInput;
@@ -549,23 +650,29 @@ angular.module('ngMo.my_patterns', [
             var params = $location.search();
 
             var filters = {
-                filterName: (params.qname ? params.qname : "" ),
-                selectedOperation: (params.qop ? params.qop : "" ),
-                selectedRent: (params.qselrent ? params.qselrent : "" ),
-                rentInput: (params.qrent ? params.qrent : "" ),
-                selectedAverage: (params.qselaver ? params.qselaver : "" ),
-                rentAverageInput: (params.qaver ? params.qaver : "" ),
-                selectedRentDiary: (params.qseldiar ? params.qseldiar : "" ),
-                rentDiaryInput: (params.qdiar ? params.qdiar : "" ),
-                selectedVolatility: (params.qselvol ? params.qselvol : "" ),
-                volatilityInput: (params.qvol ? params.qvol : "" ),
-                selectedDuration: (params.qseldur ? params.qseldur : "" ),
-                durationInput: (params.qdur ? params.qdur : "" ),
-                index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
-                tab_type: (params.qtab ? params.qtab : "" ),
-                active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                favourite: (params.qfav ? params.qfav : "" )
+                filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
+                selectedOperation: (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" ),
+                selectedRent: (typeof params.qselrent !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselrent,10)] : "" ),
+                rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
+                selectedAverage: (typeof params.qselaver !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselaver,10)] : "" ),
+                rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
+                selectedRentDiary: (typeof params.qseldiar !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qseldiar,10)] : "" ),
+                rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
+                selectedVolatility: (typeof params.qselvol !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselvol ,10)] : "" ),
+                volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" ),
+                selectedDuration: (typeof params.qseldur !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qseldur,10)] : "" ),
+                durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
+                index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
+                tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
+                active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
+                favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
+                selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
+                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
+                selectedSector: (typeof params.qsector !== "undefined" ? params.qsector : ""),
+                selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "")
+
             };
+
 
             //special cases:
             var tabChanged = false;
@@ -591,70 +698,34 @@ angular.module('ngMo.my_patterns', [
 
             } else {
                 //if the date is not passed as param, we load the default date
+                //var date_restart = new Date();
+                //filters.month = MonthSelectorService.restartDate();
                 var date_restart = new Date();
-                filters.month = MonthSelectorService.restartDate();
+                date_restart.setDate(1);
+                date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
+                filters.month = MonthSelectorService.setDate(date_restart);
             }
 
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
+            $scope.filterOptions.filters = filters;
+            $scope.updateSelectorMonth();
+            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
             if (tabChanged) {
+
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
-                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'],filters, $scope.callBackRefreshSelectors);
                         break;
                     case 1:     //pairs
-                        $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                        $scope.refreshSelectors(['regions', 'industries', 'sectors'],filters,$scope.callBackRefreshSelectors);
                         break;
                     case 2:     //index (pair and index)
                         break;
                     case 3:     //futures
-                        $scope.refreshSelectors(['markets']);
+                        $scope.refreshSelectors(['markets'],filters, $scope.callBackRefreshSelectors);
                         break;
                 }
             }
-
-
-            //for a special case to load the selectors, we need save the region,market,...
-            //if the location.search region,market.. values are not the same that the filters, we need
-            //to reload the selectors...
-            if ((typeof params.qregion !== 'undefined') && ($scope.filterOptions.filters.selectedRegion !== params.qregion)) {
-                //if region is distinct, refresh all selectors
-                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                $scope.refreshRegion();
-                filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            }
-            else if ((typeof params.qmarket !== 'undefined') && ($scope.filterOptions.filters.selectedMarket !== params.qmarket)) {
-                //region similar, but not market
-                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
-                $scope.refreshMarket();
-                filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            } else if ((typeof params.qsector !== 'undefined') && ($scope.filterOptions.filters.selectedSector !== params.qsector)) {
-                //region and market similar, but not sector
-                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                $scope.filterOptions.filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
-                filters.selectedSector = $scope.filterOptions.filters.selectedSector;
-
-                $scope.refreshSector();
-                $scope.filterOptions.filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            } else {
-                //or all are similar, or only industry is distinct (in that case all selectors are the same)
-                filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                filters.selectedSector = (params.qsector ? params.qsector : "" );
-                filters.selectedIndustry = (params.qindust ? params.qindust : "" );
-            }
-            $scope.filterOptions.filters = filters;
-            $scope.updateSelectorMonth();
-            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
 
         };
 
@@ -667,6 +738,7 @@ angular.module('ngMo.my_patterns', [
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
+            $scope.loadPage();
         }
 
         //$scope.loadPage();
@@ -676,7 +748,7 @@ angular.module('ngMo.my_patterns', [
 
 
     })
-    .service("PatternsService", function ($http, $window, $rootScope, $q) {
+    .service("PatternsService", function ($location,$http, $window, $rootScope, $q) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -685,11 +757,33 @@ angular.module('ngMo.my_patterns', [
                 if (filtering.hasOwnProperty(property)) { //check if its a property (to exclude technicals property of js)
                     // create the params
                     if ((filtering[property] != null) && (filtering[property] !== "")) {
-                        urlParams += "&" + property + "=" + filtering[property];
+                        if (typeof filtering[property].id !== "undefined" ) {
+                            urlParams += "&" + property + "=" + filtering[property].id;
+                        } else {
+                            urlParams += "&" + property + "=" + filtering[property];
+                        }
+
                     }
                 }
             }
             return urlParams;
+        };
+
+        this.setFavorite = function (patternId) {
+            var deferred = $q.defer();
+            var data;
+            config = {
+                params: {
+                    'patternId': patternId,
+                    'token': $window.sessionStorage.token
+                }
+            };
+            var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
 
         /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
@@ -711,7 +805,24 @@ angular.module('ngMo.my_patterns', [
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
-                    'year': filtering.month.year
+                    'year': filtering.month.year,
+                    'name': filtering.filterName,
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
+                    'accumulatedReturn': (filtering.selectedRent  ? filtering.selectedRent.id : ""),
+                    'accumulatedInput': filtering.rentInput,
+                    'averageReturn': (filtering.selectedAverage  ? filtering.selectedAverage.id : ""),
+                    'averageInput': filtering.rentAverageInput,
+                    'dailyReturn': (filtering.selectedRentDiary  ? filtering.selectedRentDiary.id : ""),
+                    'dailyInput': filtering.rentDiaryInput,
+                    'volatility':  (filtering.selectedVolatility  ? filtering.selectedVolatility.id : ""),
+                    'volatilityInput': filtering.volatilityInput,
+                    'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
+                    'durationInput': filtering.durationInput,
+                    'favourites': filtering.favourite
                 }
             };
 
@@ -728,74 +839,44 @@ angular.module('ngMo.my_patterns', [
          * @param filtering - is the object with the filters
          * @param selectorsToRefresh - the list of selectors requested
          */
-        this.getSelectors = function (filtering, selectorsToRefresh, callback) {
+        this.getSelectors = function (filtering, selectorsToRefresh, callback, viewName) {
             //the filtering object could contains some filters that are required for get the specified selectors
             //for example, to get the markets, the selected region is required (if there is not region, means all..)
             //the http petition will use the callback function to load the info received from server
-            var data = {};
-            /*mocked -- we are going to check the selectors needed and check filters */
-            //mocked lists:
-            var eeuuMarkets = [
-                {"id": 1, "description": "American Stock Exchange"},
-                {"id": 2, "description": "Nasdaq Stock Exchange"},
-                {"id": 3, "description": "New York Stock Exchange"}
-            ];
-            var indianMarkets = [
-                {"id": 4, "description": "Bombay Stock Exchange"},
-                {"id": 5, "description": "National Stock Exchange"}
-            ];
+            var data;
 
-            var chinaMarkets = [
-                {"id": 6, "description": "Shangai Stock Exchange"},
-                {"id": 7, "description": "Shenzhen Stock Exchange"}
-            ];
+            var indexType = null;
 
-            if (selectorsToRefresh.indexOf("regions") > -1) {
-                //load regions (always all regions)
-                data.regions = [
-                    {"id": 1, "description": "America"},
-                    {"id": 2, "description": "India"},
-                    {"id": 3, "description": "China"}
-                ];
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
             }
-            if (selectorsToRefresh.indexOf("markets") > -1) {
-                //load markets , check if region is selected.
-                //NOTE: IN A REAL CASE ALL THE FILTERS INFLUENCE THE LIST RECEIVED, NOT ONLY THE REGION
-                //the cases are in string (not INT) so we use expressions to check the value
-                switch (true) {
-                    case /1/.test(filtering.selectedRegion): //america
-                        data.markets = eeuuMarkets;
-                        break;
-                    case /2/.test(filtering.selectedRegion):
-                        data.markets = indianMarkets;
-                        break;
-                    case /3/.test(filtering.selectedRegion):
-                        data.markets = chinaMarkets;
-                        break;
-                    default :
-                        data.markets = eeuuMarkets.concat(indianMarkets.concat(chinaMarkets));
+
+            config = {
+                params: {
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'view': viewName
                 }
-            }
+            };
 
-            //the sectors and industries are always same, to dont make large code
-            if (selectorsToRefresh.indexOf("sectors") > -1) {
-                data.sectors = [
-                    {"id": 1, "description": "Sector1"},
-                    {"id": 2, "description": "Sector2"}
-                ];
-            }
-
-            if (selectorsToRefresh.indexOf("industries") > -1) {
-                data.industries = [
-                    {"id": 1, "description": "Industry1"},
-                    {"id": 2, "description": "Industry2"}
-                ];
-            }
-
-            callback(data);
-
+            var result = $http.get($rootScope.urlService+'/patternfilters', config).success(function (data) {
+                // With the data succesfully returned, call our callback
+                callback(data);
+            });
         };
     })
+
+
+
     .factory('MonthSelectorService', function () {
         var actualDate = {};
 
@@ -902,7 +983,42 @@ angular.module('ngMo.my_patterns', [
                 }
                 return monthList;
 
+            },
+            getCalendarListMonths: function () {
+                var today = new Date();
+                var monthList = [];
+                var d = new Date(today.getFullYear(), today.getMonth(), 1);
+                //the list is actual month + next month
+                for (i = 0; i < 2; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
             }
+
+
         };
 
-    });
+    })
+
+    .service("SelectedMonthService", function (MonthSelectorService) {
+        var selectedMonth = MonthSelectorService.restartDate();
+
+        this.getSelectedMonth = function () {
+            return selectedMonth;
+        };
+
+        this.changeSelectedMonth = function (month) {
+            selectedMonth = month;
+        };
+
+    })
+
+
+;

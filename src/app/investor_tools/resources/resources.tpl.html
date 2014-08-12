@@ -1,21 +1,24 @@
-<div class="public-zone-text container" style="padding-top:40px;" ng-controller="HomeCtrl">
-
-    <table class="table-page-index" style="width:110px; margin-top: 0px; margin-right: 15px;">
+<div class="public-zone-text container" style="padding-top:40px;" >
+<div class="lat-menu-detailed-nav">
+    <table class="table-page-index" style="width:110px; margin-top: 0px; margin-right: 15px;" ng-class="{'menu-position' : true,   'menu-fix' : positionFix}">
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('brokers')">
+                <div class="page-index-resource" ng-click="scrollTo('brokers'); selectedOption = 'brokers';"
+                     ng-class="{'orange-text': selectedOption =='brokers'}">
                         Brokers
                 </div>
             </td>
         </tr>
         <td>
-            <div class="page-index-resource" ng-click="scrollTo('financial-services')">
+            <div class="page-index-resource" ng-click="scrollTo('financial-services'); selectedOption = 'financial-services';"
+                 ng-class="{'orange-text': selectedOption =='financial-services'}" >
                         Financial Services
             </div>
         </td>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('training')">
+                <div class="page-index-resource" ng-click="scrollTo('training'); selectedOption = 'training';"
+                     ng-class="{'orange-text': selectedOption =='training'}"  >
 
                         Training
                 </div>
@@ -23,41 +26,58 @@
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('conferences')">
+                <div class="page-index-resource" ng-click="scrollTo('providers'); selectedOption = 'providers';"
+                     ng-class="{'orange-text': selectedOption =='providers'}"   >
 
-                        Conferences
-
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="page-index-resource" ng-click="scrollTo('providers')" >
-
-                        Data Provider
+                    Data Provider
 
                 </div>
             </td>
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('software')">
-                        Software
+                <div class="page-index-resource" ng-click="scrollTo('software'); selectedOption = 'software';"
+                     ng-class="{'orange-text': selectedOption =='software'}" >
+                    Software
                 </div>
             </td>
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('books')">
-                        Books, Journals
+                <div class="page-index-resource" ng-click="scrollTo('books'); selectedOption = 'books';"
+                     ng-class="{'orange-text': selectedOption =='books'}" >
+                    Books, Journals, Magazines
+                </div>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <div class="page-index-resource" ng-click="scrollTo('conferences'); selectedOption = 'conferences';"
+                     ng-class="{'orange-text': selectedOption =='conferences'}"  >
+
+                        Conferences, Meetings
+
+                </div>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <div class="page-index-resource" ng-click="scrollTo('books2'); selectedOption = 'books2';"
+                     ng-class="{'orange-text': selectedOption =='books2'}"  >
+                    Information Tech. Companies
                 </div>
             </td>
         </tr>
     </table>
+    </div>
 
 
 
-    <div class="submenu-content" style="width: 830px;">
+    <div class="submenu-content content-detailed"  >
 
        <p>
            Esta p&aacute;gina est&aacute; dedicada a la publicidad sobre diferentes recursos y herramientas que pretenden facilitar las
@@ -69,14 +89,26 @@
 
         <div style="position: relative">
 
-            <table border="0" id="brokers">
+            <table border="0" id="brokers" class="resources-table anchor-detailed">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
                         <div >BROKERS</div>
                     </td>
-                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
-                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;"> </td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;"> </td>
+                </tr>
+
+                <tr >
+                    <td class="dark-grey-row" style="width: 200px;">
+                        <div   class="text-align-center">Name</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 400px;">
+                        <div   class="text-align-center">Description</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 180px;">
+                        <div   class="text-align-center">Web</div>
+                    </td>
                 </tr>
                 <tr class="grey-row">
                     <td>
@@ -92,14 +124,26 @@
                 </tbody>
             </table><br>
 
-            <table border="0" id="financial-services">
+            <table class="resources-table anchor-detailed" border="0" id="financial-services">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
                         <div >FINANCIAL SERVICES</div>
                     </td>
-                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
-                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;"> </td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;"> </td>
+                </tr>
+
+                <tr >
+                    <td class="dark-grey-row" style="width: 200px;">
+                        <div   class="text-align-center">Name</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 400px;">
+                        <div   class="text-align-center">Description</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 180px;">
+                        <div   class="text-align-center">Web</div>
+                    </td>
                 </tr>
                 <tr class="grey-row">
                     <td>
@@ -148,7 +192,7 @@
                 </tbody>
             </table><br>
 
-            <table id="training" border="0">
+            <table class="resources-table anchor-detailed" id="training" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background">TRAINING</td>
@@ -158,6 +202,7 @@
                     <td class="header-orange-background">&nbsp;</td>
                     <td class="header-orange-background">&nbsp;</td>
                 </tr>
+
                 <tr >
                     <td class="dark-grey-row" style="width: 200px;">
                         <div   class="text-align-center">Description</div>
@@ -301,14 +346,25 @@
                 </tbody>
             </table><br>
 
-            <table id="providers"border="0">
+            <table class="resources-table anchor-detailed" id="providers"border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
                         <div>DATA PROVIDERS</div>
                     </td>
-                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
-                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;"> </td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;"> </td>
+                </tr>
+                <tr >
+                    <td class="dark-grey-row" style="width: 200px;">
+                        <div   class="text-align-center">Name</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 400px;">
+                        <div   class="text-align-center">Description</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 180px;">
+                        <div   class="text-align-center">Web</div>
+                    </td>
                 </tr>
                 <tr class="grey-row">
                     <td colspan="3">
@@ -318,14 +374,25 @@
                 </tbody>
             </table><br>
 
-            <table id="software" border="0">
+            <table class="resources-table anchor-detailed" id="software" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
                         <div>SOFTWARE</div>
                     </td>
-                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
-                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;"> </td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;"></td>
+                </tr>
+                <tr >
+                    <td class="dark-grey-row" style="width: 200px;">
+                        <div   class="text-align-center">Name</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 400px;">
+                        <div   class="text-align-center">Description</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 180px;">
+                        <div   class="text-align-center">Web</div>
+                    </td>
                 </tr>
                 <tr class="grey-row">
                     <td>
@@ -341,14 +408,25 @@
                 </tbody>
             </table><br>
 
-            <table id="books" border="0">
+            <table class="resources-table anchor-detailed" id="books" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
                         <div  >BOOKS, JOURNALS, MAGAZINES</div>
                     </td>
-                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;"> </td>
                     <td class="header-orange-background text-align-center" style="width: 150px;">&nbsp;</td>
+                </tr>
+                <tr >
+                    <td class="dark-grey-row" style="width: 200px;">
+                        <div   class="text-align-center">Name</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 400px;">
+                        <div   class="text-align-center">Description</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 180px;">
+                        <div   class="text-align-center"> </div>
+                    </td>
                 </tr>
                 <tr class="grey-row">
                     <td colspan="3">
@@ -363,14 +441,25 @@
                 </tbody>
             </table><br>
 
-            <table id="conferences" border="0">
+            <table class="resources-table anchor-detailed" id="conferences" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
                         <div>CONFERENCES, MEETINGS</div>
                     </td>
-                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
-                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;"> </td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;"> </td>
+                </tr>
+                <tr >
+                    <td class="dark-grey-row" style="width: 200px;">
+                        <div   class="text-align-center">Name</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 400px;">
+                        <div   class="text-align-center">Description</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 180px;">
+                        <div   class="text-align-center">Web</div>
+                    </td>
                 </tr>
                 <tr class="grey-row">
                     <td colspan="3">
@@ -381,14 +470,25 @@
             </table><br>
 
 
-            <table id="books2" name="books2" border="0">
+            <table class="resources-table anchor-detailed" id="books2" name="books2" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;">
                         <div  >INFORMATION TECH. COMPANIES</div>
                     </td>
-                    <td class="header-orange-background text-align-center" style="width: 470px;">Description</td>
-                    <td class="header-orange-background text-align-center" style="width: 150px;">Web</td>
+                    <td class="header-orange-background text-align-center" style="width: 470px;"> </td>
+                    <td class="header-orange-background text-align-center" style="width: 150px;"> </td>
+                </tr>
+                <tr >
+                    <td class="dark-grey-row" style="width: 200px;">
+                        <div   class="text-align-center">Name</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 400px;">
+                        <div   class="text-align-center">Description</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 180px;">
+                        <div   class="text-align-center">Web</div>
+                    </td>
                 </tr>
                 <tr class="grey-row">
                     <td colspan="3">

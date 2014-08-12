@@ -24,7 +24,9 @@ angular.module('ngMo', [
         'gettext' ,
         'singUp',
         'auth',
-        'ngMo.Activate'
+        'ngMo.Activate',
+        'ngMo.detail',
+        'ngMo.payment'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
@@ -60,7 +62,40 @@ angular.module('ngMo', [
                 selectItemSubmenu: '',
                 moMenuType: 'publicMenu'
              }
-        });
+        })
+        .state('faq', {
+            url: '/faq',
+            views: {
+                "main": {
+                    controller: 'HomeCtrl',
+                    templateUrl: 'faq/faq.tpl.html'
+                }
+            },
+            data: {
+                pageTitle: 'FAQ',
+                selectMenu: '',
+                selectSubmenu: '',
+                selectItemSubmenu: '',
+                moMenuType: 'publicMenu'
+            }
+        })
+        .state('privacy_policy', {
+            url: '/privacy_policy',
+            views: {
+                "main": {
+                    controller: 'HomeCtrl',
+                    templateUrl: 'privacy_policy/privacy_policy.tpl.html'
+                }
+            },
+            data: {
+                pageTitle: 'Política de privacidad',
+                selectMenu: '',
+                selectSubmenu: '',
+                selectItemSubmenu: '',
+                moMenuType: 'publicMenu'
+            }
+        })
+        ;
         $urlRouterProvider.otherwise('/home');
     })
 
@@ -124,7 +159,7 @@ angular.module('ngMo', [
             return str;
         };
     })
-    .service('ShoppingCartService', function (ActiveTabService){
+    .service('ShoppingCartService', function (ActiveTabService,$q,$http,$rootScope){
 
         var stockItems =  [];
 
@@ -142,6 +177,19 @@ angular.module('ngMo', [
         var indicesSubtotal = 0;
         var pairsIndicesSubtotal = 0;
         var futuresSubtotal = 0;
+
+
+        this.getPrices = function () {
+            var deferred = $q.defer();
+            var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
+                deferred.resolve(data.data.prices);
+                console.log("loading");
+                return data.data.prices;
+            });
+
+
+            return deferred.promise;
+        };
 
         var showCart = false;
         this.openCart = function (){
@@ -358,7 +406,7 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged) {
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService) {
 
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
@@ -378,6 +426,7 @@ angular.module('ngMo', [
             $scope.errorSignIn = false;
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
+            AnchorLinkService.scrollTo('top');
         });
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
@@ -416,6 +465,20 @@ angular.module('ngMo', [
                     scope.boolChangeClass = false;
                 }
                 scope.$apply();
+            });
+        };
+    })
+
+    .directive('ngEnter', function() { //ng-enter='myFunction()' in a input for example will fire the myFunction when the user press enter..
+        return function(scope, element, attrs) {
+            element.bind("keydown keypress", function(event) {
+                if(event.which === 13) {
+                    scope.$apply(function(){
+                        scope.$eval(attrs.ngEnter, {'event': event});
+                    });
+
+                    event.preventDefault();
+                }
             });
         };
     })
@@ -592,7 +655,54 @@ angular.module('ngMo', [
 
     .directive('cart', function() {
         return{
-            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope) {
+            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope,$state,$q) {
+
+                //catch the event submitcart to send the packs to buy, this event is launched by login form when the user logins to pay
+                $scope.$on('goToSummaryPay', function() {
+                    //$scope.submitCart();
+                    $state.go('summary-pay');
+                });
+
+                $scope.$on('removeItemsCart', function() {
+                    //$scope.submitCart();
+                    $scope.removeItemCart();
+                });
+
+                $scope.$on('submitCart', function(event,paymentType){
+                    if (paymentType === "EXPRESSCHECKOUT") {
+                        //the expresscheckout submit the Cart with return to url payment
+                        $scope.submitCart();
+                    } else if (paymentType === "DIRECTPAYMENT") {
+                        //payment with card
+                        return;
+                    } else {
+                        return;
+                    }
+
+                });
+                //the cart must dessapears in some views, so when the state is one of the list, the cart will be invisible to the user
+                $scope.showCartinState=true;//show the cart by default
+                $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                  //list of states where the cart is invisible
+                    var states = ["summary-pay"];
+                    if (states.indexOf(toState.name) > -1) {
+                        //the new state will not show the cart
+                        $scope.showCartinState= false;
+                    } else {
+                        $scope.showCartinState = true;
+                    }
+                });
+
+                //load the prices from server (monthly, trhee months and anual)
+                $scope.prices = [29,82,313];//default price, dont worry if the server changes the price and doesnt work
+                /*
+                in that case the price will load the default prices in this JS, but in the previous step to pay, the right prices will load and showed to the user.
+                the default prices is needed for the tests
+                 */
+                ShoppingCartService.getPrices().then(function(data) {
+                    $scope.prices =   data;
+                });
+
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                 $scope.totalCart = ShoppingCartService.obtainTotalCart();
                 $scope.showCart = false;
@@ -737,22 +847,49 @@ angular.module('ngMo', [
                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
 
                 };
+
+
+                /**
+                 * get the prices of the server
+                 */
+                $scope.getPrices = function() {
+                    ShoppingCartService.getPrices().then(function(data) {
+                        $scope.prices =   data;
+                    } );
+                };
+
                 /**
                  * TODO: replace enter parameter 'id' for 'item'
                  * @param id
                  */
                 $scope.addNewItemCart = function(newItem, startDate){
+//                    var deferred = $q.defer();
+//                    var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
+//                        deferred.resolve(data.data.prices);
+//                        return data.data.prices;
+//                    });
+//
+//
+//                    var pricesArray = deferred.promise;
+                    //load prices in scope
+                   // $scope.getPrices();
+
+//                    ShoppingCartService.getPrices().then(function(data) {
+//                        $scope.prices =   data;
+//                    });
+
+
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                     item = {
                         "code": newItem.code,
                         "packName": newItem.name,
                         "startDate": $filter('date')(startDate, 'MMMM yyyy'),
                         "duration": "Mensual",
-                        "price": 29,
+                        "price": $scope.prices[0],
                         "date": $filter('date')(startDate, 'dd/MM/yyyy'),
                         "patternType": newItem.patternType,
                         "productType": newItem.productType,
-                        prices: [29,82,313]
+                        prices: $scope.prices/*[29,82,313]*/
                     };
                     var totalList = [];
                     if ((typeof $scope.stockItems != "undefined")) {
@@ -800,6 +937,15 @@ angular.module('ngMo', [
                     $scope.subtotalStock = 0;
                 };
 
+                $scope.goToPay= function() {
+                    token = $window.sessionStorage.token;
+                    if (token != null) {
+                        $state.go('summary-pay');
+                    } else {
+                        $state.go('new-subscription');
+                    }
+                };
+                //makes the petition to Pay with Paypal
                 $scope.submitCart = function () {
                     token = $window.sessionStorage.token;
                     if (token != null) {
@@ -879,9 +1025,15 @@ angular.module('ngMo', [
                             .error(function (data, status) {
                                 $scope.callbackPurchase(data, status);
                             });
+                    } else {
+                        $state.go('new-subscription');
                     }
                 };
-                $scope.callbackPurchase = function (){
+                $scope.callbackPurchase = function (data){
+                    /**TEST FOR REDIRECT TO PAYPAL*/
+                    if (typeof data.urlRedirect !== "undefined") {
+                        $window.location.href = data.urlRedirect;
+                    }
 
                 };
             },
@@ -899,6 +1051,59 @@ angular.module('ngMo', [
             templateUrl: 'layout_templates/cart.tpl.html'
         };
     })
+
+    .directive("scrollFaq", function ($window, PositionAnchorsFaq, AnchorLinkService) {
+        return function(scope, element, attrs) {
+            angular.element($window).bind("scroll", function() {
+                if (this.pageYOffset >= 150) {
+                    scope.positionFix = true;
+                    scope.boolChangeClassDetailed = true;
+                } else {
+                    scope.boolChangeClassDetailed = false;
+                    scope.positionFix = false;
+                }
+                scope.$apply();
+
+                //scrollSpy
+                //Obtain anchors
+                if (typeof anchorsFaq === 'undefined') {
+                    anchorsFaq = PositionAnchorsFaq.getPositionAnchors();
+                }
+                if (typeof anchorsFaq !== 'undefined') {
+                    if (this.pageYOffset < anchorsFaq[0].position) {
+                        scope.selectedOption = anchorsFaq[0].id;
+                    } else if (this.pageYOffset > anchorsFaq[anchorsFaq.length - 1].position) {
+                        scope.selectedOption = anchorsFaq[anchorsFaq.length - 1].id;
+                    } else {
+                        for (var j = 1; j < anchorsFaq.length - 1; j++) {
+                            if (this.pageYOffset >= anchorsFaq[j].position && this.pageYOffset < anchorsFaq[j + 1].position) {
+                                scope.selectedOption = anchorsFaq[j].id;
+                            }
+                        }
+                    }
+                }
+
+            });
+        };
+    })
+
+    .service("PositionAnchorsFaq", function() {
+        this.getPositionAnchors = function() {
+            var anchorsFaq = document.getElementsByClassName("anchor-faq");
+            var positions = [];
+            for (var i = 0; i<anchorsFaq.length;i++){
+                positions.push(
+                    {
+                        "position": (anchorsFaq[i]).offsetTop,
+                        "id": (anchorsFaq[i]).getAttribute('id')
+                    });
+            }
+            return positions;
+
+        };
+    })
+
+
 
 ;
 //modalPanel
