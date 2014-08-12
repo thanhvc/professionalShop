@@ -72,31 +72,45 @@
 
 
     var p = new Profile();
-    beforeEach(function() {
+
+  /*  it('should open the page', function() {
+         beforeEach(function() {
+                browser.get(url);
+                p.open();
+                expect(element(by.css(".sign-background"))).toBeDefined();
+        });
+    });
+
+    it('should let the user be log in' ,function(){
+
+     beforeEach(function() {
         browser.get(url);
-    });
+        p.login();
+        expect(element(by.css(".private-black-title")).getText().toBe("Mis Patrones"));
+     });
 
-    it('should open the page', function() {
-
-        p.open();
-       expect(element(by.css(".sign-background"))).toBeDefined();
-    });
-
-   /* it('should let the user be log in' ,function(){
-       p.login();
-       expect(element(by.css(".private-black-title")).getText().toBe("Mis Patrones"));
     });
 
     it('should load profile ' ,function(){
-       p.loadProfile();
-       expect(element(by.css(".orange-title")).getText().toBe("Identificación Personal"));
-    });
 
+        beforeEach(function() {
+           browser.get(url);
+           p.loadProfile();
+            expect(element(by.css(".orange-title")).getText().toBe("Identificación Personal"));
+        });
+
+    });
+*/
     it('should have three tabs' ,function(){
-       p.checkTabs();
-       expect(tabsNumbers.toBe(3));
+        beforeEach(function() {
+           browser.get(url);
+           p.checkTabs();
+           expect(tabsNumbers.toBe(3));
+       });
+
     });
 
+/*
     it('should a password tab' ,function(){
        p.checkData();
        expect(p.text.toBe('Cambiar Password'));
