@@ -261,11 +261,12 @@ angular.module('ngMo.services', [
             var footerHeight = document.getElementsByClassName("footer")[0].offsetHeight;
             if (window.pageYOffset >= 150) {
                 $scope.positionFix = true;
-                if (footerPosition > (window.pageYOffset+(window.screen.availHeight - footerHeight))){
+
+                /*if (footerPosition > (window.pageYOffset+(window.screen.availHeight - footerHeight))){*/
                     $scope.boolChangeClassDetailed = true;
-                }else{
+                /*}else{
                     $scope.boolChangeClassDetailed = false;
-                }
+                }*/
 
                 //horizontal scroll control when the menu is fixed
                 if(window.pageXOffset > 0){
@@ -283,10 +284,10 @@ angular.module('ngMo.services', [
             $scope.$apply();
 
             //scrollSpy
-            //Obtain anchors
-            if ((typeof $scope.anchors === 'undefined') ||  ($scope.anchors  == null) ) {
+            //Obtain anchors -- is better get always the positions because wheb the page is refreshing
+            /*if ((typeof $scope.anchors === 'undefined') ||  ($scope.anchors  == null) ) {*/
                 $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
-            }
+           /* }*/
 
 
 

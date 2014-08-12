@@ -719,9 +719,20 @@ angular.module('ngMo.the_week', [
                         url: url
                     };
 
-                    if(e !== 'undefined') {
-                        $scope.myTop = e.srcElement.y + e.srcElement.height + 'px';
-                        $scope.myLeft = e.srcElement.x + (e.srcElement.width+7) + 'px';
+                    if(typeof e !== 'undefined') {
+                        //this depends on if the webbrowser is firefox or chrome
+                        if (typeof e.srcElement !== 'undefined') {
+                            //chrome
+                            $scope.myTop = e.srcElement.y + e.srcElement.height + 'px';
+                            $scope.myLeft = e.srcElement.x + (e.srcElement.width+7) + 'px';
+                        } else {
+                            if (typeof e.clientX !=='undefined') {
+                                //firefox
+
+                                $scope.myTop = e.clientY + e.currentTarget.clientHeight + 'px';
+                                $scope.myLeft = e.clientX + (e.currentTarget.clientWidth+7) + 'px';
+                            }
+                        }
                     }
                 };
 

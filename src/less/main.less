@@ -678,6 +678,7 @@ a{
 
 .header-orange-background{
   background-color: @orangeColor;
+  border-right: 1px solid @orangeColor;
   color: white;
   font-size: 12px;
   vertical-align: middle;
@@ -685,6 +686,7 @@ a{
   font-family: "fontpo-bold", "verdana" !important;
   padding-left: 5px;
   line-height: 15px;
+  padding: 2px 0px 2px 5px;
 }
 
 .header-vertical{
@@ -1159,6 +1161,71 @@ table{
   }
 }
 
+
+/*tables home*/
+
+
+.table-home-odd {
+  color: @white;
+  /*  font-size: 11px; font-family: Arial;*/
+  font-family: fontpo, verdana;
+  font-size: 10px;
+  background-color: @smokeGrey;
+  border: 1px solid silver ;
+  &:hover{
+    background-color: @orangeColor;
+  }
+  td{
+    border-right: 1px solid silver;
+    padding: 3px 4px 3px 4px;
+    &:nth-child(1){
+      color: @tooltipsDarkBlue;
+      width: 198px;
+    }
+    &:nth-child(2){
+      color: @black;
+      width: 508px;
+    }
+    &:nth-child(3){
+      color: @black;
+      width: 124px;
+      text-align: center;
+    }
+  }
+}
+.table-home-even {
+  color: @white;
+  /*  font-size: 11px; font-family: Arial;*/
+  font-family: fontpo, verdana;
+  font-size: 10px;
+  background-color: @white;
+  border: 1px solid silver;
+  &:hover{
+    background-color: @orangeColor;
+  }
+  td{
+    border-right: 1px solid silver;
+    padding: 3px 4px 3px 4px;
+    &:nth-child(1){
+      color: @tooltipsDarkBlue;
+      width: 198px;
+    }
+    &:nth-child(2){
+      color: @black;
+      width: 508px;
+    }
+    &:nth-child(3){
+      color: @black;
+      width: 124px;
+      text-align: center;
+    }
+  }
+}
+
+.tabbable{
+ margin-bottom: 30px;
+}
+
 .advanced-table{
   margin-bottom:30px;
   td {
@@ -1202,6 +1269,10 @@ table{
   padding-left: 5px;
   font-family: "fontpo-bold", "verdana" !important;
   vertical-align: top;
+}
+
+.dark-grey-right-border{
+  border-right: 1px solid @greyColor;
 }
 
 .white-row{
@@ -2166,11 +2237,13 @@ tooltip-placement=" top ultra-left-tooltip" **/
   color: black;
   background-color: @darkGreyBackground;
   float: right;
-  width: 960px;
+  width: 950px;
   padding-top: 18px;
   height: 50px;
   font-family: 'fontpo' !important;
   font-size: 12px;
+  position: relative;
+  left: -5px;
 }
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
