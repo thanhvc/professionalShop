@@ -24,6 +24,24 @@ angular.module('ngMo.payment', [  'ui.router'])
                 moMenuType: 'publicMenu'
 
             }})
+            .state('confirm-pay-card', {
+                url: '/confirm-pay-card',
+                views: {
+                    "main": {
+
+                        controller: 'ConfirmPaymentCardCtrl',
+                        templateUrl: 'payment/confirm-pay.tpl.html'
+                    }
+                },
+                data: {
+                    /* empty the menu data*/
+                    pageTitle: '',
+                    selectMenu: '',
+                    selectSubmenu: '',
+                    selectItemSubmenu: '',
+                    moMenuType: 'publicMenu'
+
+                }})
             //State for previous step to pay
             .state('summary-pay', {
                 url: '/summary-pay',
@@ -65,6 +83,19 @@ angular.module('ngMo.payment', [  'ui.router'])
     .run(function run() {
     })
 
+    //confirm Card this status only is when the cpayment is OK, so always shows OK
+    .controller('ConfirmPaymentCardCtrl', function ($scope, $state) {
+        $scope.status = "OK";
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            IsLogged.isLogged();
+        });
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+        });
+    })
+    //confirm with expressCheckout
     .controller('ConfirmPaymentCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http,$stateParams) {
         $scope.status = "NONE";
         $scope.$on('$stateChangeStart', function (event, toState) {
@@ -198,7 +229,8 @@ angular.module('ngMo.payment', [  'ui.router'])
             //the terms and conditions must be accepted by user
             if ($scope.conditions) {
                 $scope.errorConditions= false;
-                $rootScope.$broadcast('submitCart', $scope.paymentType);
+                 $rootScope.$broadcast('submitCart', $scope.paymentType);
+
             } else{
                 $scope.errorConditions= true;
             }
@@ -219,6 +251,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+
+        $scope.status="NONE";
 
         $scope.stocks = [];
         $scope.pairs=[];
@@ -406,6 +440,105 @@ angular.module('ngMo.payment', [  'ui.router'])
         };
         $scope.loadSummary();
         $scope.loadUser();
+
+
+        //do the payment with the card, recopile the info and send to server
+        $scope.payWithCard = function () {
+            $scope.status="NONE";
+            dataCart= [];
+            token = $window.sessionStorage.token;
+            config = {
+                headers: {
+                    'X-Session-Token': token
+                },
+                data: {
+                    packs: [],//list of packs
+                    info: {
+                        cardType: $scope.selectedCard.code,
+                        number:$scope.number,
+                        cvv: $scope.cvv,
+                        issue: $scope.issue,
+                        startYear: $scope.startYear,
+                        startMonth: $scope.startMonth.id,
+                        expirationYear: $scope.expirationYear,
+                        expirationMonth: $scope.expirationMonth.id,
+                        name: $scope.user.name,
+                        surname: $scope.user.surname
+                    },//info of credit card
+                    bill:{}//info of bill (if modified)
+                }
+            };
+
+            //this code is like the card, just take the items from the service
+            if ($scope.stockItems.length >0) {
+                for (i=0;i<$scope.stockItems.length;i++) {
+                    item = {
+                        duration: $scope.stockItems[i].duration,
+                        code: $scope.stockItems[i].code,
+                        start: $scope.stockItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+
+            if ($scope.pairsItems.length >0) {
+                for (i=0;i<$scope.pairsItems.length;i++) {
+                    item = {
+                        duration: $scope.pairsItems[i].duration,
+                        code: $scope.pairsItems[i].code,
+                        start: $scope.pairsItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+
+            if ($scope.indicesItems.length >0) {
+                for (i=0;i<$scope.indicesItems.length;i++) {
+                    item = {
+                        duration: $scope.indicesItems[i].duration,
+                        code: $scope.indicesItems[i].code,
+                        start: $scope.indicesItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+
+            if ($scope.pairsIndicesItems.length >0) {
+                for (i=0;i<$scope.pairsIndicesItems.length;i++) {
+                    item = {
+                        duration: $scope.pairsIndicesItems[i].duration,
+                        code: $scope.pairsIndicesItems[i].code,
+                        start: $scope.pairsIndicesItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+
+            if ($scope.futuresItems.length >0) {
+                for (i=0;i<$scope.futuresItems.length;i++) {
+                    item = {
+                        duration: $scope.futuresItems[i].duration,
+                        code: $scope.futuresItems[i].code,
+                        start: $scope.futuresItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+            config.data.packs= dataCart;
+            $http.post($rootScope.urlService+"/pay-card",config).success( function(data) {
+                if (data.status === "OK") {
+                    $scope.status = "OK";
+                    $rootScope.$broadcast('removeItemsCart');
+                    $state.go('confirm-pay-card');
+                } else {
+                    $scope.status = "ERROR";
+                }
+            }).error(function(data) {
+                $scope.status = "ERROR";
+            });
+
+
+        };
 
     })
     .factory('PaymentService', function ($http,$rootScope,$window,ShoppingCartService ) {

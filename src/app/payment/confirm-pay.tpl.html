@@ -7,7 +7,7 @@
         </div>
         <div ng-show="status=='OK'">
             <div style="margin-bottom:20px;">Pago realizado con éxito</div>
-            <div class="link" ng-click="goToPatterns()">Ir a Mis Patrones</div>
+            <div class="link" ui-sref="my-patterns">Ir a Mis Patrones</div>
         </div>
         <div ng-show="status == 'ERROR'">
             Ha ocurrido un error en el pago, por favor contacte con nosotros.
