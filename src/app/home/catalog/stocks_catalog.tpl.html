@@ -31,7 +31,7 @@
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();"
             class="mo-button purchase-button">Al carro
     </button>
-    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMMM'}}. (CET)</span>
+    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (CET)</span>
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
@@ -77,7 +77,7 @@
             <th colspan="2">Rentabilidad (%)</th>
             <th>Duraci&oacute;n</th>
             <th><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
-            <th>Estado</th>
+            <th style="border-right: 1px solid #6f7072 !important;">Estado</th>
         </tr>
         <tr>
             <th>Nombre</th>
@@ -96,9 +96,12 @@
             </td>
             <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
             </td>
-            <td><span tooltip-html-unsafe="{{pattern.asset.sector}}" class="cursor-help">{{pattern.asset.sector}}</span> <span
+            <td>
+                <div class="sector-industry-breaker">
+                <span tooltip-html-unsafe="{{pattern.asset.sector}}" class="cursor-help">{{pattern.asset.sector}}</span> <span
                     ng-show="pattern.asset.sector != null && pattern.asset.industry != null && pattern.asset.sector != '' && pattern.asset.industry != ''">/</span>
-                <span tooltip-html-unsafe="{{pattern.asset.industry}}" class="cursor-help">{{pattern.asset.industry}}</span></td>
+                <span tooltip-html-unsafe="{{pattern.asset.industry}}" class="cursor-help">{{pattern.asset.industry}}</span>
+                </div></td>
             <td>{{pattern.win | twoDecimals}}</td>
             <td>{{pattern.loss | twoDecimals}}</td>
             <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
@@ -111,9 +114,9 @@
                <!-- <div tooltip="{{pattern.state}}" class="state-sphere"
                      ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"> </div>-->
 
-                    <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
-                    <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state" ng-show="pattern.statePattern == 'STARTED'"></div>
-                    <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state" ng-show="pattern.statePattern == 'FINISHED'"></div>
+                    <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
+                    <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state cursor-help" ng-show="pattern.statePattern == 'STARTED'"></div>
+                    <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state cursor-help" ng-show="pattern.statePattern == 'FINISHED'"></div>
 
             </td>
         </tr>
