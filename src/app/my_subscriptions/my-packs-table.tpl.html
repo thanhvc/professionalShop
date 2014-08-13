@@ -1,55 +1,49 @@
 <tabset>
     <tab ng-click="onclickTab(mysubscriptionsTablePack.value)" ng-repeat="myPacksTablePack in myPacksTablePacks" heading="{{myPacksTablePack.title}}"
          active="myPacksTablePack.active" disabled="tab.disabled">
-      <!--  <div ng-include="myPacksTablePack.url"></div>-->
     </tab>
+</tabset>
+<div>
+    <table style="margin-bottom:25px;">
+        <thead style="background-color: grey;">
+        <div class="header-black-div">r</div>
+        <tr class="table-header-bottom-patterns">
+            <th  class="pack-cell border-right-table">
+                Pack
+            </th>
+            <th class="pack-cell border-right-table" class="packs-header">
+                Inicio
+            </th>
+            <th class="pack-cell border-right-table" class="packs-header">Fin
+            </th>
+            <th class="pack-cell sub-border-right-table" class="packs-header" >
+                Orden
+            </th>
+        </tr>
 
-    <table>
-        <thead style="background-color: grey">
-
-            <tr class="table-header-bottom-patterns">
-                <th  class="pack-cell border-right-table">
-                Nombre
-                </th>
-                <th class="pack-cell border-right-table" style="background-color: #808080;width:146px;color:white">
-                    Inicio
-                </th>
-                <th class="pack-cell border-right-table"style="background-color: #808080;width:146px;color:white">Fin
-                </th>
-                <th class="pack-cell sub-border-right-table" style="background-color: #808080;width:146px;color:white">
-                    Orden
-                </th>
-            </tr>
-            <div style="background-color: black">row</div>
-            <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'">
-                <td class="pack-name-cell" width="30" >
-                    {{data.name}}
-                </td>
-                <td class="pack-name-cell" width="30" >
-                    {{data.start.substring(4,7)}} {{data.start.substring(24,29)}}
-                </td>
-                <td class="pack-name-cell" width="30" >
-
-                    {{data.end}}
-                </td>
-                <td class="pack-name-cell" width="30" >
-                    <select size="1">
-                        <option value="ELEGIR" selected="selected">Elegir</option>
-                        <option value="RENOVAR">Renovar</option>
-                        <option value="CANCELAR">Cancelar</option>
-                    </select>
-                </td>
-            </tr>
         </thead>
+        <tbody style="width: 775px">
+        <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" >
+            <td  style="width: 340px" class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" >
+                {{data.name}}
+            </td>
+            <td  style="width: 132px" class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" >
+                {{data.start}}
+            </td>
+            <td  style="width: 120px" class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" >
+
+                {{data.end}}
+            </td>
+            <td style="width: 120px" class="pack-name-cell rich-table-cell tableDiaryCols borderRight1 borderLeft1" >
+                <select size="1">
+                    <option value="ELEGIR" selected="selected">Elegir</option>
+                    <option value="RENOVAR">Renovar</option>
+                    <option value="CANCELAR">Cancelar</option>
+                </select>
+            </td>
+        </tr>
         <tbody>
 
         </tbody>
     </table>
-</tabset>
-<!--
-<tabset>
-    <tab ng-click="onclickTab(mysubscriptionsTablePack.value)" ng-repeat="myPacksTablePack in myPacksTablePacks" heading="{{myPacksTablePack.title}}"
-            active="myPacksTablePack.active" disabled="tab.disabled">
-        <div ng-include="myPacksTablePack.url"></div>
-    </tab>
-</tabset>-->
+</div>

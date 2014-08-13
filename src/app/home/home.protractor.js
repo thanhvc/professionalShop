@@ -1,4 +1,6 @@
 
+var url = 'http://mo.devel.edosoftfactory.com/';
+
  /** LoginPage.js */
  var LoginPage = function() {
 
@@ -11,9 +13,7 @@
 
      this.open = function () {
          // Goto the login page
-
-         browser.get('http://mo.devel.edosoftfactory.com');
-
+         browser.get(url);
          browser.ignoreSynchronization = true;
      };
 
@@ -42,9 +42,7 @@
 
          element(by.id('market-observatory-nav')).click();
          this.link = element(by.id('what-is-and-what-is-not-nav'));
-
          this.link.click();
-
 
      };
 
@@ -71,7 +69,6 @@
          this.link1 = element(by.id('services-nav')).click();
          this.link = element(by.id('summary-nav'));
          this.link.click();
-        // this.theElem= element(by.css('.submenu-content ng-scope'));
 
      };
      this.shouldShowTheProductsAndExchanges  = function () {

@@ -4,7 +4,7 @@
 
 /* The signup menu is correct*/
 
-
+var url = 'http://mo.devel.edosoftfactory.com/';
 var SigunMenu = function() {
 
     // All relevant elements
@@ -18,7 +18,7 @@ var SigunMenu = function() {
 
     this.open = function() {
         // Goto the login page
-        browser.get('http://mo.devel.edosoftfactory.com/#/sign-up');
+        browser.get(url + '#/sign-up');
     };
 
     this.checkIdenticalInputs = function(){
@@ -84,7 +84,7 @@ describe('signupMenu', function(){
 
     });
 
-    it(' should have Identical Inputs' , function(){
+    /*it(' should have Identical Inputs' , function(){
 
         sMenu.checkIdenticalInputs();
         expect(sMenu.input1.getAttribute('value')).toBe(sMenu.input2.getAttribute('value'));
@@ -112,7 +112,7 @@ describe('signupMenu', function(){
 
         sMenu.checkPack();
         expect(sMenu.patterns.count()).toBe(10);
-    });
+    });*/
 });
 
 
@@ -129,7 +129,7 @@ var SignupMenuStep2 = function() {
     this.errorI = element.all(by.css('text-warning-form'));
 
     this.open = function () {
-        browser.get('http://mo.devel.edosoftfactory.com/#/sign-up-step2');
+        browser.get(url + '#/sign-up-step2');
         browser.ignoreSynchronization = true;
     };
 
@@ -179,11 +179,9 @@ var SignupMenuStep2 = function() {
 describe('Signup step2 should work', function(){
 
     var sMenu2 = new SignupMenuStep2();
-    sMenu2.open();
+   // sMenu2.open();
 
-    it('should have a valid name',function(){
-
-
+    /*it('should have a valid name',function(){
 
         sMenu2.checkValidName();
         expect(sMenu2.errorI.first()).toBeDefined();
@@ -234,7 +232,7 @@ describe('Signup step2 should work', function(){
         sMenu2.freeSuscription();
         expect(element(by.css('signup-table'))).toBeDefined();
 
-    });
+    });*/
 
 
 });

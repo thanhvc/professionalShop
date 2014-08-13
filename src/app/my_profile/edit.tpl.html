@@ -1,125 +1,4 @@
 <div ng-controller="ProfileCtrl">
-<form name="profileForm">
-    <table class="profile-table">
-        <tbody>
-        <tr style="height: 45px;">
-            <td></td>
-            <td colspan="2"><span class="orange-title">Identificación Personal</span></td>
-        </tr>
-        <tr class="accountRowHeight">
-            <td class="red-color-form">*</td>
-            <td class="width-first-td"><span class="grey-label">Nombre</span></td>
-            <td><input type="text"
-                       ng-maxlength="80"
-                       ng-pattern="namePattern" ng-trim="false"
-                       name="name" ng-model="user.name" required="true"
-                       class="profile-input" alt="Nombre"
-                       ng-class="{'warning-input': (profileForm.name.$error.required)
-                                                  || ((profileForm.name.$error.pattern)
-                                                  || profileForm.name.$error.maxlength)}"
-                    >
-            </td>
-            <td>
-                <span ng-show="profileForm.name.$error.required"
-                      class="red-color-form prices-font11">Campo obligatorio</span>
-                <span ng-show="profileForm.name.$error.pattern" class="red-color-form prices-font11">El campo introducido contiene números o caracteres especiales</span>
-            </td>
-        </tr>
-        <tr class="accountRowHeight">
-            <td class="red-color-form">*</td>
-            <td class="width-first-td"><span class="grey-label">Apellido</span></td>
-            <td><input id="lastname1" type="text" name="surname" required="true"
-                       ng-maxlength="80"
-                       ng-pattern="namePattern" ng-trim="false"
-                       ng-model="user.surname" class="profile-input"
-                       ng-class="{'warning-input': (profileForm.surname.$error.required)
-                                                  || ((profileForm.surname.$error.pattern)
-                                                  || profileForm.surname.$error.maxlength)}"
-                       alt="Apellido"></td>
-            <td>
-                <span ng-show="profileForm.surname.$error.required" class="red-color-form prices-font11">Campo obligatorio</span>
-                <span ng-show="profileForm.surname.$error.pattern" class="red-color-form prices-font11">El campo introducido contiene números o caracteres especiales</span>
-            </td>
-        </tr>
-        <tr class="accountRowHeight">
-            <td class="red-color-form"></td>
-            <td class="width-first-td"><span class="grey-label">Dirección</span></td>
-            <td><input type="text" name="address"
-                       ng-model="user.address" class="profile-input"
-                       ng-class="{'warning-input':  (profileForm.address.$error.maxlength)}"
-                       alt="Direccion" ng-maxlength="200"></td>
-            <td>
-            </td>
-        </tr>
-        <tr class="accountRowHeight">
-            <td class="red-color-form"></td>
-            <td class="width-first-td"><span class="grey-label">Ciudad</span></td>
-            <td><input type="text" name="city"
-                       ng-model="user.city" class="profile-input"
-                       ng-class="{'warning-input': (profileForm.city.$error.maxlength)}"
-                       alt="Ciudad"></td>
-            <td>
-
-            </td>
-        </tr>
-        <tr class="accountRowHeight">
-            <td class="red-color-form"></td>
-            <td class="width-first-td"><span class="grey-label">Código Postal</span></td>
-            <td><input type="text" name="zipCode"
-                       ng-pattern="zipPattern"
-                       ng-class="{'warning-input': ((profileForm.zipCode.$error.pattern)
-                                                  || profileForm.zipCode.$error.maxlength)}"
-                       ng-model="user.postalCode" class="profile-input"
-                       alt="Codigo Postal"></td>
-            <td>
-
-                <span ng-show="profileForm.zipCode.$error.pattern" class="red-color-form prices-font11">El campo introducido contiene caracteres especiales</span>
-            </td>
-        </tr>
-        <tr class="accountRowHeight">
-            <td class="red-color-form">*</td>
-            <td class="width-first-td"><span class="grey-label">País</span></td>
-            <td>
-
-                <select class="signup-select"  name="country"   required="true"  ng-class="{'warning-input': (profileForm.country.$error.required)}"
-                        ng-model="user.country">
-                    <option value="">Selecciona País</option>
-                    <option ng-repeat="item in countries" value="{{item.value}}"
-                            ng-selected="{{item.value == user.country}}">
-                        {{item.name}}
-                    </option>
-                </select>
-
-
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style="padding-top: 13px;"><input class="mo-button"
-                                                              name="confirmEdit"
-                                                              ng-click="saveUser()"
-                                                              value="Cambiar" type="button"></td>
-            <td>
-                <div><span ng-show="profileForm.$error.required || (profileForm.$error.pattern)"
-                           class="red-color-form prices-font11">Hay campos erróneos</span></div>
-                <div><span ng-show="internalError" class="red-color-form prices-font11">Se ha producido un error interno, inténtelo luego</span>
-                </div>
-                <div><span ng-show="userSaved" class="prices-font11">Se ha modificado correctamente</span>
-
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3" class="red-color-form prices-font10"
-                style="text-align: left !important; padding-top: 13px;">*
-                Campos
-                obligatorios
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</form>
-
-
 <form name="passwordForm">
     <table class="profile-table" style="height: 145px; margin-top:20px;">
         <tr>
@@ -127,6 +6,23 @@
                 <div class="orange-title">
                     Cambiar Password
                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="red-color-form">*</td>
+            <td>
+                Email actual
+            </td>
+            <td>
+                <input type="text" class="signup-input"  style="width:200px;text-indent: 5px"
+                       ng-maxlength="80"
+                       ng-trim="false"
+                       name="email" disabled ng-model="user.emailAddress" required="true"
+                        alt="Email"
+                       ng-class="{'warning-input': (profileForm.name.$error.required)
+                                                  || ((profileForm.name.$error.pattern)
+                                                  || profileForm.name.$error.maxlength)}"
+                        >
             </td>
         </tr>
         <tr>
@@ -197,9 +93,9 @@
             <td colspan="2" style="padding-top:10px;">
                 <button class="mo-button"
                         name="confirmPassword"
-                        ng-click="savePassword()"
+                        ng-click="savePassword()">
 
-                        ng-disabled="passwordForm.$invalid">
+                    <!--    ng-disabled="passwordForm.$invalid">-->
                     Cambiar Password
                 </button>
 

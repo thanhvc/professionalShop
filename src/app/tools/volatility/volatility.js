@@ -80,31 +80,36 @@ angular.module('ngMo.volatility', [
         $scope.loadGraphic = function (name) {
 
             var elemDiv = document.createElement('div');
-            elemDiv.innerHTML = name.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
+            var h = name.srcElement.parentElement.parentElement.parentElement.offsetHeight+ 90;
+            var w = name.srcElement.parentElement.parentElement.parentElement.offsetWidth + 2;
+            var elemTitle = document.createElement('span');
+            elemTitle.innerHTML = name.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
             var img = document.createElement('img');
             img.src = "assets/img/graphic.png";
-            img.style.cssText = "display:block;padding-top:30px;height:100;width:750;style:margin-right:20px;class:historyImagePar";
-            elemDiv.style.cssText = 'position:absolute;padding-top:30px;text-align:center;color:#996600;position:absolute;width:68%;top:238px;left:45%;z-index:100;background:white; height:600px';
+            img.className ="graphic-image-div";
+            elemDiv.className = 'graphic-div';
+            elemDiv.style.cssText += 'height:' + h + 'px;';
+            elemDiv.style.cssText += 'width:' + w + 'px;';
 
 
             var closeButton = document.createElement('img');
             closeButton.src = "assets/img/close_modal.png";
-            closeButton.style.cssText = 'position:relative;top:0px;left:300px;height:15px;width:15px';
+            closeButton.className = 'close-graphic-button';
             closeButton.onclick = function (event) {
 
                 setTimeout(function(){
-                    event.srcElement.parentElement.className ='move-to-the-right';
+                    //event.srcElement.parentElement.className ='graphic-div';
+                    event.srcElement.parentElement.className='graphic-div move-to-the-right';
                     event.srcElement.parentElement.addEventListener('webkitTransitionEnd', function(event2) {
                         event.srcElement.parentElement.style.cssText = 'display:none';
 
                     });
                 },0);
-
-
             };
+            elemDiv.appendChild(elemTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
-            document.body.appendChild(elemDiv);
+            name.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
 
             setTimeout(function(){
                 elemDiv.className+=' move';
@@ -423,6 +428,15 @@ angular.module('ngMo.volatility', [
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
+
+            var month = date[0];
+            var year = date[1];
+            var currentMonth = new Date().getMonth() + 1;
+            var currentYear = new Date().getFullYear();
+
+            if (month > currentMonth){ date[0] = currentMonth.toString();}
+            if (year > currentYear){ date[1] = currentYear.toString();}
+
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
             $scope.restartFilter();
@@ -561,6 +575,14 @@ angular.module('ngMo.volatility', [
             //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
+                var month = date[0];
+                var year = date[1];
+                //Check if month and year are not greater than the actual ones
+                var currentMonth = new Date().getMonth() + 1;
+                var currentYear = new Date().getFullYear();
+
+                if (month > currentMonth){ date[0] = currentMonth.toString();}
+                if (year > currentYear){ date[1] = currentYear.toString();}
                 var d = new Date(date[1], date[0] - 1, 1);
                 filters.month = MonthSelectorService.setDate(d);
 
@@ -789,114 +811,5 @@ angular.module('ngMo.volatility', [
             callback(data);
 
         };
-    })/*
-    .factory('MonthSelectorService', function () {
-        var actualDate = {};
-
-        return {
-
-            getMonthName: function (date) {
-
-                var monthString = "";
-                switch (date.month) {
-                    case 1:
-                        monthString = "Enero";
-                        break;
-                    case 2:
-                        monthString = "Febrero";
-                        break;
-                    case 3:
-                        monthString = "Marzo";
-                        break;
-                    case 4:
-                        monthString = "Abril";
-                        break;
-                    case 5:
-                        monthString = "Mayo";
-                        break;
-                    case 6:
-                        monthString = "Junio";
-                        break;
-                    case 7:
-                        monthString = "Julio";
-                        break;
-                    case 8:
-                        monthString = "Agosto";
-                        break;
-                    case 9:
-                        monthString = "Septiembre";
-                        break;
-                    case 10:
-                        monthString = "Octubre";
-                        break;
-                    case 11:
-                        monthString = "Noviembre";
-                        break;
-                    case 12:
-                        monthString = "Diciembre";
-                        break;
-                    default :
-                        monthString = "notFound";
-                        break;
-
-                }
-                return monthString;
-            },
-            restartDate: function () {
-                var today = new Date();
-                var mm = today.getMonth() + 1; //January is 0!
-                var yyyy = today.getFullYear();
-                actualDate = {
-                    month: mm,
-                    year: yyyy,
-                    monthString: "",
-                    value: mm + "_" + yyyy
-                };
-                actualDate.monthString = this.getMonthName(actualDate);
-                return actualDate;
-            },
-            setDate: function (date) {
-                var mm = date.getMonth() + 1; //January is 0!
-                var yyyy = date.getFullYear();
-                actualDate = {
-                    month: mm,
-                    year: yyyy,
-                    monthString: "",
-                    value: mm + "_" + yyyy
-                };
-                actualDate.monthString = this.getMonthName(actualDate);
-                return actualDate;
-            },
-            addMonths: function (months, date) { //add Months accepts months in positive (to add) or negative (to substract)
-                var d = new Date(date.year, date.month - 1, 1);
-                d.setMonth(d.getMonth() + months);
-                actualDate = {
-                    month: d.getMonth() + 1,
-                    year: d.getFullYear(),
-                    monthString: "",
-                    value: (d.getMonth() + 1) + "_" + d.getFullYear()
-                };
-                actualDate.monthString = this.getMonthName(actualDate);
-                return actualDate;
-            },
-            getListMonths: function () {
-                var today = new Date();
-                var monthList = [];
-                //the list is 10 last months + actual month + next month
-                var d = new Date(today.getFullYear(), today.getMonth() - 10, 1);
-                for (i = 0; i < 12; i++) {
-                    var d_act = (this.setDate(d));
-                    monthList.push({
-                        id: i,
-                        value: d_act.value,
-                        name: d_act.monthString + " " + d_act.year
-                    });
-
-                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
-                }
-                return monthList;
-
-            }
-        };
-
-    })*/;
+    })
+    ;

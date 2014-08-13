@@ -12,20 +12,19 @@
         <p><a ng-click="openModalInstance('services/detailed_description/volatility')">Más información.</a></p>
             <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
     </div>
-
-    <!--<div class="volatility-content">
+    <div class="volatility-content">
         <tabset>
             <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
                  active="ctab.active" disabled="tab.disabled">
                 <div class="filter-container" style="width:775px; height:40px">
+                    <!--filters-->
                     <div ng-include="getTemplateFilter()"></div>
                 </div>
                 <table>
                 <div>
-                    <div ng-include="getTemplateTable()" style="width:775px;height:375px"></div>
+                    <div ng-include="getTemplateTable()" style="width:775px"></div>
                 </div>
                 </table>
-                <span class="copyRight" class="diaryTablaMailText diaryTableCopyText">Copyright © 2014 Market Observatory</span>
             </tab>
         </tabset>
     </div>
@@ -39,7 +38,7 @@
                     page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
                     next-text="&gt;"
                     first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
-    </div> -->
+    </div>
 
 
 
