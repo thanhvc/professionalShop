@@ -243,6 +243,7 @@ angular.module('ngMo.payment', [  'ui.router'])
 
     })
     .controller('CreditPayCtrl',function($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService, ProfileService,SignUpService){
+        $scope.formSubmited = false;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -445,6 +446,10 @@ angular.module('ngMo.payment', [  'ui.router'])
         //do the payment with the card, recopile the info and send to server
         $scope.payWithCard = function () {
             $scope.status="NONE";
+            $scope.formSubmited = true;
+            if (!$scope.payForm.$valid) {
+                return;
+            }
             dataCart= [];
             token = $window.sessionStorage.token;
             config = {
