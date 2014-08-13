@@ -17,7 +17,7 @@
     <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy'}}</div>
     <div class="region-catalog-container">{{selectedPack.region.name | uppercase}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
-    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMMM'}}. (CET)</span>
+    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (CET)</span>
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
@@ -57,40 +57,37 @@
     </div>
     <table class="patterns-table-index-catalog">
         <tr>
-            <th>Patr&oacute;n Acciones</th>
-            <th>Mercado</th>
+            <th>Patr&oacute;n Índices</th>
             <th colspan="2">N&uacute;mero de A&ntilde;os</th>
             <th colspan="2">Rentabilidad (%)</th>
             <th>Duraci&oacute;n</th>
             <th><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
-            <th>Estado</th>
+            <th style="border-right: 1px solid #6f7072 !important;">Estado</th>
         </tr>
         <tr>
-            <th>Nombre</th>
-            <th>C&oacute;digo</th>
-            <th >Ganancia</th>
-            <th>Pérdida</th>
+            <th>Nombre Índice</th>
+            <th style="border-right: 1px solid #6f7072 !important;">Ganancias</th>
+            <th>Pérdidas</th>
             <th>Acumulada</th>
             <th>Promedio</th>
             <th>Meses</th>
             <th>(%)</th>
-            <th></th>
+            <th style="border-right: 1px solid #6f7072 !important;"></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
             <td style="width: 446px;"><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 33}}</span></td>
-            <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
             <td >{{pattern.win | twoDecimals}}</td>
             <td>{{pattern.loss | twoDecimals}}</td>
             <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
             <td>{{pattern.averageReturn | twoDecimals}}</td>
-            <td><span ng-show="(pattern.duration <31)">Hasta 1</span>
+            <td style="font-family: 'fontpo'"><span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
             <td>{{pattern.asset.volatility | twoDecimals}}</td>
-            <td><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
-                <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
-                <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state" ng-show="pattern.statePattern == 'STARTED'"></div>
-                <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state" ng-show="pattern.statePattern == 'FINISHED'"></div>
+            <td style="border-right: 1px solid #6f7072 !important;"><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
+                <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
+                <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state cursor-help" ng-show="pattern.statePattern == 'STARTED'"></div>
+                <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state cursor-help" ng-show="pattern.statePattern == 'FINISHED'"></div>
             </td>
         </tr>
     </table>
