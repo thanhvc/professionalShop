@@ -1,13 +1,12 @@
 /**
  * Created by laia on 25/06/14.
  */
-
+var url = 'http://mo.devel.edosoftfactory.com/';
 var App = function(){
 
     this.open = function(){
 
-        browser.get('http://mo.devel.edosoftfactory.com/#/volatility');
-
+        browser.get(url + '#/volatility');
         browser.ignoreSynchronization = true;
     };
 

@@ -2,6 +2,7 @@
  * Created by laia on 4/06/14.
  */
 
+var url = 'http://mo.devel.edosoftfactory.com/';
 var Cart = function() {
 
     // All relevant elements
@@ -11,17 +12,14 @@ var Cart = function() {
     this.input3 = this.items.get(2);
     this.input4 = this.items.last();
     this.error = element.all(by.css('.red-color-form')).get(2);
-
     this.subtotal = element(by.binding('totalCart'));
     this.total = element(by.binding('subtotalFutures'));
-
-
     this.subtotal2 = 0;
     this.total2 = 0;
 
     this.open = function () {
 
-        browser.get('http://mo.devel.edosoftfactory.com/#/catalog/1');
+        browser.get(url + '#/catalog/1');
         browser.ignoreSynchronization = true;
     };
 
@@ -44,7 +42,7 @@ var Cart = function() {
         element.all(by.css('ng-binding')).get(0);
         element(by.id("purchase-button")).click();
 
-          browser.get('http://api.mo.devel.edosoftfactory.com/#/catalog/1');
+          browser.get(url + #/catalog/1');
     };
 
     this.correctSum = function(){
