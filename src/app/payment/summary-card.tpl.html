@@ -56,8 +56,10 @@
         <td style="width: 300px;vertical-align: middle;">Apellido (tal como aparece en la tarjeta)</td>
     </tr>
     <tr>
-        <td><input id="name" type="text" name="name" ng-model="user.name" style="width:250px !important"></td>
-        <td><input id="lastName" type="text" name="lastName" ng-model="user.surname" style="width:250px !important">
+        <td><input ng-class=" {'warning-input': (payForm.name.$error.required && formSubmited)}"
+                id="name" required="true" type="text" name="name" ng-model="user.name" style="width:250px !important"></td>
+        <td><input ng-class=" {'warning-input': (payForm.lastName.$error.required && formSubmited)}"
+                id="lastName" required="true" type="text" name="lastName" ng-model="user.surname" style="width:250px !important">
         </td>
     </tr>
 
@@ -74,7 +76,8 @@
 
         </select>
         </td>
-        <td><input id="acct" type="text" name="acct" ng-model="number" style="width:250px !important"></td>
+        <td><input id="acct" ng-class=" {'warning-input': (payForm.acct.$error.required && formSubmited)}"
+                   required="true" type="text" name="acct" ng-model="number" style="width:250px !important"></td>
     </tr>
 
 
@@ -95,7 +98,8 @@
 
         </select>
         </td>
-        <td><input id="cvv" type="text" name="cvv" ng-model="cvv"
+        <td><input ng-class=" {'warning-input': (payForm.cvv.$error.required && formSubmited)}"
+                required="true" id="cvv" type="text" name="cvv" ng-model="cvv"
                    style="width:100px;position: relative; margin-right: 20px !important;"><img
                 src="assets/img/cc_code_icon.jpg">
         </td>
@@ -139,7 +143,7 @@
     </tr>
     <tr id="countryRow2" >
         <td>
-            <select ng-show="editData" class="signup-select" name="country" required="true" ng-class="{'warning-input': (profileForm.country.$error.required)}"
+            <select ng-show="editData" class="signup-select" name="country" ng-class="{'warning-input': (profileForm.country.$error.required)}"
                     ng-model="user.country">
                 <option value="">Selecciona País</option>
                 <option ng-repeat="item in countries" value="{{item.value}}"
@@ -177,9 +181,17 @@
 
     </tbody>
     </table>
-    <div id="error" style="color: red; display: none;">
+        <div id="error" style="color: red; " ng-show="payForm.$error.required && formSubmited">
+            <img src="assets/img/warning-icon.png" height="15"
+            style="margin-right: 8px;">
+        <span >Faltan campos requeridos</span>
+        </div>
+
+    <div id="errorPaypal" style="color: red; " ng-show="formSubmited && (status == 'ERROR')">
         <img src="assets/img/warning-icon.png" height="15"
-        style="margin-right: 8px;"></div>
+             style="margin-right: 8px;">
+        <span >Ha ocurrido un error en el pago, por favor compruebe sus datos. Si el problema persiste contacte con nosotros</span>
+    </div>
     </div>
 </div>
 </form>

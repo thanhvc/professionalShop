@@ -948,7 +948,7 @@ angular.module('ngMo', [
                         "code": newItem.code,
                         "packName": newItem.name,
                         "startDate": $filter('date')(startDate, 'MMMM yyyy'),
-                        "duration": "Mensual",
+                        "duration": "Anual",
                         "price": $scope.prices[0],
                         "date": $filter('date')(startDate, 'dd/MM/yyyy'),
                         "patternType": newItem.patternType,
