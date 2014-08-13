@@ -45,7 +45,7 @@
             <span class="cursor-help" tooltip-html-unsafe="Estado">Est.</span>
         </th>
     </tr>
-    <tr ng-show="dataLoaded" class="table-header-bottom-patterns">
+    <tr class="table-header-bottom-patterns">
         <th class="border-right-table">
             Nombre
         </th>
@@ -85,7 +85,7 @@
         <th class="border-right-table"></th>
         <th class="sub-border-right-table"></th>
     </tr>
-    <tr  ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="detail({patternId:data.id})">
+    <tr ng-show="dataLoaded"  ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="detail({patternId:data.id})">
         <td width="30" class="table-id-orange" >
             {{data.id}}
         </td>
