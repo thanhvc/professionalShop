@@ -48,7 +48,7 @@
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
-            <input placeholder="Nombre" ng-model="filterOptions.filters.filterName" ng-change="search();">
+            <input placeholder="Nombre" style="font-size: 11px" ng-model="filterOptions.filters.filterName" ng-change="search();">
             <select ng-model="filterOptions.filters.selectedIndustry" ng-change="selectIndustry();">
                 <option value="">- Elegir Grupo -</option>
                 <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
@@ -76,17 +76,17 @@
     </div>
     <table class="patterns-table-catalog">
         <tr>
-            <th>Patr&oacute;n Acciones</th>
+            <th style="width:170px">Patr&oacute;n Futuros</th>
             <th style="width: 120px;">Fecha Vencimiento</th>
             <th style="width: 85px;">Mercado</th>
-            <th colspan="2">N&uacute;mero de A&ntilde;os</th>
-            <th colspan="2">Rentabilidad (%)</th>
-            <th>Duraci&oacute;n</th>
-            <th><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
-            <th>Estado</th>
+            <th style="width: 161px" colspan="2">N&uacute;mero de A&ntilde;os</th>
+            <th style="width:189px" colspan="2">Rentabilidad (%)</th>
+            <th style="width:91px" >Duraci&oacute;n</th>
+            <th style="width:69px" ><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
+            <th style="width:74px" >Estado</th>
         </tr>
         <tr>
-            <th>Nombre</th>
+            <th>Nombre Producto</th>
             <th></th>
             <th style="width: 85px;">C&oacute;digo</th>
             <th>Ganancia</th>
