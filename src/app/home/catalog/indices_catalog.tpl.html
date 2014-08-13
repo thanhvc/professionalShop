@@ -21,7 +21,7 @@
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
-            <input placeholder="Nombre" ng-model="filterOptions.filters.filterName" ng-change="search();">
+            <input class="stocks-catalog-input" placeholder="Nombre" style="font-size: 11px" ng-model="filterOptions.filters.filterName" ng-change="search();">
             <!--
             <select ng-model="filterOptions.filters.selectedSector" ng-change="selectSector()" >
                 <option value="">- Elegir Sector -</option>
@@ -57,9 +57,8 @@
     </div>
     <table class="patterns-table-index-catalog">
         <tr>
-            <th>Patr&oacute;n Acciones</th>
-            <th>Mercado</th>
-            <th colspan="2">N&uacute;mero de A&ntilde;os</th>
+            <th>Patr&oacute;n Índices</th>
+            <th class="index-lost-catalog"colspan="2">N&uacute;mero de A&ntilde;os</th>
             <th colspan="2">Rentabilidad (%)</th>
             <th>Duraci&oacute;n</th>
             <th><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
@@ -67,10 +66,9 @@
         </tr>
         <tr>
             <th>Nombre</th>
-            <th>C&oacute;digo</th>
-            <th >Ganancia</th>
-            <th>Pérdida</th>
-            <th>Acumulada</th>
+            <th>Ganancia</th>
+            <th class="index-lost-catalog" >Pérdida</th>
+            <th style="width:74px">Acumulada</th>
             <th>Promedio</th>
             <th>Meses</th>
             <th>(%)</th>
@@ -78,10 +76,10 @@
         </tr>
         <tr ng-repeat="pattern in patterns">
             <td style="width: 446px;"><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 33}}</span></td>
-            <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
+
             <td >{{pattern.win | twoDecimals}}</td>
-            <td>{{pattern.loss | twoDecimals}}</td>
-            <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td class="index-lost-catalog">{{pattern.loss | twoDecimals}}</td>
+            <td style="width:74px !important">{{pattern.accumulatedReturn | twoDecimals}}</td>
             <td>{{pattern.averageReturn | twoDecimals}}</td>
             <td><span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
