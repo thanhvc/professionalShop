@@ -152,11 +152,11 @@ angular.module('ngMo', [
             //xx.xxxx -> xx.xx
             //xx.x -> xx.x
             //xx -> xx
-            str="";
+            roundedValue = 0.0;
             if (n != null && !isNaN(n)) {
-                str = n.toString().substr(0,n.toString().indexOf(".")+3);
+                roundedValue = Math.round(n * 100) / 100;
             }
-            return str;
+            return roundedValue.toString();
         };
     })
     .service('ShoppingCartService', function (ActiveTabService,$q,$http,$rootScope,$window){
@@ -200,7 +200,7 @@ angular.module('ngMo', [
 
 
         this.getPrices = function () {
-            var deferred = $q.defer();
+            var deferred =$q.defer();
             var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
                 deferred.resolve(data.data.prices);
                 console.log("loading");
