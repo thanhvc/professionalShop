@@ -17,7 +17,7 @@ angular.module('ngMo.my_profile', [
                     templateUrl: 'my_profile/profile.tpl.html'
                 },
                 'sub-profile@profile': {
-                    templateUrl: 'my_profile/edit.tpl.html'
+                    templateUrl: 'my_profile/identification.tpl.html'
                 }
 
             },

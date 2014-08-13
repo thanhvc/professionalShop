@@ -203,6 +203,8 @@ angular.module('ngMo.my_patterns', [
         };
     })
     .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService) {
+        $scope.dataLoaded = false;
+
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -365,8 +367,9 @@ angular.module('ngMo.my_patterns', [
                     return templateTables[TabsService.getActiveTab()].filter;
             }
         };
-        /*changeTab, launches the http get*/
+        /*ab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            $scope.dataLoaded = false; //Not showming data until they have been loaded
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
@@ -385,6 +388,7 @@ angular.module('ngMo.my_patterns', [
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
+                    $scope.dataLoaded = true;
             });
 
 
@@ -547,6 +551,14 @@ angular.module('ngMo.my_patterns', [
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
+            var month = date[0];
+            var year = date[1];
+            var currentMonth = new Date().getMonth() + 1;
+            var currentYear = new Date().getFullYear();
+
+            if (month > currentMonth){ date[0] = currentMonth.toString();}
+            if (year > currentYear){ date[1] = currentYear.toString();}
+
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -692,6 +704,14 @@ angular.module('ngMo.my_patterns', [
             //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
+                var month = date[0];
+                var year = date[1];
+                //Check if month and year are not greater than the actual ones
+                var currentMonth = new Date().getMonth() + 1;
+                var currentYear = new Date().getFullYear();
+
+                if (month > currentMonth){ date[0] = currentMonth.toString();}
+                if (year > currentYear){ date[1] = currentYear.toString();}
                 var d = new Date(date[1], date[0] - 1, 1);
                 filters.month = MonthSelectorService.setDate(d);
 

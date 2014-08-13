@@ -91,9 +91,8 @@
             <td>
                 <select class="signup-select" name="country" size="1"
                         ng-model="user.country"
-
                         ng-options="opt as opt.name for opt in countries"
-                        required="true"
+                        required="false"
                         ng-class="{'warning-input': (profileForm.country.$error.required)}">
                     <option style="display:none" value="">select a type</option>
 

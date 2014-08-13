@@ -2,12 +2,12 @@
 /**
  * Created by laia on 25/06/14.
  */
-
+var url = 'http://mo.devel.edosoftfactory.com/';
 var Packs = function(){
 
     this.open = function(){
 
-        browser.get('http://mo.devel.edosoftfactory.com');
+        browser.get(url);
         browser.ignoreSynchronization = true;
     };
 
@@ -15,9 +15,7 @@ var Packs = function(){
         element(by.css(".no-logged-box")).click();
         element(by.css(".float-right")).sendKeys('userEmail@gmail.com');
         element.all(by.css(".float-right")).get(1).sendKeys('userpass');
-
-
-        browser.get('http://api.devel.edosoftfactory.com/#/my-subscriptions/my-packs');
+        browser.get(url + '#/my-subscriptions/my-packs');
     };
 
     this.checkNumberOfLines = function(){
@@ -26,11 +24,9 @@ var Packs = function(){
     };
 
     this.checkDataLoaded = function(){
-        browser.get('http://api.devel.edosoftfactory.com/#/my-subscriptions/my-packs');
-
+        browser.get(url + '#/my-subscriptions/my-packs');
         this.rows = element.all(by.css('.ng-binding'));
     };
-
 };
 
 describe('My packs page ', function() {

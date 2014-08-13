@@ -1,7 +1,7 @@
 /**
  * Created by laia on 5/06/14.
  */
-
+var url = 'http://mo.devel.edosoftfactory.com/';
 var Menu = function() {
 
     // All relevant elements
@@ -12,7 +12,7 @@ var Menu = function() {
 
     this.open = function () {
 
-       browser.get('http://mo.devel.edosoftfactory.com');
+       browser.get(url);
        browser.ignoreSynchronization = true;
     };
 
