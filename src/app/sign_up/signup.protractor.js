@@ -4,7 +4,7 @@
 
 /* The signup menu is correct*/
 
-
+var url = 'http://mo.devel.edosoftfactory.com/';
 var SigunMenu = function() {
 
     // All relevant elements
@@ -18,7 +18,7 @@ var SigunMenu = function() {
 
     this.open = function() {
         // Goto the login page
-        browser.get('http://mo.devel.edosoftfactory.com/#/sign-up');
+        browser.get(url + '#/sign-up');
     };
 
     this.checkIdenticalInputs = function(){
@@ -129,7 +129,7 @@ var SignupMenuStep2 = function() {
     this.errorI = element.all(by.css('text-warning-form'));
 
     this.open = function () {
-        browser.get('http://mo.devel.edosoftfactory.com/#/sign-up-step2');
+        browser.get(url + '#/sign-up-step2');
         browser.ignoreSynchronization = true;
     };
 
