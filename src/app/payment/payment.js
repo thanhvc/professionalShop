@@ -224,6 +224,12 @@ angular.module('ngMo.payment', [  'ui.router'])
             return PaymentService.getDurationFromId(id);
         };
 
+
+        //cancel the pay and cart
+        $scope.cancelPay = function()  {
+            $rootScope.$broadcast('removeItemsCart');
+            $state.go('home');
+        };
         //start the payment
         $scope.doPayment = function() {
             //the terms and conditions must be accepted by user
