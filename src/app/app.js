@@ -146,7 +146,7 @@ angular.module('ngMo', [
             }
         };
     })
-    .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
+    .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS (ONLY WITH DOTS)
         return function(n){
             //return a string with 2 decimal if exists..
             //xx.xxxx -> xx.xx
@@ -154,7 +154,28 @@ angular.module('ngMo', [
             //xx -> xx
             str="";
             if (n != null && !isNaN(n)) {
-                str = n.toString().substr(0,n.toString().indexOf(".")+3);
+                if (n.toString().indexOf(".") != -1) {
+                    str = n.toString().substr(0, n.toString().indexOf(".") + 3);
+                } else {
+                    str = n.toString();
+                }
+            }
+            return str;
+        };
+    })
+    .filter('price', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS (THE PRICES IS WITH COMMADS)
+        return function(n){
+            //return a string with 2 decimal if exists..
+            //xx.xxxx -> xx.xx
+            //xx.x -> xx.x
+            //xx -> xx
+            str="";
+            if (n != null && !isNaN(n)) {
+                if (n.toString().indexOf(",") != -1) {
+                    str = n.toString().substr(0, n.toString().indexOf(".") + 3);
+                } else {
+                    str = n.toString();
+                }
             }
             return str;
         };

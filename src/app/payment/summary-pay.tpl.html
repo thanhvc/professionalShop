@@ -46,7 +46,7 @@
                 {{translateDuration(data.duration)}}
             </td>
             <td>
-                {{data.price | twoDecimals | number:2}}
+                {{data.price | price | number:2}}
             </td>
 
         </tr>
@@ -63,7 +63,7 @@
                 Subtotal:
             </div>
             <div class="summary-subtotal-format summary-subtotal-ammount">
-                {{totalStocks | twoDecimals | number:2}} EUR
+                {{totalStocks | price | number:2}} EUR
             </div>
             <div class="summary-subtotal summary-subtotal-format">
                 Impuestos (0.0 %):
@@ -119,7 +119,7 @@
                 {{translateDuration(data.duration)}}
             </td>
             <td>
-                {{data.price | twoDecimals | number:2}}
+                {{data.price | price | number:2}}
             </td>
 
         </tr>
@@ -136,7 +136,7 @@
                 Subtotal:
             </div>
             <div class="summary-subtotal-format summary-subtotal-ammount">
-                {{totalPairs | twoDecimals | number:2}} EUR
+                {{totalPairs | price | number:2}} EUR
             </div>
             <div class="summary-subtotal summary-subtotal-format">
                 Impuestos (0.0 %):
@@ -192,7 +192,7 @@
                 {{translateDuration(data.duration)}}
             </td>
             <td>
-                {{data.price | twoDecimals | number:2}}
+                {{data.price | price | number:2}}
             </td>
 
         </tr>
@@ -209,7 +209,7 @@
                 Subtotal:
             </div>
             <div class="summary-subtotal-format summary-subtotal-ammount">
-                {{totalIndex | twoDecimals | number:2}} EUR
+                {{totalIndex | price | number:2}} EUR
             </div>
             <div class="summary-subtotal summary-subtotal-format">
                 Impuestos (0.0 %):
@@ -265,7 +265,7 @@
                 {{translateDuration(data.duration)}}
             </td>
             <td>
-                {{data.price | twoDecimals | number:2}}
+                {{data.price | price | number:2}}
             </td>
 
         </tr>
@@ -282,7 +282,7 @@
                 Subtotal:
             </div>
             <div class="summary-subtotal-format summary-subtotal-ammount">
-                {{totalPairsIndex | twoDecimals | number:2}} EUR
+                {{totalPairsIndex | price | number:2}} EUR
             </div>
             <div class="summary-subtotal summary-subtotal-format">
                 Impuestos (0.0 %):
@@ -338,7 +338,7 @@
                 {{translateDuration(data.duration)}}
             </td>
             <td>
-                {{data.price | twoDecimals | number:2}}
+                {{data.price | price | number:2}}
             </td>
 
         </tr>
@@ -355,7 +355,7 @@
                 Subtotal:
             </div>
             <div class="summary-subtotal-format summary-subtotal-ammount">
-                {{totalFutures | twoDecimals | number:2}} EUR
+                {{totalFutures | price | number:2}} EUR
             </div>
             <div class="summary-subtotal summary-subtotal-format">
                 Impuestos (0.0 %):
@@ -379,7 +379,7 @@
             Total:
         </div>
         <div class="summary-subtotal-format summary-subtotal-ammount">
-            {{total | twoDecimals | number:2}} EUR
+            {{total | price | number:2}} EUR
         </div>
     </div>
 </div>
@@ -392,14 +392,11 @@
         <div class="summary-payment-button-container">
             <input class="mo-button" name="pay-button" ng-click="doPayment()" value="Pagar"
                    type="button">
-            <input class="mo-button" name="cancel-pay"
-                   onclick="A4J.AJAX.Submit('pagoForm',event,{'similarityGroupingId':'pagoForm:j_id402','parameters':{'pagoForm:j_id402':'pagoForm:j_id402'} ,'actionUrl':'/cartShop'} );return false;"
+            <input class="mo-button" name="cancel-pay" ng-click="cancelPay()"
                    value="Cancelar Compra" style="margin-left: 10px !important;" type="button">
         </div>
     </form>
-    <form id="selectPagoForm" name="selectPagoForm" method="post"
-          action="javascript:A4J.AJAX.SubmitForm('selectPagoForm',{'similarityGroupingId':'selectPagoForm','parameters':{'selectPagoForm':'selectPagoForm','ajaxSingle':'selectPagoForm'} ,'actionUrl':'/cartShop'} )"
-          target="">
+    <form id="selectPagoForm" name="selectPagoForm" method="post">
         <div id="selectPagoForm:idTablas" style="height: 50px; width: 400px;">
 
             <table style="height: 50px; font-size: 11px; font-family: 'fontpo'; float: right;">
