@@ -289,7 +289,7 @@ describe('The cart directive', function () {
 });
 
 /* Count how many items the private menu has*/
-/*
+
 describe('The privateMenu directive', function () {
 
     beforeEach(angular.mock.module("ngMo"));
@@ -319,9 +319,9 @@ describe('The privateMenu directive', function () {
     });
 });
 
-*/
+
 /* Check if login  - logout panel fades in*/
-/*
+
 describe('The signin-signup-box ng-scope div', function () {
 
 
@@ -357,10 +357,10 @@ describe('The signin-signup-box ng-scope div', function () {
 
     });
 });
-*/
+
 
 /*Check if the sigin box fades in*/
-/*
+
 describe('The signin box fades in', function () {
     beforeEach(angular.mock.module("ngMo"));
 
@@ -410,5 +410,5 @@ describe('The signin box fades in', function () {
 
     });
 });
-*/
+
 /* Check if login - logout panel fades out*/
