@@ -178,8 +178,8 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.taxPairs=0;
         $scope.totalIndex=0;
         $scope.taxIndex=0;
-        $scope.totalPairsIndex=0;
-        $scope.taxPairsIndex=0;
+        $scope.totalpairIndex=0;
+        $scope.taxpairIndex=0;
         $scope.totalFutures=0;
         $scope.taxFutures=0;
         //total
@@ -203,8 +203,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.totalPairs = data.total_pairs;
                 $scope.index= data.index;
                 $scope.totalIndex= data.total_index;
-                $scope.pairsIndex= data.indexPairs;
-                $scope.totalPairsIndex= data.total_indexPairs;
+                $scope.pairIndex= data.pairIndex;
+                $scope.totalpairIndex= data.total_pairIndex;
                 $scope.futures=data.futures;
                 $scope.totalFutures=data.total_futures;
                 $scope.total=data.total;
@@ -273,8 +273,8 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.taxPairs=0;
         $scope.totalIndex=0;
         $scope.taxIndex=0;
-        $scope.totalPairsIndex=0;
-        $scope.taxPairsIndex=0;
+        $scope.totalpairIndex=0;
+        $scope.taxpairIndex=0;
         $scope.totalFutures=0;
         $scope.taxFutures=0;
         //total
@@ -414,8 +414,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.totalPairs = data.total_pairs;
                 $scope.index= data.index;
                 $scope.totalIndex= data.total_index;
-                $scope.pairsIndex= data.indexPairs;
-                $scope.totalPairsIndex= data.total_indexPairs;
+                $scope.pairIndex= data.pairIndex;
+                $scope.totalpairIndex= data.total_pairIndex;
                 $scope.futures=data.futures;
                 $scope.totalFutures=data.total_futures;
                 $scope.total=data.total;
@@ -435,9 +435,9 @@ angular.module('ngMo.payment', [  'ui.router'])
                     $scope.index[i].type= "Acción";//for the row type
                     $scope.items.push($scope.index[i]);
                 }
-                for (i=0;i<$scope.pairsIndex.length;i++) {
-                    $scope.pairsIndex[i].type= "Par";//for the row type
-                    $scope.items.push($scope.pairsIndex[i]);
+                for (i=0;i<$scope.pairIndex.length;i++) {
+                    $scope.pairIndex[i].type= "Par";//for the row type
+                    $scope.items.push($scope.pairIndex[i]);
                 }
                 for (i=0;i<$scope.futures.length;i++) {
                     $scope.futures[i].type= "Acción";//for the row type
@@ -565,7 +565,7 @@ angular.module('ngMo.payment', [  'ui.router'])
              *      stocks: [Pack],
              *      pairs: [Pack],
              *      index:[Pack],
-             *      indexPairs:[Pack],
+             *      pairIndex:[Pack],
              *      futures:[Pack]
              *
              *      where Pack is: {
@@ -583,7 +583,7 @@ angular.module('ngMo.payment', [  'ui.router'])
              *   stocks: [Pack],
              *      pairs: [Pack],
              *      index:[Pack],
-             *      indexPairs:[Pack],
+             *      pairIndex:[Pack],
              *      futures:[Pack]
              *      where Pack contains:
              *      name: pack
@@ -596,7 +596,7 @@ angular.module('ngMo.payment', [  'ui.router'])
              *      total_pairs: X
              *      total_index: X
              *      total_pairs: X
-             *      total_pairsIndex: X
+             *      total_pairIndex: X
              *      total_futures: X
              *      total: Z
              *      X is a double with the subtotals

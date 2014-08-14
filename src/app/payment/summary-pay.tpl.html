@@ -221,7 +221,7 @@
 
     </div>
 </div>
-<div class="container-table-summary-pay" ng-if="pairsIndex.length >0">
+<div class="container-table-summary-pay" ng-if="pairIndex.length >0">
     <div class="tab-table-summary">
         Par Indices
     </div>
@@ -251,7 +251,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="data in pairsIndex">
+        <tr ng-repeat="data in pairIndex">
             <td>
                 {{data.name}}
             </td>
@@ -282,7 +282,7 @@
                 Subtotal:
             </div>
             <div class="summary-subtotal-format summary-subtotal-ammount">
-                {{totalPairsIndex | price | number:2}} EUR
+                {{totalPairIndex | price | number:2}} EUR
             </div>
             <div class="summary-subtotal summary-subtotal-format">
                 Impuestos (0.0 %):
