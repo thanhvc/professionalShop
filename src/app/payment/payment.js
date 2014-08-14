@@ -24,6 +24,24 @@ angular.module('ngMo.payment', [  'ui.router'])
                 moMenuType: 'publicMenu'
 
             }})
+            .state('confirm-pay-card', {
+                url: '/confirm-pay-card',
+                views: {
+                    "main": {
+
+                        controller: 'ConfirmPaymentCardCtrl',
+                        templateUrl: 'payment/confirm-pay.tpl.html'
+                    }
+                },
+                data: {
+                    /* empty the menu data*/
+                    pageTitle: '',
+                    selectMenu: '',
+                    selectSubmenu: '',
+                    selectItemSubmenu: '',
+                    moMenuType: 'publicMenu'
+
+                }})
             //State for previous step to pay
             .state('summary-pay', {
                 url: '/summary-pay',
@@ -42,11 +60,42 @@ angular.module('ngMo.payment', [  'ui.router'])
                     selectItemSubmenu: '',
                     moMenuType: 'publicMenu'
 
+                }})
+            .state('pay-card', {
+                url: '/pay-card',
+                views: {
+                    "main": {
+
+                        controller: 'CreditPayCtrl',
+                        templateUrl: 'payment/summary-card.tpl.html'
+                    }
+                },
+                data: {
+                    /* empty the menu data*/
+                    pageTitle: '',
+                    selectMenu: '',
+                    selectSubmenu: '',
+                    selectItemSubmenu: '',
+                    moMenuType: 'publicMenu'
+
                 }});
     })
     .run(function run() {
     })
 
+    //confirm Card this status only is when the cpayment is OK, so always shows OK
+    .controller('ConfirmPaymentCardCtrl', function ($scope, $state) {
+        $scope.status = "OK";
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            IsLogged.isLogged();
+        });
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+        });
+    })
+    //confirm with expressCheckout
     .controller('ConfirmPaymentCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http,$stateParams) {
         $scope.status = "NONE";
         $scope.$on('$stateChangeStart', function (event, toState) {
@@ -129,8 +178,8 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.taxPairs=0;
         $scope.totalIndex=0;
         $scope.taxIndex=0;
-        $scope.totalPairsIndex=0;
-        $scope.taxPairsIndex=0;
+        $scope.totalpairIndex=0;
+        $scope.taxpairIndex=0;
         $scope.totalFutures=0;
         $scope.taxFutures=0;
         //total
@@ -154,11 +203,12 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.totalPairs = data.total_pairs;
                 $scope.index= data.index;
                 $scope.totalIndex= data.total_index;
-                $scope.pairsIndex= data.indexPairs;
-                $scope.totalPairsIndex= data.total_indexPairs;
+                $scope.pairIndex= data.pairIndex;
+                $scope.totalpairIndex= data.total_pairIndex;
                 $scope.futures=data.futures;
                 $scope.totalFutures=data.total_futures;
                 $scope.total=data.total;
+
             });
         };
 
@@ -174,12 +224,19 @@ angular.module('ngMo.payment', [  'ui.router'])
             return PaymentService.getDurationFromId(id);
         };
 
+
+        //cancel the pay and cart
+        $scope.cancelPay = function()  {
+            $rootScope.$broadcast('removeItemsCart');
+            $state.go('home');
+        };
         //start the payment
         $scope.doPayment = function() {
             //the terms and conditions must be accepted by user
             if ($scope.conditions) {
                 $scope.errorConditions= false;
-                $rootScope.$broadcast('submitCart', $scope.paymentType);
+                 $rootScope.$broadcast('submitCart', $scope.paymentType);
+
             } else{
                 $scope.errorConditions= true;
             }
@@ -189,6 +246,310 @@ angular.module('ngMo.payment', [  'ui.router'])
         //first load of the summary
         $scope.loadPayment();
 
+
+    })
+    .controller('CreditPayCtrl',function($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService, ProfileService,SignUpService){
+        $scope.formSubmited = false;
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            IsLogged.isLogged();
+        });
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+        });
+
+        $scope.status="NONE";
+
+        $scope.stocks = [];
+        $scope.pairs=[];
+        $scope.index=[];
+        $scope.pairIndex=[];
+        $scope.futures=[];
+        //totals and taxes
+        $scope.totalStocks=0;
+        $scope.taxStock=0;
+        $scope.totalPairs=0;
+        $scope.taxPairs=0;
+        $scope.totalIndex=0;
+        $scope.taxIndex=0;
+        $scope.totalpairIndex=0;
+        $scope.taxpairIndex=0;
+        $scope.totalFutures=0;
+        $scope.taxFutures=0;
+        //total
+        $scope.total=0;
+        $scope.totalTaxes=0;
+        $scope.items = [];
+
+        //user data
+        $scope.user =  {
+            name: "",
+            surname: "",
+            address: "",
+            city: "",
+            postalCode: "",
+            country: "",
+            state: ""
+        };
+        $scope.countries= [];
+
+
+        $scope.creditCards = [
+            {
+                code: "VISA",
+                name: "Visa"
+            },
+            {
+                code: "MASTERCARD",
+                name: "MasterCard"
+            },
+            {
+                code: "DISCOVER",
+                name: "Discover"
+            },
+            {
+                code: "AMERICANEXPRESS",
+                name: "Amex"
+            },
+            {
+                code: "MAESTRO",
+                name: "Maestro"
+            }
+        ];
+        $scope.selectedCard= $scope.creditCards[0];
+        $scope.months = [{
+            id:1,
+            description:"01"
+        },
+            {
+                id:2,
+                description:"02"
+            },
+            {
+                id:3,
+                description:"03"
+            },{
+                id:4,
+                description:"04"
+            },{
+                id:5,
+                description:"05"
+            },{
+                id:6,
+                description:"06"
+            },{
+                id:7,
+                description:"07"
+            },{
+                id:8,
+                description:"08"
+            },{
+                id:9,
+                description:"09"
+            },{
+                id:10,
+                description:"10"
+            },{
+                id:11,
+                description:"11"
+            },
+            {
+                id:12,
+                description:"12"
+            }];
+        $scope.nextYears = [];
+        $scope.previousYears = [];//for maestro card
+            //fill 20 years in the selector
+        var date = new Date();
+        var nextYear = date.getFullYear();
+        var previousYear = date.getFullYear();
+        for (var i = 0; i<20; i++) {
+            $scope.nextYears.push(nextYear);
+            $scope.previousYears.push(previousYear);
+            nextYear++;
+            previousYear--;
+        }
+        $scope.expirationMonth = $scope.months[0];
+        $scope.startMonth = $scope.months[0];
+        $scope.expirationYear= $scope.nextYears[0];
+        $scope.startYear = $scope.previousYears[0];
+        $scope.number= "";
+        $scope.cvv="";
+        $scope.issue="";//only for maestro
+        $scope.editData= false;//if change userdata..
+        //lload user data for the bill
+        $scope.loadUser = function () {
+            ProfileService.loadUser(function (data, status) {
+                if (status === 200) {
+                    $scope.user = data;
+                    $scope.user.state = "";//the state is not in the DB
+                    $scope.internalError = false;
+                } else {
+                    $scope.internalError = true;
+                    $scope.restartUser();
+                }
+
+            });
+        };
+
+        $scope.maestro= function(){
+            console.log("a");
+        };
+
+        SignUpService.getCountries(function(data) {
+            if (data.length>0) {
+                $scope.countries = data;
+            }
+        });
+
+
+        //load the summary of payment, is the same call to SUMMARY
+        $scope.loadSummary = function(){
+            PaymentService.getPayments(function (data) {
+
+                $scope.stocks = data.stocks;
+                $scope.totalStocks = data.total_stocks;
+                $scope.pairs = data.pairs;
+                $scope.totalPairs = data.total_pairs;
+                $scope.index= data.index;
+                $scope.totalIndex= data.total_index;
+                $scope.pairIndex= data.pairIndex;
+                $scope.totalpairIndex= data.total_pairIndex;
+                $scope.futures=data.futures;
+                $scope.totalFutures=data.total_futures;
+                $scope.total=data.total;
+
+                //we put them all in one array
+                $scope.items =[];
+                var i=0;
+                for (i=0;i<$scope.stocks.length;i++) {
+                    $scope.stocks[i].type= "Acción";//for the row type
+                    $scope.items.push($scope.stocks[i]);
+                }
+                for (i=0;i<$scope.pairs.length;i++) {
+                    $scope.pairs[i].type= "Par";//for the row type
+                    $scope.items.push($scope.pairs[i]);
+                }
+                for (i=0;i<$scope.index.length;i++) {
+                    $scope.index[i].type= "Acción";//for the row type
+                    $scope.items.push($scope.index[i]);
+                }
+                for (i=0;i<$scope.pairIndex.length;i++) {
+                    $scope.pairIndex[i].type= "Par";//for the row type
+                    $scope.items.push($scope.pairIndex[i]);
+                }
+                for (i=0;i<$scope.futures.length;i++) {
+                    $scope.futures[i].type= "Acción";//for the row type
+                    $scope.items.push($scope.stocks[i]);
+                }
+            });
+        };
+        $scope.loadSummary();
+        $scope.loadUser();
+
+
+        //do the payment with the card, recopile the info and send to server
+        $scope.payWithCard = function () {
+            $scope.status="NONE";
+            $scope.formSubmited = true;
+            if (!$scope.payForm.$valid) {
+                return;
+            }
+            dataCart= [];
+            token = $window.sessionStorage.token;
+            config = {
+                headers: {
+                    'X-Session-Token': token
+                },
+                data: {
+                    packs: [],//list of packs
+                    info: {
+                        cardType: $scope.selectedCard.code,
+                        number:$scope.number,
+                        cvv: $scope.cvv,
+                        issue: $scope.issue,
+                        startYear: $scope.startYear,
+                        startMonth: $scope.startMonth.id,
+                        expirationYear: $scope.expirationYear,
+                        expirationMonth: $scope.expirationMonth.id,
+                        name: $scope.user.name,
+                        surname: $scope.user.surname
+                    },//info of credit card
+                    bill:{}//info of bill (if modified)
+                }
+            };
+
+            //this code is like the card, just take the items from the service
+            if ($scope.stockItems.length >0) {
+                for (i=0;i<$scope.stockItems.length;i++) {
+                    item = {
+                        duration: $scope.stockItems[i].duration,
+                        code: $scope.stockItems[i].code,
+                        start: $scope.stockItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+
+            if ($scope.pairsItems.length >0) {
+                for (i=0;i<$scope.pairsItems.length;i++) {
+                    item = {
+                        duration: $scope.pairsItems[i].duration,
+                        code: $scope.pairsItems[i].code,
+                        start: $scope.pairsItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+
+            if ($scope.indicesItems.length >0) {
+                for (i=0;i<$scope.indicesItems.length;i++) {
+                    item = {
+                        duration: $scope.indicesItems[i].duration,
+                        code: $scope.indicesItems[i].code,
+                        start: $scope.indicesItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+
+            if ($scope.pairsIndicesItems.length >0) {
+                for (i=0;i<$scope.pairsIndicesItems.length;i++) {
+                    item = {
+                        duration: $scope.pairsIndicesItems[i].duration,
+                        code: $scope.pairsIndicesItems[i].code,
+                        start: $scope.pairsIndicesItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+
+            if ($scope.futuresItems.length >0) {
+                for (i=0;i<$scope.futuresItems.length;i++) {
+                    item = {
+                        duration: $scope.futuresItems[i].duration,
+                        code: $scope.futuresItems[i].code,
+                        start: $scope.futuresItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+            config.data.packs= dataCart;
+            $http.post($rootScope.urlService+"/pay-card",config).success( function(data) {
+                if (data.status === "OK") {
+                    $scope.status = "OK";
+                    $rootScope.$broadcast('removeItemsCart');
+                    $state.go('confirm-pay-card');
+                } else {
+                    $scope.status = "ERROR";
+                }
+            }).error(function(data) {
+                $scope.status = "ERROR";
+            });
+
+
+        };
 
     })
     .factory('PaymentService', function ($http,$rootScope,$window,ShoppingCartService ) {
@@ -204,7 +565,7 @@ angular.module('ngMo.payment', [  'ui.router'])
              *      stocks: [Pack],
              *      pairs: [Pack],
              *      index:[Pack],
-             *      indexPairs:[Pack],
+             *      pairIndex:[Pack],
              *      futures:[Pack]
              *
              *      where Pack is: {
@@ -222,7 +583,7 @@ angular.module('ngMo.payment', [  'ui.router'])
              *   stocks: [Pack],
              *      pairs: [Pack],
              *      index:[Pack],
-             *      indexPairs:[Pack],
+             *      pairIndex:[Pack],
              *      futures:[Pack]
              *      where Pack contains:
              *      name: pack
@@ -235,7 +596,7 @@ angular.module('ngMo.payment', [  'ui.router'])
              *      total_pairs: X
              *      total_index: X
              *      total_pairs: X
-             *      total_pairsIndex: X
+             *      total_pairIndex: X
              *      total_futures: X
              *      total: Z
              *      X is a double with the subtotals

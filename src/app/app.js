@@ -179,6 +179,28 @@ angular.module('ngMo', [
         var futuresSubtotal = 0;
 
 
+        //ask to the server if the actual user has the actual pack already
+        this.hasSubscribedToThisPack= function(item,callback){
+            token = $window.sessionStorage.token;
+            if (typeof token !== "undefined") {
+
+                newItem = {
+                    codePack: item.code,
+                    month: parseInt(item.date.split("/")[1],10),
+                    year: parseInt(item.date.split("/")[2],10)
+                };
+                config = {
+
+                    headers: {
+                        'X-Session-Token': token
+                    },
+                    data: newItem
+                };
+                $http.post($rootScope.urlService+"/has-pack", config).success(callback).error(callback);
+            }
+        };
+
+
         //save the currentCart in session storage
         this.saveSessionCart = function () {
             //restart the sessionCart and save all the info
@@ -203,7 +225,6 @@ angular.module('ngMo', [
             var deferred =$q.defer();
             var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
                 deferred.resolve(data.data.prices);
-                console.log("loading");
                 return data.data.prices;
             });
 
@@ -740,6 +761,7 @@ angular.module('ngMo', [
                         $scope.submitCart();
                     } else if (paymentType === "DIRECTPAYMENT") {
                         //payment with card
+                        $state.go('pay-card');
                         return;
                     } else {
                         return;
@@ -751,7 +773,7 @@ angular.module('ngMo', [
                 $scope.showCartinState=true;//show the cart by default
                 $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                   //list of states where the cart is invisible
-                    var states = ["summary-pay"];
+                    var states = ["summary-pay","pay-card"];
                     if (states.indexOf(toState.name) > -1) {
                         //the new state will not show the cart
                         $scope.showCartinState= false;
@@ -961,7 +983,7 @@ angular.module('ngMo', [
                         "code": newItem.code,
                         "packName": newItem.name,
                         "startDate": $filter('date')(startDate, 'MMMM yyyy'),
-                        "duration": "Mensual",
+                        "duration": "Anual",
                         "price": $scope.prices[0],
                         "date": $filter('date')(startDate, 'dd/MM/yyyy'),
                         "patternType": newItem.patternType,
@@ -985,24 +1007,59 @@ angular.module('ngMo', [
                         totalList = totalList.concat($scope.futuresItems);
                     }
 
+                    //if the item isnt in the cart add
                     if (!ArrayContainItemService.containItem(totalList , item)) {
-                        ShoppingCartService.addItemCart(item);
-                        $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
-                        $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
-                        $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
-                        $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
-                        $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
-                        $scope.openCart();
-                        $scope.totalCart = ShoppingCartService.obtainTotalCart();
-                        $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
-                        $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
-                        $scope.subtotalPairs = ShoppingCartService.obtainSubtotal('pairs');
-                        $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
-                        $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
-                        $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                        //if the status is that the user hast the pack, just add it
+                            //we need to check if the user is subscribed to the actual item
+                        if (typeof $window.sessionStorage.token !== "undefined"){
+                            ShoppingCartService.hasSubscribedToThisPack(item,function(result){
+                                if (result.status !== "pack_active") {
+                                    //if not active pack with that user, add
+                                    ShoppingCartService.addItemCart(item);
+                                    $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                                    $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                                    $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                                    $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                                    $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                                    $scope.openCart();
+                                    $scope.totalCart = ShoppingCartService.obtainTotalCart();
+                                    $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
+                                    $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
+                                    $scope.subtotalPairs = ShoppingCartService.obtainSubtotal('pairs');
+                                    $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
+                                    $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
+                                    $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
 
-                        //save the cart into session
-                        ShoppingCartService.saveSessionCart();
+                                    //save the cart into session
+                                    ShoppingCartService.saveSessionCart();
+
+                                }
+
+                            });
+
+                        } else {
+                            //is not logged, we add the item
+                            ShoppingCartService.addItemCart(item);
+                            $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                            $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                            $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                            $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                            $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                            $scope.openCart();
+                            $scope.totalCart = ShoppingCartService.obtainTotalCart();
+                            $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
+                            $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
+                            $scope.subtotalPairs = ShoppingCartService.obtainSubtotal('pairs');
+                            $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
+                            $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
+                            $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+
+                            //save the cart into session
+                            ShoppingCartService.saveSessionCart();
+
+                        }
+
+
                     }
                 };
                 $scope.removeAllItemsCart = function () {
