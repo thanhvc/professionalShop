@@ -100,8 +100,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       $rootScope.urlService = 'http://localhost:9000';
+       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       //$rootScope.urlService = 'http://localhost:9000';
     })
 
     .service('ActiveTabService', function (){
@@ -146,38 +146,17 @@ angular.module('ngMo', [
             }
         };
     })
-    .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS (ONLY WITH DOTS)
+    .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
         return function(n){
             //return a string with 2 decimal if exists..
             //xx.xxxx -> xx.xx
             //xx.x -> xx.x
             //xx -> xx
-            str="";
+            roundedValue = 0.0;
             if (n != null && !isNaN(n)) {
-                if (n.toString().indexOf(".") != -1) {
-                    str = n.toString().substr(0, n.toString().indexOf(".") + 3);
-                } else {
-                    str = n.toString();
-                }
+                roundedValue = Math.round(n * 100) / 100;
             }
-            return str;
-        };
-    })
-    .filter('price', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS (THE PRICES IS WITH COMMADS)
-        return function(n){
-            //return a string with 2 decimal if exists..
-            //xx.xxxx -> xx.xx
-            //xx.x -> xx.x
-            //xx -> xx
-            str="";
-            if (n != null && !isNaN(n)) {
-                if (n.toString().indexOf(",") != -1) {
-                    str = n.toString().substr(0, n.toString().indexOf(".") + 3);
-                } else {
-                    str = n.toString();
-                }
-            }
-            return str;
+            return roundedValue.toString();
         };
     })
     .service('ShoppingCartService', function (ActiveTabService,$q,$http,$rootScope,$window){
@@ -243,10 +222,9 @@ angular.module('ngMo', [
 
 
         this.getPrices = function () {
-            var deferred = $q.defer();
+            var deferred =$q.defer();
             var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
                 deferred.resolve(data.data.prices);
-              //  console.log("loading");
                 return data.data.prices;
             });
 
