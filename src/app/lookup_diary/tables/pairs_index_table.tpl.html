@@ -1,4 +1,4 @@
-<table style="width: 950px;" class="table-pattern">
+<table style="width: 955px;" class="table-pattern">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
         <th class="table-id-header" rowspan="2">
@@ -82,7 +82,7 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; width: 230px;vertical-align: middle;" class="table-cell-patterns border-right-table">
+        <td style="text-align: left; min-width: 178px;vertical-align: middle;" class="table-cell-patterns border-right-table">
             <span>Alcista</span>
             <span class="cursor-help buy-color"
                   tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
@@ -136,7 +136,7 @@
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
 
         </td>
-        <td class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns sub-border-right-table ng-binding">
             <div ng-click="open(data.id, data.asset.longName, data.bearishAsset.longName, data.patternType, data.priceAlert, data.conditionAlert);$event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
                 <div style="margin-top: 10px;">
                     <span ng-show="data.conditionAlert == 'GREATER_THAN' &&  data.priceAlert != null">Mayor que</span>
