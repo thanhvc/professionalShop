@@ -80,7 +80,7 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; width: 450px;vertical-align: top;" class="table-cell-patterns border-right-table">
+        <td style="text-align: left; width: 453px;vertical-align: top;" class="table-cell-patterns border-right-table">
             <span ng-if="data.patternType == 'BULLISH'">Alcista</span>
             <span ng-if="data.patternType == 'BEARISH'">Bajista</span>
             <br/>
@@ -90,19 +90,19 @@
                 {{data.asset.longName}}
             </span>
         </td>
-        <td style="width: 32px;" class="table-cell-patterns sub-border-right-table">
+        <td style="width: 36px;" class="table-cell-patterns sub-border-right-table">
             <b>{{data.win | twoDecimals}}</b>
         </td>
-        <td style="width: 32px;" class="table-cell-patterns border-right-table">
+        <td  style="width: 33px;" class="table-cell-patterns border-right-table">
             <b>{{data.loss | twoDecimals}}</b>
         </td>
-        <td style="width: 68px;" class="table-cell-patterns sub-border-right-table">
+        <td style="padding: 5px;width: 69px;" class="table-cell-patterns sub-border-right-table">
             {{data.entryDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="width: 68px;" class="table-cell-patterns border-right-table">
+        <td style="padding: 5px;width: 74px;" class="table-cell-patterns border-right-table">
             {{data.exitDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
+        <td style="width: 45px;" class="table-cell-patterns sub-border-right-table">
             <b> {{data.accumulatedReturn | twoDecimals}}</b>
         </td>
         <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
@@ -111,13 +111,13 @@
         <td style="width: 44px;" class="table-cell-patterns border-right-table">
             <b> {{data.dailyReturn | twoDecimals}}</b>
         </td>
-        <td style="width: 30px;" class="table-cell-patterns border-right-table">
+        <td style="width: 34px;" class="table-cell-patterns border-right-table">
             <b> {{data.duration | twoDecimals}}</b>
         </td>
-        <td style="width: 30px;" class="table-cell-patterns border-right-table">
+        <td style="width: 38px;" class="table-cell-patterns border-right-table">
             <b> {{data.asset.volatility | twoDecimals}}</b>
         </td>
-        <td style="width: 32px;" class="table-cell-patterns border-right-table">
+        <td style="width: 34px;" class="table-cell-patterns border-right-table">
             <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();"
                  ng-class="{'favourite-added': data.favorite == true}"></div>
         </td>

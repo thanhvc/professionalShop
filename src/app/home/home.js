@@ -152,7 +152,7 @@ angular.module('ngMo.home', [
                         url: 'home/tables_packs/pairs_table.tpl.html'
                     },
                     {
-                        title: 'Indices',
+                        title: 'Índices',
                         active: ActiveTabService.activeTab() === 2,
                         value: 2,
                         indicesContent: $scope.myData.firstTable.INDICE.INDEX,
