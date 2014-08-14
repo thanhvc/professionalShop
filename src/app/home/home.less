@@ -287,6 +287,23 @@
     width: 147px;
   }
 }
+.sector-industry-breaker{
+  overflow: hidden;
+  word-break: break-all;
+  height: 16px;
+  text-align: left;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.sector-industry-pair-breaker{/*text-align is center, check..*/
+  overflow: hidden;
+  word-break: break-all;
+  height: 16px;
+  text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
+}
 
 .number-patterns-catalog{
   height: 30px;
@@ -302,6 +319,10 @@
   border: 1px solid @greyLabel;
   tr{
     height: 24px;
+
+    &:nth-child(1), &:nth-child(2) {
+      height: 20px;
+    }
     &:nth-child(even) {
       background-color: @smokeGrey;
     }
@@ -342,12 +363,16 @@
       }
      &:nth-child(7),&:nth-child(8),&:nth-child(9) {
       border-right:  2px solid @greyLabel !important;
+       padding-left: 4px;
+       padding-right: 4px;
     }
     }
     th{
       text-align: center;
       border-left: 1px solid @greyLabel !important;
       border-right: 1px solid @greyLabel !important;
+      padding-left: 4px;
+      padding-right: 4px;
       &:nth-child(2){
         //width: 67px;
         border-left: 2px solid @greyLabel  !important;
@@ -373,6 +398,9 @@
   border: 1px solid @greyLabel;
   tr{
     height: 24px;
+    &:nth-child(1), &:nth-child(2) {
+      height: 20px;
+    }
     &:nth-child(even) {
       background-color: @smokeGrey;
     }
@@ -394,6 +422,7 @@
         padding-left:5px;
         text-align: left;
         width: 221px;
+        border-right:  2px solid @greyLabel !important;
       }
       &:nth-child(2){
         width: 67px;
@@ -402,6 +431,8 @@
       }
       &:nth-child(3){
         width: 65px;
+        border-right: 2px solid @greyLabel  !important;
+
       }
       &:nth-child(4) {
         width:65px;
@@ -422,7 +453,9 @@
     th{
       text-align: center;
       border-left: 1px solid @greyLabel !important;
-      border-right: 1px solid @greyLabel ;
+      border-right: 1px solid @greyLabel !important;
+      padding-left: 4px;
+      padding-right: 4px;
       &:nth-child(2){
         width: 67px;
         border-left: 2px solid @greyLabel  !important;
@@ -430,6 +463,7 @@
       }
       &:nth-child(3){
         width: 65px;
+        border-right:  2px solid @greyLabel !important;
       }
       &:nth-child(4) {
         width: 65px;
@@ -524,57 +558,6 @@
   text-align: center;
 }
 
-.stocks-catalog-input{
-  font-size:11px;
-  margin-right: 5px;
-  position:relative;
-  top:1px;
-}
-
-.index-lost-catalog{
-  border-right: 2px solid #6F7072 !important;
-}
-
-.log-out-link{
-  cursor: pointer;
-}
-
-.home-filter-input{
-  font-size: 11px;
-}
-
-.futures-patterns-catalog{
-  width:170px;
-}
-.futures-expiration-catalog{
-  width:120px;
-}
-.futures-market-catalog{
-  width:85px;
-}
-.futures-years-catalog{
-  width:161px;
-}
-.futures-rent-catalog{
-  width:189px;
-}
-.futures-duration-catalog{
-  width:91px;
-}
-.futures-vol-catalog{
-  width:69px;
-}
-.futures-fav-catalog{
-  width:74px;
-}
-.futures-loss-catalog{
-  width:87px;
-}
-.futures-accumulated-catalog{
-  width:74px;
-}
-
-.index-accumulated-catalog{
-  width:74px;
-  padding: 5px;
+.pair-index-sector-catalog{
+  width: 210px;
 }

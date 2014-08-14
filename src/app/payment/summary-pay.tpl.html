@@ -221,7 +221,7 @@
 
     </div>
 </div>
-<div class="container-table-summary-pay" ng-if="pairsIndex.length >0">
+<div class="container-table-summary-pay" ng-if="pairIndex.length >0">
     <div class="tab-table-summary">
         Par Indices
     </div>
@@ -251,7 +251,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="data in pairsIndex">
+        <tr ng-repeat="data in pairIndex">
             <td>
                 {{data.name}}
             </td>
@@ -282,7 +282,7 @@
                 Subtotal:
             </div>
             <div class="summary-subtotal-format summary-subtotal-ammount">
-                {{totalPairsIndex | twoDecimals | number:2}} EUR
+                {{totalPairIndex | twoDecimals | number:2}} EUR
             </div>
             <div class="summary-subtotal summary-subtotal-format">
                 Impuestos (0.0 %):
@@ -392,14 +392,11 @@
         <div class="summary-payment-button-container">
             <input class="mo-button" name="pay-button" ng-click="doPayment()" value="Pagar"
                    type="button">
-            <input class="mo-button" name="cancel-pay"
-                   onclick="A4J.AJAX.Submit('pagoForm',event,{'similarityGroupingId':'pagoForm:j_id402','parameters':{'pagoForm:j_id402':'pagoForm:j_id402'} ,'actionUrl':'/cartShop'} );return false;"
+            <input class="mo-button" name="cancel-pay" ng-click="cancelPay()"
                    value="Cancelar Compra" style="margin-left: 10px !important;" type="button">
         </div>
     </form>
-    <form id="selectPagoForm" name="selectPagoForm" method="post"
-          action="javascript:A4J.AJAX.SubmitForm('selectPagoForm',{'similarityGroupingId':'selectPagoForm','parameters':{'selectPagoForm':'selectPagoForm','ajaxSingle':'selectPagoForm'} ,'actionUrl':'/cartShop'} )"
-          target="">
+    <form id="selectPagoForm" name="selectPagoForm" method="post">
         <div id="selectPagoForm:idTablas" style="height: 50px; width: 400px;">
 
             <table style="height: 50px; font-size: 11px; font-family: 'fontpo'; float: right;">
