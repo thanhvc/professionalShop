@@ -28,11 +28,7 @@
                 </td>
                 <td class="black-font-market" >
                     <span   >{{data.asset.exchange.symbol}}</span>
-                    <div  style="display:none;">
-                        <div ></div>
-                        <div class="">London Stock Exchange</div>
-                    </div>
-                </td>
+               </td>
                 <td class="stocks-date-value">{{data.entryDate | date: 'd MMM yyyy'}}</td>
                 <td class="stocks-vol-value">
                     <a ng-click="loadGraphic($event,data.vol)" >{{ data.asset.volatility| number:0}}</a>

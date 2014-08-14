@@ -35,7 +35,7 @@
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
-            <input placeholder="Nombre" ng-model="filterOptions.filters.filterName" ng-change="search();">
+            <input placeholder="Nombre" class="stocks-catalog-input" ng-model="filterOptions.filters.filterName" ng-change="search();">
             <select ng-model="filterOptions.filters.selectedSector" ng-change="selectSector()" >
                 <option value="">- Elegir Sector -</option>
                 <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
@@ -84,7 +84,7 @@
             <th>C&oacute;digo</th>
             <th></th>
             <th>Ganancia</th>
-            <th>Pérdida</th>
+            <th class="index-lost-catalog">Pérdida</th>
             <th>Acumulada</th>
             <th>Promedio</th>
             <th>Meses</th>
