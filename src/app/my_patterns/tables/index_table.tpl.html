@@ -80,7 +80,7 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; width: 453px;vertical-align: top;" class="table-cell-patterns border-right-table">
+        <td  class="table-cell-patterns border-right-table index-market-patterns">
             <span ng-if="data.patternType == 'BULLISH'">Alcista</span>
             <span ng-if="data.patternType == 'BEARISH'">Bajista</span>
             <br/>
@@ -90,38 +90,38 @@
                 {{data.asset.longName}}
             </span>
         </td>
-        <td style="width: 36px;" class="table-cell-patterns sub-border-right-table">
+        <td class="table-cell-patterns sub-border-right-table index-win-patterns">
             <b>{{data.win | twoDecimals}}</b>
         </td>
-        <td  style="width: 33px;" class="table-cell-patterns border-right-table">
+        <td  class="table-cell-patterns border-right-table index-loss-patterns">
             <b>{{data.loss | twoDecimals}}</b>
         </td>
-        <td style="padding: 5px;width: 69px;" class="table-cell-patterns sub-border-right-table">
+        <td class="table-cell-patterns sub-border-right-table index-exitDate-patterns">
             {{data.entryDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="padding: 5px;width: 74px;" class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns border-right-table index-exitDate-patterns">
             {{data.exitDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="width: 45px;" class="table-cell-patterns sub-border-right-table">
+        <td  class="table-cell-patterns sub-border-right-table index-accumulated-patterns">
             <b> {{data.accumulatedReturn | twoDecimals}}</b>
         </td>
-        <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
+        <td class="table-cell-patterns sub-border-right-table index-average-patterns">
             <b> {{data.averageReturn | twoDecimals}}</b>
         </td>
-        <td style="width: 44px;" class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns border-right-table index-daily-patterns">
             <b> {{data.dailyReturn | twoDecimals}}</b>
         </td>
-        <td style="width: 34px;" class="table-cell-patterns border-right-table">
+        <td  class="table-cell-patterns border-right-table index-duration-patterns">
             <b> {{data.duration | twoDecimals}}</b>
         </td>
-        <td style="width: 38px;" class="table-cell-patterns border-right-table">
+        <td  class="table-cell-patterns border-right-table index-vol-patterns">
             <b> {{data.asset.volatility | twoDecimals}}</b>
         </td>
-        <td style="width: 34px;" class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns border-right-table index-fav-patterns">
             <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();"
                  ng-class="{'favourite-added': data.favorite == true}"></div>
         </td>
-        <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
+        <td class="table-cell-patterns sub-border-right-table index-state-patterns">
             <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>
             <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state" ng-show="data.statePattern == 'STARTED'"></div>
             <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state" ng-show="data.statePattern == 'FINISHED'"></div>

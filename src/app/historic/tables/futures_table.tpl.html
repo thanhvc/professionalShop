@@ -6,7 +6,7 @@
         <th class="table-id-header" rowspan="2">
             Id
         </th>
-        <th class="border-right-table patterns-stocks-column-width">
+        <th style="width: 340px;" class="border-right-table patterns-stocks-column-width">
                Operación
         </th>
         <th class="border-right-table ">
@@ -19,7 +19,7 @@
             <span  >Salida</span>
         </th>
         <th class="border-right-table">
-            <span tooltip-html-unsafe="Renta Final">Rent.</span>
+            <span tooltip-html-unsafe="Renta Final">Renta</span>
         </th>
         <th class="border-right-table"
             colspan="2">
@@ -74,12 +74,12 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
+        <td style="text-align: left; width: 340px;vertical-align: top;" class="table-cell-patterns border-right-table">
             <span ng-show="data.patternType == 'BULLISH'">Alcista</span>
             <span ng-show="data.patternType == 'BEARISH'">Bajista</span>
             <br/>
             <div class="text-limitator">
-            <span class="cursor-help"
+            <span style="width: 67px; "class="cursor-help"
                   tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}}) {{data.asset.expirationYear}}"
                   ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
                 {{data.asset.longName}}
