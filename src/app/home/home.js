@@ -111,7 +111,7 @@ angular.module('ngMo.home', [
         $templateCache.put("template/carousel/carousel.html",
                 "<div ng-mouseenter=\"pause()\" ng-mouseleave=\"play()\" class=\"carousel\">\n" +
                 "    <ol class=\"carousel-indicators\" ng-show=\"slides().length > 1\">\n" +
-                "        <li class=\"advertising-carousel-texts\" ng-repeat=\"slide in slides()\" ng-class=\"{active: isActive(slide)}\" ng-click=\"open(slide)\" ng-mouseenter=\"select(slide)\">" +
+                "        <li class=\"info-carousel-texts\" ng-repeat=\"slide in slides()\" ng-class=\"{active: isActive(slide)}\" ng-click=\"open(slide)\" ng-mouseenter=\"select(slide)\">" +
                 "</li>\n" +
                 "    </ol>\n" +
                 "    <div class=\"carousel-inner\" ng-transclude></div>\n" +
@@ -229,30 +229,30 @@ angular.module('ngMo.home', [
                     var _modal_ = $modal;
                     var origNext = carouselCtrl.next;
                     carouselCtrl.open = function ($scope) {
-                        $scope.advertisingViews = [
+                        $scope.infoViews = [
                             {
-                                src: 'home/advertising/majufuri_no_advantages.tpl.html'
+                                src: 'home/info/majufuri_no_advantages.tpl.html'
                             },
                             {
-                                src: 'home/advertising/syp_investment_funds.tpl.html'
+                                src: 'home/info/syp_investment_funds.tpl.html'
                             },
                             {
-                                src: 'home/advertising/shoprite_brics_and_emerging.tpl.html'
+                                src: 'home/info/shoprite_brics_and_emerging.tpl.html'
                             },
                             {
-                                src: 'home/advertising/century_etf_cfd.tpl.html'
+                                src: 'home/info/century_etf_cfd.tpl.html'
                             },
                             {
-                                src: 'home/advertising/platinum_pension_fund.tpl.html'
+                                src: 'home/info/platinum_pension_fund.tpl.html'
                             },
                             {
-                                src: 'home/advertising/hitachi_hedge_fund.tpl.html'
+                                src: 'home/info/hitachi_hedge_fund.tpl.html'
                             },
                             {
-                                src: 'home/advertising/nyse_low_risk.tpl.html'
+                                src: 'home/info/nyse_low_risk.tpl.html'
                             },
                             {
-                                src: 'home/advertising/british_futures.tpl.html'
+                                src: 'home/info/british_futures.tpl.html'
                             }
 
                         ];
@@ -260,15 +260,15 @@ angular.module('ngMo.home', [
                             templateUrl: 'home/modal.tpl.html',
                             controller: ModalInstanceCtrl,
                             resolve: {
-                                advertisingViews: function () {
-                                    return $scope.advertising_views;
+                                infoViews: function () {
+                                    return $scope.info_views;
                                 },
-                                advertisingSelected: function () {
+                                infoSelected: function () {
                                     var items = elem.find('li');
                                     var i = 0;
                                     while (item = items[i]) {
                                         if (item.className.indexOf('active') >= 0) {
-                                            return $scope.advertisingViews[i].src;
+                                            return $scope.infoViews[i].src;
                                         }
                                         i++;
                                     }
@@ -313,8 +313,8 @@ angular.module('ngMo.home', [
     })
 
 ;
-var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
-    $scope.advertisingSelected = advertisingSelected;
+var ModalInstanceCtrl = function ($scope, $modalInstance, infoSelected) {
+    $scope.infoSelected = infoSelected;
 
     $scope.close = function () {
         $modalInstance.close();

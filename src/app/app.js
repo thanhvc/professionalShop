@@ -528,7 +528,7 @@ angular.module('ngMo', [
                 templateUrl: 'home/modal.tpl.html',
                 controller: ModalInstanceCtrl,
                 resolve: {
-                    advertisingSelected: function () {
+                    infoSelected: function () {
                         return url+".tpl.html";
                     }
                 }
@@ -719,7 +719,7 @@ angular.module('ngMo', [
                         templateUrl: 'layout_templates/modal-text.tpl.html',
                         controller: ModalInstanceCtrl,
                         resolve: {
-                            advertisingSelected: function () {
+                            infoSelected: function () {
                                 switch (idioma) {
                                     case 'English':
                                         return "Work in progress. Sorry for the inconvenience. Available in Spanish.";
@@ -1244,8 +1244,8 @@ angular.module('ngMo', [
 
 ;
 //modalPanel
- var ModalInstanceCtrl = function ($scope, $modalInstance, advertisingSelected) {
-     $scope.advertisingSelected = advertisingSelected;
+ var ModalInstanceCtrl = function ($scope, $modalInstance, infoSelected) {
+     $scope.infoSelected = infoSelected;
      $scope.close = function () {
         $modalInstance.close();
     };
