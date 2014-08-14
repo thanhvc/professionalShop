@@ -1,6 +1,6 @@
 <div class="no-patterns-container" ng-show="myData.length==0">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
 
-<table style="width: 950px;" class="table-pattern"  ng-show="myData.length>0">
+<table style="width: 955px;" class="table-pattern"  ng-show="myData.length>0">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
         <th class="table-id-header" rowspan="2">
@@ -89,7 +89,7 @@
         <td width="30" class="table-id-orange" >
             {{data.id}}
         </td>
-        <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
+        <td style="text-align: left; min-width: 190px;vertical-align: top;" class="table-cell-patterns border-right-table">
             <span ng-if="data.patternType == 'BULLISH'">Comprar</span>
             <span ng-if="data.patternType == 'BEARISH'">Vender</span>
             <br/>

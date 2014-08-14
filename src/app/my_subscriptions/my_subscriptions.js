@@ -481,10 +481,9 @@ angular.module('ngMo.my_subscriptions', [
             }
         ];
     })
-
+/*
     .service('TabsService', function () {
 
-        /**Tabs services for private zone**/
         var tabs = [
             {
                 title: 'Acciones',
@@ -548,7 +547,7 @@ angular.module('ngMo.my_subscriptions', [
         this.changeActiveTab = function (active) {
             activeTab = active;
         };
-    })
+    })*/
     .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,PatternsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$rootScope,$http) {
 
         $scope.filterOptions = "";
