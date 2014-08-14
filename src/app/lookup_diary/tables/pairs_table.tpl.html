@@ -9,8 +9,10 @@
         </th>
         <th class="border-right-table" colspan="2">
             Entrada
+            <img src="assets/img/entryArrow.png">
         </th>
         <th class="border-right-table">
+            <img src="assets/img/exitArrow.png">
             <span>Salida</span>
         </th>
         <th class="border-right-table"
@@ -82,7 +84,7 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; width: 230px;vertical-align: middle;" class="table-cell-patterns border-right-table">
+        <td style="text-align: left; min-width: 182px;vertical-align: middle;" class="table-cell-patterns border-right-table">
             <span>Comprar</span>
             <span class="cursor-help buy-color"
                   tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
@@ -108,14 +110,14 @@
         <td style="width: 70px;" class="table-cell-patterns border-right-table">
             {{data.exitDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
+        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             {{data.asset.lastQuoteDate | date: 'dd/MMM/yyyy'}}
         </td>
-        <td style="width: 68px;" class="table-cell-patterns sub-border-right-table">
+        <td style="width: 68px;" class="table-cell-patterns sub-border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <a class="link" ng-href="{{data.asset.priceChartURL}}"><b>{{data.asset.lastQuote | twoDecimals}}</b></a>
             <a class="link" ng-href="{{data.bearishAsset.priceChartURL}}"><b>{{data.bearishAsset.lastQuote | twoDecimals}}</b></a>
         </td>
-        <td class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns border-right-table"  ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <b>{{data.lastPerformance | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns border-right-table">
@@ -136,7 +138,7 @@
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
 
         </td>
-        <td class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns sub-border-right-table ng-binding">
             <div ng-click="open(data.id, data.asset.longName, data.bearishAsset.longName, data.patternType, data.priceAlert, data.conditionAlert);$event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
                 <div style="margin-top: 10px;">
                     <span ng-show="data.conditionAlert == 'GREATER_THAN' &&  data.priceAlert != null">Mayor que</span>
