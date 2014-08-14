@@ -6,10 +6,10 @@
         <th class="table-id-header" rowspan="2">
             Id
         </th>
-        <th class="border-right-table" style="width: 230px; display:inline-block">
+        <th class="border-right-table pairs-actions-patterns">
             Par Acciones
         </th>
-        <th class="border-right-table patterns-index-column-width">
+        <th class="border-right-table pairs-sector-patterns patterns-index-column-width">
             Sector / Industria
         </th>
         <th class="border-right-table"
@@ -46,10 +46,10 @@
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table">
+        <th class="pairs-actions-patterns">
             Nombres
         </th>
-        <th class="border-right-table">
+        <th class="pairs-sector-patterns">
         </th>
         <th class="border-right-table">
         </th>
@@ -92,7 +92,7 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td  class="table-cell-patterns border-right-table pairs-market-patterns">
+        <td  class="table-cell-patterns border-right-table pairs-market-patterns pairs-actions-patterns">
             <div class="text-limitator">
                 <span>Comprar</span>
             <span class="cursor-help buy-color"
@@ -161,7 +161,7 @@
         <td class="table-cell-patterns border-right-table pairs-daily-patterns">
             <b> {{data.dailyReturn | twoDecimals}}</b>
         </td>
-        <td sclass="table-cell-patterns border-right-table pairs-duration-patterns">
+        <td class="table-cell-patterns border-right-table pairs-duration-patterns">
             <b> {{data.duration | twoDecimals}}</b>
         </td>
         <td  class="table-cell-patterns border-right-table pairs-pairVolatility-patterns">
