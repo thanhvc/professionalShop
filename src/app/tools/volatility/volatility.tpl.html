@@ -27,11 +27,12 @@
                 </table>
             </tab>
         </tabset>
+        <div class="copyright">
+            Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+        </div>
     </div>
     </div>
-    <div class="copyright">
-        Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
-    </div>
+
     <div class="pagination-container" ng-show="results > 10" style="margin-top:92px; clear:both; margin-bottom:20px;">
         <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                     items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"

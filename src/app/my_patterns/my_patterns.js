@@ -202,7 +202,7 @@ angular.module('ngMo.my_patterns', [
             activeTab = active;
         };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, ExpirationYearFromPatternName) {
         $scope.dataLoaded = false;
 
         $scope.$on('$stateChangeStart', function (event, toState) {
@@ -766,6 +766,11 @@ angular.module('ngMo.my_patterns', [
         $scope.results = myPatternsData.results;
         $scope.found = myPatternsData.found;
 
+
+        //Expiration service
+        $scope.getYearFromPatternName= function (patternName, expirationDate) {
+            return ExpirationYearFromPatternName.getExpirationYearFromPatternName(patternName, expirationDate);
+        };
 
     })
     .service("PatternsService", function ($location,$http, $window, $rootScope, $q) {

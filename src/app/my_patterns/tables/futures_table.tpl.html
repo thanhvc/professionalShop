@@ -102,7 +102,7 @@
         <td class="futures-expiration-patterns table-cell-patterns border-right-table">
             <!--expiration-->
             <div class="text-limitator ">
-               {{data.asset.expirationYear}}
+                {{ getYearFromPatternName(data.asset.longName, data.entryDate) }}
             </div>
         </td>
         <td class="table-cell-patterns border-right-table futures-exchange-patterns">
