@@ -1,4 +1,5 @@
 angular.module('ngMo', [
+        'ngCookies',
         'templates-app',
         'templates-common',
         'ngMo.home',
