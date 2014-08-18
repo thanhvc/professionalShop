@@ -100,7 +100,6 @@ angular.module('ngMo', [
         ;
         $urlRouterProvider.otherwise('/home');
     })
-
     .run(function run($rootScope) {
        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
        //$rootScope.urlService = 'http://localhost:9000';
