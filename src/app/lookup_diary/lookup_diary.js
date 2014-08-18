@@ -88,7 +88,7 @@ angular.module('ngMo.lookup_diary', [
 
     .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
                                              LookupDiaryService, $http, $state, $stateParams, $location,
-                                             $modal,diaryData,SelectedMonthService,PatternsService) {
+                                             $modal,diaryData,SelectedMonthService,PatternsService, ExpirationYearFromPatternName) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -698,6 +698,14 @@ angular.module('ngMo.lookup_diary', [
         $scope.myData = diaryData.patterns;
         $scope.results = diaryData.results;
         $scope.found = diaryData.found;
+
+
+        //Expiration service
+        $scope.getYearFromPatternName= function (patternName, expirationDate) {
+            return ExpirationYearFromPatternName.getExpirationYearFromPatternName(patternName, expirationDate);
+        };
+
+
     })
     .service("LookupDiaryService", function ($http, $window, $rootScope, $q) {
 

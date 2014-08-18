@@ -1242,6 +1242,35 @@ angular.module('ngMo', [
     })
 
 
+    .service("ExpirationYearFromPatternName", function() {
+        this.getExpirationYearFromPatternName = function(patternName, entryDate) {
+            var yearMap = {};
+            yearMap['JAN'] = 0;
+            yearMap['FEB'] = 1;
+            yearMap['MAR'] = 2;
+            yearMap['APR'] = 3;
+            yearMap['MAY'] = 4;
+            yearMap['JUN'] = 5;
+            yearMap['JUL'] = 6;
+            yearMap['AUG'] = 7;
+            yearMap['SEP'] = 8;
+            yearMap['OCT'] = 9;
+            yearMap['NOV'] = 10;
+            yearMap['DEC'] = 11;
+
+            var expirationMonth = new Date(entryDate).getMonth();
+            //The month is always the last 3 chars of the pattern's name
+            var patternMonth = patternName.substr(patternName.length - 3);
+
+            if (patternMonth in yearMap) {
+                if (expirationMonth < yearMap[patternMonth]) {
+                    return "2015";
+                }
+                return "2014";
+            }
+            return "";
+        };
+    })
 
 ;
 //modalPanel
