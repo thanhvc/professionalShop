@@ -1,14 +1,14 @@
 <div class="login-panel">
     <span>Acceso</span>
 
-    <form ng-submit="submit()">
-        <label>Email</label><input type="text" class="float-right" ng-model="fields.email"
+    <form ng-submit="submit()" name="loginForm">
+        <label>Email</label><input type="text" class="float-right" ng-model="fields.email" name="username"
                                    ng-class="{'warning-input' : errorSignIn}"/>
-        <label>Contrase&ntilde;a</label><input type="password" ng-model="fields.password" class="float-right"
+        <label>Contrase&ntilde;a</label><input type="password" ng-model="fields.password" class="float-right" name="password"
                                                ng-class="{'warning-input' : errorSignIn}"/>
 
         <div>
-            <label>Recordar</label> <input type="checkbox"/>
+            <label>Recordar</label> <input type="checkbox" ng-model="remember"/>
             <button type="submit" class="mo-button float-right">Entrar</button>
         </div>
     </form>

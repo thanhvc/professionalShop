@@ -68,7 +68,12 @@ angular.module('auth',['http-auth-interceptor'])
         return {
             restrict: "E",
 
-            controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state, ShoppingCartService) {
+            controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state, ShoppingCartService, $cookies,$cookieStore) {
+
+                $scope.remember = false;
+
+
+
 
                 if ($window.sessionStorage.username != null) {
                     $scope.currentUser = $window.sessionStorage.username;
@@ -92,9 +97,26 @@ angular.module('auth',['http-auth-interceptor'])
                 };
 
                 $scope.submit = function() {
+                    if ((typeof $scope.fields === "undefined") ||
+                        ((typeof $scope.fields !== "undefined") && ((typeof $scope.fields.email ==="undefined" || typeof $scope.fields.password === "undefined")))) {
+                        //if the fields are undefined, the user is probably trying to login with autocompleted inputs
+                        $scope.fields = {
+                            email : loginForm.username.value,
+                            password: loginForm.password.value
+                        };
+                    }
+
+
                     data = $scope.fields;
                     $http.post($rootScope.urlService+'/login', data)
                         .success(function (data, status, headers, config) {
+
+
+                            if ($scope.remember) {
+                                //the user is seting remember the token in a cookie
+                                $cookieStore.put("token",data.authToken);
+                                $cookieStore.put("name",data.name);
+                            }
                             $window.sessionStorage.token = data.authToken;
                             $window.sessionStorage.username = data.name;
                             authService.loginConfirmed();
@@ -131,6 +153,8 @@ angular.module('auth',['http-auth-interceptor'])
                             $window.sessionStorage.removeItem('cart');
                             clearAllCorrelationLists();
                             clearAllPortfolioLists();
+                            $cookieStore.remove("name");
+                            $cookieStore.remove("token");
                         });
                 };
 
@@ -149,6 +173,25 @@ angular.module('auth',['http-auth-interceptor'])
                     $window.sessionStorage.removeItem("portfolioIndices");
                     $window.sessionStorage.removeItem("portfolioIndicePairs");
                 };
+
+
+
+                /*
+                 * When the directive is loaded, check if there is a cookie with the remember me activated, to log the user
+                 *
+                 * */
+
+                if (typeof $cookieStore.get("token") !== "undefined") {
+                    $window.sessionStorage.token = $cookieStore.get("token");
+                    $window.sessionStorage.username =$cookieStore.get("name");
+                    authService.loginConfirmed();
+                    clearAllCorrelationLists();
+                    clearAllPortfolioLists();
+                    $scope.errorSignIn = false;
+                    $scope.hideSignInForm();
+                    $scope.currentUser = $cookieStore.get("name");
+
+                }
             },
             link: function($scope) {
                 $scope.$watch('stateSignInForm');
