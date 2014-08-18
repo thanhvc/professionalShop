@@ -42,7 +42,7 @@ var Cart = function() {
         element.all(by.css('ng-binding')).get(0);
         element(by.id("purchase-button")).click();
 
-          browser.get(url + #/catalog/1');
+        browser.get(url + '#/catalog/1');
     };
 
     this.correctSum = function(){

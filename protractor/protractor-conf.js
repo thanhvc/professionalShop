@@ -17,13 +17,13 @@ exports.config = {
     },
     multiCapabilities: [
         {
-//       'browserName': 'phantomjs',
+            'browserName': 'phantomjs',
 
             /*
              * Can be used to specify the phantomjs binary path.
              * This can generally be ommitted if you installed phantomjs globally.
              */
-            //          'phantomjs.binary.path': '../../karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
+            'phantomjs.binary.path': 'node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
 
 
             /*
@@ -31,10 +31,10 @@ exports.config = {
              * Can be ommitted if no arguments need to be passed.
              * Acceptable cli arugments: https://github.com/ariya/phantomjs/wiki/API-Reference#wiki-command-line-options
              */
-            //        'phantomjs.cli.args': [ "--ignore-ssl-errors=true", "--web-security=false"]
+            'phantomjs.cli.args': [ "--ignore-ssl-errors=true", "--web-security=false"]
             //},
 
-            browserName: 'firefox'
+            // browserName: 'firefox'
         }
         // },
         /*
