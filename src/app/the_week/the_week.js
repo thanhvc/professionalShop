@@ -32,15 +32,16 @@ angular.module('ngMo.the_week', [
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });
-
+        $scope.days= [];
         $scope.obtainDateMondaythisWeek = function () {
             var firstDay = ActualDateService.actualDate(function (data) {
+                var DAY = 86400000;//day in millisecs
                 var today = new Date(data.actualDate);
                 var monday = new Date();
                 var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
                 monday.setDate(today.getDate()-dayOfWeek);
                 $scope.mondayDay = monday.getDate();
-
+                /*
                 var monthsDays = [31,28,31,30,31,30,31,31,30,31,30,31];
                 var m = monday.getMonth();
                 var day = monday.getDate();
@@ -50,7 +51,16 @@ angular.module('ngMo.the_week', [
                     monthsDays[1] = 29;
                 }
 
-                $scope.nextDay = (day % monthsDays[m]) + 7;
+                $scope.nextDay = (day % monthsDays[m]) + 7;*/
+                $scope.days[0]= $scope.mondayDay;
+                //calculate all the week
+                for (var i = 1; i < 7; i++) {
+                    var next = new Date();
+                    next.setDate(monday.getDate() + i);
+                    $scope.days[i]=next.getDate();
+                }
+
+
 
             });
         };
