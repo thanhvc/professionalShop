@@ -91,9 +91,24 @@ angular.module('ngMo.the_week', [
                 $scope.commoditiesAreas = data.COMMODITIES;
                 $scope.sypSectors = data.SP500;
 
+                //note: the logic to see which stocks are displayed and which are hidden is now here,
+                //in stocks only are going to be displayed:
+                /* - EEUU, CANADA,BRAZIL,MEXICO
+                   - JAPAN, AUSTRALIA, HONG KONG, CHINA, INDIA, SOUTH KOREA
+                   - GERMANY, UNITED KINGDOM, FRANCE, ITALY, SPAIN, SWITZERLAND,SWEDEN, RUSSIA
+                   - GLOBAL
 
-
-
+                   the stocks are given ordered, so this means that the display field must be true in the
+                   4 first sections of the first area, the 6 sections of the second area and 8 sections of the third area.
+                   The last area only has a section (with display true)
+                 */
+                var sectionsToDisplay= [4,6,8,1];
+                for (i= 0; i<$scope.stockAreas.length; i++) {
+                    //areas loop
+                    for (j=0; j<sectionsToDisplay[i];j++) {
+                        $scope.stockAreas[i].regions[j].initial_show= true;
+                    }
+                }
 
             })
             .error(function(data){
