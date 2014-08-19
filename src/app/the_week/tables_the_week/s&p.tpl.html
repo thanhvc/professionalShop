@@ -67,7 +67,11 @@
             <td class="bearish-year"><span tooltip="Años bajistas">{{sector.mainAsset.bearish_years.v | twoDecimals}}</span></td>
         </tr>
         <tr ng-repeat-start="indice in sector.assets" ng-hide="showIndices">
-            <td rowspan="2" class="index-name"><span tooltip="{{indice.name}}">{{indice.name}}</span></td>
+            <td rowspan="2" class="index-name">
+                <div class="name-index-container">
+                    <span tooltip="{{indice.name}}">{{indice.name}}</span>
+                </div>
+            </td>
             <td ng-class="{'positive-percent': indice.global_daily_return >= 0, 'week-negative-percent': indice.global_daily_return < 0}"><span tooltip="Rentabilidad">{{indice.global_daily_return | twoDecimals}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.global_bullish_years | twoDecimals}}</span></td>
             <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,indice.name, indice.daily_return_graphic);$event.stopPropagation();"/></td>
