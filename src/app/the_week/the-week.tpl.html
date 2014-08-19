@@ -30,7 +30,7 @@
 </div>
 
 <div class="the-week-header">
-    {{mondayDay}} {{month}} / {{nextDay}} {{month}}. Año {{year}} (semana {{weekOfYear}})
+    {{days[0]}} {{month}} / {{days[4]}} {{month}}. Año {{year}} (semana {{weekOfYear}})
 </div>
 
 <tabset>
@@ -38,4 +38,4 @@
         <div ng-include="the_week_table.url"></div>
     </tab>
 </tabset>
-<span class="copyright">Copyright © {{actualDate | date: 'yyyy'}} Market Observatory</span>
+<span style="margin-bottom:50px;" class="copyright">Copyright © {{actualDate | date: 'yyyy'}} Market Observatory</span>
