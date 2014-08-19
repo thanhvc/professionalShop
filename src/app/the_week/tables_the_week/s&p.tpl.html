@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody  ng-repeat="sector in area.regions">
-        <tr>
+        <tr ng-class="{'ngRow-odd-week': !indice.isGrey,'ngRow-even-week': indice.isGrey}">
             <td rowspan="2" class="sector-name"><span tooltip="{{sector.name}}">{{sector.name}}</span></td>
             <td ng-class="{'positive-percent': sector.mainAsset.global_daily_return >= 0, 'week-negative-percent': sector.mainAsset.global_daily_return < 0}"><span tooltip="Rentabilidad">{{sector.mainAsset.global_daily_return | twoDecimals}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.mainAsset.global_bullish_years | twoDecimals}}</span></td>
@@ -34,7 +34,7 @@
             <td ng-class="{'positive-percent': sector.mainAsset.returns.v >= 0, 'week-negative-percent': sector.mainAsset.returns.v < 0}"><span tooltip="Rentabilidad">{{sector.mainAsset.returns.v | twoDecimals}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{sector.mainAsset.bullish_years.v | twoDecimals}}</span></td>
         </tr>
-        <tr ng-repeat-end>
+        <tr ng-repeat-end ng-class="{'ngRow-odd-week': !indice.isGrey,'ngRow-even-week': indice.isGrey}">
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(sector.mainAsset.global_bearish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) >=0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(sector.mainAsset.global_bullish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) > 0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
