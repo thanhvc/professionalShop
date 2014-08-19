@@ -24,7 +24,7 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged) {
+    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged, $window,$rootScope) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -32,15 +32,16 @@ angular.module('ngMo.the_week', [
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });
-
+        $scope.days= [];
         $scope.obtainDateMondaythisWeek = function () {
             var firstDay = ActualDateService.actualDate(function (data) {
+                var DAY = 86400000;//day in millisecs
                 var today = new Date(data.actualDate);
                 var monday = new Date();
                 var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
                 monday.setDate(today.getDate()-dayOfWeek);
                 $scope.mondayDay = monday.getDate();
-
+                /*
                 var monthsDays = [31,28,31,30,31,30,31,31,30,31,30,31];
                 var m = monday.getMonth();
                 var day = monday.getDate();
@@ -50,7 +51,16 @@ angular.module('ngMo.the_week', [
                     monthsDays[1] = 29;
                 }
 
-                $scope.nextDay = (day % monthsDays[m]) + 7;
+                $scope.nextDay = (day % monthsDays[m]) + 7;*/
+                $scope.days[0]= $scope.mondayDay;
+                //calculate all the week
+                for (var i = 1; i < 7; i++) {
+                    var next = new Date();
+                    next.setDate(monday.getDate() + i);
+                    $scope.days[i]=next.getDate();
+                }
+
+
 
             });
         };
@@ -76,7 +86,88 @@ angular.module('ngMo.the_week', [
 
         $scope.obtainDateMondaythisWeek();
 
+
+        $scope.loadData = function() {
+            config = {
+                params: {
+                    'authToken': $window.sessionStorage.token
+                }
+            };
+
+            $http.get($rootScope.urlService+"/weekData/2014", config).success(function(data){
+                console.log("ok");
+                stockAreas = data[0];
+                $scope.stockAreas = data.STOCKS;
+                $scope.commoditiesAreas = data.COMMODITIES;
+                $scope.sypSectors = data.SP500;
+
+                //note: the logic to see which stocks are displayed and which are hidden is now here,
+                //in stocks only are going to be displayed:
+                /* - EEUU, CANADA,BRAZIL,MEXICO
+                   - JAPAN, AUSTRALIA, HONG KONG, CHINA, INDIA, SOUTH KOREA
+                   - GERMANY, UNITED KINGDOM, FRANCE, ITALY, SPAIN, SWITZERLAND,SWEDEN, RUSSIA
+                   - GLOBAL
+
+                   the stocks are given ordered, so this means that the display field must be true in the
+                   4 first sections of the first area, the 6 sections of the second area and 8 sections of the third area.
+                   The last area only has a section (with display true)
+                 */
+                var sectionsToDisplay= [4,6,8,1];
+
+                //we are going to loop all the sections to set which is displayed and which no,
+                //in the same loop we are going to set which asset is grey and which is white (in the TR)
+                //that's because cant be set by CSS,
+                var isGrey=false;
+                for (i= 0; i<$scope.stockAreas.length; i++) {
+                    //areas loop
+                    for (j=0; j<$scope.stockAreas[i].regions.length;j++) {
+                        if (j<sectionsToDisplay[i]) {
+                            $scope.stockAreas[i].regions[j].initial_show= true;
+                        }
+                        for (k=0; k<$scope.stockAreas[i].regions[j].assets.length;k++) {
+                            //loop setting each css
+                            $scope.stockAreas[i].regions[j].assets[k].isGrey= isGrey;
+                            isGrey = !isGrey;
+                        }
+                    }
+                }
+
+                //for others tabs just is even/odd in each sect
+
+                for (i= 0; i<$scope.commoditiesAreas.length; i++) {
+                    //areas loop
+
+                    for (j=0; j<$scope.commoditiesAreas[i].regions.length;j++) {
+                        isGrey=false;
+                        for (k=0; k<$scope.commoditiesAreas[i].regions[j].assets.length;k++) {
+                            //loop setting each css
+                            $scope.commoditiesAreas[i].regions[j].assets[k].isGrey= isGrey;
+                            isGrey = !isGrey;
+                        }
+                    }
+                }
+                for (i= 0; i<$scope.sypSectors.length; i++) {
+                    //areas loop
+
+                    for (j=0; j<$scope.sypSectors[i].regions.length;j++) {
+                        isGrey=false;
+                        for (k=0; k<$scope.sypSectors[i].regions[j].assets.length;k++) {
+                            //loop setting each css
+                            $scope.sypSectors[i].regions[j].assets[k].isGrey= isGrey;
+                            isGrey = !isGrey;
+                        }
+                    }
+                }
+
+
+            })
+            .error(function(data){
+                    console.log("error");
+                });
+        };
+
         $scope.showIndices = true;
+        $scope.loadData();
 
         //Tabs the-week tables
         $scope.the_week_tables =
@@ -758,8 +849,8 @@ angular.module('ngMo.the_week', [
                 "<span>Rentabilidad Diaria Acumulada (%)</span>"+
                 "<br/>"+
                 "<!-- TODO: replace img line for commited line -->"+
-                "<!--<img src=\"selectedGraphic.url\"/>-->"+
-                "<img class=\"selected-graphic-image\" src=\"assets/img/graphic_example.png\"/>"+
+                "<img class=\"selected-graphic-image\" src=\"{{selectedGraphic.url}}\"/>"+
+                "<!--<img class=\"selected-graphic-image\" src=\"assets/img/graphic_example.png\"/>-->"+
                 "</div>"
         };
     })
