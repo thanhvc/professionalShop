@@ -132,6 +132,34 @@ angular.module('ngMo.the_week', [
                     }
                 }
 
+                //for others tabs just is even/odd in each sect
+
+                for (i= 0; i<$scope.commoditiesAreas.length; i++) {
+                    //areas loop
+
+                    for (j=0; j<$scope.commoditiesAreas[i].regions.length;j++) {
+                        isGrey=false;
+                        for (k=0; k<$scope.commoditiesAreas[i].regions[j].assets.length;k++) {
+                            //loop setting each css
+                            $scope.commoditiesAreas[i].regions[j].assets[k].isGrey= isGrey;
+                            isGrey = !isGrey;
+                        }
+                    }
+                }
+                for (i= 0; i<$scope.sypSectors.length; i++) {
+                    //areas loop
+
+                    for (j=0; j<$scope.sypSectors[i].regions.length;j++) {
+                        isGrey=false;
+                        for (k=0; k<$scope.sypSectors[i].regions[j].assets.length;k++) {
+                            //loop setting each css
+                            $scope.sypSectors[i].regions[j].assets[k].isGrey= isGrey;
+                            isGrey = !isGrey;
+                        }
+                    }
+                }
+
+
             })
             .error(function(data){
                     console.log("error");
