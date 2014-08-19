@@ -103,10 +103,22 @@ angular.module('ngMo.the_week', [
                    The last area only has a section (with display true)
                  */
                 var sectionsToDisplay= [4,6,8,1];
+
+                //we are going to loop all the sections to set which is displayed and which no,
+                //in the same loop we are going to set which asset is grey and which is white (in the TR)
+                //that's because cant be set by CSS,
+                var isGrey=false;
                 for (i= 0; i<$scope.stockAreas.length; i++) {
                     //areas loop
-                    for (j=0; j<sectionsToDisplay[i];j++) {
-                        $scope.stockAreas[i].regions[j].initial_show= true;
+                    for (j=0; j<$scope.stockAreas[i].regions.length;j++) {
+                        if (j<sectionsToDisplay[i]) {
+                            $scope.stockAreas[i].regions[j].initial_show= true;
+                        }
+                        for (k=0; k<$scope.stockAreas[i].regions[j].assets.length;k++) {
+                            //loop setting each css
+                            $scope.stockAreas[i].regions[j].assets[k].isGrey= isGrey;
+                            isGrey = !isGrey;
+                        }
                     }
                 }
 
