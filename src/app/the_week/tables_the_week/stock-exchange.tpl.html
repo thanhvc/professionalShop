@@ -21,7 +21,7 @@
         <tr>
             <td colspan="14">{{region.name}}</td>
         </tr>
-        <tr ng-repeat-start="indice in region.assets">
+        <tr ng-repeat-start="indice in region.assets" ng-class="{'ngRow-odd-week': !indice.isGrey,'ngRow-even-week': indice.isGrey}">
             <td rowspan="2" class="index-name"><span tooltip="{{indice.name}}">{{indice.name}}</span></td>
             <td ng-class="{'positive-percent': indice.global_daily_return >= 0, 'week-negative-percent': indice.global_daily_return < 0}"><span tooltip="Rentabilidad">{{indice.global_daily_return | twoDecimals}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.global_bullish_years | twoDecimals}}</span></td>
@@ -37,7 +37,7 @@
             <td ng-class="{'positive-percent': indice.returns.v >= 0, 'week-negative-percent': indice.returns.v < 0}"><span tooltip="Rentabilidad">{{indice.returns.v | twoDecimals}}%</span></td>
             <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.v | twoDecimals}}</span></td>
         </tr>
-        <tr ng-repeat-end>
+        <tr ng-repeat-end ng-class="{'ngRow-odd-week': !indice.isGrey,'ngRow-even-week': indice.isGrey}">
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) >=0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
