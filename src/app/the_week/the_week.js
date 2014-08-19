@@ -24,7 +24,7 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged) {
+    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged, $window,$rootScope) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -76,7 +76,33 @@ angular.module('ngMo.the_week', [
 
         $scope.obtainDateMondaythisWeek();
 
+
+        $scope.loadData = function() {
+            config = {
+                params: {
+                    'authToken': $window.sessionStorage.token
+                }
+            };
+
+            $http.get($rootScope.urlService+"/weekData/2014", config).success(function(data){
+                console.log("ok");
+                stockAreas = data[0];
+                $scope.stockAreas = data.STOCKS;
+                $scope.commoditiesAreas = data.COMMODITIES;
+                $scope.sypSectors = data.SP500;
+
+
+
+
+
+            })
+            .error(function(data){
+                    console.log("error");
+                });
+        };
+
         $scope.showIndices = true;
+        $scope.loadData();
 
         //Tabs the-week tables
         $scope.the_week_tables =
@@ -758,8 +784,8 @@ angular.module('ngMo.the_week', [
                 "<span>Rentabilidad Diaria Acumulada (%)</span>"+
                 "<br/>"+
                 "<!-- TODO: replace img line for commited line -->"+
-                "<!--<img src=\"selectedGraphic.url\"/>-->"+
-                "<img class=\"selected-graphic-image\" src=\"assets/img/graphic_example.png\"/>"+
+                "<img class=\"selected-graphic-image\" src=\"{{selectedGraphic.url}}\"/>"+
+                "<!--<img class=\"selected-graphic-image\" src=\"assets/img/graphic_example.png\"/>-->"+
                 "</div>"
         };
     })

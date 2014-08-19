@@ -1,9 +1,9 @@
-<div>
+<div ng-repeat="area in sypSectors">
     <table class="syp-table">
         <thead>
         <tr>
             <th colspan="14">
-                <span>RADIOGRAFÍA</span>
+                <span>{{area.name}}</span>
             </th>
         </tr>
         <tr>
@@ -17,102 +17,102 @@
             <th colspan="2">Vi {{nextDay+3}}</th>
         </tr>
         </thead>
-        <tbody  ng-repeat="sector in sypSectors">
+        <tbody  ng-repeat="sector in area.regions">
         <tr>
             <td rowspan="2" class="sector-name"><span tooltip="{{sector.name}}">{{sector.name}}</span></td>
-            <td ng-class="{'positive-percent': sector.global_daily_return >= 0, 'week-negative-percent': sector.global_daily_return < 0}"><span tooltip="Rentabilidad">{{sector.global_daily_return}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.global_bullish_years}}</span></td>
-            <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,sector.name, sector.daily_return_graphic);$event.stopPropagation();"/></td>
-            <td ng-class="{'positive-percent': sector.returns.L >= 0, 'week-negative-percent': sector.returns.L < 0}"><span tooltip="Rentabilidad">{{sector.returns.L}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.L}}</span></td>
-            <td ng-class="{'positive-percent': sector.returns.M >= 0, 'week-negative-percent': sector.returns.M < 0}"><span tooltip="Rentabilidad">{{sector.returns.M}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.M}}</span></td>
-            <td ng-class="{'positive-percent': sector.returns.X >= 0, 'week-negative-percent': sector.returns.X < 0}"><span tooltip="Rentabilidad">{{sector.returns.X}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.X}}</span></td>
-            <td ng-class="{'positive-percent': sector.returns.J >= 0, 'week-negative-percent': sector.returns.J < 0}"><span tooltip="Rentabilidad">{{sector.returns.J}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.J}}</span></td>
-            <td ng-class="{'positive-percent': sector.returns.V >= 0, 'week-negative-percent': sector.returns.V < 0}"><span tooltip="Rentabilidad">{{sector.returns.V}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.bullish_years.V}}</span></td>
+            <td ng-class="{'positive-percent': sector.mainAsset.global_daily_return >= 0, 'week-negative-percent': sector.mainAsset.global_daily_return < 0}"><span tooltip="Rentabilidad">{{sector.mainAsset.global_daily_return | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.mainAsset.global_bullish_years | twoDecimals}}</span></td>
+            <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,sector.name, sector.mainAsset.daily_return_graphic);$event.stopPropagation();"/></td>
+            <td ng-class="{'positive-percent': sector.mainAsset.returns.l >= 0, 'week-negative-percent': sector.mainAsset.returns.l < 0}"><span tooltip="Rentabilidad">{{sector.mainAsset.returns.l | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.mainAsset.bullish_years.l | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': sector.mainAsset.returns.m >= 0, 'week-negative-percent': sector.mainAsset.returns.m < 0}"><span tooltip="Rentabilidad">{{sector.mainAsset.returns.m | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.mainAsset.bullish_years.m | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': sector.mainAsset.returns.x >= 0, 'week-negative-percent': sector.mainAsset.returns.x < 0}"><span tooltip="Rentabilidad">{{sector.mainAsset.returns.x | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.mainAsset.bullish_years.x | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': sector.mainAsset.returns.j >= 0, 'week-negative-percent': sector.mainAsset.returns.j < 0}"><span tooltip="Rentabilidad">{{sector.mainAsset.returns.j | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.mainAsset.bullish_years.j | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': sector.mainAsset.returns.v >= 0, 'week-negative-percent': sector.mainAsset.returns.v < 0}"><span tooltip="Rentabilidad">{{sector.mainAsset.returns.v | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{sector.mainAsset.bullish_years.v | twoDecimals}}</span></td>
         </tr>
         <tr ng-repeat-end>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(sector.global_bearish_years/(sector.global_bullish_years+sector.global_bearish_years)) >=0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(sector.global_bullish_years/(sector.global_bullish_years+sector.global_bearish_years)) > 0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(sector.mainAsset.global_bearish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) >=0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(sector.mainAsset.global_bullish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) > 0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.global_bearish_years}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.mainAsset.global_bearish_years | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(sector.global_bearish_years/(sector.global_bullish_years+sector.global_bearish_years)) >=0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(sector.global_bullish_years/(sector.global_bullish_years+sector.global_bearish_years)) > 0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(sector.mainAsset.global_bearish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) >=0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(sector.mainAsset.global_bullish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) > 0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.bearish_years.L}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.mainAsset.bearish_years.l | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(sector.global_bearish_years/(sector.global_bullish_years+sector.global_bearish_years)) >=0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(sector.global_bullish_years/(sector.global_bullish_years+sector.global_bearish_years)) > 0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(sector.mainAsset.global_bearish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) >=0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(sector.mainAsset.global_bullish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) > 0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.bearish_years.M}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.mainAsset.bearish_years.m | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(sector.global_bearish_years/(sector.global_bullish_years+sector.global_bearish_years)) >=0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(sector.global_bullish_years/(sector.global_bullish_years+sector.global_bearish_years)) > 0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(sector.mainAsset.global_bearish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) >=0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(sector.mainAsset.global_bullish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) > 0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.bearish_years.X}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.mainAsset.bearish_years.x | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(sector.global_bearish_years/(sector.global_bullish_years+sector.global_bearish_years)) >=0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(sector.global_bullish_years/(sector.global_bullish_years+sector.global_bearish_years)) > 0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(sector.mainAsset.global_bearish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) >=0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(sector.mainAsset.global_bullish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) > 0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.bearish_years.J}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.mainAsset.bearish_years.j | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(sector.global_bearish_years/(sector.global_bullish_years+sector.global_bearish_years)) >=0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(sector.global_bullish_years/(sector.global_bullish_years+sector.global_bearish_years)) > 0.86 && (sector.global_bullish_years+sector.global_bearish_years) != 0 && (sector.global_bullish_years+sector.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(sector.mainAsset.global_bearish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) >=0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(sector.mainAsset.global_bullish_years/(sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years)) > 0.86 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) != 0 && (sector.mainAsset.global_bullish_years+sector.mainAsset.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.bearish_years.V}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{sector.mainAsset.bearish_years.v | twoDecimals}}</span></td>
         </tr>
-        <tr ng-repeat-start="indice in sector.indices" ng-hide="showIndices">
+        <tr ng-repeat-start="indice in sector.assets" ng-hide="showIndices">
             <td rowspan="2" class="index-name"><span tooltip="{{indice.name}}">{{indice.name}}</span></td>
-            <td ng-class="{'positive-percent': indice.global_daily_return >= 0, 'week-negative-percent': indice.global_daily_return < 0}"><span tooltip="Rentabilidad">{{indice.global_daily_return}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.global_bullish_years}}</span></td>
+            <td ng-class="{'positive-percent': indice.global_daily_return >= 0, 'week-negative-percent': indice.global_daily_return < 0}"><span tooltip="Rentabilidad">{{indice.global_daily_return | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.global_bullish_years | twoDecimals}}</span></td>
             <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,indice.name, indice.daily_return_graphic);$event.stopPropagation();"/></td>
-            <td ng-class="{'positive-percent': indice.returns.L >= 0, 'week-negative-percent': indice.returns.L < 0}"><span tooltip="Rentabilidad">{{indice.returns.L}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.L}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.M >= 0, 'week-negative-percent': indice.returns.M < 0}"><span tooltip="Rentabilidad">{{indice.returns.M}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.M}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.X >= 0, 'week-negative-percent': indice.returns.X < 0}"><span tooltip="Rentabilidad">{{indice.returns.X}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.X}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.J >= 0, 'week-negative-percent': indice.returns.J < 0}"><span tooltip="Rentabilidad">{{indice.returns.J}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.J}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.V >= 0, 'week-negative-percent': indice.returns.V < 0}"><span tooltip="Rentabilidad">{{indice.returns.V}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.V}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.l >= 0, 'week-negative-percent': indice.returns.l < 0}"><span tooltip="Rentabilidad">{{indice.returns.l | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.l | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.m >= 0, 'week-negative-percent': indice.returns.m < 0}"><span tooltip="Rentabilidad">{{indice.returns.m | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.m | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.x >= 0, 'week-negative-percent': indice.returns.x < 0}"><span tooltip="Rentabilidad">{{indice.returns.x | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.x | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.j >= 0, 'week-negative-percent': indice.returns.j < 0}"><span tooltip="Rentabilidad">{{indice.returns.j | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.j | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.v >= 0, 'week-negative-percent': indice.returns.v < 0}"><span tooltip="Rentabilidad">{{indice.returns.v | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.v | twoDecimals}}</span></td>
         </tr>
         <tr ng-repeat-end ng-hide="showIndices">
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) >=0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.global_bearish_years}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.global_bearish_years | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) >=0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.L}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.l | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) >=0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.M}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.m | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) >=0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.X}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.x | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) >=0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.J}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.j | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) >=0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.V}}</span></td>
+            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.v | twoDecimals}}</span></td>
         </tr>
         <tr>
             <td class="show-more-row">
