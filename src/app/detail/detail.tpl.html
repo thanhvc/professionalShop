@@ -95,11 +95,11 @@
                 <td class="border-right-table"><b>{{row.entryValue | twoDecimals}}</b></td>
                 <td class="sub-border-right-table">{{row.exitDate | date: 'dd/MMM/yy'}}</td>
                 <td class="border-right-table"><b>{{row.exitValue | twoDecimals}}</b></td>
-                <td class="border-right-table"><b>{{row.returnValue}}</b></td>
+                <td class="border-right-table" ng-class="{'negative-percent': row.returnValue < 0}"><b>{{row.returnValue}}</b></td>
                 <td class="sub-border-right-table">{{row.bestGainDate | date: 'dd/MMM/yy'}}</td>
-                <td class="border-right-table"><b>{{row.bestGainValue}}</b></td>
+                <td class="border-right-table" ng-class="{'negative-percent': row.bestGainValue < 0}"><b>{{row.bestGainValue}}</b></td>
                 <td class="sub-border-right-table">{{row.worstLostDate | date: 'dd/MMM/yy'}}</td>
-                <td class="border-right-table"><span ng-class="{'negative-percent': row.worstLost < 0}"><b>{{row.worstLostValue}}</b></span></td>
+                <td class="border-right-table"><span ng-class="{'negative-percent': row.worstLostValue < 0}"><b>{{row.worstLostValue}}</b></span></td>
             </tr>
         </tbody>
     </table>
@@ -122,25 +122,25 @@
             <tr>
                 <td>Ganancias</td>
                 <td class="sub-border-right-table">{{infoPattern.win}}</td>
-                <td class="sub-border-right-table">{{infoPattern.accumulatedWin |  twoDecimals}}</td>
-                <td class="sub-border-right-table">{{(infoPattern.win > 0 ? infoPattern.accumulatedWin / infoPattern.win : 0) |  twoDecimals}}</td>
+                <td class="sub-border-right-table" ng-class="{'negative-percent': infoPattern.accumulatedWin < 0}">{{infoPattern.accumulatedWin |  twoDecimals}}</td>
+                <td class="sub-border-right-table" ng-class="{'negative-percent': (infoPattern.accumulatedWin / infoPattern.win) < 0}">{{(infoPattern.win > 0 ? infoPattern.accumulatedWin / infoPattern.win : 0) |  twoDecimals}}</td>
                 <td class="sub-border-right-table">-</td>
                 <td class="sub-border-right-table">-</td>
             </tr>
             <tr>
                 <td>Pérdidas</td>
                 <td class="sub-border-right-table">{{infoPattern.loss}}</td>
-                <td class="sub-border-right-table">{{infoPattern.accumulatedLoss |  twoDecimals}}</td>
-                <td class="sub-border-right-table">{{(infoPattern.loss > 0 ? infoPattern.accumulatedLoss / infoPattern.loss : 0) |  twoDecimals}}</td>
+                <td class="sub-border-right-table" ng-class="{'negative-percent': infoPattern.accumulatedLoss < 0}">{{infoPattern.accumulatedLoss |  twoDecimals}}</td>
+                <td class="sub-border-right-table" ng-class="{'negative-percent': (infoPattern.accumulatedLoss / infoPattern.loss) < 0}">{{(infoPattern.loss > 0 ? infoPattern.accumulatedLoss / infoPattern.loss : 0) |  twoDecimals}}</td>
                 <td class="sub-border-right-table">-</td>
                 <td class="sub-border-right-table">-</td>
             </tr>
             <tr>
                 <td>Total</td>
                 <td class="sub-border-right-table">{{infoPattern.win + infoPattern.loss}}</td>
-                <td class="sub-border-right-table">{{infoPattern.accumulatedWin + infoPattern.accumulatedLoss |  twoDecimals}}</td>
-                <td class="sub-border-right-table">{{(infoPattern.win > 0 ? infoPattern.accumulatedWin / infoPattern.win : 0) + (infoPattern.loss > 0 ? infoPattern.accumulatedLoss / infoPattern.loss : 0) |  twoDecimals}}</td>
-                <td class="sub-border-right-table">{{infoPattern.dailyReturn |  twoDecimals}}</td>
+                <td class="sub-border-right-table" ng-class="{'negative-percent': (infoPattern.accumulatedWin + infoPattern.accumulatedLoss) < 0}">{{infoPattern.accumulatedWin + infoPattern.accumulatedLoss |  twoDecimals}}</td>
+                <td class="sub-border-right-table" ng-class="{'negative-percent': (infoPattern.accumulatedWin / infoPattern.win) < 0}">{{(infoPattern.win > 0 ? infoPattern.accumulatedWin / infoPattern.win : 0) + (infoPattern.loss > 0 ? infoPattern.accumulatedLoss / infoPattern.loss : 0) |  twoDecimals}}</td>
+                <td class="sub-border-right-table" ng-class="{'negative-percent': (infoPattern.dailyReturn) < 0}">{{infoPattern.dailyReturn |  twoDecimals}}</td>
                 <td class="sub-border-right-table">{{infoPattern.duration}}</td>
             </tr>
         </tbody>
