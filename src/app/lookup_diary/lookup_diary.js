@@ -365,6 +365,13 @@ angular.module('ngMo.lookup_diary', [
                 $scope.filterOptions.selectors.sectors = data.sectors;
                 //$scope.filterOptions.filters.selectedSector = "";
             }
+
+            if (typeof data.selectedMarket != 'undefined') {
+                $scope.filterOptions.filters.selectedMarket = data.selectedMarket;
+            }
+            if (typeof data.selectedSector != 'undefined') {
+                $scope.filterOptions.filters.selectedSector = data.selectedSector;
+            }
         };
 
         /**
@@ -419,9 +426,9 @@ angular.module('ngMo.lookup_diary', [
          */
 
         $scope.refreshRegion = function () {
-            if ($scope.filterOptions.filters.selectedRegion === ""){
-                $scope.filterOptions.filters.selectedMarket = "";
-            }
+            $scope.filterOptions.filters.selectedMarket = "";
+            $scope.filterOptions.filters.selectedSector = "";
+            $scope.filterOptions.filters.selectedIndustry = "";
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
                     $scope.refreshSelectors(['markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
@@ -444,6 +451,8 @@ angular.module('ngMo.lookup_diary', [
 
         //refresh selectors depending of market
         $scope.refreshMarket = function () {
+            $scope.filterOptions.filters.selectedSector = "";
+            $scope.filterOptions.filters.selectedIndustry = "";
             if (TabsService.getActiveTab() === 0) {
                 $scope.refreshSelectors(['industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
             }
@@ -457,6 +466,7 @@ angular.module('ngMo.lookup_diary', [
 
         //only used in stock
         $scope.refreshSector = function () {
+            $scope.filterOptions.filters.selectedIndustry = "";
             $scope.refreshSelectors(['industries'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
         };
         $scope.selectSector = function () {
