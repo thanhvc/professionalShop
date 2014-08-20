@@ -82,13 +82,13 @@
         </td>
         <td
             class="table-cell-patterns sub-border-right-table index-entryDate-patterns">
-            {{data.entryDate | date: 'dd/MMM/yyyy'}}
+            {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns border-right-table index-entryValue-patterns">
             <b>{{data.entryValue}}</b>
         </td>
         <td  class="table-cell-patterns border-right-table index-exitDate-patterns">
-            {{data.exitDate | date: 'dd/MMM/yyyy'}}
+            {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns border-right-table index-exitValue-patterns " >
             <b>{{data.exitValue}}</b>
@@ -97,13 +97,13 @@
             <span><b>{{data.lastPerformance | twoDecimals}}</b></span>
         </td>
         <td class="table-cell-patterns sub-border-right-table index-bestGainDate-patterns">
-            {{data.bestGainDate | date: 'dd/MMM/yyyy'}}
+            {{data.bestGainDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns border-right-table index-bestGain-patterns">
             <b ng-class="{'negative-percent': data.asset.bestGain < 0}">{{data.bestGain | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns sub-border-right-table index-worstLossDate-patterns">
-            {{data.worstLossDate | date: 'dd/MMM/yyyy'}}
+            {{data.worstLossDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns border-right-table">
             <b ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss | twoDecimals}}</b>
