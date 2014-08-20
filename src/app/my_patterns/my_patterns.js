@@ -205,6 +205,15 @@ angular.module('ngMo.my_patterns', [
     .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, ExpirationYearFromPatternName) {
         $scope.dataLoaded = false;
 
+
+        //event for keypress in input search name, launch the filters if press enter
+        $scope.submitName = function(keyEvent) {
+            if (keyEvent.which === 13) {
+                $scope.search();
+            }
+
+        };
+
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
