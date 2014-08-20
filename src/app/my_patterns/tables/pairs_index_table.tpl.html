@@ -39,23 +39,21 @@
             <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="Estado">Est.</span>
         </th>
     </tr>
-    <tr  class="table-header-bottom-patterns">
-        <th class="border-right-table">
+    <tr class="table-header-bottom-patterns">
+        <th class="border-right-table" style="width: 398px">
             Nombres
         </th>
 
-        <th class="sub-border-right-table"
-            title="Ganancia">
+        <th class="sub-border-right-table" title="Ganancia" style="width: 31px">
             <span class="cursor-help" tooltip-html-unsafe="Ganancia">Gan.</span>
         </th>
-        <th class="border-right-table"
-            title="Pérdida">
+        <th class="border-right-table" title="Pérdida" style="width: 31px">
             <span class="cursor-help" tooltip-html-unsafe="Pérdida">Pér.</span>
         </th>
         <th class="sub-border-right-table">
             Entrada
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table" style="width: 64px">
             Salida
         </th>
         <th class="sub-border-right-table"
@@ -76,7 +74,7 @@
         <th class="border-right-table">
             (%)
         </th>
-        <th class="border-right-table"></th>
+        <th class="border-right-table" style="width: 18px"></th>
         <th class="sub-border-right-table"></th>
     </tr>
     <tr ng-show="dataLoaded" ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="pairDetail({patternPairId:data.id})">

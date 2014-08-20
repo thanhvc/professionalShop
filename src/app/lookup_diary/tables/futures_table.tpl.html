@@ -1,4 +1,6 @@
-<table style="width: 955px;" class="table-pattern">
+<div class="no-patterns-container" ng-show="myData.length==0">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
+
+<table style="width: 955px;" class="table-pattern" ng-show="myData.length>0">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
         <th class="table-id-header" rowspan="2">
@@ -105,7 +107,8 @@
         </td>
 
         <td class="table-cell-patterns border-right-table">
-            {{ getYearFromPatternName(data.asset.longName, data.entryDate) }}
+            <!--{{ getYearFromPatternName(data.asset.symbol, data.entryDate) }}-->
+            {{ data.expirationYear }}
         </td>
 
         <td style="width: 70px;"
