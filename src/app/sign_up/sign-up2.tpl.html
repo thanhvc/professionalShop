@@ -83,7 +83,7 @@
                                 <span>
                                 Pregunta de seguridad:</span>
                                     <img id="captchaImg" src="assets/img/captcha.png/captcha.png" class="captcha-img">
-                                    <input type="text" name="captcha" style="width:65px;float:none;" id="captcha" ng-enter="nextInput('conditions')"
+                                    <input type="text" name="captcha" style="width:65px;" id="captcha" ng-enter="nextInput('conditions')"
                                            class="signup-input"
                                            ng-model="user.captcha" required="true" ng-pattern="captchaPattern"
                                            ng-class="{'warning-input': ((formReg.captcha.$error.required &&
