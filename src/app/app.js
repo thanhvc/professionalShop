@@ -99,10 +99,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-      // $rootScope.urlService = 'http://localhost:9000';
-
-
+       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       $rootScope.urlService = 'http://localhost:9000';
     })
 
     .service('ActiveTabService', function (){
@@ -147,38 +145,17 @@ angular.module('ngMo', [
             }
         };
     })
-    .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS (ONLY WITH DOTS)
+    .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
         return function(n){
             //return a string with 2 decimal if exists..
             //xx.xxxx -> xx.xx
             //xx.x -> xx.x
             //xx -> xx
-            str="";
+            roundedValue = 0.0;
             if (n != null && !isNaN(n)) {
-                if (n.toString().indexOf(".") != -1) {
-                    str = n.toString().substr(0, n.toString().indexOf(".") + 3);
-                } else {
-                    str = n.toString();
-                }
+                roundedValue = Math.round(n * 100) / 100;
             }
-            return str;
-        };
-    })
-    .filter('price', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS (THE PRICES IS WITH COMMADS)
-        return function(n){
-            //return a string with 2 decimal if exists..
-            //xx.xxxx -> xx.xx
-            //xx.x -> xx.x
-            //xx -> xx
-            str="";
-            if (n != null && !isNaN(n)) {
-                if (n.toString().indexOf(",") != -1) {
-                    str = n.toString().substr(0, n.toString().indexOf(".") + 3);
-                } else {
-                    str = n.toString();
-                }
-            }
-            return str;
+            return roundedValue.toString();
         };
     })
     .service('ShoppingCartService', function (ActiveTabService,$q,$http,$rootScope,$window){
@@ -199,6 +176,28 @@ angular.module('ngMo', [
         var indicesSubtotal = 0;
         var pairsIndicesSubtotal = 0;
         var futuresSubtotal = 0;
+
+
+        //ask to the server if the actual user has the actual pack already
+        this.hasSubscribedToThisPack= function(item,callback){
+            token = $window.sessionStorage.token;
+            if (typeof token !== "undefined") {
+
+                newItem = {
+                    codePack: item.code,
+                    month: parseInt(item.date.split("/")[1],10),
+                    year: parseInt(item.date.split("/")[2],10)
+                };
+                config = {
+
+                    headers: {
+                        'X-Session-Token': token
+                    },
+                    data: newItem
+                };
+                $http.post($rootScope.urlService+"/has-pack", config).success(callback).error(callback);
+            }
+        };
 
 
         //save the currentCart in session storage
@@ -222,10 +221,9 @@ angular.module('ngMo', [
 
 
         this.getPrices = function () {
-            var deferred = $q.defer();
+            var deferred =$q.defer();
             var prices = $http.get($rootScope.urlService+"/prices").then(function(data) {
                 deferred.resolve(data.data.prices);
-                console.log("loading");
                 return data.data.prices;
             });
 
@@ -553,6 +551,20 @@ angular.module('ngMo', [
                     scope.boolChangeClass = false;
                 }
                 scope.$apply();
+            });
+        };
+    })
+
+    .directive('ngEnter', function() { //ng-enter='myFunction()' in a input for example will fire the myFunction when the user press enter..
+        return function(scope, element, attrs) {
+            element.bind("keydown keypress", function(event) {
+                if(event.which === 13) {
+                    scope.$apply(function(){
+                        scope.$eval(attrs.ngEnter, {'event': event});
+                    });
+
+                    event.preventDefault();
+                }
             });
         };
     })
@@ -994,24 +1006,59 @@ angular.module('ngMo', [
                         totalList = totalList.concat($scope.futuresItems);
                     }
 
+                    //if the item isnt in the cart add
                     if (!ArrayContainItemService.containItem(totalList , item)) {
-                        ShoppingCartService.addItemCart(item);
-                        $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
-                        $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
-                        $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
-                        $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
-                        $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
-                        $scope.openCart();
-                        $scope.totalCart = ShoppingCartService.obtainTotalCart();
-                        $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
-                        $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
-                        $scope.subtotalPairs = ShoppingCartService.obtainSubtotal('pairs');
-                        $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
-                        $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
-                        $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                        //if the status is that the user hast the pack, just add it
+                            //we need to check if the user is subscribed to the actual item
+                        if (typeof $window.sessionStorage.token !== "undefined"){
+                            ShoppingCartService.hasSubscribedToThisPack(item,function(result){
+                                if (result.status !== "pack_active") {
+                                    //if not active pack with that user, add
+                                    ShoppingCartService.addItemCart(item);
+                                    $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                                    $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                                    $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                                    $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                                    $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                                    $scope.openCart();
+                                    $scope.totalCart = ShoppingCartService.obtainTotalCart();
+                                    $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
+                                    $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
+                                    $scope.subtotalPairs = ShoppingCartService.obtainSubtotal('pairs');
+                                    $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
+                                    $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
+                                    $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
 
-                        //save the cart into session
-                        ShoppingCartService.saveSessionCart();
+                                    //save the cart into session
+                                    ShoppingCartService.saveSessionCart();
+
+                                }
+
+                            });
+
+                        } else {
+                            //is not logged, we add the item
+                            ShoppingCartService.addItemCart(item);
+                            $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                            $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                            $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                            $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                            $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                            $scope.openCart();
+                            $scope.totalCart = ShoppingCartService.obtainTotalCart();
+                            $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
+                            $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
+                            $scope.subtotalPairs = ShoppingCartService.obtainSubtotal('pairs');
+                            $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
+                            $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
+                            $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+
+                            //save the cart into session
+                            ShoppingCartService.saveSessionCart();
+
+                        }
+
+
                     }
                 };
                 $scope.removeAllItemsCart = function () {
@@ -1118,7 +1165,11 @@ angular.module('ngMo', [
                         $state.go('new-subscription');
                     }
                 };
-                $scope.callbackPurchase = function (){
+                $scope.callbackPurchase = function (data){
+                    /**TEST FOR REDIRECT TO PAYPAL*/
+                    if (typeof data.urlRedirect !== "undefined") {
+                        $window.location.href = data.urlRedirect;
+                    }
 
                 };
             },
@@ -1137,29 +1188,80 @@ angular.module('ngMo', [
         };
     })
 
+    .directive("scrollFaq", function ($window, PositionAnchorsFaq, AnchorLinkService) {
+        return function(scope, element, attrs) {
+            angular.element($window).bind("scroll", function() {
+                if (this.pageYOffset >= 150) {
+                    scope.positionFix = true;
+                    scope.boolChangeClassDetailed = true;
+                } else {
+                    scope.boolChangeClassDetailed = false;
+                    scope.positionFix = false;
+                }
+                scope.$apply();
+
+                //scrollSpy
+                //Obtain anchors
+                if (typeof anchorsFaq === 'undefined') {
+                    anchorsFaq = PositionAnchorsFaq.getPositionAnchors();
+                }
+                if (typeof anchorsFaq !== 'undefined') {
+                    if (this.pageYOffset < anchorsFaq[0].position) {
+                        scope.selectedOption = anchorsFaq[0].id;
+                    } else if (this.pageYOffset > anchorsFaq[anchorsFaq.length - 1].position) {
+                        scope.selectedOption = anchorsFaq[anchorsFaq.length - 1].id;
+                    } else {
+                        for (var j = 1; j < anchorsFaq.length - 1; j++) {
+                            if (this.pageYOffset >= anchorsFaq[j].position && this.pageYOffset < anchorsFaq[j + 1].position) {
+                                scope.selectedOption = anchorsFaq[j].id;
+                            }
+                        }
+                    }
+                }
+
+            });
+        };
+    })
+
+    .service("PositionAnchorsFaq", function() {
+        this.getPositionAnchors = function() {
+            var anchorsFaq = document.getElementsByClassName("anchor-faq");
+            var positions = [];
+            for (var i = 0; i<anchorsFaq.length;i++){
+                positions.push(
+                    {
+                        "position": (anchorsFaq[i]).offsetTop,
+                        "id": (anchorsFaq[i]).getAttribute('id')
+                    });
+            }
+            return positions;
+
+        };
+    })
+
 
     .service("ExpirationYearFromPatternName", function() {
-        this.getExpirationYearFromPatternName = function(patternName, entryDate) {
-            var yearMap = {};
-            yearMap['JAN'] = 0;
-            yearMap['FEB'] = 1;
-            yearMap['MAR'] = 2;
-            yearMap['APR'] = 3;
-            yearMap['MAY'] = 4;
-            yearMap['JUN'] = 5;
-            yearMap['JUL'] = 6;
-            yearMap['AUG'] = 7;
-            yearMap['SEP'] = 8;
-            yearMap['OCT'] = 9;
-            yearMap['NOV'] = 10;
-            yearMap['DEC'] = 11;
+        this.getExpirationYearFromPatternName = function(patternSymbol, entryDate) {
+            var symbolYearMap = {};
+            symbolYearMap['F'] = 0;
+            symbolYearMap['G'] = 1;
+            symbolYearMap['H'] = 2;
+            symbolYearMap['J'] = 3;
+            symbolYearMap['K'] = 4;
+            symbolYearMap['M'] = 5;
+            symbolYearMap['N'] = 6;
+            symbolYearMap['Q'] = 7;
+            symbolYearMap['U'] = 8;
+            symbolYearMap['V'] = 9;
+            symbolYearMap['X'] = 10;
+            symbolYearMap['Z'] = 11;
 
             var expirationMonth = new Date(entryDate).getMonth();
-            //The month is always the last 3 chars of the pattern's name
-            var patternMonth = patternName.substr(patternName.length - 3);
+            //The month is always the last char of the pattern's symbol
+            var symbol = patternSymbol.slice(-1);
 
-            if (patternMonth in yearMap) {
-                if (expirationMonth < yearMap[patternMonth]) {
+            if (symbol in symbolYearMap) {
+                if (expirationMonth < symbolYearMap[symbol]) {
                     return "2015";
                 }
                 return "2014";
