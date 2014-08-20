@@ -85,7 +85,7 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService,historicDataData) {
+    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService,historicDataData, ExpirationYearFromPatternName) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -649,6 +649,11 @@ angular.module('ngMo.historic', [
         $scope.results = historicDataData.results;
         $scope.found = historicDataData.found;
 
+
+        //Expiration service
+        $scope.getYearFromPatternName= function (patternName, expirationDate) {
+            return ExpirationYearFromPatternName.getExpirationYearFromPatternName(patternName, expirationDate);
+        };
 
     })
     .service("HistoricsService", function ($http, $window, $rootScope,$q) {

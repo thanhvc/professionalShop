@@ -177,7 +177,7 @@ angular.module('singUp', [])
                         $window.sessionStorage.token = data.authToken;
                         authService.loginConfirmed();
                         $scope.errorSignIn = false;
-                       // $state.go('my-patterns');
+                        // $state.go('my-patterns');
                         $scope.hideSignInForm();
                         $scope.currentUser = data.name;
                         $rootScope.$broadcast('goToSummaryPay'); //now goes to summary
@@ -252,11 +252,11 @@ angular.module('singUp', [])
             //countries list of select (the value <option> could not be the same as the id in the html, but its works well)
             //angularjs sets internally the id in the object
             //the country selected is set in the user directly
-             SignUpService.getCountries(function(data) {
-                 if (data.length>0) {
-                     $scope.countries = data;
-                 }
-             });//default option set in the view html
+            SignUpService.getCountries(function(data) {
+                if (data.length>0) {
+                    $scope.countries = data;
+                }
+            });//default option set in the view html
 
             //patterns for validation
             //letters and special characters (like dieresis) (with spaces) but not numbers or other special chars
@@ -363,9 +363,3 @@ angular.module('singUp', [])
         return signUpService;
 
     });
-
-
-
-
-
-
