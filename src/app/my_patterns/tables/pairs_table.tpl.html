@@ -113,11 +113,10 @@
             class="table-cell-patterns border-right-table pairs-sector-patterns"
                 >
             <!--sector/industry-->
-            <div tooltip="{{data.asset.sector}} / {{data.asset.industry}}" class="max-length-pairs-sector text-limitator buy-color"
-                 ng-show="{{(data.asset.sector != null && data.asset.sector != '' && data.asset.industry != null && data.asset.industry != '')}}">
-                <span class="cursor-help">{{data.asset.sector}}</span>
-                <span> / </span>
-                <span class="cursor-help">{{data.asset.industry}}</span>
+            <div  class="max-length-pairs-sector text-limitator buy-color" >
+                <span tooltip="{{data.asset.sector}} / {{data.asset.industry}}" ng-show="{{(data.asset.sector != null && data.asset.sector != '')}}" class="cursor-help">{{data.asset.sector}}</span>
+                <span tooltip="{{data.asset.sector}} / {{data.asset.industry}}" ng-show="{{(data.asset.sector != null && data.asset.sector != '' ) && (data.asset.industry != null && data.asset.industry != '')}}"> / </span>
+                <span tooltip="{{data.asset.sector}} / {{data.asset.industry}}" ng-show="{{(data.asset.industry != null && data.asset.industry != '')}}" class="cursor-help">{{data.asset.industry}}</span>
             </div>
             <div tooltip="{{data.bearishAsset.sector}} / {{data.bearishAsset.industry}}" class="max-length-pairs-sector text-limitator sell-color"
                  ng-show="{{(data.bearishAsset.sector.length > 0 && data.bearishAsset.industry.length > 0)}}">
