@@ -15,7 +15,7 @@
             <td>
                 <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedOperation"
-                        ng-options="item.description for item in filterOptions.selectors.operations"
+                        ng-options="item.description for item in filterOptions.selectors.operationsIndex"
                         ng-show="filterOptions.filters.index_type == 0">
                     <option value="">- Operacion -</option>
 

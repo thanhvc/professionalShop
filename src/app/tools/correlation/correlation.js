@@ -110,10 +110,17 @@ angular.module('ngMo.correlation', [
                         {"id": 0, "description": "Comprar"},
                         {"id": 1, "description": "Vender"}
                     ],
+                    operationsIndex: [
+                        {"id": 0, "description": "Alcista"},
+                        {"id": 1, "description": "Bajista"}
+                    ],
                     comparators: [
                         {"id": 0, "description": "Menor que"},
                         {"id": 1, "description": "Mayor que"}
-                    ]
+                    ],
+
+                    comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value
+
 
                 }
             };
@@ -558,7 +565,6 @@ angular.module('ngMo.correlation', [
 
             var filters = {
                 filterName: (params.qname ? params.qname : "" ),
-                selectedOperation: (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" ),
                 index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
                 tab_type: (params.qtab ? params.qtab : "" ),
                 active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
@@ -566,7 +572,18 @@ angular.module('ngMo.correlation', [
                 selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
                 selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" )
             };
+            //special case for index
+            if ((filters.active_tab === 2)) {//case of index
+                //only for index, not pair index
+                if ((filters.index_type ===0) || (filters.index_type ==="0"))  {
+                    filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop,10)] : "" );
+                } else {
+                    filters.selectedOperation="";
+                }
 
+            } else {
+                filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" );
+            }
             //special cases:
             var tabChanged = false;
             //if the params tab is different of the actual tab

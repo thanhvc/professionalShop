@@ -25,7 +25,7 @@
                 <select ng-change="search()" style="width: 100px;" class="border-filters select-filter-portfolio"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- Operacion -</option>
-                    <option ng-repeat="item in filterOptions.selectors.operations" value="{{item.id}}" >
+                    <option ng-repeat="item in filterOptions.selectors.operationsIndex" value="{{item.id}}" >
                         {{item.description}}
                     </option>
                 </select>
