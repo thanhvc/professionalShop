@@ -250,6 +250,15 @@ angular.module('ngMo.my_patterns', [
 
         };
 
+
+        //event for keypress in input search name, launch the filters if press enter
+        $scope.submitName = function(keyEvent) {
+            if (keyEvent.which === 13) {
+                $scope.search();
+            }
+
+        };
+
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
