@@ -2,9 +2,9 @@
  * Created by Aitor on 21/04/14.
  */
 
-angular.module('singUp', [])
+angular.module('singUp', ['reCAPTCHA'])
 
-    .config(function config($stateProvider) {
+    .config(function config($stateProvider, reCAPTCHAProvider) {
         /*State for first signup step*/
         $stateProvider.state('signup', {
             url: '/sign-up',
@@ -192,6 +192,23 @@ angular.module('singUp', [])
                     });
             };
 
+            /*$scope.verifyCaptcha = function(request) {
+                var a = 0;
+                var data= {
+                    privatekey: '6LeiEPgSAAAAAAMPERFrVPuMlYKpgnSYz4H5TQFc',
+                    challenge: Recaptcha.get_challenge(),
+                    response: Recaptcha.get_response(),
+                    remoteip: '127.0.0.1'
+                };
+                $http.post('http://www.google.com/recaptcha/api/verify', data)
+                    .success(function (data, status, headers, config) {
+                        alert("Captcha completed successfully!");
+                    })
+                    .error(function (data, status, headers, config) {
+                        alert("incorrect captcha");
+                    });
+            };*/
+
             //signup vars:
             //password Pattern, note that to not allow spaces must use ng-trim="false" in the input
             $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
@@ -294,23 +311,39 @@ angular.module('singUp', [])
                     $state.user = $scope.user;
                     $state.go('signupSuccessful');
 
-                } else if (result.status == "incorrectCaptcha") {
-                    $scope.validCaptcha = false;
                 } else {
                     $scope.validCaptcha = true;
                     $scope.errorForm = true;
                 }
-
+                if (result.captcha === "incorrectCaptcha") {
+                    $scope.validCaptcha = false;
+                    document.getElementById("recaptcha_response_field").style.backgroundColor = "#FFC0CB";
+                }
             };
             $scope.sendSecondStep = function () {
-                $scope.validCaptcha = true;
+                /*$scope.validCaptcha = true;*/
                 $scope.formSubmited = true; //set the second form as submited (to check the inputs)
+                /*if (document.getElementById("recaptcha_response_field") != null) {
+                    document.getElementById("recaptcha_response_field").style.backgroundColor = "#FFFFFF";
+                    if (document.getElementById("recaptcha_response_field").value.trim() === "") {
+                        document.getElementById("recaptcha_response_field").style.backgroundColor = "#FFC0CB";
+                        return;
+                    }
+                }*/
                 if ($scope.formReg.$valid) {
                     //if the form is correct, we go to the service
                     var result = SignUpService.secondStep($scope.user, $scope.secondCallback);
                 }
             };
         });
+
+        $scope.user = {};
+        $scope.register = function () {
+            if($scope.registerForm.$valid) {
+                $scope.showdialog = true;
+                console.log('Form is valid');
+            }
+        };
     })
 /**
  * Directive Match, used to check that two inputs matches (like repeat password or repeat email).

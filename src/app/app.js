@@ -1243,27 +1243,27 @@ angular.module('ngMo', [
 
 
     .service("ExpirationYearFromPatternName", function() {
-        this.getExpirationYearFromPatternName = function(patternName, entryDate) {
-            var yearMap = {};
-            yearMap['JAN'] = 0;
-            yearMap['FEB'] = 1;
-            yearMap['MAR'] = 2;
-            yearMap['APR'] = 3;
-            yearMap['MAY'] = 4;
-            yearMap['JUN'] = 5;
-            yearMap['JUL'] = 6;
-            yearMap['AUG'] = 7;
-            yearMap['SEP'] = 8;
-            yearMap['OCT'] = 9;
-            yearMap['NOV'] = 10;
-            yearMap['DEC'] = 11;
+        this.getExpirationYearFromPatternName = function(patternSymbol, entryDate) {
+            var symbolYearMap = {};
+            symbolYearMap['F'] = 0;
+            symbolYearMap['G'] = 1;
+            symbolYearMap['H'] = 2;
+            symbolYearMap['J'] = 3;
+            symbolYearMap['K'] = 4;
+            symbolYearMap['M'] = 5;
+            symbolYearMap['N'] = 6;
+            symbolYearMap['Q'] = 7;
+            symbolYearMap['U'] = 8;
+            symbolYearMap['V'] = 9;
+            symbolYearMap['X'] = 10;
+            symbolYearMap['Z'] = 11;
 
             var expirationMonth = new Date(entryDate).getMonth();
-            //The month is always the last 3 chars of the pattern's name
-            var patternMonth = patternName.substr(patternName.length - 3);
+            //The month is always the last char of the pattern's symbol
+            var symbol = patternSymbol.slice(-1);
 
-            if (patternMonth in yearMap) {
-                if (expirationMonth < yearMap[patternMonth]) {
+            if (symbol in symbolYearMap) {
+                if (expirationMonth < symbolYearMap[symbol]) {
                     return "2015";
                 }
                 return "2014";

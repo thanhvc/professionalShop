@@ -551,14 +551,6 @@ angular.module('ngMo.my_patterns', [
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
-            var month = date[0];
-            var year = date[1];
-            var currentMonth = new Date().getMonth() + 1;
-            var currentYear = new Date().getFullYear();
-
-            if (month > currentMonth){ date[0] = currentMonth.toString();}
-            if (year > currentYear){ date[1] = currentYear.toString();}
-
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -704,15 +696,15 @@ angular.module('ngMo.my_patterns', [
             //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
-                var month = date[0];
-                var year = date[1];
-                //Check if month and year are not greater than the actual ones
-                var currentMonth = new Date().getMonth() + 1;
-                var currentYear = new Date().getFullYear();
-
-                if (month > currentMonth){ date[0] = currentMonth.toString();}
-                if (year > currentYear){ date[1] = currentYear.toString();}
-                var d = new Date(date[1], date[0] - 1, 1);
+                var d;
+                //check if the date of the param is correct (is in the selector)
+                //if not, just select the actualmonth
+                if ($scope.isCorrectDate(params.month)) {
+                    d = new Date(date[1], date[0] - 1, 1);
+                } else {
+                    actual_date = new Date();
+                    d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
+                }
                 filters.month = MonthSelectorService.setDate(d);
 
 
@@ -747,6 +739,17 @@ angular.module('ngMo.my_patterns', [
                 }
             }
 
+        };
+
+        //check if a date in format 'MM_YYYY' exists in the months selector
+        $scope.isCorrectDate= function(date){
+
+            for (i=0; i< $scope.filterOptions.months.length;i++) {
+                if ($scope.filterOptions.months[i].value === date) {
+                    return true;
+                }
+            }
+            return false;
         };
 
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
