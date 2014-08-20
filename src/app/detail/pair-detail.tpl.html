@@ -109,12 +109,13 @@
                 <span class="sell-color"><b>{{row.bearishExitValue}}</b></span>
             </td>
             <td class="sub-border-right-table">
-                <span class="buy-color"><b>{{row.bullishReturn}}</b></span>
+                <span class="buy-color"><b>{{row.bullishReturn | twoDecimals}}</b></span>
                 <br>
-                <span class="sell-color"><b>{{row.bearishReturn}}</b></span>
+                <span class="sell-color"><b>{{row.bearishReturn | twoDecimals}}</b></span>
             </td>
             <td class="border-right-table"><b>{{row.returnValue}}</b></td>
             <td class="sub-border-right-table">{{row.bestGainDate | date: 'dd/MMM/yy'}}</td>
+
             <td class="border-right-table"><b>{{row.bestGainValue}}</b></td>
             <td class="sub-border-right-table">{{row.worstLostDate | date: 'dd/MMM/yy'}}</td>
             <td class="border-right-table"><span ng-class="{'negative-percent': row.worstLost < 0}"><b>{{row.worstLostValue}}</b></span></td>

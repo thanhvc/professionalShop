@@ -80,21 +80,21 @@
             </tr>
             <tr>
                 <td>Fecha</td>
-                <td class="border-right-table">Precio</td>
+                <td class="border-right-table" style="width: 68px">Precio</td>
                 <td class="sub-border-right-table">Fecha</td>
-                <td class="border-right-table">Precio</td>
-                <td class="border-right-table">Total %</td>
+                <td class="border-right-table" style="width: 68px">Precio</td>
+                <td class="border-right-table" style="width: 135px">Total %</td>
                 <td class="sub-border-right-table">Fecha</td>
-                <td class="border-right-table">%</td>
+                <td class="border-right-table" style="width: 65px">%</td>
                 <td class="sub-border-right-table">Fecha</td>
-                <td class="border-right-table">%</td>
+                <td class="border-right-table" style="width: 65px">%</td>
             </tr>
             <tr ng-repeat="row in myData">
                 <td>{{row.year}}</td>
                 <td class="sub-border-right-table">{{row.entryDate | date: 'dd/MMM/yy'}}</td>
-                <td class="border-right-table"><b>{{row.entryValue}}</b></td>
+                <td class="border-right-table"><b>{{row.entryValue | twoDecimals}}</b></td>
                 <td class="sub-border-right-table">{{row.exitDate | date: 'dd/MMM/yy'}}</td>
-                <td class="border-right-table"><b>{{row.exitValue}}</b></td>
+                <td class="border-right-table"><b>{{row.exitValue | twoDecimals}}</b></td>
                 <td class="border-right-table"><b>{{row.returnValue}}</b></td>
                 <td class="sub-border-right-table">{{row.bestGainDate | date: 'dd/MMM/yy'}}</td>
                 <td class="border-right-table"><b>{{row.bestGainValue}}</b></td>
