@@ -2,9 +2,9 @@
  * Created by Aitor on 21/04/14.
  */
 
-angular.module('singUp', ['reCAPTCHA'])
+angular.module('singUp', [])
 
-    .config(function config($stateProvider, reCAPTCHAProvider) {
+    .config(function config($stateProvider) {
         /*State for first signup step*/
         $stateProvider.state('signup', {
             url: '/sign-up',
@@ -177,7 +177,7 @@ angular.module('singUp', ['reCAPTCHA'])
                         $window.sessionStorage.token = data.authToken;
                         authService.loginConfirmed();
                         $scope.errorSignIn = false;
-                       // $state.go('my-patterns');
+                        // $state.go('my-patterns');
                         $scope.hideSignInForm();
                         $scope.currentUser = data.name;
                         $rootScope.$broadcast('goToSummaryPay'); //now goes to summary
@@ -191,23 +191,6 @@ angular.module('singUp', ['reCAPTCHA'])
                         }
                     });
             };
-
-            /*$scope.verifyCaptcha = function(request) {
-                var a = 0;
-                var data= {
-                    privatekey: '6LeiEPgSAAAAAAMPERFrVPuMlYKpgnSYz4H5TQFc',
-                    challenge: Recaptcha.get_challenge(),
-                    response: Recaptcha.get_response(),
-                    remoteip: '127.0.0.1'
-                };
-                $http.post('http://www.google.com/recaptcha/api/verify', data)
-                    .success(function (data, status, headers, config) {
-                        alert("Captcha completed successfully!");
-                    })
-                    .error(function (data, status, headers, config) {
-                        alert("incorrect captcha");
-                    });
-            };*/
 
             //signup vars:
             //password Pattern, note that to not allow spaces must use ng-trim="false" in the input
@@ -269,11 +252,11 @@ angular.module('singUp', ['reCAPTCHA'])
             //countries list of select (the value <option> could not be the same as the id in the html, but its works well)
             //angularjs sets internally the id in the object
             //the country selected is set in the user directly
-             SignUpService.getCountries(function(data) {
-                 if (data.length>0) {
-                     $scope.countries = data;
-                 }
-             });//default option set in the view html
+            SignUpService.getCountries(function(data) {
+                if (data.length>0) {
+                    $scope.countries = data;
+                }
+            });//default option set in the view html
 
             //patterns for validation
             //letters and special characters (like dieresis) (with spaces) but not numbers or other special chars
@@ -311,39 +294,23 @@ angular.module('singUp', ['reCAPTCHA'])
                     $state.user = $scope.user;
                     $state.go('signupSuccessful');
 
+                } else if (result.status == "incorrectCaptcha") {
+                    $scope.validCaptcha = false;
                 } else {
                     $scope.validCaptcha = true;
                     $scope.errorForm = true;
                 }
-                if (result.captcha === "incorrectCaptcha") {
-                    $scope.validCaptcha = false;
-                    document.getElementById("recaptcha_response_field").style.backgroundColor = "#FFC0CB";
-                }
+
             };
             $scope.sendSecondStep = function () {
-                /*$scope.validCaptcha = true;*/
+                $scope.validCaptcha = true;
                 $scope.formSubmited = true; //set the second form as submited (to check the inputs)
-                /*if (document.getElementById("recaptcha_response_field") != null) {
-                    document.getElementById("recaptcha_response_field").style.backgroundColor = "#FFFFFF";
-                    if (document.getElementById("recaptcha_response_field").value.trim() === "") {
-                        document.getElementById("recaptcha_response_field").style.backgroundColor = "#FFC0CB";
-                        return;
-                    }
-                }*/
                 if ($scope.formReg.$valid) {
                     //if the form is correct, we go to the service
                     var result = SignUpService.secondStep($scope.user, $scope.secondCallback);
                 }
             };
         });
-
-        $scope.user = {};
-        $scope.register = function () {
-            if($scope.registerForm.$valid) {
-                $scope.showdialog = true;
-                console.log('Form is valid');
-            }
-        };
     })
 /**
  * Directive Match, used to check that two inputs matches (like repeat password or repeat email).
@@ -396,9 +363,3 @@ angular.module('singUp', ['reCAPTCHA'])
         return signUpService;
 
     });
-
-
-
-
-
-

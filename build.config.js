@@ -68,8 +68,7 @@ module.exports = {
             'vendor/angular-ui-router/release/angular-ui-router.js',
             'vendor/angular-ui-utils/modules/route/route.js',
             'vendor/angular-gettext/dist/angular-gettext.min.js',
-            'vendor/angular-cookies/angular-cookies.min.js',
-            'vendor/angular-re-captcha/angular-re-captcha.js'
+            'vendor/angular-cookies/angular-cookies.min.js'
         ],
         css: [
         ],
