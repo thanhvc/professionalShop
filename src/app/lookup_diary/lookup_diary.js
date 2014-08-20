@@ -196,10 +196,17 @@ angular.module('ngMo.lookup_diary', [
                         {"id": 0, "description": "Comprar"},
                         {"id": 1, "description": "Vender"}
                     ],
+                    operationsIndex: [
+                        {"id": 0, "description": "Alcista"},
+                        {"id": 1, "description": "Bajista"}
+                    ],
                     comparators: [
                         {"id": 0, "description": "Menor que"},
                         {"id": 1, "description": "Mayor que"}
-                    ]
+                    ],
+
+                    comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value
+
 
                 }
             };
@@ -594,16 +601,15 @@ angular.module('ngMo.lookup_diary', [
 
             var filters = {
                 filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
-                selectedOperation: (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" ),
-                selectedRent: (typeof params.qselrent !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselrent,10)] : "" ),
+                selectedRent: (typeof params.qselrent !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qselrent,10)]] : "" ),
                 rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
-                selectedAverage: (typeof params.qselaver !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselaver,10)] : "" ),
+                selectedAverage: (typeof params.qselaver !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qselaver,10)]] : "" ),
                 rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
-                selectedRentDiary: (typeof params.qseldiar !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qseldiar,10)] : "" ),
+                selectedRentDiary: (typeof params.qseldiar !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qseldiar,10)]] : "" ),
                 rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
-                selectedVolatility: (typeof params.qselvol !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qselvol ,10)] : "" ),
+                selectedVolatility: (typeof params.qselvol !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qselvol ,10)]] : "" ),
                 volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" ),
-                selectedDuration: (typeof params.qseldur !== "undefined" ? $scope.filterOptions.selectors.comparators[parseInt(params.qseldur,10)] : "" ),
+                selectedDuration: (typeof params.qseldur !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qseldur,10)]] : "" ),
                 durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
                 index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
                 tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
@@ -613,6 +619,18 @@ angular.module('ngMo.lookup_diary', [
                 selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" )
 
             };
+            //special case for index
+            if ((filters.active_tab === 2)) {//case of index
+                //only for index, not pair index
+                if ((filters.index_type ===0) || (filters.index_type ==="0")) {
+                    filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop,10)] : "" );
+                } else {
+                    filters.selectedOperation="";
+                }
+
+            } else {
+                filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" );
+            }
             //special cases:
             var tabChanged = false;
             //if the params tab is different of the actual tab

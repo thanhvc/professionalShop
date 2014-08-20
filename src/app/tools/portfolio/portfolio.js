@@ -108,10 +108,17 @@ angular.module('ngMo.portfolio', [
                         {"id": 0, "description": "Comprar"},
                         {"id": 1, "description": "Vender"}
                     ],
+                    operationsIndex: [
+                        {"id": 0, "description": "Alcista"},
+                        {"id": 1, "description": "Bajista"}
+                    ],
                     comparators: [
-                        {"id": 0, "description": "Menor que"},
-                        {"id": 1, "description": "Mayor que"}
-                    ]
+                        {"id": 1, "description": "Mayor que"},
+                        {"id": 0, "description": "Menor que"}
+                    ],
+
+                    comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value
+
 
                 }
             };
