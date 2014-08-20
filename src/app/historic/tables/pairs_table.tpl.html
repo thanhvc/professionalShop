@@ -100,14 +100,14 @@
         </td>
         <td style="padding: 5px; width: 70px;"
             class="table-cell-patterns sub-border-right-table">
-            {{data.entryDate | date: 'dd/MMM/yyyy'}}
+            {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
         <td style="padding: 5px; width: 48px;" class="table-cell-patterns border-right-table">
             <div class="buy-color"><b>{{data.entryValue}}</b></div>
             <div class="sell-color"><b>{{data.bearishEntryValue}}</b></div>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table ">
-            {{data.exitDate | date: 'dd/MMM/yyyy'}}
+            {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <div class="buy-color"><b>{{data.exitValue}}</b></div>
@@ -118,13 +118,13 @@
             <span><b  ng-class="{'negative-percent': data.lastPerformance < 0}">{{data.lastPerformance | twoDecimals}}</b></span>
         </td>
         <td style="padding: 5px; width: 70px;" class="table-cell-patterns sub-border-right-table">
-            {{data.bestGainDate | date: 'dd/MMM/yyyy'}}
+            {{data.bestGainDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns border-right-table">
             <b ng-class="{'negative-percent': data.bestGain < 0}">{{data.bestGain |  twoDecimals}}</b>
         </td>
         <td style="padding: 5px; width: 70px;" class="table-cell-patterns sub-border-right-table">
-            {{data.worstLossDate | date: 'dd/MMM/yyyy'}}
+            {{data.worstLossDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns border-right-table">
             <b ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss |  twoDecimals}}</b>
