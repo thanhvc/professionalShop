@@ -1,6 +1,6 @@
 <div class="no-patterns-container" ng-show="myData.length==0">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
 
-<table style="width: 950px;" class="table-pattern" ng-show="myData.length>0">
+<table style="width: 950px;" class="table-pattern table-with-graph" ng-show="myData.length>0">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
         <th class="table-id-header" rowspan="2">
@@ -112,13 +112,13 @@
             {{data.asset.lastQuoteDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns sub-border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
-            <a class="link" ng-href="{{data.asset.priceChartURL}}"><b>{{data.asset.lastQuote | twoDecimals}}</b></a>
+            <a class="link" ng-click="loadGraphic($event,data.asset.priceChartURL,data.asset.longName);$event.stopPropagation();" ><b>{{data.asset.lastQuote | twoDecimals}}</b></a>
         </td>
         <td class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <b>{{data.lastPerformance | twoDecimals}}</b>
         </td>
         <td style="width: 44px;" class="table-cell-patterns border-right-table">
-            <a class="link"><b>{{data.asset.volatility | twoDecimals}}</b></a>
+            <a class="link" ng-click="loadGraphic($event,data.asset.volatilityChartURL,data.asset.longName);$event.stopPropagation();" ><b>{{data.asset.volatility | twoDecimals}}</b></a>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
             <div  ng-show="data.bestGain >= 0.01" >{{data.bestGainDate | date: 'dd/MMM/yy'}}</div>
