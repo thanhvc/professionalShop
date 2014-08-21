@@ -95,6 +95,15 @@ angular.module('ngMo.lookup_diary', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+
+        //event for keypress in input search name, launch the filters if press enter
+        $scope.submitName = function(keyEvent) {
+            if (keyEvent.which === 13) {
+                $scope.search();
+            }
+
+        };
+
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
@@ -317,10 +326,66 @@ angular.module('ngMo.lookup_diary', [
             $scope.applyFilters();
         };
 
-
+        //check if exists some filter active, or is default search with all
+        $scope.isFilterActive = function() {
+            if ($scope.filterOptions.filters.durationInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.favourite!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.filterName!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.rentAverageInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.rentDiaryInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.rentInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedAverage!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedDuration!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedIndustry!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedMarket!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedOperation!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedRegion!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedRent!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedRentDiary!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedSector!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedVolatility!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.volatilityInput!== "") {
+                return true;
+            }
+            return false;
+        };
         //restore filters and load page
         $scope.restoreData = function () {
-            $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
+            if ($scope.isFilterActive()) {
+                $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
+            }
         };
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
@@ -474,6 +539,15 @@ angular.module('ngMo.lookup_diary', [
             $scope.applyFilters();
         };
 
+        //only used in stock
+        $scope.refreshIndustry = function () {
+            $scope.refreshSelectors(['industries'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+        };
+        $scope.selectIndustry = function () {
+            $scope.refreshIndustry();
+            $scope.applyFilters();
+        };
+
         //when we change index type (pairs_index, or index)
         $scope.selectIndexType = function () {
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
@@ -500,14 +574,6 @@ angular.module('ngMo.lookup_diary', [
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
-
-            var month = date[0];
-            var year = date[1];
-            var currentMonth = new Date().getMonth() + 1;
-            var currentYear = new Date().getFullYear();
-
-            if (month > currentMonth){ date[0] = currentMonth.toString();}
-            if (year > currentYear){ date[1] = currentYear.toString();}
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
             $scope.restartFilter();
@@ -529,6 +595,17 @@ angular.module('ngMo.lookup_diary', [
             else {
                 return (($scope.filterOptions.months[0].value !== $scope.filterOptions.filters.month.value));
             }
+        };
+
+        //check if a date in format 'MM_YYYY' exists in the months selector
+        $scope.isCorrectDate= function(date){
+
+            for (i=0; i< $scope.filterOptions.months.length;i++) {
+                if ($scope.filterOptions.months[i].value === date) {
+                    return true;
+                }
+            }
+            return false;
         };
 
         ///urlParams control
@@ -659,18 +736,16 @@ angular.module('ngMo.lookup_diary', [
             //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
-                var month = date[0];
-                var year = date[1];
-                //Check if month and year are not greater than the actual ones
-                var currentMonth = new Date().getMonth() + 1;
-                var currentYear = new Date().getFullYear();
-
-                if (month > currentMonth){ date[0] = currentMonth.toString();}
-                if (year > currentYear){ date[1] = currentYear.toString();}
-                var d = new Date(date[1], date[0] - 1, 1);
+                var d;
+                //check if the date of the param is correct (is in the selector)
+                //if not, just select the actualmonth
+                if ($scope.isCorrectDate(params.month)) {
+                    d = new Date(date[1], date[0] - 1, 1);
+                } else {
+                    actual_date = new Date();
+                    d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
+                }
                 filters.month = MonthSelectorService.setDate(d);
-
-
             } else {
                 //if the date is not passed as param, we load the default date
                 var date_restart = new Date();

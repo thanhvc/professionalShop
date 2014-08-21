@@ -2,7 +2,7 @@
     <table>
         <tr>
             <td>
-                <input class="border-filters input-filter" placeholder="Nombre" ng-model="filterOptions.filters.filterName">
+                <input ng-keypress="submitName($event)"  class="border-filters input-filter" placeholder="Nombre" ng-model="filterOptions.filters.filterName">
             </td>
 
             <td>
