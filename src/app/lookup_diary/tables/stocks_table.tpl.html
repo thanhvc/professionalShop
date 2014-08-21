@@ -102,8 +102,8 @@
             class="table-cell-patterns sub-border-right-table">
                 {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
-        <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <b>{{data.entryValue | twoDecimals}}</b>
+        <td style="width: 48px;" class="table-cell-patterns border-right-table" ng-class="{'negative-percent': data.entryValue <= -0.01 }">
+            <b ng-show="data.entryValue != 0">{{data.entryValue | twoDecimals}}</b>
         </td>
         <td style="width: 70px;" class="table-cell-patterns border-right-table">
             {{data.exitDate | date: 'dd/MMM/yy'}}
@@ -121,16 +121,16 @@
             <a class="link"><b>{{data.asset.volatility | twoDecimals}}</b></a>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
-            {{data.bestGainDate | date: 'dd/MMM/yy'}}
+            <div  ng-show="data.bestGain >= 0.01" >{{data.bestGainDate | date: 'dd/MMM/yy'}}</div>
         </td>
         <td class="table-cell-patterns border-right-table">
-            <b ng-class="{'negative-percent': data.asset.lastQuote < 0}">{{data.bestGain |  twoDecimals}}</b>
+            <b ng-show="data.bestGain >= 0.01">{{data.bestGain |  twoDecimals}}</b>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
-            {{data.worstLossDate | date: 'dd/MMM/yy'}}
+            <div  ng-show="data.worstLoss <= -0.01">{{data.worstLossDate | date: 'dd/MMM/yy'}}</div>
         </td>
         <td class="table-cell-patterns border-right-table">
-            <b ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss |  twoDecimals}}</b>
+            <b ng-class="{'negative-percent': data.worstLoss <= -0.01}" ng-show="data.worstLoss <= -0.01">{{data.worstLoss |  twoDecimals}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns border-right-table">
 
