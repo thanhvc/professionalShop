@@ -121,19 +121,19 @@
         <td class="table-cell-patterns border-right-table futures-exitDate-patterns">
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
-        <td class="table-cell-patterns sub-border-right-table futures-accumulated-patterns">
+        <td class="table-cell-patterns sub-border-right-table futures-accumulated-patterns"  ng-class="{'negative-percent': data.accumulatedReturn < 0 }">
             <b> {{data.accumulatedReturn | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns sub-border-right-table futures-average-patterns">
+        <td class="table-cell-patterns sub-border-right-table futures-average-patterns" ng-class="{'negative-percent': data.averageReturn < 0 }">
             <b> {{data.averageReturn | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns border-right-table futures-daily-patterns">
+        <td class="table-cell-patterns border-right-table futures-daily-patterns" ng-class="{'negative-percent': data.dailyReturn < 0 }">
             <b> {{data.dailyReturn | twoDecimals}}</b>
         </td>
         <td  class="table-cell-patterns border-right-table futures-duration-patterns">
             <b> {{data.duration | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns border-right-table futures-vol-patterns">
+        <td class="table-cell-patterns border-right-table futures-vol-patterns" ng-class="{'negative-percent': data.asset.volatility < 0 }">
             <b> {{data.asset.volatility | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns border-right-table futures-fav-patterns">
