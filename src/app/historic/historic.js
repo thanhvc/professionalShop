@@ -96,7 +96,7 @@ angular.module('ngMo.historic', [
         });
         //tabs and variables
         //pattern number for rents
-        $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
+        $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
         $scope.daysPattern = /^\d+$/;
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
