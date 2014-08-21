@@ -108,7 +108,7 @@ angular.module('ngMo.lookup_diary', [
 
         //tabs and variables
         //pattern number for rents
-        $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
+        $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
         $scope.daysPattern = /^\d+$/;
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
@@ -212,8 +212,8 @@ angular.module('ngMo.lookup_diary', [
                         {"id": 1, "description": "Bajista"}
                     ],
                     comparators: [
-                        {"id": 0, "description": "Menor que"},
-                        {"id": 1, "description": "Mayor que"}
+                        {"id": 1, "description": "Mayor que"},
+                        {"id": 0, "description": "Menor que"}
                     ],
 
                     comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value
@@ -682,6 +682,10 @@ angular.module('ngMo.lookup_diary', [
             urlParams.page = $scope.pagingOptions.currentPage;
             //we ask each param to include in the url or not
             var urlParamsSend = {};
+
+            if (urlParams.alarm) {
+                urlParamsSend.qalarm = urlParams.alarm;
+            }
             if (urlParams.filterName) {
                 urlParamsSend.qname = urlParams.filterName;
             }
@@ -773,7 +777,8 @@ angular.module('ngMo.lookup_diary', [
                 selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
                 selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
                 selectedSector: (typeof params.qsector !== "undefined" ? params.qsector : ""),
-                selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "")
+                selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : ""),
+                alarm: (typeof params.qalarm !== "undefined" ? params.qalarm : "")
 
             };
             //special case for index
@@ -932,7 +937,8 @@ angular.module('ngMo.lookup_diary', [
                     'volatilityInput': filtering.volatilityInput,
                     'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
                     'durationInput': filtering.durationInput,
-                    'favourites': filtering.favourite
+                    'favourites': filtering.favourite,
+                    'alarm' : filtering.alarm
                 }
             };
 

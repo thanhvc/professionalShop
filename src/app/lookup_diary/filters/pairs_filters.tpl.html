@@ -1,5 +1,5 @@
 <div>
-    <table>
+    <table class="table-filter-lookup">
         <tr>
             <td>
                 <input ng-keypress="submitName($event)"  class="border-filters input-filter" placeholder="Nombre"
@@ -40,7 +40,7 @@
             </td>
             <td style="text-align: center;padding-left: 120px;">
                 <span class="filter-label-select">Alarmas</span><br>
-                <input type="checkbox"
+                <input type="checkbox"  ng-change="applyFilters();"
                        ng-model="filterOptions.filters.alarm">
             </td>
         </tr>
