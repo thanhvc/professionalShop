@@ -108,7 +108,7 @@ angular.module('ngMo.lookup_diary', [
 
         //tabs and variables
         //pattern number for rents
-        $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
+        $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
         $scope.daysPattern = /^\d+$/;
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
@@ -212,8 +212,8 @@ angular.module('ngMo.lookup_diary', [
                         {"id": 1, "description": "Bajista"}
                     ],
                     comparators: [
-                        {"id": 0, "description": "Menor que"},
-                        {"id": 1, "description": "Mayor que"}
+                        {"id": 1, "description": "Mayor que"},
+                        {"id": 0, "description": "Menor que"}
                     ],
 
                     comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value
@@ -517,6 +517,68 @@ angular.module('ngMo.lookup_diary', [
 
         };
 
+        $scope.closeGraph = function() {
+            if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
+                setTimeout(function(){
+                    //event.srcElement.parentElement.className ='graphic-div';
+                    $scope.graph.className='div-graph-lookup-diary move-to-the-right';
+                    $scope.graph.addEventListener('webkitTransitionEnd', function(event2) {
+                        if ($scope.graph != null) {
+                            $scope.graph.style.cssText = 'display:none';
+                            $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
+                            $scope.graph = null;
+                        }
+
+                    });
+                },0);
+            }
+        };
+        //open a graph and sve it to $scope.graph
+        $scope.loadGraphic = function (inputEvent,url,name) {
+
+            var elemDiv = document.createElement('div');
+            var h = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetHeight;
+            var w = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetWidth;
+            var elemTitle = document.createElement('span');
+            //elemTitle.innerHTML = inputEvent.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
+            elemTitle.innerHTML = name;
+            var img = document.createElement('img');
+            if (url == null){
+                //mocked graph
+                img.src = "assets/img/graphic.png";
+            } else {
+                //real graph
+                img.src=url;
+            }
+            img.className ="graphic-image-div-lookup-diary";
+            elemDiv.className = 'div-graph-lookup-diary';
+            elemDiv.style.cssText += 'height:' + h + 'px;';
+            elemDiv.style.cssText += 'width:' + w + 'px;';
+
+
+            var closeButton = document.createElement('img');
+            closeButton.src = "assets/img/close_modal.png";
+            closeButton.className = 'close-graphic-button-diary-lookup';
+            closeButton.onclick = function (event) {
+
+                $scope.closeGraph();
+            };
+            elemDiv.appendChild(elemTitle);
+            elemDiv.appendChild(closeButton);
+            elemDiv.appendChild(img);
+            inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
+
+            setTimeout(function(){
+                elemDiv.className+=' move';
+
+            },0);
+            $scope.graph = elemDiv;
+            return 0;
+
+        };
+
+
+
         //refresh selectors depending of market
         $scope.refreshMarket = function () {
             $scope.filterOptions.filters.selectedSector = "";
@@ -620,6 +682,10 @@ angular.module('ngMo.lookup_diary', [
             urlParams.page = $scope.pagingOptions.currentPage;
             //we ask each param to include in the url or not
             var urlParamsSend = {};
+
+            if (urlParams.alarm) {
+                urlParamsSend.qalarm = urlParams.alarm;
+            }
             if (urlParams.filterName) {
                 urlParamsSend.qname = urlParams.filterName;
             }
@@ -711,7 +777,8 @@ angular.module('ngMo.lookup_diary', [
                 selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
                 selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
                 selectedSector: (typeof params.qsector !== "undefined" ? params.qsector : ""),
-                selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "")
+                selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : ""),
+                alarm: (typeof params.qalarm !== "undefined" ? params.qalarm : "")
 
             };
             //special case for index
@@ -802,6 +869,10 @@ angular.module('ngMo.lookup_diary', [
         $scope.results = diaryData.results;
         $scope.found = diaryData.found;
 
+        $scope.$on('body-click',function() {
+            $scope.closeGraph();
+        });
+
 
         //Expiration service
         $scope.getYearFromPatternName= function (patternName, expirationDate) {
@@ -866,7 +937,8 @@ angular.module('ngMo.lookup_diary', [
                     'volatilityInput': filtering.volatilityInput,
                     'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
                     'durationInput': filtering.durationInput,
-                    'favourites': filtering.favourite
+                    'favourites': filtering.favourite,
+                    'alarm' : filtering.alarm
                 }
             };
 

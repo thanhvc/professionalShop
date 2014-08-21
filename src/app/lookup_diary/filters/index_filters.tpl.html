@@ -1,5 +1,5 @@
 <div>
-    <table>
+    <table class="table-filter-lookup">
         <tr>
             <td>
                 <input ng-keypress="submitName($event)"  class="border-filters input-filter" placeholder="Nombre Índice"
@@ -31,7 +31,7 @@
 
             <td style="text-align: center;padding-left: 100px;">
                 <span class="filter-label-select">Alarmas</span><br>
-                <input class="checkbox-filters" type="checkbox"
+                <input class="checkbox-filters" type="checkbox"  ng-change="applyFilters();"
                        ng-model="filterOptions.filters.alarm">
             </td>
         </tr>
@@ -41,7 +41,7 @@
             <tr>
                 <td>
 
-                    <span class="filter-label-select">Renta Acumulada</span><br>
+                    <span class="filter-label-select">Última rentabilidad</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRent">
@@ -55,7 +55,7 @@
 
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta media</span><br>
+                    <span class="filter-label-select">Mejor Ganancia</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedAverage">
@@ -69,7 +69,7 @@
                            data-ng-model="filterOptions.filters.rentAverageInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta diaria</span><br>
+                    <span class="filter-label-select">Peor pérdida</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
