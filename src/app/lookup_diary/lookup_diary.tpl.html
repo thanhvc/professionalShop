@@ -1,3 +1,4 @@
+<div ng-click="closeGraph();">
 <div class="super-border private-black-title">Seguimiento Diario</div>
 <div class="private-container-text">
     <p>Diariamente al cierre de los mercados, se genera un informe del estado de las estrategias en curso clasificadas por <strong>mes de publicación</strong> y ordenadas por Fecha de Entrada. </p>
@@ -22,7 +23,7 @@
 
 </div>
 
-<div style="margin-top: 15px;">
+<div style="margin-top: 15px;" >
 
     <tabset>
         <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
@@ -108,3 +109,4 @@
         </div>
     </div>
 </script>
+</div>

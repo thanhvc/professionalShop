@@ -517,6 +517,67 @@ angular.module('ngMo.lookup_diary', [
 
         };
 
+        $scope.closeGraph = function() {
+            if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
+                setTimeout(function(){
+                    //event.srcElement.parentElement.className ='graphic-div';
+                    $scope.graph.className='div-graph-lookup-diary move-to-the-right';
+                    $scope.graph.addEventListener('webkitTransitionEnd', function(event2) {
+                        if ($scope.graph != null) {
+                            $scope.graph.style.cssText = 'display:none';
+                            $scope.graph = null;
+                        }
+
+                    });
+                },0);
+            }
+        };
+        //open a graph and sve it to $scope.graph
+        $scope.loadGraphic = function (inputEvent,url,name) {
+
+            var elemDiv = document.createElement('div');
+            var h = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetHeight;
+            var w = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetWidth;
+            var elemTitle = document.createElement('span');
+            //elemTitle.innerHTML = inputEvent.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
+            elemTitle.innerHTML = name;
+            var img = document.createElement('img');
+            if (url == null){
+                //mocked graph
+                img.src = "assets/img/graphic.png";
+            } else {
+                //real graph
+                img.src=url;
+            }
+            img.className ="graphic-image-div-lookup-diary";
+            elemDiv.className = 'div-graph-lookup-diary';
+            elemDiv.style.cssText += 'height:' + h + 'px;';
+            elemDiv.style.cssText += 'width:' + w + 'px;';
+
+
+            var closeButton = document.createElement('img');
+            closeButton.src = "assets/img/close_modal.png";
+            closeButton.className = 'close-graphic-button-diary-lookup';
+            closeButton.onclick = function (event) {
+
+                $scope.closeGraph();
+            };
+            elemDiv.appendChild(elemTitle);
+            elemDiv.appendChild(closeButton);
+            elemDiv.appendChild(img);
+            inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
+
+            setTimeout(function(){
+                elemDiv.className+=' move';
+
+            },0);
+            $scope.graph = elemDiv;
+            return 0;
+
+        };
+
+
+
         //refresh selectors depending of market
         $scope.refreshMarket = function () {
             $scope.filterOptions.filters.selectedSector = "";
@@ -801,6 +862,10 @@ angular.module('ngMo.lookup_diary', [
         $scope.myData = diaryData.patterns;
         $scope.results = diaryData.results;
         $scope.found = diaryData.found;
+
+        $scope.$on('body-click',function() {
+            $scope.closeGraph();
+        });
 
 
         //Expiration service
