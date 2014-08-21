@@ -133,10 +133,10 @@
                 {{data.bearishAsset.exchange.symbol | limitTo: 4}}
             </div>
         </td>
-        <td class="table-cell-patterns sub-border-right-table pairs-win-patterns">
+        <td class="table-cell-patterns sub-border-right-table pairs-win-patterns" >
             <b>{{data.win | twoDecimals}}</b>
         </td>
-        <td  class="table-cell-patterns border-right-table pairs-loss-patterns">
+        <td  class="table-cell-patterns border-right-table pairs-loss-patterns" >
             <b>{{data.loss | twoDecimals}}</b>
         </td>
         <td  class="table-cell-patterns sub-border-right-table pairs-entryDate-patterns">
@@ -145,10 +145,10 @@
         <td class="table-cell-patterns border-right-table pairs-exitDate-patterns">
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
-        <td  class="table-cell-patterns sub-border-right-table pairs-accumulated-patterns">
+        <td  class="table-cell-patterns sub-border-right-table pairs-accumulated-patterns" ng-class="{'negative-percent': data.accumulatedReturn < 0 }">
             <b> {{data.accumulatedReturn | twoDecimals}}</b>
         </td>
-        <td  class="table-cell-patterns sub-border-right-table pairs-average-patterns">
+        <td  class="table-cell-patterns sub-border-right-table pairs-average-patterns" ng-class="{'negative-percent': data.averageReturn < 0 }">
             <b>{{data.averageReturn | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns sub-border-right-table pairs-bullish-patterns">
@@ -159,13 +159,13 @@
                 <b>{{data.bearishAverageReturn | twoDecimals}}</b>
             </div>
         </td>
-        <td class="table-cell-patterns border-right-table pairs-daily-patterns">
+        <td class="table-cell-patterns border-right-table pairs-daily-patterns" ng-class="{'negative-percent': data.dailyReturn < 0 }">
             <b> {{data.dailyReturn | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns border-right-table pairs-duration-patterns">
             <b> {{data.duration | twoDecimals}}</b>
         </td>
-        <td  class="table-cell-patterns border-right-table pairs-pairVolatility-patterns">
+        <td  class="table-cell-patterns border-right-table pairs-pairVolatility-patterns" ng-class="{'negative-percent': data.pairVolatility < 0 }">
             <b> {{data.pairVolatility | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns border-right-table pairs-fav-patterns">
