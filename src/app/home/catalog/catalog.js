@@ -35,6 +35,15 @@ angular.module('ngMo.catalog', [
                             packCode: $stateParams.packCode,
                             month: $stateParams.month
                         }};
+                    if (filterOptions.month === ":month" ) {
+                        return {
+                            pack:[],
+                            startDate: 0,
+                            patterns: [],
+                            results: 0,
+                            found: 0
+                        };
+                    }
                     return SelectedPackService.obtainPatternsPack(pagingOptions.currentPage, filterOptions.filters).then(function (data) {
 
                         return {
@@ -93,6 +102,10 @@ angular.module('ngMo.catalog', [
                     'durationInterval': filtering.durationInterval
                 }
             };
+
+            if (config.params.month ===":month") {
+                return null;
+            }
 
             var result = $http.get($rootScope.urlService+'/patternspack', config).then(function (response) {
                 // With the data succesfully returned, call our callback

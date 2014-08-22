@@ -55,8 +55,16 @@
                             <span class="buy-color" ng-show="infoPattern.patternType == 'BULLISH'"><b>COMPRAR</b></span>
                             <span class="sell-color" ng-show="infoPattern.patternType == 'BEARISH'"><b>VENDER (A corto)</b></span>
                         </th>
-                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}"><div><b>{{infoPattern.name}}</b></div></th>
-                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}"><div><b>{{infoPattern.sector}} <span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></div></th>
+                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">
+                            <div  tooltip-html-unsafe="{{infoPattern.name}}" class="detail-div-tooltip-container">
+                                <div class="detail-separator"><b >{{infoPattern.name}}</b></div>
+                            </div>
+                        </th>
+                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">
+                            <div  tooltip-html-unsafe="{{infoPattern.sector}} / {{infoPattern.industry}}" class="detail-div-tooltip-container">
+                                <div class="detail-separator"><b >{{infoPattern.sector}} <span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></div>
+                            </div>
+                        </th>
                         <th class="label-date-header-detail"><img src='assets/img/entry_orange_arrow.png'>Fecha Entrada</th>
                         <th>{{ infoPattern.entryDate | date: 'dd MMM'}}</th>
                         <th class="currency-detail" rowspan="2"><img src='assets/img/currency-detail.png'> {{infoPattern.currency}}</th>
@@ -89,13 +97,13 @@
                 <td class="sub-border-right-table">Fecha</td>
                 <td class="border-right-table" style="width: 65px">%</td>
             </tr>
-            <tr ng-repeat="row in myData">
-                <td>{{row.year}}</td>
+            <tr ng-repeat="row in myData" class="hover-row-detail">
+                <td ng-click="loadGraphic($event,row.yearChartURL);$event.stopPropagation();" >{{row.year}}</td>
                 <td class="sub-border-right-table">{{row.entryDate | date: 'dd/MMM/yy'}}</td>
                 <td class="border-right-table"><b>{{row.entryValue | twoDecimals}}</b></td>
                 <td class="sub-border-right-table">{{row.exitDate | date: 'dd/MMM/yy'}}</td>
                 <td class="border-right-table"><b>{{row.exitValue | twoDecimals}}</b></td>
-                <td class="border-right-table" ng-class="{'negative-percent': row.returnValue < 0}"><b>{{row.returnValue}}</b></td>
+                <td class="border-right-table" ng-class="{'negative-percent': row.returnValue < 0}"><b>{{(row.returnValue) | twoDecimals}}</b></td>
                 <td class="sub-border-right-table">{{row.bestGainDate | date: 'dd/MMM/yy'}}</td>
                 <td class="border-right-table" ng-class="{'negative-percent': row.bestGainValue < 0}"><b>{{row.bestGainValue}}</b></td>
                 <td class="sub-border-right-table">{{row.worstLostDate | date: 'dd/MMM/yy'}}</td>
