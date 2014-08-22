@@ -22,7 +22,8 @@
       color: @white;
       padding-left: 10px;
       &:first-child{
-        min-width: 140px;
+        width: 1%;
+        white-space: nowrap;
       }
       &:nth-child(6){
         width: 55px;
@@ -75,6 +76,19 @@
   tbody{
     font-size: 10px;
     tr{
+
+
+      &:hover {
+
+        td{
+          &:nth-child(1) {
+            background-color: #3D3D3F;
+            color: #FF8200 !important;
+          }
+          background-color: @greyOver;
+        }
+      }
+
       height: 25px;
       &:nth-child(odd) {
         background-color: @white;
@@ -130,6 +144,7 @@
           background: @orangeColor;
           color: @white;
           font-family: 'fontpo-bold';
+          cursor: pointer;
         }
         &:nth-child(1){
           width: 73px;
@@ -302,11 +317,24 @@
   }
 }
 
+
+.div-graph-detail {
+  position: absolute;
+  top: 53px;
+  padding-top: 20px;
+  text-align: center;
+  z-index: 100;
+  background: white;
+  left: 44%;
+  min-height: 330px;
+}
+
 .detail-container{
   border: 1px solid @greyColor;
   width: 962px;
   float:left;
   margin-bottom: 80px;
+  position: relative;
 }
 
 .pdf-icon-detail{
@@ -330,6 +358,7 @@
   border-collapse: separate;
   margin-bottom: 20px;
   border-bottom: 2px solid #6f7072;
+  position: relative;
   img{
     margin-right: 5px;
   }
