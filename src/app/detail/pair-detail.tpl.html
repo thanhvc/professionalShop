@@ -94,8 +94,8 @@
             <td class="sub-border-right-table">Fecha</td>
             <td class="border-right-table" style="width: 65px">%</td>
         </tr>
-        <tr ng-repeat="row in myData">
-            <td>{{row.year}}</td>
+        <tr ng-repeat="row in myData" class="hover-row-detail">
+            <td ng-click="loadGraphic($event,row.yearChartURL);$event.stopPropagation();">{{row.year}}</td>
             <td class="sub-border-right-table">{{row.entryDate | date: 'dd/MMM/yy'}}</td>
             <td class="border-right-table">
                 <span class="buy-color"><b>{{row.entryValue}}</b></span>
