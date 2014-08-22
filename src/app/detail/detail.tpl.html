@@ -90,12 +90,12 @@
                 <td class="border-right-table" style="width: 65px">%</td>
             </tr>
             <tr ng-repeat="row in myData">
-                <td>{{row.year}}</td>
+                <td ng-click="loadGraphic($event,row.yearChartURL);$event.stopPropagation();" >{{row.year}}</td>
                 <td class="sub-border-right-table">{{row.entryDate | date: 'dd/MMM/yy'}}</td>
                 <td class="border-right-table"><b>{{row.entryValue | twoDecimals}}</b></td>
                 <td class="sub-border-right-table">{{row.exitDate | date: 'dd/MMM/yy'}}</td>
                 <td class="border-right-table"><b>{{row.exitValue | twoDecimals}}</b></td>
-                <td class="border-right-table" ng-class="{'negative-percent': row.returnValue < 0}"><b>{{row.returnValue}}</b></td>
+                <td class="border-right-table" ng-class="{'negative-percent': row.returnValue < 0}"><b>{{(row.returnValue) | twoDecimals}}</b></td>
                 <td class="sub-border-right-table">{{row.bestGainDate | date: 'dd/MMM/yy'}}</td>
                 <td class="border-right-table" ng-class="{'negative-percent': row.bestGainValue < 0}"><b>{{row.bestGainValue}}</b></td>
                 <td class="sub-border-right-table">{{row.worstLostDate | date: 'dd/MMM/yy'}}</td>
