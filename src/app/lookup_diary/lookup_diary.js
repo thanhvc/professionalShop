@@ -381,6 +381,9 @@ angular.module('ngMo.lookup_diary', [
             if ($scope.filterOptions.filters.volatilityInput!== "") {
                 return true;
             }
+            if ($scope.filterOptions.filters.alarm !== false) {
+                return true;
+            }
             return false;
         };
         //restore filters and load page
@@ -556,8 +559,8 @@ angular.module('ngMo.lookup_diary', [
             elemDiv.style.cssText += 'width:' + w + 'px;';
 
 
-            var closeButton = document.createElement('img');
-            closeButton.src = "assets/img/close_modal.png";
+            var closeButton = document.createElement('div');
+            //closeButton.src = "assets/img/close_modal.png";
             closeButton.className = 'close-graphic-button-diary-lookup';
             closeButton.onclick = function (event) {
 

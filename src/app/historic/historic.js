@@ -369,9 +369,9 @@ angular.module('ngMo.historic', [
          */
 
         $scope.refreshRegion = function () {
-            if ($scope.filterOptions.filters.selectedRegion === ""){
-                $scope.filterOptions.filters.selectedMarket = "";
-            }
+            $scope.filterOptions.filters.selectedMarket = "";
+            $scope.filterOptions.filters.selectedSector = "";
+            $scope.filterOptions.filters.selectedIndustry = "";
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
                     $scope.refreshSelectors(['markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
@@ -394,6 +394,8 @@ angular.module('ngMo.historic', [
 
         //refresh selectors depending of market
         $scope.refreshMarket = function () {
+            $scope.filterOptions.filters.selectedSector = "";
+            $scope.filterOptions.filters.selectedIndustry = "";
             if (TabsService.getActiveTab() === 0) {
                 $scope.refreshSelectors(['industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
             }
@@ -407,8 +409,19 @@ angular.module('ngMo.historic', [
 
         //only used in stock
         $scope.refreshSector = function () {
+            $scope.filterOptions.filters.selectedIndustry = "";
             $scope.refreshSelectors(['industries'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
         };
+
+        //only used in stock
+        $scope.refreshIndustry = function () {
+            $scope.refreshSelectors(['industries'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+        };
+        $scope.selectIndustry = function () {
+            $scope.refreshIndustry();
+            $scope.applyFilters();
+        };
+
         $scope.selectSector = function () {
             $scope.refreshSector();
             $scope.applyFilters();
