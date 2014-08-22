@@ -17,6 +17,7 @@
   background-color: @header-detail;
   tr{
     th{
+      white-space: nowrap;
       background-color: @header-detail !important;
       border: none !important;
       color: @white;
@@ -53,6 +54,29 @@
     }
 }
 
+.detail-separator{
+    height: 15px;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.detail-div-tooltip-container{
+  overflow: visible;
+}
+
+.hover-row-detail {
+  &:hover {
+
+    td{
+      &:nth-child(1) {
+        background-color: #3D3D3F;
+        color: #FF8200 !important;
+        cursor: pointer;
+      }
+      background-color: @greyOver;
+    }
+  }
+}
 .detail-table{
   width: 960px;
   text-align: center;
@@ -77,17 +101,6 @@
     font-size: 10px;
     tr{
 
-
-      &:hover {
-
-        td{
-          &:nth-child(1) {
-            background-color: #3D3D3F;
-            color: #FF8200 !important;
-          }
-          background-color: @greyOver;
-        }
-      }
 
       height: 25px;
       &:nth-child(odd) {
@@ -144,7 +157,6 @@
           background: @orangeColor;
           color: @white;
           font-family: 'fontpo-bold';
-          cursor: pointer;
         }
         &:nth-child(1){
           width: 73px;
