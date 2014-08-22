@@ -36,7 +36,8 @@
                 </select>
             </td>
             <td>
-                <select ng-disabled="filterOptions.selectors.industries.length <= 0" ng-change="applyFilters()" class="border-filters select-filter"
+                <select ng-disabled="filterOptions.selectors.industries.length <= 0"
+                        ng-change="selectIndustry()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedIndustry">
                     <option value="">- Industria -</option>
                     <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
