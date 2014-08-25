@@ -11,9 +11,11 @@
         </th>
         <th class="border-right-table" colspan="2">
             Entrada
+            <img src="assets/img/entryArrow.png">
         </th>
         <th class="border-right-table" colspan="2">
-            <span >Salida</span>
+            <img src="assets/img/exitArrow.png">
+            <span>Salida</span>
         </th>
         <th class="border-right-table">
             <span tooltip-html-unsafe="Renta Final">Rent.</span>
@@ -88,30 +90,30 @@
             {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <div class="buy-color"><b>{{data.entryValue}}</b></div>
-            <div class="sell-color"><b>{{data.bearishEntryValue}}</b></div>
+            <div class="buy-color"><b>{{data.entryValue | twoDecimals}}</b></div>
+            <div class="sell-color"><b>{{data.bearishEntryValue | twoDecimals}}</b></div>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <div class="buy-color"><b>{{data.exitValue}}</b></div>
-            <div class="sell-color"><b>{{data.bearishExitValue}}</b></div>
+            <div class="buy-color"><b>{{data.exitValue | twoDecimals}}</b></div>
+            <div class="sell-color"><b>{{data.bearishExitValue | twoDecimals}}</b></div>
         </td>
         <td class="table-cell-patterns border-right-table">
             <span class="link"><b>{{data.lastPerformance | twoDecimals}}</b></span>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
-            {{data.bestGainDate | date: 'dd/MM/yy'}}
+            <span ng-show="data.bestGain >= 0.01">{{data.bestGainDate | date: 'dd/MM/yy'}}</span>
         </td>
         <td class="table-cell-patterns border-right-table">
-            <b ng-class="{'negative-percent': data.asset.lastQuote < 0}">{{data.bestGain |  twoDecimals}}</b>
+            <b ng-show="data.bestGain >= 0.01" ng-class="{'negative-percent': data.bestGain < 0}">{{data.bestGain |  twoDecimals}}</b>
         </td>
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
-            {{data.worstLossDate | date: 'dd/MM/yy'}}
+            <span ng-show="data.worstLoss <= -0.01"></spana> {{data.worstLossDate | date: 'dd/MM/yy'}}</span>
         </td>
         <td class="table-cell-patterns border-right-table">
-            <b>{{data.worstLoss |  twoDecimals}}</b>
+            <b ng-show="data.worstLoss <= -0.01" ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss |  twoDecimals}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
 

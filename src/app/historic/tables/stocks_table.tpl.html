@@ -10,18 +10,15 @@
             Acción
         </th>
         <th class="border-right-table">
-            Mercado
+            Merc.
         </th>
         <th class="border-right-table" colspan="2">
-            <div style="width:75px; margin: 0 auto;">
-                <span style="float:left;">Entrada</span> <img src="assets/img/entryArrow.png">
-            </div>
+            Entrada
+            <img src="assets/img/entryArrow.png">
         </th>
         <th class="border-right-table" colspan="2">
-            <div style="width:75px; margin: 0 auto;">
-                <img src="assets/img/exitArrow.png"  colspan="2">
-                <span style="float:left;" >Salida</span>
-            </div>
+            <img src="assets/img/exitArrow.png">
+            <span>Salida</span>
         </th>
         <th class="border-right-table">
             Renta
@@ -38,7 +35,7 @@
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table">
+        <th class="border-right-table" style="width: 340px;">
             Nombre
         </th>
         <th class="border-right-table">
@@ -61,13 +58,13 @@
         <th class="sub-border-right-table">
             Fecha
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table" style="width: 20px">
             (%)
         </th>
         <th class="sub-border-right-table">
             Fecha
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table" style="width: 20px">
             (%)
         </th>
         <th class="sub-border-right-table">
@@ -78,7 +75,7 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
+        <td style="text-align: left;" class="table-cell-patterns border-right-table">
             <span ng-show="data.patternType == 'BULLISH'">Comprar</span>
             <span ng-show="data.patternType == 'BEARISH'">Vender</span>
             <br/>
@@ -93,33 +90,32 @@
         <td class="border-right-table table-cell-patterns" style="text-align: center;">
             <span tooltip="{{data.asset.exchange.name}}">{{data.asset.exchange.symbol}}</span>
         </td>
-        <td style="width: 70px;"
-            class="table-cell-patterns sub-border-right-table">
+        <td class="table-cell-patterns sub-border-right-table">
                 {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
-        <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <b>{{data.entryValue}}</b>
+        <td class="table-cell-patterns border-right-table">
+            <b>{{data.entryValue | twoDecimals}}</b>
         </td>
-        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
+        <td class="table-cell-patterns sub-border-right-table">
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
-        <td style="width: 48px;" class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
-            <b>{{data.exitValue}}</b>
+        <td class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+            <b>{{data.exitValue | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns border-right-table">
             <b>{{data.lastPerformance |  twoDecimals}}</b>
         </td>
-        <td style="width: 44px;" class="table-cell-patterns sub-border-right-table">
-            {{data.bestGainDate | date: 'dd/MMM/yy'}}
+        <td class="table-cell-patterns sub-border-right-table">
+            <span ng-show="data.bestGain >= 0.01">{{data.bestGainDate | date: 'dd/MMM/yy'}}</span>
         </td>
-        <td style="width: 70px;" class="table-cell-patterns border-right-table">
-            <b ng-class="{'negative-percent': data.asset.lastQuote < 0}">{{data.bestGain |  twoDecimals}}</b>
+        <td class="table-cell-patterns border-right-table">
+            <b ng-show="data.bestGain >= 0.01" ng-class="{'negative-percent': data.bestGain < 0}">{{data.bestGain | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns sub-border-right-table">
-            {{data.worstLossDate | date: 'dd/MMM/yy'}}
+            <span ng-show="data.worstLoss <= -0.01">{{data.worstLossDate | date: 'dd/MMM/yy'}}</span>
         </td>
-        <td style="width: 70px;" class="table-cell-patterns border-right-table">
-            <b ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss |  twoDecimals}}</b>
+        <td class="table-cell-patterns border-right-table">
+            <b ng-show="data.worstLoss <= -0.01" ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns sub-border-right-table">
 
