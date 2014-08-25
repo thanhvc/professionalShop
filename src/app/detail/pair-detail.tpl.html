@@ -54,18 +54,40 @@
                         <th style="padding-left: 20px;">
                             <span class="buy-color"><b>COMPRAR</b></span>
                         </th>
-                        <th class="buy-color"><div><b>{{infoPattern.name}}</b></div></th>
-                        <th class="buy-color"><div><b>{{infoPattern.sector}} <span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></div></th>
+
+                        <th class="buy-color">
+                            <div  tooltip-html-unsafe="{{infoPattern.name}}" class="detail-div-tooltip-container">
+                                <div class="detail-separator"><b >{{infoPattern.name}}</b></div>
+                            </div>
+                        </th>
+                        <th class="buy-color">
+                            <div  tooltip-html-unsafe="{{infoPattern.sector}} / {{infoPattern.industry}}" class="detail-div-tooltip-container">
+                                <div class="detail-separator"><b >{{infoPattern.sector}}<span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></div>
+                            </div>
+                        </th>
                         <th class="label-date-header-detail"><img src='assets/img/entry_orange_arrow.png'>Fecha Entrada</th>
                         <th>{{ infoPattern.entryDate | date: 'dd MMM'}}</th>
-                        <th class="currency-detail" rowspan="2"><img src='assets/img/currency-detail.png'> {{infoPattern.currency}}</th>
+                        <th class="currency-detail" rowspan="2">
+                            <div  tooltip-html-unsafe="{{infoPattern.currency}}" class="detail-div-tooltip-container">
+                                <div class="detail-separator"><img src='assets/img/currency-detail.png'>{{infoPattern.currency}}</div>
+                            </div>
+                        </th>
                     </tr>
                     <tr>
                         <th style="padding-left: 20px;">
                             <span class="sell-color"><b>VENDER</b></span>
                         </th>
-                        <th class="sell-color"><div><b>{{infoPattern.nameBearishAsset}}</b></div></th>
-                        <th class="sell-color"><div><b>{{infoPattern.sectorBearishAsset}} <span ng-show="infoPattern.sectorBearishAsset != null && infoPattern.industryBearishAsset">/</span> {{infoPattern.industryBearishAsset}}</b></div></th>
+
+                        <th class="sell-color">
+                            <div  tooltip-html-unsafe="{{infoPattern.nameBearishAsset}}" class="detail-div-tooltip-container">
+                                <div class="detail-separator"><b >{{infoPattern.nameBearishAsset}}</b></div>
+                            </div>
+                        </th>
+                        <th class="sell-color">
+                            <div  tooltip-html-unsafe="{{infoPattern.sectorBearishAsset}} / {{infoPattern.industryBearishAsset}}" class="detail-div-tooltip-container">
+                                <div class="detail-separator"><b >{{infoPattern.sectorBearishAsset}}<span ng-show="infoPattern.sectorBearishAsset != null && infoPattern.industryBearishAsset">/</span> {{infoPattern.industryBearishAsset}}</b></div>
+                            </div>
+                        </th>
                         <th class="label-date-header-detail"><img src='assets/img/exit_orange_arrow.png'>Fecha Salida</th>
                         <th>{{ infoPattern.exitDate | date: 'dd MMM'}}</th>
                     </tr>
