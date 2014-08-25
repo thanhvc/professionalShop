@@ -75,7 +75,11 @@
             <th style="border-right: 1px solid #6f7072 !important;"></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td style="width: 446px;"><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 60}}</span></td>
+            <td style="width: 446px;">
+                <div class="long-name-breaker">
+                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 60}}</span>
+                </div>
+            </td>
 
             <td >{{pattern.win | twoDecimals}}</td>
             <td class="index-lost-catalog">{{pattern.loss | twoDecimals}}</td>
