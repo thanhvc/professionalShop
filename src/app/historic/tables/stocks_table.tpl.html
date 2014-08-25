@@ -104,7 +104,7 @@
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
         <td style="width: 48px;" class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
-            <b>{{data.exitValue}}</b>
+            <b>{{data.exitValue | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns border-right-table">
             <b>{{data.lastPerformance |  twoDecimals}}</b>
