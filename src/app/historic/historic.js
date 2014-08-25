@@ -94,6 +94,16 @@ angular.module('ngMo.historic', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+
+        //event for keypress in input search name, launch the filters if press enter
+        $scope.submitName = function(keyEvent) {
+            if (keyEvent.which === 13) {
+                $scope.search();
+            }
+
+        };
+
+
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
@@ -294,6 +304,11 @@ angular.module('ngMo.historic', [
 
         $scope.callBackRefreshSelectors = function (data) {
             //checks the data received, when a selector is refreshed, the value selected is also cleaned
+            if (data.hasOwnProperty("regions")) {
+                $scope.filterOptions.selectors.regions = data.regions;
+                //$scope.filterOptions.filters.selectedRegion = "";
+            }
+
             if (data.hasOwnProperty("markets")) {
                 $scope.filterOptions.selectors.markets = data.markets;
                 if (typeof data.selectedRegion != 'undefined') {
@@ -301,10 +316,7 @@ angular.module('ngMo.historic', [
                 }
                 //$scope.filterOptions.filters.selectedMarket = "";
             }
-            if (data.hasOwnProperty("regions")) {
-                $scope.filterOptions.selectors.regions = data.regions;
-                //$scope.filterOptions.filters.selectedRegion = "";
-            }
+
             if (data.hasOwnProperty("industries")) {
                 $scope.filterOptions.selectors.industries = data.industries;
                 //$scope.filterOptions.filters.selectedIndustry = "";
@@ -312,6 +324,13 @@ angular.module('ngMo.historic', [
             if (data.hasOwnProperty("sectors")) {
                 $scope.filterOptions.selectors.sectors = data.sectors;
                 //$scope.filterOptions.filters.selectedSector = "";
+            }
+
+            if (typeof data.selectedMarket != 'undefined') {
+                $scope.filterOptions.filters.selectedMarket = data.selectedMarket;
+            }
+            if (typeof data.selectedSector != 'undefined') {
+                $scope.filterOptions.filters.selectedSector = data.selectedSector;
             }
         };
 
