@@ -99,7 +99,7 @@
         </tr>
         <tr ng-repeat="pattern in patterns">
             <td class="futures-patterns-catalog"><span class="cursor-help"
-                      tooltip-html-unsafe="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.asset.expirationYear}} ">{{pattern.asset.longName | limitTo: 33}}</span>
+                      tooltip-html-unsafe="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.asset.expirationYear}} ">{{pattern.asset.longName | limitTo: 60}}</span>
             </td>
             <td class="futures-expiration-catalog">{{pattern.asset.expirationYear}}</td>
             <td class="futures-market-catalog"><span class="cursor-help"tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
