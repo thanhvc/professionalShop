@@ -92,12 +92,15 @@
             <th></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 60}}</span>
+            <td>
+                <div class="long-name-breaker">
+                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 60}}</span>
+                </div>
             </td>
             <td><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
             </td>
             <td>
-                <div class="sector-industry-breaker">
+                <div class="long-name-breaker">
                 <span tooltip-html-unsafe="{{pattern.asset.sector}}" class="cursor-help">{{pattern.asset.sector}}</span> <span
                     ng-show="pattern.asset.sector != null && pattern.asset.industry != null && pattern.asset.sector != '' && pattern.asset.industry != ''">/</span>
                 <span tooltip-html-unsafe="{{pattern.asset.industry}}" class="cursor-help">{{pattern.asset.industry}}</span>
