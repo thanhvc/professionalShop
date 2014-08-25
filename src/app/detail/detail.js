@@ -100,6 +100,10 @@ angular.module('ngMo.detail', [
 
         //open a graph and sve it to $scope.graph
         $scope.loadGraphic = function (inputEvent,url) {
+            if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
+                $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
+                $scope.graph = null;
+            }
 
             var elemDiv = document.createElement('div');
 

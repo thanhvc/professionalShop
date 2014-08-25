@@ -539,6 +539,11 @@ angular.module('ngMo.lookup_diary', [
         //open a graph and sve it to $scope.graph
         $scope.loadGraphic = function (inputEvent,url,name) {
 
+            if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
+                $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
+                $scope.graph = null;
+            }
+
             var elemDiv = document.createElement('div');
             var h = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetHeight;
             var w = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetWidth;

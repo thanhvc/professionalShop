@@ -2,7 +2,7 @@
     <table>
         <tr>
             <td>
-                <input class="border-filters input-filter" placeholder="Nombre"
+                <input ng-keypress="submitName($event)" class="border-filters input-filter" placeholder="Nombre"
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
@@ -61,7 +61,7 @@
             <tr>
                 <td>
 
-                    <span class="filter-label-select">Mejor Renta Final</span><br>
+                    <span class="filter-label-select">Renta Final</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRent">
@@ -134,7 +134,7 @@
                             <td style="text-align: center;">
 
                             <span class="filter-label-select">Favoritos</span><br>
-                            <input type="checkbox"
+                            <input type="checkbox" ng-change="search();"
                                    ng-model="filterOptions.filters.favourite">
                             </td>
                         </tr>
