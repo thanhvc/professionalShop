@@ -98,21 +98,22 @@
                            ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
                            data-ng-model="filterOptions.filters.durationInput">
                 </td>
-                <td>
+                <td style="width:85px;">
                     <table style="position: relative; left: -15px;">
                         <tr>
-                            <td style="text-align: center;"><span class="filter-label-select">Favoritos</span><br>
+                            <td style="text-align: center;">
+
+                                <span class="filter-label-select">Favoritos</span><br>
                                 <input type="checkbox" ng-change="search();"
                                        ng-model="filterOptions.filters.favourite">
-                            </td>
-
-                            <td style="vertical-align: bottom; text-align: center;">
-                                <button class="mo-button" ng-click="search()">Buscar</button>
                             </td>
                         </tr>
                     </table>
 
 
+                </td>
+                <td style="vertical-align: bottom; text-align: right; width:165px;">
+                    <button class="mo-button" ng-click="search()">Buscar</button>
                 </td>
             </tr>
 

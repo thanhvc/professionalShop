@@ -7,8 +7,8 @@
         <option value="1">Par Índices</option>
     </select>
     <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>Favoritos</label>
-    <input type="text" placeholder="Día" ng-change="search();" data-ng-model="filterOptions.filters.dayDateInput">
-    <select data-ng-model="filterOptions.filters.order" class="select-order" ng-change="search();">
+    <input type="text" placeholder="Día" ng-change="search();" data-ng-model="filterOptions.filters.dayDateInput" ng-delay="3000">
+    <select data-ng-model="filterOptions.filters.order" class="select-order" ng-change="search();" ng-delay="3000">
         <option selected="selected" value="0">Ordenar por Fecha Entrada</option>
         <option value="1">Ordenar por Fecha Salida</option>
     </select>
@@ -28,8 +28,10 @@
             <span class="sell-color" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.name}})">{{pattern.asset.longName}}</span>
         </td>
         <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
-            <span ng-show="day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="pairs-letter calendar-letter">P</span>
-            <span ng-show="day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="pairs-letter calendar-letter">P</span>
+          <!--  <span ng-show="day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="pairs-letter calendar-letter">P</span>
+            <span ng-show="day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="pairs-letter calendar-letter">P</span> -->
+
+            <span ng-show="mustPaint(day,pattern)" class="pairs-letter calendar-letter">P</span>
         </td>
     </tr>
 
