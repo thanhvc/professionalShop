@@ -25,7 +25,7 @@ angular.module('ngMo.calendar', [
     .run(function run() {
     })
 
-    .controller('CalendarCtrl', function ($scope, TabsService, $location, IsLogged, CalendarService, MonthSelectorService, ActualDateService) {//<- use location.search()
+    .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged, CalendarService, MonthSelectorService, ActualDateService) {//<- use location.search()
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -119,7 +119,14 @@ angular.module('ngMo.calendar', [
                     break;
             }
         };
-
+        //synchronize the selector with the month of the filter
+        $scope.updateSelectorMonth = function () {
+            for (i = 0; i < $scope.filterOptions.months.length; i++) {
+                if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
+                    $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[i];
+                }
+            }
+        };
 
 ///urlParams control
         $scope.saveUrlParams = function () {
@@ -151,11 +158,23 @@ angular.module('ngMo.calendar', [
             if (urlParams.favourite) {
                 urlParamsSend.qfav = urlParams.favourite;
             }
+            urlParamsSend.qorder= urlParams.order;
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
 
             $location.path('/calendar').search(urlParamsSend);
         };
+
+        $scope.isCorrectDate= function(date){
+
+            for (i=0; i< $scope.filterOptions.months.length;i++) {
+                if ($scope.filterOptions.months[i].value === date) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
 
         //synchronize the selector with the month of the filter
         $scope.updateSelectorMonth = function () {
@@ -177,8 +196,26 @@ angular.module('ngMo.calendar', [
                 index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
                 tab_type: (params.qtab ? params.qtab : "" ),
                 active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                favourite: (params.qfav ? params.qfav : "" )
+                favourite: (params.qfav ? params.qfav : "" ),
+                order: (params.qorder ? params.qorder: 0),
+                dayDateInput: (params.qday ? params.qday: null)
+
             };
+            //special case for index
+            if ((filters.active_tab === 2)) {//case of index
+
+                $scope.selectedTypeIndice = parseInt(filters.index_type,10);
+                //only for index, not pair index
+                if ((filters.index_type ===0) || (filters.index_type ==="0"))  {
+                    filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop,10)] : "" );
+                } else {
+                    filters.selectedOperation="";
+                }
+
+            } else {
+                filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" );
+            }
+
 
             //special cases:
             var tabChanged = false;
@@ -195,19 +232,38 @@ angular.module('ngMo.calendar', [
                     }
                 }
             }
+            $scope.selectedTab = TabsService.getActiveTab();
+            //after set the tab, check if is a index and diferent type
+            $scope.urlSelected= templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
+
+
             //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
-                var d = new Date(date[1], date[0] - 1, 1);
+                var d;
+                //check if the date of the param is correct (is in the selector)
+                //if not, just select the actualmonth
+                if ($scope.isCorrectDate(params.month)) {
+                    d = new Date(date[1], date[0] - 1, 1);
+                } else {
+                    actual_date = new Date();
+                    d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
+                }
                 filters.month = MonthSelectorService.setDate(d);
 
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = new Date();
+                //var date_restart = new Date();
+                //filters.month = MonthSelectorService.restartDate();
+                //var date_restart = new Date();
+                //date_restart.setDate(1);
+                //date_restart.setMonth(MonthSelectorService.getSelectedMonth().month-1);
                 filters.month = MonthSelectorService.restartDate();
             }
 
+            $scope.filterOptions.filters = filters;
+            $scope.updateSelectorMonth();
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {
                 switch (TabsService.getActiveTab()) {
@@ -283,6 +339,34 @@ angular.module('ngMo.calendar', [
 
 
         };
+        //function for paint a pattern depending on its date
+        $scope.mustPaint = function (dayOfMonth,pattern) {
+            var actualDate = $scope.filterOptions.filters.month;
+            afterStart = false;
+            beforeEnd = false;
+            today = new Date();
+            yesterday = new Date();
+            tomorrow = new Date();//we compare entryDate and exitDate to yesterday and tomorrow
+            //because the compare dates could not work with equals, but works fine with the operators < >
+            today.setDate(dayOfMonth.dayOfMonth);
+            today.setFullYear(actualDate.year);
+            today.setMonth(actualDate.month-1);
+            today.setSeconds(0);
+            today.setHours(0);
+            today.setMinutes(0);
+            today.setMilliseconds(0);
+            yesterday.setTime(today.getTime() -  (1 * 24 * 60 * 60 * 1000));
+            tomorrow.setTime(today.getTime() +  (1 * 24 * 60 * 60 * 1000));
+            entryDate = new Date(pattern.entryDate);
+            exitDate = new Date(pattern.exitDate);
+            if (entryDate <tomorrow && exitDate >yesterday) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+        };
 
         $scope.checkFilters = function () {
             //for each input filter filled, the selector linked must be set
@@ -294,6 +378,10 @@ angular.module('ngMo.calendar', [
 
         $scope.search = function () {
             $scope.applyFilters();
+        };
+        //order Search is the same but with a wait of 5 seconds, is used in the order selector
+        $scope.orderSearch = function () {
+            $timeout(function(){$scope.applyFilters();},2000);
         };
 
         /*apply filters to search, restarting the page*/
@@ -341,6 +429,8 @@ angular.module('ngMo.calendar', [
         //when we change index type (pairs_index, or index)
         $scope.selectIndexType = function () {
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
+            $scope.selectedTypeIndice = $scope.filterOptions.filters.index_type;
+            $scope.urlSelected= templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
             $scope.applyFilters();
         };
 
