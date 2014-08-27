@@ -292,6 +292,7 @@ angular.module('ngMo.calendar', [
             $scope.applyFilters();
             $scope.pagingOptions.currentPage = 1;
             //save params to load data
+            $scope.myData = [];
             $scope.saveUrlParams();
         };
 
