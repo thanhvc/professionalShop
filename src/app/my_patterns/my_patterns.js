@@ -70,11 +70,17 @@ angular.module('ngMo.my_patterns', [
                         selectedSector: (typeof params.qsector !== "undefined" ? $scope.qsector : ""),
                         selectedVolatility: (typeof params.qselvol !== "undefined" ? selectors[parseInt(params.qselvol ,10)] : "" ),
                         tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
-                        volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" )
+                        volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" ),
+                        page: (typeof params.pag !== "undefined" ? params.pag : "" )
                     };
                 },
+
                 myPatternsData: function(PatternsService, filtering) {
-                    return PatternsService.getPagedDataAsync(1, filtering).then(function (data){
+                    var page = 1;
+                    if (filtering.page.trim().length > 0) {
+                        page = parseInt(filtering.page,10);
+                    }
+                    return PatternsService.getPagedDataAsync(page, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
                             results: data.results,
