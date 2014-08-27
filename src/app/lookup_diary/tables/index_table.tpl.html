@@ -1,92 +1,95 @@
 <div class="no-patterns-container" ng-show="myData.length==0">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
 
-<table style="width: 950px;" class="table-pattern table-with-graph" ng-show="myData.length>0">
+<table style="width: 955px;" class="table-pattern table-with-graph" ng-show="myData.length>0">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
-        <th class="table-id-header" rowspan="2">
+        <th class="table-id-header id-column-width" rowspan="2">
             Id
         </th>
-        <th class="border-right-table lookup-stock-column-width">
+        <th class="border-right-table description-column-width">
             Descripción
         </th>
-        <th class="border-right-table" colspan="2">
+        <th class="border-right-table entry-column-width" colspan="2">
             Entrada
             <img src="assets/img/entryArrow.png">
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table exit-column-width">
             <img src="assets/img/exitArrow.png">
             <span >Salida</span>
         </th>
-        <th class="border-right-table"
-            colspan="3">
+        <th class="border-right-table last-column-width" colspan="3">
             <span>Último</span>
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table volatility-column-width">
             <span class="cursor-help" tooltip-html-unsafe="Volatilidad">Vol.</span>
         </th>
-        <th class="border-right-table"
-            colspan="2">
+        <th class="border-right-table best-gain-column-width" colspan="2">
             Mejor Ganancia
         </th>
-        <th class="border-right-table"  colspan="2">
+        <th class="border-right-table worst-loss-column-width"  colspan="2">
             <span>Peor Pérdida</span>
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table notes-column-width">
             <span>Notas</span>
         </th>
-        <th class="sub-border-right-table">
+        <th class="sub-border-right-table alarm-column-width">
             <span>Alarma</span>
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table">
+        <th class="border-right-table description-column-width"></th>
 
-        </th>
-        <th class="sub-border-right-table">
+        <th class="sub-border-right-table entry-date-column-width">
             Fecha
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table entry-price-column-width">
             Precio
         </th>
-        <th class="border-right-table">
-            Fecha
-        </th>
-        <th class="sub-border-right-table">
-            Fecha
-        </th>
-        <th class="sub-border-right-table">
-            Precio
-        </th>
-        <th class="border-right-table">
-            (%)
-        </th>
-        <th class="border-right-table">
-            (%)
-        </th>
-        <th class="sub-border-right-table">
-            Fecha
-        </th>
-        <th class="border-right-table">
-            (%)
-        </th>
-        <th class="sub-border-right-table">
-            Fecha
-        </th>
-        <th class="border-right-table">
-            (%)
-        </th>
-        <th class="border-right-table">
 
+        <th class="border-right-table exit-column-width">
+            Fecha
         </th>
-        <th class="sub-border-right-table">
+
+        <th class="sub-border-right-table last-date-column-width">
+            Fecha
+        </th>
+        <th class="sub-border-right-table last-price-column-width">
             Precio
         </th>
+        <th class="border-right-table last-percentage-column-width">
+            (%)
+        </th>
+
+        <th class="border-right-table volatility-column-width">
+            (%)
+        </th>
+
+        <th class="sub-border-right-table best-gain-date-column-width">
+            Fecha
+        </th>
+        <th class="border-right-table best-gain-percentage-column-width">
+            (%)
+        </th>
+
+        <th class="sub-border-right-table worst-loss-date-column-width">
+            Fecha
+        </th>
+        <th class="border-right-table worst-loss-percentage-column-width">
+            (%)
+        </th>
+
+        <th class="border-right-table notes-column-width"></th>
+
+        <th class="sub-border-right-table alarm-column-width">
+            Precio
+        </th>
+
     </tr>
     <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="detail({patternId:data.id})">
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; min-width: 162px;vertical-align: middle;" class="table-cell-patterns border-right-table">
+        <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table description-column-width">
             <span ng-show="data.patternType == 'BULLISH'">Alcista</span>
             <span ng-show="data.patternType == 'BEARISH'">Bajista</span>
             <br/>
@@ -98,44 +101,49 @@
             </span>
             </div>
         </td>
-        <td style="width: 70px;"
-            class="table-cell-patterns sub-border-right-table" >
+
+        <td class="table-cell-patterns sub-border-right-table entry-date-column-width" >
             {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
-        <td style="width: 48px;" class="table-cell-patterns border-right-table" ng-class="{'negative-percent': data.entryValue <= -0.01 }">
+        <td class="table-cell-patterns border-right-table entry-price-column-width" ng-class="{'negative-percent': data.entryValue <= -0.01 }">
             <b ng-show="data.entryValue != 0">{{data.entryValue | twoDecimals}}</b>
         </td>
-        <td style="width: 70px;" class="table-cell-patterns border-right-table">
+
+        <td class="table-cell-patterns border-right-table exit-column-width">
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
-        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+
+        <td class="table-cell-patterns sub-border-right-table last-date-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             {{data.asset.lastQuoteDate | date: 'dd/MMM/yy'}}
         </td>
-        <td class="table-cell-patterns sub-border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+        <td class="table-cell-patterns sub-border-right-table last-price-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
            <a class="link" ng-click="loadGraphic($event,data.asset.priceChartURL,data.asset.longName);$event.stopPropagation();"><b>{{data.asset.lastQuote | twoDecimals}}</b></a>
         </td>
-        <td class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+        <td class="table-cell-patterns border-right-table last-percentage-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <b>{{data.lastPerformance | twoDecimals}}</b>
         </td>
-        <td style="width: 44px;" class="table-cell-patterns border-right-table">
+
+        <td class="table-cell-patterns border-right-table volatility-column-width">
             <a class="link" ng-click="loadGraphic($event,data.asset.volatilityChartURL,data.asset.longName);$event.stopPropagation();"><b>{{data.asset.volatility | twoDecimals}}</b></a>
         </td>
-        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
+
+        <td class="table-cell-patterns sub-border-right-table best-gain-date-column-width">
             <div  ng-show="data.bestGain >= 0.01" >{{data.bestGainDate | date: 'dd/MMM/yy'}}</div>
         </td>
-        <td class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns border-right-table best-gain-percentage-column-width">
             <b ng-show="data.bestGain >= 0.01">{{data.bestGain | twoDecimals}}</b>
         </td>
-        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
+
+        <td class="table-cell-patterns sub-border-right-table worst-loss-date-column-width">
             <div  ng-show="data.worstLoss <= -0.01">{{data.worstLossDate | date: 'dd/MMM/yy'}}</div>
         </td>
-        <td class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns border-right-table worst-loss-percentage-column-width">
             <b ng-class="{'negative-percent': data.worstLoss <= -0.01}" ng-show="data.worstLoss <= -0.01">{{data.worstLoss | twoDecimals}}</b>
         </td>
-        <td style="width: 30px;" class="table-cell-patterns border-right-table">
 
-        </td>
-        <td class="table-cell-patterns sub-border-right-table ng-binding">
+        <td class="table-cell-patterns border-right-table notes-column-width"></td>
+
+        <td class="table-cell-patterns sub-border-right-table ng-binding alarm-column-width">
             <div ng-click="open(data.id, data.asset.longName, '', data.patternType, data.priceAlert, data.conditionAlert); $event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
                 <div style="margin-top: 10px;">
                     <span ng-show="data.conditionAlert == 'GREATER_THAN' &&  data.priceAlert != null">Mayor que</span>
@@ -144,6 +152,7 @@
                 </div>
             </div>
         </td>
+
     </tr>
 
 
