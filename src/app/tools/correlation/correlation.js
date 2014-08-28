@@ -661,7 +661,7 @@ angular.module('ngMo.correlation', [
 
         $scope.generatePdf = function () {
             var data = CorrelationService.getCorrelationPdf($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
-                window.open("data:application/pdf;base64, " + data);
+                var w = window.open("data:application/pdf;base64, " + data);
             });
         };
 

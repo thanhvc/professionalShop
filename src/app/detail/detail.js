@@ -97,6 +97,18 @@ angular.module('ngMo.detail', [
             }
         };
 
+        $scope.generateGraphicsPdf = function (patternId, graphicName) {
+            if (graphicName === 'PRICE') {
+                data = DetailService.getFirstGraphicPdf(patternId).then(function (data) {
+                    var w = window.open("data:application/pdf;base64, " + data);
+                });
+            }else if ("WEEKLY"){
+                data = DetailService.getSecondGraphicPdf(patternId).then(function (data) {
+                    var w = window.open("data:application/pdf;base64, " + data);
+                });
+            }
+        };
+
 
         //open a graph and sve it to $scope.graph
         $scope.loadGraphic = function (inputEvent,url) {
@@ -170,6 +182,43 @@ angular.module('ngMo.detail', [
             };
 
             var result = $http.get($rootScope.urlService + '/detail/'+patternId, config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
+
+        this.getFirstGraphicPdf = function (patternId) {
+            var deferred = $q.defer();
+
+            config = {
+                headers: {
+                    'patternId': patternId,
+                    'token': $window.sessionStorage.token
+                }
+            };
+
+            var result = $http.post($rootScope.urlService+'/firstgraphicpdf', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
+
+
+        this.getSecondGraphicPdf = function (patternId) {
+            var deferred = $q.defer();
+
+            config = {
+                headers: {
+                    'patternId': patternId,
+                    'token': $window.sessionStorage.token
+                }
+            };
+
+            var result = $http.post($rootScope.urlService+'/secondgraphicpdf', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;
