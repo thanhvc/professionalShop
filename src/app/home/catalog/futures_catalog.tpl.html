@@ -39,7 +39,9 @@
         </p>
         <p>Hágase cliente y descubra toda la información.</p>
     </div>
-    <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy'}}</div>
+    <div bindonce="startDate" class="start-date-catalog-container">
+        <span bo-text="startDate | date: 'MMMM yyyy'"></span>
+    </div>
     <div class="region-catalog-container">{{selectedPack.region.name | uppercase}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();"
             class="mo-button purchase-button">Al carro
@@ -74,47 +76,58 @@
             N&uacute;mero total de patrones: {{results}}; Patrones encontrados: {{found}}
         </div>
     </div>
-    <table class="patterns-table-catalog" style="table-layout: fixed">
+
+
+    <!-- No result message -->
+    <div class="no-results-catalog-container" ng-show="patterns.length==0">No hay resultados</div>
+
+    <!-- Futures table -->
+    <table class="patterns-table-catalog" ng-show="patterns.length > 0">
         <tr>
-            <th class="future-patterns-catalog" style="width: 160px">Patr&oacute;n Futuros</th>
-            <th class="futures-expiration-catalog" style="width: 110px">Fecha Vencimiento</th>
-            <th class="futures-market-catalog">Mercado</th>
-            <th class="futures-years-catalog" colspan="2">N&uacute;mero de A&ntilde;os</th>
-            <th class="futures-rent-catalog"  colspan="2">Rentabilidad (%)</th>
-            <th class="futures-duration-catalog" >Duraci&oacute;n</th>
-            <th class="futures-vol-catalog" style="width: 60px"><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
-            <th class="futures-fav-catalog" style="width: 65px">Estado</th>
+            <th class="futures-name-column-catalog">Patr&oacute;n Futuros</th>
+            <th class="futures-expiration-date-column-catalog">Fecha Vencimiento</th>
+            <th class="futures-market-column-catalog">Mercado</th>
+            <th class="futures-number-of-years-column-catalog" colspan="2">N&uacute;mero de A&ntilde;os</th>
+            <th class="futures-profit-column-catalog"  colspan="2">Rentabilidad (%)</th>
+            <th class="futures-duration-column-catalog">Duraci&oacute;n</th>
+            <th class="futures-volatility-column-catalog"><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
+            <th class="futures-status-column-catalog">Estado</th>
         </tr>
         <tr>
-            <th>Nombre Producto</th>
-            <th></th>
-            <th>C&oacute;digo</th>
-            <th class="futures-market-catalog">Ganancia</th>
-            <th>Pérdida</th>
-            <th>Acumulada</th>
-            <th>Promedio</th>
-            <th>Meses</th>
-            <th>(%)</th>
-            <th></th>
+            <th class="futures-name-column-catalog">Nombre Producto</th>
+            <th class="futures-expiration-date-column-catalog"></th>
+            <th class="futures-market-column-catalog">C&oacute;digo</th>
+            <th class="futures-number-of-years-gain-column-catalog">Ganancia</th>
+            <th class="futures-number-of-years-loss-column-catalog">Pérdida</th>
+            <th class="futures-profit-accumulated-column-catalog">Acumulada</th>
+            <th class="futures-profit-average-column-catalog">Promedio</th>
+            <th class="futures-duration-column-catalog">Meses</th>
+            <th class="futures-volatility-column-catalog">(%)</th>
+            <th class="futures-status-column-catalog"></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td class="futures-patterns-catalog">
+            <td class="futures-name-column-catalog">
                 <div class="long-name-breaker">
                     <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.asset.expirationYear}} ">{{pattern.asset.longName | limitTo: 60}}</span>
                 </div>
             </td>
-            <td class="futures-expiration-catalog">{{pattern.asset.expirationYear}}</td>
-            <td class="futures-market-catalog"><span class="cursor-help"tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
+            <td class="futures-expiration-date-column-catalog">
+                {{pattern.asset.expirationYear}}
             </td>
-            <td>{{pattern.win | twoDecimals}}</td>
-            <td class="futures-loss-catalog">{{pattern.loss | twoDecimals}}</td>
-            <td class="futures-accumulated-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
-            <td>{{pattern.averageReturn | twoDecimals}}</td>
-            <td class="futures-duration-catalog"><span ng-show="(pattern.duration <31)">Hasta 1</span>
+            <td class="futures-market-column-catalog">
+                <span class="cursor-help"tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
+            </td>
+            <td class="futures-number-of-years-gain-column-catalog">{{pattern.win | twoDecimals}}</td>
+            <td class="futures-number-of-years-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
+            <td class="futures-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td class="futures-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
+            <td class="futures-duration-column-catalog">
+                <span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
-                <span ng-show="(pattern.duration >92)">Más de 3</span></td>
-            <td class="futures-vol-catalog">{{pattern.asset.volatility | twoDecimals}}</td>
-            <td>
+                <span ng-show="(pattern.duration >92)">Más de 3</span>
+            </td>
+            <td class="futures-volatility-column-catalog">{{pattern.asset.volatility | twoDecimals}}</td>
+            <td class="futures-status-column-catalog">
                 <!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
                 <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help"
                      ng-show="pattern.statePattern == 'NO_STARTED'"></div>

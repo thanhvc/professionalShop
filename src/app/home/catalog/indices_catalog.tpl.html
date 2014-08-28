@@ -14,7 +14,9 @@
     </ul>
     Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y herramientas de evaluaci&oacute;n.
     </p>
-    <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy'}}</div>
+    <div bindonce="startDate" class="start-date-catalog-container">
+        <span bo-text="startDate | date: 'MMMM yyyy'"></span>
+    </div>
     <div class="region-catalog-container">{{selectedPack.region.name | uppercase}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
     <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (CET)</span>
@@ -55,41 +57,48 @@
             N&uacute;mero total de patrones: {{results}}; Patrones encontrados: {{found}}
         </div>
     </div>
-    <table class="patterns-table-index-catalog">
+
+
+    <!-- No result message -->
+    <div class="no-results-catalog-container" ng-show="patterns.length==0">No hay resultados</div>
+
+    <!-- Index table -->
+    <table class="patterns-table-index-catalog" ng-show="patterns.length > 0">
         <tr>
-            <th>Patr&oacute;n Índices</th>
-            <th class="index-lost-catalog"colspan="2">N&uacute;mero de A&ntilde;os</th>
-            <th colspan="2">Rentabilidad (%)</th>
-            <th>Duraci&oacute;n</th>
-            <th><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
-            <th style="border-right: 1px solid #6f7072 !important;">Estado</th>
+            <th class="index-name-column-catalog">Patr&oacute;n Índices</th>
+            <th class="index-number-of-years-column-catalog" colspan="2">N&uacute;mero de A&ntilde;os</th>
+            <th colspan="2" class="index-profit-column-catalog">Rentabilidad (%)</th>
+            <th class="index-duration-column-catalog">Duraci&oacute;n</th>
+            <th class="index-volatility-column-catalog"><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
+            <th style="border-right: 1px solid #6f7072 !important;" class="index-status-column-catalog">Estado</th>
         </tr>
         <tr>
-            <th>Nombre Índice</th>
-            <th style="border-right: 1px solid #6f7072 !important;">Ganancias</th>
-            <th>Pérdidas</th>
-            <th>Acumulada</th>
-            <th>Promedio</th>
-            <th>Meses</th>
-            <th>(%)</th>
-            <th style="border-right: 1px solid #6f7072 !important;"></th>
+            <th class="index-name-column-catalog">Nombre Índice</th>
+            <th style="border-right: 1px solid #6f7072 !important;" class="index-number-of-years-gain-column-catalog">Ganancias</th>
+            <th class="index-number-of-years-loss-column-catalog">Pérdidas</th>
+            <th class="index-profit-accumulated-column-catalog">Acumulada</th>
+            <th class="index-profit-average-column-catalog">Promedio</th>
+            <th class="index-duration-column-catalog">Meses</th>
+            <th class="index-volatility-column-catalog">(%)</th>
+            <th style="border-right: 1px solid #6f7072 !important;" class="index-status-column-catalog"></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td style="width: 446px;">
+            <td class="index-name-column-catalog">
                 <div class="long-name-breaker">
-                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 60}}</span>
+                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 70}}</span>
                 </div>
             </td>
 
-            <td >{{pattern.win | twoDecimals}}</td>
-            <td class="index-lost-catalog">{{pattern.loss | twoDecimals}}</td>
-            <td class="index-accumulated-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
-            <td>{{pattern.averageReturn | twoDecimals}}</td>
-            <td style="font-family: 'fontpo'"><span ng-show="(pattern.duration <31)">Hasta 1</span>
+            <td class="index-number-of-years-gain-column-catalog">{{pattern.win | twoDecimals}}</td>
+            <td class="index-number-of-years-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
+            <td class="index-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td class="index-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
+            <td style="font-family: 'fontpo'"  class="index-duration-column-catalog">
+                <span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
-            <td>{{pattern.asset.volatility | twoDecimals}}</td>
-            <td style="border-right: 1px solid #6f7072 !important;"><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
+            <td  class="index-volatility-column-catalog">{{pattern.asset.volatility | twoDecimals}}</td>
+            <td style="border-right: 1px solid #6f7072 !important;"  class="index-status-column-catalog"><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
                 <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
                 <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state cursor-help" ng-show="pattern.statePattern == 'STARTED'"></div>
                 <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state cursor-help" ng-show="pattern.statePattern == 'FINISHED'"></div>
