@@ -1,5 +1,6 @@
 angular.module('ngMo', [
         'ngCookies',
+        'pasvaz.bindonce',
         'templates-app',
         'templates-common',
         'ngMo.home',
