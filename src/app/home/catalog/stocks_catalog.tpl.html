@@ -69,9 +69,11 @@
         </div>
     </div>
 
+    <!-- No result message -->
+    <div class="no-results-catalog-container" ng-show="patterns.length==0">No hay resultados</div>
 
-
-    <table class="patterns-table-catalog">
+    <!-- Stocks table -->
+    <table class="patterns-table-catalog" ng-show="patterns.length > 0">
         <tr>
             <th class="stock-name-column-catalog">Patr&oacute;n Acciones</th>
             <th class="stock-market-column-catalog">Mercado</th>
