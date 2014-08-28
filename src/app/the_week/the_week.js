@@ -94,7 +94,9 @@ angular.module('ngMo.the_week', [
                 }
             };
 
-            $http.get($rootScope.urlService+"/weekData/2014", config).success(function(data){
+            //Get current year to set the res service
+            var currentYear = new Date().getFullYear();
+            $http.get($rootScope.urlService+"/weekData/"+currentYear, config).success(function(data){
                 console.log("ok");
                 stockAreas = data[0];
                 $scope.stockAreas = data.STOCKS;
