@@ -55,7 +55,13 @@
             N&uacute;mero total de patrones: {{results}}; Patrones encontrados: {{found}}
         </div>
     </div>
-    <table class="patterns-table-index-catalog">
+
+
+    <!-- No result message -->
+    <div class="no-results-catalog-container" ng-show="patterns.length==0">No hay resultados</div>
+
+    <!-- Index table -->
+    <table class="patterns-table-index-catalog" ng-show="patterns.length > 0">
         <tr>
             <th>Patr&oacute;n Índices</th>
             <th colspan="2">N&uacute;mero de A&ntilde;os</th>
