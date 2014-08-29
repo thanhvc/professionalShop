@@ -26,7 +26,9 @@
     Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y
     herramientas de evaluaci&oacute;n.
     </p>
-    <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy'}}</div>
+    <div bindonce="startDate" class="start-date-catalog-container">
+        <span bo-text="startDate | date: 'MMMM yyyy'"></span>
+    </div>
     <div class="region-catalog-container">{{selectedPack.name}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();"
             class="mo-button purchase-button">Al carro
@@ -69,9 +71,11 @@
         </div>
     </div>
 
+    <!-- No result message -->
+    <div class="no-results-catalog-container" ng-show="patterns.length==0">No hay resultados</div>
 
-
-    <table class="patterns-table-catalog">
+    <!-- Stocks table -->
+    <table class="patterns-table-catalog" ng-show="patterns.length > 0">
         <tr>
             <th class="stock-name-column-catalog">Patr&oacute;n Acciones</th>
             <th class="stock-market-column-catalog">Mercado</th>

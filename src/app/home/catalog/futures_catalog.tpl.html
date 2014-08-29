@@ -39,7 +39,9 @@
         </p>
         <p>Hágase cliente y descubra toda la información.</p>
     </div>
-    <div class="start-date-catalog-container">{{startDate | date: 'MMMM yyyy'}}</div>
+    <div bindonce="startDate" class="start-date-catalog-container">
+        <span bo-text="startDate | date: 'MMMM yyyy'"></span>
+    </div>
     <div class="region-catalog-container">{{selectedPack.region.name | uppercase}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();"
             class="mo-button purchase-button">Al carro
@@ -74,7 +76,13 @@
             N&uacute;mero total de patrones: {{results}}; Patrones encontrados: {{found}}
         </div>
     </div>
-    <table class="patterns-table-catalog">
+
+
+    <!-- No result message -->
+    <div class="no-results-catalog-container" ng-show="patterns.length==0">No hay resultados</div>
+
+    <!-- Futures table -->
+    <table class="patterns-table-catalog" ng-show="patterns.length > 0">
         <tr>
             <th class="futures-name-column-catalog">Patr&oacute;n Futuros</th>
             <th class="futures-expiration-date-column-catalog">Fecha Vencimiento</th>

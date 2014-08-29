@@ -3,94 +3,82 @@
 <table style="width: 955px;" class="table-pattern"  ng-show="myData.length>0">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
-        <th class="table-id-header" rowspan="2">
+        <th class="table-id-header id-column-my-patterns" rowspan="2">
             Id
         </th>
-        <th class="border-right-table patterns-futures-column-width">
+        <th class="border-right-table operation-column-my-patterns">
             Operación
         </th>
-        <th class="border-right-table" >
+        <th class="border-right-table expiration-column-my-patterns">
             Vencimto.
         </th>
-        <th class="border-right-table"
-            title="Mercado">
+        <th class="border-right-table market-column-my-patterns" title="Mercado">
             <span class="cursor-help" tooltip-html-unsafe="Mercado">Merc.</span>
         </th>
-        <th class="border-right-table"
-            colspan="2" title="Número de Años">
-
+        <th class="border-right-table years-column-my-patterns" colspan="2" title="Número de Años">
             <span class="cursor-help" tooltip-html-unsafe="Número de Años">Años</span>
         </th>
-        <th class="border-right-table"
-            colspan="2">
+        <th class="border-right-table dates-column-my-patterns" colspan="2">
             Fechas
         </th>
-        <th class="border-right-table"
-            colspan="3">
+        <th class="border-right-table profit-column-my-patterns" colspan="3">
             Rentabilidad (%)
         </th>
-        <th class="border-right-table"
-            title="Duración">
+        <th class="border-right-table duration-column-my-patterns" title="Duración">
             <span class="cursor-help" tooltip-html-unsafe="Duración">Dur.</span>
         </th>
-        <th class="border-right-table"
-            title="Volatilidad">
+        <th class="border-right-table volatility-column-my-patterns" title="Volatilidad">
             <span class="cursor-help" tooltip-html-unsafe="Volatilidad">Vol.</span>
         </th>
-        <th class="border-right-table"
-            title="Favorito">
+        <th class="border-right-table favorite-column-my-patterns" title="Favorito">
             <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="Favorito">Fav.</span>
         </th>
-        <th class="sub-border-right-table"
-            title="Estado">
+        <th class="sub-border-right-table state-column-my-patterns" title="Estado">
             <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="Estado">Est.</span>
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table">
+        <th class="border-right-table operation-column-my-patterns">
             Producto
         </th>
-        <th class="border-right-table">
-        </th>
-        <th class="border-right-table">
-        </th>
-        <th class="sub-border-right-table"
-            title="Ganancia">
+
+        <th class="border-right-table expiration-column-my-patterns"></th>
+
+        <th class="border-right-table market-column-my-patterns"></th>
+
+        <th class="sub-border-right-table years-gain-column-my-patterns" title="Ganancia">
             <span class="cursor-help" tooltip-html-unsafe="Ganancia">Gan.</span>
         </th>
-        <th class="border-right-table"
-            title="Pérdida">
+        <th class="border-right-table years-loss-column-my-patterns" title="Pérdida">
             <span class="cursor-help" tooltip-html-unsafe="Pérdida">Pér.</span>
         </th>
-        <th class="sub-border-right-table">
+        <th class="sub-border-right-table dates-entry-column-my-patterns">
             Entrada
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table dates-exit-column-my-patterns">
             Salida
         </th>
-        <th class="sub-border-right-table"
-            title="Acumulada">
+        <th class="sub-border-right-table profit-accumulated-column-my-patterns" title="Acumulada">
             <span class="cursor-help" tooltip-html-unsafe="Acumulada">Acum.</span>
         </th>
-        <th class="sub-border-right-table">
+        <th class="sub-border-right-table profit-average-column-my-patterns">
             Media
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table profit-daily-column-my-patterns">
             Diaria
         </th>
-        <th class="border-right-table">Días
-        </th>
-        <th class="border-right-table">
+        <th class="border-right-table duration-column-my-patterns">Días</th>
+        <th class="border-right-table volatility-column-my-patterns">
             (%)
         </th>
-        <th class="border-right-table"></th>
-        <th class="sub-border-right-table"></th>
+        <th class="border-right-table favorite-column-my-patterns"></th>
+        <th class="sub-border-right-table state-column-my-patterns"></th>
     </tr>
     <tr ng-show="dataLoaded"  ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="detail({patternId:data.id})">
-        <td width="30" class="table-id-orange">
+        <td width="30" class="table-id-orange id-column-my-patterns">
             {{data.id}}
         </td>
-        <td  class="table-cell-patterns border-right-table futures-market-patterns">
+        <td  class="table-cell-patterns border-right-table operation-column-my-patterns">
             <span ng-if="data.patternType == 'BULLISH'">Comprar</span>
             <span ng-if="data.patternType == 'BEARISH'">Vender</span><br/>
             <span class="cursor-help"
@@ -99,54 +87,52 @@
                 {{data.asset.longName}}
             </span>
         </td>
-        <td class="futures-expiration-patterns table-cell-patterns border-right-table">
+        <td class="table-cell-patterns border-right-table expiration-column-my-patterns">
             <!--expiration-->
             <div class="text-limitator ">
                 <!--{{ getYearFromPatternName(data.asset.symbol, data.entryDate) }}-->
                 {{ data.asset.expirationYear }}
             </div>
         </td>
-        <td class="table-cell-patterns border-right-table futures-exchange-patterns">
+        <td class="table-cell-patterns border-right-table market-column-my-patterns">
             <span tooltip-html-unsafe="{{data.asset.exchange.name}}" class="cursor-help" style="font-family:fontpo-bold;">{{data.asset.exchange.symbol}}</span>
         </td>
-        <td class="table-cell-patterns sub-border-right-table futures-win-patterns">
+        <td class="table-cell-patterns sub-border-right-table years-gain-column-my-patterns">
             <b>{{data.win | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns border-right-table futures-loss-patterns">
+        <td class="table-cell-patterns border-right-table years-loss-column-my-patterns">
             <b>{{data.loss | twoDecimals}}</b>
         </td>
-        <td  class="table-cell-patterns sub-border-right-table futures-entryDate-patterns">
+        <td  class="table-cell-patterns sub-border-right-table dates-entry-column-my-patterns">
             {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
-        <td class="table-cell-patterns border-right-table futures-exitDate-patterns">
+        <td class="table-cell-patterns border-right-table dates-exit-column-my-patterns">
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
-        <td class="table-cell-patterns sub-border-right-table futures-accumulated-patterns"  ng-class="{'negative-percent': data.accumulatedReturn < 0 }">
+        <td class="table-cell-patterns sub-border-right-table profit-accumulated-column-my-patterns"  ng-class="{'negative-percent': data.accumulatedReturn < 0 }">
             <b> {{data.accumulatedReturn | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns sub-border-right-table futures-average-patterns" ng-class="{'negative-percent': data.averageReturn < 0 }">
+        <td class="table-cell-patterns sub-border-right-table profit-average-column-my-patterns" ng-class="{'negative-percent': data.averageReturn < 0 }">
             <b> {{data.averageReturn | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns border-right-table futures-daily-patterns" ng-class="{'negative-percent': data.dailyReturn < 0 }">
+        <td class="table-cell-patterns border-right-table profit-daily-column-my-patterns" ng-class="{'negative-percent': data.dailyReturn < 0 }">
             <b> {{data.dailyReturn | twoDecimals}}</b>
         </td>
-        <td  class="table-cell-patterns border-right-table futures-duration-patterns">
+        <td  class="table-cell-patterns border-right-table duration-column-my-patterns">
             <b> {{data.duration | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns border-right-table futures-vol-patterns" ng-class="{'negative-percent': data.asset.volatility < 0 }">
+        <td class="table-cell-patterns border-right-table volatility-column-my-patterns" ng-class="{'negative-percent': data.asset.volatility < 0 }">
             <b> {{data.asset.volatility | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns border-right-table futures-fav-patterns">
+        <td class="table-cell-patterns border-right-table favorite-column-my-patterns">
             <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();"
                  ng-class="{'favourite-added': data.favorite == true}"></div>
         </td>
-        <td class="table-cell-patterns sub-border-right-table futures-state-patterns">
+        <td class="table-cell-patterns sub-border-right-table state-column-my-patterns">
             <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>
             <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state" ng-show="data.statePattern == 'STARTED'"></div>
             <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state" ng-show="data.statePattern == 'FINISHED'"></div>
         </td>
-
     </tr>
-
 
 </table>
