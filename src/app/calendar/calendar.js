@@ -198,6 +198,8 @@ angular.module('ngMo.calendar', [
                 active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
                 favourite: (params.qfav ? params.qfav : "" ),
                 order: (params.qorder ? params.qorder: 0),
+                selectedMarket: (params.qmarket ? params.qmarket : ""),
+                selectedRegion: (params.qregion ? params.qregion : ""),
                 dayDateInput: (params.qday ? params.qday: null)
 
             };
@@ -395,9 +397,7 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.refreshRegion = function () {
-            if ($scope.filterOptions.filters.selectedRegion === ""){
                 $scope.filterOptions.filters.selectedMarket = "";
-            }
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
                 case 1:
