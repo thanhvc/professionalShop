@@ -25,7 +25,7 @@ angular.module('ngMo.calendar', [
     .run(function run() {
     })
 
-    .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged, CalendarService, MonthSelectorService, ActualDateService) {//<- use location.search()
+    .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged, CalendarService, MonthSelectorService, $modal) {//<- use location.search()
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -497,9 +497,50 @@ angular.module('ngMo.calendar', [
 
         $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
 
+        $scope.openModalPdf = function () {
+            /*if (filterOptions.filters.selectedRegion != ''){
+                        filterOptions.filters.selectedPdfRegion = filterOptions.filters.selectedRegion;
+                    }*/
+
+            var modalInstance = $modal.open({
+                templateUrl: 'calendarPdfContent.html',
+                controller: ModalCalendarPdfInstanceCtrl,
+                resolve: {
+                    selectedRegion: function () {
+                        return $scope.filterOptions.filters.selectedRegion;
+                    },
+                    regions: function () {
+                      return $scope.filterOptions.selectors.regions;
+                    },
+                    order: function () {
+                        return $scope.filterOptions.filters.order;
+                    },
+                    setRegion: function () {
+                        return function(selectedRegion, selectedOrder) {
+                            var data = CalendarService.generateCalendarPdf(selectedRegion, selectedOrder).then(function (data) {
+
+                                //$scope.loadPage();
+                                //Si ok, mostrar mensaje en modal con el texto : se ha enviado correctamente el correo.
+                            });
+                        };
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.openModalOkEnvioPdf();
+            });
+        };
+
+        $scope.openModalOkEnvioPdf = function () {
+            var modalOkInstance = $modal.open({
+               templateUrl: 'calendarPdfOk.html',
+                controller: ModalCalendarPdfOkCtrl
+            });
+        };
     })
 
-    .service("CalendarService", function ($http, $window, $rootScope) {
+    .service("CalendarService", function ($http, $window, $rootScope, $q) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -605,6 +646,56 @@ angular.module('ngMo.calendar', [
                 callbackFunc(data);
             });
         };
+
+        this.generateCalendarPdf = function (selectedRegion, order) {
+            var deferred = $q.defer();
+
+            config = {
+                headers: {
+                    'selectedRegion': selectedRegion,
+                    'order': order,
+                    'token': $window.sessionStorage.token
+                }
+            };
+
+            var result = $http.post($rootScope.urlService+'/calendarpdf', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
     })
 
 ;
+
+var ModalCalendarPdfInstanceCtrl = function ($scope, $modalInstance, setRegion, selectedRegion, order, regions) {
+    $scope.selectedRegion = selectedRegion;
+    $scope.regions = regions;
+    $scope.order = order;
+    $scope.setRegion = setRegion;
+
+    $scope.data = {
+        region: (typeof $scope.selectedRegion !== 'undefined' ? selectedRegion : 0),
+        order: (typeof order !== 'undefined' ? order : 0)
+    };
+
+    $scope.ok = function () {
+        $scope.setRegion($scope.data.region, $scope.data.order);
+        $modalInstance.close();
+    };
+
+    $scope.close = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
+
+var ModalCalendarPdfOkCtrl = function ($scope, $modalInstance) {
+    $scope.close = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
