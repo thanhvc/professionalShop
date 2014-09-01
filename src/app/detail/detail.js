@@ -109,6 +109,12 @@ angular.module('ngMo.detail', [
             }
         };
 
+        $scope.generateHistoricalDetailPdf = function (patternId) {
+            var data = DetailService.getHistoricalDetailPdf(patternId).then(function (data) {
+                window.open("data:application/pdf;base64, " + data);
+            });
+        };
+
 
         //open a graph and sve it to $scope.graph
         $scope.loadGraphic = function (inputEvent,url) {
@@ -219,6 +225,24 @@ angular.module('ngMo.detail', [
             };
 
             var result = $http.post($rootScope.urlService+'/secondgraphicpdf', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
+
+        this.getHistoricalDetailPdf = function (patternId) {
+            var deferred = $q.defer();
+
+            config = {
+                headers: {
+                    'patternId': patternId,
+                    'token': $window.sessionStorage.token
+                }
+            };
+
+            var result = $http.post($rootScope.urlService+'/historicaldetailpdf', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;
