@@ -1,21 +1,24 @@
-<div class="portfolio-tools-container" style="height: 625px;">
+<div class="portfolio-tools-container" style="height: 640px;">
     <table style="width: 400px;float:left;" class="table-portfolio">
         <thead>
         <tr>
             <td>Id</td>
             <td>Nombre</td>
+            <td>Mes</td>
             <td>Añadir</td>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="pattern in myData">
             <td ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
-            <td>
+            <td class="pair-index-lenght-table">
                 <span class="buy-color cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"
-                       >{{pattern.asset.longName | limitTo: 23}}</span><br>
+                       >{{pattern.asset.longName | limitTo: 30}}</span>
+                    <br>
                 <span class="sell-color cursor-help" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})"
-                      >{{pattern.bearishAsset.longName | limitTo: 23}}</span>
+                      >{{pattern.bearishAsset.longName | limitTo: 30}}</span>
             </td>
+            <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
             <td class="portfolio-button"><span ng-class="{'disable-arrow': portfolioList.length >= 20}" ng-click="addToPortfolioList(pattern.id);">>></span></td>
         </tr>
         </tbody>
@@ -26,6 +29,7 @@
             <tr>
                 <td>Id</td>
                 <td>Nombre</td>
+                <td>Mes</td>
                 <td><span class="cursor-help" tooltip="Favoritos">Fav.</span></td>
                 <td>Quitar</td>
             </tr>
@@ -33,17 +37,19 @@
             <tbody>
             <tr ng-repeat="pattern in portfolioList">
                 <td ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
-                <td>
+                <td class="pair-index-lenght-table">
                     <span class="buy-color cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"
-                              >{{pattern.asset.longName | limitTo: 23}}</span><br>
+                              >{{pattern.asset.longName | limitTo: 30}}</span>
+                        <br>
                     <span class="sell-color cursor-help" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})"
-                            >{{pattern.bearishAsset.longName | limitTo: 23}}</span>
+                            >{{pattern.bearishAsset.longName | limitTo: 30}}</span>
                 </td>
+                <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
-                    <div class="current-favourite cursor-help" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(pattern.id);"
+                    <div class="current-favourite cursor-pointer" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavoriteFromList(pattern.id);"
                          ng-class="{'favourite-added': pattern.favorite == true}"></div>
                 </td>
-                <td class="portfolio-button"><span ng-click="deleteFromPortfolioList(pattern.id);"><<</span></td>
+                <td class="portfolio-button" style="width:80px;"><span ng-click="deleteFromPortfolioList(pattern.id);"><<</span></td>
             </tr>
             </tbody>
         </table>

@@ -191,15 +191,19 @@ angular.module('ngMo.catalog', [
                 $scope.results = $scope.initialData.results;
                 $scope.found = $scope.initialData.found;
                 if ($scope.selectedPack.productType === 'INDICE') {
-                    if ($scope.selectedPack.patternType === 1) {
-                        $scope.selectedTab = 4;
-                    } else {
+                    if ($scope.selectedPack.patternType === "SIMPLE") {
                         $scope.selectedTab = 2;
+                    } else {
+                        $scope.selectedTab = 4;
                     }
                 } else if ($scope.selectedPack.productType === 'FUTURE') {
                     $scope.selectedTab = 3;
                 } else {
-                    $scope.selectedTab = $scope.selectedPack.patternType;
+                    if ($scope.selectedPack.patternType === "SIMPLE") {
+                        $scope.selectedTab = 0;
+                    } else {
+                        $scope.selectedTab = 1;
+                    }
                 }
             }
 
@@ -240,15 +244,19 @@ angular.module('ngMo.catalog', [
                 $scope.results = data.results;
                 $scope.found = data.found;
                 if ($scope.selectedPack.productType === 'INDICE') {
-                    if ($scope.selectedPack.patternType === 1) {
-                        $scope.selectedTab = 4;
-                    } else {
+                    if ($scope.selectedPack.patternType === "SIMPLE") {
                         $scope.selectedTab = 2;
+                    } else {
+                        $scope.selectedTab = 4;
                     }
                 } else if ($scope.selectedPack.productType === 'FUTURE') {
                     $scope.selectedTab = 3;
                 } else {
-                    $scope.selectedTab = $scope.selectedPack.patternType;
+                    if ($scope.selectedPack.patternType === "SIMPLE") {
+                        $scope.selectedTab = 0;
+                    } else {
+                        $scope.selectedTab = 1;
+                    }
                 }
             });
         };
