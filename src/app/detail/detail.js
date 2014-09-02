@@ -100,18 +100,36 @@ angular.module('ngMo.detail', [
         $scope.generateGraphicsPdf = function (patternId, graphicName) {
             if (graphicName === 'PRICE') {
                 data = DetailService.getFirstGraphicPdf(patternId).then(function (data) {
-                    var w = window.open("data:application/pdf;base64, " + data);
+                    var filename = "detailGraphic1-"+patternId+".pdf";
+                    var element = angular.element('<a/>');
+                    element.attr({
+                        href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                        target: '_blank',
+                        download: filename
+                    })[0].click();
                 });
             }else if ("WEEKLY"){
                 data = DetailService.getSecondGraphicPdf(patternId).then(function (data) {
-                    var w = window.open("data:application/pdf;base64, " + data);
+                    var filename = "detailGraphic2-"+patternId+".pdf";
+                    var element = angular.element('<a/>');
+                    element.attr({
+                        href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                        target: '_blank',
+                        download: filename
+                    })[0].click();
                 });
             }
         };
 
         $scope.generateHistoricalDetailPdf = function (patternId) {
             var data = DetailService.getHistoricalDetailPdf(patternId).then(function (data) {
-                window.open("data:application/pdf;base64, " + data);
+                var filename = "detail-"+patternId+".pdf";
+                var element = angular.element('<a/>');
+                element.attr({
+                    href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                    target: '_blank',
+                    download: filename
+                })[0].click();
             });
         };
 
