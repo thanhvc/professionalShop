@@ -509,6 +509,12 @@ angular.module('ngMo.calendar', [
                     selectedRegion: function () {
                         return $scope.filterOptions.filters.selectedRegion;
                     },
+                    selectedTab : function () {
+                        return $scope.filterOptions.filters.active_tab;
+                    },
+                    selectedDate: function () {
+                      return $scope.filterOptions.filters.selectMonth;
+                    },
                     regions: function () {
                       return $scope.filterOptions.selectors.regions;
                     },
@@ -517,10 +523,14 @@ angular.module('ngMo.calendar', [
                     },
                     setRegion: function () {
                         return function(selectedRegion, selectedOrder) {
-                            var data = CalendarService.generateCalendarPdf(selectedRegion, selectedOrder).then(function (data) {
-
-                                //$scope.loadPage();
-                                //Si ok, mostrar mensaje en modal con el texto : se ha enviado correctamente el correo.
+                            var data = CalendarService.generateCalendarPdf(selectedRegion, selectedOrder, $scope.filterOptions.filters).then(function (data) {
+                                var filename = "calendar-"+selectedRegion+".pdf";
+                                var element = angular.element('<a/>');
+                                element.attr({
+                                    href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                                    target: '_blank',
+                                    download: filename
+                                })[0].click();
                             });
                         };
                     }
@@ -528,7 +538,6 @@ angular.module('ngMo.calendar', [
             });
 
             modalInstance.result.then(function () {
-                $scope.openModalOkEnvioPdf();
             });
         };
 
@@ -647,13 +656,25 @@ angular.module('ngMo.calendar', [
             });
         };
 
-        this.generateCalendarPdf = function (selectedRegion, order) {
+        this.generateCalendarPdf = function (selectedRegion, order, filtering) {
             var deferred = $q.defer();
+
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
 
             config = {
                 headers: {
                     'selectedRegion': selectedRegion,
                     'order': order,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
                     'token': $window.sessionStorage.token
                 }
             };
@@ -669,11 +690,14 @@ angular.module('ngMo.calendar', [
 
 ;
 
-var ModalCalendarPdfInstanceCtrl = function ($scope, $modalInstance, setRegion, selectedRegion, order, regions) {
+var ModalCalendarPdfInstanceCtrl = function ($scope, $modalInstance, setRegion, selectedRegion, order, regions, selectedDate, selectedTab) {
     $scope.selectedRegion = selectedRegion;
+    $scope.selectedTab = selectedTab;
     $scope.regions = regions;
+    $scope.selectedDate = selectedDate;
     $scope.order = order;
     $scope.setRegion = setRegion;
+    $scope.showText = false;
 
     $scope.data = {
         region: (typeof $scope.selectedRegion !== 'undefined' ? selectedRegion : 0),
@@ -681,7 +705,13 @@ var ModalCalendarPdfInstanceCtrl = function ($scope, $modalInstance, setRegion, 
     };
 
     $scope.ok = function () {
-        $scope.setRegion($scope.data.region, $scope.data.order);
+        if ($scope.data.region === ''){
+            $scope.showText = true;
+            return;
+        }else{
+            $scope.showText = false;
+        }
+        $scope.setRegion($scope.data.region, $scope.data.order, $scope.selectedDate, $scope.selectedTab);
         $modalInstance.close();
     };
 
