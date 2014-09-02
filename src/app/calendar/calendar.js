@@ -158,16 +158,16 @@ angular.module('ngMo.calendar', [
             if (urlParams.favourite) {
                 urlParamsSend.qfav = urlParams.favourite;
             }
-            urlParamsSend.qorder= urlParams.order;
+            urlParamsSend.qorder = urlParams.order;
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
 
             $location.path('/calendar').search(urlParamsSend);
         };
 
-        $scope.isCorrectDate= function(date){
+        $scope.isCorrectDate = function (date) {
 
-            for (i=0; i< $scope.filterOptions.months.length;i++) {
+            for (i = 0; i < $scope.filterOptions.months.length; i++) {
                 if ($scope.filterOptions.months[i].value === date) {
                     return true;
                 }
@@ -197,25 +197,25 @@ angular.module('ngMo.calendar', [
                 tab_type: (params.qtab ? params.qtab : "" ),
                 active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
                 favourite: (params.qfav ? params.qfav : "" ),
-                order: (params.qorder ? params.qorder: 0),
+                order: (params.qorder ? params.qorder : 0),
                 selectedMarket: (params.qmarket ? params.qmarket : ""),
                 selectedRegion: (params.qregion ? params.qregion : ""),
-                dayDateInput: (params.qday ? params.qday: null)
+                dayDateInput: (params.qday ? params.qday : null)
 
             };
             //special case for index
             if ((filters.active_tab === 2)) {//case of index
 
-                $scope.selectedTypeIndice = parseInt(filters.index_type,10);
+                $scope.selectedTypeIndice = parseInt(filters.index_type, 10);
                 //only for index, not pair index
-                if ((filters.index_type ===0) || (filters.index_type ==="0"))  {
-                    filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop,10)] : "" );
+                if ((filters.index_type === 0) || (filters.index_type === "0")) {
+                    filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop, 10)] : "" );
                 } else {
-                    filters.selectedOperation="";
+                    filters.selectedOperation = "";
                 }
 
             } else {
-                filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" );
+                filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operations[parseInt(params.qop, 10)] : "" );
             }
 
 
@@ -236,7 +236,7 @@ angular.module('ngMo.calendar', [
             }
             $scope.selectedTab = TabsService.getActiveTab();
             //after set the tab, check if is a index and diferent type
-            $scope.urlSelected= templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
+            $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
 
 
             //if the month is defined in the params
@@ -249,7 +249,7 @@ angular.module('ngMo.calendar', [
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
                     actual_date = new Date();
-                    d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
+                    d = new Date(actual_date.getFullYear(), actual_date.getMonth(), 1);
                 }
                 filters.month = MonthSelectorService.setDate(d);
 
@@ -322,7 +322,7 @@ angular.module('ngMo.calendar', [
 
             var data = CalendarService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
-                    if (data.patterns.length > 0){
+                    if (data.patterns.length > 0) {
 
                     }
                     $scope.myData = data.patterns;//data.page;
@@ -343,7 +343,7 @@ angular.module('ngMo.calendar', [
 
         };
         //function for paint a pattern depending on its date
-        $scope.mustPaint = function (dayOfMonth,pattern) {
+        $scope.mustPaint = function (dayOfMonth, pattern) {
             var actualDate = $scope.filterOptions.filters.month;
             afterStart = false;
             beforeEnd = false;
@@ -353,16 +353,16 @@ angular.module('ngMo.calendar', [
             //because the compare dates could not work with equals, but works fine with the operators < >
             today.setDate(dayOfMonth.dayOfMonth);
             today.setFullYear(actualDate.year);
-            today.setMonth(actualDate.month-1);
+            today.setMonth(actualDate.month - 1);
             today.setSeconds(0);
             today.setHours(0);
             today.setMinutes(0);
             today.setMilliseconds(0);
-            yesterday.setTime(today.getTime() -  (1 * 24 * 60 * 60 * 1000));
-            tomorrow.setTime(today.getTime() +  (1 * 24 * 60 * 60 * 1000));
+            yesterday.setTime(today.getTime() - (1 * 24 * 60 * 60 * 1000));
+            tomorrow.setTime(today.getTime() + (1 * 24 * 60 * 60 * 1000));
             entryDate = new Date(pattern.entryDate);
             exitDate = new Date(pattern.exitDate);
-            if (entryDate <tomorrow && exitDate >yesterday) {
+            if (entryDate < tomorrow && exitDate > yesterday) {
                 return true;
             } else {
                 return false;
@@ -373,7 +373,7 @@ angular.module('ngMo.calendar', [
 
         $scope.checkFilters = function () {
             //for each input filter filled, the selector linked must be set
-            if ($scope.filterOptions.filters.dayDateInput < 1  ||
+            if ($scope.filterOptions.filters.dayDateInput < 1 ||
                 $scope.filterOptions.filters.dayDateInput > $scope.lastDayOfMonth) {
                 return;
             }
@@ -384,7 +384,9 @@ angular.module('ngMo.calendar', [
         };
         //order Search is the same but with a wait of 5 seconds, is used in the order selector
         $scope.orderSearch = function () {
-            $timeout(function(){$scope.applyFilters();},2000);
+            $timeout(function () {
+                $scope.applyFilters();
+            }, 2000);
         };
 
         /*apply filters to search, restarting the page*/
@@ -397,7 +399,7 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.refreshRegion = function () {
-                $scope.filterOptions.filters.selectedMarket = "";
+            $scope.filterOptions.filters.selectedMarket = "";
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
                 case 1:
@@ -431,7 +433,7 @@ angular.module('ngMo.calendar', [
         $scope.selectIndexType = function () {
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.selectedTypeIndice = $scope.filterOptions.filters.index_type;
-            $scope.urlSelected= templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
+            $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
             $scope.applyFilters();
         };
 
@@ -497,54 +499,34 @@ angular.module('ngMo.calendar', [
 
         $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
 
-        $scope.openModalPdf = function () {
-            /*if (filterOptions.filters.selectedRegion != ''){
-                        filterOptions.filters.selectedPdfRegion = filterOptions.filters.selectedRegion;
-                    }*/
-
-            var modalInstance = $modal.open({
-                templateUrl: 'calendarPdfContent.html',
-                controller: ModalCalendarPdfInstanceCtrl,
-                resolve: {
-                    selectedRegion: function () {
-                        return $scope.filterOptions.filters.selectedRegion;
-                    },
-                    selectedTab : function () {
-                        return $scope.filterOptions.filters.active_tab;
-                    },
-                    selectedDate: function () {
-                      return $scope.filterOptions.filters.selectMonth;
-                    },
-                    regions: function () {
-                      return $scope.filterOptions.selectors.regions;
-                    },
-                    order: function () {
-                        return $scope.filterOptions.filters.order;
-                    },
-                    setRegion: function () {
-                        return function(selectedRegion, selectedOrder) {
-                            var data = CalendarService.generateCalendarPdf(selectedRegion, selectedOrder, $scope.filterOptions.filters).then(function (data) {
-                                var filename = "calendar-"+selectedRegion+".pdf";
-                                var element = angular.element('<a/>');
-                                element.attr({
-                                    href: 'data:attachment/pdf;base64,' + encodeURI(data),
-                                    target: '_blank',
-                                    download: filename
-                                })[0].click();
-                            });
-                        };
-                    }
+        $scope.obtainCalendarPdf = function () {
+            var data = CalendarService.generateCalendarPdf($scope.filterOptions.filters).then(function (data) {
+                var productType = "Acciones";
+                switch (TabsService.getActiveTab()) {
+                    case 0:     //stocks
+                        productType = "Acciones";
+                        break;
+                    case 1:     //pairs
+                        productType = "Par_Acciones";
+                        break;
+                    case 2:     //index (pair and index)
+                        if ($scope.filterOptions.filters.index_type == 1) {
+                            productType = "Par_Indices";
+                        } else {
+                            productType = "Indices";
+                        }
+                        break;
+                    case 3:     //futures
+                        productType = "Futuros";
+                        break;
                 }
-            });
-
-            modalInstance.result.then(function () {
-            });
-        };
-
-        $scope.openModalOkEnvioPdf = function () {
-            var modalOkInstance = $modal.open({
-               templateUrl: 'calendarPdfOk.html',
-                controller: ModalCalendarPdfOkCtrl
+                var filename = "calendar-" + productType + ".pdf";
+                var element = angular.element('<a/>');
+                element.attr({
+                    href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                    target: '_blank',
+                    download: filename
+                })[0].click();
             });
         };
     })
@@ -656,7 +638,7 @@ angular.module('ngMo.calendar', [
             });
         };
 
-        this.generateCalendarPdf = function (selectedRegion, order, filtering) {
+        this.generateCalendarPdf = function (filtering) {
             var deferred = $q.defer();
 
             var indexType = null;
@@ -669,8 +651,7 @@ angular.module('ngMo.calendar', [
 
             config = {
                 headers: {
-                    'selectedRegion': selectedRegion,
-                    'order': order,
+                    'order': parseInt(filtering.order, 10),
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -689,7 +670,7 @@ angular.module('ngMo.calendar', [
     })
 
 ;
-
+/*
 var ModalCalendarPdfInstanceCtrl = function ($scope, $modalInstance, setRegion, selectedRegion, order, regions, selectedDate, selectedTab) {
     $scope.selectedRegion = selectedRegion;
     $scope.selectedTab = selectedTab;
@@ -729,3 +710,4 @@ var ModalCalendarPdfOkCtrl = function ($scope, $modalInstance) {
         $modalInstance.dismiss('cancel');
     };
 };
+    */

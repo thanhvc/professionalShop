@@ -27,7 +27,7 @@
 
 <tabset class="float-left">
     <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}" active="ctab.active" disabled="tab.disabled">
-        <div class="pdf-icon" ng-click="openModalPdf();"></div>
+        <div class="pdf-icon" ng-click="obtainCalendarPdf();"></div>
         <div ng-include="urlSelected"></div>
     </tab>
 </tabset>

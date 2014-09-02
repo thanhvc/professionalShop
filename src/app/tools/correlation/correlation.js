@@ -632,36 +632,35 @@ angular.module('ngMo.correlation', [
                         break;
                 }
             }
-
-
-            //for a special case to load the selectors, we need save the region,market,...
-            //if the location.search region,market.. values are not the same that the filters, we need
-            //to reload the selectors...
-           /* if ((typeof params.qregion !== 'undefined') && ($scope.filterOptions.filters.selectedRegion !== params.qregion)) {
-                //if region is distinct, refresh all selectors
-                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                $scope.refreshRegion();
-                filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-            }
-            else if ((typeof params.qmarket !== 'undefined') && ($scope.filterOptions.filters.selectedMarket !== params.qmarket)) {
-                //region similar, but not market
-                $scope.filterOptions.filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                $scope.filterOptions.filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-                filters.selectedRegion = $scope.filterOptions.filters.selectedRegion;
-                filters.selectedMarket = $scope.filterOptions.filters.selectedMarket;
-            }else {
-                //or all are similar, or only industry is distinct (in that case all selectors are the same)
-                filters.selectedRegion = (params.qregion ? params.qregion : "" );
-                filters.selectedMarket = (params.qmarket ? params.qmarket : "");
-            }*/
-
-
         };
 
         $scope.generatePdf = function () {
             var data = CorrelationService.getCorrelationPdf($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
-                var w = window.open("data:application/pdf;base64, " + data);
+                switch (TabsService.getActiveTab()) {
+                    case 0:     //stocks
+                        productType = "Acciones";
+                        break;
+                    case 1:     //pairs
+                        productType = "Par_Acciones";
+                        break;
+                    case 2:     //index (pair and index)
+                        if ($scope.filterOptions.filters.index_type == 1) {
+                            productType = "Par_Indices";
+                        } else {
+                            productType = "Indices";
+                        }
+                        break;
+                    case 3:     //futures
+                        productType = "Futuros";
+                        break;
+                }
+                var filename = "correlation-" + productType + ".pdf";
+                var element = angular.element('<a/>');
+                element.attr({
+                    href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                    target: '_blank',
+                    download: filename
+                })[0].click();
             });
         };
 
