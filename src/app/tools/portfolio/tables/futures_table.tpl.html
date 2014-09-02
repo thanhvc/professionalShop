@@ -45,7 +45,7 @@
                     <span tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'" class="cursor-help">C</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
-                    <div class="current-favourite" tooltip-placement="left" tooltip="Marcar Estrategia Favorita" ng-click="toggleFavorite(pattern.id);"
+                    <div class="current-favourite cursor-pointer" tooltip-placement="left" tooltip="Marcar Estrategia Favorita" ng-click="toggleFavoriteFromList(pattern.id);"
                          ng-class="{'favourite-added': pattern.favorite == true}"></div>
                 </td>
                 <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern.id);"><<</span></td>

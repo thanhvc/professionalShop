@@ -72,7 +72,7 @@ angular.module('ngMo.my_profile', [
     .run(function run() {
     })
 
-    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state) {
+    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state,$http,$rootScope) {
         $scope.subPage = $state.$current.data.subPage;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
@@ -83,99 +83,134 @@ angular.module('ngMo.my_profile', [
             }
         });
 
-        $scope.tog = 0;
-        $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
-        //patterns for validation
-        //letters and special characters (like dieresis) (with spaces) but not numbers or other special chars
-        $scope.namePattern = /^([ \u00c0-\u01ffa-zA-Z'\-])+$/;
-        //only numbers, letters and spaces
-        $scope.zipPattern = /[a-z0-9\s]+/ig;
-        //only numbers
-
-        $scope.countries = SignUpService.getCountries();
-
-        $scope.actualPassword = "";
-        $scope.passwordUser = "";
-        $scope.repeatPasswordUser = "";
-        $scope.internalErrorPass = false;
-        $scope.userSaved = false;
-
-        $scope.passwordSubmited = false;
-        $scope.passwordError = false;
-
-
-        $scope.restartUser = function () {
-            $scope.user =
-            {   name: "",
-                surname: "",
-                emailAddress: "",
-                address: "",
-                city: "",
-                postalCode: "",
-                country: ""
+        if ($state.current.name === "profile.orders") {
+            ////-- orders
+            $scope.orders = {
+                STOCKS: [],
+                PAIRS: [],
+                INDEX:[],
+                PAIRS_INDEX: [],
+                FUTURES: []
             };
-        };
+            $http.get($rootScope.urlService+'/orders', config)
+                .success(function (data, status) {
+                    $scope.orders = {
+                        STOCKS: data.STOCKS,
+                        PAIRS: data.PAIRS,
+                        INDEX: data.INDEX,
+                        PAIRS_INDEX: data.PAIRS_INDEX,
+                        FUTURES: data.FUTURES
+                    };
+                })
+                .error(function (data, status) {
+                    $scope.orders = {
+                        STOCKS: [],
+                        PAIRS: [],
+                        INDEX:[],
+                        PAIRS_INDEX: [],
+                        FUTURES: []
+                    };
+                });
 
-        //load the User info
+        }
+        else {
+
+            ////-----------Profile controller
+
+            $scope.tog = 0;
+            $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
+            //patterns for validation
+            //letters and special characters (like dieresis) (with spaces) but not numbers or other special chars
+            $scope.namePattern = /^([ \u00c0-\u01ffa-zA-Z'\-])+$/;
+            //only numbers, letters and spaces
+            $scope.zipPattern = /[a-z0-9\s]+/ig;
+            //only numbers
+
+            $scope.countries = SignUpService.getCountries();
+
+            $scope.actualPassword = "";
+            $scope.passwordUser = "";
+            $scope.repeatPasswordUser = "";
+            $scope.internalErrorPass = false;
+            $scope.userSaved = false;
+
+            $scope.passwordSubmited = false;
+            $scope.passwordError = false;
 
 
-        $scope.interalError = false;
-        $scope.loadUser = function () {
-            ProfileService.loadUser(function (data, status) {
-                if (status === 200) {
-                    $scope.user = data;
-                    $scope.internalError = false;
-                } else {
-                    $scope.internalError = true;
-                    $scope.restartUser();
-                }
-
-            });
-        };
-
-        $scope.saveUser = function () {
-
-            ProfileService.editUser($scope.user, function (data, status) {
-                if (status === 200) {
-                    //$scope.user = data;
-                    $scope.internalError = false;
-                    $scope.userSaved = true;
-
-                } else {
-                    $scope.internalError = true;
-                    $scope.userSaved = false;
-                    // $scope.loadUser();
-                }
-            });
-        };
-
-
-        $scope.savePassword = function () {
-            data = {
-                pass: $scope.passwordUser,
-                actPass: $scope.actualPassword
+            $scope.restartUser = function () {
+                $scope.user =
+                {   name: "",
+                    surname: "",
+                    emailAddress: "",
+                    address: "",
+                    city: "",
+                    postalCode: "",
+                    country: ""
+                };
             };
-            ProfileService.editPassword(data, function (data, status) {
-                $scope.passwordSubmited = true;
-                if (status == 200) {
-                    if (data.result == "ok") {
-                        $scope.internalErrorPass = false;
-                        $scope.passwordError = false;
+
+            //load the User info
+
+
+            $scope.interalError = false;
+            $scope.loadUser = function () {
+                ProfileService.loadUser(function (data, status) {
+                    if (status === 200) {
+                        $scope.user = data;
+                        $scope.internalError = false;
                     } else {
-                        $scope.internalErrorPass = false;
-                        $scope.passwordError = true;
+                        $scope.internalError = true;
+                        $scope.restartUser();
                     }
 
-                } else {
-                    $scope.internalErrorPass = true;
-                }
-            });
+                });
+            };
+
+            $scope.saveUser = function () {
+
+                ProfileService.editUser($scope.user, function (data, status) {
+                    if (status === 200) {
+                        //$scope.user = data;
+                        $scope.internalError = false;
+                        $scope.userSaved = true;
+
+                    } else {
+                        $scope.internalError = true;
+                        $scope.userSaved = false;
+                        // $scope.loadUser();
+                    }
+                });
+            };
 
 
-        };
+            $scope.savePassword = function () {
+                data = {
+                    pass: $scope.passwordUser,
+                    actPass: $scope.actualPassword
+                };
+                ProfileService.editPassword(data, function (data, status) {
+                    $scope.passwordSubmited = true;
+                    if (status == 200) {
+                        if (data.result == "ok") {
+                            $scope.internalErrorPass = false;
+                            $scope.passwordError = false;
+                        } else {
+                            $scope.internalErrorPass = false;
+                            $scope.passwordError = true;
+                        }
+
+                    } else {
+                        $scope.internalErrorPass = true;
+                    }
+                });
 
 
-        $scope.loadUser();
+            };
+
+
+            $scope.loadUser();
+        }
 
 
     })

@@ -24,7 +24,7 @@ angular.module('ngMo.portfolio', [
     .run(function run() {
     })
 
-    .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService) {
+    .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -65,6 +65,21 @@ angular.module('ngMo.portfolio', [
                     "filter": 'tools/portfolio/filters/pairs_index_filters.tpl.html'}
 
         ];
+
+
+
+        $scope.limitAlert = function() {
+            var modalInstanceLimit = $modal.open({
+                template:"<div class=\"modal-alert-portfolio\"><div class=\"header-alert-portfolio\">Aviso <img class=\"close-alert-portfolio\" " +
+                    " src=\"assets/img/close_modal.png\" ng-click=\"close()\"></div><div class=\"body-alert-portfolio\">Incluya al menos <b>5</b> Estrategias en la Cartera</div></div>",
+                controller: ModalAlertCtrl,
+                resolve: {
+                    infoViews: function () {
+                        return $scope.info_views;
+                    }
+                }
+            });
+        };
 
 
         $scope.setPage = function (page) {
@@ -279,6 +294,27 @@ angular.module('ngMo.portfolio', [
                 });
         };
 
+
+        $scope.toggleFavoriteFromList =  function (patternId){
+            var data = PatternsService.setFavorite(patternId).then(function (data) {
+                //if returned, we set favorite true on the result table (if exists) and the pattern
+                for (i = 0; i<$scope.portfolioList.length;i++) {
+                    if ($scope.portfolioList[i].id === patternId) {
+                        $scope.portfolioList[i].favorite = !$scope.portfolioList[i].favorite;
+                    }
+                }
+                for (i = 0; i<$scope.portfolioData.length;i++) {
+                    if ($scope.portfolioData[i].patternId === patternId) {
+                        $scope.portfolioData[i].favorite = !$scope.portfolioData[i].favorite;
+                    }
+                }
+
+
+            });
+        };
+
+
+        //set favorite/or delete favorite in the DB, is used from the result table
         $scope.toggleFavorite = function (patternId){
             var data = PatternsService.setFavorite(patternId).then(function (data) {
                 $scope.loadPage();
@@ -293,7 +329,7 @@ angular.module('ngMo.portfolio', [
                     break;
                 case 1:
                     $window.sessionStorage.removeItem("portfolioStockPairs");
-                    break;
+                        break;
                 case 2:
                         $window.sessionStorage.removeItem("portfolioIndices");
                     break;
@@ -305,12 +341,15 @@ angular.module('ngMo.portfolio', [
             $scope.loadPage();
         };
 
+        //execute the calculation of portfolio
         $scope.drawdown = function () {
             if ($scope.portfolioList.length >= 5) {
                 var data = PortfolioService.getPortfolioData($scope.portfolioList, $scope.filterOptions.filters).then(function (data) {
                     $scope.portfolioData = data;
                  });
 
+            } else {
+                $scope.limitAlert();
             }
         };
 
@@ -584,6 +623,7 @@ angular.module('ngMo.portfolio', [
         }
 
         loadPortfolioList();
+        $scope.clearResults();
         $scope.loadPage();
 
     })
@@ -731,3 +771,12 @@ angular.module('ngMo.portfolio', [
         };
     })
 ;
+
+
+var ModalAlertCtrl = function ($scope, $modalInstance) {
+
+    $scope.close = function () {
+        $modalInstance.close();
+    };
+
+};
