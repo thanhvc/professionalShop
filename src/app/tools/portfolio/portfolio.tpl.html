@@ -89,16 +89,19 @@
                         <span ng-show="row.patternType == 'BULLISH'">Comprar</span>
                         <span ng-show="row.patternType == 'BEARISH'">Vender</span>
                         <br>
-                        <span ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.bullishAssetName | limitTo: 30}}</span>
+                        <span ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}" class="cursor-help"  tooltip-html-unsafe="{{row.bullishAssetName}} ({{row.marketSymbol}})">{{row.bullishAssetName | limitTo: 30}}</span>
                     </td>
                     <td ng-if="row.patternType == null">
-                        <span>Comprar</span>
-                        <span class="buy-color">{{row.bullishAssetName | limitTo: 30}}</span>
-                        <br>
-                        <span>Vender</span>
-                        <span class="sell-color">{{row.bearishAssetName | limitTo: 30}}</span>
+                        <div class="text-limitator">
+                            <span>Comprar</span>
+                            <span class="buy-color cursor-help" tooltip-html-unsafe="{{row.bullishAssetName}} ({{row.marketSymbol}})">{{row.bullishAssetName | limitTo: 30}}</span>
+                        </div>
+                        <div class="text-limitator">
+                            <span>Vender</span>
+                            <span class="sell-color cursor-help" tooltip-html-unsafe="{{row.bearishAssetName}} ({{row.marketSymbol}})">{{row.bearishAssetName | limitTo: 30}}</span>
+                        </div>
                     </td>
-                    <td>{{row.marketSymbol}}</td>
+                    <td><span tooltip-html-unsafe="{{row.marketName}}" class="cursor-help">{{row.marketSymbol}}</span></td>
                     <td>{{row.entryDate | date: 'MMM yy'}}</td>
                     <td>
                         <span ng-show="(row.length <31)">Hasta 1</span>
