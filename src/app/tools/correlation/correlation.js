@@ -90,7 +90,7 @@ angular.module('ngMo.correlation', [
             $scope.filterOptions = {
                 filters: {
                     filterName: "",
-                    selectedRegion: "",
+                    selectedRegion: (typeof $scope.correlationList !== "undefined" && $scope.correlationList.length > 0 ? $scope.filterOptions.filters.selectedRegion: ""),
                     selectedMarket: "",
                     selectedOperation: "",
                     index_type: TabsService.getActiveIndexType(),
@@ -171,10 +171,11 @@ angular.module('ngMo.correlation', [
         $scope.changeTab = function (idTab) {
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
+            $scope.filterOptions.filters.active_tab = idTab;
+            loadCorrelationList();
             $scope.restartFilter();
             $scope.applyFilters();
             $scope.clearResults();
-            loadCorrelationList();
         };
 
         $scope.clearResults = function () {
@@ -193,7 +194,7 @@ angular.module('ngMo.correlation', [
             $scope.correlationList = [];
             switch ($scope.filterOptions.filters.active_tab) {
                 case 0:
-                    if (typeof $window.sessionStorage.correlationStocks !== "undefined") {
+                    if ((typeof $window.sessionStorage.correlationStocks !== "undefined") && ($window.sessionStorage.correlationStocks !== "undefined") ) {
                         $scope.correlationList = angular.fromJson($window.sessionStorage.correlationStocks);
                     }
                     else{
@@ -201,7 +202,7 @@ angular.module('ngMo.correlation', [
                     }
                     break;
                 case 1:
-                    if (typeof $window.sessionStorage.correlationStockPairs !== "undefined") {
+                    if ((typeof $window.sessionStorage.correlationStockPairs !== "undefined") && $window.sessionStorage.correlationStockPairs !== "undefined") {
                         $scope.correlationList = angular.fromJson($window.sessionStorage.correlationStockPairs);
                     } else {
                         $scope.correlationList = [];
@@ -209,13 +210,13 @@ angular.module('ngMo.correlation', [
                     break;
                 case 2:
                     if ($scope.filterOptions.filters.index_type === "0") {
-                        if (typeof $window.sessionStorage.correlationIndices !== "undefined") {
+                        if ((typeof $window.sessionStorage.correlationIndices !== "undefined") && ($window.sessionStorage.correlationIndices !== "undefined")) {
                             $scope.correlationList = angular.fromJson($window.sessionStorage.correlationIndices);
                         }else {
                             $scope.correlationList = [];
                         }
                     } else {
-                        if (typeof $window.sessionStorage.correlationIndicePairs !== "undefined") {
+                        if ((typeof $window.sessionStorage.correlationIndicePairs !== "undefined") && ($window.sessionStorage.correlationIndicePairs !== "undefined"))  {
                             $scope.correlationList = angular.fromJson($window.sessionStorage.correlationIndicePairs);
                         } else {
                             $scope.correlationList = [];
@@ -223,7 +224,7 @@ angular.module('ngMo.correlation', [
                     }
                     break;
                 case 3:
-                    if (typeof $window.sessionStorage.correlationFutures !== "undefined") {
+                    if ((typeof $window.sessionStorage.correlationFutures !== "undefined") && ($window.sessionStorage.correlationFutures !== "undefined")) {
                         $scope.correlationList = angular.fromJson($window.sessionStorage.correlationFutures);
                     }
                     else {
@@ -293,6 +294,9 @@ angular.module('ngMo.correlation', [
 
         $scope.addToCorrelationList = function (pattern) {
             if ($scope.correlationList.length < 10 ) {
+                if ($scope.correlationList.length === 0) {
+                    $scope.pagingOptions.currentPage = 1;
+                }
                 var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.correlationList, function (data) {
                         $scope.myData = data.patterns;//data.page;
@@ -300,6 +304,7 @@ angular.module('ngMo.correlation', [
                         updateCorrelationListSessionStorage(data.correlationPatterns);
                         if ($scope.correlationList.length > 0){
                             $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                            $scope.selectRegion();
                         }
                         $scope.results = data.results;//data.results;
                         $scope.found = data.found;//data.found;
@@ -315,9 +320,6 @@ angular.module('ngMo.correlation', [
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1,$scope.correlationList, function (data) {
                     $scope.myData = data.patterns;//data.page;
                     $scope.correlationList = data.correlationPatterns;
-                    if ($scope.correlationList.length === 0){
-                        $scope.filterOptions.filters.selectedRegion = '';
-                    }
                     updateCorrelationListSessionStorage(data.correlationPatterns);
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
@@ -560,6 +562,19 @@ angular.module('ngMo.correlation', [
 
             $location.path('/correlation').search(urlParamsSend);
         };
+
+
+        //check if a date in format 'MM_YYYY' exists in the months selector
+        $scope.isCorrectDate= function(date){
+
+            for (i=0; i< $scope.filterOptions.months.length;i++) {
+                if ($scope.filterOptions.months[i].value === date) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
         $scope.loadUrlParams = function () {
             var params = $location.search();
 
@@ -602,14 +617,15 @@ angular.module('ngMo.correlation', [
             //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
-                var month = date[0];
-                var year = date[1];
-                //Check if month and year are not greater than the actual ones
-                var currentMonth = new Date().getMonth() + 1;
-                var currentYear = new Date().getFullYear();
-                if (month > currentMonth){ date[0] = currentMonth.toString();}
-                if (year > currentYear){ date[1] = currentYear.toString();}
-                var d = new Date(date[1], date[0] - 1, 1);
+                var d;
+                //check if the date of the param is correct (is in the selector)
+                //if not, just select the actualmonth
+                if ($scope.isCorrectDate(params.month)) {
+                    d = new Date(date[1], date[0] - 1, 1);
+                } else {
+                    actual_date = new Date();
+                    d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
+                }
                 filters.month = MonthSelectorService.setDate(d);
 
 
