@@ -670,6 +670,36 @@ angular.module('ngMo.correlation', [
             });
         };
 
+        $scope.generateCorrelationExcel = function () {
+            var data = CorrelationService.getCorrelationExcel($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
+                switch (TabsService.getActiveTab()) {
+                    case 0:     //stocks
+                        productType = "Acciones";
+                        break;
+                    case 1:     //pairs
+                        productType = "Par_Acciones";
+                        break;
+                    case 2:     //index (pair and index)
+                        if ($scope.filterOptions.filters.index_type == 1) {
+                            productType = "Par_Indices";
+                        } else {
+                            productType = "Indices";
+                        }
+                        break;
+                    case 3:     //futures
+                        productType = "Futuros";
+                        break;
+                }
+                var filename = "correlation-" + productType + ".xls";
+                var element = angular.element('<a/>');
+                element.attr({
+                    href: 'data:attachment/csv;base64,' + encodeURI(data),
+                    target: '_blank',
+                    download: filename
+                })[0].click();
+            });
+        };
+
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
             $scope.loadUrlParams();
             $scope.loadPage();
@@ -856,6 +886,42 @@ angular.module('ngMo.correlation', [
             };
 
             var result = $http.get($rootScope.urlService+'/correlationpdf', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
+
+        this.getCorrelationExcel = function (correlationList, filtering) {
+            var deferred = $q.defer();
+
+            var correlationIdsList = [];
+            if (correlationList.length > 0) {
+                for (var i = 0; i < correlationList.length; i++) {
+                    correlationIdsList.push(correlationList[i].id);
+
+                }
+            }
+
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+
+            config = {
+                params: {
+                    'correlationList': correlationIdsList,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType
+                }
+            };
+
+            var result = $http.get($rootScope.urlService+'/correlationexcel', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;
