@@ -51,6 +51,7 @@
         &:nth-child(2){
           text-align: left;
           text-indent: 1px;
+          padding-left: 3px;
           width: 165px;
           .name-pattern-container{
             overflow: hidden;
@@ -69,6 +70,7 @@
   font-family: fontpo-bold;
   font-size: 14px !important;
   cursor: pointer;
+  width: 60px;
 }
 
 .correlation-note{
@@ -259,7 +261,7 @@
       &:nth-child(odd) {
         background-color: @smokeGrey;
         .high-correlation{
-            background-color: @lightYellowEven;
+            background-color: @lightYellowOdd;
         }
       }
       &:nth-child(even) {
@@ -270,7 +272,7 @@
         }
         background-color: @white;
         .high-correlation{
-          background-color: @lightYellowOdd;
+          background-color: @lightYellowEven;
         }
       }
     }
