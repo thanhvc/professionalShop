@@ -303,13 +303,13 @@ angular.module('ngMo.calendar', [
 
         $scope.getDayOfWeek = function (dayOfMonth, lastDateMonth) {
             var daysOfWeek = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
-            var dayOfWeek = new Date(2014, 6 - 1, dayOfMonth);
+            var dayOfWeek = new Date($scope.filterOptions.filters.month.year, $scope.filterOptions.filters.month.month-1, dayOfMonth);
             return daysOfWeek[dayOfWeek.getDay()];
         };
 
         $scope.lastDateMonth = function () {
 
-            var dat = CalendarService.getLastDayOfMonth(7 - 1, function (data) {
+            var dat = CalendarService.getLastDayOfMonth($scope.filterOptions.filters.month.month, function (data) {
                 $scope.lastDayOfMonth = data.lastDateMonth;
 
                 if (!$scope.$$phase) {
