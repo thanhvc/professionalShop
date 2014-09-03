@@ -25,6 +25,7 @@
             </td>
             <td>
                 <select ng-change="selectMarket()" class="border-filters select-filter-correlation"
+                        ng-disabled="correlationList.length > 0 && (filterOptions.filters.selectedRegion == '')"
                         data-ng-model="filterOptions.filters.selectedMarket">
                     <option value="">- Mercado -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"

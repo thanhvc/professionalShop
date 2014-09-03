@@ -1112,8 +1112,15 @@ angular.module('ngMo.my_patterns', [
             getListMonths: function () {
                 var today = new Date();
                 var monthList = [];
-                //the list is 10 last months + actual month + next month
-                var d = new Date(today.getFullYear(), today.getMonth() - 10, 1);
+                //the list is 10 last months + actual month + next month if today is <=15, if not
+                //is 11 last months + actual month
+                if (today.getDate() >14) {
+                    months = 10;
+                } else {
+                    months = 11;
+                }
+
+                var d = new Date(today.getFullYear(), today.getMonth() - months, 1);
                 for (i = 0; i < 12; i++) {
                     var d_act = (this.setDate(d));
                     monthList.push({

@@ -71,7 +71,11 @@
             </thead>
             <tbody>
                 <tr ng-repeat="row in correlationData track by $index">
-                    <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column.value >= 80, 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">{{column.value}}</td>
+                   <!-- <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column.value >= 80, 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">{{column.value}}</td>-->
+                   <td  ng-repeat="column in row track by $index"  ng-class="{'high-correlation': column.value >= 80, 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">
+                        <span  ng-if="column.name == ''">{{column.value}}</span>
+                       <span tooltip-html-unsafe="{{column.name}}"  ng-if="column.name != ''" class="cursor-help">{{column.value}}</span>
+                   </td>
                 </tr>
             </tbody>
         </table>
@@ -84,7 +88,10 @@
             </thead>
             <tbody>
             <tr ng-repeat="row in pairCorrelationData track by $index">
-                <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column >= 80}">{{column}}</td>
+                <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column >= 80}">
+                    <span  ng-if="column.name == ''">{{column.value}}</span>
+                    <span tooltip-html-unsafe="{{column.name}}"  ng-if="column.name != ''" class="cursor-help">{{column.value}}</span>
+                </td>
             </tr>
             </tbody>
         </table>
