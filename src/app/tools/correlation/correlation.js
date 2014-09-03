@@ -181,6 +181,8 @@ angular.module('ngMo.correlation', [
             TabsService.changeActiveTab(idTab);
             $scope.filterOptions.filters.active_tab = idTab;
 
+            $scope.pagingOptions.currentPage = 1;
+
             $scope.restartFilter();
             $scope.applyFilters();
 
@@ -351,7 +353,9 @@ angular.module('ngMo.correlation', [
                         updateCorrelationListSessionStorage(data.correlationPatterns);
                         if ($scope.correlationList.length > 0){
                             $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
-                            $scope.selectRegion();
+                            var pag = $scope.pagingOptions.currentPage;
+                            $scope.setRegion();
+                            $scope.pagingOptions.currentPage = pag;
                             if ($scope.filterOptions.filters.active_tab === 0) {
                                 //if is simple stock, we save the selectedRegion
                                 $window.sessionStorage.correlationRegion = $scope.filterOptions.filters.selectedRegion;
@@ -463,7 +467,7 @@ angular.module('ngMo.correlation', [
 
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
-            $scope.pagingOptions.currentPage = 1; //restart the page
+            //$scope.pagingOptions.currentPage = 1; //restart the page
             $scope.saveUrlParams();
             //$scope.loadPage();
         };
@@ -497,9 +501,14 @@ angular.module('ngMo.correlation', [
             }
         };
         $scope.selectRegion = function () {
+            $scope.pagingOptions.currentPage = 1;
+            $scope.setRegion();
+        };
+
+        $scope.setRegion = function (){
+
             $scope.refreshRegion();
             $scope.applyFilters();
-
         };
 
         //refresh selectors depending of market
@@ -510,6 +519,7 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.selectMarket = function () {
+            $scope.pagingOptions.currentPage = 1;
             //in stock is required refresh industries, sectors, in futures and
             //others tabs dont have this selectors
             $scope.refreshMarket();
