@@ -151,7 +151,7 @@
                 <td>Total</td>
                 <td class="sub-border-right-table">{{infoPattern.win + infoPattern.loss}}</td>
                 <td class="sub-border-right-table" ng-class="{'negative-percent': (infoPattern.accumulatedWin + infoPattern.accumulatedLoss) < 0}">{{infoPattern.accumulatedWin + infoPattern.accumulatedLoss |  twoDecimals}}</td>
-                <td class="sub-border-right-table" ng-class="{'negative-percent': (infoPattern.accumulatedWin / infoPattern.win) < 0}">{{(infoPattern.accumulatedWin + infoPattern.accumulatedLoss / (infoPattern.win + infoPattern.loss)) |  twoDecimals}}</td>
+                <td class="sub-border-right-table" ng-class="{'negative-percent': (infoPattern.accumulatedWin / infoPattern.win) < 0}">{{(infoPattern.accumulatedWin + infoPattern.accumulatedLoss) / (infoPattern.win + infoPattern.loss) |  twoDecimals}}</td>
                 <td class="sub-border-right-table" ng-class="{'negative-percent': (infoPattern.dailyReturn) < 0}">{{infoPattern.dailyReturn |  twoDecimals}}</td>
                 <td class="sub-border-right-table">{{infoPattern.duration}}</td>
             </tr>

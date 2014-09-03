@@ -27,7 +27,46 @@
 
 <tabset class="float-left">
     <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}" active="ctab.active" disabled="tab.disabled">
-        <div class="pdf-icon"></div>
+        <div class="pdf-icon" ng-click="obtainCalendarPdf();"></div>
         <div ng-include="urlSelected"></div>
     </tab>
 </tabset>
+
+<script type="text/ng-template" id="calendarPdfContent.html">
+    <div class="modal-alert">
+        <div class="modal-header">
+            <div class="header">Calendar - Solicitud envío correo electrónico
+                <button class="btn-close btn-close-alert" ng-click="close()"></button>
+            </div>
+        </div>
+        <div class="modal-body">
+            <br>
+            <select data-ng-model="data.region">
+                <option value="" ng-selected="{{region.id == data.region}}">- Seleccione la región deseada -</option>
+                <option ng-repeat="region in regions" value="{{region.id}}"
+                        ng-selected="{{region.id == data.region}}">
+                    {{region.description}}
+                </option>
+            </select>
+            <div class="signup-form-warning" ng-show="showText">Debe seleccionar una región</div>
+        </div>
+        <div class="modal-footer">
+            <button class="mo-button float-left" ng-click="cancel()">Cancelar</button>
+            <button class="mo-button float-right" ng-click="ok()">Aceptar</button>
+
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="calendarPdfOk.html">
+    <div class="modal-alert">
+        <div class="modal-body">
+            <br>
+            <div class="calendar-modal-text">Hemos enviado un correo electrónico con el documento solicitado.</div>
+        </div>
+        <div class="modal-footer">
+            <button class="mo-button float-left" ng-click="close()">Aceptar</button>
+
+        </div>
+    </div>
+</script>
