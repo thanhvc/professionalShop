@@ -90,7 +90,7 @@ angular.module('ngMo.correlation', [
             $scope.filterOptions = {
                 filters: {
                     filterName: "",
-                    selectedRegion: (typeof $scope.correlationList !== "undefined" && $scope.correlationList.length > 0 ? $scope.filterOptions.filters.selectedRegion: ""),
+
                     selectedMarket: "",
                     selectedOperation: "",
                     index_type: TabsService.getActiveIndexType(),
@@ -124,6 +124,14 @@ angular.module('ngMo.correlation', [
 
                 }
             };
+            if ($scope.filterOptions.filters.active_tab === 0) {
+                $scope.filterOptions.selectedRegion = (typeof $scope.correlationList !== "undefined" && $scope.correlationList.length > 0 ? $scope.filterOptions.filters.selectedRegion: "");
+            } else if ($scope.filterOptions.filters.active_tab === 1) {
+                $scope.filterOptions.selectedRegion = (typeof $scope.correlationList !== "undefined" && $scope.correlationList.length > 0 ? $scope.filterOptions.filters.selectedRegionPair: "");
+            } else {
+                $scope.filterOptions.selectedRegion = "";
+            }
+
             if (!$scope.filterOptions.months) {
                 $scope.filterOptions.months = MonthSelectorService.getListMonths();
             }
@@ -254,7 +262,7 @@ angular.module('ngMo.correlation', [
 
             loadCorrelationList();
             //index and futures are not considering regions to filter, and makes some wrong situations, so clear in that case, maybe are set from other tabs
-            if ($scope.filterOptions.filters.selectedRegion ==="INDEX" || $scope.filterOptions.filters.selectedRegion  ==="FUTURES" ) {
+            if ($scope.filterOptions.filters.selectedRegion ==="INDEX" || $scope.filterOptions.filters.selectedRegion  ==="FUTURE" ) {
                 $scope.filterOptions.filters.selectedRegion = "";
             }
             //in the case of being load index or futures, just clear the region
@@ -272,7 +280,10 @@ angular.module('ngMo.correlation', [
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.correlationList, function (data) {
                     $scope.myData = data.patterns;//data.page;
+                    //when the market is changed, we
+                    var market = $scope.filterOptions.filters.selectedMarket;
                     $scope.refreshRegion();
+                    $scope.filterOptions.filters.selectedMarket = market;
                     $scope.correlationList = data.correlationPatterns;
                     updateCorrelationListSessionStorage(data.correlationPatterns);
                     if ($scope.correlationList.length > 0){
