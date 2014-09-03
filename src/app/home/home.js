@@ -119,12 +119,12 @@ angular.module('ngMo.home', [
                 "");
 
         $scope.tooltipFact = "<div class='custom-tooltip' style='width:300px;'><b>Hecho</b>:<br><p>Algo basado en datos verificables. Si adem&aacute;s el hecho es objetivo, la informaci&oacute;n debe ser completa y revelar todos los detalles.</p></div>";
-        $scope.tooltipReliability = "<div class='custom-tooltip' style='width:640px'>En el contexto de Market Observatory, una <strong>Fiabilidad o Frecuencia 90%</strong> de aciertos significa que:<br><p><ul class='public-list-first-level'>"+
-            "<li class='listadoFlechas textoEstaticoPublicidad'>La mayor parte de los Patrones o estrategias publicadas en la Web tienen 0 fallos en 15 a&ntilde;os -fiabilidad 100%- o 1 fallo en 15 a&ntilde;os -fiabilidad del 93%-</li>"+
-            "<li class='listadoFlechas textoEstaticoPublicidad'>El resto de Patrones tienen 2 fallos en 15 a&ntilde;os -fiabilidad del 87%-.</li>"+
+        $scope.tooltipReliability = "<div class='custom-tooltip' style='width:640px'>En el contexto de Market Observatory, una <strong>Fiabilidad o frecuencia de aciertos 90%</strong> significa que:<br><p><ul class='public-list-first-level'>"+
+            "<li class='listadoFlechas textoEstaticoPublicidad'>La mayor parte de los Patrones o estrategias publicadas tienen 0 fallos en 15 a&ntilde;os -frecuencia aciertos 100%- o 1 fallo en 15 a&ntilde;os -frecuencia 93%-</li>"+
+            "<li class='listadoFlechas textoEstaticoPublicidad'>El resto de Patrones tiene 2 fallos en 15 a&ntilde;os -frecuencia aciertos del 87%-.</li>"+
             "</ul></p></div>";
         $scope.tooltipPeriodsHome = "<div class='custom-tooltip' style='width:640px'>En el contexto de Market Observatory, un <strong>Periodo &oacute;ptimo</strong> para invertir supone:<br>"+
-            "<p><ul class='public-list-first-level'><li class='listadoFlechas textoEstaticoPublicidad'>Maximizar la rentabilidad, con la mayor fiabilidad de aciertos, reduciendo"+
+            "<p><ul class='public-list-first-level'><li class='listadoFlechas textoEstaticoPublicidad'>Maximizar la rentabilidad, con la mayor fiabilidad de aciertos, minimizando"+
             "las p&eacute;rdidas en los a&ntilde;os con fallo y exponi&eacute;ndose al riesgo de mercado durante el menor tiempo posible.</li></ul></p></div>";
         $scope.tooltipOpinions = "<div class='custom-tooltip' style='width:300px'><b>Opini&oacute;n</b>:<br><p>Algo \"personal\" que se expresa y no se puede garantizar que sea verdad. Una opini&oacute;n es similar a una predicci&oacute;n.</p></div>";
 
