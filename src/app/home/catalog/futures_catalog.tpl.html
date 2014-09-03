@@ -1,43 +1,23 @@
 <div>
-    <span class="catalog-title">Cat&aacute;logo Futuros</span>
+    <span class="catalog-title">Cat&aacute;logo de Futuros</span>
 
-    <div style="clear: both; margin-bottom:10px;">El cuadro siguiente es un resumen de la <b>Suscripción a Comprar.</b>
-        Contiene una lista con las
-        mejores Estrategias sobre los principales productos internacionales cotizados a Futuro que comienzan durante el
-        Mes indicado.
+    <div style="clear: both; margin-bottom:10px;">
+        El siguiente cuadro resume la información del <b>Pack</b> a comprar.
+        Se muestran 50 Estrategias sobre los principales productos internacionales cotizados a Futuro durante el
+        Mes indicado y un avance de contenidos que permite valorar las ventajas de comprar el Pack:
 
-        <div style="display: inline-block;"
-             ng-click="show=!show" ng-show="!show"><img
-                src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar m&aacute;s</a>
-        </div>
-    </div>
-    <div ng-show="show">
         <p>
-            Dispone de un Buscador que permite:
         <ul class="public-list-first-level">
-            <li>Localizar nombres de Futuros mediante cadena de caracteres.</li>
-            <li>Categorizar por Grupo</li>
-        <li>Seleccionar Estrategias por Duración (<i>Holding days</i>) en días de calendario.</li>
-        <li>Seleccionar Futuros por Volatilidad.
-            <img src="assets/img/textup.png"> <a
-                    style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar
-                menos</a></li>
-        </ul>
-    </div>
-    <div>
-        <p>
-            La tabla permite a los No clientes valorar las ventajas de Comprar una Suscripción.
-            Para ello se exponen unos parámetros cualitativos básicos:
-        <ul class="public-list-first-level">
-        <li>Nombre del Futuro.</li>
-        <li>Número de años –o frecuencia de aciertos- que la estrategia generó Beneficios y Pérdidas.</li>
-        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media asociada a la duración de la operación desde la apertura hasta el cierre.</li>
-        <li>La Volatilidad histórica a 3 meses.</li>
-        <li>El “Estado” de la Estrategia se indica mediante un semáforo: Color <i>naranja</i> si está en curso. Color <i>rojo</i> si ya terminó.
-            Color <i>verde</i> cuando en la fecha actual todavía está sin comenzar. </li>
+        <li>Identificación del Futuro, nombre del producto, mes - año de vencimiento y mercado de cotización. </li>
+        <li>Número de años –o frecuencia de aciertos y fallos- en los cuales la estrategia generó Beneficios y Pérdidas.</li>
+        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media de la operación. </li>
+        <li>Duración de la estrategia (<em>Holding days</em>).</li>
+        <li>Volatilidad histórica</li>
+        <li>El “Estado” de la Estrategia se indica mediante un semáforo: Color <i>naranja</i> si a día de hoy está en curso. Color <i>rojo</i> si ya terminó.
+            Color <i>verde</i> cuando en la fecha actual todavía está sin comenzar.</li>
         </ul>
         </p>
-        <p>Hágase cliente y descubra toda la información.</p>
+        <p>Una vez comprado el Pack, como cliente, descubrirá toda la información detallada de las estrategias y herramientas de evaluación.</p>
     </div>
     <div bindonce="startDate" class="start-date-catalog-container">
         <span bo-text="startDate | date: 'MMMM yyyy'"></span>
