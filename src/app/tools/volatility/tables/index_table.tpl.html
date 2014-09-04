@@ -13,7 +13,7 @@
                 <span class="index-header-vol">Volatilidad %</span>
             </th>
             <th  >
-                <span class="index-header-fav" >Fav.</span>
+                <span class="index-header-fav" tooltip-html-unsafe="Favoritos">Fav.</span>
 
             </th>
         </tr>
@@ -25,12 +25,14 @@
                 <span  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
             </td>
 
-            <td  class="index-date-value" >{{data.entryDate | date: 'd MMM yyyy'}}</td>
-            <td class="index-vol-value">
-                <a ng-click="loadGraphic($event,data.vol)">{{data.asset.volatility | number:0}}</a>
+            <td  class="index-date-value" >
+                <span>{{data.asset.lastQuoteDate | date: 'd MMM yyyy'}}</span>
             </td>
-            <td class="index-fav-value" class="table-cell-patterns border-right-table">
-                <div class="current-favourite" g-class="{'favourite-added': data.Fav == 'true'}"></div>
+            <td class="index-vol-value">
+                <a ng-click="loadGraphic($event,data.asset.longName,data.patternType,null,false,data.asset.volatilityChartURL);$event.stopPropagation();">{{data.asset.volatility | number:0}}</a>
+            </td>
+            <td style="width: 62px;" class="table-cell-patterns border-right-table">
+                <div tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.favorite == true}"></div>
             </td>
         </tr>
         </tbody>

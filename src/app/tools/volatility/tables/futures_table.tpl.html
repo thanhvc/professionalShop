@@ -1,48 +1,44 @@
-<div >
-    <table  class="pairs-table-vol"   style="width: 775px !important;" border="0" cellpadding="0" cellspacing="0">
+<div class="black" style="font-size: 12px; ">
+    <table  class="stocks-table " border="0" cellpadding="0" cellspacing="0">
         <colgroup span="5"></colgroup>
-        <thead>
-        <tr class="futures-header">
+        <thead >
+        <tr class="stocks-header-table">
             <th >
-                <span class="futures-name" >Nombre</span>
+                <span class="stocks-name ">Nombre</span>
             </th>
             <th  >
-                <span class="futures-market">Mercado</span>
+                <span class="stocks-market ">Mercado</span>
+            </th>
+            <th>
+                <span class="stocks-date">Fecha Cálculo</span>
             </th>
             <th >
-                <span class="futures-date">Fecha Cálculo</span>
+                <span class="stocks-vol">Volatilidad %</span>
             </th>
             <th >
-                <span class="futures-vol">Volatilidad %</span>
-            </th>
-            <th  >
-                <span class="futures-fav">Fav.</span>
+                <span class="stocks-fav" tooltip-html-unsafe="Favoritos">Fav.</span>
 
             </th>
         </tr>
         </thead>
-        <tbody>
-        <tr ng-repeat="data in myData" ng-class-even="'ngRow-odd'" ng-class-odd="'ngRow-even'" style=" font-size:11px;color:#996600 !important;">
-            <td  class="futures-name-value"style="text-align: left; width:330px;">
-                <span class="cursor-help" tooltip="{{data.asset.longName}} {{data.asset.yearExpiration}}"  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
+        <tbody class="stocks-tbody">
+        <tr ng-repeat="data in myData"  ng-class-even="'ngRow-odd'" ng-class-odd="'ngRow-even'" style=" font-size:11px;color:#996600 !important;">
+            <td class="green"  >
+                    <span class="stocks-market-value" tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})"
+                          ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
             </td>
             <td class="black-font-market" >
-                <span lass="cursor-help" tooltip="{{data.asset.exchange.name}}" >{{data.asset.exchange.symbol}}</span>
-                <div  style="display:none;">
-                    <div ></div>
-                    <div >London Stock Exchange</div>
-                </div>
+                <span tooltip-html-unsafe="{{data.asset.exchange.name}}" >{{data.asset.exchange.symbol}}</span>
             </td>
-            <td class="futures-date-value" >{{data.entryDate | date: 'd MMM yyyy'}}</td>
-            <td  class="futures-vol-value">
-                <a ng-click="loadGraphic($event,data.vol)" >{{data.asset.volatility | number:0}}</a>
+            <td class="stocks-date-value">{{data.asset.lastQuoteDate | date: 'd MMM yyyy'}}</td>
+            <td class="stocks-vol-value">
+                <a ng-click="loadGraphic($event,data.asset.longName,data.patternType,null,false,data.asset.volatilityChartURL);$event.stopPropagation();" >{{ data.asset.volatility| number:0}}</a>
             </td>
-            <td class="futures-fav-value" style="width: 62px;" class="table-cell-patterns border-right-table">
-                <div class="current-favourite" ng-class="{'favourite-added': data.Fav == 'true'}"></div>
+            <td style="width: 62px;" class="table-cell-patterns border-right-table">
+                <div tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.favorite == true}"></div>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-
 
