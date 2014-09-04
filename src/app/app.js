@@ -102,7 +102,7 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
        //$rootScope.urlService = 'http://localhost:9000';
     })
 
@@ -495,7 +495,22 @@ angular.module('ngMo', [
 
     })
 
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService) {
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http) {
+
+        $scope.emailRemember = "";
+        $scope.mailSent = false;
+        $scope.rememberPassword = function () {
+            config = {
+                email: $scope.emailRemember
+            };
+            return $http.post($rootScope.urlService+'/remember-password', config)
+                .success(function (data, status) {
+                    $scope.mailSent = true;
+                })
+                .error(function (data, status) {
+                    $scope.mailSent = true;
+                });
+        };
 
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
