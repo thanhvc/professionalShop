@@ -1,18 +1,19 @@
 <div>
-    <span class="catalog-title">Cat&aacute;logo Índices</span>
+    <span class="catalog-title">Cat&aacute;logo de Índices</span>
 
-    <p>El siguiente cuadro es un resumen de contenidos del Pack a <b>Comprar</b> mediante suscripción. Contiene una lista de 100 Índices y 100 Pares de Índices con las mejores Estrategias durante el Mes indicado</p>
+    <p>El siguiente cuadro resume la información del <b>Pack</b> a comprar. Se muestran 50 Índices con las mejores Estrategias durante el
+        Mes indicado y un avance de contenidos que permite valorar las ventajas de comprar el Pack:</p>
     <p>
     <ul class="public-list-first-level">
-        <li>Nombre del índice. En Par de Índices hay dos nombres, el “fuerte” y “débil”..</li>
-        <li>Número de años –o frecuencia de aciertos- que la estrategia generó Beneficios y Pérdidas.</li>
-        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media asociada al periodo de la operación.</li>
-        <li>Duración de la operación (Holding days). </li>
+        <li>Identificación del Índice con el nombre y emisor.</li>
+        <li>Número de años –o frecuencia de acierto y fallos- en los cuales la estrategia generó Beneficios y Pérdidas.</li>
+        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media de la operación.</li>
+        <li>Duración de la estrategia (<em>Holding days</em>). </li>
         <li>Volatilidad histórica.</li>
-        <li>El “Estado” de la Estrategia se indica mediante un semáforo: Color naranja si a día de hoy está en curso. Color rojo si ya terminó. Color verde cuando en la fecha actual todavía está sin comenzar.</li>
+        <li>El “Estado” de la estrategia se indica mediante un semáforo: Color <em>naranja</em> si a día de hoy está en curso. Color <em>rojo</em> si ya terminó. Color <em>verde</em> cuando en la fecha actual todavía está sin comenzar.</li>
 
     </ul>
-    Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y herramientas de evaluaci&oacute;n.
+    Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias así como las herramientas de evaluación y toma de decisiones.
     </p>
     <div bindonce="startDate" class="start-date-catalog-container">
         <span bo-text="startDate | date: 'MMMM yyyy'"></span>
@@ -24,21 +25,6 @@
     <div class="header-catalog-table">
         <div class="catalog-filter">
             <input class="stocks-catalog-input" placeholder="Nombre" ng-model="filterOptions.filters.filterName" ng-change="search();">
-            <!--
-            <select ng-model="filterOptions.filters.selectedSector" ng-change="selectSector()" >
-                <option value="">- Elegir Sector -</option>
-                <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
-                        ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
-                    {{item.description}}
-                </option>
-            </select>
-            <select ng-model="filterOptions.filters.selectedIndustry" ng-change="selectIndustry();">
-                <option value="">- Elegir industria -</option>
-                <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
-                        ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}">
-                    {{item.description}}
-                </option>
-            </select>-->
             <select ng-model="filterOptions.filters.durationInterval" ng-change="search();">
                 <option selected="selected" value="">- Elegir duración -</option>
                 <option value="[*/1]">Hasta 1 mes</option>
