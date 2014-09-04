@@ -303,6 +303,25 @@ angular.module('ngMo.lookup_diary', [
             });
         };
 
+        $scope.openNotes = function (asset, bearishAsset) {
+
+            var modalNotesInstance = $modal.open({
+                templateUrl: 'notesContent.html',
+                controller: ModalNotesInstanceCtrl,
+                resolve: {
+                    asset: function () {
+                        return asset;
+                    },
+                    bearishAsset: function () {
+                        return bearishAsset;
+                    },
+                    month: function () {
+                        return $scope.filterOptions.filters.month.month;
+                    }
+                }
+            });
+        };
+
 
         /*load the table template*/
         $scope.getTemplateTable = function () {
@@ -967,6 +986,21 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
 
     $scope.cancel = function () {
         $scope.deleteAlert($scope.patternId);
+        $modalInstance.dismiss('cancel');
+    };
+};
+
+var ModalNotesInstanceCtrl = function ($scope, $modalInstance, asset, bearishAsset, month) {
+
+    $scope.data = {
+        assetName: (typeof asset !== 'undefined' ? asset.longName : ''),
+        notes: (typeof asset !== 'undefined' ? asset.notes : ''),
+        bearishAssetName: (typeof bearishAsset !== 'undefined' ? bearishAsset.longName : ''),
+        bearishNotes: (typeof bearishAsset !== 'undefined' ? bearishAsset.notes : ''),
+        month: (typeof month !== 'undefined' ? month : '')
+    };
+
+    $scope.close = function () {
         $modalInstance.dismiss('cancel');
     };
 };
