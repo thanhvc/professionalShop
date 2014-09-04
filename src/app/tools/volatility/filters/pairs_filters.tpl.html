@@ -14,17 +14,15 @@
                             ng-options="item.name for item in filterOptions.months">
                     </select></td>
                 <td>
-                    <select ng-change="selectIndexType()" ng-model="filterOptions.filters.index_type">
-                        <option value="0">Índices</option>
-                        <option value="1">Par Índices</option>
-                    </select>
-                </td>
-                <td><select ng-change="search()" class="border-filters select-filter input-op-volat"
-                            ng-options="item.description for item in filterOptions.selectors.operationsIndex"
-                            data-ng-model="filterOptions.filters.selectedOperation">
-                    <option value="">- Operacion -</option>
-                </select>
-                </td>
+                    <select name="regionSelector" ng-change="selectRegion()" class="border-filters select-filter input-region-volat"
+                            data-ng-model="filterOptions.filters.selectedRegion">
+                        <option value="">- Región -</option>
+                        <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
+                                ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
+                            {{item.description}}
+                        </option>
+                    </select></td>
+
                 <td class="td-volatility-filter" style="width:145px;">  <form name="rentForm">
                     <select class="border-filters select-filter select-filter input-op-volat"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
