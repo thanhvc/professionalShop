@@ -50,7 +50,7 @@ angular.module('ngMo.volatility', [
         });
     })
 
-    .controller('VolatilityCtrl', function VolatilityCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($scope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -77,45 +77,103 @@ angular.module('ngMo.volatility', [
             currentPage: 1
         };
 
-        $scope.loadGraphic = function (name) {
+        $scope.closeGraph = function() {
+            if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
+                setTimeout(function(){
+                    //event.srcElement.parentElement.className ='graphic-div';
+                    $scope.graph.className='graphic-div move-to-the-right';
+                    $scope.graph.addEventListener('webkitTransitionEnd', function(event2) {
+                        if ($scope.graph != null) {
+                            $scope.graph.style.cssText = 'display:none';
+                            $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
+                            $scope.graph = null;
+                        }
+
+                    });
+                },0);
+            }
+        };
+
+        $scope.loadGraphic = function (inputEvent,name1,type,name2,pair,url) {
+
+            if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
+                $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
+                $scope.graph = null;
+            }
 
             var elemDiv = document.createElement('div');
-            var h = name.srcElement.parentElement.parentElement.parentElement.offsetHeight+ 90;
-            var w = name.srcElement.parentElement.parentElement.parentElement.offsetWidth + 2;
+
+            var h = inputEvent.srcElement.parentElement.parentElement.parentElement.offsetHeight + 90;
+            var w = inputEvent.srcElement.parentElement.parentElement.parentElement.offsetWidth + 2;
             var elemTitle = document.createElement('span');
-            elemTitle.innerHTML = name.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
-            var img = document.createElement('img');
-            img.src = "assets/img/graphic.png";
-            img.className ="graphic-image-div";
+
+            //check the name (if is simple or pair)
+            //name1 is obligatory, name2 is optional (to check if is pair or not)
+            //if pair, then name1 is buy name 2 is sell
+
+            elemTitle.innerHTML = name1;
+
+            var containerTitle = document.createElement("div");
+            //elemTitle.innerHTML = inputEvent.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
+            if (pair) {
+
+                elemTitle.className = 'buy-color';
+                if (name2 != null) {
+                    var elemTitleSeparator = document.createElement('span');
+                    elemTitleSeparator.innerText = " / ";
+                    var elemTitle2 = document.createElement('span');
+                    elemTitle2.className = 'sell-color';
+                    elemTitle2.innerHTML = name2;
+                    containerTitle.appendChild(elemTitle);
+                    containerTitle.appendChild(elemTitleSeparator);
+                    containerTitle.appendChild(elemTitle2);
+                }
+
+            } else {
+                if (type === 'BULLISH') {
+                    elemTitle.className = 'buy-color';
+                } else {
+                    elemTitle.className = 'sell-color';
+                }
+                containerTitle.appendChild(elemTitle);
+            }
+
+
+
+
+
+
+
             elemDiv.className = 'graphic-div';
             elemDiv.style.cssText += 'height:' + h + 'px;';
             elemDiv.style.cssText += 'width:' + w + 'px;';
-
+            var img = document.createElement('img');
+            if (url == null){
+                //mocked graph
+                img.src = "assets/img/graphic.png";
+            } else {
+                //real graph
+                img.src=url;
+            }
+            img.className ="graphic-image-div";
 
             var closeButton = document.createElement('img');
             closeButton.src = "assets/img/close_modal.png";
             closeButton.className = 'close-graphic-button';
             closeButton.onclick = function (event) {
-
-                setTimeout(function(){
-                    //event.srcElement.parentElement.className ='graphic-div';
-                    event.srcElement.parentElement.className='graphic-div move-to-the-right';
-                    event.srcElement.parentElement.addEventListener('webkitTransitionEnd', function(event2) {
-                        event.srcElement.parentElement.style.cssText = 'display:none';
-
-                    });
-                },0);
+                $scope.closeGraph();
             };
-            elemDiv.appendChild(elemTitle);
+            elemDiv.appendChild(containerTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
-            name.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
+            inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
 
             setTimeout(function(){
                 elemDiv.className+=' move';
 
             },0);
 
+            $scope.graph = elemDiv;
             return 0;
 
         };
@@ -125,12 +183,15 @@ angular.module('ngMo.volatility', [
             {"table": 'tools/volatility/tables/stocks_table.tpl.html',
                 "filter": 'tools/volatility/filters/stocks_filters.tpl.html'},
 
-            {"table": 'tools/volatility/tables/pairs_index_table.tpl.html',
-                "filter": 'tools/volatility/filters/pairs_index_filters.tpl.html'},
+            {"table": 'tools/volatility/tables/pairs_table.tpl.html',
+                "filter": 'tools/volatility/filters/pairs_filters.tpl.html'},
 
-            {"table": 'tools/volatility/tables/index_table.tpl.html',
-                "filter": 'tools/volatility/filters/index_filters.tpl.html'},
-
+            [
+                {"table": 'tools/volatility/tables/index_table.tpl.html',
+                    "filter": 'tools/volatility/filters/index_filters.tpl.html'},
+                {"table": 'tools/volatility/tables/pairs_index_table.tpl.html',
+                    "filter": 'tools/volatility/filters/pairs_index_filters.tpl.html'}
+            ],
 
             {"table": 'tools/volatility/tables/futures_table.tpl.html',
                 "filter": 'tools/volatility/filters/futures_filters.tpl.html'}
@@ -194,23 +255,27 @@ angular.module('ngMo.volatility', [
                     ],
 
                     sectors: [
-                        {"id": 1, "description": "Sector1"},
-                        {"id": 2, "description": "Sector2"}
                     ],
 
                     industries: [
-                        {"id": 1, "description": "Industry1"},
-                        {"id": 2, "description": "Industry2"}
                     ],
 
                     operations: [
-                        {"id": 1, "description": "buy"},
-                        {"id": 2, "description": "sell"}
+                        {"id": 0, "description": "Comprar"},
+                        {"id": 1, "description": "Vender"}
+                    ],
+                    operationsIndex: [
+                        {"id": 0, "description": "Alcista"},
+                        {"id": 1, "description": "Bajista"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Menor que"},
-                        {"id": 2, "description": "Mayor que"}
-                    ]
+                        {"id": 1, "description": "Mayor que"},
+                        {"id": 0, "description": "Menor que"}
+
+                    ],
+
+                    comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value
+
 
                 }
             };
@@ -223,15 +288,15 @@ angular.module('ngMo.volatility', [
             //refresh all the selectors
             switch (TabsService.getActiveTab()) {
                 case 0:     //stocks
-                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 1:     //pairs
-                    $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['regions', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 2:     //index (pair and index)
                     break;
                 case 3:     //futures
-                    $scope.refreshSelectors(['markets']);
+                    $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
             }
 
@@ -242,16 +307,17 @@ angular.module('ngMo.volatility', [
         $scope.getTemplateTable = function () {
             switch (TabsService.getActiveTab()) {
                 case 2:         //index
-                    return templateTables[TabsService.getActiveTab()].table;
+                    return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].table;
                 default:        //others
                     return templateTables[TabsService.getActiveTab()].table;
             }
+
         };
         /*load the filter template*/
         $scope.getTemplateFilter = function () {
             switch (TabsService.getActiveTab()) {
                 case 2:         //index
-                    return templateTables[TabsService.getActiveTab()].filter;
+                    return templateTables[TabsService.getActiveTab()][$scope.filterOptions.filters.index_type].filter;
                 default:        //others
                     return templateTables[TabsService.getActiveTab()].filter;
             }
@@ -272,7 +338,7 @@ angular.module('ngMo.volatility', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
 
-       window.onload = $scope.loadPage = function () {
+       $scope.loadPage = function () {
             var data = VolatilityService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                 $scope.myData = data.patterns;//data.page;
                 $scope.results = data.results;//data.results;
@@ -284,27 +350,44 @@ angular.module('ngMo.volatility', [
         /**
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
-        $scope.refreshSelectors = function (selectors) {
-            VolatilityService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
-                //checks the data received, when a selector is refreshed, the value selected is also cleaned
-                if (data.hasOwnProperty("markets")) {
-                    $scope.filterOptions.selectors.markets = data.markets;
-                    $scope.filterOptions.filters.selectedMarket = "";
-                }
-                if (data.hasOwnProperty("regions")) {
-                    $scope.filterOptions.selectors.regions = data.regions;
-                    $scope.filterOptions.filters.selectedRegion = "";
-                }
-                if (data.hasOwnProperty("industries")) {
-                    $scope.filterOptions.selectors.industries = data.industries;
-                    $scope.filterOptions.filters.selectedIndustry = "";
-                }
-                if (data.hasOwnProperty("sectors")) {
-                    $scope.filterOptions.selectors.sectors = data.sectors;
-                    $scope.filterOptions.filters.selectedSector = "";
-                }
-            });
+        $scope.refreshSelectors = function (selectors,filters,callback) {
+            viewName = $state.$current.self.name;
+            PatternsService.getSelectors(filters, selectors,callback,viewName);
         };
+
+        $scope.callBackRefreshSelectors =  function (data) {
+            //checks the data received, when a selector is refreshed, the value selected is also cleaned
+            if (data.hasOwnProperty("regions")) {
+                $scope.filterOptions.selectors.regions = data.regions;
+                //$scope.filterOptions.filters.selectedRegion = "";
+            }
+
+            if (data.hasOwnProperty("markets")) {
+                $scope.filterOptions.selectors.markets = data.markets;
+                if (typeof data.selectedRegion != 'undefined') {
+                    $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                }
+                //$scope.filterOptions.filters.selectedMarket = "";
+            }
+
+            if (data.hasOwnProperty("industries")) {
+                $scope.filterOptions.selectors.industries = data.industries;
+                //$scope.filterOptions.filters.selectedIndustry = "";
+            }
+            if (data.hasOwnProperty("sectors")) {
+                $scope.filterOptions.selectors.sectors = data.sectors;
+                //$scope.filterOptions.filters.selectedSector = "";
+            }
+
+            if (typeof data.selectedMarket != 'undefined') {
+                $scope.filterOptions.filters.selectedMarket = data.selectedMarket;
+            }
+            if (typeof data.selectedSector != 'undefined') {
+                $scope.filterOptions.filters.selectedSector = data.selectedSector;
+            }
+
+        };
+
 
         /**
          *  make a new search with the filters, restart the page and search, for the button Search in the page
@@ -320,7 +403,6 @@ angular.module('ngMo.volatility', [
             $scope.pagingOptions.currentPage = 1; //restart the page
             $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
-            $scope.loadPage();
         };
 
         /*check that all rent filters have  values and a selector*/
@@ -341,11 +423,11 @@ angular.module('ngMo.volatility', [
                 $scope.filterOptions.filters.rentDiaryInput = "";
                 $scope.filterOptions.filters.selectedRentDiary = "";
             }
-            if (!($scope.filterOptions.filters.volatilityInput &&
+            /*if (!($scope.filterOptions.filters.volatilityInput &&
                 $scope.filterOptions.filters.selectedVolatility)) {
                 $scope.filterOptions.filters.volatilityInput = "";
                 $scope.filterOptions.filters.selectedVolatility = "";
-            }
+            }*/
             if (!($scope.filterOptions.filters.durationInput &&
                 $scope.filterOptions.filters.selectedDuration)) {
                 $scope.filterOptions.filters.durationInput = "";
@@ -360,15 +442,20 @@ angular.module('ngMo.volatility', [
          */
 
         $scope.refreshRegion = function () {
+            // if ($scope.filterOptions.filters.selectedRegion === ""){
+            $scope.filterOptions.filters.selectedMarket = "";
+            $scope.filterOptions.filters.selectedSector = "";
+            $scope.filterOptions.filters.selectedIndustry = "";
+            // }
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
-                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 1://pairs doesnt have markets
-                    $scope.refreshSelectors(['markets', 'industries', 'sectors']);
+                    $scope.refreshSelectors(['markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 case 3: //futures ONLY have markets
-                    $scope.refreshSelectors(['markets']);
+                    $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
                 default://others doesnt have selectors to refresh
                     break;
@@ -382,8 +469,10 @@ angular.module('ngMo.volatility', [
 
         //refresh selectors depending of market
         $scope.refreshMarket = function () {
+            $scope.filterOptions.filters.selectedSector = "";
+            $scope.filterOptions.filters.selectedIndustry = "";
             if (TabsService.getActiveTab() === 0) {
-                $scope.refreshSelectors(['industries', 'sectors']);
+                $scope.refreshSelectors(['industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
             }
         };
         $scope.selectMarket = function () {
@@ -395,16 +484,25 @@ angular.module('ngMo.volatility', [
 
         //only used in stock
         $scope.refreshSector = function () {
-            $scope.refreshSelectors(['industries']);
+            $scope.filterOptions.filters.selectedIndustry = "";
+            $scope.refreshSelectors(['industries'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
         };
         $scope.selectSector = function () {
             $scope.refreshSector();
             $scope.applyFilters();
         };
-
+        //only used in stock
+        $scope.refreshIndustry = function () {
+            $scope.refreshSelectors(['industries'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+        };
+        $scope.selectIndustry = function () {
+            $scope.refreshIndustry();
+            $scope.applyFilters();
+        };
         //when we change index type (pairs_index, or index)
         $scope.selectIndexType = function () {
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
+            $scope.restartFilter();
             $scope.applyFilters();
         };
 
@@ -486,7 +584,7 @@ angular.module('ngMo.volatility', [
                 urlParamsSend.qindust = urlParams.selectedIndustry;
             }
             if (urlParams.selectedOperation) {
-                urlParamsSend.qop = urlParams.selectedOperation;
+                urlParamsSend.qop = urlParams.selectedOperation.id;
             }
             if (urlParams.selectedRent) {
                 urlParamsSend.qselrent = urlParams.selectedRent;
@@ -507,7 +605,7 @@ angular.module('ngMo.volatility', [
                 urlParamsSend.qdiar = urlParams.rentDiaryInput;
             }
             if (urlParams.selectedVolatility) {
-                urlParamsSend.qselvol = urlParams.selectedVolatility;
+                urlParamsSend.qselvol = urlParams.selectedVolatility.id;
             }
             if (urlParams.volatilityInput) {
                 urlParamsSend.qvol = urlParams.volatilityInput;
@@ -539,24 +637,38 @@ angular.module('ngMo.volatility', [
             var params = $location.search();
 
             var filters = {
-                filterName: (params.qname ? params.qname : "" ),
-                selectedOperation: (params.qop ? params.qop : "" ),
-                selectedRent: (params.qselrent ? params.qselrent : "" ),
-                rentInput: (params.qrent ? params.qrent : "" ),
-                selectedAverage: (params.qselaver ? params.qselaver : "" ),
-                rentAverageInput: (params.qaver ? params.qaver : "" ),
-                selectedRentDiary: (params.qseldiar ? params.qseldiar : "" ),
-                rentDiaryInput: (params.qdiar ? params.qdiar : "" ),
-                selectedVolatility: (params.qselvol ? params.qselvol : "" ),
-                volatilityInput: (params.qvol ? params.qvol : "" ),
-                selectedDuration: (params.qseldur ? params.qseldur : "" ),
-                durationInput: (params.qdur ? params.qdur : "" ),
-                index_type: (params.qindex ? params.qindex : TabsService.getActiveIndexType() ),
-                tab_type: (params.qtab ? params.qtab : "" ),
-                active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                favourite: (params.qfav ? params.qfav : "" )
+                filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
+                selectedRent: (typeof params.qselrent !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qselrent,10)]] : "" ),
+                rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
+                selectedAverage: (typeof params.qselaver !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qselaver,10)]] : "" ),
+                rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
+                selectedRentDiary: (typeof params.qseldiar !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qseldiar,10)]] : "" ),
+                rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
+                selectedVolatility: (typeof params.qselvol !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qselvol ,10)]] : "" ),
+                volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" ),
+                selectedDuration: (typeof params.qseldur !== "undefined" ? $scope.filterOptions.selectors.comparators[$scope.filterOptions.selectors.comparatorsConversor[parseInt(params.qseldur,10)]] : "" ),
+                durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
+                index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
+                tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
+                active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
+                favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
+                selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
+                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
+                selectedSector: (typeof params.qsector !== "undefined" ? params.qsector : ""),
+                selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "")
             };
+            //special case for index
+            if ((filters.active_tab === 2)) {//case of index
+                //only for index, not pair index
+                if ((filters.index_type ===0) || (filters.index_type ==="0"))  {
+                    filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop,10)] : "" );
+                } else {
+                    filters.selectedOperation="";
+                }
 
+            } else {
+                filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" );
+            }
             //special cases:
             var tabChanged = false;
             //if the params tab is different of the actual tab
@@ -595,17 +707,18 @@ angular.module('ngMo.volatility', [
 
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {
+
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
-                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
+                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'],filters, $scope.callBackRefreshSelectors);
                         break;
                     case 1:     //pairs
-                        $scope.refreshSelectors(['regions', 'industries', 'sectors']);
+                        $scope.refreshSelectors(['regions', 'industries', 'sectors'],filters,$scope.callBackRefreshSelectors);
                         break;
                     case 2:     //index (pair and index)
                         break;
                     case 3:     //futures
-                        $scope.refreshSelectors(['markets']);
+                        $scope.refreshSelectors(['markets'],filters, $scope.callBackRefreshSelectors);
                         break;
                 }
             }
@@ -671,6 +784,10 @@ angular.module('ngMo.volatility', [
         $scope.myData = myPatternsData.patterns;
         $scope.results = myPatternsData.results;
         $scope.found = myPatternsData.found;
+        $scope.$on('body-click',function() {
+            $scope.closeGraph();
+        });
+
 
 
 
@@ -727,7 +844,24 @@ angular.module('ngMo.volatility', [
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
-                    'year': filtering.month.year
+                    'year': filtering.month.year,
+                    'name': filtering.filterName,
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
+                    'accumulatedReturn': (filtering.selectedRent  ? filtering.selectedRent.id : ""),
+                    'accumulatedInput': filtering.rentInput,
+                    'averageReturn': (filtering.selectedAverage  ? filtering.selectedAverage.id : ""),
+                    'averageInput': filtering.rentAverageInput,
+                    'dailyReturn': (filtering.selectedRentDiary  ? filtering.selectedRentDiary.id : ""),
+                    'dailyInput': filtering.rentDiaryInput,
+                    'volatility':  (filtering.selectedVolatility  ? filtering.selectedVolatility.id : ""),
+                    'volatilityInput': filtering.volatilityInput,
+                    'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
+                    'durationInput': filtering.durationInput,
+                    'favourites': filtering.favourite
                 }
             };
 
@@ -744,72 +878,39 @@ angular.module('ngMo.volatility', [
          * @param filtering - is the object with the filters
          * @param selectorsToRefresh - the list of selectors requested
          */
-        this.getSelectors = function (filtering, selectorsToRefresh, callback) {
+        this.getSelectors = function (filtering, selectorsToRefresh, callback, viewName) {
             //the filtering object could contains some filters that are required for get the specified selectors
             //for example, to get the markets, the selected region is required (if there is not region, means all..)
             //the http petition will use the callback function to load the info received from server
-            var data = {};
-            /*mocked -- we are going to check the selectors needed and check filters */
-            //mocked lists:
-            var eeuuMarkets = [
-                {"id": 1, "description": "American Stock Exchange"},
-                {"id": 2, "description": "Nasdaq Stock Exchange"},
-                {"id": 3, "description": "New York Stock Exchange"}
-            ];
-            var indianMarkets = [
-                {"id": 4, "description": "Bombay Stock Exchange"},
-                {"id": 5, "description": "National Stock Exchange"}
-            ];
+            var data;
 
-            var chinaMarkets = [
-                {"id": 6, "description": "Shangai Stock Exchange"},
-                {"id": 7, "description": "Shenzhen Stock Exchange"}
-            ];
+            var indexType = null;
 
-            if (selectorsToRefresh.indexOf("regions") > -1) {
-                //load regions (always all regions)
-                data.regions = [
-                    {"id": 1, "description": "America"},
-                    {"id": 2, "description": "India"},
-                    {"id": 3, "description": "China"}
-                ];
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
             }
-            if (selectorsToRefresh.indexOf("markets") > -1) {
-                //load markets , check if region is selected.
-                //NOTE: IN A REAL CASE ALL THE FILTERS INFLUENCE THE LIST RECEIVED, NOT ONLY THE REGION
-                //the cases are in string (not INT) so we use expressions to check the value
-                switch (true) {
-                    case /1/.test(filtering.selectedRegion): //america
-                        data.markets = eeuuMarkets;
-                        break;
-                    case /2/.test(filtering.selectedRegion):
-                        data.markets = indianMarkets;
-                        break;
-                    case /3/.test(filtering.selectedRegion):
-                        data.markets = chinaMarkets;
-                        break;
-                    default :
-                        data.markets = eeuuMarkets.concat(indianMarkets.concat(chinaMarkets));
+
+            config = {
+                params: {
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'token': $window.sessionStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'view': viewName
                 }
-            }
+            };
 
-            //the sectors and industries are always same, to dont make large code
-            if (selectorsToRefresh.indexOf("sectors") > -1) {
-                data.sectors = [
-                    {"id": 1, "description": "Sector1"},
-                    {"id": 2, "description": "Sector2"}
-                ];
-            }
-
-            if (selectorsToRefresh.indexOf("industries") > -1) {
-                data.industries = [
-                    {"id": 1, "description": "Industry1"},
-                    {"id": 2, "description": "Industry2"}
-                ];
-            }
-
-            callback(data);
-
+            var result = $http.get($rootScope.urlService+'/patternfilters', config).success(function (data) {
+                // With the data succesfully returned, call our callback
+                callback(data);
+            });
         };
     })
     ;

@@ -2,7 +2,7 @@
   height:100%;
 }
 .button-scroller-enabled {
-  color: #FFFFFF !important;
+  color: @white !important;
   font-size: 12px !important;
   font-family: "fontpo" !important;
   padding-right: 2px;
@@ -10,7 +10,7 @@
 }
 
 .button-scroller-enabled {
-  color: #FFFFFF !important;
+  color: @white !important;
   font-size: 12px !important;
   font-family: "fontpo" !important;
   padding-right: 2px;
@@ -20,14 +20,14 @@
 .rich-datascr-button{
   font-family: "fontpo" !important;
   background-image: none !important;
-  background-color: #FF8200 !important;
+  background-color: @orangeColor !important;
   border: 0px !important;
-  color: #FF8200 !important;
+  color: @orangeColor !important;
   padding-bottom: 3px;
 }
 
 .button-scroller-disabled {
-  color: #FFFFFF !important;
+  color: @white !important;
   font-size: 12px !important;
   font-family: "fontpo" !important;
   padding-right: 2px;
@@ -37,21 +37,21 @@
 .rich-datascr-button-dsbld {
   font-family: "fontpo" !important;
   background-color: #C5C6C8 !important;
-  color: #FFFFFF !important;
+  color: @white !important;
 }
 
 .rich-datascr-act {
   font-family: "fontpo" !important;
-  border-color: #FF8200 !important;
-  background-color: #FF8200 !important;
-  color: #FFFFFF !important;
+  border-color: @orangeColor !important;
+  background-color: @orangeColor !important;
+  color: @white !important;
   width: 20px;
 }
 
 .rich-datascr-inact {
   font-family: "fontpo" !important;
-  border-color: #FF8200 !important;
-  color: #6F7072 !important;
+  border-color: @orangeColor !important;
+  color: @greyLabel !important;
   margin-right: 4px;
   padding-right: 4px;
   border-top-width: 2px;
@@ -61,11 +61,9 @@
   text-align: center;
   padding: 0 9px;
   margin-left: 1px;
-
-  color: #6f7072;
-  background-color: #ffffff;
+  background-color: @white;
   border: none;
-  border-top: 2px solid #ff8200;
+  border-top: 2px solid @orangeColor;
   padding: 0 9px;
   margin-left: 1px;
 }
@@ -90,12 +88,10 @@
 }
 .favourite-text{
   float: left;
-  left: 504px;
-  top: -11px;
-  position: relative;
-  position: relative;
-  top: -17px;
-  left: 45px;
+  color: white;
+  margin-left: 4px;
+  font-size: 10px;
+  margin-top: 3px;
 }
 
 
@@ -177,13 +173,11 @@
   margin: 0px;
   position:relative;
   margin-left:-4px;
-  border-right: 1px solid #6f7072;
+  border-right: 1px solid @greyLabel;
 
 }
 
 .pairs-table-vol{
-  position:relative;
-  top:0px;
   width: 775px !important;
   border:"0";
 
@@ -267,11 +261,11 @@
   position: relative;
 }
 .table-menu-opt:hover{
-  background-color: #FF8200;
+  background-color: @orangeColor;
 }
 
 .selected{
-  background-color: #FF8200;
+  background-color: @orangeColor;
 }
 .index-header-index{
   text-align: center;
@@ -552,10 +546,10 @@
 .stocks-vol-value{
   width:160px;
   text-align: center;
-  color: #0663D7 !important;
+  color: @linkColor !important;
   border-right: 1px solid black;
   a{
-    color: #0663D7;
+    color: @linkColor;
   }
 }
 
@@ -571,7 +565,7 @@
   text-align: center;
   border-right: 1px solid black;
   a{
-    color: #0663D7 !important;
+    color: @linkColor !important;
   }
 }
 
@@ -614,10 +608,9 @@
 .index-vol-value{
   width:100px;
   a{
-    color: #0663D7 !important;
+    color: @linkColor !important;
   }
   border-right: 1px solid black;
-  display:inline-block;
   height:25px;
   text-align: center;
   padding-top: 5px;
@@ -651,7 +644,7 @@
 .futures-vol-value{
   width:147px;
   a{
-    color: #0663D7 !important;
+    color: @linkColor !important;
   }
   border-right: 1px solid black;
   border-left: 1px solid black;
@@ -684,15 +677,14 @@
   top:266px;
   padding-top:30px;
   text-align:center;
-  color:#996600;
   left:45%;
   z-index:100;
   background:white;
+  min-width: 797px;
 }
 
 .graphic-image-div{
   display:block;
-  padding-top:30px;
   height:277px;
   width:700px;
   margin-right:20px;
@@ -700,9 +692,50 @@
 
 .close-graphic-button{
   display: inline !important;
-  width:15px;
-  height:15px;
-  position:relative;
-  top:2px;
-  left:200px;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  top: -16px;
+  left: 293px;
+  cursor: pointer;
+}
+
+
+.filter-container-volatility {
+  width:775px;
+  height:40px;
+  padding: 10px 8px 3px 6px;
+  background-color: @greyBorderColor;
+}
+
+.td-volatility-filter {
+  width: 135px;
+}
+
+.volatility-table-filter {
+
+  td{
+    padding-left: 5px;
+  }
+}
+
+.input-name-volat {
+  width: 110px;
+  margin-right: 0px;
+}
+
+.input-month-volat {
+  color: black;
+  margin-top: 0px;
+  margin-right: 0px;
+}
+
+.input-region-volat {
+  width: 90px;
+  margin-right: 0px;
+}
+
+.input-op-volat {
+  width: 100px;
+  margin-right: 0px;
 }
