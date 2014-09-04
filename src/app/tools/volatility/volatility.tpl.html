@@ -16,7 +16,7 @@
         <tabset>
             <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
                  active="ctab.active" disabled="tab.disabled">
-                <div class="filter-container" style="width:775px; height:40px">
+                <div class="filter-container-volatility"  >
                     <!--filters-->
                     <div ng-include="getTemplateFilter()"></div>
                 </div>
