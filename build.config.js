@@ -69,7 +69,8 @@ module.exports = {
             'vendor/angular-ui-utils/modules/route/route.js',
             'vendor/angular-gettext/dist/angular-gettext.min.js',
             'vendor/angular-cookies/angular-cookies.min.js',
-            'vendor/angular-bindonce/bindonce.js'
+            'vendor/angular-bindonce/bindonce.js',
+            'vendor/angular-cookies/angular-cookies.min.js.map'
         ],
         css: [
         ],

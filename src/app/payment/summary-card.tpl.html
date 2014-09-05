@@ -173,7 +173,7 @@
 
     <tr>
         <td></td>
-        <td><input class="mo-button" id="pay" name="pay" ng-click="payWithCard()"
+        <td><input class="mo-button" id="pay" name="pay" ng-click="payWithCard()" ng-disabled="doingPayment"
                    value="Pagar" style="float:right;" type="button">
         </td>
     </tr>
@@ -191,6 +191,10 @@
         <img src="assets/img/warning-icon.png" height="15"
              style="margin-right: 8px;">
         <span >Ha ocurrido un error en el pago, por favor compruebe sus datos. Si el problema persiste contacte con nosotros</span>
+    </div>
+    <div class="doing-payment-card" ng-show="doingPayment">
+
+        <img src="assets/img/ajax-loader.gif"><span>Realizando pago, por favor espere...</span>
     </div>
     </div>
 </div>
