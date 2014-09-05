@@ -390,7 +390,7 @@
     </div>
     <form id="paymentForm" name="paymentForm">
         <div class="summary-payment-button-container">
-            <input class="mo-button" name="pay-button" ng-click="doPayment()" value="Pagar"
+            <input class="mo-button" name="pay-button" ng-click="doPayment()" value="Pagar" ng-disabled="doingPayment"
                    type="button">
             <input class="mo-button" name="cancel-pay" ng-click="cancelPay()"
                    value="Cancelar Compra" style="margin-left: 10px !important;" type="button">
@@ -451,6 +451,14 @@
                 *
             </div>
 
+        </div>
+
+        <div class="doing-payment" ng-show="doingPayment">
+
+            <img src="assets/img/ajax-loader.gif"><span>Realizando pago, por favor espere...</span>
+        </div>
+        <div class="doing-payment error-paypal" ng-show="errorPaypal">
+            error en la conexión a Paypal
         </div>
          </form>
 </div>

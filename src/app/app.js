@@ -1193,6 +1193,8 @@ angular.module('ngMo', [
                     /**TEST FOR REDIRECT TO PAYPAL*/
                     if (typeof data.urlRedirect !== "undefined") {
                         $window.location.href = data.urlRedirect;
+                    } else {
+                        $rootScope.$broadcast('errorPaypal');
                     }
 
                 };
