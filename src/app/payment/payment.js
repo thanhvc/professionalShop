@@ -157,6 +157,12 @@ angular.module('ngMo.payment', [  'ui.router'])
             }
         });
         $scope.taxPercent=0;
+        $scope.doingPayment = false; // to lock the payment button
+        $scope.errorPaypal = false;
+        $scope.$on('errorPaypal', function() {
+           $scope.errorPaypal = true;
+            $scope.doingPayment = false;
+        });
         //packs
         //a pack must have:
         /*
@@ -235,6 +241,8 @@ angular.module('ngMo.payment', [  'ui.router'])
             //the terms and conditions must be accepted by user
             if ($scope.conditions) {
                 $scope.errorConditions= false;
+                $scope.errorPaypal = false;
+                $scope.doingPayment = true;
                  $rootScope.$broadcast('submitCart', $scope.paymentType);
 
             } else{
@@ -453,6 +461,7 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.payWithCard = function () {
             $scope.status="NONE";
             $scope.formSubmited = true;
+            $scope.doingPayment = true;
             if (!$scope.payForm.$valid) {
                 return;
             }
@@ -544,8 +553,10 @@ angular.module('ngMo.payment', [  'ui.router'])
                 } else {
                     $scope.status = "ERROR";
                 }
+                $scope.doingPayment = false;
             }).error(function(data) {
                 $scope.status = "ERROR";
+                $scope.doingPayment = false;
             });
 
 
