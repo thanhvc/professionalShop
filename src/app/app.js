@@ -148,23 +148,6 @@ angular.module('ngMo', [
             }
         };
     })
-    .service('RememberPasswordService', function () {
-        this.rememberPassword = function (email) {
-
-            config = {
-                params: {
-                    'userEmail': email
-                }
-            };
-
-            var result = $http.get($rootScope.urlService+'/rememberpassword', config).then(function (response) {
-                // With the data succesfully returned, call our callback
-                deferred.resolve();
-                return response.data;
-            });
-            return result;
-        };
-    })
     .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
         return function(n){
             //return a string with 2 decimal if exists..
@@ -511,9 +494,39 @@ angular.module('ngMo', [
 
 
     })
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http) {
 
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService, RememberPasswordService) {
+        $scope.emailRemember = "";
+        $scope.mailSent = false;
+        $scope.rememberPassword = function () {
+            config = {
+                email: $scope.emailRemember
+            };
+            return $http.post($rootScope.urlService+'/remember-password', config)
+                .success(function (data, status) {
+                    $scope.mailSent = true;
+                })
+                .error(function (data, status) {
+                    $scope.mailSent = true;
+                });
+        };
 
+
+        $scope.emailRemember = "";
+        $scope.mailSent = false;
+        $scope.rememberPassword = function () {
+            config = {
+                email: $scope.emailRemember
+            };
+            return $http.post($rootScope.urlService+'/remember-password', config)
+                .success(function (data, status) {
+                    $scope.mailSent = true;
+                })
+                .error(function (data, status) {
+                    $scope.mailSent = true;
+                });
+        };
+        
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
             $scope.inWeekView = false;
@@ -560,10 +573,6 @@ angular.module('ngMo', [
             $scope.hideSelectedGraphic();
             $rootScope.$broadcast("body-click");//added event of body click to trigger all
             //the lsiteners about body clicks.. like hide graphs in lookup_diary
-        };
-
-        $scope.rememberPassword = function () {
-            //call rememberPasswordService
         };
 
     })
