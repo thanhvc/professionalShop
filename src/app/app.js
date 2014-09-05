@@ -266,7 +266,7 @@ angular.module('ngMo', [
             var activeTab = ActiveTabService.activeTab();
             switch (item.productType){
                 case 'STOCK':
-                    if (item.patternType === 0){
+                    if (item.patternType === "SIMPLE"){
                         stockItems.push(item);
                         stockSubtotal += item.price;
                     }else{
@@ -275,7 +275,7 @@ angular.module('ngMo', [
                     }
                     break;
                 case 'INDICE':
-                    if (item.patternType === 0) {
+                    if (item.patternType === "SIMPLE") {
                         indicesItems.push(item);
                         indicesSubtotal += item.price;
                     }else{
@@ -807,7 +807,7 @@ angular.module('ngMo', [
                 $scope.showCartinState=true;//show the cart by default
                 $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                   //list of states where the cart is invisible
-                    var states = ["summary-pay","pay-card"];
+                    var states = ["summary-pay","pay-card","confirm-pay","confirm-pay-card"];
                     if (states.indexOf(toState.name) > -1) {
                         //the new state will not show the cart
                         $scope.showCartinState= false;
@@ -1047,7 +1047,11 @@ angular.module('ngMo', [
                             //we need to check if the user is subscribed to the actual item
                         if (typeof $window.sessionStorage.token !== "undefined"){
                             ShoppingCartService.hasSubscribedToThisPack(item,function(result){
-                                if (result.status !== "pack_active") {
+                                if (result.status === "pack_active") {
+                                    item.prices = [0,0,0];
+                                    item.price = 0;
+                                    item.active = true;
+                                }
                                     //if not active pack with that user, add
                                     ShoppingCartService.addItemCart(item);
                                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
@@ -1066,8 +1070,6 @@ angular.module('ngMo', [
 
                                     //save the cart into session
                                     ShoppingCartService.saveSessionCart();
-
-                                }
 
                             });
 
@@ -1204,6 +1206,8 @@ angular.module('ngMo', [
                     /**TEST FOR REDIRECT TO PAYPAL*/
                     if (typeof data.urlRedirect !== "undefined") {
                         $window.location.href = data.urlRedirect;
+                    } else {
+                        $rootScope.$broadcast('errorPaypal');
                     }
 
                 };

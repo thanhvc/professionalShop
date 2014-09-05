@@ -157,6 +157,12 @@ angular.module('ngMo.payment', [  'ui.router'])
             }
         });
         $scope.taxPercent=0;
+        $scope.doingPayment = false; // to lock the payment button
+        $scope.errorPaypal = false;
+        $scope.$on('errorPaypal', function() {
+           $scope.errorPaypal = true;
+            $scope.doingPayment = false;
+        });
         //packs
         //a pack must have:
         /*
@@ -195,7 +201,7 @@ angular.module('ngMo.payment', [  'ui.router'])
 
         //load the info from server with all the fields of the summary
         $scope.loadPayment = function () {
-            PaymentService.getPayments(function (data) {
+            PaymentService.getPayments(true,function (data) {
 
                 $scope.stocks = data.stocks;
                 $scope.totalStocks = data.total_stocks;
@@ -235,6 +241,8 @@ angular.module('ngMo.payment', [  'ui.router'])
             //the terms and conditions must be accepted by user
             if ($scope.conditions) {
                 $scope.errorConditions= false;
+                $scope.errorPaypal = false;
+                $scope.doingPayment = true;
                  $rootScope.$broadcast('submitCart', $scope.paymentType);
 
             } else{
@@ -406,7 +414,7 @@ angular.module('ngMo.payment', [  'ui.router'])
 
         //load the summary of payment, is the same call to SUMMARY
         $scope.loadSummary = function(){
-            PaymentService.getPayments(function (data) {
+            PaymentService.getPayments(false,function (data) {
 
                 $scope.stocks = data.stocks;
                 $scope.totalStocks = data.total_stocks;
@@ -453,6 +461,7 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.payWithCard = function () {
             $scope.status="NONE";
             $scope.formSubmited = true;
+            $scope.doingPayment = true;
             if (!$scope.payForm.$valid) {
                 return;
             }
@@ -544,8 +553,10 @@ angular.module('ngMo.payment', [  'ui.router'])
                 } else {
                     $scope.status = "ERROR";
                 }
+                $scope.doingPayment = false;
             }).error(function(data) {
                 $scope.status = "ERROR";
+                $scope.doingPayment = false;
             });
 
 
@@ -602,7 +613,7 @@ angular.module('ngMo.payment', [  'ui.router'])
              *      X is a double with the subtotals
              *      Z is the total. the taxes needs to be implemented
              */
-            getPayments: function ( callback) {
+            getPayments: function (withActive, callback) {
 
                 packs = {
                     stocks: [],
@@ -670,7 +681,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                     headers: {
                         'X-Session-Token': token
                     },
-                    data: packs
+                    data: packs,
+                    active_packs: withActive
                 };
                 $http.post($rootScope.urlService+"/summary-pay",config)
                     .success(callback)

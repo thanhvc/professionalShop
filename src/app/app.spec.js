@@ -165,7 +165,7 @@ describe('The cart directive', function () {
                 item = {
                     "code": i,
                     name: "pack test",
-                    "patternType": 0,
+                    "patternType": "SIMPLE",
                     "productType": "STOCK",
                     publicationDate: 1404472269488
                 };
