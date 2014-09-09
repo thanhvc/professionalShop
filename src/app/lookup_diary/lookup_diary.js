@@ -71,10 +71,7 @@ angular.module('ngMo.lookup_diary', [
                     };
                 },
                 diaryData: function(LookupDiaryService, filtering) {
-                    var page = 1;
-                    if (filtering.page.trim().length > 0) {
-                        page = parseInt(filtering.page,10);
-                    }
+                    var page =  parseInt(filtering.page,10) || 1;
                     return LookupDiaryService.getPagedDataAsync(page, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
@@ -108,7 +105,7 @@ angular.module('ngMo.lookup_diary', [
             }
 
         };
-
+        $scope.loading = false;
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
@@ -414,10 +411,12 @@ angular.module('ngMo.lookup_diary', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
+            $scope.loading= true;
             var data = LookupDiaryService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
+                    $scope.loading = false;
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }

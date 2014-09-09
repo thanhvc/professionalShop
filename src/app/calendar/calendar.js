@@ -34,7 +34,7 @@ angular.module('ngMo.calendar', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
-
+        $scope.loading= false;
         $scope.selectedTab = TabsService.getActiveTab();
         $scope.tabs = TabsService.getTabs();
         $scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
@@ -319,12 +319,10 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.obtainDays = function () {
-
+            $scope.loading= true;
             var data = CalendarService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
-                    if (data.patterns.length > 0) {
-
-                    }
+                    $scope.loading= false;
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;

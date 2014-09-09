@@ -1,4 +1,5 @@
 <div>
+    <fieldset ng-disabled="loading">
     <div class="super-border private-black-title">Mis Patrones</div>
 
     <div style="clear: both">
@@ -52,8 +53,9 @@
                     <!--filters-->
                     <div ng-include="getTemplateFilter()"></div>
                 </div>
-                <div>
+                <div class="loading-div-container">
                     <div ng-include="getTemplateTable()"></div>
+                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
 
 
 
@@ -87,5 +89,6 @@
         </tabset>
 
     </div>
+        </fieldset>
 
 </div>

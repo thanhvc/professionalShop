@@ -76,10 +76,7 @@ angular.module('ngMo.my_patterns', [
                 },
 
                 myPatternsData: function(PatternsService, filtering) {
-                    var page = 1;
-                    if (filtering.page.trim().length > 0) {
-                        page = parseInt(filtering.page,10);
-                    }
+                    var page =  parseInt(filtering.page,10) || 1;
                     return PatternsService.getPagedDataAsync(page, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
@@ -210,7 +207,7 @@ angular.module('ngMo.my_patterns', [
     })
     .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, ExpirationYearFromPatternName) {
         $scope.dataLoaded = false;
-
+        $scope.loading = false;
 
         //event for keypress in input search name, launch the filters if press enter
         $scope.submitName = function(keyEvent) {
@@ -465,11 +462,13 @@ angular.module('ngMo.my_patterns', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
+            $scope.loading = true;
             var data = PatternsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     $scope.dataLoaded = true;
+                $scope.loading = false;
             });
 
 
