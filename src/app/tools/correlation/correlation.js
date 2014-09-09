@@ -30,6 +30,8 @@ angular.module('ngMo.correlation', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+        $scope.loading = false;
+        $scope.calculating = false;
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
@@ -279,8 +281,10 @@ angular.module('ngMo.correlation', [
                     $scope.filterOptions.filters.selectedRegion = $window.sessionStorage.correlationRegionPair;
                 }
             }
+            $scope.loading = true;
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.correlationList, function (data) {
+                    $scope.loading = false;
                     $scope.myData = data.patterns;//data.page;
                     //when the market is changed, we
                     var market = $scope.filterOptions.filters.selectedMarket;
@@ -342,12 +346,15 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.addToCorrelationList = function (pattern) {
-            if ($scope.correlationList.length < 10 ) {
+
+            if ($scope.correlationList.length < 10 ||!$scope.loading ) {
                 if ($scope.correlationList.length === 0) {
                     $scope.pagingOptions.currentPage = 1;
                 }
+                $scope.loading = true;
                 var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.correlationList, function (data) {
+                        $scope.loading = false;
                         $scope.myData = data.patterns;//data.page;
                         $scope.correlationList = data.correlationPatterns;
                         updateCorrelationListSessionStorage(data.correlationPatterns);
@@ -373,17 +380,21 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.deleteFromCorrelationList = function (pattern) {
-            var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1,$scope.correlationList, function (data) {
-                    $scope.myData = data.patterns;//data.page;
-                    $scope.correlationList = data.correlationPatterns;
-                    updateCorrelationListSessionStorage(data.correlationPatterns);
-                    $scope.results = data.results;//data.results;
-                    $scope.found = data.found;//data.found;
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
-                    }
-                });
+            if (!$scope.loading) {
+                $scope.loading = true;
+                var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                    $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1, $scope.correlationList, function (data) {
+                        $scope.loading = false;
+                        $scope.myData = data.patterns;//data.page;
+                        $scope.correlationList = data.correlationPatterns;
+                        updateCorrelationListSessionStorage(data.correlationPatterns);
+                        $scope.results = data.results;//data.results;
+                        $scope.found = data.found;//data.found;
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
+                    });
+            }
         };
 
         $scope.toggleFavorite = function (patternId){
@@ -426,8 +437,11 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.correlate = function () {
+
             if ($scope.correlationList.length > 0) {
+                $scope.calculating = true;
                 var data = CorrelationService.getCorrelationData($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
+                    $scope.calculating = false;
                  $scope.correlationData = data.correlationResults;
                  $scope.pairCorrelationData = data.pairCorrelationResults;
                  $scope.lastUpdateDateCorrelation = data.lastUpdateDateCorrelation;

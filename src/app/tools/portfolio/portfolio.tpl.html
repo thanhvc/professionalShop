@@ -30,18 +30,18 @@
 </div>
 
 <div style="margin-top: 15px;">
-
     <tabset>
         <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
              active="ctab.active" disabled="tab.disabled">
+            <fieldset ng-disabled="loading">
             <div class="portfolio-filter-container">
+
 
                 <div ng-include="getTemplateFilter()"></div>
             </div>
-            <div>
+            <div class="loading-div-container">
+                <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
                 <div ng-include="getTemplateTable()">
-
-
             </div>
 
                 <div class="footer-table-portfolio">
@@ -62,60 +62,65 @@
                     </div>
                 </div>
             </div>
+            </fieldset>
 
         </tab>
     </tabset>
-    <div ng-show="portfolioData.length > 0">
-        <table class="table-portfolio-result" style="margin-bottom: 30px;">
-            <thead>
+    <div class="loading-div-container">
+        <div class="loading-div" ng-show="calculating"><img src="assets/img/ajax-loader.gif"><span>Calculando, por favor espere...</span></div>
+        <div ng-show="portfolioData.length > 0" >
+
+            <table class="table-portfolio-result" style="margin-bottom: 30px;">
+                <thead>
+                    <tr>
+                        <th colspan="8">COMPOSICIÓN - ASIGNACIÓN DE LA CARTERA</th>
+                    </tr>
                 <tr>
-                    <th colspan="8">COMPOSICIÓN - ASIGNACIÓN DE LA CARTERA</th>
+                    <th>Id</th>
+                    <th>Nombre Estrategia</th>
+                    <th>Mercado</th>
+                    <th>Inicio</th>
+                    <th>Duración (mes)</th>
+                    <th>Porcentaje (%)</th>
+                    <th>Proporción</th>
+                    <th>Fav.</th>
                 </tr>
-            <tr>
-                <th>Id</th>
-                <th>Nombre Estrategia</th>
-                <th>Mercado</th>
-                <th>Inicio</th>
-                <th>Duración (mes)</th>
-                <th>Porcentaje (%)</th>
-                <th>Proporción</th>
-                <th>Fav.</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="row in portfolioData track by $index">
-                    <td>{{row.patternId}}</td>
-                    <td ng-if="row.patternType != null">
-                        <span ng-show="row.patternType == 'BULLISH'">Comprar</span>
-                        <span ng-show="row.patternType == 'BEARISH'">Vender</span>
-                        <br>
-                        <span ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}" class="cursor-help"  tooltip-html-unsafe="{{row.bullishAssetName}} ({{row.marketSymbol}})">{{row.bullishAssetName | limitTo: 30}}</span>
-                    </td>
-                    <td ng-if="row.patternType == null">
-                        <div class="text-limitator">
-                            <span>Comprar</span>
-                            <span class="buy-color cursor-help" tooltip-html-unsafe="{{row.bullishAssetName}} ({{row.marketSymbol}})">{{row.bullishAssetName | limitTo: 30}}</span>
-                        </div>
-                        <div class="text-limitator">
-                            <span>Vender</span>
-                            <span class="sell-color cursor-help" tooltip-html-unsafe="{{row.bearishAssetName}} ({{row.marketSymbol}})">{{row.bearishAssetName | limitTo: 30}}</span>
-                        </div>
-                    </td>
-                    <td><span tooltip-html-unsafe="{{row.marketName}}" class="cursor-help">{{row.marketSymbol}}</span></td>
-                    <td>{{row.entryDate | date: 'MMM yy'}}</td>
-                    <td>
-                        <span ng-show="(row.length <31)">Hasta 1</span>
-                        <span ng-show="(row.length >30 && row.length <93)">De 1 a 3</span>
-                        <span ng-show="(row.length >92)">Más de 3</span>
-                    </td>
-                    <td>{{row.portfolioPercentage | twoDecimals}}</td>
-                    <td>{{row.portfolioRatio | twoDecimals}}</td>
-                    <td>
-                        <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.patternId);drawdown();"
-                             ng-class="{'favourite-added': row.favorite == true}"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in portfolioData track by $index">
+                        <td>{{row.patternId}}</td>
+                        <td ng-if="row.patternType != null">
+                            <span ng-show="row.patternType == 'BULLISH'">Comprar</span>
+                            <span ng-show="row.patternType == 'BEARISH'">Vender</span>
+                            <br>
+                            <span ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}" class="cursor-help"  tooltip-html-unsafe="{{row.bullishAssetName}} ({{row.marketSymbol}})">{{row.bullishAssetName | limitTo: 30}}</span>
+                        </td>
+                        <td ng-if="row.patternType == null">
+                            <div class="text-limitator">
+                                <span>Comprar</span>
+                                <span class="buy-color cursor-help" tooltip-html-unsafe="{{row.bullishAssetName}} ({{row.marketSymbol}})">{{row.bullishAssetName | limitTo: 30}}</span>
+                            </div>
+                            <div class="text-limitator">
+                                <span>Vender</span>
+                                <span class="sell-color cursor-help" tooltip-html-unsafe="{{row.bearishAssetName}} ({{row.marketSymbol}})">{{row.bearishAssetName | limitTo: 30}}</span>
+                            </div>
+                        </td>
+                        <td><span tooltip-html-unsafe="{{row.marketName}}" class="cursor-help">{{row.marketSymbol}}</span></td>
+                        <td>{{row.entryDate | date: 'MMM yy'}}</td>
+                        <td>
+                            <span ng-show="(row.length <31)">Hasta 1</span>
+                            <span ng-show="(row.length >30 && row.length <93)">De 1 a 3</span>
+                            <span ng-show="(row.length >92)">Más de 3</span>
+                        </td>
+                        <td>{{row.portfolioPercentage | twoDecimals}}</td>
+                        <td>{{row.portfolioRatio | twoDecimals}}</td>
+                        <td>
+                            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.patternId);drawdown();"
+                                 ng-class="{'favourite-added': row.favorite == true}"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

@@ -70,10 +70,7 @@ angular.module('ngMo.historic', [
                     };
                 },
                 historicDataData: function(HistoricsService, filtering) {
-                    var page = 1;
-                    if (filtering.page.trim().length > 0) {
-                        page = parseInt(filtering.page,10);
-                    }
+                    var page =  parseInt(filtering.page,10) || 1;
                     return HistoricsService.getPagedDataAsync(page, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
@@ -108,7 +105,7 @@ angular.module('ngMo.historic', [
 
         };
 
-
+        $scope.loading = false;
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
@@ -286,11 +283,13 @@ angular.module('ngMo.historic', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
+            $scope.loading = true;
             var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
                     /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
+                    $scope.loading = false;
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
