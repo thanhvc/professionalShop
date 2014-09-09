@@ -30,8 +30,11 @@ angular.module('ngMo.portfolio', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+        $scope.loading= false;
+        $scope.calculating= false;
         //tabs and variables
         //pattern number for rents
+        $scope.loading = false;
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
         $scope.daysPattern = /^\d+$/;
         /**private models*/
@@ -222,8 +225,10 @@ angular.module('ngMo.portfolio', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
+            $scope.loading= true;
             var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.portfolioList, function (data) {
+                    $scope.loading= false;
                     $scope.myData = data.patterns;//data.page;
                     $scope.portfolioList = data.portfolioPatterns;
                     updatePortfolioListSessionStorage(data.portfolioPatterns);
@@ -265,9 +270,11 @@ angular.module('ngMo.portfolio', [
         };
 
         $scope.addToPortfolioList = function (pattern) {
-            if ($scope.portfolioList.length < 20 ) {
+            if ($scope.portfolioList.length < 20 || !$scope.loading ) {
+                $scope.loading= true;
                 var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.portfolioList, function (data) {
+                        $scope.loading= false;
                         $scope.myData = data.patterns;//data.page;
                         $scope.portfolioList = data.portfolioPatterns;
                         updatePortfolioListSessionStorage(data.portfolioPatterns);
@@ -281,22 +288,29 @@ angular.module('ngMo.portfolio', [
         };
 
         $scope.deleteFromPortfolioList = function (pattern) {
-            var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1,$scope.portfolioList, function (data) {
-                    $scope.myData = data.patterns;//data.page;
-                    $scope.portfolioList = data.portfolioPatterns;
-                    updatePortfolioListSessionStorage(data.portfolioPatterns);
-                    $scope.results = data.results;//data.results;
-                    $scope.found = data.found;//data.found;
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
-                    }
-                });
+
+            if (!$scope.loading) {
+                $scope.loading= true;
+                var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                    $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1, $scope.portfolioList, function (data) {
+                        $scope.myData = data.patterns;//data.page;
+                        $scope.portfolioList = data.portfolioPatterns;
+                        updatePortfolioListSessionStorage(data.portfolioPatterns);
+                        $scope.results = data.results;//data.results;
+                        $scope.loading = false;
+                        $scope.found = data.found;//data.found;
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
+                    });
+            }
         };
 
 
         $scope.toggleFavoriteFromList =  function (patternId){
+            $scope.loading= true;
             var data = PatternsService.setFavorite(patternId).then(function (data) {
+                $scope.loading= false;
                 //if returned, we set favorite true on the result table (if exists) and the pattern
                 for (i = 0; i<$scope.portfolioList.length;i++) {
                     if ($scope.portfolioList[i].id === patternId) {
@@ -344,8 +358,10 @@ angular.module('ngMo.portfolio', [
         //execute the calculation of portfolio
         $scope.drawdown = function () {
             if ($scope.portfolioList.length >= 5) {
+                $scope.calculating = true;
                 var data = PortfolioService.getPortfolioData($scope.portfolioList, $scope.filterOptions.filters).then(function (data) {
                     $scope.portfolioData = data;
+                    $scope.calculating = false;
                  });
 
             } else {

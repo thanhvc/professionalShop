@@ -103,6 +103,7 @@ angular.module('ngMo.volatility', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+        $scope.loading = false;
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
@@ -383,7 +384,9 @@ angular.module('ngMo.volatility', [
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
 
        $scope.loadPage = function () {
+           $scope.loading = true;
             var data = VolatilityService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
+                $scope.loading = false;
                 $scope.myData = data.patterns;//data.page;
                 $scope.results = data.results;//data.results;
                 $scope.found = data.found;//data.found;

@@ -1,4 +1,5 @@
 <div class="super-border private-black-title">Históricos</div>
+        <fieldset ng-disabled="loading">
 <div class="private-container-text" style="width: 100%;">
     <p>Expone los resultados definitivos de las estrategias, clasificadas por <strong>mes de finalización</strong> y ordenadas por Fecha de Salida.</p>
 
@@ -29,7 +30,7 @@
                 <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
 
                 <div>
-                    <select class="border-filters select-filter month-filter" style="color: black;"
+                    <select class="border-filters select-filter month-filter"
                             data-ng-model="filterOptions.filters.selectMonth"
                             ng-change="goToMonth()"
                             ng-options="item.name for item in filterOptions.months"
@@ -41,8 +42,10 @@
                 <!--filters-->
                 <div ng-include="getTemplateFilter()"></div>
             </div>
-            <div>
+            <div class="loading-div-container">
                 <div ng-include="getTemplateTable()"></div>
+                <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
+
 
 
                 <!--footer-->
@@ -74,5 +77,5 @@
             </div>
         </tab>
     </tabset>
-
 </div>
+            </fieldset>

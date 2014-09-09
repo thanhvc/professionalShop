@@ -32,6 +32,7 @@ angular.module('ngMo.the_week', [
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });
+        $scope.loading= false;
         $scope.days= [];
         $scope.obtainDateMondaythisWeek = function () {
             var firstDay = ActualDateService.actualDate(function (data) {
@@ -96,8 +97,9 @@ angular.module('ngMo.the_week', [
 
             //Get current year to set the res service
             var currentYear = new Date().getFullYear();
+            $scope.loading= true;
             $http.get($rootScope.urlService+"/weekData/"+currentYear, config).success(function(data){
-                console.log("ok");
+                $scope.loading= false;
                 stockAreas = data[0];
                 $scope.stockAreas = data.STOCKS;
                 $scope.commoditiesAreas = data.COMMODITIES;

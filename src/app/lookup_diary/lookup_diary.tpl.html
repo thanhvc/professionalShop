@@ -1,4 +1,5 @@
 <div ng-click="closeGraph();">
+    <fieldset ng-disabled="loading">
 <div class="super-border private-black-title">Seguimiento Diario</div>
 <div class="private-container-text">
     <p>Diariamente al cierre de los mercados, se genera un informe del estado de las estrategias en curso clasificadas por <strong>mes de publicación</strong> y ordenadas por Fecha de Entrada. </p>
@@ -34,7 +35,7 @@
                 <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
 
                 <div>
-                    <select class="border-filters select-filter month-filter" style="color: black;"
+                    <select class="border-filters select-filter month-filter"
                             data-ng-model="filterOptions.filters.selectMonth"
                             ng-change="goToMonth()"
                             ng-options="item.name for item in filterOptions.months"
@@ -46,8 +47,10 @@
                 <!--filters-->
                 <div ng-include="getTemplateFilter()" class="marginTop" ></div>
             </div>
-            <div>
+            <div class="loading-div-container">
                 <div ng-include="getTemplateTable()"></div>
+                <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
+
 
                 <!--footer-->
                 <div class="footer-table-private">
@@ -127,4 +130,5 @@
         </div>
     </div>
 </script>
+        </fieldset>
 </div>

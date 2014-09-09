@@ -1,14 +1,14 @@
 <div class="calendar-filters-container">
-    <select data-ng-model="filterOptions.filters.selectMonth" ng-change="goToMonth()"
+    <select data-ng-model="filterOptions.filters.selectMonth" class="filter-calendar"  ng-change="goToMonth()"
             ng-options="item.name for item in filterOptions.months">
     </select>
-    <select data-ng-model="filterOptions.filters.index_type" ng-change="selectIndexType()">
+    <select data-ng-model="filterOptions.filters.index_type" class="filter-calendar"  ng-change="selectIndexType()">
         <option value="0">Índices</option>
         <option value="1">Par Índices</option>
     </select>
     <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>Favoritos</label>
     <input type="text" placeholder="Día" ng-change="search();" data-ng-model="filterOptions.filters.dayDateInput" ng-delay="3000">
-    <select data-ng-model="filterOptions.filters.order" class="select-order" ng-change="search();" ng-delay="3000">
+    <select data-ng-model="filterOptions.filters.order" class="select-order filter-calendar" ng-change="search();" ng-delay="3000">
         <option selected="selected" value="0">Ordenar por Fecha Entrada</option>
         <option value="1">Ordenar por Fecha Salida</option>
     </select>
