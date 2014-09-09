@@ -91,14 +91,14 @@
             <td>
                 <select class="signup-select" name="country" size="1"
                         ng-model="user.country"
-                        ng-options="opt as opt.name for opt in countries"
-                        required="false"
+                        required="true"
                         ng-class="{'warning-input': (profileForm.country.$error.required)}">
-                    <option style="display:none" value="">select a type</option>
+                    <option ng-repeat="item in countries" value="{{item.value}}"
+                            ng-selected="{{item.value == user.country}}" ><!---->
+                        {{item.name}}
+                    </option>
 
                 </select>
-
-
             </td>
         </tr>
         <tr>
