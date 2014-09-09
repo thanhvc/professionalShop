@@ -687,9 +687,9 @@ angular.module('ngMo', [
                     }
                 };
                 $scope.onClickMenu = function () {
-                    /*$scope.actualMenu = '';
+                    $scope.actualMenu = '';
                     $scope.actualSubmenu = '';
-                    $scope.actualItemSubmenu = '';*/
+                    $scope.actualItemSubmenu = '';
                 };
             },
             link: function($scope) {
