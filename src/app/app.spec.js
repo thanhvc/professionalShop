@@ -1359,3 +1359,36 @@ describe('The delay directive', function () {
         }));
     });
 });
+
+
+
+describe('The delay directive', function () {
+
+    beforeEach(angular.mock.module("ngMo"));
+
+    describe('template', function () {
+        var $compile;
+        var $scope;
+        var $state;
+        var timeout;
+        var httpMock;
+
+        beforeEach(module('templates-app'));
+
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend, $timeout) {
+            $compile = _$compile_;
+            $scope = _$rootScope_.$new();
+            $state = _$state_;
+            httpMock = $httpBackend;
+            timeout = $timeout;
+        }));
+
+        it('should success to post requests', inject(function () {
+            var template = $compile("<div ng-delay></div>")($scope);
+            $scope.$apply();
+
+            template.triggerHandler('compile');
+            // timeout.flush();
+        }));
+    });
+});
