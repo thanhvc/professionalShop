@@ -206,11 +206,19 @@ describe('The Lookup diary controller', function () {
             $http.expectGET($scope.urlService + patternsFilterToken);
             $http.expectGET($scope.urlService + lookupToken);
 
-            var template = $compile("<td class='stocks-vol-value'><a ng-click='loadGraphic($event,data.asset.longName,data.patternType,null,false,data.asset.volatilityChartURL);$event.stopPropagation();' class='ng-binding'>68</a></td>")($scope);
-            $scope.$apply();
-            template.triggerHandler('click');
-            //$scope.loadGraphic(e,'url','name');
-            expect($scope.loadGraphic).toNotBe(undefined);
+           var k = {'parentElement': "<td class='stocks-vol-value'></td>", 'offsetHeight': '30px', 'insertBefore' : function(){}, 'srcElement': "<td class='stocks-vol-value'></td>"};
+           var i = {'parentElement': k, 'srcElement': "<td class='stocks-vol-value'></td>"};
+           var j = {'parentElement': i, 'srcElement': "<td class='stocks-vol-value'></td>"};
+           var parentElement = {'parentElement': j, 'srcElement': "<td class='stocks-vol-value'></td>"};
+           var srcElement = { 'parentElement': parentElement};
+           var e = {
+                'srcElement': srcElement
+           };
+           var template = $compile("<td class='stocks-vol-value'><a ng-click='loadGraphic($event,data.asset.longName,data.patternType,null,false,data.asset.volatilityChartURL);$event.stopPropagation();' class='ng-binding'>68</a></td>")($scope);
+           $scope.$apply();
+
+           $scope.loadGraphic(e,'url','name');//Reak graph
+           expect($scope.loadGraphic).toNotBe(undefined);
         });
 
         it('should be able to close the graph', function(){
