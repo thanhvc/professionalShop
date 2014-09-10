@@ -31,7 +31,8 @@ angular.module('ngMo.my_subscriptions', [
                 filtering : function(TabsService,MonthSelectorService){
                     return {
                         active_tab: TabsService.getActiveTab(),
-                        month: MonthSelectorService.restartDate()
+                        month: MonthSelectorService.restartDate(),
+                        index_type: TabsService.getActiveIndexType()
                     };
                 },
                 myPatternsData: function(MyPacksService, filtering) {
@@ -70,291 +71,41 @@ angular.module('ngMo.my_subscriptions', [
                     subPage: 'my-packs'
                 }
             })
-
-
-
         ;
     })
 
     .run(function run() {
     })
 
-   .service('MySubscriptionPacksService', function (){
+   .service('MySubscriptionPacksService', function ($q, $http, $window, $rootScope){
 
-        //Dummies Packs
-        var americanPacks = [
-            {
-                id: 1,
-                region: "Canada",
-                market: "Toronto Stock",
-                purchased: true,
-                purchase: true,
-                startDate: new Date(2014, 05, 01),
-                duration: "Trimestral"
-            },
-            {
-                id: 2,
-                region: "Estados Unidos Pack I",
-                market: "AMEX, NASDAQ",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
-            },
-            {
-                id: 3,
-                region: "Estados Unidos Pack II",
-                market: "AMEX, NASDAQ",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Anual"
-            }
-        ];
+        this.obtainPacks = function (filtering) {
+            var deferred = $q.defer();
+            var indexType = null;
 
-        var asiaPacks = [
-            {
-                id: 4,
-                region: "Australia",
-                market: "Australian SE, New Zealand SE",
-                purchased: true,
-                purchase: true,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
-            },
-            {
-                id: 5,
-                region: "China",
-                market: "Shanghai SE, Shenzhen SE",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Trimestral"
-            },
-            {
-                id: 6,
-                region: "Corea",
-                market: "Korea SE, KOSDAQ",
-                purchased: true,
-                purchase: true,
-                startDate: new Date(2014, 05, 01),
-                duration: "Anual"
-            },
-            {
-                id: 7,
-                region: "Hong-Kong + Singapur",
-                market: "Hong Kong SE, Singapore SE, Singapore Securities",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
             }
-        ];
+            config = {
+                params: {
+                    'token': $window.sessionStorage.token
+                }
+            };
 
-        var europePacks = [
-            {
-                id: 8,
-                region: "EURO Zona Pack I",
-                market: "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
-            },
-            {
-                id: 9,
-                region: "EURO Zona Pack II",
-                market: "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                purchased: true,
-                purchase: true,
-                startDate: new Date(2014, 05, 01),
-                duration: "Anual"
-            },
-            {
-                id: 10,
-                region: "EURO Zona Pack III",
-                market: "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Anual"
-            },
-            {
-                id: 11,
-                region: "EURO Zona Pack IV",
-                market: "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Trimestral"
-            },
-            {
-                id: 12,
-                region: "EURO Zona Pack V",
-                market: "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
-            }
-        ];
-
-        var americanPairsPacks = [
-            {
-                id: 13,
-                region: "Estados Unidos Pack I",
-                market: "AMEX, NASDAQ, NYSE, Bulletin Board",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
-            },
-            {
-                id: 14,
-                region: "Estados Unidos Pack II",
-                market: "AMEX, NASDAQ, NYSE, Bulletin Board",
-                purchased: true,
-                purchase: true,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
-            },
-            {
-                id: 15,
-                region: "Estados Unidos Pack III",
-                market: "AMEX, NASDAQ, NYSE, Bulletin Board",
-                purchased: true,
-                purchase: true,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
-            }
-        ];
-
-        var asiaPairsPacks = [
-            {
-                id: 16,
-                region: "Japón Pack I",
-                market: "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Anual"
-            },
-            {
-                id: 17,
-                region: "Japón Pack II",
-                market: "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
-                purchased: true,
-                purchase: true,
-                startDate: new Date(2014, 05, 01),
-                duration: "Anual"
-            },
-            {
-                id: 18,
-                region: "Japón Pack III",
-                market: "Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Trimestral"
-            }
-        ];
-
-        var europePairsPacks = [
-            {
-                id: 19,
-                region: "EURO Zona Pack I",
-                market: "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Trimestral"
-            },
-            {
-                id: 20,
-                region: "EURO Zona Pack II",
-                market: "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
-            },
-            {
-                id: 21,
-                region: "EURO Zona Pack III",
-                market: "Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Anual"
-            }
-        ];
-
-        var indicesPacks = [
-            {
-                id: 22,
-                region: "Bolsa, Financieros, Materias Primas",
-                market: "Global, Regional, Pais, Sectorial, Industrial. Tipos de Interés. Materias Primas",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Anual"
-            }
-        ];
-
-        var pairs_indicesPacks = [
-            {
-                id: 23,
-                region: "Bolsa",
-                market: "Global, Regional, Pais, Sectorial, Industrial",
-                purchased: true,
-                purchase: true,
-                startDate: new Date(2014, 05, 01),
-                duration: "Trimestral"
-            }
-        ];
-
-        var futuresPacks = [
-            {
-                id: 24,
-                region: "Energía, Metales, Agrícolas, Carnes, Softs, Divisas, Tipos de Interés",
-                market: "EUREX, Hong Kong Futures Exchanges, ICE Canada, ICE US, Korean Futures Exchange, Montreal Options Exchange, NYSE Euronext, Singapore Monetary Exchange, Sydney Futures Exchange, Chicago Board of Trade Futures, Chicago Board Options Exchange, Chicago Mercantile Exchange Futures, Kansas City Board of Trade Futures, Minneapolis Grain Exchange Futures, New York Mercantile Exchange Futures, ICE Europe",
-                purchased: false,
-                purchase: false,
-                startDate: new Date(2014, 05, 01),
-                duration: "Mensual"
-            }
-        ];
-        //******
-
-        this.obtainPacks = function (area) {
-            switch (area){
-                case 'america':
-                    return americanPacks;
-                case 'asia':
-                    return asiaPacks;
-                case 'europe':
-                    return europePacks;
-                case 'americaPairs':
-                    return americanPairsPacks;
-                case 'asiaPairs':
-                    return asiaPairsPacks;
-                case 'europePairs':
-                    return europePairsPacks;
-                case 'indices':
-                    return indicesPacks;
-                case 'pairs_indices':
-                    return pairs_indicesPacks;
-                case 'futures':
-                    return futuresPacks;
-            }
+            var result = $http.get($rootScope.urlService+'/mysubscriptions', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
     })
 
-    .service('MyPacksService', function($q,$http,$rootScope,$window,MonthSelectorService){
+    .service('MyPacksService', function($q,$http,$rootScope,$window){
         this.getPagedDataAsync = function (page, filtering) {
             var deferred = $q.defer();
-            var data;
-            var urlParam = this.createParamsFromFilter(filtering);
             var indexType = null;
 
             if (typeof filtering.index_type !== "undefined") {
@@ -481,74 +232,8 @@ angular.module('ngMo.my_subscriptions', [
             }
         ];
     })
-/*
-    .service('TabsService', function () {
 
-        var tabs = [
-            {
-                title: 'Acciones',
-                active: activeTab === 0,
-                value: 0
-            },
-            {
-                title: 'Par Acciones',
-                active: activeTab === 1,
-                value: 1
-            },
-            {
-                title: 'Índices',
-                active: activeTab === 2,
-                value: 2
-            },
-            {
-                title: 'Futuros',
-                active: activeTab === 3,
-                value: 3
-            }
-        ];
-
-        var indexTypes = [
-            {
-                title: "Indices",
-                active: activeIndex === 0,
-                value: 0
-            },
-            {
-                title: "Pares Indices",
-                active: activeIndex === 1,
-                value: 1
-
-            }
-        ];
-
-        var activeTab = 0;
-        var activeIndex = 0;
-
-        this.getIndexType = function () {
-            return indexTypes;
-        };
-
-        this.getActiveIndexType = function () {
-            return activeIndex;
-        };
-
-        this.changeActiveIndexType = function (active) {
-            activeIndex = active;
-        };
-
-        this.getTabs = function () {
-            return tabs;
-        };
-
-        this.getActiveTab = function () {
-            return activeTab;
-        };
-
-        this.changeActiveTab = function (active) {
-            activeTab = active;
-        };
-    })*/
-    .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,PatternsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$rootScope,$http) {
+    .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$rootScope,$http) {
 
         $scope.filterOptions = "";
         $scope.$on('$stateChangeStart', function (event, toState){
@@ -579,8 +264,7 @@ angular.module('ngMo.my_subscriptions', [
                     index_type: TabsService.getActiveIndexType(),
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
-                    favourite: false
+                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month)
                 }
 
             };
@@ -590,28 +274,6 @@ angular.module('ngMo.my_subscriptions', [
             //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
             $scope.updateSelectorMonth();
 
-            //refresh all the selectors
-            switch (TabsService.getActiveTab()) {
-                case 0:     //stocks
-                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors']);
-                    break;
-                case 1:     //pairs
-                    $scope.refreshSelectors(['regions', 'industries', 'sectors']);
-                    break;
-                case 2:     //index (pair and index)
-                    break;
-                case 3:     //futures
-                    $scope.refreshSelectors(['markets']);
-                    break;
-            }
-
-        };
-
-        $scope.refreshSelectors = function (selectors) {
-            PatternsService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
-                //checks the data received, when a selector is refreshed, the value selected is also cleaned
-
-            });
         };
 
         $scope.pagingOptions = {
@@ -662,47 +324,50 @@ angular.module('ngMo.my_subscriptions', [
                 $scope.myData = data.packs;
 
             });
+            var data2 = MySubscriptionPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
+                $scope.myData = data.packs;
+
+                $scope.mySubscriptionsTablePacks = [
+                    {
+                        title: 'Acciones',
+                        active: ActiveTabService.activeTab() === 0,
+                        value: 0,
+                        americaContent: data.STOCK.NALA,
+                        asiaContent: data.STOCK.APAC,
+                        europeContent: data.STOCK.EMEA,
+                        url: 'my_subscriptions/tables_packs/stock_table.tpl.html'
+                    },
+                    {
+                        title: 'Pares',
+                        active: ActiveTabService.activeTab() === 1,
+                        value: 1,
+                        americaPairContent: data.STOCKPAIR.NALA,
+                        asiaPairContent: data.STOCKPAIR.APAC,
+                        europePairContent: data.STOCKPAIR.EMEA,
+                        url: 'my_subscriptions/tables_packs/pairs_table.tpl.html'
+                    },
+                    {
+                        title: 'Indices',
+                        active: ActiveTabService.activeTab() === 2,
+                        value: 2,
+                        indicesContent: data.INDICE.INDEX,
+                        pairsIndicesContent: data.INDICEPAIR.INDEX,
+                        url: 'my_subscriptions/tables_packs/indices_table.tpl.html'
+                    },
+                    {
+                        title: 'Futuros',
+                        active: ActiveTabService.activeTab() === 3,
+                        value: 3,
+                        futuresContent: data.FUTURE.FUTURE,
+                        url: 'my_subscriptions/tables_packs/futures_table.tpl.html'
+                    }
+                ];
+
+            });
 
         };
-
         $scope.restartFilter();
         $scope.loadPage();
-
-        $scope.mySubscriptionsTablePacks = [
-            {
-                title: 'Acciones',
-                active: ActiveTabService.activeTab() === 0,
-                value: 0,
-                americaContent: MySubscriptionPacksService.obtainPacks('america'),
-                asiaContent: MySubscriptionPacksService.obtainPacks('asia'),
-                europeContent: MySubscriptionPacksService.obtainPacks('europe'),
-                url: 'my_subscriptions/tables_packs/stock_table.tpl.html'
-            },
-            {
-                title: 'Pares',
-                active: ActiveTabService.activeTab() === 1,
-                value: 1,
-                americaContent: MySubscriptionPacksService.obtainPacks('americaPairs'),
-                asiaContent: MySubscriptionPacksService.obtainPacks('asiaPairs'),
-                europeContent: MySubscriptionPacksService.obtainPacks('europePairs'),
-                url: 'my_subscriptions/tables_packs/pairs_table.tpl.html'
-            },
-            {
-                title: 'Indices',
-                active: ActiveTabService.activeTab() === 2,
-                value: 2,
-                indicesContent: MySubscriptionPacksService.obtainPacks('indices'),
-                pairsIndicesContent: MySubscriptionPacksService.obtainPacks('pairs_indices'),
-                url: 'my_subscriptions/tables_packs/indices_table.tpl.html'
-            },
-            {
-                title: 'Futuros',
-                active: ActiveTabService.activeTab() === 3,
-                value: 3,
-                futuresContent: MySubscriptionPacksService.obtainPacks('futures'),
-                url: 'my_subscriptions/tables_packs/futures_table.tpl.html'
-            }
-        ];
 
         $scope.myPacksTablePacks = [
             {
