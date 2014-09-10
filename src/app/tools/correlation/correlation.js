@@ -347,7 +347,7 @@ angular.module('ngMo.correlation', [
 
         $scope.addToCorrelationList = function (pattern) {
 
-            if ($scope.correlationList.length < 10 ||!$scope.loading ) {
+            if ($scope.correlationList.length < 10 && !$scope.loading ) {
                 if ($scope.correlationList.length === 0) {
                     $scope.pagingOptions.currentPage = 1;
                 }
