@@ -24,28 +24,6 @@ angular.module('ngMo.my_subscriptions', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu',
                 subPage: 'my-subscriptions'
-            },
-            resolve:{
-                MonthSelectorService: "MonthSelectorService",
-                TabsService: "TabsService",
-                filtering : function(TabsService,MonthSelectorService){
-                    return {
-                        active_tab: TabsService.getActiveTab(),
-                        month: MonthSelectorService.restartDate(),
-                        index_type: TabsService.getActiveIndexType()
-                    };
-                },
-                myPatternsData: function(MyPacksService, filtering) {
-                    return MyPacksService.getPagedDataAsync(1, filtering).then(function (data){
-                        return {
-                            patterns: data.patterns,
-                            results: data.results,
-                            found: data.found
-                        };
-
-                    });
-                }
-
             }
         })
             //substates of my-subscriptions
@@ -104,7 +82,7 @@ angular.module('ngMo.my_subscriptions', [
     })
 
     .service('MyPacksService', function($q,$http,$rootScope,$window){
-        this.getPagedDataAsync = function (page, filtering) {
+        this.obtainPacks = function (filtering) {
             var deferred = $q.defer();
             var indexType = null;
 
@@ -115,12 +93,7 @@ angular.module('ngMo.my_subscriptions', [
             }
             config = {
                 params: {
-                    'page': page,
-                    'token': $window.sessionStorage.token,
-                    'productType': parseInt(filtering.active_tab, 10),
-                    'indexType': indexType,
-                    'month': filtering.month.month,
-                    'year': filtering.month.year
+                    'token': $window.sessionStorage.token
                 }
             };
 
@@ -132,108 +105,9 @@ angular.module('ngMo.my_subscriptions', [
             });
             return result;
         };
-
-        this.createParamsFromFilter = function (filtering) {
-            var urlParams = "";
-            for (var property in filtering) {
-                if (filtering.hasOwnProperty(property)) { //check if its a property (to exclude technicals property of js)
-                    // create the params
-                    if ((filtering[property] != null) && (filtering[property] !== "")) {
-                        urlParams += "&" + property + "=" + filtering[property];
-                    }
-                }
-            }
-            return urlParams;
-        };
-
-        this.obtainPacks = function (area) {
-            switch (area){
-                case 'america':
-                    return americanPacks;
-                case 'asia':
-                    return asiaPacks;
-                case 'europe':
-                    return europePacks;
-                case 'americaPairs':
-                    return americanPairsPacks;
-                case 'asiaPairs':
-                    return asiaPairsPacks;
-                case 'europePairs':
-                    return europePairsPacks;
-                case 'indices':
-                    return indicesPacks;
-                case 'pairs_indices':
-                    return pairs_indicesPacks;
-                case 'futures':
-                    return futuresPacks;
-            }
-        };
-
-        var stocksPacks = [
-            {
-                id: 1,
-                packName: "Canada",
-                startDate: new Date(2014, 05, 01),
-                finishDate: new Date(2014, 11, 01)
-            },
-            {
-                id: 2,
-                packName: "Estados Unidos Pack I",
-                startDate: new Date(2014, 05, 01),
-                finishDate: new Date(2014, 11, 01)
-            },
-            {
-                id: 3,
-                packName: "Latino América Pack I",
-                startDate: new Date(2014, 05, 01),
-                finishDate: new Date(2014, 11, 01)
-            }
-        ];
-
-        var pairsPacks = [
-            {
-                id: 1,
-                packName: "Estados Unidos Pack I",
-                startDate: new Date(2014, 05, 01),
-                finishDate: new Date(2014, 11, 01)
-            },
-            {
-                id: 2,
-                packName: "Estados Unidos Pack II",
-                startDate: new Date(2014, 05, 01),
-                finishDate: new Date(2014, 11, 01)
-            }
-        ];
-
-        var indicesPacks = [
-            {
-                id: 1,
-                packName: "INDICES Pack I",
-                startDate: new Date(2014, 05, 01),
-                finishDate: new Date(2014, 11, 01)
-            }
-        ];
-
-        var pairsIndicesPacks = [
-            {
-                id: 1,
-                packName: "PARES INDICES Pack I",
-                startDate: new Date(2014, 05, 01),
-                finishDate: new Date(2014, 11, 01)
-            }
-        ];
-
-        var futuresPacks = [
-            {
-                id: 1,
-                packName: "Futures Pack I",
-                startDate: new Date(2014, 05, 01),
-                finishDate: new Date(2014, 11, 01)
-            }
-        ];
     })
 
-    .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$rootScope,$http) {
+    .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q) {
 
         $scope.filterOptions = "";
         $scope.$on('$stateChangeStart', function (event, toState){
@@ -335,13 +209,42 @@ angular.module('ngMo.my_subscriptions', [
 
         $scope.loadPage = function () {
             var defer = $q.defer();
-            var data = MyPacksService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
-                $scope.myData = data.packs;
+            var data = MyPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
 
+                $scope.myPacksTablePacks = [
+                    {
+                        title: 'Acciones',
+                        active: ActiveTabService.activeTab() === 0,
+                        value: 0,
+                        content: data.STOCK,
+                        url: 'my_subscriptions/tables_my_packs/stock_table.tpl.html'
+                    },
+                    {
+                        title: 'Pares',
+                        active: ActiveTabService.activeTab() === 1,
+                        value: 1,
+                        content: data.STOCKPAIR,
+                        url: 'my_subscriptions/tables_my_packs/pairs_table.tpl.html'
+                    },
+                    {
+                        title: 'Índices',
+                        active: ActiveTabService.activeTab() === 2,
+                        value: 2,
+                        content: data.INDICE,
+                        pairContent: data.INDICEPAIR,
+                        url: 'my_subscriptions/tables_my_packs/indices_table.tpl.html'
+                    },
+                    {
+                        title: 'Futuros',
+                        active: ActiveTabService.activeTab() === 3,
+                        value: 3,
+                        content: data.FUTURE,
+                        url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
+                    }
+                ];
             });
-            var data2 = MySubscriptionPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
-                $scope.myData = data.packs;
 
+            var data2 = MySubscriptionPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
                 $scope.mySubscriptionsTablePacks = [
                     {
                         title: 'Acciones',
@@ -383,39 +286,6 @@ angular.module('ngMo.my_subscriptions', [
         };
         $scope.restartFilter();
         $scope.loadPage();
-
-        $scope.myPacksTablePacks = [
-            {
-                title: 'Acciones',
-                active: ActiveTabService.activeTab() === 0,
-                value: 0,
-                content: MyPacksService.obtainPacks('stocks'),
-                url: 'my_subscriptions/tables_my_packs/stock_table.tpl.html'
-            },
-            {
-                title: 'Pares',
-                active: ActiveTabService.activeTab() === 1,
-                value: 1,
-                content: MyPacksService.obtainPacks('pairs'),
-
-                url: 'my_subscriptions/tables_my_packs/pairs_table.tpl.html'
-            },
-            {
-                title: 'Índices',
-                active: ActiveTabService.activeTab() === 2,
-                value: 2,
-                content: MyPacksService.obtainPacks('indices'),
-
-                url: 'my_subscriptions/tables_my_packs/indices_table.tpl.html'
-            },
-            {
-                title: 'Futuros',
-                active: ActiveTabService.activeTab() === 3,
-                value: 3,
-                content: MyPacksService.obtainPacks('futures'),
-                url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
-            }
-        ];
 
     })
 
