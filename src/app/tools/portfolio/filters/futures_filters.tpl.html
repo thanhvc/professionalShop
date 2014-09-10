@@ -6,7 +6,7 @@
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
-                <select class="border-filters select-filter-portfolio" style="color: black;"
+                <select class="border-filters select-filter-portfolio"
                         data-ng-model="filterOptions.filters.selectMonth"
                         ng-change="goToMonth()"
                         ng-options="item.name for item in filterOptions.months"
@@ -14,7 +14,7 @@
                 </select>
             </td>
             <td>
-                <select ng-model="filterOptions.filters.durationInterval" ng-change="search();">
+                <select ng-model="filterOptions.filters.durationInterval" ng-change="search();" class="select-filter-portfolio-duration">
                     <option selected="selected" value="">- Elegir duraci&oacute;n -</option>
                     <option value="[*/1]">Hasta 1 mes</option>
                     <option value="[1/3]">De 1 a 3 meses</option>

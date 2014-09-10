@@ -35,7 +35,10 @@
 
 <tabset>
     <tab ng-click="onClickTab(the_week_table.value)" ng-repeat="the_week_table in the_week_tables" heading="{{the_week_table.title}}" active="tab.active" disabled="tab.disabled">
+        <div class="loading-div-container">  <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>Cargando, por favor espere...</span></div>
+
         <div ng-include="the_week_table.url"></div>
+            </div>
     </tab>
 </tabset>
 <span style="margin-bottom:50px;" class="copyright">Copyright © {{actualDate | date: 'yyyy'}} Market Observatory</span>

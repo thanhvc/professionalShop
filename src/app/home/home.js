@@ -54,7 +54,7 @@ angular.module('ngMo.home', [
         $scope.changePosCart = function () {
             $scope.positionCart = 'top';
         };
-
+        $scope.loading = false;
         //if the activated param is set, means that the homepage must show a special message for new users, this param  doesnt activate
         //any method, only shows the message. The activation of user is controlled in activate module
         $scope.justActivated = false;
@@ -78,11 +78,11 @@ angular.module('ngMo.home', [
             },
             {
                 image: 'assets/img/home/home-publi2.png',
-                text: '¿Son POCO Rentables sus Fondos de Inversión?'
+                text: '¿Son POCO RENTABLES sus Fondos de Inversión?'
             },
             {
                 image: 'assets/img/home/home-publi3.png',
-                text: '¿No Sabe invertir en mercados BRICS y EMERGENTES?'
+                text: '¿No SABE invertir en mercados BRICS y EMERGENTES?'
             },
             {
                 image: 'assets/img/home/home-publi4.png',
@@ -90,7 +90,7 @@ angular.module('ngMo.home', [
             },
             {
                 image: 'assets/img/home/home-publi5.png',
-                text: '¿Descontento con su FONDO de PENSIONES?'
+                text: '¿DESCONTENTO con su Fondo de Pensiones?'
             },
             {
                 image: 'assets/img/home/home-publi6.png',
@@ -130,8 +130,10 @@ angular.module('ngMo.home', [
 
 
         $scope.loadPacks = function () {
+            $scope.loading = true;
             var data = PacksService.obtainPacks(function (data) {
                 $scope.myData = data;//data.page;
+                $scope.loading = false;
                 $scope.homeTablePacks = [
                     {
                         title: 'Acciones',
