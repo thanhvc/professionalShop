@@ -67,7 +67,7 @@ describe('The Selected Pack service', function () {
 
 describe('The catalog controller', function() {
 
-    var $scope, ctrl, state, $http, myPatternsData, vector, stateParams,expiration,tabsService,ActualDateService,initializedData;
+    var $scope, ctrl, state, $http, myPatternsData, service, stateParams,expiration,tabsService,ActualDateService,initializedData;
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(angular.mock.module("ngMo.home"));
     beforeEach(angular.mock.module("ngMo.catalog"));
@@ -82,7 +82,7 @@ describe('The catalog controller', function() {
         }};
         stateParams = $stateParams;
         $http = _$httpBackend_;
-
+        service = SelectedPackService;
 
         $http.when('GET', $rootScope.urlService + '/actualdate').respond(200);
         $http.when('GET', $rootScope.urlService + '/patternspack?durationInterval=&industry=&name=&page=1&sector=&volatilityInterval=').respond(200);
@@ -97,6 +97,7 @@ describe('The catalog controller', function() {
         $http.expectGET($scope.urlService + '/patternspack?durationInterval=&industry=&name=&page=1&sector=&volatilityInterval=');
         $http.expectGET($scope.urlService + '/patternfilters?indexType=0&industry=&productType=0&sector=&view=');
         $scope.$apply();
+
         $scope.generateSearchUrl('Google','undefined');
         $scope.generateSearchUrl('Yahoo', "undefined");
         $scope.generateSearchUrl('Bloomberg', undefined);
