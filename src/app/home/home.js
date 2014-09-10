@@ -54,7 +54,7 @@ angular.module('ngMo.home', [
         $scope.changePosCart = function () {
             $scope.positionCart = 'top';
         };
-
+        $scope.loading = false;
         //if the activated param is set, means that the homepage must show a special message for new users, this param  doesnt activate
         //any method, only shows the message. The activation of user is controlled in activate module
         $scope.justActivated = false;
@@ -130,8 +130,10 @@ angular.module('ngMo.home', [
 
 
         $scope.loadPacks = function () {
+            $scope.loading = true;
             var data = PacksService.obtainPacks(function (data) {
                 $scope.myData = data;//data.page;
+                $scope.loading = false;
                 $scope.homeTablePacks = [
                     {
                         title: 'Acciones',
