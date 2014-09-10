@@ -78,7 +78,7 @@ angular.module('ngMo.home', [
             },
             {
                 image: 'assets/img/home/home-publi2.png',
-                text: '¿Son POCO Rentables sus Fondos de Inversión?'
+                text: '¿Son POCO RENTABLES sus Fondos de Inversión?'
             },
             {
                 image: 'assets/img/home/home-publi3.png',
