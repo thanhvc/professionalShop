@@ -406,7 +406,7 @@ describe('The patterns controller', function() {
         expect($scope.loadPage).toNotBe(undefined);
     });
 
-    it('should load the page correctly', function(){
+    it('should refresh region correctly', function(){
 
         $scope.refreshRegion();
         $scope.changeTab(1);
