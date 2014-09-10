@@ -270,7 +270,7 @@ angular.module('ngMo.portfolio', [
         };
 
         $scope.addToPortfolioList = function (pattern) {
-            if ($scope.portfolioList.length < 20 || !$scope.loading ) {
+            if ($scope.portfolioList.length < 20 && !$scope.loading ) {
                 $scope.loading= true;
                 var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.portfolioList, function (data) {
