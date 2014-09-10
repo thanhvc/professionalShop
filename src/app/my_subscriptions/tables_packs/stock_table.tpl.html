@@ -28,11 +28,7 @@
                     <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select disabled="pack.selected" ng-model="pack.duration">
-                            <option value="Mensual">Mensual</option>
-                            <option value="Trimestral">Trimestral</option>
-                            <option value="Anual">Anual</option>
-                        </select>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations"></select>
                     </td>
                 </tr>
                 </tbody>
@@ -53,10 +49,7 @@
                     <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select disabled="pack.selected" ng-model="pack.duration">
-                            <option value="Mensual">Mensual</option>
-                            <option value="Trimestral">Trimestral</option>
-                            <option value="Anual">Anual</option>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
                         </select>
                     </td>
                 </tr>
@@ -78,10 +71,8 @@
                     <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select disabled="pack.selected" ng-model="pack.duration">
-                            <option value="MONTH">Mensual</option>
-                            <option value="THREE_MONTH">Trimestral</option>
-                            <option value="YEAR">Anual</option>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
+>
                         </select>
                     </td>
                 </tr>

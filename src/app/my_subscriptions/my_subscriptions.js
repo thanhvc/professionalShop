@@ -276,6 +276,21 @@ angular.module('ngMo.my_subscriptions', [
 
         };
 
+        $scope.durations = [
+            {
+                value: 0,
+                text: 'Mensual'
+            },
+            {
+                value: 1,
+                text: 'Trimestral'
+            },
+            {
+                value: 2,
+                text: 'Anual'
+            }
+        ];
+
         $scope.pagingOptions = {
             pageSize: 10,
             currentPage: 1
