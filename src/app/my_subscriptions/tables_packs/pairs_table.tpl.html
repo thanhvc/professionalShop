@@ -20,16 +20,13 @@
         <td colspan="5">
             <table class="my-subscriptions-table">
                 <tbody>
-                <tr ng-repeat="pack in mySubscriptionsTablePack.americaContent track by $index" ui-sref="catalog({packId: pack.id})">
-                    <td>{{pack.region}}</td>
-                    <td>{{pack.market}}</td>
-                    <td><input type="checkbox" ng-model="pack.purchase" ng-disabled="pack.purchased"></td>
+                <tr ng-repeat="pack in mySubscriptionsTablePack.americaPairContent track by $index" ui-sref="catalog({packId: pack.id})">
+                    <td>{{pack.name}}</td>
+                    <td>{{pack.scopeText}}</td>
+                    <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select disabled="true" ng-model="pack.duration">
-                            <option value="Mensual">Mensual</option>
-                            <option value="Trimestral">Trimestral</option>
-                            <option value="Anual">Anual</option>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
                         </select>
                     </td>
                 </tr>
@@ -45,16 +42,13 @@
         <td colspan="5">
             <table class="my-subscriptions-table">
                 <tbody>
-                <tr ng-repeat="pack in mySubscriptionsTablePack.asiaContent track by $index" ui-sref="catalog({packId: pack.id})">
-                    <td>{{pack.region}}</td>
-                    <td>{{pack.market}}</td>
-                    <td><input type="checkbox" ng-model="pack.purchase" ng-disabled="pack.purchased"></td>
+                <tr ng-repeat="pack in mySubscriptionsTablePack.asiaPairContent track by $index" ui-sref="catalog({packId: pack.id})">
+                    <td>{{pack.name}}</td>
+                    <td>{{pack.scopeText}}</td>
+                    <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select disabled="true" ng-model="pack.duration">
-                            <option value="Mensual">Mensual</option>
-                            <option value="Trimestral">Trimestral</option>
-                            <option value="Anual">Anual</option>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
                         </select>
                     </td>
                 </tr>
@@ -70,16 +64,13 @@
         <td colspan="5">
             <table class="my-subscriptions-table">
                 <tbody>
-                <tr ng-repeat="pack in mySubscriptionsTablePack.europeContent track by $index" ui-sref="catalog({packId: pack.id})">
-                    <td>{{pack.region}}</td>
-                    <td>{{pack.market}}</td>
-                    <td><input type="checkbox" ng-model="pack.purchase" ng-disabled="pack.purchased"></td>
+                <tr ng-repeat="pack in mySubscriptionsTablePack.europePairContent track by $index" ui-sref="catalog({packId: pack.id})">
+                    <td>{{pack.name}}</td>
+                    <td>{{pack.scopeText}}</td>
+                    <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select disabled="true" ng-model="pack.duration">
-                            <option value="Mensual">Mensual</option>
-                            <option value="Trimestral">Trimestral</option>
-                            <option value="Anual">Anual</option>
+                        <select disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
                         </select>
                     </td>
                 </tr>

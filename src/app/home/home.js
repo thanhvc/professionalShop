@@ -78,11 +78,11 @@ angular.module('ngMo.home', [
             },
             {
                 image: 'assets/img/home/home-publi2.png',
-                text: '¿Son POCO Rentables sus Fondos de Inversión?'
+                text: '¿Son POCO RENTABLES sus Fondos de Inversión?'
             },
             {
                 image: 'assets/img/home/home-publi3.png',
-                text: '¿No Sabe invertir en mercados BRICS y EMERGENTES?'
+                text: '¿No SABE invertir en mercados BRICS y EMERGENTES?'
             },
             {
                 image: 'assets/img/home/home-publi4.png',
@@ -90,7 +90,7 @@ angular.module('ngMo.home', [
             },
             {
                 image: 'assets/img/home/home-publi5.png',
-                text: '¿Descontento con su FONDO de PENSIONES?'
+                text: '¿DESCONTENTO con su Fondo de Pensiones?'
             },
             {
                 image: 'assets/img/home/home-publi6.png',
