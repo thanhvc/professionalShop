@@ -2,7 +2,8 @@
     <thead>
     <tr class="header-my-subscriptions-table">
         <td colspan="6">
-            {{actualDate | date:'MMMM yyyy' | uppercase}}
+            <select data-ng-model="filterOptions.filters.selectMonth" ng-options="month.name for month in filterOptions.months" ng-change="goToMonth()">
+            </select>
         </td>
     </tr>
     <tr class="subheader-my-subscriptions-table">

@@ -24,7 +24,17 @@
                 <td class="portfolio-button"><span ng-class="{'disable-arrow': portfolioList.length >= 20}" ng-click="addToPortfolioList(pattern.id);">>></span></td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div style="padding-top: 20px;">
+                        <span ng-if="myData.length == 0">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
     </table>
+
     <div style="float:right;">
         <table style="width: 450px;" class="table-portfolio">
             <thead>
