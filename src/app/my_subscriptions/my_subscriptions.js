@@ -124,19 +124,23 @@ angular.module('ngMo.my_subscriptions', [
 
         /*select option of re-buy or cancel pack*/
         $scope.selectOption = function(pack) {
+            if (pack.orden === "1") {
 
-            $scope.operationPack = pack;
+                $scope.operationPack = pack;
+                pack.orden = "";
                 var modalInstanceLimit = $modal.open({
-                    template:"<div class=\"modal-alert-portfolio\"><div class=\"header-alert-portfolio\">Aviso <img class=\"close-alert-portfolio\" " +
-                        " src=\"assets/img/close_modal.png\" ng-click=\"close()\"></div><div class=\"body-alert-portfolio\">" +
-                        "Está seguro que desea realizar la devolución de la suscripción {{operationPack.name}} que finaliza en {{operationPack.endDate | date: 'MMMM yyyy'}}",
+                    template: "<div class=\"modal-confirm-packs\"><div class=\"header-alert-portfolio\">Aviso <img class=\"close-alert-portfolio\" " +
+                        " src=\"assets/img/close_modal.png\" ng-click=\"close()\"></div><div class=\"modal-confirm-packs-body\">" +
+                        "Está seguro que desea realizar la devolución de la suscripción {{operationPack.name}} que finaliza en {{operationPack.endDate | date: 'MMMM yyyy'}}" +
+                        "</div> <div style='padding-top: 20px; width: 200px; margin: 0 auto;'> <button class='mo-button' style='margin-right: 5px; ' ng-click='confirm();'>Confirmar</button> <button ng-click='close();' class='mo-button'>cancelar</button></button></div></div>",
                     controller: ModalMyPackstCtrl,
                     resolve: {
-                        infoViews: function () {
-                            return $scope.info_views;
+                        operationPack: function () {
+                            return $scope.operationPack;
                         }
                     }
                 });
+            }
 
         };
 
@@ -284,10 +288,16 @@ angular.module('ngMo.my_subscriptions', [
 ;
 
 
-var ModalMyPackstCtrl = function ($scope, $modalInstance) {
+var ModalMyPackstCtrl = function ($scope, $modalInstance,$state,$stateParams, operationPack) {
 
+    $scope.operationPack = operationPack;
     $scope.close = function () {
         $modalInstance.close();
+    };
+
+    $scope.confirm = function() {
+        $modalInstance.close();
+        $state.go('cancel-pack',{packCode: $scope.operationPack.code, subCode: $scope.operationPack.sub});
     };
 
 };
