@@ -121,8 +121,92 @@ describe('The SignUp ', function () {
 
             expect(state.$current.url.source).toEqual("/sign-up-successful");
 
+            //incorrect captcha
+            statusOK = {
+                status: "incorrectCaptcha"
+            };
+            scope.secondCallback(statusOK);
+            scope.$apply();
+
+            //no captcha
+            statusOK = {
+                status: undefined
+            };
+            scope.secondCallback(statusOK);
+            scope.$apply();
+
+            //submit new user
+            scope.submit();
+            expect(scope.submit).toNotBe(undefined);
+
+            var res = scope.createNewSubs();
+            scope.newSubscriptionMode = undefined;
+            scope.createNewSubs();
+
+
+            scope.clearState();
         });
 
-
     });
+});
+
+
+describe('The match directive', function () {
+
+    beforeEach(angular.mock.module("ngMo"));
+    beforeEach(angular.mock.module('auth'));
+
+    describe('template', function () {
+        var $compile, $scope, httpMock, template, $modal, $cookieStore, $window;
+
+        beforeEach(inject(function (_$compile_, _$rootScope_, $httpBackend, _$modal_, _$cookieStore_, _$window_) {
+            $compile = _$compile_;
+            $scope = _$rootScope_.$new();
+            httpMock = $httpBackend;
+            $cookieStore = _$cookieStore_;
+            $window = _$window_;
+
+            $window.sessionStorage = { // mocking sessionStorage
+                getItem: function (key) {
+                    return this[key];
+                }
+            };
+
+            template = $compile("<match></match>")($scope);
+            $scope.$apply();
+
+        }));
+
+        it('should toggle when the user sends the signin form', inject(function () {
+            template.triggerHandler('click',[$scope, template, template.children(), 'ctrl']);
+            //expect($scope.stateSignInForm).toNotBe(undefined);
+        }));
+    });
+});
+
+describe('The SignUp Service', function () {
+
+    beforeEach(angular.mock.module("ngMo"));
+    beforeEach(angular.mock.module('auth'));
+
+    describe('template', function () {
+        var $compile, $scope, httpMock, template, service, $cookieStore, $window;
+
+        beforeEach(inject(function (SignUpService,_$compile_, _$rootScope_, $httpBackend, _$modal_, _$cookieStore_, _$window_) {
+            $compile = _$compile_;
+            service = SignUpService;
+            $scope = _$rootScope_.$new();
+            httpMock = $httpBackend;
+            $cookieStore = _$cookieStore_;
+            $window = _$window_;
+
+        }));
+
+        it('should be able to go to first and secod steps', inject(function () {
+            service.firstStep();
+
+            service.secondStep();
+        }));
+    });
+
 });

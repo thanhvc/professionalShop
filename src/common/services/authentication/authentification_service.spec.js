@@ -134,6 +134,7 @@ describe('The signInForm directive', function () {
             };
             $window.sessionStorage.token = '1';
             $scope.submit();
+
         });
 
 
