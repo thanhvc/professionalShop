@@ -5,7 +5,7 @@ describe('The cart directive', function () {
         var $scope;
         var $state;
         var httpMock;
-
+        var $window;
         beforeEach(module('templates-app'));
 
 
@@ -15,6 +15,7 @@ describe('The cart directive', function () {
             $compile = _$compile_;
             $state = _$state_;
             httpMock.when('GET', _$rootScope_.urlService+'/islogged').respond(200);
+            httpMock.when('POST', _$rootScope_.urlService+'/has-pack').respond(200);
             httpMock.when('GET', _$rootScope_.urlService+"/prices").respond({
                 "data":{
                     "prices":[29,82,313]
@@ -23,7 +24,6 @@ describe('The cart directive', function () {
             $window = _$window_;
 
         }));
-
 
         addItemsToCart = function (numItems,type,patternType, duration) {
             startDate= 1406934000000;
@@ -36,7 +36,6 @@ describe('The cart directive', function () {
                     "duration": duration,
                     publicationDate: 1404472269488
                 };
-
 
                 $scope.addNewItemCart(item,startDate);
                 $scope.$apply();
@@ -146,6 +145,7 @@ describe('The cart directive', function () {
             expect( $scope.numItemsCart).toEqual(0);
         }));
 
+
         it('should submitCart when payment is EXPRESSCHECKOUT ', inject(function(){
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
@@ -159,7 +159,6 @@ describe('The cart directive', function () {
             $scope.$apply();
             $scope.$broadcast('submitCart',{event:null, paymentType: 'DIRECTPAYMENT'});
         }));
-
 
         //add three items to cart
         it('should have 3 items and total and subtotal equals 87', inject(function () {
@@ -193,7 +192,7 @@ describe('The cart directive', function () {
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,"01/09/2014");
             $scope.removeItemCart('pairs', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
@@ -594,7 +593,7 @@ describe('The cart directive', function () {
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,"01/09/2014");
             $scope.removeItemCart('stocks', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
@@ -615,7 +614,7 @@ describe('The cart directive', function () {
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,"01/09/2014");
             $scope.removeItemCart('futures', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
@@ -635,7 +634,7 @@ describe('The cart directive', function () {
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,"01/09/2014");
             $scope.removeItemCart('indices', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
@@ -656,7 +655,7 @@ describe('The cart directive', function () {
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,"01/09/2014");
             $scope.removeItemCart('pairsIndices', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
@@ -683,7 +682,7 @@ describe('The cart directive', function () {
             $scope.$apply();
             addItemsToCart(2,'INDICE',1);
             $scope.toggleCart();
-            expect($scope.showCart).toBe(false);
+            expect($scope.showCart).toBe(true);
         }));
 
         it('should let toggle the cart when there are no items', inject(function(){
@@ -717,8 +716,6 @@ describe('The cart directive', function () {
             $scope.openCart();
 
         }));
-
-
     });
 });
 
@@ -727,7 +724,6 @@ describe('The cart directive', function () {
 describe('The privateMenu directive', function () {
 
     beforeEach(angular.mock.module("ngMo"));
-
     describe('template', function () {
         var $compile;
         var $scope;
@@ -945,7 +941,6 @@ describe('The flag box works ok', function () {
         }));
 
         it('should work', function(){
-            delete $window.sessionStorage.cart;
             var template = $compile("<flag-box></flag-box>")($scope);
             $scope.$apply();
             $scope.openModal('English');
@@ -973,7 +968,6 @@ describe('The scroll directive', function () {
         }));
 
         it('should let the user scroll', function(){
-            delete $window.sessionStorage.cart;
             var template = $compile("<div scroll></div>")($scope);
             // template.triggerHandler('scroll');
         });
@@ -992,11 +986,9 @@ describe('The scrollFaq directive', function () {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
 
-
         }));
 
         it('should let the user scroll', function(){
-            delete $window.sessionStorage.cart;
             var template = $compile("<div scroll-faq></div>")($scope);
             $scope.$apply();
             template.triggerHandler('scroll',{pageYOffset: 1000});
@@ -1041,7 +1033,6 @@ describe('The ngEnter directive', function () {
         }));
 
         it('should bind keypress event', function(){
-            delete $window.sessionStorage.cart;
             var template = $compile("<div ng-enter></div>")($scope);
             template.triggerHandler('keypress',13);
 
@@ -1073,7 +1064,6 @@ describe('The publicMenu directive', function () {
         }));
 
         it('should work', function(){
-            delete $window.sessionStorage.cart;
             $scope.$apply();
             $scope.onMouseEnterMenu('market-observatory-nav','submenu1');
             expect($scope.actualMenu).toNotBe(undefined);
@@ -1110,7 +1100,6 @@ describe('The publicSubMenu directive', function () {
         }));
 
         it('should work', function(){
-            delete $window.sessionStorage.cart;
             $scope.$apply();
             $scope.onMouseEnterSubmenu('market-observatory-nav','submenu1','what-is-and-what-is-not-nav');
             expect($scope.actualSubmenu).toNotBe(undefined);
@@ -1141,7 +1130,6 @@ describe('The scroll faq Service', function () {
         }));
 
         it('should work', function(){
-            delete $window.sessionStorage.cart;
             var template = $compile("<scroll-faq></scroll-faq>")($scope);
             $scope.$apply();
 
@@ -1159,28 +1147,39 @@ describe('The ShoppingCartService', function () {
         var $scope;
         var $compile;
         var $http;
+        var $window;
 
         beforeEach(angular.mock.module("ngMo"));
         beforeEach(module('templates-app'));
-        beforeEach(inject(function (ShoppingCartService, _$rootScope_, _$compile_, _$httpBackend_) {
+        beforeEach(inject(function (ShoppingCartService, _$rootScope_, _$compile_, _$httpBackend_, _$window_) {
             service = ShoppingCartService;
             $scope = _$rootScope_;
             $compile = _$compile_;
             $http = _$httpBackend_;
+            $window = _$window_;
         }));
 
-        it('should check if user has subscribed to pack', inject(function(){
-            delete $window.sessionStorage.cart;
-            $scope.$apply();
-            service.hasSubscribedToThisPack();
+       it('should check if user has subscribed to pack', inject(function(){
+
+           var date = "01/09/2014";
+           var item = {
+               codePack: 0,
+               date: date
+           };
+           $scope.$apply();
+           service.hasSubscribedToThisPack(item,'callback');
         }));
 
         it('should hide elements', inject(function(){
-            delete $window.sessionStorage.cart;
             $scope.$apply();
             service.getPrices();
 
         }));
+
+        it('should save the cart session', function(){
+            $scope.$apply();
+            service.saveSessionCart();
+        });
     });
 });
 
@@ -1199,11 +1198,8 @@ describe('The position anchors faq service', function(){
     }));
 
     it('should work', function(){
-        delete $window.sessionStorage.cart;
-
         $scope.$apply();
         service.getPositionAnchors();
-
     });
 
 });
@@ -1223,7 +1219,6 @@ describe('The ActiveTab service', function(){
     }));
 
     it('should work', function(){
-        delete $window.sessionStorage.cart;
         $scope.$apply();
         service.changeActiveTab();
 
@@ -1245,7 +1240,6 @@ describe('The SecondActiveTab service', function(){
     }));
 
     it('should work', function(){
-        delete $window.sessionStorage.cart;
         $scope.$apply();
         service.changeActiveTab();
     });
@@ -1266,7 +1260,6 @@ describe('The AnchorLink service', function(){
     }));
 
     it('should work', function(){
-        delete $window.sessionStorage.cart;
         $scope.$apply();
         service.scrollTo();
     });
@@ -1287,7 +1280,6 @@ describe('The ArrayContainItem service', function(){
     }));
 
     it('should work', function(){
-        delete $window.sessionStorage.cart;
         $scope.$apply();
         service.containItem();
     });

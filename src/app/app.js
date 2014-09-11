@@ -1001,6 +1001,7 @@ angular.module('ngMo', [
                  */
                 $scope.addNewItemCart = function(newItem, startDate){
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+
                     item = {
                         "code": newItem.code,
                         "packName": newItem.name,
@@ -1028,7 +1029,6 @@ angular.module('ngMo', [
                     if ((typeof $scope.futuresItems != "undefined")) {
                         totalList = totalList.concat($scope.futuresItems);
                     }
-
                     //if the item isnt in the cart add
                     if (!ArrayContainItemService.containItem(totalList , item)) {
                         //if the status is that the user hast the pack, just add it
@@ -1060,7 +1060,6 @@ angular.module('ngMo', [
                                     ShoppingCartService.saveSessionCart();
 
                             });
-
                         } else {
                             //is not logged, we add the item
                             ShoppingCartService.addItemCart(item);

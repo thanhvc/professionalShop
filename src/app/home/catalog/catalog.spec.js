@@ -24,7 +24,6 @@ describe('The Selected Pack service', function () {
         }));
 
         it('should create params from filters', function(){
-            delete $window.sessionStorage.cart;
             $scope.$apply();
             var month = {'month': 'agosto', 'year': 2014};
             var filters = {'month': month};
@@ -34,7 +33,6 @@ describe('The Selected Pack service', function () {
 
 
         it('should obtaing patterns form pack', function(){
-            delete $window.sessionStorage.cart;
             $scope.$apply();
             var month = {'month': 'agosto', 'year': 2014};
             var filters = {'month': month, 'index_type': 1};
@@ -47,7 +45,6 @@ describe('The Selected Pack service', function () {
         });
 
         it('should get the correct selectors', function(){
-            delete $window.sessionStorage.cart;
             $scope.$apply();
             var month = {'month': 'agosto', 'year': 2014};
             var filters = {'month': month, 'index_type': 1};

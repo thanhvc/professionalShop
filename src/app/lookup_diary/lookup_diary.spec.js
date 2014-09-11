@@ -3,8 +3,10 @@ describe('The Lookup diary controller', function () {
     describe('template', function () {
         var $scope, ctrl, state, $http, $compile,$location, stateParams,expiration,tabsService,actualDateService,diaryData;
 
-
+        var patternsFilter = '/patternfilters?indexType=0&industry=&market=&month=9&productType=0&region=&sector=&&view=&year=2014';
+        var patternsFilterToken = '/patternfilters?indexType=0&industry=&market=&month=9&productType=0&region=&sector=&token=undefined&view=&year=2014';
         var lookup = '/lookupdiarypatterns?accumulatedInput=&accumulatedReturn=&alarm=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=9&name=&operation=&page=1&productType=0&region=&sector=&volatility=&volatilityInput=&year=2014';
+        var lookupToken = '/lookupdiarypatterns?accumulatedInput=&accumulatedReturn=&alarm=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=9&name=&operation=&page=1&productType=0&region=&sector=&token=undefined&volatility=&volatilityInput=&year=2014';
         beforeEach(angular.mock.module("ngMo"));
         beforeEach(angular.mock.module("ngMo.home"));
         beforeEach(angular.mock.module("ngMo.lookup_diary"));
@@ -24,8 +26,11 @@ describe('The Lookup diary controller', function () {
             $http = _$httpBackend_;
 
             $http.when('GET', $rootScope.urlService + '/actualdate').respond(200);
-            $http.when('GET', $rootScope.urlService + '/patternfilters?indexType=0&industry=&market=&month=9&productType=0&region=&sector=&view=&year=2014').respond(200);
+            $http.when('GET', $rootScope.urlService + '/islogged').respond(200);
+            $http.when('GET', $rootScope.urlService + patternsFilter).respond(200);
+            $http.when('GET', $rootScope.urlService + patternsFilterToken).respond(200);
             $http.when('GET', $rootScope.urlService + lookup).respond(200);
+            $http.when('GET', $rootScope.urlService + lookupToken).respond(200);
             $controller('LookupDiaryCtrl', {'$scope': $rootScope, 'state': $state ,  'diaryData': diaryData});
         }));
 
@@ -193,8 +198,10 @@ describe('The Lookup diary controller', function () {
        it('should be able to open a graph', function(){
 
             $http.expectGET($scope.urlService+'/actualdate');
-            $http.expectGET($scope.urlService + '/patternfilters?indexType=0&industry=&market=&month=9&productType=0&region=&sector=&view=&year=2014');
+            $http.expectGET($scope.urlService + patternsFilter);
             $http.expectGET($scope.urlService + lookup);
+            $http.expectGET($scope.urlService + patternsFilterToken);
+            $http.expectGET($scope.urlService + lookupToken);
 
            var k = {'parentElement': "<td class='stocks-vol-value'></td>", 'offsetHeight': '30px', 'insertBefore' : function(){}, 'srcElement': "<td class='stocks-vol-value'></td>"};
            var i = {'parentElement': k, 'srcElement': "<td class='stocks-vol-value'></td>"};

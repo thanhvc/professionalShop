@@ -267,7 +267,6 @@ describe('The Historics Service ', function () {
         });
 
         it('should create params from filters', function(){
-            delete $window.sessionStorage.cart;
             $scope.$apply();
             var month = {'month': 'agosto', 'year': 2014};
             var filters = {'month': month};
@@ -344,7 +343,6 @@ describe('The Month Selector Historic Service ', function () {
         });
 
         it('should restart the date', function(){
-
             var res = service.restartDate();
             expect(res).toNotBe(undefined);
         });

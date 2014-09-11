@@ -9,13 +9,15 @@ describe('The tabs Service', function () {
         var $scope;
         var $compile;
         var $http;
+        var $window;
 
-        beforeEach(inject(function (_TabsService_, _$rootScope_, _$compile_, _$httpBackend_) {
+        beforeEach(inject(function (_TabsService_, _$rootScope_, _$compile_, _$httpBackend_, _$window_) {
 
             service = _TabsService_;
             $scope = _$rootScope_;
             $compile = _$compile_;
             $http = _$httpBackend_;
+            $window = _$window_;
 
         }));
 
