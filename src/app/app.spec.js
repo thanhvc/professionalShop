@@ -155,14 +155,14 @@ describe('The cart directive', function () {
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            $scope.$broadcast('submitCart',{event:null, paymentType: 'EXPRESSCHECKOUT'});
+            $scope.$broadcast('submitCart',[null ,"EXPRESSCHECKOUT"]);
         }));
 
         it('should submitCart when payment type is DIRECTPAYMENT', inject(function(){
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            $scope.$broadcast('submitCart',{event:null, paymentType: 'DIRECTPAYMENT'});
+            $scope.$broadcast('submitCart',[null,"DIRECTPAYMENT"]);
         }));
 
         //add three items to cart
@@ -1323,6 +1323,37 @@ describe('The delay directive', function () {
 
             template.triggerHandler('compile');
             // timeout.flush();
+        }));
+    });
+});
+describe('The ExpirationYearFromPatternName service', function () {
+
+    beforeEach(angular.mock.module("ngMo"));
+
+    describe('template', function () {
+        var $compile;
+        var $scope;
+        var $state;
+        var timeout;
+        var httpMock;
+        var service;
+        beforeEach(module('templates-app'));
+
+        beforeEach(inject(function (ExpirationYearFromPatternName, _$compile_, _$rootScope_, _$state_, $httpBackend, $timeout) {
+            $compile = _$compile_;
+            $scope = _$rootScope_.$new();
+            $state = _$state_;
+            httpMock = $httpBackend;
+            timeout = $timeout;
+            service = ExpirationYearFromPatternName;
+        }));
+
+        it('should get expiration year from pattern name', inject(function () {
+            var res = service.getExpirationYearFromPatternName('Z',"October 13, 2014 11:13:00");
+            expect(res).toBe("2015");
+
+            res = service.getExpirationYearFromPatternName('F',"October 13, 2014 11:13:00");
+            expect(res).toBe("2014");
         }));
     });
 });
