@@ -1149,6 +1149,28 @@ angular.module('ngMo.my_patterns', [
                     d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
                 }
                 return monthList;
+            },
+            getMySubscriptionsListMonth: function () {
+                var today = new Date();
+                var monthList = [];
+                var d = new Date(today.getFullYear(), today.getMonth(), 1);
+                //the list is actual month + next month if day today is greater than 15
+                if (today.getDate() < 15){
+                    numMonths = 1;
+                }else{
+                    numMonths = 2;
+                }
+                for (i = 0; i < numMonths; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
             }
 
 
