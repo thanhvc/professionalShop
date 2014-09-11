@@ -22,6 +22,15 @@
                 <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 10}" ng-click="addToCorrelationList(pattern.id);">>></span></td>
             </tr>
         </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <div style="padding-top: 20px;">
+                    <span ng-if="myData.length == 0">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
     </table>
     <div style="float:right;">
         <table style="width: 450px;" class="table-correlation">

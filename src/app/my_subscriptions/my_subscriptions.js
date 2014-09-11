@@ -68,7 +68,8 @@ angular.module('ngMo.my_subscriptions', [
             }
             config = {
                 params: {
-                    'token': $window.sessionStorage.token
+                    'token': $window.sessionStorage.token,
+                    'month': filtering.month.month
                 }
             };
 
@@ -107,7 +108,7 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
-    .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$modal) {
+    .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal) {
 
         $scope.filterOptions = "";
         $scope.$on('$stateChangeStart', function (event, toState){
@@ -161,7 +162,7 @@ angular.module('ngMo.my_subscriptions', [
 
             };
             if (!$scope.filterOptions.months) {
-                $scope.filterOptions.months = MonthSelectorService.getListMonths();
+                $scope.filterOptions.months = MonthSelectorService.getMySubscriptionsListMonth();
             }
             //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
             $scope.updateSelectorMonth();
@@ -183,29 +184,12 @@ angular.module('ngMo.my_subscriptions', [
             }
         ];
 
-        $scope.pagingOptions = {
-            pageSize: 10,
-            currentPage: 1
-        };
-
-        $scope.nextMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
-            $scope.restartFilter();
-            $scope.saveUrlParams();
-
-        };
-        $scope.previousMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
-            $scope.restartFilter();
-            $scope.saveUrlParams();
-        };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
-            $scope.restartFilter();
-            $scope.saveUrlParams();
+            $scope.loadPage();
         };
         //synchronize the selector with the month of the filter
         $scope.updateSelectorMonth = function () {
@@ -216,17 +200,7 @@ angular.module('ngMo.my_subscriptions', [
             }
         };
 
-        $scope.canMove = function (direction) {
-            if (direction > 0) {
-                return (($scope.filterOptions.months[11].value !== $scope.filterOptions.filters.month.value));
-            }
-            else {
-                return (($scope.filterOptions.months[0].value !== $scope.filterOptions.filters.month.value));
-            }
-        };
-
         $scope.loadPage = function () {
-            var defer = $q.defer();
             var data = MyPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
 
                 $scope.myPacksTablePacks = [
