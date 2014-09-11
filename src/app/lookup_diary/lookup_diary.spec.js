@@ -1,4 +1,4 @@
-describe('The Lookup diary controller service', function () {
+describe('The Lookup diary controller', function () {
 
     describe('template', function () {
         var $scope, ctrl, state, $http, $compile,$location, stateParams,expiration,tabsService,actualDateService,diaryData;
@@ -84,7 +84,6 @@ describe('The Lookup diary controller service', function () {
         });
 
         it("should change the current tab to a given one", function(){
-
             $scope.changeTab(1);
             expect(tabsService.getActiveTab()).toBe(1);
         });
