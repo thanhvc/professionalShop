@@ -3,23 +3,23 @@
         <colgroup span="5"></colgroup>
         <thead >
         <tr  class="pairs-index-header">
-            <th >
+            <th class="text-center">
                 <span class="pairs-index-company" >Nombre Compañías PAR</span>
             </th>
-            <th  >
+            <th  class="text-center">
                 <span class="pairs-index-market">Mercado</span>
             </th>
 
-            <th >
+            <th class="width-pair-vol text-center">
                 <span style="padding-left:5px;">Volatilidad COMPONENTES (%)</span>
             </th>
-            <th >
+            <th class="text-center">
                 <span class="pairs-index-date">Fecha Cálculo</span>
             </th>
-            <th >
+            <th class="text-center">
                 <span class="pairs-index-vol">Volatilidad PAR (%)</span>
             </th>
-            <th  >
+            <th  class="text-center">
                 <span class="pairs-index-fav" tooltip-html-unsafe="Favoritos">Fav.</span>
             </th>
         </tr>
@@ -60,8 +60,8 @@
 
 
         </td>
-        <td >
-            <a ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartUrl);$event.stopPropagation();" >{{data.pairVolatility}}</a>
+        <td class="text-center pairs-vol-value">
+            <a ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartUrl);$event.stopPropagation();" >{{data.pairVolatility | number:0}}</a>
         </td>
         <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
             <div tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.favorite == true}"></div>
