@@ -107,7 +107,7 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
-    .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q) {
+    .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$window,$q,$modal) {
 
         $scope.filterOptions = "";
         $scope.$on('$stateChangeStart', function (event, toState){
@@ -120,6 +120,24 @@ angular.module('ngMo.my_subscriptions', [
                 $scope.subPage = toState.data.subPage;
             }
         });
+
+        /*select option of re-buy or cancel pack*/
+        $scope.selectOption = function(pack) {
+
+            $scope.operationPack = pack;
+                var modalInstanceLimit = $modal.open({
+                    template:"<div class=\"modal-alert-portfolio\"><div class=\"header-alert-portfolio\">Aviso <img class=\"close-alert-portfolio\" " +
+                        " src=\"assets/img/close_modal.png\" ng-click=\"close()\"></div><div class=\"body-alert-portfolio\">" +
+                        "Está seguro que desea realizar la devolución de la suscripción {{operationPack.name}} que finaliza en {{operationPack.endDate | date: 'MMMM yyyy'}}",
+                    controller: ModalMyPackstCtrl,
+                    resolve: {
+                        infoViews: function () {
+                            return $scope.info_views;
+                        }
+                    }
+                });
+
+        };
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
         $scope.restartFilter = function () {
@@ -290,3 +308,12 @@ angular.module('ngMo.my_subscriptions', [
     })
 
 ;
+
+
+var ModalMyPackstCtrl = function ($scope, $modalInstance) {
+
+    $scope.close = function () {
+        $modalInstance.close();
+    };
+
+};

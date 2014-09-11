@@ -18,7 +18,7 @@
             <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
             <td>{{pack.endDate | date: 'MMMM yyyy'}}</td>
             <td>
-                <select ng-model="pack.orden">
+                <select ng-model="pack.orden" ng-change="selectOption(pack)">
                     <option value="">Elegir</option>
                     <option value="0">Renovar</option>
                     <option value="1">Cancelar</option>
