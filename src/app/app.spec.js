@@ -676,6 +676,8 @@ describe('The cart directive', function () {
             $scope.openCart();
 
         }));
+
+
     });
 });
 

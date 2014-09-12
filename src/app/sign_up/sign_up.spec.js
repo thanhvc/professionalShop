@@ -165,10 +165,15 @@ describe('The SignUp ', function () {
             scope.firstCallback(statusOK);
             expect(scope.result).toBe(statusOK);
 
+            //form navigation
+            var input = angular.element(document.createElement('input'));
+            input.id='input';
+            //scope.nextInput('input');
         });
 
     });
 });
+
 
 describe('The match directive', function () {
 
@@ -176,29 +181,21 @@ describe('The match directive', function () {
     beforeEach(angular.mock.module('auth'));
 
     describe('template', function () {
-        var $compile, $scope, httpMock, template, $modal, $cookieStore, $window;
+        var $compile, $scope, httpMock, template, $parse;
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, $httpBackend, _$modal_, _$cookieStore_, _$window_) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, $httpBackend, _$parse_) {
             $compile = _$compile_;
+            $parse = _$parse_;
             $scope = _$rootScope_.$new();
             httpMock = $httpBackend;
-            $cookieStore = _$cookieStore_;
-            $window = _$window_;
-
-            $window.sessionStorage = { // mocking sessionStorage
-                getItem: function (key) {
-                    return this[key];
-                }
-            };
-
-            template = $compile("<match></match>")($scope);
-            $scope.$apply();
 
         }));
 
         it('should toggle when the user sends the signin form', inject(function () {
+            template = $compile("<match></match>")($scope);
+            $scope.$digest();
+            $scope.$watch('link',[$scope, template, template.children(), 'ctrl']);
             template.triggerHandler('click',[$scope, template, template.children(), 'ctrl']);
-            //expect($scope.stateSignInForm).toNotBe(undefined);
         }));
     });
 });
