@@ -27,7 +27,8 @@ angular.module('ngMo', [
         'auth',
         'ngMo.Activate',
         'ngMo.detail',
-        'ngMo.payment'
+        'ngMo.payment',
+        'ngMo.cancel_pack'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider) {
