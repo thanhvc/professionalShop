@@ -1,6 +1,6 @@
 <div class="portfolio-tools-container">
 
-    <table style="width: 400px;float:left;" class="table-portfolio">
+    <table style="width: 450px;float:left;" class="table-portfolio">
         <thead>
             <tr>
                 <td>Id</td>
@@ -58,11 +58,13 @@
                     <span  class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}
                     </span>
                 </td>
+                <td class="width-month-table-portfolio">
+                    {{pattern.entryDate | date: 'MMM'}}
+                </td>
                 <td>
                     <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'">V</span>
                     <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'">C</span>
                 </td>
-                <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
                     <div class="current-favourite cursor-pointer" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavoriteFromList(pattern.id);"
                          ng-class="{'favourite-added': pattern.favorite == true}"></div>

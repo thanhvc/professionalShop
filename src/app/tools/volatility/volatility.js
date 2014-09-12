@@ -132,7 +132,7 @@ angular.module('ngMo.volatility', [
                 setTimeout(function(){
                     //event.srcElement.parentElement.className ='graphic-div';
                     $scope.graph.className='graphic-div move-to-the-right';
-                    $scope.graph.addEventListener('webkitTransitionEnd', function(event2) {
+                    $scope.graph.addEventListener('transitionend', function(event2) {
                         if ($scope.graph != null) {
                             $scope.graph.style.cssText = 'display:none';
                             $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
@@ -153,8 +153,12 @@ angular.module('ngMo.volatility', [
 
             var elemDiv = document.createElement('div');
 
-            var h = inputEvent.srcElement.parentElement.parentElement.parentElement.offsetHeight + 90;
-            var w = inputEvent.srcElement.parentElement.parentElement.parentElement.offsetWidth + 2;
+            var h = '';
+            var w = '';
+
+            h = inputEvent.target.parentElement.parentElement.parentElement.offsetHeight + 90;
+            w = inputEvent.target.parentElement.parentElement.parentElement.offsetWidth + 2;
+
             var elemTitle = document.createElement('span');
 
             //check the name (if is simple or pair)
@@ -188,23 +192,17 @@ angular.module('ngMo.volatility', [
                 containerTitle.appendChild(elemTitle);
             }
 
-
-
-
-
-
-
             elemDiv.className = 'graphic-div';
             elemDiv.style.cssText += 'height:' + h + 'px;';
             elemDiv.style.cssText += 'width:' + w + 'px;';
             var img = document.createElement('img');
-            if (url == null){
+            /*if (url == null){
                 //mocked graph
                 img.src = "assets/img/graphic.png";
-            } else {
+            } else {*/
                 //real graph
                 img.src=url;
-            }
+            //}
             img.className ="graphic-image-div";
 
             var closeButton = document.createElement('img');
@@ -216,7 +214,8 @@ angular.module('ngMo.volatility', [
             elemDiv.appendChild(containerTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
-            inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
+            inputEvent.target.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
+
 
             setTimeout(function(){
                 elemDiv.className+=' move';

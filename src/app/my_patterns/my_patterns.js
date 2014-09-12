@@ -133,7 +133,7 @@ angular.module('ngMo.my_patterns', [
                 value: 2
             },
             {
-                title: 'Par Indices',
+                title: 'Par Índices',
                 active: activeTab === 3,
                 value: 3
             }
