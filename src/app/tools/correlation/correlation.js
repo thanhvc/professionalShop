@@ -30,6 +30,20 @@ angular.module('ngMo.correlation', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+
+        $scope.moving = false; //moving between tables
+        $scope.startLoading = function() {
+
+            $scope.loading = true;
+            $scope.myData =[];
+        };
+
+        $scope.startMoving = function() {
+            $scope.moving = true;
+        };
+        $scope.endMoving = function() {
+            $scope.moving = false;
+        };
         $scope.loading = false;
         $scope.calculating = false;
         //tabs and variables
@@ -179,6 +193,7 @@ angular.module('ngMo.correlation', [
         };
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            $scope.startLoading();
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.filterOptions.filters.active_tab = idTab;
@@ -281,7 +296,6 @@ angular.module('ngMo.correlation', [
                     $scope.filterOptions.filters.selectedRegion = $window.sessionStorage.correlationRegionPair;
                 }
             }
-            $scope.loading = true;
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.correlationList, function (data) {
                     $scope.loading = false;
@@ -347,14 +361,14 @@ angular.module('ngMo.correlation', [
 
         $scope.addToCorrelationList = function (pattern) {
 
-            if ($scope.correlationList.length < 10 && !$scope.loading ) {
+            if ($scope.correlationList.length < 10 && !$scope.moving ) {
                 if ($scope.correlationList.length === 0) {
                     $scope.pagingOptions.currentPage = 1;
                 }
-                $scope.loading = true;
+                $scope.startMoving();
                 var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.correlationList, function (data) {
-                        $scope.loading = false;
+                        $scope.endMoving();
                         $scope.myData = data.patterns;//data.page;
                         $scope.correlationList = data.correlationPatterns;
                         updateCorrelationListSessionStorage(data.correlationPatterns);
@@ -380,11 +394,11 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.deleteFromCorrelationList = function (pattern) {
-            if (!$scope.loading) {
-                $scope.loading = true;
+            if (!$scope.moving) {
+                $scope.startMoving();
                 var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1, $scope.correlationList, function (data) {
-                        $scope.loading = false;
+                        $scope.endMoving();
                         $scope.myData = data.patterns;//data.page;
                         $scope.correlationList = data.correlationPatterns;
                         updateCorrelationListSessionStorage(data.correlationPatterns);
@@ -476,12 +490,14 @@ angular.module('ngMo.correlation', [
          *  make a new search with the filters, restart the page and search, for the button Search in the page
          */
         $scope.search = function () {
+            $scope.startLoading();
             $scope.applyFilters();
         };
 
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
             //$scope.pagingOptions.currentPage = 1; //restart the page
+
             $scope.saveUrlParams();
             //$scope.loadPage();
         };
@@ -515,6 +531,7 @@ angular.module('ngMo.correlation', [
             }
         };
         $scope.selectRegion = function () {
+            $scope.startLoading();
             $scope.pagingOptions.currentPage = 1;
             $scope.setRegion();
         };
@@ -533,6 +550,7 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.selectMarket = function () {
+            $scope.startLoading();
             $scope.pagingOptions.currentPage = 1;
             //in stock is required refresh industries, sectors, in futures and
             //others tabs dont have this selectors
@@ -542,6 +560,7 @@ angular.module('ngMo.correlation', [
 
         //when we change index type (pairs_index, or index)
         $scope.selectIndexType = function () {
+            $scope.startLoading();
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.applyFilters();
             loadCorrelationList();
@@ -555,18 +574,21 @@ angular.module('ngMo.correlation', [
 
 
         $scope.nextMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var month = date[0];
             var year = date[1];

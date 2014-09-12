@@ -388,6 +388,8 @@ angular.module('ngMo.my_patterns', [
         };
         /*ab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            $scope.myData= [];
+            $scope.loading = true;
             $scope.dataLoaded = false; //Not showming data until they have been loaded
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
@@ -462,7 +464,7 @@ angular.module('ngMo.my_patterns', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
-            $scope.loading = true;
+           // $scope.loading = true;
             var data = PatternsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
@@ -521,8 +523,16 @@ angular.module('ngMo.my_patterns', [
             $scope.applyFilters();
         };
 
+        //start loading set loading = true to show loading message and empty the table
+        $scope.startLoading = function() {
+
+            $scope.loading = true;
+            $scope.myData =[];
+        };
+
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
+            $scope.startLoading();
             $scope.pagingOptions.currentPage = 1; //restart the page
             $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
@@ -639,6 +649,7 @@ angular.module('ngMo.my_patterns', [
 
 
         $scope.nextMonth = function () {
+           $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
@@ -646,6 +657,7 @@ angular.module('ngMo.my_patterns', [
 
         };
         $scope.previousMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
@@ -653,6 +665,7 @@ angular.module('ngMo.my_patterns', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.loading= true;
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
@@ -750,8 +763,15 @@ angular.module('ngMo.my_patterns', [
             }
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
+            //check if the new urlParamsSend are equals that the filters that are already in the url,if they are equals,
+            //we launch loadPage
+            url = $location.search();
+            if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
+                $scope.loadPage();
+            } else {
+                $location.path('/patterns').search(urlParamsSend);
+            }
 
-            $location.path('/patterns').search(urlParamsSend);
         };
         $scope.loadUrlParams = function () {
             var params = $location.search();

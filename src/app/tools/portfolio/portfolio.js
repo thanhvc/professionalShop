@@ -30,7 +30,20 @@ angular.module('ngMo.portfolio', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
-        $scope.loading= false;
+        $scope.moving = false; //moving between tables
+        $scope.startLoading = function() {
+
+            $scope.loading = true;
+            $scope.myData =[];
+        };
+
+        $scope.startMoving = function() {
+            $scope.moving = true;
+        };
+        $scope.endMoving = function() {
+            $scope.moving = false;
+        };
+        $scope.loading = false;
         $scope.calculating= false;
         //tabs and variables
         //pattern number for rents
@@ -174,6 +187,7 @@ angular.module('ngMo.portfolio', [
         };
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            $scope.startLoading();
             //we change the page to 1, to load the new tab
             TabsService.changePortfolioActiveTab(idTab);
             $scope.restartFilter();
@@ -270,11 +284,11 @@ angular.module('ngMo.portfolio', [
         };
 
         $scope.addToPortfolioList = function (pattern) {
-            if ($scope.portfolioList.length < 20 && !$scope.loading ) {
-                $scope.loading= true;
+            if ($scope.portfolioList.length < 20 && !$scope.moving ) {
+                $scope.startMoving();
                 var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.portfolioList, function (data) {
-                        $scope.loading= false;
+                        $scope.endMoving();
                         $scope.myData = data.patterns;//data.page;
                         $scope.portfolioList = data.portfolioPatterns;
                         updatePortfolioListSessionStorage(data.portfolioPatterns);
@@ -289,15 +303,15 @@ angular.module('ngMo.portfolio', [
 
         $scope.deleteFromPortfolioList = function (pattern) {
 
-            if (!$scope.loading) {
-                $scope.loading= true;
+            if (!$scope.moving) {
+                $scope.startMoving();
                 var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1, $scope.portfolioList, function (data) {
                         $scope.myData = data.patterns;//data.page;
                         $scope.portfolioList = data.portfolioPatterns;
                         updatePortfolioListSessionStorage(data.portfolioPatterns);
                         $scope.results = data.results;//data.results;
-                        $scope.loading = false;
+                        $scope.endMoving();
                         $scope.found = data.found;//data.found;
                         if (!$scope.$$phase) {
                             $scope.$apply();
@@ -393,6 +407,7 @@ angular.module('ngMo.portfolio', [
          *  make a new search with the filters, restart the page and search, for the button Search in the page
          */
         $scope.search = function () {
+            $scope.startLoading();
             $scope.applyFilters();
         };
 
@@ -428,6 +443,7 @@ angular.module('ngMo.portfolio', [
             }
         };
         $scope.selectRegion = function () {
+            $scope.startLoading();
             $scope.refreshRegion();
             $scope.applyFilters();
 
@@ -441,6 +457,7 @@ angular.module('ngMo.portfolio', [
         };
 
         $scope.selectMarket = function () {
+            $scope.startLoading();
             //in stock is required refresh industries, sectors, in futures and
             //others tabs dont have this selectors
             $scope.refreshMarket();
@@ -449,6 +466,7 @@ angular.module('ngMo.portfolio', [
 
         //when we change index type (pairs_index, or index)
         $scope.selectIndexType = function () {
+            $scope.startLoading();
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.applyFilters();
             loadPortfolioList();
@@ -462,18 +480,21 @@ angular.module('ngMo.portfolio', [
 
 
         $scope.nextMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);

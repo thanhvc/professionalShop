@@ -252,6 +252,13 @@ angular.module('ngMo.lookup_diary', [
             });
         };*/
 
+        //start loading set loading = true to show loading message and empty the table
+        $scope.startLoading = function() {
+
+            $scope.loading = true;
+            $scope.myData =[];
+        };
+
         $scope.open = function (patternId, assetName, bearishAssetName, patternType, actualPrice, actualCondition) {
 
             var modalInstance = $modal.open({
@@ -343,6 +350,7 @@ angular.module('ngMo.lookup_diary', [
         };
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            $scope.startLoading();
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
@@ -477,6 +485,7 @@ angular.module('ngMo.lookup_diary', [
 
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
+            $scope.startLoading();
             $scope.pagingOptions.currentPage = 1; //restart the page
             $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
@@ -657,6 +666,7 @@ angular.module('ngMo.lookup_diary', [
 
 
         $scope.nextMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
@@ -664,6 +674,7 @@ angular.module('ngMo.lookup_diary', [
 
         };
         $scope.previousMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
@@ -671,6 +682,7 @@ angular.module('ngMo.lookup_diary', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
@@ -783,8 +795,15 @@ angular.module('ngMo.lookup_diary', [
             }
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
+            //check if the new urlParamsSend are equals that the filters that are already in the url,if they are equals,
+            //we launch loadPage
+            url = $location.search();
+            if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
+                $scope.loadPage();
+            } else {
+                $location.path('/lookup-diary').search(urlParamsSend);
+            }
 
-            $location.path('/lookup-diary').search(urlParamsSend);
         };
         $scope.loadUrlParams = function () {
             var params = $location.search();

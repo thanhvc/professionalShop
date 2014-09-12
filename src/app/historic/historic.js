@@ -247,6 +247,14 @@ angular.module('ngMo.historic', [
 
         };
 
+        //start loading set loading = true to show loading message and empty the table
+        $scope.startLoading = function() {
+
+            $scope.loading = true;
+            $scope.myData =[];
+        };
+
+
 
         /*load the table template*/
         $scope.getTemplateTable = function () {
@@ -283,9 +291,9 @@ angular.module('ngMo.historic', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
-            $scope.loading = true;
             var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
+
                     /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
@@ -349,6 +357,7 @@ angular.module('ngMo.historic', [
 
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
+            $scope.startLoading();
             $scope.pagingOptions.currentPage = 1; //restart the page
             $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
@@ -463,6 +472,7 @@ angular.module('ngMo.historic', [
 
 
         $scope.nextMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
@@ -470,6 +480,7 @@ angular.module('ngMo.historic', [
 
         };
         $scope.previousMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(-1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
@@ -477,6 +488,7 @@ angular.module('ngMo.historic', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var month = date[0];
             var year = date[1];
@@ -593,8 +605,15 @@ angular.module('ngMo.historic', [
             }
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
+            //check if the new urlParamsSend are equals that the filters that are already in the url,if they are equals,
+            //we launch loadPage
+            url = $location.search();
+            if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
+                $scope.loadPage();
+            } else {
+                $location.path('/historic').search(urlParamsSend);
+            }
 
-            $location.path('/historic').search(urlParamsSend);
         };
         $scope.loadUrlParams = function () {
             var params = $location.search();
