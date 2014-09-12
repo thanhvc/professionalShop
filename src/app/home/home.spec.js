@@ -1,97 +1,24 @@
-describe('The catalog table directive', function () {
-    beforeEach(angular.mock.module("ngMo"));
-    describe('template', function () {
-        var $compile;
-        var $scope;
-        var $state;
-        var httpMock;
-
-        beforeEach(module('templates-app'));
-
-        beforeEach(inject(function (_$compile_, $rootScope, _$state_, $httpBackend) {
-            $compile = _$compile_;
-            $scope = $rootScope.$new();
-            $state = _$state_;
-            httpMock = $httpBackend;
-            $state.params.packId = "P1";
-            httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
-            httpMock.when('GET', $rootScope.urlService+'/homepacks').respond(200);
-        }));
-
-        /**
-         * TODO: The filters aren't apply.
-         */
-       /* it('should have 1 item into table after apply name filter', inject(function () {
-            var template = $compile("<div selected-pack-catalog></div>")($scope);
-            $scope.$apply();
-            var input = template.find('input');
-            $scope.namePattern = "aba";
-            $scope.$apply();
-            var trs = template.find('tr');
-            //two <tr> for header more one result
-            expect(trs.length).toEqual(3);
-        }));
-
-        it('should have 1 item into table after apply volatility filter (<25)', inject(function () {
-            var template = $compile("<div selected-pack-catalog></div>")($scope);
-            $scope.$apply();
-            $scope.changeFilter("<25", 'VolatilityCatalogFilter');
-
-            $scope.$apply();
-            var trs = template.find('tr');
-            //two <tr> for header more the results
-            expect(trs.length).toEqual(3);
-        }));
-
-        it('should have 1 item into table after apply volatility filter (>25<50)', inject(function () {
-            var template = $compile("<div selected-pack-catalog></div>")($scope);
-            $scope.$apply();
-            $scope.changeFilter(">25<50", 'VolatilityCatalogFilter');
-            $scope.$apply();
-            var trs = template.find('tr');
-            //two <tr> for header more the results
-            expect(trs.length).toEqual(3);
-        }));
-
-        it('should have 1 item into table after apply volatility filter (>50<75)', inject(function () {
-            var template = $compile("<div selected-pack-catalog></div>")($scope);
-            $scope.$apply();
-            $scope.changeFilter(">50<75", 'VolatilityCatalogFilter');
-            $scope.$apply();
-            var trs = template.find('tr');
-            //two <tr> for header more the results
-            expect(trs.length).toEqual(3);
-        }));
-
-
-        it('should have 1 item into table after apply volatility filter (>75)', inject(function () {
-            var template = $compile("<div selected-pack-catalog></div>")($scope);
-            $scope.$apply();
-            $scope.changeFilter(">75", 'VolatilityCatalogFilter');
-            $scope.$apply();
-            var trs = template.find('tr');
-            //two <tr> for header more the results
-            expect(trs.length).toEqual(3);
-        }));*/
-    });
-});
 
 describe('The carousel directive', function () {
     beforeEach(angular.mock.module("ngMo"));
+    beforeEach(angular.mock.module("ngMo.home"));
     describe('template', function () {
         var $compile;
         var $scope;
         var $state;
         var httpMock;
+        var $timeout;
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, $rootScope, _$state_, $httpBackend) {
+        beforeEach(inject(function (_$compile_, $rootScope, _$state_, $httpBackend, _$timeout_) {
             $compile = _$compile_;
             $scope = $rootScope.$new();
             $state = _$state_;
             httpMock = $httpBackend;
+            $timeout = _$timeout_;
             httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
+            httpMock.when('GET', $rootScope.urlService+'/homepacks').respond(200);
         }));
 
         it('should have 3 selectors', inject(function () {
@@ -123,6 +50,22 @@ describe('The carousel directive', function () {
             expect(lis.length).toEqual(3);
         }));
 
+        it('should respond to a click event', function(){
+            $scope.infoViews =['view1', 'view2'];
+            var template = $compile("<div carousel-controller-provider><li class=''></li></div>")($scope);
+            $scope.$apply();
+            template.triggerHandler('click', $scope,template);
+            $timeout.flush(100);
+        });
+
+        //same test as above but goes to another branch
+        it('should respond to a click event', function(){
+            $scope.infoViews =['view1', 'view2'];
+            var template = $compile("<div carousel-controller-provider><li class='active'></li></div>")($scope);
+            $scope.$apply();
+            template.triggerHandler('click', $scope,template);
+            $timeout.flush(100);
+        });
     });
 });
 
@@ -151,7 +94,6 @@ describe('The homeText directive', function () {
                 if (item === classExpected) {
                     found = true;
                 }
-
             });
             return found;
         };
@@ -171,6 +113,18 @@ describe('The homeText directive', function () {
                 log);
             expect(log.length).toEqual(2);
         }));
+
+        it('should select tab when clicking it', function(){
+            var template = $compile("<div home-texts></div>")($scope);
+            $scope.onClickTab();
+            expect($scope.onClickTab).toNotBe(undefined);
+        });
+
+        it('should select the second tab when clicking it', function(){
+            var template = $compile("<div home-texts></div>")($scope);
+            $scope.onClickSecondTab();
+            expect($scope.onClickSecondTab).toNotBe(undefined);
+        });
 
     });
 });
@@ -368,3 +322,92 @@ describe('The search external catalog', function () {
     });
 });
 
+describe('The ActualDate service', function(){
+
+    var service;
+    var $scope;
+    var $compile;
+
+    beforeEach(angular.mock.module("ngMo.home"));
+    beforeEach(module('templates-app'));
+    beforeEach(inject(function (ActualDateService, _$rootScope_, _$compile_) {
+        service = ActualDateService;
+        $scope = _$rootScope_;
+        $compile = _$compile_;
+    }));
+
+    it('should return the actual date', function(){
+        $scope.$apply();
+        service.actualDate();
+
+    });
+
+    it('should return the actual week', function(){
+        $scope.$apply();
+        service.actualWeek();
+
+    });
+
+    it('should return the next date', function(){
+        $scope.$apply();
+        service.nextDate();
+
+    });
+
+});
+
+describe('The packs service', function(){
+
+    var service,$scope,$compile, $http, mockMyService,packsService;
+
+    beforeEach(angular.mock.module("ngMo.home"));
+    beforeEach(module('templates-app'));
+
+    beforeEach(inject(function (PacksService, _$rootScope_, _$compile_,$httpBackend) {
+
+
+        //spyOn(packService, "obtainPacks");
+        service = PacksService;
+        $scope = _$rootScope_;
+        $compile = _$compile_;
+        $http = $httpBackend;
+        $http.whenGET(_$rootScope_.urlService+'/homepacks').respond(200);
+    }));
+
+    it('should return the actual date', function(){
+        $http.expectGET($scope.urlService+'/homepacks');
+        spyOn(service, 'obtainPacks').andCallThrough();
+        expect(service.obtainPacks).toNotBe(undefined);
+    });
+});
+
+
+//Testing home controller
+describe('The home controller', function() {
+    var $scope, ctrl,$http,packsService;
+    beforeEach(angular.mock.module("ngMo"));
+    beforeEach(angular.mock.module("ngMo.home"));
+
+
+
+    beforeEach(inject(function ($controller, $rootScope, _$http_, _$httpBackend_, _ActiveTabService_,_AnchorLinkService_, _SecondActiveTabService_,_PacksService_,_IsLogged_) {
+
+        _$httpBackend_.when('GET', $rootScope.urlService+'/homepacks').respond(200);
+        ctrl = $controller;
+        $scope = $rootScope.$new();
+        $http = _$httpBackend_;
+        packsService = _PacksService_;
+        $controller('HomeCtrl', {'$rootScope': $rootScope, '$http': _$http_,'$scope': $scope, 'ActiveTabService': _ActiveTabService_, 'SecondActiveTabService': _SecondActiveTabService_, 'AnchorLinkService': _AnchorLinkService_, 'IsLogged':_IsLogged_, 'PacksService':_PacksService_});
+    }));
+
+    it("should change change cart's position", function(){
+        $scope.changePosCart();
+        expect($scope.positionCart).toEqual('top');
+    });
+
+    it('should load packs', function(){
+        $scope.loadPacks();
+    });
+
+
+});
