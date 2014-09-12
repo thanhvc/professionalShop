@@ -1,11 +1,12 @@
 describe('The SignUp ', function () {
     beforeEach(angular.mock.module("ngMo"));
     describe('form ', function () {
-
         var compile;
         var scope;
         var state;
         var template;
+        var httpMock;
+
         beforeEach(module('ui.router'));//needed to user $state
         beforeEach(module('ui.bootstrap'));//to load $modal
         beforeEach(angular.mock.module('singUp'));//start the module
@@ -13,6 +14,11 @@ describe('The SignUp ', function () {
 
             httpMock = $httpBackend;
             httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
+            httpMock.when('POST', $rootScope.urlService+'/login').respond(200);
+            httpMock.when('POST', $rootScope.urlService+'/testemail').respond(200);
+            httpMock.when('GET', $rootScope.urlService+'/countries').respond({
+                 result: ['Spain', 'China', 'USA']
+            });
             httpMock.when('GET', $rootScope.urlService+'/countries').respond(200);
             httpMock.when('POST', $rootScope.urlService+'/testemail').respond(
                 {
@@ -143,13 +149,26 @@ describe('The SignUp ', function () {
             scope.newSubscriptionMode = undefined;
             scope.createNewSubs();
 
-
             scope.clearState();
+
+            //test firstCallBack's other branches
+            statusOK = {
+                result: {username: "notUsed"},
+                status: "ok"
+            };
+            scope.firstCallback(statusOK);
+            expect(scope.errorForm).toBe(true);
+            statusOK = {
+                username: "used",
+                status: "ok"
+            };
+            scope.firstCallback(statusOK);
+            expect(scope.result).toBe(statusOK);
+
         });
 
     });
 });
-
 
 describe('The match directive', function () {
 
@@ -204,8 +223,11 @@ describe('The SignUp Service', function () {
 
         it('should be able to go to first and secod steps', inject(function () {
             service.firstStep();
-
             service.secondStep();
+        }));
+
+        it('should be able to get all countries', inject(function(){
+            service.getCountries();
         }));
     });
 
