@@ -143,19 +143,15 @@ angular.module('ngMo.detail', [
 
             var elemDiv = document.createElement('div');
 
-            var h = inputEvent.srcElement.parentElement.parentElement.parentElement.offsetHeight-40;
-            var w = inputEvent.srcElement.parentElement.parentElement.parentElement.offsetWidth-60;
+            var h = inputEvent.target.parentElement.parentElement.parentElement.offsetHeight-40;
+            var w = inputEvent.target.parentElement.parentElement.parentElement.offsetWidth-60;
            // var elemTitle = document.createElement('span');
             //elemTitle.innerHTML = inputEvent.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
             //elemTitle.innerHTML = name;
             var img = document.createElement('img');
-            if (url == null){
-                //mocked graph
-                img.src = "assets/img/graphic.png";
-            } else {
-                //real graph
-                img.src=url;
-            }
+
+            img.src=url;
+
             img.className ="graphic-image-div-lookup-diary";
             elemDiv.className = 'div-graph-detail';
             elemDiv.style.cssText += 'height:' + h + 'px;';
@@ -172,7 +168,7 @@ angular.module('ngMo.detail', [
            // elemDiv.appendChild(elemTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
-            inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
+            inputEvent.target.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
 
             setTimeout(function(){
                 elemDiv.className+=' move';
