@@ -104,6 +104,11 @@ angular.module('ngMo.volatility', [
             }
         });
         $scope.loading = false;
+
+        $scope.startLoading = function() {
+            $scope.loading = true;
+            $scope.myData = [];
+        };
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
@@ -384,7 +389,6 @@ angular.module('ngMo.volatility', [
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
 
        $scope.loadPage = function () {
-           $scope.loading = true;
             var data = VolatilityService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                 $scope.loading = false;
                 $scope.myData = data.patterns;//data.page;
@@ -440,7 +444,7 @@ angular.module('ngMo.volatility', [
          *  make a new search with the filters, restart the page and search, for the button Search in the page
          */
         $scope.search = function () {
-
+            $scope.startLoading();
 
             $scope.applyFilters();
         };
@@ -548,6 +552,7 @@ angular.module('ngMo.volatility', [
         };
         //when we change index type (pairs_index, or index)
         $scope.selectIndexType = function () {
+            $scope.startLoading();
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.restartFilter();
             $scope.applyFilters();
@@ -560,18 +565,21 @@ angular.module('ngMo.volatility', [
 
 
         $scope.nextMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
 
             var month = date[0];

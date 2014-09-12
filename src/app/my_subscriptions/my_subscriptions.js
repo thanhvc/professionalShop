@@ -111,6 +111,7 @@ angular.module('ngMo.my_subscriptions', [
     .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal) {
 
         $scope.filterOptions = "";
+        $scope.loading=false;
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -205,6 +206,7 @@ angular.module('ngMo.my_subscriptions', [
         };
 
         $scope.loadPage = function () {
+            $scope.loading = true;
             var data = MyPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
 
                 $scope.myPacksTablePacks = [
@@ -241,6 +243,7 @@ angular.module('ngMo.my_subscriptions', [
             });
 
             var data2 = MySubscriptionPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
+                $scope.loading = false;
                 $scope.mySubscriptionsTablePacks = [
                     {
                         title: 'Acciones',
