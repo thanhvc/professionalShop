@@ -384,19 +384,21 @@ describe('The packs service', function(){
 
 //Testing home controller
 describe('The home controller', function() {
-    var $scope, ctrl,$http,packsService;
+    var $scope, ctrl,$http,packsService, $stateParams;
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(angular.mock.module("ngMo.home"));
 
 
 
-    beforeEach(inject(function ($controller, $rootScope, _$http_, _$httpBackend_, _ActiveTabService_,_AnchorLinkService_, _SecondActiveTabService_,_PacksService_,_IsLogged_) {
+    beforeEach(inject(function ($controller, $rootScope, _$http_, _$httpBackend_, _ActiveTabService_,_AnchorLinkService_, _SecondActiveTabService_,_PacksService_,_IsLogged_, _$stateParams_) {
 
         _$httpBackend_.when('GET', $rootScope.urlService+'/homepacks').respond(200);
         ctrl = $controller;
         $scope = $rootScope.$new();
         $http = _$httpBackend_;
         packsService = _PacksService_;
+        $stateParams = _$stateParams_;
+        $stateParams.activated = true;
         $controller('HomeCtrl', {'$rootScope': $rootScope, '$http': _$http_,'$scope': $scope, 'ActiveTabService': _ActiveTabService_, 'SecondActiveTabService': _SecondActiveTabService_, 'AnchorLinkService': _AnchorLinkService_, 'IsLogged':_IsLogged_, 'PacksService':_PacksService_});
     }));
 
