@@ -1,20 +1,35 @@
-/**
- * Created by robgon on 10/06/14.
-
- describe('The Patterns view ', function () {
+describe('My profile service', function() {
+    var $scope, ctrl, $http, $state,service;
     beforeEach(angular.mock.module("ngMo"));
-    beforeEach(module('ui.router'));
-    beforeEach(module('ui.bootstrap'));
+    beforeEach(angular.mock.module("ngMo.my_profile"));
 
-    beforeEach(inject(function ($templateCache, $compile, $rootScope, $controller, $state, $httpBackend) {
-        //create an empty scope
-        scope = $rootScope.$new();
-        //declare the controller and inject our empty scope
-        $controller('PatternsCtrl', {$scope: scope});
-        state = $state;
-        compile = $compile;
-        template = $templateCache;
-        httpMock = $httpBackend;
-        httpMock.when('GET', $rootScope.urlService+'/loaduser').respond(200);
-        httpMock.when('GET', 'src/app/my_patterns/data/testdataStock.json.js?pageSize=10&page=1').respond([
-            {*/
+
+    beforeEach(inject(function (ProfileService, $rootScope, _$http_, _$httpBackend_, _$state_) {
+
+        service = ProfileService;
+        $scope = $rootScope.$new();
+        $http = _$httpBackend_;
+        $state = _$state_;
+        $state.$current = {
+            data :{ subPage : 1}
+        };
+
+    }));
+
+    it("should be able to load user", function () {
+        service.loadUser();
+        expect(service.loadUser).toNotBe(undefined);
+    });
+
+    it("should be able to edit user", function () {
+        service.editUser();
+        expect(service.editUser).toNotBe(undefined);
+    });
+
+    it("should be able to edit password", function () {
+        service.editPassword('password','callback');
+        expect(service.editPassword).toNotBe(undefined);
+    });
+
+
+});
