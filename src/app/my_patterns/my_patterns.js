@@ -763,8 +763,15 @@ angular.module('ngMo.my_patterns', [
             }
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
+            //check if the new urlParamsSend are equals that the filters that are already in the url,if they are equals,
+            //we launch loadPage
+            url = $location.search();
+            if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
+                $scope.loadPage();
+            } else {
+                $location.path('/patterns').search(urlParamsSend);
+            }
 
-            $location.path('/patterns').search(urlParamsSend);
         };
         $scope.loadUrlParams = function () {
             var params = $location.search();

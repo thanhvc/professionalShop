@@ -28,7 +28,8 @@
             <tr>
                 <td colspan="6">
                     <div style="padding-top: 20px;">
-                        <span ng-if="myData.length == 0">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
+                        <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
+                        <span ng-if="myData.length == 0 && !loading">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
                     </div>
                 </td>
             </tr>
