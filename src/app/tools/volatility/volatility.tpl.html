@@ -23,9 +23,8 @@
                 </div>
                 <table>
                 <div class="loading-div-container">
-                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif loading-gif-vol"><span>Cargando, por favor espere...</span></div>
                     <div ng-include="getTemplateTable()" style="width:775px"></div>
-                    <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando patrones, por favor espere...</span></div>
+                    <div class="loading-div no-patterns-container" ng-show="loading" style="width: 775px;"><img src="assets/img/ajax-loader.gif" class="volat-load"><span>Cargando patrones, por favor espere...</span></div>
                     <div class="no-patterns-container" ng-show="myData.length==0 && !loading">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
 
                 </div>
