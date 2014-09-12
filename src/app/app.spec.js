@@ -174,14 +174,14 @@ describe('The cart directive', function () {
             var trsCart = template.find('tr');
             var log = [];
             log = obtainLog(trsCart, log);
-           // expect(log.length).toEqual(3);
+            expect(log.length).toEqual(3);
             log = [];
             log = obtainSubtotal(trsCart, log);
-           // expect(log[0].indexOf('939')).toNotEqual(-1);
+            expect(log[0].indexOf('939')).toNotEqual(-1);
             log = [];
             var divsCart = template.find('div');
             log = obtainTotalCart(divsCart, log);
-           // expect(log[0].indexOf('939')).toNotEqual(-1);
+            expect(log[0].indexOf('939')).toNotEqual(-1);
         }));
 
         //remove 1 item to cart
@@ -202,14 +202,14 @@ describe('The cart directive', function () {
             var trsCart = template.find('tr');
             var log = [];
             log = obtainLog(trsCart, log);
-           // expect(log.length).toEqual(2);
+            expect(log.length).toEqual(2);
             log = [];
             log = obtainSubtotal(trsCart, log);
-            //expect(log[0].indexOf('626')).toNotEqual(-1);
+            expect(log[0].indexOf('626')).toNotEqual(-1);
             log = [];
             var divsCart = template.find('div');
             log = obtainTotalCart(divsCart, log);
-            //expect(log[0].indexOf('626')).toNotEqual(-1);
+            expect(log[0].indexOf('626')).toNotEqual(-1);
         }));
 
         //remove All items to cart
