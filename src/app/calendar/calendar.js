@@ -526,13 +526,18 @@ angular.module('ngMo.calendar', [
                         productType = "Futuros";
                         break;
                 }
-                var filename = "calendar-" + productType + ".pdf";
+                var filename = "calendar-"+productType+".pdf";
                 var element = angular.element('<a/>');
                 element.attr({
                     href: 'data:attachment/pdf;base64,' + encodeURI(data),
                     target: '_blank',
                     download: filename
-                })[0].click();
+                });
+                document.body.appendChild(element[0]);
+
+                $timeout(function() {
+                    element[0].click();
+                });
             });
         };
     })

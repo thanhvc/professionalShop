@@ -54,7 +54,7 @@ angular.module('ngMo.detail', [
             }
         });
     })
-    .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $compile) {
+    .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $timeout) {
         $scope.$on('$stateChangeStart', function () {
             IsLogged.isLogged();
         });
@@ -106,7 +106,13 @@ angular.module('ngMo.detail', [
                         href: 'data:attachment/pdf;base64,' + encodeURI(data),
                         target: '_blank',
                         download: filename
-                    })[0].click();
+                    });
+                    document.body.appendChild(element[0]);
+
+                    var elem = document.getElementById("download_file");
+                    $timeout(function() {
+                        elem.click();
+                    });
                 });
             }else if ("WEEKLY"){
                 data = DetailService.getSecondGraphicPdf(patternId).then(function (data) {
@@ -116,7 +122,13 @@ angular.module('ngMo.detail', [
                         href: 'data:attachment/pdf;base64,' + encodeURI(data),
                         target: '_blank',
                         download: filename
-                    })[0].click();
+                    });
+                    document.body.appendChild(element[0]);
+
+                    var elem = document.getElementById("download_file");
+                    $timeout(function() {
+                        elem.click();
+                    });
                 });
             }
         };
@@ -132,7 +144,9 @@ angular.module('ngMo.detail', [
                 });
                 document.body.appendChild(element[0]);
 
-                element[0].click();
+                $timeout(function() {
+                    element[0].click();
+                });
             });
         };
 
