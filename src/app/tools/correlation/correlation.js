@@ -806,7 +806,7 @@ angular.module('ngMo.correlation', [
                 var filename = "correlation-" + productType + ".xls";
                 var element = angular.element('<a/>');
                 element.attr({
-                    href: 'data:attachment/csv;base64,' + encodeURI(data),
+                    href: 'data:attachment/vnd.ms-excel;base64,' + encodeURI(data),
                     target: '_blank',
                     download: filename
                 })[0].click();
