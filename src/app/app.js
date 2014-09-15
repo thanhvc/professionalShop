@@ -570,7 +570,7 @@ angular.module('ngMo', [
         $scope.hideElements = function () {
             $scope.hideSignInForm();
             $scope.closeCart();
-            $scope.hideSelectedGraphic();
+            //$scope.hideSelectedGraphic();
             $rootScope.$broadcast("body-click");//added event of body click to trigger all
             //the lsiteners about body clicks.. like hide graphs in lookup_diary
         };

@@ -1,15 +1,157 @@
 <div>
     <form name="ordersForm">
-        <table class="profile-table">
+        <table class="orders-body">
             <tbody>
             <tr style="height: 45px;">
-                <td></td>
-                <td colspan="2"><span class="orange-title">Mis órdenes</span></td>
+
+                <td><span class="orange-title">Mis órdenes</span></td>
             </tr>
 
-        </tbody>
+            <tr>
+                <td>
+
+                    <div class="header-orders">
+                        Ordenes del usuario
+                    </div>
+                    <div>
+                        <table class="orders-table">
+                            <thead>
+                            <tr>
+                                <td>
+                                    <div>Producto</div>
+                                    <div>Referencia</div>
+                                </td>
+                                <td>
+                                    Tipo<br>
+                                    Subs.
+                                </td>
+                                <td>
+                                    Fecha<br>Inicio
+                                </td>
+                                <td>Fecha<br>Expi.</td>
+                                <td>Estado<br>Subs.</td>
+                                <td>Precio</td>
+                                <td>Estado</td>
+                                <td>Fec.<br>Compra</td>
+                                <td>Fec.<br>Cancelación</td>
+                                <td>Cant.<br>Devuelta</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="type in data" ng-if="type.packs.length > 0" >
+                                <td>
+                                    <div class="cell-order">
+                                        {{type.name}}
+                                    </div>
+                                    <div class="cell-container-order">
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            {{p.name}}
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell-order">
+
+                                    </div>
+                                    <div>
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            <span ng-show="p.duration == 1">Mensual</span>
+                                            <span ng-show="p.duration == 3">Trimestral</span>
+                                            <span ng-show="p.duration == 12">Anual</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell-order">
+
+                                    </div>
+                                    <div>
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            <span>{{p.startDate | date: 'MMM yyyy'}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell-order">
+
+                                    </div>
+                                    <div>
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            <span>{{p.endDate | date: 'MMM yyyy'}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell-order">
+
+                                    </div>
+                                    <div>
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            <span ng-show="p.status == 'ACTIVE'">Vigente</span>
+                                            <span ng-show="p.status == 'EXPIRED'">Expirado</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell-order">
+
+                                    </div>
+                                    <div>
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            <span>{{p.price | number:2}}€</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell-order">
+
+                                    </div>
+                                    <div>
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            <span ng-show="p.paidStatus =='PAID'">pagado</span>
+                                            <span ng-show="p.paidStatus == 'CANCELED'">Cancelado</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell-order">
+
+                                    </div>
+                                    <div>
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            <span>{{p.datePay | date: 'MMM yyyy'}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell-order">
+
+                                    </div>
+                                    <div>
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            <span>{{p.dateCancel | date: 'MMM yyyy'}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cell-order">
+
+                                    </div>
+                                    <div>
+                                        <div class="cell-order" ng-repeat="p in type.packs">
+                                            <span>{{p.devolution | number: 2}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
         </table>
     </form>
-
-    {{orders}}
 </div>
