@@ -1,4 +1,4 @@
-describe('The Lookup diary controller', function () {
+describe('The historic controller', function () {
 
     describe('template', function () {
         var $scope, ctrl, state, $http, $compile,$location, stateParams,historicDataData,tabsService, patternsService;
