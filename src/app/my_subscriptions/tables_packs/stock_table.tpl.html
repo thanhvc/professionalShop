@@ -28,7 +28,9 @@
                         <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations"></select>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-options="duration.value as duration.text for duration in durations"
+                                ng-change="changeDuration(pack)"></select>
                     </td>
                 </tr>
                 </tbody>
@@ -50,7 +52,9 @@
                         <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
+                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-options="duration.value as duration.text for duration in durations"
+                                ng-change="changeDuration(pack)">
                         </select>
                     </td>
                 </tr>
@@ -73,7 +77,9 @@
                         <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
+                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-options="duration.value as duration.text for duration in durations"
+                                ng-change="changeDuration(pack)">
 >
                         </select>
                     </td>

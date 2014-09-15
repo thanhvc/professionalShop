@@ -776,7 +776,7 @@ angular.module('ngMo', [
 
     .directive('cart', function() {
         return{
-            controller: function($scope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter, $rootScope,$state,$q) {
+            controller: function($scope,$rootScope,$window, $http, ShoppingCartService, ArrayContainItemService, $filter,$state,$q) {
 
                 //catch the event submitcart to send the packs to buy, this event is launched by login form when the user logins to pay
                 $scope.$on('goToSummaryPay', function() {
@@ -855,6 +855,50 @@ angular.module('ngMo', [
                     }
 
                 });
+
+                //change the durationItem from my subscriptions
+                $scope.$on('changeDurationItem',function(event,pack) {
+                    duration = "Mensual";
+                    if (pack.duration ===1 ) {
+                        duration = "Trimestral";
+                    } else if (pack.duration ===2) {
+                        duration = "Anual";
+                    }
+                    switch (pack.productType){
+                        case 'STOCK':
+                            if (pack.patternType === "SIMPLE"){
+                                typeItem = "stocks";
+                                typeItemNum = 0;
+                            }else{
+                                typeItem = "pairs";
+                                typeItemNum = 1;
+                            }
+                            break;
+                        case 'INDICE':
+                            if (pack.patternType === "SIMPLE") {
+                                typeItem = "indices";
+                                typeItemNum = 2;
+                            }else{
+                                typeItem = "pairsIndices";
+                                typeItemNum = 3;
+                            }
+                            break;
+                        case 'FUTURE':
+                            typeItem="futures";
+                            typeItemNum = 4;
+                    }
+                    $scope.changeDurationItem(pack,duration);
+                    $scope.changeDurationCart(pack.code,typeItemNum);
+                });
+
+
+
+                //change the duration in the cart, and propagate to my subscriptions
+                $scope.changeDurationFromCart = function(item,code,type) {
+                    $rootScope.$broadcast('changeDurationFromCart',item);
+                    //change all the prices and reload
+                    $scope.changeDurationCart(code,type);
+                };
 
                 //the cart must dessapears in some views, so when the state is one of the list, the cart will be invisible to the user
                 $scope.showCartinState=true;//show the cart by default
