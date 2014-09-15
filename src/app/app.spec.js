@@ -5,26 +5,21 @@ describe('The cart directive', function () {
         var $scope;
         var $state;
         var httpMock;
-        var $window,service;
+        var $window;
         beforeEach(module('templates-app'));
 
 
-        beforeEach(inject(function (_$compile_, _$rootScope_,_$state_, $httpBackend,$controller, _$window_,ShoppingCartService) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend,$controller, _$window_) {
 
             httpMock = $httpBackend;
             $compile = _$compile_;
             $state = _$state_;
-            service = ShoppingCartService;
-
             httpMock.when('GET', _$rootScope_.urlService+'/islogged').respond(200);
-            httpMock.when('POST', _$rootScope_.urlService+'/has-pack').respond(200, {
-                "results":{
-                    "status":"pack_active"
-            }});
+            httpMock.when('POST', _$rootScope_.urlService+'/has-pack').respond(200);
             httpMock.when('GET', _$rootScope_.urlService+"/prices").respond({
                 "data":{
                     "prices":[29,82,313]
-            }});
+                }});
             $scope = _$rootScope_.$new();
             $window = _$window_;
 
@@ -155,14 +150,14 @@ describe('The cart directive', function () {
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            $scope.$broadcast('submitCart',[null ,"EXPRESSCHECKOUT"]);
+            $scope.$broadcast('submitCart',{event:null, paymentType: 'EXPRESSCHECKOUT'});
         }));
 
         it('should submitCart when payment type is DIRECTPAYMENT', inject(function(){
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            $scope.$broadcast('submitCart',[null,"DIRECTPAYMENT"]);
+            $scope.$broadcast('submitCart',{event:null, paymentType: 'DIRECTPAYMENT'});
         }));
 
         //add three items to cart
@@ -174,14 +169,14 @@ describe('The cart directive', function () {
             var trsCart = template.find('tr');
             var log = [];
             log = obtainLog(trsCart, log);
-            //expect(log.length).toEqual(3);
+            expect(log.length).toEqual(3);
             log = [];
             log = obtainSubtotal(trsCart, log);
-            //expect(log[0].indexOf('939')).toNotEqual(-1);
+            expect(log[0].indexOf('939')).toNotEqual(-1);
             log = [];
             var divsCart = template.find('div');
             log = obtainTotalCart(divsCart, log);
-            //expect(log[0].indexOf('939')).toNotEqual(-1);
+            expect(log[0].indexOf('939')).toNotEqual(-1);
         }));
 
         //remove 1 item to cart
@@ -202,14 +197,14 @@ describe('The cart directive', function () {
             var trsCart = template.find('tr');
             var log = [];
             log = obtainLog(trsCart, log);
-            //expect(log.length).toEqual(2);
+            expect(log.length).toEqual(2);
             log = [];
             log = obtainSubtotal(trsCart, log);
-            //expect(log[0].indexOf('626')).toNotEqual(-1);
+            expect(log[0].indexOf('626')).toNotEqual(-1);
             log = [];
             var divsCart = template.find('div');
             log = obtainTotalCart(divsCart, log);
-            //expect(log[0].indexOf('626')).toNotEqual(-1);
+            expect(log[0].indexOf('626')).toNotEqual(-1);
         }));
 
         //remove All items to cart
@@ -233,161 +228,8 @@ describe('The cart directive', function () {
             expect(log[0].indexOf('0')).toNotEqual(-1);
         }));
 
-
-
         //Change duration
-        it('should let the user change a month stock item duration', inject(function() {
-            delete $window.sessionStorage.cart;
-            var template = $compile("<div cart></div>")($scope);
-            $scope.$apply();
-            addItemsToCart(1, 'STOCK',"SIMPLE",'Mensual');
-            $scope.$apply();
-
-            var trsCart = template.find('tr');
-            var log = [];
-            log = obtainSubtotal(trsCart, log);
-            var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 0); //type = stock
-            expect(log.indexOf('0')).toNotEqual(previousPrice);
-
-        }));
-        //Change duration
-        it('should let the user change a year stock item duration', inject(function() {
-            delete $window.sessionStorage.cart;
-            var template = $compile("<div cart></div>")($scope);
-            $scope.$apply();
-            addItemsToCart(1, 'STOCK',"SIMPLE",'Anual');
-            $scope.$apply();
-
-            var trsCart = template.find('tr');
-            var log = [];
-            log = obtainSubtotal(trsCart, log);
-            var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 0); //type = stock
-            expect(log.indexOf('0')).toNotEqual(previousPrice);
-
-        }));
-
-        //Change duration
-        it('should let the user change a three month stock item duration', inject(function() {
-            delete $window.sessionStorage.cart;
-            var template = $compile("<div cart></div>")($scope);
-            $scope.$apply();
-            addItemsToCart(1, 'STOCK',"SIMPLE",'Trimestral');
-            $scope.$apply();
-
-            var trsCart = template.find('tr');
-            var log = [];
-            log = obtainSubtotal(trsCart, log);
-            var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 0); //type = stock
-            expect(log.indexOf('0')).toNotEqual(previousPrice);
-
-        }));
-
-        //Change duration
-        it('should let the user change a month index item duration', inject(function() {
-            delete $window.sessionStorage.cart;
-            var template = $compile("<div cart></div>")($scope);
-            $scope.$apply();
-            addItemsToCart(1, 'INDICE',"SIMPLE",'Mensual');
-            $scope.$apply();
-
-            var trsCart = template.find('tr');
-            var log = [];
-            log = obtainSubtotal(trsCart, log);
-            var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 2);
-            expect(log.indexOf('0')).toNotEqual(previousPrice);
-
-        }));
-
-        //Change duration
-        it('should let the user change a year index item duration', inject(function() {
-            delete $window.sessionStorage.cart;
-            var template = $compile("<div cart></div>")($scope);
-            $scope.$apply();
-            addItemsToCart(1, 'INDICE',"SIMPLE",'Anual');
-            $scope.$apply();
-
-            var trsCart = template.find('tr');
-            var log = [];
-            log = obtainSubtotal(trsCart, log);
-            var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 2);
-            expect(log.indexOf('0')).toNotEqual(previousPrice);
-
-        }));
-
-        //Change duration
-        it('should let the user change a three month index item duration', inject(function() {
-            delete $window.sessionStorage.cart;
-            var template = $compile("<div cart></div>")($scope);
-            $scope.$apply();
-            addItemsToCart(1, 'INDICE',"SIMPLE",'Trimestral');
-            $scope.$apply();
-
-            var trsCart = template.find('tr');
-            var log = [];
-            log = obtainSubtotal(trsCart, log);
-            var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 2);
-            expect(log.indexOf('0')).toNotEqual(previousPrice);
-
-        }));
-        //Change duration
-        it('should let the user change a month future item duration', inject(function() {
-            delete $window.sessionStorage.cart;
-            var template = $compile("<div cart></div>")($scope);
-            $scope.$apply();
-            addItemsToCart(1, 'FUTURE',"",'Mensual');
-            $scope.$apply();
-
-            var trsCart = template.find('tr');
-            var log = [];
-            log = obtainSubtotal(trsCart, log);
-            var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,4);
-            expect(log.indexOf('0')).toNotEqual(previousPrice);
-
-        }));
-
-        //Change duration
-        it('should let the user change a year future item duration', inject(function() {
-            delete $window.sessionStorage.cart;
-            var template = $compile("<div cart></div>")($scope);
-            $scope.$apply();
-            addItemsToCart(1, 'FUTURE',"",'Anual');
-            $scope.$apply();
-
-            var trsCart = template.find('tr');
-            var log = [];
-            log = obtainSubtotal(trsCart, log);
-            var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 4);
-            expect(log.indexOf('0')).toNotEqual(previousPrice);
-
-        }));
-
-        //Change duration
-        it('should let the user change a three month future item duration', inject(function() {
-            delete $window.sessionStorage.cart;
-            var template = $compile("<div cart></div>")($scope);
-            $scope.$apply();
-            addItemsToCart(1, 'FUTURE',"",'Trimestral');
-            $scope.$apply();
-
-            var trsCart = template.find('tr');
-            var log = [];
-            log = obtainSubtotal(trsCart, log);
-            var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 4);
-            expect(log.indexOf('0')).toNotEqual(previousPrice);
-
-        }));
-
-        //Change duration
-        it('should let the user change a month pair item duration', inject(function() {
+        it('should let the user change a mensual stock item duration', inject(function() {
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
@@ -398,13 +240,13 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,1);
+            $scope.changeDurationCart(0, 0); //type = stock
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
 
         //Change duration
-        it('should let the user change a year pair item duration', inject(function() {
+        it('should let the user change a year stock item duration', inject(function() {
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
@@ -415,13 +257,13 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 1);
+            $scope.changeDurationCart(0, 0); //type = stock
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
 
         //Change duration
-        it('should let the user change a three month pair item duration', inject(function() {
+        it('should let the user change a three-month stock item duration', inject(function() {
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
@@ -432,58 +274,256 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 1);
+            $scope.changeDurationCart(0, 0); //type = stock
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
 
-        //Change duration
-        it('should let the user change a month pairIndex item duration', inject(function() {
+        it('should let the user change a future item duration', inject(function(){
+
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            addItemsToCart(1, 'INDICE',1,'Mensual');
-            $scope.$apply();
-
             var trsCart = template.find('tr');
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,3);
+            //future
+            addItemsToCart(1, 'FUTURE',0,'Mensual');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,4); //type = future
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
 
-        //Change duration
-        it('should let the user change a year pairIndex item duration', inject(function() {
+        it('should let the user change a year future item duration', inject(function(){
+
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
+            var trsCart = template.find('tr');
+            var log = [];
+            log = obtainSubtotal(trsCart, log);
+            var previousPrice = log[0].indexOf('0');
+            //future
+            addItemsToCart(1, 'FUTURE',0,'Anual');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,4); //type = future
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
+            expect(log.indexOf('0')).toNotEqual(previousPrice);
+
+        }));
+        it('should let the user change a three-month future item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var trsCart = template.find('tr');
+            var log = [];
+            log = obtainSubtotal(trsCart, log);
+            var previousPrice = log[0].indexOf('0');
+            //future
+            addItemsToCart(1, 'FUTURE',0,'Trimestral');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,4); //type = future
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
+            expect(log.indexOf('0')).toNotEqual(previousPrice);
+
+        }));
+
+        it('should let the user change an index item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var trsCart = template.find('tr');
+            var log = [];
+            log = obtainSubtotal(trsCart, log);
+            var previousPrice = log[0].indexOf('0');
+
+            addItemsToCart(1, 'INDICE',0,'Trimestral');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,2); //type = index
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
+            expect(log.indexOf('0')).toNotEqual(previousPrice);
+
+        }));
+        it('should let the user change a year index item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var trsCart = template.find('tr');
+            var log = [];
+            log = obtainSubtotal(trsCart, log);
+            var previousPrice = log[0].indexOf('0');
+
             addItemsToCart(1, 'INDICE',0,'Anual');
             $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,2); //type = index
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
+            expect(log.indexOf('0')).toNotEqual(previousPrice);
 
+        }));
+        it('should let the user change a month index item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
             var trsCart = template.find('tr');
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,3);
+
+            addItemsToCart(1, 'INDICE',0,'Mensual');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,2); //type = index
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
 
-        //Change duration
-        it('should let the user change a three month pairIndex item duration', inject(function() {
-            //delete $window.sessionStorage.cart;
+        it('should let the user change a pairindex item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            addItemsToCart(1, 'INDICE',1,'Trimestral');
-            $scope.$apply();
-
             var trsCart = template.find('tr');
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 3);
+
+            addItemsToCart(1, 'INDICE',1,'Mensual');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,3); //type = index
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
+            expect(log.indexOf('0')).toNotEqual(previousPrice);
+
+        }));
+
+        it('should let the user change a year pairindex item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var trsCart = template.find('tr');
+            var log = [];
+            log = obtainSubtotal(trsCart, log);
+            var previousPrice = log[0].indexOf('0');
+
+            addItemsToCart(1, 'INDICE',1,'Anual');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,3); //type = index
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
+            expect(log.indexOf('0')).toNotEqual(previousPrice);
+
+        }));
+
+        it('should let the user change a three-month pairindex item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var trsCart = template.find('tr');
+            var log = [];
+            log = obtainSubtotal(trsCart, log);
+            var previousPrice = log[0].indexOf('0');
+
+            addItemsToCart(1, 'INDICE',1,'Trimestral');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,3); //type = index
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
+            expect(log.indexOf('0')).toNotEqual(previousPrice);
+
+        }));
+
+        it('should let the user change a pair item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var trsCart = template.find('tr');
+            var log = [];
+            log = obtainSubtotal(trsCart, log);
+            var previousPrice = log[0].indexOf('0');
+
+            addItemsToCart(1, 'STOCK',1,'Anual');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,1); //type = index
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
+            expect(log.indexOf('0')).toNotEqual(previousPrice);
+
+        }));
+
+        it('should let the user change a month pair item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var trsCart = template.find('tr');
+            var log = [];
+            log = obtainSubtotal(trsCart, log);
+            var previousPrice = log[0].indexOf('0');
+
+            addItemsToCart(1, 'STOCK',1,'Mensual');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,1); //type = index
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
+            expect(log.indexOf('0')).toNotEqual(previousPrice);
+
+        }));
+
+        it('should let the user change a three-month pair item duration', inject(function(){
+
+            delete $window.sessionStorage.cart;
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var trsCart = template.find('tr');
+            var log = [];
+            log = obtainSubtotal(trsCart, log);
+            var previousPrice = log[0].indexOf('0');
+
+            addItemsToCart(1, 'STOCK',1,'Trimestral');
+            $scope.$apply();
+            previousPrice = log[0].indexOf('0');
+            $scope.changeDurationCart(0,1); //type = index
+            $scope.$apply();
+            log = [];
+            log = obtainSubtotal(trsCart, log);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -642,7 +682,7 @@ describe('The cart directive', function () {
             $scope.$apply();
             addItemsToCart(2,'INDICE',1);
             $scope.toggleCart();
-            //expect($scope.showCart).toBe(false);
+            expect($scope.showCart).toBe(true);
         }));
 
         it('should let toggle the cart when there are no items', inject(function(){
@@ -676,8 +716,6 @@ describe('The cart directive', function () {
             $scope.openCart();
 
         }));
-
-
     });
 });
 
@@ -942,21 +980,21 @@ describe('The scrollFaq directive', function () {
 
     describe('template', function () {
         var $compile;
-        var $scope,$window;
+        var $scope;
 
-        beforeEach(inject(function (_$rootScope_, _$compile_, _$window_) {
+        beforeEach(inject(function (_$rootScope_, _$compile_) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
-            $window = _$window_;
+
         }));
 
         it('should let the user scroll', function(){
             var template = $compile("<div scroll-faq></div>")($scope);
             $scope.$apply();
             template.triggerHandler('scroll',{pageYOffset: 1000});
-
         });
     });
+
 });
 
 describe('The twoDecimals filter  test', function(){
@@ -1286,10 +1324,6 @@ describe('The app controller', function(){
         $scope.openModalInstance();
     });
 
-    /*it("should remember user's password", function() {
-        $scope.rememberPassword();
-    });*/
-
     it('should load internal variables', function(){
         location.path('/islogged');
 
@@ -1325,37 +1359,6 @@ describe('The delay directive', function () {
 
             template.triggerHandler('compile');
             // timeout.flush();
-        }));
-    });
-});
-describe('The ExpirationYearFromPatternName service', function () {
-
-    beforeEach(angular.mock.module("ngMo"));
-
-    describe('template', function () {
-        var $compile;
-        var $scope;
-        var $state;
-        var timeout;
-        var httpMock;
-        var service;
-        beforeEach(module('templates-app'));
-
-        beforeEach(inject(function (ExpirationYearFromPatternName, _$compile_, _$rootScope_, _$state_, $httpBackend, $timeout) {
-            $compile = _$compile_;
-            $scope = _$rootScope_.$new();
-            $state = _$state_;
-            httpMock = $httpBackend;
-            timeout = $timeout;
-            service = ExpirationYearFromPatternName;
-        }));
-
-        it('should get expiration year from pattern name', inject(function () {
-            var res = service.getExpirationYearFromPatternName('Z',"October 13, 2014 11:13:00");
-            expect(res).toBe("2015");
-
-            res = service.getExpirationYearFromPatternName('F',"October 13, 2014 11:13:00");
-            expect(res).toBe("2014");
         }));
     });
 });
