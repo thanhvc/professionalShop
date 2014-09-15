@@ -140,7 +140,7 @@
                                     </div>
                                     <div>
                                         <div class="cell-order" ng-repeat="p in type.packs">
-                                            <span>{{p.devolution | number: 2}}</span>
+                                            <span ng-show="p.devolution != null">{{p.devolution | number: 2}}€</span>
                                         </div>
                                     </div>
                                 </td>
