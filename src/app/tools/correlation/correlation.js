@@ -24,7 +24,7 @@ angular.module('ngMo.correlation', [
     .run(function run() {
     })
 
-    .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService) {
+    .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -776,10 +776,16 @@ angular.module('ngMo.correlation', [
                 var filename = "correlation-" + productType + ".pdf";
                 var element = angular.element('<a/>');
                 element.attr({
+
                     href: 'data:attachment/pdf;base64,' + encodeURI(data),
                     target: '_blank',
                     download: filename
-                })[0].click();
+                });
+                document.body.appendChild(element[0]);
+
+                $timeout(function() {
+                    element[0].click();
+                });
             });
         };
 
@@ -809,7 +815,13 @@ angular.module('ngMo.correlation', [
                     href: 'data:attachment/vnd.ms-excel;base64,' + encodeURI(data),
                     target: '_blank',
                     download: filename
-                })[0].click();
+                });
+                document.body.appendChild(element[0]);
+
+                //var elem = document.getElementById("download_file");
+                $timeout(function() {
+                    element[0].click();
+                });
             });
         };
 
