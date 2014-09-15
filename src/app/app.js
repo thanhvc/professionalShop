@@ -783,12 +783,12 @@ angular.module('ngMo', [
                     //$scope.submitCart();
                     $state.go('summary-pay');
                 });
-
+                //clear all cart items
                 $scope.$on('removeItemsCart', function() {
                     //$scope.submitCart();
                     $scope.removeAllItemsCart();
                 });
-
+                //go to payment page
                 $scope.$on('submitCart', function(event,paymentType){
                     if (paymentType === "EXPRESSCHECKOUT") {
                         //the expresscheckout submit the Cart with return to url payment
@@ -799,6 +799,59 @@ angular.module('ngMo', [
                         return;
                     } else {
                         return;
+                    }
+
+                });
+                //event from my subscription to add or delete from the cart a pack
+                $scope.$on('toggleItemCart',function(event,pack) {
+                    console.log("pack:"+pack);
+                    item= {code: pack.code ,
+                            name: pack.name,
+                            patternType: pack.patternType,
+                            productType: pack.productType};
+                    itemCart = $scope.existsPack(pack);
+                    //set types
+                    typeItem = "stocks";
+                    typeItemNum = 0;
+                    //need transform type product
+                    switch (pack.productType){
+                        case 'STOCK':
+                            if (pack.patternType === "SIMPLE"){
+                                typeItem = "stocks";
+                                typeItemNum = 0;
+                            }else{
+                                typeItem = "pairs";
+                                typeItemNum = 1;
+                            }
+                            break;
+                        case 'INDICE':
+                            if (pack.patternType === "SIMPLE") {
+                                typeItem = "indices";
+                                typeItemNum = 2;
+                            }else{
+                                typeItem = "pairsIndices";
+                                typeItemNum = 3;
+                            }
+                            break;
+                        case 'FUTURE':
+                            typeItem="futures";
+                            typeItemNum = 4;
+                    }
+
+
+                    if (itemCart != null) {
+
+                        //remove the item from cart
+                        $scope.removeItemCart(typeItem,itemCart);
+                    } else {
+                        //add it to the cart
+                        duration = "Mensual";
+                        if (pack.duration ===1 ) {
+                            duration = "Trimestral";
+                        } else if (pack.duration ===2) {
+                            duration = "Anual";
+                        }
+                        $scope.addNewItemCart(item,pack.startDate,duration);
                     }
 
                 });
@@ -852,6 +905,118 @@ angular.module('ngMo', [
                 $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                 $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
 
+                //services from cart to my subscriptions
+
+                $scope.getItems = function() {
+                    return {
+                        stocks: $scope.stockItems,
+                        pairs: $scope.pairsItems,
+                        index: $scope.indicesItems,
+                        pairs_index: $scope.pairsIndicesItems,
+                        futures: $scope.futuresItems
+                    };
+                };
+                //the param pack is already in the cart? then return it
+                $scope.existsPack = function(pack) {
+                    startDate = $filter('date')(pack.startDate, 'MMMM yyyy');
+                    if ((typeof $scope.stockItems != "undefined")) {
+                        for (i=0;i<$scope.stockItems.length;i++) {
+                            if (pack.code === $scope.stockItems[i].code) {
+                                if (startDate === $scope.stockItems[i].startDate) {
+                                    return $scope.stockItems[i];
+                                }
+                            }
+                        }
+                    }
+                    if ((typeof $scope.pairsItems != "undefined")) {
+                        for (i=0;i<$scope.pairsItems.length;i++) {
+                            if (pack.code === $scope.pairsItems[i].code) {
+                                if (startDate === $scope.pairsItems[i].startDate) {
+                                    return $scope.pairsItems[i];
+                                }
+                            }
+                        }
+                    }
+                    if ((typeof $scope.indicesItems != "undefined")) {
+                        for (i=0;i<$scope.indicesItems.length;i++) {
+                            if (pack.code === $scope.indicesItems[i].code) {
+                                if (startDate === $scope.indicesItems[i].startDate) {
+                                    return $scope.indicesItems[i];
+                                }
+                            }
+                        }
+                    }
+                    if ((typeof $scope.pairsIndicesItems != "undefined")) {
+                        for (i=0;i<$scope.pairsIndicesItems.length;i++) {
+                            if (pack.code === $scope.pairsIndicesItems[i].code) {
+                                if (startDate === $scope.pairsIndicesItems[i].startDate) {
+                                    return $scope.pairsIndicesItems[i];
+                                }
+                            }
+                        }
+                    }
+                    if ((typeof $scope.futuresItems != "undefined")) {
+                        for (i=0;i<$scope.futuresItems.length;i++) {
+                            if (pack.code === $scope.futuresItems[i].code) {
+                                if (startDate === $scope.futuresItems[i].startDate) {
+                                    return $scope.futuresItems[i];
+                                }
+                            }
+                        }
+                    }
+                    return null;
+                };
+
+                //change a specific duration
+                $scope.changeDurationItem = function(pack,duration) {
+                    startDate = $filter('date')(pack.startDate, 'MMMM yyyy');
+                    if ((typeof $scope.stockItems != "undefined")) {
+                        for (i=0;i<$scope.stockItems.length;i++) {
+                            if (pack.code === $scope.stockItems[i].code) {
+                                if (startDate === $scope.stockItems[i].startDate) {
+                                    $scope.stockItems[i].duration = duration;
+                                }
+                            }
+                        }
+                    }
+                    if ((typeof $scope.pairsItems != "undefined")) {
+                        for (i=0;i<$scope.pairsItems.length;i++) {
+                            if (pack.code === $scope.pairsItems[i].code) {
+                                if (startDate === $scope.pairsItems[i].startDate) {
+                                    $scope.pairsItems[i].duration = duration;
+                                }
+                            }
+                        }
+                    }
+                    if ((typeof $scope.indicesItems != "undefined")) {
+                        for (i=0;i<$scope.indicesItems.length;i++) {
+                            if (pack.code === $scope.indicesItems[i].code) {
+                                if (startDate === $scope.indicesItems[i].startDate) {
+                                    $scope.indicesItems[i].duration = duration;
+                                }
+                            }
+                        }
+                    }
+                    if ((typeof $scope.pairsIndicesItems != "undefined")) {
+                        for (i=0;i<$scope.pairsIndicesItems.length;i++) {
+                            if (pack.code === $scope.pairsIndicesItems[i].code) {
+                                if (startDate === $scope.pairsIndicesItems[i].startDate) {
+                                    $scope.pairsIndicesItems[i].duration = duration;
+                                }
+                            }
+                        }
+                    }
+                    if ((typeof $scope.futuresItems != "undefined")) {
+                        for (i=0;i<$scope.futuresItems.length;i++) {
+                            if (pack.code === $scope.futuresItems[i].code) {
+                                if (startDate === $scope.futuresItems[i].startDate) {
+                                    $scope.futuresItems[i].duration = duration;
+                                }
+                            }
+                        }
+                    }
+                };
+
 
 
                 $scope.openCart = function () {
@@ -880,6 +1045,19 @@ angular.module('ngMo', [
                 $scope.removeItemCart =  function (productType,item){
                     ShoppingCartService.removeItemCart(productType, item);
                     $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
+                    //test
+
+                    $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
+                    $scope.subtotalPairs = ShoppingCartService.obtainSubtotal('pairs');
+                    $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
+                    $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
+                    $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                    $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                    $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                    $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                    $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                    $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                    //test
                     $scope.subtotalStock -= item.price;
                     $scope.totalCart -= item.price;
                 };
@@ -1011,14 +1189,23 @@ angular.module('ngMo', [
                  * TODO: replace enter parameter 'id' for 'item'
                  * @param id
                  */
-                $scope.addNewItemCart = function(newItem, startDate){
-                    $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                $scope.addNewItemCart = function(newItem, startDate,duration){
+                    //$scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                    price = $scope.prices[2];
+                       if (duration === "Mensual") {
+                           price = $scope.prices[0];
+                       } else if (duration ==="Trimestral") {
+
+                           price = $scope.prices[1];
+                       } else if (duration === "Anual") {
+                           price = $scope.prices[2];
+                       }
                     item = {
                         "code": newItem.code,
                         "packName": newItem.name,
                         "startDate": $filter('date')(startDate, 'MMMM yyyy'),
-                        "duration": "Anual",
-                        "price": $scope.prices[2],
+                        "duration": duration,
+                        "price": price,
                         "date": $filter('date')(startDate, 'dd/MM/yyyy'),
                         "patternType": newItem.patternType,
                         "productType": newItem.productType,

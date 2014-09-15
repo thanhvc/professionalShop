@@ -108,7 +108,7 @@ angular.module('ngMo.my_subscriptions', [
         };
     })
 
-    .controller('MySubscriptionsCtrl', function ($scope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal) {
+    .controller('MySubscriptionsCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService) {
 
         $scope.filterOptions = "";
         $scope.loading=false;
@@ -240,6 +240,10 @@ angular.module('ngMo.my_subscriptions', [
                         url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
                     }
                 ];
+
+
+
+
             });
 
             var data2 = MySubscriptionPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
@@ -280,11 +284,100 @@ angular.module('ngMo.my_subscriptions', [
                     }
                 ];
 
+                //load the cart items to set the selected option
+                stockItems = ShoppingCartService.obtainCartItems('stocks');
+                pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                indicesItems = ShoppingCartService.obtainCartItems('indices');
+                pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                futuresItems = ShoppingCartService.obtainCartItems('futures');
+                for (i=0; i< stockItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[0].americaContent.length;j++) {
+                        if (stockItems[i].code == $scope.mySubscriptionsTablePacks[0].americaContent[j].code) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[0].americaContent[j].toBuy = true;
+                        }
+                    }
+                }
+                for (i=0; i< stockItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[0].asiaContent.length;j++) {
+                        if (stockItems[i].code == $scope.mySubscriptionsTablePacks[0].asiaContent[j].code) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[0].asiaContent[j].toBuy = true;
+                        }
+                    }
+                }
+                for (i=0; i< stockItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[0].europeContent.length;j++) {
+                        if (stockItems[i].code == $scope.mySubscriptionsTablePacks[0].europeContent[j].code) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[0].europeContent[j].toBuy = true;
+                        }
+                    }
+                }
+                //pairs
+                for (i=0; i< pairsItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[1].americaPairContent.length;j++) {
+                        if (pairsItems[i].code == $scope.mySubscriptionsTablePacks[0].americaPairContent[j].code) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[1].americaPairContent[j].toBuy = true;
+                        }
+                    }
+                }
+                for (i=0; i< pairsItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[1].asiaPairContent.length;j++) {
+                        if (pairsItems[i].code == $scope.mySubscriptionsTablePacks[0].asiaPairContent[j].code) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[1].asiaPairContent[j].toBuy = true;
+                        }
+                    }
+                }
+                for (i=0; i< pairsItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[1].europePairContent.length;j++) {
+                        if (pairsItems[i].code == $scope.mySubscriptionsTablePacks[0].europePairContent[j].code) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[1].europePairContent[j].toBuy = true;
+                        }
+                    }
+                }
+                //index
+                for (i=0; i< indicesItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[2].indicesContent.length;j++) {
+                        if (indicesItems[i].code == $scope.mySubscriptionsTablePacks[0].indicesContent[j].code) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[2].indicesContent[j].toBuy = true;
+                        }
+                    }
+                }
+                for (i=0; i< pairsIndicesItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[2].pairsIndicesContent.length;j++) {
+                        if (pairsIndicesItems[i].code == $scope.mySubscriptionsTablePacks[0].pairsIndicesContent[j].code) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].toBuy = true;
+                        }
+                    }
+                }
+                for (i=0; i< futuresItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[3].futuresContent.length;j++) {
+                        if (futuresItems[i].code == $scope.mySubscriptionsTablePacks[3].futuresContent[j].code) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[3].futuresContent[j].toBuy = true;
+                        }
+                    }
+                }
+
             });
 
         };
         $scope.restartFilter();
         $scope.loadPage();
+
+
+        ///----buy actions
+
+        //toggle the pack to add/delete in the cart (if already exists in the cart or not)
+        $scope.togglePack = function(pack) {
+            $rootScope.$broadcast('toggleItemCart',pack);
+        };
 
     })
 
