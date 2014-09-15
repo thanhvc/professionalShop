@@ -54,7 +54,7 @@ angular.module('ngMo.detail', [
             }
         });
     })
-    .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData) {
+    .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $compile) {
         $scope.$on('$stateChangeStart', function () {
             IsLogged.isLogged();
         });
@@ -126,10 +126,13 @@ angular.module('ngMo.detail', [
                 var filename = "detail-"+patternId+".pdf";
                 var element = angular.element('<a/>');
                 element.attr({
-                    href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                    href: 'data:application/pdf;base64,' + encodeURI(data),
                     target: '_blank',
                     download: filename
-                })[0].click();
+                });
+                document.body.appendChild(element[0]);
+
+                element[0].click();
             });
         };
 
