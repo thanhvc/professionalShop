@@ -20,7 +20,7 @@
                     </select>
                 </td>
                 <td>{{stockItem.price | number:2}} EUR</td>
-                <td><div class="delete-item-cart-button" ng-click="removeItemCart('stocks', stockItem)"></div></td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('stocks', stockItem)"></div></td>
             </tr>
             <tr class="subtotal-cart">
                 <td></td>
@@ -49,7 +49,7 @@
                     </select>
                 </td>
                 <td>{{pairsItem.price | number:2}} EUR</td>
-                <td><div class="delete-item-cart-button" ng-click="removeItemCart('pairs', pairsItem)"></div></td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('pairs', pairsItem)"></div></td>
             </tr>
             <tr class="subtotal-cart">
                 <td></td>
@@ -78,7 +78,7 @@
                     </select>
                 </td>
                 <td>{{indicesItem.price | number:2}} EUR</td>
-                <td><div class="delete-item-cart-button" ng-click="removeItemCart('indices', indicesItem)"></div></td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('indices', indicesItem)"></div></td>
             </tr>
             <tr class="subtotal-cart">
                 <td></td>
@@ -107,7 +107,7 @@
                     </select>
                 </td>
                 <td>{{pairsIndicesItem.price | number:2}} EUR</td>
-                <td><div class="delete-item-cart-button" ng-click="removeItemCart('pairsIndices', pairsIndicesItem)"></div></td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('pairsIndices', pairsIndicesItem)"></div></td>
             </tr>
             <tr class="subtotal-cart">
                 <td></td>
@@ -136,7 +136,7 @@
                     </select>
                 </td>
                 <td>{{futuresItem.price | number:2}} EUR</td>
-                <td><div class="delete-item-cart-button" ng-click="removeItemCart('futures', futuresItem)"></div></td>
+                <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('futures', futuresItem)"></div></td>
             </tr>
             <tr class="subtotal-cart">
                 <td></td>

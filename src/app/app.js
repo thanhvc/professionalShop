@@ -137,8 +137,10 @@ angular.module('ngMo', [
         this.containItem = function (array, itemArray) {
             var contain = false;
             angular.forEach(array, function (item) {
-                    if (item.code === itemArray.code ) {
-                        contain = true;
+                    if ((item.code === itemArray.code ) ) {
+                       //if ((item.startDate === itemArray.startDate)) { --delete for distinct by startDate the packs in cart
+                            contain = true;
+                        //}
                     }
                 });
             if (contain){
@@ -806,7 +808,6 @@ angular.module('ngMo', [
                 });
                 //event from my subscription to add or delete from the cart a pack
                 $scope.$on('toggleItemCart',function(event,pack) {
-                    console.log("pack:"+pack);
                     item= {code: pack.code ,
                             name: pack.name,
                             patternType: pack.patternType,
@@ -968,96 +969,96 @@ angular.module('ngMo', [
                     if ((typeof $scope.stockItems != "undefined")) {
                         for (i=0;i<$scope.stockItems.length;i++) {
                             if (pack.code === $scope.stockItems[i].code) {
-                                if (startDate === $scope.stockItems[i].startDate) {
+                               // if (startDate === $scope.stockItems[i].startDate) {
                                     return $scope.stockItems[i];
-                                }
+                               // }
                             }
                         }
                     }
                     if ((typeof $scope.pairsItems != "undefined")) {
                         for (i=0;i<$scope.pairsItems.length;i++) {
                             if (pack.code === $scope.pairsItems[i].code) {
-                                if (startDate === $scope.pairsItems[i].startDate) {
+                              //  if (startDate === $scope.pairsItems[i].startDate) {
                                     return $scope.pairsItems[i];
-                                }
+                               // }
                             }
                         }
                     }
                     if ((typeof $scope.indicesItems != "undefined")) {
                         for (i=0;i<$scope.indicesItems.length;i++) {
                             if (pack.code === $scope.indicesItems[i].code) {
-                                if (startDate === $scope.indicesItems[i].startDate) {
+                                //if (startDate === $scope.indicesItems[i].startDate) {
                                     return $scope.indicesItems[i];
-                                }
+                                //}
                             }
                         }
                     }
                     if ((typeof $scope.pairsIndicesItems != "undefined")) {
                         for (i=0;i<$scope.pairsIndicesItems.length;i++) {
                             if (pack.code === $scope.pairsIndicesItems[i].code) {
-                                if (startDate === $scope.pairsIndicesItems[i].startDate) {
+                                //if (startDate === $scope.pairsIndicesItems[i].startDate) {
                                     return $scope.pairsIndicesItems[i];
-                                }
+                                //}
                             }
                         }
                     }
                     if ((typeof $scope.futuresItems != "undefined")) {
                         for (i=0;i<$scope.futuresItems.length;i++) {
                             if (pack.code === $scope.futuresItems[i].code) {
-                                if (startDate === $scope.futuresItems[i].startDate) {
+                                //if (startDate === $scope.futuresItems[i].startDate) {
                                     return $scope.futuresItems[i];
-                                }
+                                //}
                             }
                         }
                     }
                     return null;
                 };
 
-                //change a specific duration
+                //change a specific duration --NOTE: uncoment the dates comparations for make a distinct by startDate of same pack
                 $scope.changeDurationItem = function(pack,duration) {
                     startDate = $filter('date')(pack.startDate, 'MMMM yyyy');
                     if ((typeof $scope.stockItems != "undefined")) {
                         for (i=0;i<$scope.stockItems.length;i++) {
                             if (pack.code === $scope.stockItems[i].code) {
-                                if (startDate === $scope.stockItems[i].startDate) {
+                                // if (startDate === $scope.stockItems[i].startDate) {
                                     $scope.stockItems[i].duration = duration;
-                                }
+                                // }
                             }
                         }
                     }
                     if ((typeof $scope.pairsItems != "undefined")) {
                         for (i=0;i<$scope.pairsItems.length;i++) {
                             if (pack.code === $scope.pairsItems[i].code) {
-                                if (startDate === $scope.pairsItems[i].startDate) {
+                                //  if (startDate === $scope.pairsItems[i].startDate) {
                                     $scope.pairsItems[i].duration = duration;
-                                }
+                                //  }
                             }
                         }
                     }
                     if ((typeof $scope.indicesItems != "undefined")) {
                         for (i=0;i<$scope.indicesItems.length;i++) {
                             if (pack.code === $scope.indicesItems[i].code) {
-                                if (startDate === $scope.indicesItems[i].startDate) {
+                                // if (startDate === $scope.indicesItems[i].startDate) {
                                     $scope.indicesItems[i].duration = duration;
-                                }
+                                // }
                             }
                         }
                     }
                     if ((typeof $scope.pairsIndicesItems != "undefined")) {
                         for (i=0;i<$scope.pairsIndicesItems.length;i++) {
                             if (pack.code === $scope.pairsIndicesItems[i].code) {
-                                if (startDate === $scope.pairsIndicesItems[i].startDate) {
+                                // if (startDate === $scope.pairsIndicesItems[i].startDate) {
                                     $scope.pairsIndicesItems[i].duration = duration;
-                                }
+                                //}
                             }
                         }
                     }
                     if ((typeof $scope.futuresItems != "undefined")) {
                         for (i=0;i<$scope.futuresItems.length;i++) {
                             if (pack.code === $scope.futuresItems[i].code) {
-                                if (startDate === $scope.futuresItems[i].startDate) {
+                                // if (startDate === $scope.futuresItems[i].startDate) {
                                     $scope.futuresItems[i].duration = duration;
-                                }
+                                //}
                             }
                         }
                     }
@@ -1088,6 +1089,7 @@ angular.module('ngMo', [
                 }
 
 
+                //remove the item from cart
                 $scope.removeItemCart =  function (productType,item){
                     ShoppingCartService.removeItemCart(productType, item);
                     $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
@@ -1107,11 +1109,13 @@ angular.module('ngMo', [
                     $scope.subtotalStock -= item.price;
                     $scope.totalCart -= item.price;
                 };
-                /**
-                 * TODO: replace enter parameter 'id' for 'item'
-                 * @param id
-                 */
+                //broadcast for my subscriptions
+                $scope.removeItemFromCart =  function (productType,item){
+                    $rootScope.$broadcast("removeItemFromCart",item);
+                    $scope.removeItemCart(productType,item);
+                };
 
+                //change the duration of a element
                 $scope.changeDurationCart = function(code,type){
                     switch (type) {
                         case 0: //stock
