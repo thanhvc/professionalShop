@@ -21,14 +21,16 @@
         <td colspan="5">
             <table class="my-subscriptions-table">
                 <tbody>
-                <tr ng-repeat="pack in mySubscriptionsTablePack.futuresContent track by $index" ui-sref="catalog({packId: pack.id})">
-                    <td>{{pack.name}}</td>
-                    <td>{{pack.scopeText}}</td>
-                    <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected"></td>
-                    <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
+                <tr ng-repeat="packF in mySubscriptionsTablePack.futuresContent track by $index"  >
+                    <td>{{packF.name}}</td>
+                    <td>{{packF.scopeText}}</td>
+                    <td><input ng-show="packF.selected" type="checkbox" ng-model="packF.selected" ng-disabled="packF.selected" ng-change="togglePack(packF);">
+                        <input ng-show="!packF.selected" type="checkbox" ng-model="packF.toBuy" ng-change="togglePack(packF);"></td>
+                    <td>{{packF.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
-                        </select>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-options="duration.value as duration.text for duration in durations"
+                                ng-change="changeDuration(pack)"></select>
                     </td>
                 </tr>
                 </tbody>

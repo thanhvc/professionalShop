@@ -138,9 +138,9 @@ angular.module('ngMo', [
             var contain = false;
             angular.forEach(array, function (item) {
                     if ((item.code === itemArray.code ) ) {
-                       //if ((item.startDate === itemArray.startDate)) { --delete for distinct by startDate the packs in cart
+                       if ((item.startDate === itemArray.startDate)) { //comment for no select for distinct by startDate the packs in cart
                             contain = true;
-                        //}
+                        }
                     }
                 });
             if (contain){
@@ -358,40 +358,50 @@ angular.module('ngMo', [
                     //the new price is set with duration, the total cart is updated
                     for (i=0;i<stockItems.length;i++) {
                         if (item.code === stockItems[i].code) {
-                            stockItems[i] = item;
-                            break;
+                            if (item.startDate === stockItems[i].startDate) {
+                                stockItems[i] = item;
+                                break;
+                            }
                         }
                     }
                     break;
                 case 1:
                     for (i=0;i<pairsItems.length;i++) {
                         if (item.code === pairsItems[i].code) {
-                            pairsItems[i] = item;
-                            break;
+                            if (item.startDate === pairsItems[i].startDate) {
+                                pairsItems[i] = item;
+                                break;
+                            }
                         }
                     }
                     break;
                 case 2:
                     for (i=0;i<indicesItems.length;i++) {
                         if (item.code === indicesItems[i].code) {
-                            indicesItems[i] = item;
-                            break;
+                            if (item.startDate === indicesItems[i].startDate) {
+                                indicesItems[i] = item;
+                                break;
+                            }
                         }
                     }
                     break;
                 case 3:
                     for (i=0;i<pairsIndicesItems.length;i++) {
                         if (item.code === pairsIndicesItems[i].code) {
-                            pairsIndicesItems[i] = item;
-                            break;
+                            if (item.startDate === pairsIndicesItems[i].startDate) {
+                                pairsIndicesItems[i] = item;
+                                break;
+                            }
                         }
                     }
                     break;
                 case 4:
                     for (i=0;i<futuresItems.length;i++) {
                         if (item.code === futuresItems[i].code) {
-                            futuresItems[i] = item;
-                            break;
+                            if (item.startDate === futuresItems[i].startDate) {
+                                futuresItems[i] = item;
+                                break;
+                            }
                         }
                     }
                     break;
@@ -441,6 +451,7 @@ angular.module('ngMo', [
             futuresSubtotal = 0;
             totalCart = 0;
             numItemsCart = 0;
+            $rootScope.$broadcast("removeAllItemsFromCart");
             this.restartSessionCart();
         };
 
@@ -890,8 +901,8 @@ angular.module('ngMo', [
                             typeItem="futures";
                             typeItemNum = 4;
                     }
-                    $scope.changeDurationItem(pack,duration);
-                    $scope.changeDurationCart(pack.code,typeItemNum);
+                    item =$scope.changeDurationItem(pack,duration);
+                    $scope.changeDurationCart(item,typeItemNum);
                 });
 
 
@@ -900,7 +911,7 @@ angular.module('ngMo', [
                 $scope.changeDurationFromCart = function(item,code,type) {
                     $rootScope.$broadcast('changeDurationFromCart',item);
                     //change all the prices and reload
-                    $scope.changeDurationCart(code,type);
+                    $scope.changeDurationCart(item,type);
                 };
 
                 //the cart must dessapears in some views, so when the state is one of the list, the cart will be invisible to the user
@@ -969,45 +980,45 @@ angular.module('ngMo', [
                     if ((typeof $scope.stockItems != "undefined")) {
                         for (i=0;i<$scope.stockItems.length;i++) {
                             if (pack.code === $scope.stockItems[i].code) {
-                               // if (startDate === $scope.stockItems[i].startDate) {
+                               if (startDate === $scope.stockItems[i].startDate) {
                                     return $scope.stockItems[i];
-                               // }
+                               }
                             }
                         }
                     }
                     if ((typeof $scope.pairsItems != "undefined")) {
                         for (i=0;i<$scope.pairsItems.length;i++) {
                             if (pack.code === $scope.pairsItems[i].code) {
-                              //  if (startDate === $scope.pairsItems[i].startDate) {
+                              if (startDate === $scope.pairsItems[i].startDate) {
                                     return $scope.pairsItems[i];
-                               // }
+                               }
                             }
                         }
                     }
                     if ((typeof $scope.indicesItems != "undefined")) {
                         for (i=0;i<$scope.indicesItems.length;i++) {
                             if (pack.code === $scope.indicesItems[i].code) {
-                                //if (startDate === $scope.indicesItems[i].startDate) {
+                                if (startDate === $scope.indicesItems[i].startDate) {
                                     return $scope.indicesItems[i];
-                                //}
+                                }
                             }
                         }
                     }
                     if ((typeof $scope.pairsIndicesItems != "undefined")) {
                         for (i=0;i<$scope.pairsIndicesItems.length;i++) {
                             if (pack.code === $scope.pairsIndicesItems[i].code) {
-                                //if (startDate === $scope.pairsIndicesItems[i].startDate) {
+                                if (startDate === $scope.pairsIndicesItems[i].startDate) {
                                     return $scope.pairsIndicesItems[i];
-                                //}
+                                }
                             }
                         }
                     }
                     if ((typeof $scope.futuresItems != "undefined")) {
                         for (i=0;i<$scope.futuresItems.length;i++) {
                             if (pack.code === $scope.futuresItems[i].code) {
-                                //if (startDate === $scope.futuresItems[i].startDate) {
+                                if (startDate === $scope.futuresItems[i].startDate) {
                                     return $scope.futuresItems[i];
-                                //}
+                                }
                             }
                         }
                     }
@@ -1016,52 +1027,59 @@ angular.module('ngMo', [
 
                 //change a specific duration --NOTE: uncoment the dates comparations for make a distinct by startDate of same pack
                 $scope.changeDurationItem = function(pack,duration) {
+                    item = null;
                     startDate = $filter('date')(pack.startDate, 'MMMM yyyy');
                     if ((typeof $scope.stockItems != "undefined")) {
                         for (i=0;i<$scope.stockItems.length;i++) {
                             if (pack.code === $scope.stockItems[i].code) {
-                                // if (startDate === $scope.stockItems[i].startDate) {
+                               if (startDate === $scope.stockItems[i].startDate) {
                                     $scope.stockItems[i].duration = duration;
-                                // }
+                                   item = $scope.stockItems[i];
+                                }
                             }
                         }
                     }
                     if ((typeof $scope.pairsItems != "undefined")) {
                         for (i=0;i<$scope.pairsItems.length;i++) {
                             if (pack.code === $scope.pairsItems[i].code) {
-                                //  if (startDate === $scope.pairsItems[i].startDate) {
+                                if (startDate === $scope.pairsItems[i].startDate) {
                                     $scope.pairsItems[i].duration = duration;
-                                //  }
+                                    item = $scope.pairsItems[i];
+                                 }
                             }
                         }
                     }
                     if ((typeof $scope.indicesItems != "undefined")) {
                         for (i=0;i<$scope.indicesItems.length;i++) {
                             if (pack.code === $scope.indicesItems[i].code) {
-                                // if (startDate === $scope.indicesItems[i].startDate) {
+                                if (startDate === $scope.indicesItems[i].startDate) {
                                     $scope.indicesItems[i].duration = duration;
-                                // }
+                                    item = $scope.indicesItems[i];
+                                }
                             }
                         }
                     }
                     if ((typeof $scope.pairsIndicesItems != "undefined")) {
                         for (i=0;i<$scope.pairsIndicesItems.length;i++) {
                             if (pack.code === $scope.pairsIndicesItems[i].code) {
-                                // if (startDate === $scope.pairsIndicesItems[i].startDate) {
+                                if (startDate === $scope.pairsIndicesItems[i].startDate) {
                                     $scope.pairsIndicesItems[i].duration = duration;
-                                //}
+                                    item = $scope.pairsIndicesItems[i];
+                                }
                             }
                         }
                     }
                     if ((typeof $scope.futuresItems != "undefined")) {
                         for (i=0;i<$scope.futuresItems.length;i++) {
                             if (pack.code === $scope.futuresItems[i].code) {
-                                // if (startDate === $scope.futuresItems[i].startDate) {
+                                if (startDate === $scope.futuresItems[i].startDate) {
                                     $scope.futuresItems[i].duration = duration;
-                                //}
+                                    item = $scope.futuresItems[i];
+                                }
                             }
                         }
                     }
+                    return item;
                 };
 
 
@@ -1105,10 +1123,68 @@ angular.module('ngMo', [
                     $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
                     $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
                     $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
-                    //test
+                    $scope.totalCart = ShoppingCartService.obtainTotalCart();
+                    /*test
                     $scope.subtotalStock -= item.price;
-                    $scope.totalCart -= item.price;
+                    $scope.totalCart -= item.price;*/
                 };
+
+
+                //when the user makes a change of duration or adds a item to the cart, must check if exists other subs with the same pack
+                //but different startDate to delete it if the 2 packs are not monthly
+                $scope.deleteMultiplePacks = function (item) {
+                    //the item is the changed item, so this is going to be saved, if exists other pack with same code, just delete it
+                    code = item.code;
+                    startDate = item.startDate;
+                    for (i=0;i<$scope.stockItems.length;i++) {
+                        if (($scope.stockItems[i].code == code) && (startDate != $scope.stockItems[i].startDate)) {
+                            //the item found is the same code, but not same startDate, check if the two packs are monthly
+                            if (!(item.duration === "Mensual" && ($scope.stockItems[i].duration === "Mensual"))){
+
+                                $scope.removeItemFromCart('stocks',$scope.stockItems[i]);
+                            }
+                        }
+                    }
+                    //pairs
+                    for (i=0;i<$scope.pairsItems.length;i++) {
+                        if (($scope.pairsItems[i].code == code)&& (startDate != $scope.pairsItems[i].startDate)) {
+                            //the item found is the same code, but not same startDate, check if the two packs are monthly
+                            if (!(item.duration === "Mensual" && ($scope.pairsItems[i].duration === "Mensual"))) {
+                                $scope.removeItemFromCart('pairs', $scope.pairsItems[i]);
+                            }
+                        }
+                    }
+                    //idnex
+                    for (i=0;i<$scope.indicesItems.length;i++) {
+                        if (($scope.indicesItems[i].code == code) && (startDate != $scope.indicesItems[i].startDate)) {
+                            //the item found is the same code, but not same startDate, check if the two packs are monthly
+                            if (!(item.duration === "Mensual" && ($scope.indicesItems[i].duration === "Mensual"))) {
+                                $scope.removeItemFromCart('indices', $scope.indicesItems[i]);
+                            }
+                        }
+                    }
+                    //pairindex
+                    for (i=0;i<$scope.pairsIndicesItems.length;i++) {
+                        if (($scope.pairsIndicesItems[i].code == code) && (startDate != $scope.pairsIndicesItems[i].startDate)) {
+                            //the item found is the same code, but not same startDate, check if the two packs are monthly
+                            if (!(item.duration === "Mensual" && ($scope.pairsIndicesItems[i].duration === "Mensual"))) {
+                                $scope.removeItemFromCart('pairsIndices', $scope.pairsIndicesItems[i]);
+                            }
+                        }
+                    }
+                    //futures
+                    for (i=0;i<$scope.futuresItems.length;i++) {
+                        if (($scope.futuresItems[i].code == code) && (startDate != $scope.futuresItems[i].startDate)) {
+                            //the item found is the same code, but not same startDate, check if the two packs are monthly
+                            if (!(item.duration === "Mensual" && ($scope.futuresItems[i].duration === "Mensual"))) {
+                                $scope.removeItemFromCart('futures', $scope.futuresItems[i]);
+                            }
+                        }
+                    }
+
+                };
+
+
                 //broadcast for my subscriptions
                 $scope.removeItemFromCart =  function (productType,item){
                     $rootScope.$broadcast("removeItemFromCart",item);
@@ -1116,11 +1192,14 @@ angular.module('ngMo', [
                 };
 
                 //change the duration of a element
-                $scope.changeDurationCart = function(code,type){
+                $scope.changeDurationCart = function(item,type){
+                     code = item.code;
+                    startDate = item.startDate;
                     switch (type) {
                         case 0: //stock
                             for (i=0;i<$scope.stockItems.length;i++) {
-                                if ($scope.stockItems[i].code == code) {
+                                if (($scope.stockItems[i].code == code) && ($scope.stockItems[i].startDate == startDate)) {
+                                    item = $scope.stockItems[i];
                                     switch ($scope.stockItems[i].duration) {
                                         case "Mensual":
                                             $scope.stockItems[i].price = $scope.stockItems[i].prices[0];
@@ -1139,7 +1218,8 @@ angular.module('ngMo', [
                             break;
                         case 1://pairs
                             for (i=0;i<$scope.pairsItems.length;i++) {
-                                if ($scope.pairsItems[i].code == code) {
+                                if (($scope.pairsItems[i].code == code) && ($scope.pairsItems[i].startDate == startDate)) {
+                                    item = $scope.pairsItems[i];
                                     switch ($scope.pairsItems[i].duration) {
                                         case "Mensual":
                                             $scope.pairsItems[i].price = $scope.pairsItems[i].prices[0];
@@ -1158,7 +1238,8 @@ angular.module('ngMo', [
                             break;
                         case 2://index
                             for (i=0;i<$scope.indicesItems.length;i++) {
-                                if ($scope.indicesItems[i].code == code) {
+                                if (($scope.indicesItems[i].code == code)&& ($scope.indicesItems[i].startDate == startDate)) {
+                                    item = $scope.indicesItems[i];
                                     switch ($scope.indicesItems[i].duration) {
                                         case "Mensual":
                                             $scope.indicesItems[i].price = $scope.indicesItems[i].prices[0];
@@ -1177,7 +1258,8 @@ angular.module('ngMo', [
                             break;
                         case 3://pairs index
                             for (i=0;i<$scope.pairsIndicesItems.length;i++) {
-                                if ($scope.pairsIndicesItems[i].code == code) {
+                                if (($scope.pairsIndicesItems[i].code == code)&& ($scope.pairsIndicesItems[i].startDate == startDate)) {
+                                    item = $scope.pairsIndicesItems[i];
                                     switch ($scope.pairsIndicesItems[i].duration) {
                                         case "Mensual":
                                             $scope.pairsIndicesItems[i].price = $scope.pairsIndicesItems[i].prices[0];
@@ -1196,7 +1278,8 @@ angular.module('ngMo', [
                             break;
                         case 4://futures
                             for (i=0;i<$scope.futuresItems.length;i++) {
-                                if ($scope.futuresItems[i].code == code) {
+                                if (($scope.futuresItems[i].code == code) && ($scope.futuresItems[i].startDate == startDate)) {
+                                    item = $scope.futuresItems[i];
                                     switch ($scope.futuresItems[i].duration) {
                                         case "Mensual":
                                             $scope.futuresItems[i].price = $scope.futuresItems[i].prices[0];
@@ -1222,6 +1305,7 @@ angular.module('ngMo', [
                     $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                     $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                    $scope.deleteMultiplePacks(item);
 
                 };
 
@@ -1304,6 +1388,7 @@ angular.module('ngMo', [
                                     $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                                     $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                                    $scope.deleteMultiplePacks(item);//check that other pack is not here
 
                                     //save the cart into session
                                     ShoppingCartService.saveSessionCart();

@@ -111,7 +111,7 @@ angular.module('ngMo.my_subscriptions', [
     .controller('MySubscriptionsCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter) {
 
         $scope.filterOptions = "";
-        $scope.loading=false;
+        $scope.loading=true;
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
@@ -294,11 +294,11 @@ angular.module('ngMo.my_subscriptions', [
                     for (j=0;j<$scope.mySubscriptionsTablePacks[0].americaContent.length;j++) {
                         if (stockItems[i].code == $scope.mySubscriptionsTablePacks[0].americaContent[j].code) {
                             startDateItem = $filter('date')($scope.mySubscriptionsTablePacks[0].americaContent[j].startDate, 'MMMM yyyy');
-                           //  if (stockItems[i].startDate  === startDateItem) {
+                             if (stockItems[i].startDate  === startDateItem) {
                                 //the item exists in the cart
                                 $scope.mySubscriptionsTablePacks[0].americaContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[0].americaContent[j].duration = $scope.convertDuration(stockItems[i].duration);
-                           // }
+                            }
 
                         }
                     }
@@ -308,10 +308,10 @@ angular.module('ngMo.my_subscriptions', [
                         if (stockItems[i].code == $scope.mySubscriptionsTablePacks[0].asiaContent[j].code) {
                             //the item exists in the cart
                             startDateItem = $filter('date')($scope.mySubscriptionsTablePacks[0].asiaContent[j].startDate, 'MMMM yyyy');
-                            //if (stockItems[i].startDate=== startDateItem) {
+                           if (stockItems[i].startDate=== startDateItem) {
                                 $scope.mySubscriptionsTablePacks[0].asiaContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[0].asiaContent[j].duration = $scope.convertDuration(stockItems[i].duration);
-                            //}
+                            }
                         }
                     }
                 }
@@ -320,23 +320,23 @@ angular.module('ngMo.my_subscriptions', [
                         if (stockItems[i].code == $scope.mySubscriptionsTablePacks[0].europeContent[j].code) {
                             //the item exists in the cart
                             startDateItem =  $filter('date')($scope.mySubscriptionsTablePacks[0].europeContent[j].startDate, 'MMMM yyyy');
-                            //if (stockItems[i].startDate ===startDateItem) {
+                            if (stockItems[i].startDate ===startDateItem) {
                                 $scope.mySubscriptionsTablePacks[0].europeContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[0].europeContent[j].duration = $scope.convertDuration(stockItems[i].duration);
-                            //}
+                            }
                         }
                     }
                 }
                 //pairs
                 for (i=0; i< pairsItems.length;i++) {
                     for (j=0;j<$scope.mySubscriptionsTablePacks[1].americaPairContent.length;j++) {
-                        if (pairsItems[i].code == $scope.mySubscriptionsTablePacks[0].americaPairContent[j].code) {
+                        if (pairsItems[i].code == $scope.mySubscriptionsTablePacks[1].americaPairContent[j].code) {
                             //the item exists in the cart
                             startDateItem = $filter('date')($scope.mySubscriptionsTablePacks[1].americaPairContent[j].startDate, 'MMMM yyyy');
-                            //if (pairsItems[i].startDate === startDateItem) {
+                            if (pairsItems[i].startDate === startDateItem) {
                                 $scope.mySubscriptionsTablePacks[1].americaPairContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[1].americaPairContent[j].duration = $scope.convertDuration(pairsItems[i].duration);
-                            //}
+                            }
                         }
                     }
                 }
@@ -345,10 +345,10 @@ angular.module('ngMo.my_subscriptions', [
                         if (pairsItems[i].code == $scope.mySubscriptionsTablePacks[1].asiaPairContent[j].code) {
                             //the item exists in the cart
                             startDateItem = $filter('date')($scope.mySubscriptionsTablePacks[1].asiaPairContent[j].startDate, 'MMMM yyyy');
-                            //if (pairsItems[i].startDate === startDateItem) {
+                            if (pairsItems[i].startDate === startDateItem) {
                                 $scope.mySubscriptionsTablePacks[1].asiaPairContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[1].asiaPairContent[j].duration = $scope.convertDuration(pairsItems[i].duration);
-                            //}
+                            }
                         }
                     }
                 }
@@ -357,10 +357,10 @@ angular.module('ngMo.my_subscriptions', [
                         if (pairsItems[i].code == $scope.mySubscriptionsTablePacks[1].europePairContent[j].code) {
                             //the item exists in the cart
                             startDateItem = $filter('date')($scope.mySubscriptionsTablePacks[1].europePairContent[j].startDate, 'MMMM yyyy');
-                            //if (pairsItems[i].startDate === startDateItem) {
+                            if (pairsItems[i].startDate === startDateItem) {
                                 $scope.mySubscriptionsTablePacks[1].europePairContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[1].europePairContent[j].duration = $scope.convertDuration(pairsItems[i].duration);
-                            // }
+                             }
                         }
                     }
                 }
@@ -370,10 +370,10 @@ angular.module('ngMo.my_subscriptions', [
                         if (indicesItems[i].code == $scope.mySubscriptionsTablePacks[2].indicesContent[j].code) {
                             //the item exists in the cart
                             startDateItem= $filter('date')($scope.mySubscriptionsTablePacks[2].indicesContent[j].startDate, 'MMMM yyyy');
-                            //if (indicesItems[i].startDate === startDateItem) {
+                            if (indicesItems[i].startDate === startDateItem) {
                                 $scope.mySubscriptionsTablePacks[2].indicesContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[2].indicesContent[j].duration = $scope.convertDuration(indicesItems[i].duration);
-                                //}
+                            }
                         }
                     }
                 }
@@ -382,10 +382,10 @@ angular.module('ngMo.my_subscriptions', [
                         if (pairsIndicesItems[i].code == $scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].code) {
                             //the item exists in the cart
                             startDateItem = $filter('date')($scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].startDate, 'MMMM yyyy');
-                            //if (pairsIndicesItems[i].startDate === startDateItem) {
+                            if (pairsIndicesItems[i].startDate === startDateItem) {
                                 $scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].duration = $scope.convertDuration(pairsIndicesItems[i].duration);
-                                //}
+                            }
                         }
                     }
                 }
@@ -394,10 +394,10 @@ angular.module('ngMo.my_subscriptions', [
                         if (futuresItems[i].code == $scope.mySubscriptionsTablePacks[3].futuresContent[j].code) {
                             //the item exists in the cart
                             startDateItem = $filter('date')($scope.mySubscriptionsTablePacks[3].futuresContent[j].startDate, 'MMMM yyyy');
-                            //if (futuresItems[i].startDate === startDateItem) {
+                            if (futuresItems[i].startDate === startDateItem) {
                                 $scope.mySubscriptionsTablePacks[3].futuresContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[3].futuresContent[j].duration = $scope.convertDuration(futuresItems[i].duration);
-                            //}
+                            }
                         }
                     }
                 }
@@ -437,26 +437,26 @@ angular.module('ngMo.my_subscriptions', [
                 for (j=0;j<$scope.mySubscriptionsTablePacks[0].americaContent.length;j++) {
                     if (item.code == $scope.mySubscriptionsTablePacks[0].americaContent[j].code) {
                         //the item exists in the cart
-                        //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].americaContent[j].startDate, 'MMMM yyyy')) {
+                        if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].americaContent[j].startDate, 'MMMM yyyy')) {
                             $scope.mySubscriptionsTablePacks[0].americaContent[j].duration = $scope.convertDuration(item.duration);
-                        //}
+                        }
 
                     }
                 }
                 for (j=0;j<$scope.mySubscriptionsTablePacks[0].asiaContent.length;j++) {
                     if (item.code == $scope.mySubscriptionsTablePacks[0].asiaContent[j].code) {
                         //the item exists in the cart
-                        //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].asiaContent[j].startDate, 'MMMM yyyy')) {
+                        if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].asiaContent[j].startDate, 'MMMM yyyy')) {
                             $scope.mySubscriptionsTablePacks[0].asiaContent[j].duration = $scope.convertDuration(item.duration);
-                        //}
+                        }
                     }
                 }
                 for (j=0;j<$scope.mySubscriptionsTablePacks[0].europeContent.length;j++) {
                     if (item.code == $scope.mySubscriptionsTablePacks[0].europeContent[j].code) {
                         //the item exists in the cart
-                        //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].europeContent[j].startDate, 'MMMM yyyy')) {
+                        if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].europeContent[j].startDate, 'MMMM yyyy')) {
                             $scope.mySubscriptionsTablePacks[0].europeContent[j].duration = $scope.convertDuration(item.duration);
-                        //}
+                        }
                     }
                 }
             //pairs
@@ -471,43 +471,43 @@ angular.module('ngMo.my_subscriptions', [
                 for (j=0;j<$scope.mySubscriptionsTablePacks[1].asiaPairContent.length;j++) {
                     if (item.code == $scope.mySubscriptionsTablePacks[1].asiaPairContent[j].code) {
                         //the item exists in the cart
-                        //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].asiaPairContent[j].startDate, 'MMMM yyyy')) {
+                        if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].asiaPairContent[j].startDate, 'MMMM yyyy')) {
                             $scope.mySubscriptionsTablePacks[1].asiaPairContent[j].duration = $scope.convertDuration(item.duration);
 
-                        //}
+                        }
                     }
                 }
                 for (j=0;j<$scope.mySubscriptionsTablePacks[1].europePairContent.length;j++) {
                     if (item.code == $scope.mySubscriptionsTablePacks[1].europePairContent[j].code) {
                         //the item exists in the cart
-                        // if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].europePairContent[j].startDate, 'MMMM yyyy')) {
+                        if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].europePairContent[j].startDate, 'MMMM yyyy')) {
                             $scope.mySubscriptionsTablePacks[1].europePairContent[j].duration = $scope.convertDuration(item.duration);
-                        //}
+                        }
                     }
                 }
             //index
                 for (j=0;j<$scope.mySubscriptionsTablePacks[2].indicesContent.length;j++) {
                     if (item.code == $scope.mySubscriptionsTablePacks[2].indicesContent[j].code) {
                         //the item exists in the cart
-                        // if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[2].indicesContent[j].startDate, 'MMMM yyyy')) {
+                        if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[2].indicesContent[j].startDate, 'MMMM yyyy')) {
                             $scope.mySubscriptionsTablePacks[2].indicesContent[j].duration = $scope.convertDuration(item.duration);
-                        //}
+                        }
                     }
                 }
                 for (j=0;j<$scope.mySubscriptionsTablePacks[2].pairsIndicesContent.length;j++) {
                     if (item.code == $scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].code) {
-                        //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].startDate, 'MMMM yyyy')) {
+                        if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].startDate, 'MMMM yyyy')) {
                            //the item exists in the cart
                            $scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].duration = $scope.convertDuration(item.duration);
-                        //}
+                        }
                     }
                 }
                 for (j=0;j<$scope.mySubscriptionsTablePacks[3].futuresContent.length;j++) {
                     if (item.code == $scope.mySubscriptionsTablePacks[3].futuresContent[j].code) {
-                        //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[3].futuresContent[j].startDate, 'MMMM yyyy')) {
-                                //the item exists in the cart
-                                $scope.mySubscriptionsTablePacks[3].futuresContent[j].duration = $scope.convertDuration(item.duration);
-                        //}
+                        if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[3].futuresContent[j].startDate, 'MMMM yyyy')) {
+                            //the item exists in the cart
+                            $scope.mySubscriptionsTablePacks[3].futuresContent[j].duration = $scope.convertDuration(item.duration);
+                        }
                     }
                 }
         });
@@ -519,77 +519,119 @@ angular.module('ngMo.my_subscriptions', [
             for (j=0;j<$scope.mySubscriptionsTablePacks[0].americaContent.length;j++) {
                 if ((item.code == $scope.mySubscriptionsTablePacks[0].americaContent[j].code) && ($scope.mySubscriptionsTablePacks[0].americaContent[j].toBuy)) {
                     //the item exists in the cart
-                    //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].americaContent[j].startDate, 'MMMM yyyy')) {
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].americaContent[j].startDate, 'MMMM yyyy')) {
                         $scope.mySubscriptionsTablePacks[0].americaContent[j].toBuy = false;
-                    //}
+                    }
 
                 }
             }
             for (j=0;j<$scope.mySubscriptionsTablePacks[0].asiaContent.length;j++) {
                 if ((item.code == $scope.mySubscriptionsTablePacks[0].asiaContent[j].code) && ($scope.mySubscriptionsTablePacks[0].asiaContent[j].toBuy)) {
                     //the item exists in the cart
-                    //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].asiaContent[j].startDate, 'MMMM yyyy')) {
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].asiaContent[j].startDate, 'MMMM yyyy')) {
                         $scope.mySubscriptionsTablePacks[0].asiaContent[j].toBuy = false;
-                    //}
+                    }
                 }
             }
             for (j=0;j<$scope.mySubscriptionsTablePacks[0].europeContent.length;j++) {
                 if ((item.code == $scope.mySubscriptionsTablePacks[0].europeContent[j].code) && ($scope.mySubscriptionsTablePacks[0].europeContent[j].toBuy)) {
                     //the item exists in the cart
-                    //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].europeContent[j].startDate, 'MMMM yyyy')) {
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[0].europeContent[j].startDate, 'MMMM yyyy')) {
                         $scope.mySubscriptionsTablePacks[0].europeContent[j].toBuy = false;
-                    //}
+                    }
                 }
             }
             //pairs
             for (j=0;j<$scope.mySubscriptionsTablePacks[1].americaPairContent.length;j++) {
                 if ((item.code == $scope.mySubscriptionsTablePacks[1].americaPairContent[j].code) && ($scope.mySubscriptionsTablePacks[1].americaPairContent[j].toBuy)) {
                     //the item exists in the cart
-                    //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].americaPairContent[j].startDate, 'MMMM yyyy')) {
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].americaPairContent[j].startDate, 'MMMM yyyy')) {
                         $scope.mySubscriptionsTablePacks[1].americaPairContent[j].toBuy = false;
-                    //}
+                    }
                 }
             }
             for (j=0;j<$scope.mySubscriptionsTablePacks[1].asiaPairContent.length;j++) {
                 if ((item.code == $scope.mySubscriptionsTablePacks[1].asiaPairContent[j].code) && ($scope.mySubscriptionsTablePacks[1].asiaPairContent[j].toBuy)) {
                     //the item exists in the cart
-                    //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].asiaPairContent[j].startDate, 'MMMM yyyy')) {
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].asiaPairContent[j].startDate, 'MMMM yyyy')) {
                         $scope.mySubscriptionsTablePacks[1].asiaPairContent[j].toBuy = false;
-                    //}
+                    }
                 }
             }
             for (j=0;j<$scope.mySubscriptionsTablePacks[1].europePairContent.length;j++) {
                 if ((item.code == $scope.mySubscriptionsTablePacks[1].europePairContent[j].code) && ($scope.mySubscriptionsTablePacks[1].europePairContent[j].toBuy)) {
                     //the item exists in the cart
-                    //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].europePairContent[j].startDate, 'MMMM yyyy')) {
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[1].europePairContent[j].startDate, 'MMMM yyyy')) {
                         $scope.mySubscriptionsTablePacks[1].europePairContent[j].toBuy = false;
-                    //}
+                    }
                 }
             }
             //index
             for (j=0;j<$scope.mySubscriptionsTablePacks[2].indicesContent.length;j++) {
                 if ((item.code == $scope.mySubscriptionsTablePacks[2].indicesContent[j].code) && ($scope.mySubscriptionsTablePacks[2].indicesContent[j].toBuy)) {
                     //the item exists in the cart
-                    //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[3].indicesContent[j].startDate, 'MMMM yyyy')) {
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[3].indicesContent[j].startDate, 'MMMM yyyy')) {
                         $scope.mySubscriptionsTablePacks[2].indicesContent[j].toBuy = false;
-                    //}
+                    }
                 }
             }
             for (j=0;j<$scope.mySubscriptionsTablePacks[2].pairsIndicesContent.length;j++) {
                 if ((item.code == $scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].code) && ($scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].toBuy)) {
                     //the item exists in the cart
-                    //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[3].pairsIndicesContent[j].startDate, 'MMMM yyyy')) {
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[3].pairsIndicesContent[j].startDate, 'MMMM yyyy')) {
                         $scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].toBuy = false;
-                    //}
+                    }
                 }
             }
             for (j=0;j<$scope.mySubscriptionsTablePacks[3].futuresContent.length;j++) {
                 if ((item.code == $scope.mySubscriptionsTablePacks[3].futuresContent[j].code) && ($scope.mySubscriptionsTablePacks[3].futuresContent[j].toBuy)) {
                     //the item exists in the cart
-                    //if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[3].futuresContent[j].startDate, 'MMMM yyyy')) {
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[3].futuresContent[j].startDate, 'MMMM yyyy')) {
                         $scope.mySubscriptionsTablePacks[3].futuresContent[j].toBuy = false;
-                    //}
+                    }
                 }
+            }
+        });
+
+        //remove all items from cart, all items with toBuy to false;
+
+        $scope.$on("removeAllItemsFromCart",function(){
+            for (j=0;j<$scope.mySubscriptionsTablePacks[0].americaContent.length;j++) {
+               $scope.mySubscriptionsTablePacks[0].americaContent[j].toBuy = false;
+            }
+            for (j=0;j<$scope.mySubscriptionsTablePacks[0].asiaContent.length;j++) {
+              $scope.mySubscriptionsTablePacks[0].asiaContent[j].toBuy = false;
+
+            }
+            for (j=0;j<$scope.mySubscriptionsTablePacks[0].europeContent.length;j++) {
+               $scope.mySubscriptionsTablePacks[0].europeContent[j].toBuy = false;
+
+            }
+            //pairs
+            for (j=0;j<$scope.mySubscriptionsTablePacks[1].americaPairContent.length;j++) {
+                $scope.mySubscriptionsTablePacks[1].americaPairContent[j].toBuy = false;
+
+            }
+            for (j=0;j<$scope.mySubscriptionsTablePacks[1].asiaPairContent.length;j++) {
+                $scope.mySubscriptionsTablePacks[1].asiaPairContent[j].toBuy = false;
+
+            }
+            for (j=0;j<$scope.mySubscriptionsTablePacks[1].europePairContent.length;j++) {
+               $scope.mySubscriptionsTablePacks[1].europePairContent[j].toBuy = false;
+
+            }
+            //index
+            for (j=0;j<$scope.mySubscriptionsTablePacks[2].indicesContent.length;j++) {
+                $scope.mySubscriptionsTablePacks[2].indicesContent[j].toBuy = false;
+
+            }
+            for (j=0;j<$scope.mySubscriptionsTablePacks[2].pairsIndicesContent.length;j++) {
+                $scope.mySubscriptionsTablePacks[2].pairsIndicesContent[j].toBuy = false;
+
+            }
+            for (j=0;j<$scope.mySubscriptionsTablePacks[3].futuresContent.length;j++) {
+                $scope.mySubscriptionsTablePacks[3].futuresContent[j].toBuy = false;
+
             }
         });
     })

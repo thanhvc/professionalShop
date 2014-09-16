@@ -21,14 +21,16 @@
         <td colspan="5">
             <table class="my-subscriptions-table">
                 <tbody>
-                <tr ng-repeat="pack in mySubscriptionsTablePack.americaPairContent track by $index" ui-sref="catalog({packId: pack.id})">
+                <tr ng-repeat="pack in mySubscriptionsTablePack.americaPairContent track by $index"  >
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
-                    <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ></td>
+                    <td><input ng-show="pack.selected" type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ng-change="togglePack(pack);">
+                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
-                        </select>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-options="duration.value as duration.text for duration in durations"
+                                ng-change="changeDuration(pack)"></select>
                     </td>
                 </tr>
                 </tbody>
@@ -46,11 +48,13 @@
                 <tr ng-repeat="pack in mySubscriptionsTablePack.asiaPairContent track by $index" ui-sref="catalog({packId: pack.id})">
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
-                    <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected"></td>
+                    <td><input ng-show="pack.selected" type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ng-change="togglePack(pack);">
+                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select ng-disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
-                        </select>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-options="duration.value as duration.text for duration in durations"
+                                ng-change="changeDuration(pack)"></select>
                     </td>
                 </tr>
                 </tbody>
@@ -68,11 +72,13 @@
                 <tr ng-repeat="pack in mySubscriptionsTablePack.europePairContent track by $index" ui-sref="catalog({packId: pack.id})">
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
-                    <td><input type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected"></td>
+                    <td><input ng-show="pack.selected" type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ng-change="togglePack(pack);">
+                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select disabled="pack.selected" ng-model="pack.duration" ng-options="duration.value as duration.text for duration in durations">
-                        </select>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-options="duration.value as duration.text for duration in durations"
+                                ng-change="changeDuration(pack)">     </select>
                     </td>
                 </tr>
                 </tbody>
