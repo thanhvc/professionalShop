@@ -59,7 +59,8 @@ angular.module('ngMo.my_profile', [
                 url: '/orders',
                 views: {
                     "sub-profile": {
-                        templateUrl: 'my_profile/orders.tpl.html'
+                        templateUrl: 'my_profile/orders.tpl.html',
+                        controller: 'OrdersCtrl'
                     }
                 },
                 data: {
@@ -222,6 +223,58 @@ angular.module('ngMo.my_profile', [
         }
 
 
+    })
+    .controller('OrdersCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state,$http,$rootScope) {
+        $scope.subPage = $state.$current.data.subPage;
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            IsLogged.isLogged();
+        });
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+        });
+
+        if ($state.current.name === "profile.orders") {
+            ////-- orders
+            $scope.orders = {
+                STOCKS: [],
+                PAIRS: [],
+                INDEX: [],
+                PAIRS_INDEX: [],
+                FUTURES: []
+            };
+            $http.get($rootScope.urlService + '/orders', config)
+                .success(function (data, status) {
+                    $scope.data = [
+                        {name: "ACCIÓN",
+                        packs: data.STOCKS},
+                        {name: "PAR ACCIONES",
+                            packs: data.PAIRS},
+                        {name: "INDICE",
+                            packs: data.INDEX},
+                        {name: "PAR INDICE",
+                            packs: data.PAIRS_INDEX},
+                        {name: "FUTURO",
+                            packs: data.FUTURES}
+                    ];
+                })
+                .error(function (data, status) {
+                    $scope.data = [
+                        {name: "ACCIÓN",
+                            packs: []},
+                        {name: "PAR ACCIONES",
+                            packs: []},
+                        {name: "INDICE",
+                            packs: []},
+                        {name: "PAR INDICE",
+                            packs: []},
+                        {name: "FUTURO",
+                            packs: []}
+                    ];
+                });
+
+        }
     })
     .factory('ProfileService', function ($http, $window,$rootScope) {
         var profileService = {};
