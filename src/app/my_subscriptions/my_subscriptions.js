@@ -31,7 +31,8 @@ angular.module('ngMo.my_subscriptions', [
                 url: '/my-subscriptions',
                 views: {
                     "my-subscriptions-view": {
-                        templateUrl: 'my_subscriptions/my-subscriptions-table.tpl.html'
+                        templateUrl: 'my_subscriptions/my-subscriptions-table.tpl.html',
+                        controller: "MySubsCtrl"
                     }
                 },
                 data: {
@@ -42,7 +43,8 @@ angular.module('ngMo.my_subscriptions', [
                 url: '/my-packs',
                 views: {
                     "my-subscriptions-view": {
-                        templateUrl: 'my_subscriptions/my-packs-table.tpl.html'
+                        templateUrl: 'my_subscriptions/my-packs-table.tpl.html',
+                        controller: "MyPacksCtrl"
                     }
                 },
                 data: {
@@ -83,15 +85,15 @@ angular.module('ngMo.my_subscriptions', [
     })
 
     .service('MyPacksService', function($q,$http,$rootScope,$window){
-        this.obtainPacks = function (filtering) {
+        this.obtainPacks = function () {
             var deferred = $q.defer();
             var indexType = null;
 
-            if (typeof filtering.index_type !== "undefined") {
+            /*if (typeof filtering.index_type !== "undefined") {
                 indexType = parseInt(filtering.index_type, 10);
             } else {
                 indexType = 0;
-            }
+            }*/
             config = {
                 params: {
                     'token': $window.sessionStorage.token
@@ -107,8 +109,68 @@ angular.module('ngMo.my_subscriptions', [
             return result;
         };
     })
+    .controller('MySubscriptionsCtrl',function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter) {
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+                $scope.subPage = toState.data.subPage;
+            }
+        });
+    })
+    .controller('MyPacksCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter) {
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+                $scope.subPage = toState.data.subPage;
+            }
+        });
 
-    .controller('MySubscriptionsCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter) {
+        $scope.loadPage = function() {
+            $scope.loading = true;
+            var data = MyPacksService.obtainPacks().then(function (data) {
+
+                $scope.myPacksTablePacks = [
+                    {
+                        title: 'Acciones',
+                        active: ActiveTabService.activeTab() === 0,
+                        value: 0,
+                        content: data.STOCK,
+                        url: 'my_subscriptions/tables_my_packs/stock_table.tpl.html'
+                    },
+                    {
+                        title: 'Pares',
+                        active: ActiveTabService.activeTab() === 1,
+                        value: 1,
+                        content: data.STOCKPAIR,
+                        url: 'my_subscriptions/tables_my_packs/pairs_table.tpl.html'
+                    },
+                    {
+                        title: 'Índices',
+                        active: ActiveTabService.activeTab() === 2,
+                        value: 2,
+                        content: data.INDICE,
+                        pairContent: data.INDICEPAIR,
+                        url: 'my_subscriptions/tables_my_packs/indices_table.tpl.html'
+                    },
+                    {
+                        title: 'Futuros',
+                        active: ActiveTabService.activeTab() === 3,
+                        value: 3,
+                        content: data.FUTURE,
+                        url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
+                    }
+                ];
+
+
+                $scope.loading = false;
+
+            });
+
+        };
+        $scope.loadPage();
+    })
+
+    .controller('MySubsCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter) {
 
 
         $scope.mySubscriptionsTablePacks = [
@@ -242,45 +304,7 @@ angular.module('ngMo.my_subscriptions', [
         };
 
         $scope.loadPage = function () {
-            $scope.loading = true;
-            var data = MyPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
 
-                $scope.myPacksTablePacks = [
-                    {
-                        title: 'Acciones',
-                        active: ActiveTabService.activeTab() === 0,
-                        value: 0,
-                        content: data.STOCK,
-                        url: 'my_subscriptions/tables_my_packs/stock_table.tpl.html'
-                    },
-                    {
-                        title: 'Pares',
-                        active: ActiveTabService.activeTab() === 1,
-                        value: 1,
-                        content: data.STOCKPAIR,
-                        url: 'my_subscriptions/tables_my_packs/pairs_table.tpl.html'
-                    },
-                    {
-                        title: 'Índices',
-                        active: ActiveTabService.activeTab() === 2,
-                        value: 2,
-                        content: data.INDICE,
-                        pairContent: data.INDICEPAIR,
-                        url: 'my_subscriptions/tables_my_packs/indices_table.tpl.html'
-                    },
-                    {
-                        title: 'Futuros',
-                        active: ActiveTabService.activeTab() === 3,
-                        value: 3,
-                        content: data.FUTURE,
-                        url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
-                    }
-                ];
-
-
-
-
-            });
 //unciment lines for distinct between same packs for distincts dates
             var data2 = MySubscriptionPacksService.obtainPacks($scope.filterOptions.filters).then(function (data) {
                 $scope.loading = false;
