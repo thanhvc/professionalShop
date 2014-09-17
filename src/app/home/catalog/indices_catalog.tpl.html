@@ -1,44 +1,32 @@
 <div>
-    <span class="catalog-title">Cat&aacute;logo Índices</span>
+    <p class="public-zone-text">
+        <span class="text-block-title">Cat&aacute;logo de Índices</span>
+    </p>
 
-    <p>El siguiente cuadro es un resumen de contenidos del Pack a <b>Comprar</b> mediante suscripción. Contiene una lista de 100 Índices y 100 Pares de Índices con las mejores Estrategias durante el Mes indicado</p>
+    <p>El siguiente cuadro resume la información del <b>Pack</b> a comprar. Se muestran 50 Índices con las mejores Estrategias durante el
+        Mes indicado y un avance de contenidos que permite valorar las ventajas de comprar el Pack:</p>
     <p>
     <ul class="public-list-first-level">
-        <li>Nombre del índice. En Par de Índices hay dos nombres, el “fuerte” y “débil”..</li>
-        <li>Número de años –o frecuencia de aciertos- que la estrategia generó Beneficios y Pérdidas.</li>
-        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media asociada al periodo de la operación.</li>
-        <li>Duración de la operación (Holding days). </li>
+        <li>Identificación del Índice con el nombre y emisor.</li>
+        <li>Número de años –o frecuencia de acierto y fallos- en los cuales la estrategia generó Beneficios y Pérdidas.</li>
+        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media de la operación.</li>
+        <li>Duración de la estrategia (<em>Holding days</em>). </li>
         <li>Volatilidad histórica.</li>
-        <li>El “Estado” de la Estrategia se indica mediante un semáforo: Color naranja si a día de hoy está en curso. Color rojo si ya terminó. Color verde cuando en la fecha actual todavía está sin comenzar.</li>
+        <li>El “Estado” de la estrategia se indica mediante un semáforo: Color <em>naranja</em> si a día de hoy está en curso. Color <em>rojo</em> si ya terminó. Color <em>verde</em> cuando en la fecha actual todavía está sin comenzar.</li>
 
     </ul>
-    Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias y herramientas de evaluaci&oacute;n.
+    Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias así como las herramientas de evaluación y toma de decisiones.
     </p>
     <div bindonce="startDate" class="start-date-catalog-container">
         <span bo-text="startDate | date: 'MMMM yyyy'"></span>
     </div>
     <div class="region-catalog-container">{{selectedPack.region.name | uppercase}}</div>
-    <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
+    <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate,'Anual'); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
     <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (CET)</span>
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
-            <input placeholder="Nombre" ng-model="filterOptions.filters.filterName" ng-change="search();">
-            <!--
-            <select ng-model="filterOptions.filters.selectedSector" ng-change="selectSector()" >
-                <option value="">- Elegir Sector -</option>
-                <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
-                        ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
-                    {{item.description}}
-                </option>
-            </select>
-            <select ng-model="filterOptions.filters.selectedIndustry" ng-change="selectIndustry();">
-                <option value="">- Elegir industria -</option>
-                <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
-                        ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}">
-                    {{item.description}}
-                </option>
-            </select>-->
+            <input class="stocks-catalog-input" placeholder="Nombre" ng-model="filterOptions.filters.filterName" ng-change="search();">
             <select ng-model="filterOptions.filters.durationInterval" ng-change="search();">
                 <option selected="selected" value="">- Elegir duración -</option>
                 <option value="[*/1]">Hasta 1 mes</option>
@@ -65,34 +53,40 @@
     <!-- Index table -->
     <table class="patterns-table-index-catalog" ng-show="patterns.length > 0">
         <tr>
-            <th>Patr&oacute;n Índices</th>
-            <th colspan="2">N&uacute;mero de A&ntilde;os</th>
-            <th colspan="2">Rentabilidad (%)</th>
-            <th>Duraci&oacute;n</th>
-            <th><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
-            <th style="border-right: 1px solid #6f7072 !important;">Estado</th>
+            <th class="index-name-column-catalog">Patr&oacute;n Índices</th>
+            <th class="border-right-thick-catalog index-number-of-years-column-catalog" colspan="2">N&uacute;mero de A&ntilde;os</th>
+            <th colspan="2" class="index-profit-column-catalog">Rentabilidad (%)</th>
+            <th class="border-right-thick-catalog index-duration-column-catalog">Duraci&oacute;n</th>
+            <th class="index-volatility-column-catalog"><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
+            <th style="border-right: 1px solid #6f7072 !important;" class="index-status-column-catalog">Estado</th>
         </tr>
         <tr>
-            <th>Nombre Índice</th>
-            <th style="border-right: 1px solid #6f7072 !important;">Ganancias</th>
-            <th>Pérdidas</th>
-            <th>Acumulada</th>
-            <th>Promedio</th>
-            <th>Meses</th>
-            <th>(%)</th>
-            <th style="border-right: 1px solid #6f7072 !important;"></th>
+            <th class="index-name-column-catalog">Nombre Índice</th>
+            <th style="border-right: 1px solid #6f7072 !important;" class="index-number-of-years-gain-column-catalog">Ganancias</th>
+            <th class="index-number-of-years-loss-column-catalog">Pérdidas</th>
+            <th class="index-profit-accumulated-column-catalog">Acumulada</th>
+            <th class="index-profit-average-column-catalog">Promedio</th>
+            <th class="border-right-thick-catalog index-duration-column-catalog">Meses</th>
+            <th class="index-volatility-column-catalog">(%)</th>
+            <th style="border-right: 1px solid #6f7072 !important;" class="index-status-column-catalog"></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td style="width: 446px;"><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName | limitTo: 33}}</span></td>
-            <td ><b>{{pattern.win | twoDecimals}}</b></td>
-            <td><b>{{pattern.loss | twoDecimals}}</b></td>
-            <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
-            <td>{{pattern.averageReturn | twoDecimals}}</td>
-            <td style="font-family: 'fontpo'"><span ng-show="(pattern.duration <31)">Hasta 1</span>
+            <td class="index-name-column-catalog">
+                <div class="long-name-breaker">
+                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 70}}</span>
+                </div>
+            </td>
+
+            <td class="index-number-of-years-gain-column-catalog">{{pattern.win | twoDecimals}}</td>
+            <td class="index-number-of-years-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
+            <td class="index-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td class="index-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
+            <td style="font-family: 'fontpo'"  class="index-duration-column-catalog border-right-thick-catalog">
+                <span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
-            <td>{{pattern.asset.volatility | twoDecimals}}</td>
-            <td style="border-right: 1px solid #6f7072 !important;"><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
+            <td  class="index-volatility-column-catalog">{{pattern.asset.volatility | twoDecimals}}</td>
+            <td style="border-right: 1px solid #6f7072 !important;"  class="index-status-column-catalog"><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
                 <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
                 <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state cursor-help" ng-show="pattern.statePattern == 'STARTED'"></div>
                 <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state cursor-help" ng-show="pattern.statePattern == 'FINISHED'"></div>

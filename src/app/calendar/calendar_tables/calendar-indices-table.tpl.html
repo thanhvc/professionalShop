@@ -17,6 +17,9 @@
         <option value="1">Ordenar por Fecha Salida</option>
     </select>
 </div>
+<div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>Cargando calendario, por favor espere...</span></div>
+<div class="no-patterns-container" ng-if="myData.length == 0 && !loading"><span >NO EXISTEN PATRONES CON ESTAS CONDICIONES</span></div>
+<div ng-show="myData.length >0">
 <table class="calendar-table">
     <thead>
     <tr>
@@ -48,6 +51,7 @@
 
 
 </table>
+        </div>
 <div class="copyright">
     Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
 </div>
@@ -62,5 +66,5 @@
 
 <div class="calendar-caption">
     <span class="bullish-year calendar-letter">L: </span> Long (Alcista)
-    <span class="bearish-year calendar-letter">S: </span> Short (Bajista)
+    <span style="margin-left: 14px;" class="bearish-year calendar-letter">S: </span> Short (Bajista)
 </div>

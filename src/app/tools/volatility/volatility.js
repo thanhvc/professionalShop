@@ -104,6 +104,11 @@ angular.module('ngMo.volatility', [
             }
         });
         $scope.loading = false;
+
+        $scope.startLoading = function() {
+            $scope.loading = true;
+            $scope.myData = [];
+        };
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
@@ -127,7 +132,7 @@ angular.module('ngMo.volatility', [
                 setTimeout(function(){
                     //event.srcElement.parentElement.className ='graphic-div';
                     $scope.graph.className='graphic-div move-to-the-right';
-                    $scope.graph.addEventListener('webkitTransitionEnd', function(event2) {
+                    $scope.graph.addEventListener('transitionend', function(event2) {
                         if ($scope.graph != null) {
                             $scope.graph.style.cssText = 'display:none';
                             $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
@@ -148,8 +153,12 @@ angular.module('ngMo.volatility', [
 
             var elemDiv = document.createElement('div');
 
-            var h = inputEvent.srcElement.parentElement.parentElement.parentElement.offsetHeight + 90;
-            var w = inputEvent.srcElement.parentElement.parentElement.parentElement.offsetWidth + 2;
+            var h = '';
+            var w = '';
+
+            h = inputEvent.target.parentElement.parentElement.parentElement.offsetHeight + 90;
+            w = inputEvent.target.parentElement.parentElement.parentElement.offsetWidth + 2;
+
             var elemTitle = document.createElement('span');
 
             //check the name (if is simple or pair)
@@ -183,23 +192,17 @@ angular.module('ngMo.volatility', [
                 containerTitle.appendChild(elemTitle);
             }
 
-
-
-
-
-
-
             elemDiv.className = 'graphic-div';
             elemDiv.style.cssText += 'height:' + h + 'px;';
             elemDiv.style.cssText += 'width:' + w + 'px;';
             var img = document.createElement('img');
-            if (url == null){
+            /*if (url == null){
                 //mocked graph
                 img.src = "assets/img/graphic.png";
-            } else {
+            } else {*/
                 //real graph
                 img.src=url;
-            }
+            //}
             img.className ="graphic-image-div";
 
             var closeButton = document.createElement('img');
@@ -211,7 +214,8 @@ angular.module('ngMo.volatility', [
             elemDiv.appendChild(containerTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
-            inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
+            inputEvent.target.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
+
 
             setTimeout(function(){
                 elemDiv.className+=' move';
@@ -384,7 +388,6 @@ angular.module('ngMo.volatility', [
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
 
        $scope.loadPage = function () {
-           $scope.loading = true;
             var data = VolatilityService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                 $scope.loading = false;
                 $scope.myData = data.patterns;//data.page;
@@ -440,7 +443,7 @@ angular.module('ngMo.volatility', [
          *  make a new search with the filters, restart the page and search, for the button Search in the page
          */
         $scope.search = function () {
-
+            $scope.startLoading();
 
             $scope.applyFilters();
         };
@@ -548,6 +551,7 @@ angular.module('ngMo.volatility', [
         };
         //when we change index type (pairs_index, or index)
         $scope.selectIndexType = function () {
+            $scope.startLoading();
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.restartFilter();
             $scope.applyFilters();
@@ -560,18 +564,21 @@ angular.module('ngMo.volatility', [
 
 
         $scope.nextMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
 
             var month = date[0];
@@ -959,114 +966,5 @@ angular.module('ngMo.volatility', [
                 callback(data);
             });
         };
-    })/*
-    .factory('MonthSelectorService', function () {
-        var actualDate = {};
-
-        return {
-
-            getMonthName: function (date) {
-
-                var monthString = "";
-                switch (date.month) {
-                    case 1:
-                        monthString = "Enero";
-                        break;
-                    case 2:
-                        monthString = "Febrero";
-                        break;
-                    case 3:
-                        monthString = "Marzo";
-                        break;
-                    case 4:
-                        monthString = "Abril";
-                        break;
-                    case 5:
-                        monthString = "Mayo";
-                        break;
-                    case 6:
-                        monthString = "Junio";
-                        break;
-                    case 7:
-                        monthString = "Julio";
-                        break;
-                    case 8:
-                        monthString = "Agosto";
-                        break;
-                    case 9:
-                        monthString = "Septiembre";
-                        break;
-                    case 10:
-                        monthString = "Octubre";
-                        break;
-                    case 11:
-                        monthString = "Noviembre";
-                        break;
-                    case 12:
-                        monthString = "Diciembre";
-                        break;
-                    default :
-                        monthString = "notFound";
-                        break;
-
-                }
-                return monthString;
-            },
-            restartDate: function () {
-                var today = new Date();
-                var mm = today.getMonth() + 1; //January is 0!
-                var yyyy = today.getFullYear();
-                actualDate = {
-                    month: mm,
-                    year: yyyy,
-                    monthString: "",
-                    value: mm + "_" + yyyy
-                };
-                actualDate.monthString = this.getMonthName(actualDate);
-                return actualDate;
-            },
-            setDate: function (date) {
-                var mm = date.getMonth() + 1; //January is 0!
-                var yyyy = date.getFullYear();
-                actualDate = {
-                    month: mm,
-                    year: yyyy,
-                    monthString: "",
-                    value: mm + "_" + yyyy
-                };
-                actualDate.monthString = this.getMonthName(actualDate);
-                return actualDate;
-            },
-            addMonths: function (months, date) { //add Months accepts months in positive (to add) or negative (to substract)
-                var d = new Date(date.year, date.month - 1, 1);
-                d.setMonth(d.getMonth() + months);
-                actualDate = {
-                    month: d.getMonth() + 1,
-                    year: d.getFullYear(),
-                    monthString: "",
-                    value: (d.getMonth() + 1) + "_" + d.getFullYear()
-                };
-                actualDate.monthString = this.getMonthName(actualDate);
-                return actualDate;
-            },
-            getListMonths: function () {
-                var today = new Date();
-                var monthList = [];
-                //the list is 10 last months + actual month + next month
-                var d = new Date(today.getFullYear(), today.getMonth() - 10, 1);
-                for (i = 0; i < 12; i++) {
-                    var d_act = (this.setDate(d));
-                    monthList.push({
-                        id: i,
-                        value: d_act.value,
-                        name: d_act.monthString + " " + d_act.year
-                    });
-
-                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
-                }
-                return monthList;
-
-            }
-        };
-
-    })*/;
+    })
+    ;

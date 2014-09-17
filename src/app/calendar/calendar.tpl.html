@@ -27,9 +27,8 @@
 
 <tabset class="float-left">
     <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}" active="ctab.active" disabled="tab.disabled">
-        <div class="pdf-icon" ng-click="obtainCalendarPdf();"></div>
+        <div class="pdf-icon-calendar" ng-click="obtainCalendarPdf();"></div>
         <div class="loading-div-container">
-            <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>Cargando, por favor espere...</span></div>
             <fieldset ng-disabled="loading">
                 <div ng-include="urlSelected"></div>
             </fieldset>

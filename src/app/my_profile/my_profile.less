@@ -45,3 +45,103 @@
 .myclass{
   color:#ff8200 !important;
 }
+
+/*orders*/
+.header-orders {
+  border-right: 1px solid @black;
+  border-left: 1px solid @black;
+  font-size: 16px;
+  background-color: @black;
+  vertical-align: middle;
+  border: 0px !important;
+  color: @white;
+  border-top: 3px solid @white;
+  border-bottom: 3px solid @white;
+  text-align: center;
+  padding: 8px;
+  height: 38px;
+  margin-bottom: 2px;
+}
+
+.orders-body {
+  float: right;
+  width: 790px;
+  height: 280px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.orders-table {
+  thead {
+    tr {
+      background-color: @greyBorderColor;
+      color: white;
+      font-size: 11px;
+      border-bottom: 1px solid gray !important;
+
+      td {
+        text-align: center;
+        padding: 4px;
+        border-left: 2px solid @greyLabel !important;
+        &:first-child {
+          width: 225px;
+          div {
+            float: left;
+            width: 50%;
+            text-align: left;
+          }
+        }
+        &:nth-child(2),&:nth-child(3),&:nth-child(4) {
+          width: 60px;
+        }
+         &:nth-child(5),&:nth-child(7){
+          width: 65px;
+        }
+        &:nth-child(5),&:nth-child(10) {
+          width: 50px;
+        }
+        &:nth-child(8),&:nth-child(9) {
+          width: 70px;
+        }
+      }
+    }
+  }
+  tbody {
+    tr{
+      color: @black;
+      font-size: 10px;
+      td {
+        border-left: 2px solid @greyLabel !important;
+        border-bottom: 1px solid gray !important;
+        padding: 4px;
+        text-align: center;
+        &:first-child {
+          text-align: left;
+        }
+        &:last-child {
+          border-right: 2px solid @greyLabel !important;
+        }
+
+        div {
+            padding-top: 5px;
+          }
+      }
+
+      &:nth-child(even) {
+        background-color: @smokeGrey;
+      }
+      &:nth-child(odd) {
+        background-color: @white;
+      }
+    }
+  }
+}
+.cell-container-order{
+  padding-left: 20px;
+}
+.cell-order {
+  height: 20px;
+}
+
+
+

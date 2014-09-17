@@ -1,56 +1,38 @@
 <div>
-    <span class="catalog-title">Cat&aacute;logo Futuros</span>
+    <p class="public-zone-text">
+        <span class="text-block-title">Cat&aacute;logo de Futuros</span>
+    </p>
 
-    <div style="clear: both; margin-bottom:10px;">El cuadro siguiente es un resumen de la <b>Suscripción a Comprar.</b>
-        Contiene una lista con las
-        mejores Estrategias sobre los principales productos internacionales cotizados a Futuro que comienzan durante el
-        Mes indicado.
+    <div style="clear: both; margin-bottom:10px;">
+        El siguiente cuadro resume la información del <b>Pack</b> a comprar.
+        Se muestran 50 Estrategias sobre los principales productos internacionales cotizados a Futuro durante el
+        Mes indicado y un avance de contenidos que permite valorar las ventajas de comprar el Pack:
 
-        <div style="display: inline-block;"
-             ng-click="show=!show" ng-show="!show"><img
-                src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar m&aacute;s</a>
-        </div>
-    </div>
-    <div ng-show="show">
         <p>
-            Dispone de un Buscador que permite:
         <ul class="public-list-first-level">
-            <li>Localizar nombres de Futuros mediante cadena de caracteres.</li>
-            <li>Categorizar por Grupo</li>
-        <li>Seleccionar Estrategias por Duración (<i>Holding days</i>) en días de calendario.</li>
-        <li>Seleccionar Futuros por Volatilidad.
-            <img src="assets/img/textup.png"> <a
-                    style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar
-                menos</a></li>
-        </ul>
-    </div>
-    <div>
-        <p>
-            La tabla permite a los No clientes valorar las ventajas de Comprar una Suscripción.
-            Para ello se exponen unos parámetros cualitativos básicos:
-        <ul class="public-list-first-level">
-        <li>Nombre del Futuro.</li>
-        <li>Número de años –o frecuencia de aciertos- que la estrategia generó Beneficios y Pérdidas.</li>
-        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media asociada a la duración de la operación desde la apertura hasta el cierre.</li>
-        <li>La Volatilidad histórica a 3 meses.</li>
-        <li>El “Estado” de la Estrategia se indica mediante un semáforo: Color naranja si está en curso. Color rojo si ya terminó.
-            Color verde cuando en la fecha actual todavía está sin comenzar. </li>
+        <li>Identificación del Futuro, nombre del producto, mes - año de vencimiento y mercado de cotización. </li>
+        <li>Número de años –o frecuencia de aciertos y fallos- en los cuales la estrategia generó Beneficios y Pérdidas.</li>
+        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media de la operación. </li>
+        <li>Duración de la estrategia (<em>Holding days</em>).</li>
+        <li>Volatilidad histórica</li>
+        <li>El “Estado” de la Estrategia se indica mediante un semáforo: Color <i>naranja</i> si a día de hoy está en curso. Color <i>rojo</i> si ya terminó.
+            Color <i>verde</i> cuando en la fecha actual todavía está sin comenzar.</li>
         </ul>
         </p>
-        <p>Hágase cliente y descubra toda la información.</p>
+        <p>Una vez comprado el Pack, como cliente, descubrirá toda la información detallada de las estrategias y herramientas de evaluación.</p>
     </div>
     <div bindonce="startDate" class="start-date-catalog-container">
         <span bo-text="startDate | date: 'MMMM yyyy'"></span>
     </div>
     <div class="region-catalog-container">{{selectedPack.region.name | uppercase}}</div>
-    <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();"
+    <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate,'Anual'); $event.stopPropagation();"
             class="mo-button purchase-button">Al carro
     </button>
     <span class="actual-date-catalog">DATE: {{actualDate | date:'dd MMM'}}. (CET)</span>
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
-            <input placeholder="Nombre" ng-model="filterOptions.filters.filterName" ng-change="search();">
+            <input placeholder="Nombre" class="home-filter-input" ng-model="filterOptions.filters.filterName" ng-change="search();">
             <select ng-model="filterOptions.filters.selectedIndustry" ng-change="selectIndustry();">
                 <option value="">- Elegir Grupo -</option>
                 <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
@@ -84,43 +66,50 @@
     <!-- Futures table -->
     <table class="patterns-table-catalog" ng-show="patterns.length > 0">
         <tr>
-            <th>Patr&oacute;n Futuros</th>
-            <th style="width: 120px;">Fecha Vencimiento</th>
-            <th style="width: 85px;">Mercado</th>
-            <th colspan="2">N&uacute;mero de A&ntilde;os</th>
-            <th colspan="2">Rentabilidad (%)</th>
-            <th style="border-right: 2px solid #6f7072 !important;">Duraci&oacute;n</th>
-            <th style="width: 70px;"><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
-            <th style="width:65px; border-right: 1px solid #6f7072 !important;">Estado</th>
+            <th class="futures-name-column-catalog">Patr&oacute;n Futuros</th>
+            <th class="futures-expiration-date-column-catalog">Fecha Vencimiento</th>
+            <th class="futures-market-column-catalog">Mercado</th>
+            <th class="futures-number-of-years-column-catalog" colspan="2">N&uacute;mero de A&ntilde;os</th>
+            <th class="futures-profit-column-catalog"  colspan="2">Rentabilidad (%)</th>
+            <th class="futures-duration-column-catalog">Duraci&oacute;n</th>
+            <th class="futures-volatility-column-catalog"><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
+            <th class="futures-status-column-catalog">Estado</th>
         </tr>
         <tr>
-            <th>Nombre Producto</th>
-            <th></th>
-            <th style="width: 85px;">C&oacute;digo</th>
-            <th>Ganancia</th>
-            <th>Pérdida</th>
-            <th>Acumulada</th>
-            <th>Promedio</th>
-            <th>Meses</th>
-            <th>(%)</th>
-            <th></th>
+            <th class="futures-name-column-catalog">Nombre Producto</th>
+            <th class="futures-expiration-date-column-catalog"></th>
+            <th class="futures-market-column-catalog">C&oacute;digo</th>
+            <th class="futures-number-of-years-gain-column-catalog">Ganancia</th>
+            <th class="futures-number-of-years-loss-column-catalog">Pérdida</th>
+            <th class="futures-profit-accumulated-column-catalog">Acumulada</th>
+            <th class="futures-profit-average-column-catalog">Promedio</th>
+            <th class="futures-duration-column-catalog">Meses</th>
+            <th class="futures-volatility-column-catalog">(%)</th>
+            <th class="futures-status-column-catalog"></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
-            <td><span class="cursor-help"
-                      tooltip-html-unsafe="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.asset.expirationYear}} ">{{pattern.asset.longName | limitTo: 33}}</span>
+            <td class="futures-name-column-catalog">
+                <div class="long-name-breaker">
+                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.asset.expirationYear}} ">{{pattern.asset.longName | limitTo: 60}}</span>
+                </div>
             </td>
-            <td>{{pattern.asset.expirationYear}}</td>
-            <td style="width: 85px;"><span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
+            <td class="futures-expiration-date-column-catalog">
+                {{pattern.asset.expirationYear}}
             </td>
-            <td>{{pattern.win | twoDecimals}}</td>
-            <td>{{pattern.loss | twoDecimals}}</td>
-            <td>{{pattern.accumulatedReturn | twoDecimals}}</td>
-            <td>{{pattern.averageReturn | twoDecimals}}</td>
-            <td><span ng-show="(pattern.duration <31)">Hasta 1</span>
+            <td class="futures-market-column-catalog">
+                <span class="cursor-help"tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
+            </td>
+            <td class="futures-number-of-years-gain-column-catalog">{{pattern.win | twoDecimals}}</td>
+            <td class="futures-number-of-years-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
+            <td class="futures-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td class="futures-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
+            <td class="futures-duration-column-catalog">
+                <span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
-                <span ng-show="(pattern.duration >92)">Más de 3</span></td>
-            <td>{{pattern.asset.volatility | twoDecimals}}</td>
-            <td>
+                <span ng-show="(pattern.duration >92)">Más de 3</span>
+            </td>
+            <td class="futures-volatility-column-catalog">{{pattern.asset.volatility | twoDecimals}}</td>
+            <td class="futures-status-column-catalog">
                 <!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
                 <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help"
                      ng-show="pattern.statePattern == 'NO_STARTED'"></div>

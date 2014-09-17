@@ -88,7 +88,9 @@ angular.module('ngMo.lookup_diary', [
     .run(function run() {
     })
 
-    .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,PatternsService, LookupDiaryService, $http, $state, $stateParams, $location, $modal,diaryData) {
+    .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
+                                             LookupDiaryService, $http, $state, $stateParams, $location,
+                                             $modal,diaryData,SelectedMonthService,PatternsService, ExpirationYearFromPatternName) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -108,7 +110,7 @@ angular.module('ngMo.lookup_diary', [
         $scope.loading = false;
         //tabs and variables
         //pattern number for rents
-        $scope.rentPattern = /^\d+(\.\d{0,2})?$/;
+        $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
         $scope.daysPattern = /^\d+$/;
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
@@ -185,7 +187,7 @@ angular.module('ngMo.lookup_diary', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    month: SelectedMonthService.getSelectedMonth(),
                     favourite: false,
                     alarm: false
                 },
@@ -212,8 +214,8 @@ angular.module('ngMo.lookup_diary', [
                         {"id": 1, "description": "Bajista"}
                     ],
                     comparators: [
-                        {"id": 0, "description": "Menor que"},
-                        {"id": 1, "description": "Mayor que"}
+                        {"id": 1, "description": "Mayor que"},
+                        {"id": 0, "description": "Menor que"}
                     ],
 
                     comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value
@@ -249,6 +251,13 @@ angular.module('ngMo.lookup_diary', [
                 $scope.loadPage();
             });
         };*/
+
+        //start loading set loading = true to show loading message and empty the table
+        $scope.startLoading = function() {
+
+            $scope.loading = true;
+            $scope.myData =[];
+        };
 
         $scope.open = function (patternId, assetName, bearishAssetName, patternType, actualPrice, actualCondition) {
 
@@ -341,6 +350,7 @@ angular.module('ngMo.lookup_diary', [
         };
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            $scope.startLoading();
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
@@ -400,6 +410,9 @@ angular.module('ngMo.lookup_diary', [
             if ($scope.filterOptions.filters.volatilityInput!== "") {
                 return true;
             }
+            if ($scope.filterOptions.filters.alarm !== false) {
+                return true;
+            }
             return false;
         };
         //restore filters and load page
@@ -429,7 +442,8 @@ angular.module('ngMo.lookup_diary', [
          */
 
         $scope.refreshSelectors = function (selectors,filters,callback) {
-            PatternsService.getSelectors(filters, selectors,callback);
+            viewName = $state.$current.self.name;
+            LookupDiaryService.getSelectors(filters, selectors,callback,viewName);
         };
 
         $scope.callBackRefreshSelectors =  function (data) {
@@ -471,6 +485,7 @@ angular.module('ngMo.lookup_diary', [
 
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
+            $scope.startLoading();
             $scope.pagingOptions.currentPage = 1; //restart the page
             $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
@@ -537,6 +552,73 @@ angular.module('ngMo.lookup_diary', [
 
         };
 
+        $scope.closeGraph = function() {
+            if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
+                setTimeout(function(){
+                    //event.srcElement.parentElement.className ='graphic-div';
+                    $scope.graph.className='div-graph-lookup-diary move-to-the-right';
+                    $scope.graph.addEventListener('webkitTransitionEnd', function(event2) {
+                        if ($scope.graph != null) {
+                            $scope.graph.style.cssText = 'display:none';
+                            $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
+                            $scope.graph = null;
+                        }
+
+                    });
+                },0);
+            }
+        };
+        //open a graph and sve it to $scope.graph
+        $scope.loadGraphic = function (inputEvent,url,name) {
+
+            if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
+                $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
+                $scope.graph = null;
+            }
+
+            var elemDiv = document.createElement('div');
+            var h = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetHeight;
+            var w = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetWidth;
+            var elemTitle = document.createElement('span');
+            //elemTitle.innerHTML = inputEvent.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
+            elemTitle.innerHTML = name;
+            var img = document.createElement('img');
+            if (url == null){
+                //mocked graph
+                img.src = "assets/img/graphic.png";
+            } else {
+                //real graph
+                img.src=url;
+            }
+            img.className ="graphic-image-div-lookup-diary";
+            elemDiv.className = 'div-graph-lookup-diary';
+            elemDiv.style.cssText += 'height:' + h + 'px;';
+            elemDiv.style.cssText += 'width:' + w + 'px;';
+
+
+            var closeButton = document.createElement('div');
+            //closeButton.src = "assets/img/close_modal.png";
+            closeButton.className = 'close-graphic-button-diary-lookup';
+            closeButton.onclick = function (event) {
+
+                $scope.closeGraph();
+            };
+            elemDiv.appendChild(elemTitle);
+            elemDiv.appendChild(closeButton);
+            elemDiv.appendChild(img);
+            inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
+
+            setTimeout(function(){
+                elemDiv.className+=' move';
+
+            },0);
+            $scope.graph = elemDiv;
+            return 0;
+
+        };
+
+
+
         //refresh selectors depending of market
         $scope.refreshMarket = function () {
             $scope.filterOptions.filters.selectedSector = "";
@@ -584,21 +666,27 @@ angular.module('ngMo.lookup_diary', [
 
 
         $scope.nextMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -637,6 +725,10 @@ angular.module('ngMo.lookup_diary', [
             urlParams.page = $scope.pagingOptions.currentPage;
             //we ask each param to include in the url or not
             var urlParamsSend = {};
+
+            if (urlParams.alarm) {
+                urlParamsSend.qalarm = urlParams.alarm;
+            }
             if (urlParams.filterName) {
                 urlParamsSend.qname = urlParams.filterName;
             }
@@ -703,8 +795,15 @@ angular.module('ngMo.lookup_diary', [
             }
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
+            //check if the new urlParamsSend are equals that the filters that are already in the url,if they are equals,
+            //we launch loadPage
+            url = $location.search();
+            if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
+                $scope.loadPage();
+            } else {
+                $location.path('/lookup-diary').search(urlParamsSend);
+            }
 
-            $location.path('/lookup-diary').search(urlParamsSend);
         };
         $scope.loadUrlParams = function () {
             var params = $location.search();
@@ -726,7 +825,10 @@ angular.module('ngMo.lookup_diary', [
                 active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
                 favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
                 selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
-                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" )
+                selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
+                selectedSector: (typeof params.qsector !== "undefined" ? params.qsector : ""),
+                selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : ""),
+                alarm: (typeof params.qalarm !== "undefined" ? params.qalarm : "")
 
             };
             //special case for index
@@ -772,7 +874,10 @@ angular.module('ngMo.lookup_diary', [
             } else {
                 //if the date is not passed as param, we load the default date
                 var date_restart = new Date();
-                filters.month = MonthSelectorService.restartDate();
+                date_restart.setDate(1);
+                date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
+                filters.month = MonthSelectorService.setDate(date_restart);
+
             }
 
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
@@ -813,6 +918,18 @@ angular.module('ngMo.lookup_diary', [
         $scope.myData = diaryData.patterns;
         $scope.results = diaryData.results;
         $scope.found = diaryData.found;
+
+        $scope.$on('body-click',function() {
+            $scope.closeGraph();
+        });
+
+
+        //Expiration service
+        $scope.getYearFromPatternName= function (patternName, expirationDate) {
+            return ExpirationYearFromPatternName.getExpirationYearFromPatternName(patternName, expirationDate);
+        };
+
+
     })
     .service("LookupDiaryService", function ($http, $window, $rootScope, $q) {
 
@@ -870,7 +987,8 @@ angular.module('ngMo.lookup_diary', [
                     'volatilityInput': filtering.volatilityInput,
                     'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
                     'durationInput': filtering.durationInput,
-                    'favourites': filtering.favourite
+                    'favourites': filtering.favourite,
+                    'alarm' : filtering.alarm
                 }
             };
 
@@ -923,7 +1041,7 @@ angular.module('ngMo.lookup_diary', [
          * @param filtering - is the object with the filters
          * @param selectorsToRefresh - the list of selectors requested
          */
-        this.getSelectors = function (filtering, selectorsToRefresh, callback) {
+        this.getSelectors = function (filtering, selectorsToRefresh, callback, viewName) {
             //the filtering object could contains some filters that are required for get the specified selectors
             //for example, to get the markets, the selected region is required (if there is not region, means all..)
             //the http petition will use the callback function to load the info received from server
@@ -948,7 +1066,7 @@ angular.module('ngMo.lookup_diary', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'view': location.hash.replace("#/","").substring(0, (location.hash.indexOf("?")-2))
+                    'view': viewName
                 }
             };
 

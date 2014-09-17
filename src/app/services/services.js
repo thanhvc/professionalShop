@@ -10,12 +10,13 @@ angular.module('ngMo.services', [
             url: '/summary',
             views: {
                 "main": {
-                    controller: 'ServicesCtrl',
+                    controller: 'DetailedCtrl',
                     templateUrl: 'services/summary/summary.tpl.html'
-                },
-                'sum-view@summary': {
-                    templateUrl: 'services/summary/sub-summary.tpl.html'
                 }
+                /*,
+                 'sum-view@summary': {
+                 templateUrl: 'services/summary/sub-summary.tpl.html'
+                 }*/
             },
             data: {
                 pageTitle: 'Resumen',
@@ -27,28 +28,28 @@ angular.module('ngMo.services', [
             }
         })
             //substates of summary
-            .state('summary.basic', {
-                url: '/basic',
-                views: {
-                    "sum-view": {
-                        templateUrl: 'services/summary/basic-info.tpl.html'
-                    }
-                },
-                data: {
-                    subPage: 'basic'
-                }
-            })
-            .state('summary.diary', {
-                url: '/diary',
-                views: {
-                    "sum-view": {
-                        templateUrl: 'services/summary/diary.tpl.html'
-                    }
-                },
-                data: {
-                    subPage: 'diary'
-                }
-            })
+            /*.state('summary.basic', {
+             url: '/basic',
+             views: {
+             "sum-view": {
+             templateUrl: 'services/summary/basic-info.tpl.html'
+             }
+             },
+             data: {
+             subPage: 'basic'
+             }
+             })
+             .state('summary.diary', {
+             url: '/diary',
+             views: {
+             "sum-view": {
+             templateUrl: 'services/summary/diary.tpl.html'
+             }
+             },
+             data: {
+             subPage: 'diary'
+             }
+             })*/
             .state('products_and_exchanges', {
                 url: '/products_and_exchanges',
                 views: {
@@ -69,7 +70,7 @@ angular.module('ngMo.services', [
                 url: '/detailed_description',
                 views: {
                     "main": {
-                        controller: 'ServicesCtrl',
+                        controller: 'DetailedCtrl',
                         templateUrl: 'services/detailed_description/detailed_description.tpl.html'
                     }/*,
                      "subPage@detailed_description": {
@@ -244,62 +245,106 @@ angular.module('ngMo.services', [
         $scope.pack_year = prices.pack_year;
     })
 
-    .directive("scrollDetailed", function ($window, PositionAnchorsDetailed) {
-        return function(scope, element, attrs) {
-            angular.element($window).bind("scroll", function() {
-                //menu position
-                /*if (this.pageYOffset >= 27845) {
-                 scope.boolChangeClassDetailed = true;
-                 } else {
-                 scope.boolChangeClassDetailed = false;
-                 }*/
-                var footerPosition = document.getElementsByClassName("footer")[0].offsetTop;
-                var footerHeight = document.getElementsByClassName("footer")[0].offsetHeight;
-                if (this.pageYOffset >= 150) {
-                    scope.positionFix = true;
-                    if (footerPosition > (this.pageYOffset+(this.screen.availHeight - footerHeight))){
-                        scope.boolChangeClassDetailed = true;
-                    }else{
-                        scope.boolChangeClassDetailed = false;
+    /*.directive("scrollDetailed", function ($window, PositionAnchorsDetailed) {
+     return function(scope, element, attrs) {*/
+    .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService){
+        $scope.scrollTo = AnchorLinkService.scrollTo;
+        $scope.anchors = null;
+        $scope.location = $location;
+        angular.element($window).bind("scroll", function(scope, element, attrs) {
+
+            if ((location.hash.indexOf("#/detailed_description") == -1)  && ((location.hash.indexOf("#/summary") == -1) && (location.hash.indexOf("#/resources") == -1))) {
+                return; //only in detailed description url
+            }
+            //menu position
+            var footerPosition = document.getElementsByClassName("footer")[0].offsetTop;
+            var footerHeight = document.getElementsByClassName("footer")[0].offsetHeight;
+            if (window.pageYOffset >= 150) {
+                $scope.positionFix = true;
+
+                /*if (footerPosition > (window.pageYOffset+(window.screen.availHeight - footerHeight))){*/
+                    $scope.boolChangeClassDetailed = true;
+                /*}else{
+                    $scope.boolChangeClassDetailed = false;
+                }*/
+
+                //horizontal scroll control when the menu is fixed
+                if(window.pageXOffset > 0){
+                    menuOffset = document.getElementsByClassName("lat-menu-detailed-nav")[0].offsetLeft;
+                    $scope.menuLeft = (menuOffset-window.pageXOffset)+'px';
+                }else{
+                    $scope.menuLeft = '';
+                }
+
+            } else {
+                $scope.boolChangeClassDetailed = false;
+                $scope.positionFix = false;
+                $scope.menuLeft = '';
+            }
+            $scope.$apply();
+
+            //scrollSpy
+            //Obtain anchors -- is better get always the positions because wheb the page is refreshing
+            /*if ((typeof $scope.anchors === 'undefined') ||  ($scope.anchors  == null) ) {*/
+                $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
+           /* }*/
+
+
+
+            if (window.pageYOffset < $scope.anchors[0].position){
+                $scope.selectedOption = $scope.anchors[0].id;
+            }else if(window.pageYOffset > $scope.anchors[$scope.anchors.length-1].position) {
+                $scope.selectedOption = $scope.anchors[$scope.anchors.length-1].id;
+            }else {
+                for (var j = 1; j < $scope.anchors.length-1; j++) {
+                    if (window.pageYOffset >= $scope.anchors[j].position && window.pageYOffset < $scope.anchors[j + 1].position) {
+                        $scope.selectedOption = $scope.anchors[j].id;
                     }
+                }
+            }
+
+        });
+
+
+        //try when 1 page
+        angular.element(document).ready(function () {
+            subRoute =location.hash.split("#/detailed_description#");
+            if (subRoute.length == 1) {
+                //if detailed_description is not the actual page, the length is 1... so we must check if is summary page or resources page
+                subRoute =location.hash.split("#/summary#");
+                if (subRoute.length == 1) {
+                    //if detailed_description is not the actual page, the length is 1... so we must check if is summary page
+                    subRoute = location.hash.split("#/resources#");
+                }
+            }
+            if (subRoute.length == 2) {
+                subRoute = subRoute[1];
+                if (subRoute === ""){
+                    return;
                 } else {
-                    scope.boolChangeClassDetailed = false;
-                    scope.positionFix = false;
-                }
-                scope.$apply();
-
-                //scrollSpy
-                //Obtain anchors
-                if (typeof anchorsDetailed === 'undefined') {
-                    anchorsDetailed = PositionAnchorsDetailed.getPositionAnchors();
-                }
-
-
-
-                if (this.pageYOffset < anchorsDetailed[0].position){
-                    scope.selectedOption = anchorsDetailed[0].id;
-                }else if(this.pageYOffset > anchorsDetailed[anchorsDetailed.length-1].position) {
-                    scope.selectedOption = anchorsDetailed[anchorsDetailed.length-1].id;
-                }else {
-                    for (var j = 1; j < anchorsDetailed.length-1; j++) {
-                        if (this.pageYOffset >= anchorsDetailed[j].position && this.pageYOffset < anchorsDetailed[j + 1].position) {
-                            scope.selectedOption = anchorsDetailed[j].id;
+                    if ((typeof $scope.anchors === 'undefined') || ($scope.anchors == null) ) {
+                        $scope.anchors = PositionAnchorsDetailed.getPositionAnchors();
+                    }
+                    for (var j = 1; j < $scope.anchors.length-1; j++) {
+                        if ($scope.anchors[j].id === subRoute) {
+                            $scope.selectedOption = $scope.anchors[j].id;
+                            window.scrollTo(0,$scope.anchors[j].position);
                         }
                     }
                 }
-
-            });
-        };
+            }
+        });
+        /* };*/
     })
     .service("PositionAnchorsDetailed", function() {
         this.getPositionAnchors = function() {
-            var anchorsDetailed = document.getElementsByClassName("anchor-detailed");
+            var anchors = document.getElementsByClassName("anchor-detailed");
             var positions = [];
-            for (var i = 0; i<anchorsDetailed.length;i++){
+            for (var i = 0; i<anchors.length;i++){
                 positions.push(
                     {
-                        "position": (anchorsDetailed[i]).offsetTop,
-                        "id": (anchorsDetailed[i]).getAttribute('id')
+                        "position": (anchors[i]).offsetTop,
+                        "id": (anchors[i]).getAttribute('id')
                     });
             }
             return positions;

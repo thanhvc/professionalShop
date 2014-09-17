@@ -1,4 +1,4 @@
-<div class="no-patterns-container" ng-show="myData.length==0">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
+
 
 <table style="width: 955px;" class="table-pattern"  ng-show="myData.length>0">
     <!--HEADER-->
@@ -119,10 +119,10 @@
         </td>
 
         <td  class="table-cell-patterns border-right-table market-column-my-patterns">
-            <div tooltip-html-unsafe="{{data.asset.exchange.name}}" class="buy-color">
+            <div tooltip-html-unsafe="{{data.asset.exchange.name}}" class="buy-color cursor-help">
                 {{data.asset.exchange.symbol}}
             </div>
-            <div tooltip-html-unsafe="{{data.bearishAsset.exchange.name}}" class="sell-color">
+            <div tooltip-html-unsafe="{{data.bearishAsset.exchange.name}}" class="sell-color cursor-help">
                 {{data.bearishAsset.exchange.symbol | limitTo: 4}}
             </div>
         </td>

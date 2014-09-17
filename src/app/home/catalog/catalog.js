@@ -88,12 +88,13 @@ angular.module('ngMo.catalog', [
             } else {
                 indexType = 0;
             }
+
             config = {
                 params: {
                     'page': page,
                     'packCode': filtering.packCode,
                     'month': filtering.month,
-                    //'year': filtering.month.year,
+                    'year': filtering.month.year,
                     'name': filtering.filterName,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,

@@ -1,0 +1,80 @@
+<div>
+    <div>
+        <div class="super-border private-black-title">Devolución</div>
+    </div>
+    <div>
+        <div>
+            <div class="header-cancel-pack">
+                Solicitud de devolución
+            </div>
+            <table class="cancel-pack-table">
+                <thead>
+                <tr class="sub-header-cancel-pack">
+                    <th>
+                        <div>Región</div>
+                    </th>
+                    <th>
+                        <div>Mes Inicio</div>
+                    </th>
+                    <th>
+                        <div>Mes Expiración</div>
+                    </th>
+                    <th>
+                        <div>Duración</div>
+                    </th>
+                    <th>
+                        <div>Meses consumidos</div>
+                    </th>
+                    <th>
+                        <div>Meses restantes</div>
+                    </th>
+                    <th>
+                        <div>Devolución</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="row-cancel-pack">
+                    <td><span style="margin-left:5px;">{{pack.name}}</span></td>
+                    <td>{{pack.startDate | date: 'MMM yy'}}</td>
+                    <td>{{pack.endDate | date: 'MMM yy'}}</td>
+                    <td>
+                        <span ng-show="pack.duration == 'MONTH'">Mensual</span>
+                        <span ng-show="pack.duration == 'THREE_MONTH'">Trimestral</span>
+                        <span ng-show="pack.duration == 'YEAR'">Anual</span>
+                    </td>
+                    <td>{{pack.pastMonths}}</td>
+                    <td>{{pack.restMonths}}</td>
+                    <td>
+                        <div>
+                            <div><span>{{pack.price | twoDecimals}}</span> EUR
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <div class="button-cancel-container">
+                    <button class="mo-button" ng-click="cancel();" ng-show="!cancelOK">Cancelar devolución</button>
+                    <button class="mo-button" ng-click="confirmCancelation();" ng-show="!errorLoad && !cancelOK">
+                        Devolver
+                    </button>
+
+                    <button class="mo-button" ng-click="cancel();" ng-show="cancelOK">Volver</button>
+                    <div class="loading-div-container" style="clear:both;">
+                        <span ng-show="errorLoad">No se han encontrado Pack para devolver (o el indicado no se puede devolver)</span>
+                        <span ng-show="cancelOK">Se ha cancelado el pack con éxito</span>
+
+                        <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>

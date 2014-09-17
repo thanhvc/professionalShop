@@ -221,7 +221,7 @@ angular.module('ngMo.the_week', [
 
                     $scope.selectedGraphic = {
                         indiceName:  name,
-                        url: url
+                        url:  (typeof url !== "undefined" ? url : "")
                     };
 
                     if(typeof e !== 'undefined') {
@@ -262,9 +262,7 @@ angular.module('ngMo.the_week', [
                 "<br/>"+
                 "<span>Rentabilidad Diaria Acumulada (%)</span>"+
                 "<br/>"+
-                "<!-- TODO: replace img line for commited line -->"+
                 "<img class=\"selected-graphic-image\" src=\"{{selectedGraphic.url}}\"/>"+
-                "<!--<img class=\"selected-graphic-image\" src=\"assets/img/graphic_example.png\"/>-->"+
                 "</div>"
         };
     })

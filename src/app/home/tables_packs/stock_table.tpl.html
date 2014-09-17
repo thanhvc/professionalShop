@@ -16,22 +16,11 @@
     <tr>
         <td class="area-cell" style="border-top: none;" rowspan="{{homeTablePack.americaContent.length + 1}}">AMÉRICA</td>
     </tr>
-    <tr ng-repeat="pack in homeTablePack.americaContent track by $index" ui-sref="catalog({packCode: pack.code, month: 0})"
+    <tr ng-repeat="pack in homeTablePack.americaContent track by $index" ui-sref="catalog({packCode: pack.pack.code, month: 0})"
         ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
-        <td >{{pack.name}}</td>
-        <td>{{pack.scopeText}}</td>
+        <td >{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})</td>
+        <td>{{pack.pack.scopeText}}</td>
         <td>{{pack.numPatterns}}</td>
-        <!--<td colspan="3">
-            <table class="table-pack">
-                <tbody>
-                <tr ng-repeat="pack in homeTablePack.americaContent track by $index" ui-sref="catalog({packCode: pack.code, month: 0})">
-                    <td >{{pack.name}}</td>
-                    <td>{{pack.scopeText}}</td>
-                    <td>{{pack.numPatterns}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </td>-->
     </tr>
     <tr>
         <td class="separator"></td>
@@ -39,36 +28,24 @@
     <tr>
         <td class="area-cell area-cell-several-lines" rowspan="{{homeTablePack.asiaContent.length + 1}}">ASIA<br> PACÍFICO</td>
     </tr>
-       <!-- <td colspan="3">
-            <table class="table-pack">
-                <tbody>-->
-                <tr ng-repeat="pack in homeTablePack.asiaContent track by $index" ui-sref="catalog({packCode: pack.code, month: 0})"
-                    ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
-                    <td>{{pack.name}}</td>
-                    <td>{{pack.scopeText}}</td>
-                    <td>{{pack.numPatterns}}</td>
-                </tr>
-                <!--</tbody>
-            </table>
-        </td>-->
+        <tr ng-repeat="pack in homeTablePack.asiaContent track by $index" ui-sref="catalog({packCode: pack.pack.code, month: 0})"
+            ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
+            <td>{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})</td>
+            <td>{{pack.pack.scopeText}}</td>
+            <td>{{pack.numPatterns}}</td>
+        </tr>
     </tr>
     <tr>
         <td class="separator"></td>
     </tr>
     <tr>
         <td class="area-cell area-cell-several-lines" rowspan="{{homeTablePack.europeContent.length + 1}}">EUROPA<br> ÁFRICA<br> ORIENTE MEDIO</td>
-       <!-- <td colspan="3">
-            <table class="table-pack">
-                <tbody>-->
-                <tr ng-repeat="pack in homeTablePack.europeContent track by $index " ui-sref="catalog({packCode: pack.code, month: 0})"
-                    ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
-                    <td>{{pack.name}}</td>
-                    <td>{{pack.scopeText}}</td>
-                    <td>{{pack.numPatterns}}</td>
-                </tr>
-                <!--</tbody>
-            </table>
-        </td>-->
+            <tr ng-repeat="pack in homeTablePack.europeContent track by $index " ui-sref="catalog({packCode: pack.pack.code, month: 0})"
+                ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
+                <td>{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})</td>
+                <td>{{pack.pack.scopeText}}</td>
+                <td>{{pack.numPatterns}}</td>
+            </tr>
     </tr>
-    <!--</tbody>-->
+
 </table>

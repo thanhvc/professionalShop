@@ -1,4 +1,3 @@
-<div class="no-patterns-container" ng-show="myData.length==0">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
 
 <table style="width: 955px;" class="table-pattern"  ng-show="myData.length>0">
     <!--HEADER-->
@@ -7,19 +6,21 @@
             Id
         </th>
         <th class="border-right-table patterns-stocks-column-width">
-            Operación
+              Operación
         </th>
-        <th tooltip-html-unsafe="Fecha Vencimiento" class="border-right-table ">
-            Vencimto.
+        <th class="border-right-table ">
+            <span tooltip-html-unsafe="Fecha Vencimiento">Vencimto.</span>
         </th>
         <th class="border-right-table" colspan="2">
             Entrada
+            <img src="assets/img/entryArrow.png">
         </th>
         <th class="border-right-table" colspan="2">
-            <span  >Salida</span>
+            <img src="assets/img/exitArrow.png">
+            <span>Salida</span>
         </th>
         <th class="border-right-table">
-            <span tooltip-html-unsafe="Renta Final">Rent.</span>
+            <span tooltip-html-unsafe="Renta Final">Renta</span>
         </th>
         <th class="border-right-table"
             colspan="2">
@@ -29,7 +30,7 @@
             <span >Peor Pérdida</span>
         </th>
         <th class="sub-border-right-table">
-            <span class="cursor-help ">Notas</span>
+            <span>Notas</span>
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
@@ -74,12 +75,12 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; width: 230px;vertical-align: top;" class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns border-right-table futures-operation-patterns-value">
             <span ng-show="data.patternType == 'BULLISH'">Alcista</span>
             <span ng-show="data.patternType == 'BEARISH'">Bajista</span>
             <br/>
             <div class="text-limitator">
-            <span class="cursor-help"
+            <span class="cursor-help futures-market-patterns"
                   tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}}) {{data.asset.expirationYear}}"
                   ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
                 {{data.asset.longName}}
@@ -91,35 +92,35 @@
             <!--{{ getYearFromPatternName(data.asset.symbol, data.entryDate) }}-->
             {{ data.asset.expirationYear }}
         </td>
-        <td style="width: 70px;"
-            class="table-cell-patterns sub-border-right-table">
-            {{data.entryDate | date: 'dd/MMM/yyyy'}}
+        <td
+            class="table-cell-patterns sub-border-right-table future-entryDate-patterns">
+            {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
-        <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <b>{{data.entryValue}}</b>
+        <td  class="table-cell-patterns border-right-table future-entryValue-patterns">
+            <b>{{data.entryValue | twoDecimals}}</b>
         </td>
-        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
-            {{data.exitDate | date: 'dd/MMM/yyyy'}}
+        <td class="table-cell-patterns sub-border-right-table future-exitDate-patterns">
+            {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
-        <td style="width: 48px;" class="table-cell-patterns border-right-table">
-            <b>{{data.exitValue}}</b>
+        <td class="table-cell-patterns border-right-table future-exitValue-patterns">
+            <b>{{data.exitValue | twoDecimals}}</b>
         </td>
-        <td style="width: 44px;" class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
-            <span class="link"><b>{{data.lastPerformance | twoDecimals}}</b></span>
+        <td class="table-cell-patterns border-right-table future-lastPerformance-patterns" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+            <span><b >{{data.lastPerformance | twoDecimals}}</b></span>
         </td>
-        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
-            {{data.bestGainDate | date: 'dd/MMM/yyyy'}}
-        </td>
-        <td class="table-cell-patterns border-right-table">
-            <b ng-class="{'negative-percent': data.asset.lastQuote < 0}">{{data.bestGain}}</b>
-        </td>
-        <td style="width: 70px;" class="table-cell-patterns sub-border-right-table">
-            {{data.worstLossDate | date: 'dd/MMM/yyyy'}}
+        <td class="table-cell-patterns sub-border-right-table future-bestGainDate-patterns">
+            <span ng-show="data.bestGain >= 0.01">{{data.bestGainDate | date: 'dd/MMM/yy'}}</span>
         </td>
         <td class="table-cell-patterns border-right-table">
-            <b ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss | twoDecimals}}</b>
+            <b ng-show="data.bestGain >= 0.01" ng-class="{'negative-percent': data.asset.lastQuote < 0}">{{data.bestGain | twoDecimals}}</b>
         </td>
-        <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
+        <td class="table-cell-patterns sub-border-right-table future-worstLossDate-patterns">
+            <span ng-show="data.worstLoss <= -0.01">{{data.worstLossDate | date: 'dd/MMM/yy'}}</span>
+        </td>
+        <td class="table-cell-patterns border-right-table ">
+            <b ng-show="data.worstLoss <= -0.01" ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss | twoDecimals}}</b>
+        </td>
+        <td  class="table-cell-patterns sub-border-right-table future-notes-patterns">
 
         </td>
     </tr>

@@ -23,10 +23,10 @@ angular.module('ngMo.historic', [
             },
             reloadOnSearch: false,
             resolve: {
-                MonthSelectorService: "MonthSelectorService",
-                PatternsService: "PatternsService",
+                MonthSelectorHistoricService: "MonthSelectorHistoricService",
+                HistoricsService: "HistoricsService",
                 TabsService: "TabsService",
-                filtering : function(TabsService,MonthSelectorService,$location){
+                filtering : function(TabsService,MonthSelectorHistoricService,$location){
 
                     var params = $location.search();
                     //just to select a item like a selector for load params
@@ -46,7 +46,7 @@ angular.module('ngMo.historic', [
 
                     return {
                         active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                        month: MonthSelectorService.restartDate(),
+                        month: MonthSelectorHistoricService.getSelectedMonth(),
                         durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
                         favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
                         filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
@@ -70,10 +70,7 @@ angular.module('ngMo.historic', [
                     };
                 },
                 historicDataData: function(HistoricsService, filtering) {
-                    var page = 1;
-                    if (filtering.page.trim().length > 0) {
-                        page = parseInt(filtering.page,10);
-                    }
+                    var page =  parseInt(filtering.page,10) || 1;
                     return HistoricsService.getPagedDataAsync(page, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
@@ -90,7 +87,7 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, HistoricsService, historicDataData) {
+    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService,historicDataData, ExpirationYearFromPatternName) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -108,7 +105,7 @@ angular.module('ngMo.historic', [
 
         };
 
-
+        $scope.loading = false;
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
@@ -192,7 +189,7 @@ angular.module('ngMo.historic', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    month: MonthSelectorHistoricService.getSelectedMonth(),
                     favourite: false
                 },
                 selectors: {
@@ -228,7 +225,7 @@ angular.module('ngMo.historic', [
                 }
             };
             if (!$scope.filterOptions.months) {
-                $scope.filterOptions.months = MonthSelectorService.getListMonths();
+                $scope.filterOptions.months = MonthSelectorHistoricService.getHistoricsListMonths();
             }
             //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
             $scope.updateSelectorMonth();
@@ -249,6 +246,14 @@ angular.module('ngMo.historic', [
             }
 
         };
+
+        //start loading set loading = true to show loading message and empty the table
+        $scope.startLoading = function() {
+
+            $scope.loading = true;
+            $scope.myData =[];
+        };
+
 
 
         /*load the table template*/
@@ -286,11 +291,13 @@ angular.module('ngMo.historic', [
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
-            var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
+            var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
+
                     /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
+                    $scope.loading = false;
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
@@ -350,6 +357,7 @@ angular.module('ngMo.historic', [
 
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
+            $scope.startLoading();
             $scope.pagingOptions.currentPage = 1; //restart the page
             $scope.checkFilters();//check if selectors and inputs are right
             $scope.saveUrlParams();
@@ -464,21 +472,36 @@ angular.module('ngMo.historic', [
 
 
         $scope.nextMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
+            $scope.startLoading();
+            $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(1, $scope.filterOptions.filters.month);
+            MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
+            $scope.startLoading();
+            $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(-1, $scope.filterOptions.filters.month);
+            MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
+            var month = date[0];
+            var year = date[1];
+            //Check if month and year are not greater than the actual ones
+            var currentMonth = new Date().getMonth();
+            var currentYear = new Date().getFullYear();
+
+            if (month > currentMonth || month < currentMonth -3){ date[0] = currentMonth.toString();}
+            if (year > currentYear){ date[1] = currentYear.toString();}
             var d = new Date(date[1], date[0] - 1, 1);
-            $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+
+            $scope.filterOptions.filters.month = MonthSelectorHistoricService.setDate(d);
+            MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -493,11 +516,21 @@ angular.module('ngMo.historic', [
 
         $scope.canMove = function (direction) {
             if (direction > 0) {
-                return (($scope.filterOptions.months[11].value !== $scope.filterOptions.filters.month.value));
+                return (($scope.filterOptions.months[2].value !== $scope.filterOptions.filters.month.value));
             }
             else {
                 return (($scope.filterOptions.months[0].value !== $scope.filterOptions.filters.month.value));
             }
+        };
+
+        $scope.isCorrectDate= function(date){
+
+            for (i=0; i< $scope.filterOptions.months.length;i++) {
+                if ($scope.filterOptions.months[i].value === date) {
+                    return true;
+                }
+            }
+            return false;
         };
 
         ///urlParams control
@@ -572,8 +605,15 @@ angular.module('ngMo.historic', [
             }
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
+            //check if the new urlParamsSend are equals that the filters that are already in the url,if they are equals,
+            //we launch loadPage
+            url = $location.search();
+            if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
+                $scope.loadPage();
+            } else {
+                $location.path('/historic').search(urlParamsSend);
+            }
 
-            $location.path('/historic').search(urlParamsSend);
         };
         $scope.loadUrlParams = function () {
             var params = $location.search();
@@ -630,14 +670,24 @@ angular.module('ngMo.historic', [
             //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
-                var d = new Date(date[1], date[0] - 1, 1);
-                filters.month = MonthSelectorService.setDate(d);
-
+                var d;
+                //check if the date of the param is correct (is in the selector)
+                //if not, just select the actualmonth
+                if ($scope.isCorrectDate(params.month)) {
+                    d = new Date(date[1], date[0] - 1, 1);
+                } else {
+                    actual_date = new Date();
+                    d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
+                }
+                filters.month = MonthSelectorHistoricService.setDate(d);
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = new Date();
-                filters.month = MonthSelectorService.restartDate();
+               /* var date_restart = new Date();
+                date_restart.setDate(1);
+                date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
+                filters.month = MonthSelectorHistoricService.setDate(date_restart);*/
+                filters.month = MonthSelectorHistoricService.getSelectedMonth();
             }
 
             $scope.filterOptions.filters = filters;
@@ -682,6 +732,11 @@ angular.module('ngMo.historic', [
         $scope.results = historicDataData.results;
         $scope.found = historicDataData.found;
 
+
+        //Expiration service
+        $scope.getYearFromPatternName= function (patternName, expirationDate) {
+            return ExpirationYearFromPatternName.getExpirationYearFromPatternName(patternName, expirationDate);
+        };
 
     })
     .service("HistoricsService", function ($http, $window, $rootScope,$q) {
@@ -743,7 +798,7 @@ angular.module('ngMo.historic', [
                     'favourites': filtering.favourite
                 }
             };
-            var result = $http.get($rootScope.urlService+'/patterns'/*'/historicpatterns'*/, config).then(function (response) {
+            var result = $http.get($rootScope.urlService+'/historicpatterns', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;
@@ -790,6 +845,150 @@ angular.module('ngMo.historic', [
                 callback(data);
             });
         };
+    })
+    .factory('MonthSelectorHistoricService', function () {
+        var actualDate = null;
+        return {
+
+            getMonthName: function (date) {
+
+                var monthString = "";
+                switch (date.month) {
+                    case 1:
+                        monthString = "Enero";
+                        break;
+                    case 2:
+                        monthString = "Febrero";
+                        break;
+                    case 3:
+                        monthString = "Marzo";
+                        break;
+                    case 4:
+                        monthString = "Abril";
+                        break;
+                    case 5:
+                        monthString = "Mayo";
+                        break;
+                    case 6:
+                        monthString = "Junio";
+                        break;
+                    case 7:
+                        monthString = "Julio";
+                        break;
+                    case 8:
+                        monthString = "Agosto";
+                        break;
+                    case 9:
+                        monthString = "Septiembre";
+                        break;
+                    case 10:
+                        monthString = "Octubre";
+                        break;
+                    case 11:
+                        monthString = "Noviembre";
+                        break;
+                    case 12:
+                        monthString = "Diciembre";
+                        break;
+                    default :
+                        monthString = "notFound";
+                        break;
+
+                }
+                return monthString;
+            },
+            restartDate: function () {
+                var today = new Date();
+                var mm = today.getMonth()+1; //January is 0, so really we are going 1 month before always!
+                var yyyy = today.getFullYear();
+                actualDate = {
+                    month: mm,
+                    year: yyyy,
+                    monthString: "",
+                    value: mm + "_" + yyyy
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            setDate: function (date) {
+                var mm = date.getMonth() + 1; //January is 0!
+                var yyyy = date.getFullYear();
+                actualDate = {
+                    month: mm,
+                    year: yyyy,
+                    monthString: "",
+                    value: mm + "_" + yyyy
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            addMonths: function (months, date) { /*add Months accepts months in positive (to add) or negative (to substract)*/
+                var d = new Date(date.year, date.month - 1, 1);
+                d.setMonth(d.getMonth() + months);
+                actualDate = {
+                    month: d.getMonth() + 1,
+                    year: d.getFullYear(),
+                    monthString: "",
+                    value: (d.getMonth() + 1) + "_" + d.getFullYear()
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            getListMonths: function () {
+                var today = new Date();
+                var monthList = [];
+                //the list is 10 last months + actual month + next month
+                var d = new Date(today.getFullYear(), today.getMonth() - 10, 1);
+                for (i = 0; i < 12; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
+
+            },
+            getHistoricsListMonths: function () {
+                var today = new Date();
+                var monthList = [];
+                temp_date = actualDate;
+                //the list is 10 last months + actual month + next month
+                var d = new Date(today.getFullYear(), today.getMonth() - 2, 1);
+                for (i = 0; i < 3; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                //setDate saves the value in actualDate, but in this case we dont want save the last date, so we save it in a auxiliar var
+                if (temp_date != null) {
+                    actualDate = temp_date;
+                }
+                return monthList;
+
+            },
+
+
+            getSelectedMonth: function () {
+                if (actualDate == null) {
+                    actualDate = this.restartDate();
+                }
+                return actualDate;
+            },
+
+            changeSelectedMonth: function (month) {
+                actualDate = month;
+            }
+        };
+
     })
 
 ;

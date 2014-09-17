@@ -229,58 +229,55 @@ angular.module('ngMo.home', [
                     var carousel = elem.find('div')[1];
                     var carouselCtrl = angular.element(carousel).isolateScope();
                     var _modal_ = $modal;
-                    if (carouselCtrl) {
-                        var origNext = carouselCtrl.next;
-
-                        carouselCtrl.open = function ($scope) {
-                            $scope.infoViews = [
-                                {
-                                    src: 'home/info/majufuri_no_advantages.tpl.html'
-                                },
-                                {
-                                    src: 'home/info/syp_investment_funds.tpl.html'
-                                },
-                                {
-                                    src: 'home/info/shoprite_brics_and_emerging.tpl.html'
-                                },
-                                {
-                                    src: 'home/info/century_etf_cfd.tpl.html'
-                                },
-                                {
-                                    src: 'home/info/platinum_pension_fund.tpl.html'
-                                },
-                                {
-                                    src: 'home/info/hitachi_hedge_fund.tpl.html'
-                                },
-                                {
-                                    src: 'home/info/nyse_low_risk.tpl.html'
-                                },
-                                {
-                                    src: 'home/info/british_futures.tpl.html'
-                                }
-
-                            ];
-                        };
-                    }
-                    var modalInstance = $modal.open({
-                        templateUrl: 'home/modal.tpl.html',
-                        controller: ModalInstanceCtrl,
-                        resolve: {
-                            infoViews: function () {
-                                return scope.info_views;
+                    var origNext = carouselCtrl.next;
+                    carouselCtrl.open = function ($scope) {
+                        $scope.infoViews = [
+                            {
+                                src: 'home/info/majufuri_no_advantages.tpl.html'
                             },
-                            infoSelected: function () {
-                                var items = elem.find('li');
-                                var i = 0;
-                                while (item = items[i]) {
-                                    if (item.className.indexOf('active') >= 0) {
-                                        return scope.infoViews[i].src;
+                            {
+                                src: 'home/info/syp_investment_funds.tpl.html'
+                            },
+                            {
+                                src: 'home/info/shoprite_brics_and_emerging.tpl.html'
+                            },
+                            {
+                                src: 'home/info/century_etf_cfd.tpl.html'
+                            },
+                            {
+                                src: 'home/info/platinum_pension_fund.tpl.html'
+                            },
+                            {
+                                src: 'home/info/hitachi_hedge_fund.tpl.html'
+                            },
+                            {
+                                src: 'home/info/nyse_low_risk.tpl.html'
+                            },
+                            {
+                                src: 'home/info/british_futures.tpl.html'
+                            }
+
+                        ];
+                        var modalInstance = $modal.open({
+                            templateUrl: 'home/modal.tpl.html',
+                            controller: ModalInstanceCtrl,
+                            resolve: {
+                                infoViews: function () {
+                                    return $scope.info_views;
+                                },
+                                infoSelected: function () {
+                                    var items = elem.find('li');
+                                    var i = 0;
+                                    while (item = items[i]) {
+                                        if (item.className.indexOf('active') >= 0) {
+                                            return $scope.infoViews[i].src;
+                                        }
+                                        i++;
                                     }
-                                    i++;
                                 }
                             }
-                        }
-                    });
+                        });
+                    };
 
                 });
             }

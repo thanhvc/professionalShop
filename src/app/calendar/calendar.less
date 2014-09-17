@@ -105,12 +105,9 @@
   border: 1px solid @black;
   color: @greyBorderColor;
   font-size: 11px;
-  padding: 7px;
+  padding: 6px 12px;
   float: right;
   margin: 20px 0 10px 0;
-  span{
-    margin-left: 14px;
-  }
 }
 
 .calendar-filters-container{
@@ -180,4 +177,23 @@
   &:disabled {
     color: gray;
   }
+}
+
+.pdf-icon-calendar{
+  background:  url('../assets/img/pdf_icon.png');
+  height: 28px;
+  width: 32px;
+  float: right;
+  background-repeat: no-repeat;
+  background-position: 50% 40%;
+  margin-top: -28px;
+  background-size: 24px;
+  &:hover{
+    background-color: @orangeColor;
+  }
+}
+
+.loading-calendar {
+  background-color: @greyBorderColor;
+  height: 150px;
 }

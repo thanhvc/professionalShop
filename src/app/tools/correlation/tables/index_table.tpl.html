@@ -1,4 +1,4 @@
-<div class="tools-container">
+<div class="correlation-tools-container">
 
     <table style="width: 400px;float:left;" class="table-correlation">
         <thead>
@@ -6,18 +6,18 @@
             <td>Id</td>
             <td>Nombre</td>
             <td>Mercado</td>
-            <td>Op.</td>
+            <td><span tooltip="Operación" class="cursor-help">Op.</span></td>
             <td>Añadir</td>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="pattern in myData">
-            <td>{{pattern.id}}</td>
-            <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><span class="cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName | limitTo: 23}}</span></td>
-            <td><span tooltip="{{pattern.asset.exchange.name}}"  class="cursor-help">{{pattern.asset.exchange.symbol}}</span></td>
+            <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
+            <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})" class="name-pattern-container"><span class="cursor-help">{{pattern.asset.longName | limitTo: 23}}</span></div></td>
+            <td><span class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
             <td>
-                <span tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'"  class="cursor-help">V</span>
-                <span tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'"  class="cursor-help">C</span>
+                <span class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'">V</span>
+                <span class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'">C</span>
             </td>
             <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 10}" ng-click="addToCorrelationList(pattern.id);">>></span></td>
         </tr>
@@ -26,7 +26,8 @@
         <tr>
             <td colspan="5">
                 <div style="padding-top: 20px;">
-                    <span ng-if="myData.length == 0">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
+                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
+                    <span ng-if="myData.length == 0 && !loading">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
                 </div>
             </td>
         </tr>
@@ -39,16 +40,16 @@
                 <td>Id</td>
                 <td>Nombre</td>
                 <td>Mercado</td>
-                <td>Op.</td>
-                <td>Fav.</td>
+                <td><span tooltip="Operación" class="cursor-help">Op.</span></td>
+                <td><span tooltip="Favoritos" class="cursor-help">Fav.</span></td>
                 <td>Quitar</td>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="pattern in correlationList">
-                <td>{{pattern.id}}</td>
-                <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><span  class="cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName | limitTo: 25}}</span></td>
-                <td><span  class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
+                <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
+                <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})" class="name-pattern-container"><span class="cursor-help">{{pattern.asset.longName | limitTo: 25}}</span></div></td>
+                <td><span class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
                 <td>
                     <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'">V</span>
                     <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'">C</span>

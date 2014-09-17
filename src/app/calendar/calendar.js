@@ -39,6 +39,10 @@ angular.module('ngMo.calendar', [
         $scope.tabs = TabsService.getTabs();
         $scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
         $scope.day = '';
+        $scope.startLoading = function() {
+            $scope.myData = [];
+            $scope.loading = true;
+        };
 
 
         var templateTables = [
@@ -209,13 +213,13 @@ angular.module('ngMo.calendar', [
                 $scope.selectedTypeIndice = parseInt(filters.index_type, 10);
                 //only for index, not pair index
                 if ((filters.index_type === 0) || (filters.index_type === "0")) {
-                    filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop, 10)] : "" );
+                    filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop, 10)].id : "" );
                 } else {
                     filters.selectedOperation = "";
                 }
 
             } else {
-                filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operations[parseInt(params.qop, 10)] : "" );
+                filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operations[parseInt(params.qop, 10)].id : "" );
             }
 
 
@@ -285,7 +289,7 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.changeTab = function (idTab) {
-
+            $scope.startLoading();
             $scope.urlSelected = templateTables[idTab];
             $scope.selectedTab = idTab;
 
@@ -319,7 +323,6 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.obtainDays = function () {
-            $scope.loading= true;
             var data = CalendarService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
                     $scope.loading= false;
@@ -378,6 +381,7 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.search = function () {
+            $scope.startLoading();
             $scope.applyFilters();
         };
         //order Search is the same but with a wait of 5 seconds, is used in the order selector
@@ -409,6 +413,7 @@ angular.module('ngMo.calendar', [
             }
         };
         $scope.selectRegion = function () {
+            $scope.startLoading();
             $scope.refreshRegion();
             $scope.applyFilters();
 
@@ -421,6 +426,7 @@ angular.module('ngMo.calendar', [
             }
         };
         $scope.selectMarket = function () {
+            $scope.startLoading();
             //in stock is required refresh industries, sectors, in futures and
             //others tabs dont have this selectors
             $scope.refreshMarket();
@@ -429,6 +435,7 @@ angular.module('ngMo.calendar', [
 
         //when we change index type (pairs_index, or index)
         $scope.selectIndexType = function () {
+            $scope.startLoading();
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.selectedTypeIndice = $scope.filterOptions.filters.index_type;
             $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
@@ -436,6 +443,7 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.goToMonth = function () {
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
@@ -485,7 +493,7 @@ angular.module('ngMo.calendar', [
         });
 
         $scope.restartFilter();
-
+        $scope.startLoading();
         if ($location.search()) {
             $scope.loadUrlParams();
             $scope.lastDateMonth();
@@ -518,13 +526,18 @@ angular.module('ngMo.calendar', [
                         productType = "Futuros";
                         break;
                 }
-                var filename = "calendar-" + productType + ".pdf";
+                var filename = "calendar-"+productType+".pdf";
                 var element = angular.element('<a/>');
                 element.attr({
                     href: 'data:attachment/pdf;base64,' + encodeURI(data),
                     target: '_blank',
                     download: filename
-                })[0].click();
+                });
+                document.body.appendChild(element[0]);
+
+                $timeout(function() {
+                    element[0].click();
+                });
             });
         };
     })

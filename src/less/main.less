@@ -114,9 +114,12 @@ b , strong {
 }
 
 .public-list-second-level {
+  text-align: justify;
   clear: left;
   margin-bottom: 0.5em !important;
   margin-top: 0.5em !important;
+  -webkit-padding-start: 0px;
+  padding-left: 25px !important;
   li{
     list-style-image: url('../assets/img/circle-list-li.png') !important;
     margin-bottom: 0.5em !important;
@@ -125,6 +128,7 @@ b , strong {
 }
 
 .public-list-third-level {
+  text-align: justify;
   clear: left;
   margin-bottom: 0.5em !important;
   margin-top: 0.5em !important;
@@ -136,6 +140,7 @@ b , strong {
   }
 }
 .public-list-fourth-level {
+  text-align: justify;
   li{
     list-style-image: none !important;
     list-style-type: square !important;
@@ -157,7 +162,7 @@ b , strong {
 }
 
 .toggle-link{
-  color: @darkLink;
+  color: @tooltipsDarkBlue;
   text-decoration: underline;
   cursor: pointer;
   background-repeat: no-repeat;
@@ -539,22 +544,23 @@ b , strong {
 }
 
 a{
-  color: @linkColor;
+  color: @tooltipsDarkBlue;
   text-decoration: none;
   cursor:pointer;
   &:hover{
-    color: @linkColor;
+    color: @tooltipsDarkBlue;
     text-decoration: underline;
   }
 }
 .public-list-first-level{
-  /*for chrome padding in UL*/
-  -webkit-padding-start: 24px;
+  text-align: justify;
+  -webkit-padding-start: 0px;
+  padding-left: 25px !important;
   li{
     list-style-image: url('../assets/img/public-list-li.png');
     /*margin-bottom: 0.5em;*/
     margin-bottom: 4px !important;
-    padding-left: 4px;
+    padding-left: 1px;
     clear: left;
   }
 }
@@ -695,7 +701,6 @@ a{
 }
 
 .lat-menu-home-nav{
-  /*width: 200px;*/
   float: left;
   min-height: 10px;
   margin-right: 10px;
@@ -705,7 +710,7 @@ a{
 }
 
 .lat-menu-detailed-nav{
-  width: 200px;
+  width: 190px;
   float: left;
   min-height: 10px;
   margin-right: 10px;
@@ -1066,6 +1071,7 @@ Flags styles
   font-family: "fontpo-bold", "verdana";
   font-size: 12px;
   margin-bottom: 0;
+  width: 185px;
   &:last-child{
     a {
       -webkit-box-shadow: inset -2px -1px 6px -4px rgba(50, 50, 50, 0.5);
@@ -1081,7 +1087,6 @@ Flags styles
     border: none;
     border-right: 1px solid @greyLabel/*#6D6E70*/;
     color: @white;
-    padding: 6px 64px 5px 64px;
     text-align: center;
     -webkit-box-shadow: inset -2px -1px 6px -1px rgba(50, 50, 50, 0.5);
     -moz-box-shadow: inset -2px -1px 6px -1px rgba(50, 50, 50, 0.5);
@@ -1117,7 +1122,7 @@ table{
 
 .table-pack {
   border: 1px solid silver;
-
+  font-size: 11px;
   color: @white;
   /*  font-size: 11px; font-family: Arial;*/
   font-family: fontpo, verdana;
@@ -1137,16 +1142,16 @@ table{
         border-right: 1px solid silver;
         padding: 3px 4px 3px 4px;
         &:nth-child(1){
-          color: #0663D7;
+          color: @tooltipsDarkBlue;
           width: 198px;
         }
         &:nth-child(2){
           color: @black;
-          width: 492px;
+          width: 508px;
         }
         &:nth-child(3){
           color: @black;
-          width: 139px;
+          width: 124px;
           text-align: center;
         }
       }
@@ -1156,6 +1161,74 @@ table{
     }
   }
 }
+
+
+/*tables home*/
+
+
+.table-home-odd {
+  color: @white;
+  /*  font-size: 11px; font-family: Arial;*/
+  font-family: fontpo, verdana;
+  font-size: 10px;
+  background-color: @smokeGrey;
+  border: 1px solid silver ;
+  &:hover{
+    cursor: pointer;
+    background-color: @orangeColor;
+  }
+  td{
+    border-right: 1px solid silver;
+    padding: 3px 4px 3px 4px;
+    &:nth-child(1){
+      color: @tooltipsDarkBlue;
+      width: 198px;
+    }
+    &:nth-child(2){
+      color: @black;
+      width: 508px;
+    }
+    &:nth-child(3){
+      color: @black;
+      width: 124px;
+      text-align: center;
+    }
+  }
+}
+.table-home-even {
+  color: @white;
+  /*  font-size: 11px; font-family: Arial;*/
+  font-family: fontpo, verdana;
+  font-size: 10px;
+  background-color: @white;
+  border: 1px solid silver;
+  &:hover{
+    cursor: pointer;
+    background-color: @orangeColor;
+  }
+  td{
+    border-right: 1px solid silver;
+    padding: 3px 4px 3px 4px;
+    &:nth-child(1){
+      color: @tooltipsDarkBlue;
+      width: 198px;
+    }
+    &:nth-child(2){
+      color: @black;
+      width: 508px;
+    }
+    &:nth-child(3){
+      color: @black;
+      width: 124px;
+      text-align: center;
+    }
+  }
+}
+
+.tabbable{
+ margin-bottom: 30px;
+}
+
 .advanced-table{
   margin-bottom:30px;
   td {
@@ -1252,10 +1325,10 @@ table{
       width: 130px;
     }
     &:nth-child(3) {
-      width: 489px;
+      width: 504px;
     }
     &:nth-child(4) {
-      width: 140px;
+      width: 125px;
       border-right: 0;
     }
   }
@@ -1610,6 +1683,8 @@ table{
     height: 100%;
     text-align: center;
     background-color: transparent;
+    box-shadow: none;
+    border: none;
   }
   .modal-dialog{
     width: 100%;
@@ -1624,15 +1699,18 @@ table{
 
     .modal-header {
       border-bottom: 0;
-      margin-bottom: 25px;
+      padding: 5px;
+      margin-bottom: 15px;
     }
 
     .modal-body {
-      width: 946px;
+      width: 965px;
       height: 550px;
       overflow-y: scroll;
       text-align: justify;
-      margin-left: 25px;
+      margin-left: 26px;
+      padding-top: 0;
+      padding-right:45px;
       margin-bottom: 40px;
     }
     img{
@@ -1691,7 +1769,7 @@ table{
 .modal-alert{
   width: 354px;
   background-color: @white;
-  margin: 0 auto;
+  margin: 15% auto;
 
   .modal-header{
     text-align: left;
@@ -1805,6 +1883,7 @@ select{
     background-color: @black;
     padding: 3px;
     color: @white;
+    width: 80%;
   }
 
   .public-images{
@@ -1827,11 +1906,17 @@ select{
 .ordered-list-first-level {
   padding-left: 25px;
   -webkit-padding-start: 0px;
+  text-align: justify;
+  padding-left: 25px !important;
+  -webkit-padding-start: 0px;
   li {
     margin-bottom: 0.5em;
     padding-left: 5px;
     list-style: decimal;
     margin-left: 25px;
+  }
+  .public-list-first-level li {
+    list-style-image: url('../assets/img/public-list-li.png') !important;
   }
 }
 
@@ -1847,6 +1932,10 @@ select{
 
 .list-left-first-level {
   padding-left: 25px; /*to move to the left the <ul><ol>*/
+}
+
+.list-left-first-level-no-padding {
+  padding-left: 0px !important;
 }
 
 .img-width-public {
@@ -1865,7 +1954,7 @@ select{
   color: @orangeColor !important;
 }
 .blue-text {
-  color: @linkColor;
+  color: @tooltipsDarkBlue;
 }
 
 .text-warning-form{
@@ -1898,7 +1987,7 @@ select{
 .copyright{
   float: right;
   color: @darkGrey;
-  margin: 10px 20px;
+  margin: 5px 10px;
   font-size: 11px;
 }
 
@@ -1911,18 +2000,17 @@ select{
 
 .header-month-filter{
   height: 35px;
-  width: 950px;
+  width: 955px;
   padding: 5px 5px 5px 5px;
   color: white;
   font-size: 18px;
 }
 .filter-container {
   padding: 8px 25px 8px 25px;
-  width: 950px;
-  margin-bottom: 3px;
+  width: 955px;
   background-color: @greyBorderColor;
   td{
-    width: 150px;
+    width: 153px;
   }
 }
 //table general config
@@ -1974,6 +2062,9 @@ select{
   font-size: 10px !important;
   font-weight: 100;
   height: 17px !important;
+  &:disabled{
+    color: gray;
+  }
 }
 
 .filter-label-select {
@@ -2068,7 +2159,7 @@ tooltip-placement=" top ultra-left-tooltip" **/
 
 .modal-body{
   .text-block-title{
-    margin-top: 0;
+    margin-top: 19px;
   }
 }
 
@@ -2133,6 +2224,117 @@ tooltip-placement=" top ultra-left-tooltip" **/
   }
 }
 
+.negative-percent {
+  color: @red;
+  font-family: fontpo-bold, verdana;
+  /*vertical-align: top;*/
+  text-align: center;
+}
+
+
+.yellow-odd{
+  background-color: @lightYellowOdd;
+}
+
+.yellow-even{
+  background-color: @lightYellowEven;
+}
+
+
+.no-patterns-container{
+  text-align: center;
+  color: black;
+  background-color: @darkGreyBackground;
+  width: 955px;
+  padding-top: 18px;
+  height: 50px;
+  font-family: 'fontpo' !important;
+  font-size: 12px;
+}
+
+.no-results-catalog-container{
+  text-align: center;
+  color: black;
+  background-color: #ffffff;
+  width: 955px;
+  padding-top: 18px;
+  height: 70px;
+  font-family: 'fontpo' !important;
+  font-size: 20px;
+}
+
+.table-with-graph {
+  position: relative;
+}
+.div-graph-lookup-diary {
+  position: absolute;
+  top: 0px;
+  padding-top: 20px;
+  text-align: center;
+  z-index: 100;
+  background: white;
+  left: 41%;
+  min-height: 330px;
+}
+
+.graphic-image-div-lookup-diary {
+  display: block;
+  padding-top: 15px;
+  height: 277px;
+  width: 700px;
+  margin: 0 auto;
+}
+
+.close-graphic-button-diary-lookup {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 20px;
+  left: 865px;
+  clear: both;
+  cursor:pointer;
+  background-image:url('../assets/img/close_modal.png');
+  background-size: 16px 16px;
+  &:hover{
+    background-image:url('../assets/img/close_modal_hover.png');
+    cursor: pointer;
+  }
+}
+
+.table-filter-lookup {
+  width:923px;
+}
+
+.text-limitator-calendar {
+  height: 11px;
+  overflow: hidden;
+  margin: 1px 0 1px 0;
+  margin-right: 4px;
+  word-wrap: break-word;
+}
+
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.loading-div {
+  text-align: center;
+  margin-top: -25px;
+  height: 50px;
+  padding-top: 15px;
+  margin: 0 auto;
+  font-size: 12px;
+  font-family: fontpo-bold;
+}
+.loading-div-container {
+  position: relative;
+}
+
+.loading-gif {
+  display: inline;
+  margin: 0px 5px 0px 0px;
+}
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
  * all the submodules and components we are using.
@@ -2153,3 +2355,6 @@ tooltip-placement=" top ultra-left-tooltip" **/
 @import '../app/my_profile/my_profile.less';
 @import '../app/tools/correlation/correlation.less';
 @import '../app/detail/detail.less';
+@import '../app/tools/portfolio/portfolio.less';
+@import '../app/detail/detail.less';
+@import '../app/payment/payment.less';

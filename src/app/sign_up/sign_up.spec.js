@@ -1,12 +1,11 @@
 describe('The SignUp ', function () {
     beforeEach(angular.mock.module("ngMo"));
     describe('form ', function () {
+
         var compile;
         var scope;
         var state;
         var template;
-        var httpMock;
-
         beforeEach(module('ui.router'));//needed to user $state
         beforeEach(module('ui.bootstrap'));//to load $modal
         beforeEach(angular.mock.module('singUp'));//start the module
@@ -14,11 +13,6 @@ describe('The SignUp ', function () {
 
             httpMock = $httpBackend;
             httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
-            httpMock.when('POST', $rootScope.urlService+'/login').respond(200);
-            httpMock.when('POST', $rootScope.urlService+'/testemail').respond(200);
-            httpMock.when('GET', $rootScope.urlService+'/countries').respond({
-                 result: ['Spain', 'China', 'USA']
-            });
             httpMock.when('GET', $rootScope.urlService+'/countries').respond(200);
             httpMock.when('POST', $rootScope.urlService+'/testemail').respond(
                 {
@@ -127,105 +121,8 @@ describe('The SignUp ', function () {
 
             expect(state.$current.url.source).toEqual("/sign-up-successful");
 
-            //incorrect captcha
-            statusOK = {
-                status: "incorrectCaptcha"
-            };
-            scope.secondCallback(statusOK);
-            scope.$apply();
-
-            //no captcha
-            statusOK = {
-                status: undefined
-            };
-            scope.secondCallback(statusOK);
-            scope.$apply();
-
-            //submit new user
-            scope.submit();
-            expect(scope.submit).toNotBe(undefined);
-
-            var res = scope.createNewSubs();
-            scope.newSubscriptionMode = undefined;
-            scope.createNewSubs();
-
-            scope.clearState();
-
-            //test firstCallBack's other branches
-            statusOK = {
-                result: {username: "notUsed"},
-                status: "ok"
-            };
-            scope.firstCallback(statusOK);
-            expect(scope.errorForm).toBe(true);
-            statusOK = {
-                username: "used",
-                status: "ok"
-            };
-            scope.firstCallback(statusOK);
-            expect(scope.result).toBe(statusOK);
-
-            //form navigation
-            var input = angular.element(document.createElement('input'));
-            input.id='input';
-            //scope.nextInput('input');
         });
 
+
     });
-});
-
-
-describe('The match directive', function () {
-
-    beforeEach(angular.mock.module("ngMo"));
-    beforeEach(angular.mock.module('auth'));
-
-    describe('template', function () {
-        var $compile, $scope, httpMock, template, $parse;
-
-        beforeEach(inject(function (_$compile_, _$rootScope_, $httpBackend, _$parse_) {
-            $compile = _$compile_;
-            $parse = _$parse_;
-            $scope = _$rootScope_.$new();
-            httpMock = $httpBackend;
-
-        }));
-
-        it('should toggle when the user sends the signin form', inject(function () {
-            template = $compile("<match></match>")($scope);
-            $scope.$digest();
-            $scope.$watch('link',[$scope, template, template.children(), 'ctrl']);
-            template.triggerHandler('click',[$scope, template, template.children(), 'ctrl']);
-        }));
-    });
-});
-
-describe('The SignUp Service', function () {
-
-    beforeEach(angular.mock.module("ngMo"));
-    beforeEach(angular.mock.module('auth'));
-
-    describe('template', function () {
-        var $compile, $scope, httpMock, template, service, $cookieStore, $window;
-
-        beforeEach(inject(function (SignUpService,_$compile_, _$rootScope_, $httpBackend, _$modal_, _$cookieStore_, _$window_) {
-            $compile = _$compile_;
-            service = SignUpService;
-            $scope = _$rootScope_.$new();
-            httpMock = $httpBackend;
-            $cookieStore = _$cookieStore_;
-            $window = _$window_;
-
-        }));
-
-        it('should be able to go to first and secod steps', inject(function () {
-            service.firstStep();
-            service.secondStep();
-        }));
-
-        it('should be able to get all countries', inject(function(){
-            service.getCountries();
-        }));
-    });
-
 });

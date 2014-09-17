@@ -3,7 +3,7 @@
     <div class="super-border private-black-title">Mis Patrones</div>
 
     <div style="clear: both">
-        La tabla muestra las estrategias clasificadas por <b>mes de publicación</b> ordenadas por Fecha de Entrada.
+        La tabla muestra las estrategias clasificadas por <strong>mes de publicación</strong> ordenadas por Fecha de Entrada.
         <div style="display: inline-block;"
              ng-click="show=!show" ng-show="!show"><img
                 src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar m&aacute;s</a>
@@ -55,7 +55,8 @@
                 </div>
                 <div class="loading-div-container">
                     <div ng-include="getTemplateTable()"></div>
-                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
+                    <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando patrones, por favor espere...</span></div>
+                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
 
 
 
