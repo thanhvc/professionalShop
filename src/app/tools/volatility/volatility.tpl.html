@@ -25,7 +25,8 @@
                 <div class="loading-div-container">
                     <div ng-include="getTemplateTable()" style="width:800px"></div>
                     <div class="loading-div no-patterns-container  no-packs-load-volat" ng-show="loading" style="width: 800px;"><img src="assets/img/ajax-loader.gif" class="volat-load"><span>Cargando patrones, por favor espere...</span></div>
-                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
+                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
+                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
 
                 </div>
                 </table>

@@ -221,6 +221,20 @@ angular.module('ngMo.my_patterns', [
             return temp;
         };
 
+        this.userAppliedFiltersCalendar = function(filters){
+            var temp = false;
+            angular.forEach(filters, function(value, key) {
+                if (key !== "month" && key !== "selectMonth" && key !== "active_tab" && key !== "index_type" && key !== "tab_type" && key =="order") { //these filters always are provided
+                    //in case of order, in the calendar the order input doesnt affect to patterns to load
+                    if (value !== "") {
+                        console.log(key+" "+value);
+                        temp = true;
+                    }
+                }
+            });
+            return temp;
+        };
+
     })
     .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters) {
         $scope.dataLoaded = false;

@@ -24,7 +24,8 @@ angular.module('ngMo.correlation', [
     .run(function run() {
     })
 
-    .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout) {
+    .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
+                                             ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout,UserApplyFilters) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -300,6 +301,12 @@ angular.module('ngMo.correlation', [
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.correlationList, function (data) {
                     $scope.loading = false;
                     $scope.myData = data.patterns;//data.page;
+
+                    if ($scope.myData.length <=0){
+                        $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                    }else{
+                        $scope.appliedFilters = false;
+                    }
                     //when the market is changed, we
                     $scope.refreshRegion();
                     $scope.correlationList = data.correlationPatterns;

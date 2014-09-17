@@ -25,7 +25,8 @@ angular.module('ngMo.calendar', [
     .run(function run() {
     })
 
-    .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged, CalendarService, MonthSelectorService, $modal) {//<- use location.search()
+    .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged,
+                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters) {//<- use location.search()
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -327,6 +328,12 @@ angular.module('ngMo.calendar', [
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
                     $scope.loading= false;
                     $scope.myData = data.patterns;//data.page;
+
+                    if ($scope.myData.length <=0){
+                        $scope.appliedFilters = UserApplyFilters.userAppliedFiltersCalendar($scope.filterOptions.filters);
+                    }else{
+                        $scope.appliedFilters = false;
+                    }
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     $scope.daysOfMonth = [];
