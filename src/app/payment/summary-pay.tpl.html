@@ -394,6 +394,7 @@
             <input class="mo-button" name="cancel-pay" ng-click="cancelPay()"
                    value="Cancelar Compra" style="margin-left: 10px !important;" type="button">
             <input class="mo-button pay-summary-button" name="pay-button" ng-click="doPayment()" value="Pagar" ng-disabled="doingPayment"
+                   ng-show="!allBought"
                    type="button">
         </div>
     </form>
@@ -453,6 +454,10 @@
             </div>
 
         </div>
+        <div ng-show="allBought">
+            <span></span>
+        </div>
+
 
         <div class="doing-payment" ng-show="doingPayment">
 

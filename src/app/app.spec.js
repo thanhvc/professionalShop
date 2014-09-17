@@ -171,7 +171,7 @@ describe('The cart directive', function () {
                 };
 
 
-                $scope.addNewItemCart(item,startDate);
+                $scope.addNewItemCart(item,startDate,"Anual");
                 $scope.$apply();
             }
         };
@@ -248,7 +248,7 @@ describe('The cart directive', function () {
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,0,"Mensual");
 
             $scope.removeItemCart('stocks', itemToRemove);
             var trsCart = template.find('tr');

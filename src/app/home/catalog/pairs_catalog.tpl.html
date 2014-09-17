@@ -23,7 +23,7 @@
         <span bo-text="startDate | date: 'MMMM yyyy'"></span>
     </div>
     <div class="region-catalog-container">{{selectedPack.name}}</div>
-    <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
+    <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate,'Anual'); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
     <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (CET)</span>
 
     <div class="header-catalog-table">
