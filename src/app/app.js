@@ -137,7 +137,7 @@ angular.module('ngMo', [
         this.containItem = function (array, itemArray) {
             var contain = false;
             angular.forEach(array, function (item) {
-                    if (item.code === itemArray.code ) {
+                    if (item.code === itemArray.code && item.startDate === itemArray.startDate) {
                         contain = true;
                     }
                 });

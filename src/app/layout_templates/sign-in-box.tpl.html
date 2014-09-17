@@ -1,7 +1,7 @@
 <div class="login-panel">
     <span>Acceso</span>
 
-    <form ng-submit="submit()" name="loginForm">
+    <form ng-submit="submit()" name="loginForm" method="POST" autocomplete="on">
         <label>Email</label><input type="text" class="float-right" ng-model="fields.email" name="username"
                                    ng-class="{'warning-input' : errorSignIn}"/>
         <label>Contrase&ntilde;a</label><input type="password" ng-model="fields.password" class="float-right" name="password"

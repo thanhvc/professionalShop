@@ -346,6 +346,7 @@ angular.module('ngMo.portfolio', [
         $scope.toggleFavorite = function (patternId){
             var data = PatternsService.setFavorite(patternId).then(function (data) {
                 $scope.loadPage();
+                $scope.drawdown();
             });
         };
 

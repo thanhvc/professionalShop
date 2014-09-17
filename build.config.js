@@ -70,7 +70,8 @@ module.exports = {
             'vendor/angular-gettext/dist/angular-gettext.min.js',
             'vendor/angular-cookies/angular-cookies.min.js',
             'vendor/angular-bindonce/bindonce.js',
-            'vendor/angular-cookies/angular-cookies.min.js.map'
+            'vendor/angular-cookies/angular-cookies.min.js.map',
+            'vendor/autofill-event/src/autofill-event.js'
         ],
         css: [
         ],
