@@ -461,11 +461,21 @@ angular.module('ngMo.my_subscriptions', [
         $scope.togglePack = function(pack) {
             $rootScope.$broadcast('toggleItemCart',pack);
         };
+
         //change the duration in my subscriptions
         $scope.changeDuration = function(pack) {
-            $rootScope.$broadcast('changeDurationItem',pack);
+            //changeDuration also check if the packs is not selected, then select it if not
+
+            if (!pack.toBuy) {
+                //is not check to buy, add the item with the specific duration
+                pack.toBuy = true;
+                $rootScope.$broadcast('toggleItemCart',pack);
+            } else {
+                //else change the duration of the item in the cart
+                $rootScope.$broadcast('changeDurationItem', pack);
+            }
         };
-//when the user changes the duration of a item in the cart --NOTE: uncoment the dates comparations for make a distinct by startDate of same pack
+        //when the user changes the duration of a item in the cart --NOTE: uncoment the dates comparations for make a distinct by startDate of same pack
         $scope.$on('changeDurationFromCart',function(event,item){
 
                 for (j=0;j<$scope.mySubscriptionsTablePacks[0].americaContent.length;j++) {
