@@ -224,7 +224,7 @@ angular.module('ngMo.my_patterns', [
         this.userAppliedFiltersCalendar = function(filters){
             var temp = false;
             angular.forEach(filters, function(value, key) {
-                if (key !== "month" && key !== "selectMonth" && key !== "active_tab" && key !== "index_type" && key !== "tab_type" && key =="order") { //these filters always are provided
+                if (key !== "month" && key !== "selectMonth" && key !== "active_tab" && key !== "index_type" && key !== "tab_type" && key !=="order") { //these filters always are provided
                     //in case of order, in the calendar the order input doesnt affect to patterns to load
                     if (value !== "") {
                         console.log(key+" "+value);
