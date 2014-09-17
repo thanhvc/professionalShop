@@ -23,9 +23,9 @@
                 </div>
                 <table>
                 <div class="loading-div-container">
-                    <div ng-include="getTemplateTable()" style="width:775px"></div>
-                    <div class="loading-div no-patterns-container no-packs-load-volat" ng-show="loading" style="width: 775px;"><img src="assets/img/ajax-loader.gif" class="volat-load"><span>Cargando patrones, por favor espere...</span></div>
-                    <div class="no-patterns-container no-packs-load-volat" ng-show="myData.length==0 && !loading">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
+                    <div ng-include="getTemplateTable()" style="width:800px"></div>
+                    <div class="loading-div no-patterns-container  no-packs-load-volat" ng-show="loading" style="width: 800px;"><img src="assets/img/ajax-loader.gif" class="volat-load"><span>Cargando patrones, por favor espere...</span></div>
+                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
 
                 </div>
                 </table>
@@ -38,7 +38,7 @@
     </div>
     </div>
 
-    <div class="pagination-container" ng-show="results > 10" style="margin-top:92px; clear:both; margin-bottom:20px;">
+    <div class="pagination-container" ng-show="found > pagingOptions.pageSize" style="margin-top:92px; clear:both; margin-bottom:20px;">
         <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
                     items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
                     page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"

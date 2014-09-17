@@ -109,9 +109,8 @@ angular.module('ngMo.detail', [
                     });
                     document.body.appendChild(element[0]);
 
-                    var elem = document.getElementById("download_file");
                     $timeout(function() {
-                        elem.click();
+                        element[0].click();
                     });
                 });
             }else if ("WEEKLY"){
@@ -125,9 +124,8 @@ angular.module('ngMo.detail', [
                     });
                     document.body.appendChild(element[0]);
 
-                    var elem = document.getElementById("download_file");
                     $timeout(function() {
-                        elem.click();
+                        element[0].click();
                     });
                 });
             }

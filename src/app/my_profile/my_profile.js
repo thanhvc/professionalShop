@@ -73,7 +73,7 @@ angular.module('ngMo.my_profile', [
     .run(function run() {
     })
 
-    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state,$http,$rootScope) {
+    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state,$http,$rootScope, $timeout) {
         $scope.subPage = $state.$current.data.subPage;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
@@ -179,7 +179,11 @@ angular.module('ngMo.my_profile', [
                     if (status === 200) {
                         //$scope.user = data;
                         $scope.internalError = false;
+
                         $scope.userSaved = true;
+                        $timeout(function () {
+                            $scope.userSaved = false;
+                        }, 800);
 
                     } else {
                         $scope.internalError = true;
