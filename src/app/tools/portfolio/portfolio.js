@@ -349,6 +349,7 @@ angular.module('ngMo.portfolio', [
         $scope.toggleFavorite = function (patternId){
             var data = PatternsService.setFavorite(patternId).then(function (data) {
                 $scope.loadPage(false);
+                $scope.drawdown();
             });
         };
 
@@ -378,7 +379,6 @@ angular.module('ngMo.portfolio', [
                 if (withCalculate){
                     $scope.calculating = true;
                 }
-
 
                 var data = PortfolioService.getPortfolioData($scope.portfolioList, $scope.filterOptions.filters).then(function (data) {
                     $scope.portfolioData = data;
