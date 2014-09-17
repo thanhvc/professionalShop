@@ -157,6 +157,8 @@ angular.module('ngMo.payment', [  'ui.router'])
             }
         });
         $scope.taxPercent=0;
+        $scope.allBought = false;// if all packs are subscribed already, or
+        $scope.someBought = false; // if at least one pack is subscribed
         $scope.doingPayment = false; // to lock the payment button
         $scope.errorPaypal = false;
         $scope.$on('errorPaypal', function() {
@@ -202,16 +204,52 @@ angular.module('ngMo.payment', [  'ui.router'])
         //load the info from server with all the fields of the summary
         $scope.loadPayment = function () {
             PaymentService.getPayments(true,function (data) {
+                $scope.allBought = true;
 
                 $scope.stocks = data.stocks;
+                for (i=0;i<$scope.stocks.length;i++) {
+                    if ($scope.stocks[i].price ===0) {
+                        $scope.someBought = true;
+                    } else {
+                        $scope.allBought = false;
+                    }
+                }
                 $scope.totalStocks = data.total_stocks;
                 $scope.pairs = data.pairs;
+                for (i=0;i<$scope.totalStocks.length;i++) {
+                    if ($scope.totalStocks[i].price ===0) {
+                        $scope.someBought = true;
+                    } else {
+                        $scope.allBought = false;
+                    }
+                }
                 $scope.totalPairs = data.total_pairs;
                 $scope.index= data.index;
+                for (i=0;i<$scope.index.length;i++) {
+                    if ($scope.index[i].price ===0) {
+                        $scope.someBought = true;
+                    } else {
+                        $scope.allBought = false;
+                    }
+                }
                 $scope.totalIndex= data.total_index;
                 $scope.pairIndex= data.pairIndex;
+                for (i=0;i<$scope.pairIndex.length;i++) {
+                    if ($scope.pairIndex[i].price ===0) {
+                        $scope.someBought = true;
+                    } else {
+                        $scope.allBought = false;
+                    }
+                }
                 $scope.totalpairIndex= data.total_pairIndex;
                 $scope.futures=data.futures;
+                for (i=0;i<$scope.futures.length;i++) {
+                    if ($scope.futures[i].price ===0) {
+                        $scope.someBought = true;
+                    } else {
+                        $scope.allBought = false;
+                    }
+                }
                 $scope.totalFutures=data.total_futures;
                 $scope.total=data.total;
 
