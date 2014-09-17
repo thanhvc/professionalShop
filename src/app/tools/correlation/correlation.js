@@ -301,9 +301,7 @@ angular.module('ngMo.correlation', [
                     $scope.loading = false;
                     $scope.myData = data.patterns;//data.page;
                     //when the market is changed, we
-                    var market = $scope.filterOptions.filters.selectedMarket;
                     $scope.refreshRegion();
-                    $scope.filterOptions.filters.selectedMarket = market;
                     $scope.correlationList = data.correlationPatterns;
                     updateCorrelationListSessionStorage(data.correlationPatterns);
                     if ($scope.correlationList.length > 0){
@@ -322,6 +320,7 @@ angular.module('ngMo.correlation', [
                 case 0:
                     if (typeof $window.sessionStorage.correlationStocks === 'undefined'){
                         $window.sessionStorage.correlationStocks = [];
+                        $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationStocks = JSON.stringify(correlationPatterns);
                     if (correlationPatterns.length === 0) {
@@ -331,6 +330,7 @@ angular.module('ngMo.correlation', [
                 case 1:
                     if (typeof $window.sessionStorage.correlationStockPairs === 'undefined'){
                         $window.sessionStorage.correlationStockPairs = [];
+                        $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationStockPairs = JSON.stringify(correlationPatterns);
                     if (correlationPatterns.length === 0) {
@@ -341,11 +341,13 @@ angular.module('ngMo.correlation', [
                     if ($scope.filterOptions.filters.index_type === "0"){
                         if (typeof $window.sessionStorage.correlationIndices === 'undefined'){
                             $window.sessionStorage.correlationIndices = [];
+                            $scope.pagingOptions.currentPage = 1;
                         }
                         $window.sessionStorage.correlationIndices = JSON.stringify(correlationPatterns);
                     }else{
                         if (typeof $window.sessionStorage.correlationIndicePairs === 'undefined'){
                             $window.sessionStorage.correlationIndicePairs = [];
+                            $scope.pagingOptions.currentPage = 1;
                         }
                         $window.sessionStorage.correlationIndicePairs = JSON.stringify(correlationPatterns);
                     }
@@ -353,6 +355,7 @@ angular.module('ngMo.correlation', [
                 case 3:
                     if (typeof $window.sessionStorage.correlationFutures === 'undefined'){
                         $window.sessionStorage.correlationFutures = [];
+                        $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationFutures = JSON.stringify(correlationPatterns);
                     break;
@@ -362,9 +365,9 @@ angular.module('ngMo.correlation', [
         $scope.addToCorrelationList = function (pattern) {
 
             if ($scope.correlationList.length < 10 && !$scope.moving ) {
-                if ($scope.correlationList.length === 0) {
+                /*if ($scope.correlationList.length === 0) {
                     $scope.pagingOptions.currentPage = 1;
-                }
+                }*/
                 $scope.startMoving();
                 var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.correlationList, function (data) {
@@ -515,7 +518,7 @@ angular.module('ngMo.correlation', [
          */
 
         $scope.refreshRegion = function () {
-            $scope.filterOptions.filters.selectedMarket = "";
+            //$scope.filterOptions.filters.selectedMarket = "";
             switch (TabsService.getActiveTab()) {
                 case 0://stock have markets to refresh
                     $scope.refreshSelectors(['markets']);

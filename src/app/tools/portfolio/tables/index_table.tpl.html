@@ -7,14 +7,14 @@
             <td>Nombre</td>
             <td>Mercado</td>
             <td>Mes</td>
-            <td>Op.</td>
+            <td class="cursor-help"><span tooltip="Operación">Op.</span></td>
             <td>Añadir</td>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="pattern in myData">
             <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
-            <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div class="name-pattern-container" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"><span>{{pattern.asset.longName | limitTo: 23}}</span></div></td>
+            <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div class="name-pattern-container cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"><span>{{pattern.asset.longName | limitTo: 23}}</span></div></td>
             <td><span class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
             <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
             <td>
@@ -43,8 +43,8 @@
                 <td>Nombre</td>
                 <td>Mercado</td>
                 <td>Mes</td>
-                <td>Op.</td>
-                <td>Fav.</td>
+                <td class="cursor-help"><span tooltip="Operación">Op.</span></td>
+                <td class="cursor-help"><span tooltip="Favorito">Fav.</span></td>
                 <td>Quitar</td>
             </tr>
             </thead>

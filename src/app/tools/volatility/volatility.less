@@ -182,9 +182,8 @@
 }
 
 .pairs-table-vol{
-  width: 775px !important;
+  width: 800px !important;
   border:"0";
-
 }
 
 .favourite-check-futures{
@@ -273,7 +272,6 @@
 }
 .index-header-index{
   text-align: center;
-  display:inline-block;
   width:492px;
 }
 
@@ -300,7 +298,9 @@
   height: 35px;
   width:775px;
   padding-top: 10px;
-  display: inline-block;
+  th{
+    text-align: center;
+  }
 }
 .grey {
   background-color: grey;
@@ -500,12 +500,12 @@
 
 .stocks-header-table{
   position: relative;
-  width: 775px !important;
+  width: 800px !important;
   color: white;
   height: 35px;
-  display: inline-block;
   background-color: black;
   padding-top: 10px;
+  border-right: 1px solid @black;
 }
 
 .month-selector-pairs{
@@ -524,9 +524,11 @@
 
 }
 
+.stocks-table{
+  width: 800px;
+}
+
 .stocks-tbody{
-  display: inline-block;
-  width:775px;
   td{
     padding-left: 5px;
     padding-top: 4px;
@@ -626,8 +628,6 @@
   font-size:10px;
   color:#996600 !important;
   color:black;
-  display: inline-block;
-
 }
 
 .month-select-futures{
@@ -701,7 +701,7 @@
 
 
 .filter-container-volatility {
-  width:775px;
+  width:800px;
   height:40px;
   padding: 10px 8px 3px 6px;
   background-color: @greyBorderColor;
@@ -755,6 +755,6 @@
 }
 
 .volat-load {
-  display: inline;
+  display: inline !important;
   margin: auto;
 }
