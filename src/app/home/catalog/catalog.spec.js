@@ -64,47 +64,123 @@ describe('The Selected Pack service', function () {
 
 describe('The catalog controller', function() {
 
-    var $scope, ctrl, state, $http, myPatternsData, service, stateParams,expiration,tabsService,ActualDateService,initializedData;
+    var $scope, ctrl, state, $http,selectedService, service, stateParams,tabsService,initializedData;
+
+    var month = {month: 9, year:2014};
+    var patternFilters = '/patternfilters?indexType=0&industry=&productType=0&sector=&view=';
+    var patternFilters2 = '/patternfilters?indexType=0&month=9&year=2014&productType=0&view=';
+    var filters = '/patternfilters?indexType=0&month=%7B%22month%22:8,%22year%22:2014%7D&productType=NaN&view=';
+    var patterns = '/patternspack?month=%7B%22month%22:8,%22year%22:2014%7D&page=1&year=2014';
+
+    var response = {selectedRegion: 'region', markets: ['market'], regions: ['region'], industries: ['industry'], sectors:['sector']};
+    var response2 = {pack:{ month: 8, productType :'INDICE'}};
+
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(angular.mock.module("ngMo.home"));
     beforeEach(angular.mock.module("ngMo.catalog"));
 
-    beforeEach(inject(function ($controller, $rootScope, $state, $stateParams, _$httpBackend_,TabsService,ActualDateService,SelectedPackService) { //, $state, $stateParams, $location, TabsService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, ExpirationYearFromPatternName) {
+    beforeEach(inject(function ($controller, $rootScope, $state, $stateParams, _$httpBackend_,TabsService,ActualDateService,SelectedPackService) {
         ctrl = $controller;
         $scope = $rootScope.$new();
         state = $state;
         tabsService = TabsService;
-        initializedData = { 'pack': { 'productType': 'INDICE','patternType': "SIMPLE"}, 'pagingOptions' : {pageSize: 10,
+        selectedService = SelectedPackService;
+        initializedData = {'pack': { 'month': month, 'productType': 'INDICE', 'patternType': "SIMPLE" }, 'pagingOptions' : {pageSize: 10,
             currentPage: 1
         }};
         stateParams = $stateParams;
         $http = _$httpBackend_;
         service = SelectedPackService;
 
-        $http.when('GET', $rootScope.urlService + '/actualdate').respond(200);
-        $http.when('GET', $rootScope.urlService + '/patternspack?durationInterval=&industry=&name=&page=1&sector=&volatilityInterval=').respond(200);
-        $http.when('GET', $rootScope.urlService + '/patternfilters?indexType=0&industry=&productType=0&sector=&view=').respond(200);
+        $http.when('GET', $rootScope.urlService + '/actualdate').respond(200,{data: new Date()});
+        $http.when('GET', $rootScope.urlService + patternFilters).respond(200,response);
+        $http.when('GET', $rootScope.urlService + patternFilters2).respond(200,response);
+        $http.when('GET', $rootScope.urlService + filters).respond(200, response);
+        $http.when('GET', $rootScope.urlService + patterns).respond(200,response2);
 
-        $controller('CatalogCtrl', {'$scope': $rootScope, 'state': $state ,  'initializedData': initializedData});
+        $controller('CatalogCtrl', {'$scope': $rootScope, 'state': $state ,  'initializedData': initializedData, 'selectedPackService': SelectedPackService});
+
+        $scope.filterOptions.filters = {month: {month: 8, year:2014}, productType: 0};
 
     }));
 
+    it('should success when location changes', function(){
+        $scope.$broadcast('$locationChangeSuccess',[null, stateParams]);
+    });
+
     it('should generate the search url', function(){
-        $http.expectGET($scope.urlService+'/actualdate');
-        $http.expectGET($scope.urlService + '/patternspack?durationInterval=&industry=&name=&page=1&sector=&volatilityInterval=');
-        $http.expectGET($scope.urlService + '/patternfilters?indexType=0&industry=&productType=0&sector=&view=');
-        $scope.$apply();
+
+        initializedData.pack ={ productType: 'INDICE',patternType: "SIMPLE"};
+        $http.expectGET($scope.urlService + '/actualdate');
+        $http.expectGET($scope.urlService + patternFilters);
+        $http.expectGET($scope.urlService + patterns);
 
         $scope.generateSearchUrl('Google','undefined');
-        $scope.generateSearchUrl('Yahoo', "undefined");
-        $scope.generateSearchUrl('Bloomberg', undefined);
+        $http.flush();
+        expect($scope.selectedTab).toBe(4);
+    });
 
-        expect($scope.generateSearchUrl).toNotBe(undefined);
+    //same as above but other branch
+    it('should generate the search url', function(){
+
+        initializedData = { 'pack': { 'productType': 'INDICE','patternType': "SIMPLE"}, 'pagingOptions' : {pageSize: 10,
+            currentPage: 1
+        }};
+        $http.expectGET($scope.urlService + '/actualdate');
+        $http.expectGET($scope.urlService + patternFilters);
+        $http.expectGET($scope.urlService + patterns);
+
+        $scope.generateSearchUrl('Yahoo','undefined');
+        $http.flush();
+        expect($scope.selectedTab).toBe(4);
+    });
+
+    //same as above but other branch
+    it('should generate the search url', function(){
+
+        initializedData = { pack: { 'productType': '','patternType': "SIMPLE"}};
+        $http.expectGET($scope.urlService + '/actualdate');
+        $http.expectGET($scope.urlService + patternFilters);
+        $http.expectGET($scope.urlService + patterns);
+
+        $scope.generateSearchUrl('Bloomberg','undefined');
+        $http.flush();
+        expect($scope.selectedTab).toBe(4);
+    });
+
+    //same as above but other branch
+    it('should generate the search url', function(){
+
+        initializedData = { pack: { 'productType': 'INDICE','patternType': "SIMPLE"}};
+        $http.expectGET($scope.urlService + '/actualdate');
+        $http.expectGET($scope.urlService + patternFilters);
+        $http.expectGET($scope.urlService + patterns);
+
+        $scope.generateSearchUrl('Bloomberg',undefined);
+        $http.flush();
+        expect($scope.selectedTab).toBe(4);
+    });
+
+    it('should be able to load the page', function(){
+
+        initializedData = { pack: { 'productType': 'INDICE','patternType': "SIMPLE"}};
+        $http.expectGET($scope.urlService + '/actualdate');
+        $http.expectGET($scope.urlService + patternFilters);
+        $http.expectGET($scope.urlService + patterns);
+
+        $scope.loadPage();
+        $http.flush();
+        expect($scope.selectedTab).toBe(4);
     });
 
     it('should initialize data ', function(){
         $scope.selectedPack = $scope.initialData.pack;
         expect($scope.selectedPack).toNotBe(undefined);
+    });
+
+    it('should load all filters ', function(){
+        $scope.loadFilters();
+        expect($scope.refreshSector).toNotBe(undefined);
     });
 
     it('should search properly', function(){

@@ -10,7 +10,7 @@ describe('Volatility controller', function()  {
 
         service = TabsService;
         $location = _$location_;
-        _$httpBackend_.when('GET', $rootScope.urlService + '/actualdate').respond(200);
+        _$httpBackend_.when('GET', $rootScope.urlService + '/actualdate').respond(200,{data: new Date()});
         _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + patternFilters).respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + patterns).respond(200);
@@ -43,10 +43,8 @@ describe('Volatility controller', function()  {
         var parentElement = {'parentElement': j, 'srcElement': "<td class='stocks-vol-value'></td>"};
         var srcElement = { 'parentElement': parentElement};
         var e = {
-            'srcElement': srcElement
+            'srcElement': srcElement, 'target': srcElement
         };
-        var template = $compile("<td class='stocks-vol-value'><a ng-click='loadGraphic($event,data.asset.longName,data.patternType,null,false,data.asset.volatilityChartURL);$event.stopPropagation();' class='ng-binding'>68</a></td>")($scope);
-        $scope.$apply();
         $scope.loadGraphic(e,'name1', 'type', 'name2',true,'url');//Real graph
         expect($scope.loadGraphic).toNotBe(undefined);
 

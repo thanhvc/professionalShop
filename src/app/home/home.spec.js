@@ -50,21 +50,13 @@ describe('The carousel directive', function () {
             expect(lis.length).toEqual(3);
         }));
 
-        it('should respond to a click event', function(){
-            $scope.infoViews =['view1', 'view2'];
-            var template = $compile("<div carousel-controller-provider><li class=''></li></div>")($scope);
-            $scope.$apply();
-            template.triggerHandler('click', $scope,template);
-            $timeout.flush(100);
-        });
 
-        //same test as above but goes to another branch
         it('should respond to a click event', function(){
             $scope.infoViews =['view1', 'view2'];
-            var template = $compile("<div carousel-controller-provider><li class='active'></li></div>")($scope);
+            var template = $compile("<div carousel-controller-provider></div>")($scope);
             $scope.$apply();
             template.triggerHandler('click', $scope,template);
-            $timeout.flush(100);
+           // $timeout.flush(100);
         });
     });
 });
@@ -326,31 +318,46 @@ describe('The ActualDate service', function(){
 
     var service;
     var $scope;
-    var $compile;
+    var $compile, http;
 
     beforeEach(angular.mock.module("ngMo.home"));
     beforeEach(module('templates-app'));
-    beforeEach(inject(function (ActualDateService, _$rootScope_, _$compile_) {
+    beforeEach(inject(function (ActualDateService, _$rootScope_, _$compile_, $httpBackend) {
         service = ActualDateService;
         $scope = _$rootScope_;
         $compile = _$compile_;
+        http= $httpBackend;
+
+        http.when('GET', _$rootScope_.urlService + '/actualdate').respond(200,{data: new Date()});
+        http.when('GET', _$rootScope_.urlService + '/numweek').respond(200,{data: new Date()});
+        http.when('GET', _$rootScope_.urlService + '/nextdate').respond(200,{data: new Date()});
+
     }));
 
     it('should return the actual date', function(){
-        $scope.$apply();
-        service.actualDate();
+
+        http.expectGET($scope.urlService + '/actualdate');
+        service.actualDate(function(callbackFunc){
+            var res = '';
+        });
+        http.flush();
+    });
+
+    it('should return the actual week', function(){
+        http.expectGET($scope.urlService + '/numweek');
+        service.actualWeek(function(callbackFunc){
+            var res = '';
+        });
+        http.flush();
 
     });
 
     it('should return the actual week', function(){
-        $scope.$apply();
-        service.actualWeek();
-
-    });
-
-    it('should return the next date', function(){
-        $scope.$apply();
-        service.nextDate();
+        http.expectGET($scope.urlService + '/nextdate');
+        service.nextDate(function(callbackFunc){
+            var res = '';
+        });
+        http.flush();
 
     });
 
@@ -365,19 +372,20 @@ describe('The packs service', function(){
 
     beforeEach(inject(function (PacksService, _$rootScope_, _$compile_,$httpBackend) {
 
-
-        //spyOn(packService, "obtainPacks");
         service = PacksService;
         $scope = _$rootScope_;
         $compile = _$compile_;
         $http = $httpBackend;
-        $http.whenGET(_$rootScope_.urlService+'/homepacks').respond(200);
+        $http.whenGET(_$rootScope_.urlService+'/homepacks').respond(200,{data: 'pack'});
     }));
 
     it('should return the actual date', function(){
         $http.expectGET($scope.urlService+'/homepacks');
-        spyOn(service, 'obtainPacks').andCallThrough();
-        expect(service.obtainPacks).toNotBe(undefined);
+        service.obtainPacks(function(callbackFunc){
+            var res = '';
+        });
+        $http.flush();
+
     });
 });
 
@@ -388,18 +396,22 @@ describe('The home controller', function() {
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(angular.mock.module("ngMo.home"));
 
-
+    var response = { firstTable: {STOCK: 'stock', STOCKPAIR: 'stockPair', INDICE: 'indice', INDICEPAIR: 'indice', FUTURE: 'future'},
+        secondTable: {STOCK: 'stock', STOCKPAIR: 'stockPair', INDICE: 'indice', INDICEPAIR: 'indice', FUTURE: 'future'}};
 
     beforeEach(inject(function ($controller, $rootScope, _$http_, _$httpBackend_, _ActiveTabService_,_AnchorLinkService_, _SecondActiveTabService_,_PacksService_,_IsLogged_, _$stateParams_) {
 
-        _$httpBackend_.when('GET', $rootScope.urlService+'/homepacks').respond(200);
+        _$httpBackend_.when('GET', $rootScope.urlService+'/homepacks').respond(200,response);
         ctrl = $controller;
         $scope = $rootScope.$new();
         $http = _$httpBackend_;
         packsService = _PacksService_;
         $stateParams = _$stateParams_;
         $stateParams.activated = true;
+
         $controller('HomeCtrl', {'$rootScope': $rootScope, '$http': _$http_,'$scope': $scope, 'ActiveTabService': _ActiveTabService_, 'SecondActiveTabService': _SecondActiveTabService_, 'AnchorLinkService': _AnchorLinkService_, 'IsLogged':_IsLogged_, 'PacksService':_PacksService_});
+
+
     }));
 
     it("should change change cart's position", function(){
@@ -408,7 +420,11 @@ describe('The home controller', function() {
     });
 
     it('should load packs', function(){
+
+        $http.expectGET($scope.urlService+'/homepacks');
         $scope.loadPacks();
+        $http.flush();
+        expect($scope.myData).toBeDefined();
     });
 
 
