@@ -172,31 +172,11 @@ describe('My subscriptions controller', function() {
     });
 
     it('should be able to load the whole page', function(){
-        var item = {duration: 'anual', productType: 'FUTURE'};
-        var america = {startDate:  new Date(), code: 1234, toBuy: true};
-        var asia = {startDate:  new Date(), code: 1234, toBuy: true};
-        var europe = {startDate:  new Date(), code: 1234, toBuy: true};
-        var indices = {startDate:  new Date(), code: 1234, toBuy: true};
-        var futures = {startDate:  new Date(), code: 1234, toBuy: true};
-        var pairIndices = {startDate:  new Date(), code: 1234, toBuy: true};
-        var americaPair = {startDate:  new Date(), code: 1234, toBuy: true};
-        var asiaPair = {startDate:  new Date(), code: 1234, toBuy: true};
-        var europePair = {startDate:  new Date(), code: 1234, toBuy: true};
-        var content = {americaContent : [america, america,america], asiaContent: [asia,asia], europeContent : [europe,europe], futuresContent: [futures,futures], pairsIndicesContent: [pairIndices,pairIndices], americaPairContent : [americaPair,americaPair], asiaPairContent:[asiaPair,asiaPair], europePairContent: [europePair,europePair], indicesContent:[indices,indices]};
-        $scope.mySubscriptionsTablePacks = [content, content ,content,content];
-        ShoppingCartService.addItemCart(item);
-
-        $http.expectGET($scope.urlService + url);
-        $scope.loadPage();
-        $http.flush();
-        expect($scope.loading).toBe(false);
-    });
-
-    it('should be able to load the whole page', function(){
         var item = {duration: 'anual', productType: 'INDICE'};
         var item2 = {duration: 'anual', productType: 'INDICE', patternType: "SIMPLE"};
         var item3 = {duration: 'anual', productType: 'STOCK', patternType: "SIMPLE"};
         var item4 = {duration: 'anual', productType: 'STOCK'};
+        var item5 = {duration: 'anual', productType: 'FUTURE'};
 
         var america = {startDate:  new Date(), code: 1234, toBuy: true};
         var asia = {startDate:  new Date(), code: 1234, toBuy: true};
