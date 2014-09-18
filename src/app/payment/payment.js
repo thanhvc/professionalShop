@@ -205,6 +205,9 @@ angular.module('ngMo.payment', [  'ui.router'])
         //load the info from server with all the fields of the summary
         $scope.loadPayment = function () {
             PaymentService.getPayments(true,function (data) {
+
+                //this detect if some pack is with price=0, -> already subscribed pack
+                var subscribedPacks = [];
                 $scope.allBought = true;
                 $scope.amountOfPacks = 0;
                 $scope.stocks = data.stocks;
@@ -212,6 +215,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                     $scope.amountOfPacks++;
                     if ($scope.stocks[i].price ===0) {
                         $scope.someBought = true;
+                        subscribedPacks.push($scope.stocks[i]);
                     } else {
                         $scope.allBought = false;
                     }
@@ -222,6 +226,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                     $scope.amountOfPacks++;
                     if ($scope.pairs[i].price ===0) {
                         $scope.someBought = true;
+                        subscribedPacks.push($scope.pairs[i]);
                     } else {
                         $scope.allBought = false;
                     }
@@ -232,6 +237,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                     $scope.amountOfPacks++;
                     if ($scope.index[i].price ===0) {
                         $scope.someBought = true;
+                        subscribedPacks.push($scope.index[i]);
                     } else {
                         $scope.allBought = false;
                     }
@@ -242,6 +248,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                     $scope.amountOfPacks++;
                     if ($scope.pairIndex[i].price ===0) {
                         $scope.someBought = true;
+                        subscribedPacks.push($scope.pairIndex[i]);
                     } else {
                         $scope.allBought = false;
                     }
@@ -252,12 +259,17 @@ angular.module('ngMo.payment', [  'ui.router'])
                     $scope.amountOfPacks++;
                     if ($scope.futures[i].price ===0) {
                         $scope.someBought = true;
+                        subscribedPacks.push($scope.futures[i]);
                     } else {
                         $scope.allBought = false;
                     }
                 }
                 $scope.totalFutures=data.total_futures;
                 $scope.total=data.total;
+                if (subscribedPacks.length > 0) {
+                    //there are packs that have price 0, so we need check it in the cart. Launch an event to ask to the cart
+                    $rootScope.$broadcast('updateSubscribedPacks',subscribedPacks);
+                }
 
             });
         };
@@ -505,10 +517,10 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.payWithCard = function () {
             $scope.status="NONE";
             $scope.formSubmited = true;
-            $scope.doingPayment = true;
             if (!$scope.payForm.$valid) {
                 return;
             }
+            $scope.doingPayment = true;
             dataCart= [];
             token = $window.sessionStorage.token;
             config = {
