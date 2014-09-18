@@ -90,7 +90,7 @@ angular.module('ngMo.lookup_diary', [
 
     .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
                                              LookupDiaryService, $http, $state, $stateParams, $location,
-                                             $modal,diaryData,SelectedMonthService,PatternsService, ExpirationYearFromPatternName) {
+                                             $modal,diaryData,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -427,6 +427,11 @@ angular.module('ngMo.lookup_diary', [
             $scope.loading= true;
             var data = LookupDiaryService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
+                if ($scope.myData.length <=0){
+                    $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                }else{
+                    $scope.appliedFilters = false;
+                }
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     $scope.loading = false;

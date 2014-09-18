@@ -87,7 +87,8 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService,historicDataData, ExpirationYearFromPatternName) {
+    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
+                                          MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService,historicDataData, ExpirationYearFromPatternName,UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -293,7 +294,11 @@ angular.module('ngMo.historic', [
         $scope.loadPage = function () {
             var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                     $scope.myData = data.patterns;//data.page;
-
+                    if ($scope.myData.length <=0){
+                        $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                    }else{
+                        $scope.appliedFilters = false;
+                    }
                     /*mocked, this info is loaded from data*/
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;

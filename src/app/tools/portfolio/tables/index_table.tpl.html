@@ -29,7 +29,8 @@
             <td colspan="6">
                 <div style="padding-top: 20px;">
                     <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
-                    <span ng-if="myData.length == 0 && !loading">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
+                    <span ng-if="myData.length == 0 && !loading && appliedFilters">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
+                    <span ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</span>
                 </div>
             </td>
         </tr>

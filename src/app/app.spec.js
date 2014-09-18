@@ -169,9 +169,10 @@ describe('The cart directive', function () {
                     "productType": "STOCK",
                     publicationDate: 1404472269488
                 };
+                x = new Date(startDate);
+                x.setMonth(i);
 
-
-                $scope.addNewItemCart(item,startDate,"Anual");
+                $scope.addNewItemCart(item, x.getTime(),"Anual");
                 $scope.$apply();
             }
         };
@@ -179,7 +180,7 @@ describe('The cart directive', function () {
         obtainLog = function (trsCart, log) {
             angular.forEach(trsCart, function (item) {
                     if (typeof item.attributes[0] != 'undefined') {
-                        if (item.attributes[0].textContent === "stockItem in stockItems") {
+                        if (item.attributes[0].textContent === "stockItem in stockItems track by $index") {
                             this.push(item);
                         }
                     }
