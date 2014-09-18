@@ -126,11 +126,12 @@ describe('My subscriptions controller', function() {
         $scope.$broadcast('removeAllItemsFromCart');
     });
 
+    /* -- this function (selectOption is now part of myPacks, and is incomplete (needs verification to renovate option)
     it("should be able to select an option", function () {
         var pack =  {orden: "1"};
         $scope.selectOption(pack);
         expect( $scope.operationPack).toBe(pack);
-    });
+    });*/
 
     it("should be able to toggle pack", function () {
         var pack =  {orden: "1"};

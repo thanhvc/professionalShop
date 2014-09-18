@@ -84,7 +84,7 @@ angular.module('ngMo.payment', [  'ui.router'])
     })
 
     //confirm Card this status only is when the cpayment is OK, so always shows OK
-    .controller('ConfirmPaymentCardCtrl', function ($scope, $state) {
+    .controller('ConfirmPaymentCardCtrl', function ($scope, $state,IsLogged) {
         $scope.status = "OK";
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
