@@ -54,11 +54,16 @@ angular.module('ngMo.detail', [
             }
         });
     })
-    .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $timeout) {
+    .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $timeout, $rootScope) {
         $scope.$on('$stateChangeStart', function () {
             IsLogged.isLogged();
         });
 
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if ($rootScope.isLog === false){
+                $state.go("home");
+            }
+        });
         $scope.tabs = TabsService.getTabs();
 
         $scope.obtainActualTab = function () {

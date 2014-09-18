@@ -81,7 +81,7 @@ angular.module('ngMo.volatility', [
                     return filters;
 
                 },
-                volatilityData: function(VolatilityService, filtering) {
+                myPatternsData: function(VolatilityService, filtering) {
                     return VolatilityService.getPagedDataAsync(1, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
@@ -95,13 +95,16 @@ angular.module('ngMo.volatility', [
         });
     })
 
-    .controller('VolatilityCtrl', function VolatilityCtrl($scope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, volatilityData, SelectedMonthService, UserApplyFilters) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($scope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+            if ($rootScope.isLog === false){
+                $state.go("home");
             }
         });
         $scope.loading = false;
@@ -841,9 +844,9 @@ angular.module('ngMo.volatility', [
         }
 
         //$scope.loadPage();
-        $scope.myData = volatilityData.patterns;
-        $scope.results = volatilityData.results;
-        $scope.found = volatilityData.found;
+        $scope.myData = myPatternsData.patterns;
+        $scope.results = myPatternsData.results;
+        $scope.found = myPatternsData.found;
         $scope.$on('body-click',function() {
             $scope.closeGraph();
         });

@@ -30,6 +30,9 @@ angular.module('ngMo.correlation', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            if ($rootScope.isLog === false){
+                $state.go("home");
+            }
         });
 
         $scope.moving = false; //moving between tables

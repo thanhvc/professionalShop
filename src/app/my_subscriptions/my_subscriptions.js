@@ -109,19 +109,31 @@ angular.module('ngMo.my_subscriptions', [
             return result;
         };
     })
-    .controller('MySubscriptionsCtrl',function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter) {
+    .controller('MySubscriptionsCtrl',function ($scope,$rootScope, $state) {
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            IsLogged.isLogged();
+        });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
             }
+            if ($rootScope.isLog === false){
+                $state.go("home");
+            }
         });
     })
-    .controller('MyPacksCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter) {
+    .controller('MyPacksCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService, $state) {
+        $scope.$on('$stateChangeStart', function (event, toState) {
+            IsLogged.isLogged();
+        });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
+            }
+            if ($rootScope.isLog === false){
+                $state.go("home");
             }
         });
 

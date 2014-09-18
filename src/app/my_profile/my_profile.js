@@ -82,6 +82,9 @@ angular.module('ngMo.my_profile', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            if ($rootScope.isLog === false){
+                $state.go("home");
+            }
         });
 
         if ($state.current.name === "profile.orders") {

@@ -55,7 +55,6 @@ angular.module('auth',['http-auth-interceptor'])
                 })
                 .error(function (params, status, headers, config) {
                     $rootScope.isLog = false;
-                    $state.go('home');
                 });
         };
     })
