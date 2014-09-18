@@ -109,7 +109,7 @@ angular.module('ngMo.my_subscriptions', [
             return result;
         };
     })
-    .controller('MySubscriptionsCtrl',function ($scope,$rootScope, $state) {
+    .controller('MySubscriptionsCtrl',function ($scope,$rootScope, $state,IsLogged) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
