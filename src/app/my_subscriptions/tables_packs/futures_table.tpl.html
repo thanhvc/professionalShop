@@ -28,9 +28,10 @@
                         <input ng-show="!packF.selected" type="checkbox" ng-model="packF.toBuy" ng-change="togglePack(packF);"></td>
                     <td>{{packF.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
-                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                        <select ng-disabled="packF.selected" ng-model="packF.duration"
                                 ng-options="duration.value as duration.text for duration in durations"
-                                ng-change="changeDuration(pack)"></select>
+                                ng-change="changeDuration(packF)">
+                        </select>
                     </td>
                 </tr>
                 </tbody>

@@ -204,6 +204,99 @@ angular.module('ngMo', [
             }
         };
 
+        //says to the service  which packs are subscribed to set price 0
+        this.thisPacksAreSubscribed=function(packs) {
+            for (j = 0;j< packs.length; j++) {
+                startDate =packs[j].startDate;
+                for (i = 0; i < stockItems.length; i++) {
+                    if (stockItems[i].code === packs[j].code) {
+                        itemDate = stockItems[i].date;
+                        itemDate = itemDate.split("/");
+                        month = parseInt(itemDate[1],10);
+                        year = parseInt(itemDate[2],10);
+                        if ((startDate.month  === month) && (startDate.year  === year)) {
+                            stockItems[i].price = 0;
+                            stockItems[i].prices = [0,0,0];
+                        }
+                    }
+                }
+                for (i = 0; i < pairsItems.length; i++) {
+                    if (pairsItems[i].code === packs[j].code) {
+                        itemDate = pairsItems[i].date;
+                        itemDate = itemDate.split("/");
+                        month = parseInt(itemDate[1],10);
+                        year = parseInt(itemDate[2],10);
+                        if ((startDate.month  === month) && (startDate.year  === year)) {
+                            pairsItems[i].price = 0;
+                            pairsItems[i].prices = [0,0,0];
+                        }
+                    }
+                }
+                for (i = 0; i < indicesItems.length; i++) {
+                    if (indicesItems[i].code === packs[j].code) {
+                        itemDate = indicesItems[i].date;
+                        itemDate = itemDate.split("/");
+                        month = parseInt(itemDate[1],10);
+                        year = parseInt(itemDate[2],10);
+                        if ((startDate.month  === month) && (startDate.year  === year)) {
+                            indicesItems[i].price = 0;
+                            indicesItems[i].prices = [0,0,0];
+                        }
+                    }
+                }
+                for (i = 0; i < pairsIndicesItems.length; i++) {
+                    if (pairsIndicesItems[i].code === packs[j].code) {
+                        itemDate = pairsIndicesItems[i].date;
+                        itemDate = itemDate.split("/");
+                        month = parseInt(itemDate[1],10);
+                        year = parseInt(itemDate[2],10);
+                        if ((startDate.month  === month) && (startDate.year  === year)) {
+                            pairsIndicesItems[i].price = 0;
+                            pairsIndicesItems[i].prices = [0,0,0];
+                        }
+                    }
+                }
+                for (i = 0; i < futuresItems.length; i++) {
+                    if (futuresItems[i].code === packs[j].code) {
+                        itemDate = futuresItems[i].date;
+                        itemDate = itemDate.split("/");
+                        month = parseInt(itemDate[1],10);
+                        year = parseInt(itemDate[2],10);
+                        if ((startDate.month  === month) && (startDate.year  === year)) {
+                            futuresItems[i].price = 0;
+                            futuresItems[i].prices = [0,0,0];
+                        }
+                    }
+                }
+                totalCart = 0;
+                stockSubtotal = 0;
+                pairsSubtotal = 0;
+                indicesSubtotal = 0;
+                pairsIndicesSubtotal = 0;
+                futuresSubtotal = 0;
+                for (i=0;i<stockItems.length;i++) {
+                    totalCart += stockItems[i].price;
+                    stockSubtotal += stockItems[i].price;
+                }
+                for (i=0;i<pairsItems.length;i++) {
+                    totalCart += pairsItems[i].price;
+                    pairsSubtotal +=pairsItems[i].price;
+                }
+                for (i=0;i<indicesItems.length;i++) {
+                    totalCart += indicesItems[i].price;
+                    indicesSubtotal +=indicesItems[i].price;
+                }
+                for (i=0;i<pairsIndicesItems.length;i++) {
+                    totalCart += pairsIndicesItems[i].price;
+                    pairsIndicesSubtotal += pairsIndicesItems[i].price;
+                }
+                for (i=0;i<futuresItems.length;i++) {
+                    totalCart += futuresItems[i].price;
+                    futuresSubtotal+=futuresItems[i].price;
+                }
+            }
+        };
+
 
         //save the currentCart in session storage
         this.saveSessionCart = function () {
@@ -214,6 +307,7 @@ angular.module('ngMo', [
             sessioncart.pairsItems = pairsItems;
             sessioncart.indicesItems = indicesItems;
             sessioncart.pairsIndicesItems = pairsIndicesItems;
+            sessioncart.futuresItems = futuresItems;
             sessioncart.stockSubtotal = stockSubtotal;
             sessioncart.pairsSubtotal = pairsSubtotal;
             sessioncart.indicesSubtotal = indicesSubtotal;
@@ -905,6 +999,25 @@ angular.module('ngMo', [
                     $scope.changeDurationCart(item,typeItemNum);
                 });
 
+                //event that says to the cart what packs are subscribed, to check and put price 0
+                //this is used when the user is not loged, add items to the cart and then log in.
+                $scope.$on('updateSubscribedPacks',function(event,packs){
+                    //first synchronize the service, then reload the cart
+                    ShoppingCartService.thisPacksAreSubscribed(packs);
+                    $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
+                    $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
+                    $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
+                    $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
+                    $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                    $scope.totalCart = ShoppingCartService.obtainTotalCart();
+                    $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
+                    $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
+                    $scope.subtotalPairs = ShoppingCartService.obtainSubtotal('pairs');
+                    $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
+                    $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
+                    $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                });
+
 
 
                 //change the duration in the cart, and propagate to my subscriptions
@@ -1434,7 +1547,7 @@ angular.module('ngMo', [
                 //go to payment page
                 $scope.goToPay= function() {
                     token = $window.sessionStorage.token;
-                    if (token != null) {
+                    if ((token != null) && ($rootScope.isLog)) {
                         $state.go('summary-pay');
                     } else {
                         $state.go('new-subscription');
