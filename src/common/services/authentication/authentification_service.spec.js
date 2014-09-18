@@ -139,6 +139,19 @@ describe('The signInForm directive', function () {
         it('should success when submitting form', function(){
 
             httpMock.when('POST', $scope.urlService + '/login').respond(200,{login: 'ok', patterns :['pattern1', 'pattern2']});
+            httpMock.when('POST', $scope.urlService + '/summary-pay').respond(200,{
+            stocks: [],
+            totalStocks: 0,
+            pairs: [],
+            total_pairs: 0,
+            index: [],
+            total_index: 0,
+            pairIndex: [],
+            total_pairIndex: 0,
+            futures: [],
+            total_futures:0,
+            total: 0
+            });
             $scope.remember = true;
             httpMock.expectPOST($scope.urlService+'/login');
             httpMock.expectGET($scope.urlService+ patterns);
