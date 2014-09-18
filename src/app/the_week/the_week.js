@@ -24,13 +24,16 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged, $window,$rootScope) {
+    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged, $window,$rootScope, $state) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged();
         });
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+            if ($rootScope.isLog === false){
+                $state.go("home");
+            }
         });
         $scope.loading= false;
         $scope.days= [];

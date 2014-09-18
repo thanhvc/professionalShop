@@ -90,13 +90,16 @@ angular.module('ngMo.lookup_diary', [
 
     .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
                                              LookupDiaryService, $http, $state, $stateParams, $location,
-                                             $modal,diaryData,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters) {
+                                             $modal,diaryData,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+            if ($rootScope.isLog === false){
+                $state.go("home");
             }
         });
 

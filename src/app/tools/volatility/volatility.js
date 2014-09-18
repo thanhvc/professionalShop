@@ -29,6 +29,7 @@ angular.module('ngMo.volatility', [
             resolve: {
                 MonthSelectorService: "MonthSelectorService",
                 VolatilityService: "VolatilityService",
+                SelectedMonthService: "SelectedMonthService",
                 TabsService: "TabsService",
                 filtering : function(TabsService,MonthSelectorService,$location, SelectedMonthService){
                     comparatorsConversor= [1,0];
@@ -94,14 +95,16 @@ angular.module('ngMo.volatility', [
         });
     })
 
-    .controller('VolatilityCtrl', function VolatilityCtrl($scope, $http, $state, $stateParams, $location,
-                                                          TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData,UserApplyFilters) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($scope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+            if ($rootScope.isLog === false){
+                $state.go("home");
             }
         });
         $scope.loading = false;
@@ -294,7 +297,7 @@ angular.module('ngMo.volatility', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    month: SelectedMonthService.getSelectedMonth(),
                     favourite: false},
                 selectors: {
                     regions: [
