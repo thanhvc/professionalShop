@@ -205,7 +205,38 @@ angular.module('ngMo.my_patterns', [
             activeTab = active;
         };
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, ExpirationYearFromPatternName) {
+
+    .service("UserApplyFilters", function () {
+
+        this.userAppliedFilters = function(filters){
+            var temp = false;
+            angular.forEach(filters, function(value, key) {
+                if (key !== "month" && key !== "selectMonth" && key !== "active_tab" && key !== "index_type" && key !== "tab_type") { //these filters always are provided
+                    if (value !== "") {
+                        console.log(key+" "+value);
+                        temp = true;
+                    }
+                }
+            });
+            return temp;
+        };
+
+        this.userAppliedFiltersCalendar = function(filters){
+            var temp = false;
+            angular.forEach(filters, function(value, key) {
+                if (key !== "month" && key !== "selectMonth" && key !== "active_tab" && key !== "index_type" && key !== "tab_type" && key !=="order") { //these filters always are provided
+                    //in case of order, in the calendar the order input doesnt affect to patterns to load
+                    if ((value !== "") && (value !== null)) {
+                        console.log(key+" "+value);
+                        temp = true;
+                    }
+                }
+            });
+            return temp;
+        };
+
+    })
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters) {
         $scope.dataLoaded = false;
         $scope.loading = false;
 
@@ -471,6 +502,11 @@ angular.module('ngMo.my_patterns', [
                     $scope.found = data.found;//data.found;
                     $scope.dataLoaded = true;
                 $scope.loading = false;
+                if ($scope.myData.length <=0){
+                    $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                }else{
+                    $scope.appliedFilters = false;
+                }
             });
 
 
@@ -908,7 +944,6 @@ angular.module('ngMo.my_patterns', [
         $scope.getYearFromPatternName= function (patternName, expirationDate) {
             return ExpirationYearFromPatternName.getExpirationYearFromPatternName(patternName, expirationDate);
         };
-
     })
     .service("PatternsService", function ($location,$http, $window, $rootScope, $q) {
 

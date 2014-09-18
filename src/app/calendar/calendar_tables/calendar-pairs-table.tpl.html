@@ -13,7 +13,8 @@
     </select>
 </div>
 <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>Cargando calendario, por favor espere...</span></div>
-<div class="no-patterns-container" ng-if="myData.length == 0 && !loading"><span >NO EXISTEN PATRONES CON ESTAS CONDICIONES</span></div>
+<div class="no-patterns-container" ng-if="myData.length == 0 && !loading && appliedFilters"><span >NO EXISTEN PATRONES CON ESTAS CONDICIONES</span></div>
+<div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
 <div ng-show="myData.length >0">
 <table class="calendar-table">
     <thead>

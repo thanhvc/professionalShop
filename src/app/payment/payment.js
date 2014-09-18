@@ -148,6 +148,7 @@ angular.module('ngMo.payment', [  'ui.router'])
 //controller of summary-pay
 
     .controller('SummaryPayCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService) {
+        $scope.amountOfPacks = 0;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -205,9 +206,10 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.loadPayment = function () {
             PaymentService.getPayments(true,function (data) {
                 $scope.allBought = true;
-
+                $scope.amountOfPacks = 0;
                 $scope.stocks = data.stocks;
                 for (i=0;i<$scope.stocks.length;i++) {
+                    $scope.amountOfPacks++;
                     if ($scope.stocks[i].price ===0) {
                         $scope.someBought = true;
                     } else {
@@ -216,8 +218,9 @@ angular.module('ngMo.payment', [  'ui.router'])
                 }
                 $scope.totalStocks = data.total_stocks;
                 $scope.pairs = data.pairs;
-                for (i=0;i<$scope.totalStocks.length;i++) {
-                    if ($scope.totalStocks[i].price ===0) {
+                for (i=0;i<$scope.pairs.length;i++) {
+                    $scope.amountOfPacks++;
+                    if ($scope.pairs[i].price ===0) {
                         $scope.someBought = true;
                     } else {
                         $scope.allBought = false;
@@ -226,6 +229,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.totalPairs = data.total_pairs;
                 $scope.index= data.index;
                 for (i=0;i<$scope.index.length;i++) {
+                    $scope.amountOfPacks++;
                     if ($scope.index[i].price ===0) {
                         $scope.someBought = true;
                     } else {
@@ -235,6 +239,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.totalIndex= data.total_index;
                 $scope.pairIndex= data.pairIndex;
                 for (i=0;i<$scope.pairIndex.length;i++) {
+                    $scope.amountOfPacks++;
                     if ($scope.pairIndex[i].price ===0) {
                         $scope.someBought = true;
                     } else {
@@ -244,6 +249,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.totalpairIndex= data.total_pairIndex;
                 $scope.futures=data.futures;
                 for (i=0;i<$scope.futures.length;i++) {
+                    $scope.amountOfPacks++;
                     if ($scope.futures[i].price ===0) {
                         $scope.someBought = true;
                     } else {

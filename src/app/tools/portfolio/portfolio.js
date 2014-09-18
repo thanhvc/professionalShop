@@ -24,7 +24,8 @@ angular.module('ngMo.portfolio', [
     .run(function run() {
     })
 
-    .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal) {
+    .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
+                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -249,7 +250,13 @@ angular.module('ngMo.portfolio', [
                         $scope.loading = false;
                     }
                     $scope.myData = data.patterns;//data.page;
-                    $scope.portfolioList = data.portfolioPatterns;
+                    if ($scope.myData.length <=0){
+                        $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                    }else {
+                        $scope.appliedFilters = false;
+                    }
+
+                        $scope.portfolioList = data.portfolioPatterns;
                     updatePortfolioListSessionStorage(data.portfolioPatterns);
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
