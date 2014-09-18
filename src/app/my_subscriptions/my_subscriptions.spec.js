@@ -216,7 +216,6 @@ describe('My packs controller service', function() {
         ctrl = $controller;
         $http = _$httpBackend_;
         $state = _$state_;
-        $state = {data: {page: 1, pageTitle: 'title'}};
 
         _$httpBackend_.when('GET', $rootScope.urlService + '/pack').respond(200,{pack: 'pack'});
 

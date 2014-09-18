@@ -96,6 +96,9 @@ angular.module('ngMo.historic', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            if ($rootScope.isLog === false){
+                $state.go("home");
+            }
         });
 
         //event for keypress in input search name, launch the filters if press enter
