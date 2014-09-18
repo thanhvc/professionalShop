@@ -2,7 +2,7 @@
 
     <form name="ordersForm">
 
-        <table class="orders-body" ng-show="myData.length>0">
+        <table class="orders-body" >
             <tbody>
             <tr style="height: 45px;">
 
@@ -16,7 +16,7 @@
                         Ordenes del usuario
                     </div>
                     <div>
-                        <table class="orders-table">
+                        <table class="orders-table" ng-show="!notFound">
                             <thead>
                             <tr>
                                 <td>
@@ -150,6 +150,8 @@
 
                             </tbody>
                         </table>
+
+                        <div class="no-patterns-container no-orders-body" ng-show="notFound">NO EXISTEN ORDENES DEL USUARIO</div>
                     </div>
                 </td>
             </tr>
@@ -158,6 +160,5 @@
 
     </form>
 
-    <div class="no-patterns-container no-orders-body"ng-show="myData.length=' ' ">NO EXISTEN ORDENES DEL USUARIO</div>
 
 </div>

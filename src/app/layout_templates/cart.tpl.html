@@ -9,7 +9,7 @@
                 <th>Precio</th>
                 <th></th>
             </tr>
-            <tr ng-repeat="stockItem in stockItems">
+            <tr ng-repeat="stockItem in stockItems track by $index">
                 <td>{{stockItem.packName}}</td>
                 <td>{{stockItem.startDate}}</td>
                 <td>
@@ -38,7 +38,7 @@
                 <th>Precio</th>
                 <th></th>
             </tr>
-            <tr ng-repeat="pairsItem in pairsItems">
+            <tr ng-repeat="pairsItem in pairsItems track by $index">
                 <td>{{pairsItem.packName}}</td>
                 <td>{{pairsItem.startDate}}</td>
                 <td>
@@ -67,7 +67,7 @@
                 <th>Precio</th>
                 <th></th>
             </tr>
-            <tr ng-repeat="indicesItem in indicesItems">
+            <tr ng-repeat="indicesItem in indicesItems track by $index">
                 <td>{{indicesItem.packName}}</td>
                 <td>{{indicesItem.startDate}}</td>
                 <td>
@@ -96,7 +96,7 @@
                 <th>Precio</th>
                 <th></th>
             </tr>
-            <tr  ng-repeat="pairsIndicesItem in pairsIndicesItems">
+            <tr  ng-repeat="pairsIndicesItem in pairsIndicesItems track by $index">
                 <td>{{pairsIndicesItem.packName}}</td>
                 <td>{{pairsIndicesItem.startDate}}</td>
                 <td>
@@ -125,7 +125,7 @@
                 <th>Precio</th>
                 <th></th>
             </tr>
-            <tr ng-repeat="futuresItem in futuresItems">
+            <tr ng-repeat="futuresItem in futuresItems track by $index">
                 <td>{{futuresItem.packName}}</td>
                 <td>{{futuresItem.startDate}}</td>
                 <td>

@@ -392,13 +392,13 @@ angular.module('ngMo.volatility', [
             var data = VolatilityService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
                 $scope.loading = false;
                 $scope.myData = data.patterns;//data.page;
-                $scope.results = data.results;//data.results;
-                $scope.found = data.found;//data.found;
                 if ($scope.myData.length <=0){
                     $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
                 }else{
                     $scope.appliedFilters = false;
                 }
+                $scope.results = data.results;//data.results;
+                $scope.found = data.found;//data.found;
             });
 
 
@@ -584,11 +584,19 @@ angular.module('ngMo.volatility', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
-            $scope.loading= true;
+            $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
+
+            var month = date[0];
+            var year = date[1];
+            var currentMonth = new Date().getMonth() + 1;
+            var currentYear = new Date().getFullYear();
+
+            if (month > currentMonth){ date[0] = currentMonth.toString();}
+            if (year > currentYear){ date[1] = currentYear.toString();}
+
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
-            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -683,26 +691,8 @@ angular.module('ngMo.volatility', [
             urlParamsSend.pag = urlParams.page;
             urlParamsSend.month = (urlParams.month.month + "_" + urlParams.month.year);
 
-            url = $location.search();
-            if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
-                $scope.loadPage();
-            } else {
-                $location.path('/volatility').search(urlParamsSend);
-            }
-
+            $location.path('/volatility').search(urlParamsSend);
         };
-
-        //check if a date in format 'MM_YYYY' exists in the months selector
-        $scope.isCorrectDate= function(date){
-
-            for (i=0; i< $scope.filterOptions.months.length;i++) {
-                if ($scope.filterOptions.months[i].value === date) {
-                    return true;
-                }
-            }
-            return false;
-        };
-
         $scope.loadUrlParams = function () {
             var params = $location.search();
 
@@ -757,32 +747,23 @@ angular.module('ngMo.volatility', [
             //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
-                var d;
-                //check if the date of the param is correct (is in the selector)
-                //if not, just select the actualmonth
-                if ($scope.isCorrectDate(params.month)) {
-                    d = new Date(date[1], date[0] - 1, 1);
-                } else {
-                    actual_date = new Date();
-                    d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
-                }
+                var month = date[0];
+                var year = date[1];
+                //Check if month and year are not greater than the actual ones
+                var currentMonth = new Date().getMonth() + 1;
+                var currentYear = new Date().getFullYear();
+
+                if (month > currentMonth){ date[0] = currentMonth.toString();}
+                if (year > currentYear){ date[1] = currentYear.toString();}
+                var d = new Date(date[1], date[0] - 1, 1);
                 filters.month = MonthSelectorService.setDate(d);
 
 
             } else {
                 //if the date is not passed as param, we load the default date
-                //var date_restart = new Date();
-                //filters.month = MonthSelectorService.restartDate();
                 var date_restart = new Date();
-                date_restart.setDate(1);
-                date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
-                filters.month = MonthSelectorService.setDate(date_restart);
+                filters.month = MonthSelectorService.restartDate();
             }
-
-            //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
-            $scope.filterOptions.filters = filters;
-            $scope.updateSelectorMonth();
-            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
 
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {

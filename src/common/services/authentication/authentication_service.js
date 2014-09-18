@@ -69,7 +69,7 @@ angular.module('auth',['http-auth-interceptor'])
         return {
             restrict: "E",
 
-            controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state, ShoppingCartService, $cookies,$cookieStore) {
+            controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state, ShoppingCartService, $cookies,$cookieStore,PaymentService) {
 
                 $scope.remember = false;
 
@@ -127,6 +127,76 @@ angular.module('auth',['http-auth-interceptor'])
                             $state.go('my-patterns');
                             $scope.hideSignInForm();
                             $scope.currentUser = data.name;
+                            //check if the user have packs subscribed in his cart, to pass the prices to 0
+
+                            PaymentService.getPayments(true,function (data) {
+
+                                //this detect if some pack is with price=0, -> already subscribed pack
+                                var subscribedPacks = [];
+                                $scope.allBought = true;
+                                $scope.amountOfPacks = 0;
+                                $scope.stocks = data.stocks;
+                                for (i=0;i<$scope.stocks.length;i++) {
+                                    $scope.amountOfPacks++;
+                                    if ($scope.stocks[i].price ===0) {
+                                        $scope.someBought = true;
+                                        subscribedPacks.push($scope.stocks[i]);
+                                    } else {
+                                        $scope.allBought = false;
+                                    }
+                                }
+                                $scope.totalStocks = data.total_stocks;
+                                $scope.pairs = data.pairs;
+                                for (i=0;i<$scope.pairs.length;i++) {
+                                    $scope.amountOfPacks++;
+                                    if ($scope.pairs[i].price ===0) {
+                                        $scope.someBought = true;
+                                        subscribedPacks.push($scope.pairs[i]);
+                                    } else {
+                                        $scope.allBought = false;
+                                    }
+                                }
+                                $scope.totalPairs = data.total_pairs;
+                                $scope.index= data.index;
+                                for (i=0;i<$scope.index.length;i++) {
+                                    $scope.amountOfPacks++;
+                                    if ($scope.index[i].price ===0) {
+                                        $scope.someBought = true;
+                                        subscribedPacks.push($scope.index[i]);
+                                    } else {
+                                        $scope.allBought = false;
+                                    }
+                                }
+                                $scope.totalIndex= data.total_index;
+                                $scope.pairIndex= data.pairIndex;
+                                for (i=0;i<$scope.pairIndex.length;i++) {
+                                    $scope.amountOfPacks++;
+                                    if ($scope.pairIndex[i].price ===0) {
+                                        $scope.someBought = true;
+                                        subscribedPacks.push($scope.pairIndex[i]);
+                                    } else {
+                                        $scope.allBought = false;
+                                    }
+                                }
+                                $scope.totalpairIndex= data.total_pairIndex;
+                                $scope.futures=data.futures;
+                                for (i=0;i<$scope.futures.length;i++) {
+                                    $scope.amountOfPacks++;
+                                    if ($scope.futures[i].price ===0) {
+                                        $scope.someBought = true;
+                                        subscribedPacks.push($scope.futures[i]);
+                                    } else {
+                                        $scope.allBought = false;
+                                    }
+                                }
+                                $scope.totalFutures=data.total_futures;
+                                $scope.total=data.total;
+                                if (subscribedPacks.length > 0) {
+                                    //there are packs that have price 0, so we need check it in the cart. Launch an event to ask to the cart
+                                    $rootScope.$broadcast('updateSubscribedPacks',subscribedPacks);
+                                }
+
+                            });
                         })
                         .error(function (data, status, headers, config) {
                                 $scope.errorSignIn = true;

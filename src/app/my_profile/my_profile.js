@@ -86,6 +86,7 @@ angular.module('ngMo.my_profile', [
 
         if ($state.current.name === "profile.orders") {
             ////-- orders
+            $scope.notFound = false;
             $scope.orders = {
                 STOCKS: [],
                 PAIRS: [],
@@ -93,25 +94,7 @@ angular.module('ngMo.my_profile', [
                 PAIRS_INDEX: [],
                 FUTURES: []
             };
-            $http.get($rootScope.urlService+'/orders', config)
-                .success(function (data, status) {
-                    $scope.orders = {
-                        STOCKS: data.STOCKS,
-                        PAIRS: data.PAIRS,
-                        INDEX: data.INDEX,
-                        PAIRS_INDEX: data.PAIRS_INDEX,
-                        FUTURES: data.FUTURES
-                    };
-                })
-                .error(function (data, status) {
-                    $scope.orders = {
-                        STOCKS: [],
-                        PAIRS: [],
-                        INDEX:[],
-                        PAIRS_INDEX: [],
-                        FUTURES: []
-                    };
-                });
+
 
         }
         else {
@@ -229,6 +212,7 @@ angular.module('ngMo.my_profile', [
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
+        $scope.notFound= true;
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -258,8 +242,14 @@ angular.module('ngMo.my_profile', [
                         {name: "FUTURO",
                             packs: data.FUTURES}
                     ];
+                    if (data.STOCKS.length === 0 && data.PAIRS.length === 0 && data.INDEX.length === 0 && data.PAIRS_INDEX.length ===0 && data.FUTURES.length === 0) {
+                        $scope.notFound = true;
+                    } else {
+                        $scope.notFound = false;
+                    }
                 })
                 .error(function (data, status) {
+                        $scope.notFound = true;
                     $scope.data = [
                         {name: "ACCIÓN",
                             packs: []},
