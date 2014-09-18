@@ -118,7 +118,6 @@ describe('My subscriptions controller', function() {
         $scope.mySubscriptionsTablePacks = [content, content,content,content];
 
         $scope.$broadcast('removeItemFromCart',item);
-
     });
 
     it("should let the user remove all item from the cart", function () {
