@@ -24,7 +24,7 @@ angular.module('ngMo.correlation', [
     .run(function run() {
     })
 
-    .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout) {
+    .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout, SelectedMonthService) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -591,20 +591,15 @@ angular.module('ngMo.correlation', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
-            $scope.startLoading();
+            $scope.loading= true;
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
-            var month = date[0];
-            var year = date[1];
-            var currentMonth = new Date().getMonth() + 1;
-            var currentYear = new Date().getFullYear();
-
-            if (month > currentMonth){ date[0] = currentMonth.toString();}
-            if (year > currentYear){ date[1] = currentYear.toString();}
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
+
         //synchronize the selector with the month of the filter
         $scope.updateSelectorMonth = function () {
             for (i = 0; i < $scope.filterOptions.months.length; i++) {
@@ -815,7 +810,7 @@ angular.module('ngMo.correlation', [
                 var filename = "correlation-" + productType + ".xls";
                 var element = angular.element('<a/>');
                 element.attr({
-                    href: 'data:attachment/vnd.ms-excel;base64,' + encodeURI(data),
+                    href: 'data:application/vnd.ms-excel;base64,' + encodeURI(data),
                     target: '_blank',
                     download: filename
                 });
