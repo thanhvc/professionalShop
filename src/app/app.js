@@ -1524,6 +1524,7 @@ angular.module('ngMo', [
                             $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                             $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                             $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                            $scope.deleteMultiplePacks(item);//check that other pack is not here
 
                             //save the cart into session
                             ShoppingCartService.saveSessionCart();
