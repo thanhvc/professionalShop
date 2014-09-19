@@ -748,7 +748,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             translate 0,1,2 positions in the enum of the server to String with the text of the duration...
              */
             getDurationFromId: function(id) {
-                durations = ["Mensual","trimestral","Anual"];
+                durations = ["Mensual","Trimestral","Anual"];
                 return durations[id];
             }
         };
