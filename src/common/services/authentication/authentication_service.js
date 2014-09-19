@@ -135,57 +135,67 @@ angular.module('auth',['http-auth-interceptor'])
                                 $scope.allBought = true;
                                 $scope.amountOfPacks = 0;
                                 $scope.stocks = data.stocks;
-                                for (i=0;i<$scope.stocks.length;i++) {
-                                    $scope.amountOfPacks++;
-                                    if ($scope.stocks[i].price ===0) {
-                                        $scope.someBought = true;
-                                        subscribedPacks.push($scope.stocks[i]);
-                                    } else {
-                                        $scope.allBought = false;
+                                if (typeof $scope.stocks !== 'undefined') {
+                                    for (i = 0; i < $scope.stocks.length; i++) {
+                                        $scope.amountOfPacks++;
+                                        if ($scope.stocks[i].price === 0) {
+                                            $scope.someBought = true;
+                                            subscribedPacks.push($scope.stocks[i]);
+                                        } else {
+                                            $scope.allBought = false;
+                                        }
                                     }
                                 }
                                 $scope.totalStocks = data.total_stocks;
                                 $scope.pairs = data.pairs;
-                                for (i=0;i<$scope.pairs.length;i++) {
-                                    $scope.amountOfPacks++;
-                                    if ($scope.pairs[i].price ===0) {
-                                        $scope.someBought = true;
-                                        subscribedPacks.push($scope.pairs[i]);
-                                    } else {
-                                        $scope.allBought = false;
+                                if (typeof $scope.pairs !== 'undefined') {
+                                    for (i = 0; i < $scope.pairs.length; i++) {
+                                        $scope.amountOfPacks++;
+                                        if ($scope.pairs[i].price === 0) {
+                                            $scope.someBought = true;
+                                            subscribedPacks.push($scope.pairs[i]);
+                                        } else {
+                                            $scope.allBought = false;
+                                        }
                                     }
                                 }
                                 $scope.totalPairs = data.total_pairs;
                                 $scope.index= data.index;
-                                for (i=0;i<$scope.index.length;i++) {
-                                    $scope.amountOfPacks++;
-                                    if ($scope.index[i].price ===0) {
-                                        $scope.someBought = true;
-                                        subscribedPacks.push($scope.index[i]);
-                                    } else {
-                                        $scope.allBought = false;
+                                if (typeof $scope.index !== 'undefined') {
+                                    for (i = 0; i < $scope.index.length; i++) {
+                                        $scope.amountOfPacks++;
+                                        if ($scope.index[i].price === 0) {
+                                            $scope.someBought = true;
+                                            subscribedPacks.push($scope.index[i]);
+                                        } else {
+                                            $scope.allBought = false;
+                                        }
                                     }
                                 }
                                 $scope.totalIndex= data.total_index;
                                 $scope.pairIndex= data.pairIndex;
-                                for (i=0;i<$scope.pairIndex.length;i++) {
-                                    $scope.amountOfPacks++;
-                                    if ($scope.pairIndex[i].price ===0) {
-                                        $scope.someBought = true;
-                                        subscribedPacks.push($scope.pairIndex[i]);
-                                    } else {
-                                        $scope.allBought = false;
+                                if (typeof $scope.pairIndex !== 'undefined') {
+                                    for (i = 0; i < $scope.pairIndex.length; i++) {
+                                        $scope.amountOfPacks++;
+                                        if ($scope.pairIndex[i].price === 0) {
+                                            $scope.someBought = true;
+                                            subscribedPacks.push($scope.pairIndex[i]);
+                                        } else {
+                                            $scope.allBought = false;
+                                        }
                                     }
                                 }
                                 $scope.totalpairIndex= data.total_pairIndex;
                                 $scope.futures=data.futures;
-                                for (i=0;i<$scope.futures.length;i++) {
-                                    $scope.amountOfPacks++;
-                                    if ($scope.futures[i].price ===0) {
-                                        $scope.someBought = true;
-                                        subscribedPacks.push($scope.futures[i]);
-                                    } else {
-                                        $scope.allBought = false;
+                                if (typeof $scope.futures !== 'undefined') {
+                                    for (i = 0; i < $scope.futures.length; i++) {
+                                        $scope.amountOfPacks++;
+                                        if ($scope.futures[i].price === 0) {
+                                            $scope.someBought = true;
+                                            subscribedPacks.push($scope.futures[i]);
+                                        } else {
+                                            $scope.allBought = false;
+                                        }
                                     }
                                 }
                                 $scope.totalFutures=data.total_futures;
