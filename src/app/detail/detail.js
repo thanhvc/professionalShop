@@ -164,7 +164,7 @@ angular.module('ngMo.detail', [
             var elemDiv = document.createElement('div');
 
             var h = inputEvent.target.parentElement.parentElement.parentElement.offsetHeight-40;
-            var w = inputEvent.target.parentElement.parentElement.parentElement.offsetWidth-60;
+            var w = inputEvent.target.parentElement.parentElement.parentElement.offsetWidth-74;
            // var elemTitle = document.createElement('span');
             //elemTitle.innerHTML = inputEvent.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
             //elemTitle.innerHTML = name;
