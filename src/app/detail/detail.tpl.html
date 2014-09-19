@@ -161,7 +161,10 @@
     <table class="index-same-period-table" ng-show="infoPattern.samePeriodIndices.length > 0">
         <thead>
         <tr>
-            <th rowspan="2">Índice (Igual Periodo)</th>
+            <th rowspan="2">
+                <span ng-if="infoPattern.productType != 'FUTURE'">Índice (Igual Periodo)</span>
+                <span ng-if="infoPattern.productType == 'FUTURE'">Futuro (Mismo Periodo)</span>
+            </th>
             <th><img src='assets/img/entry_orange_arrow.png'>Fecha Entrada</th>
             <th>{{infoPattern.entryDate | date: 'dd MMM'}}</th>
             <th colspan="2" class="border-right-table">Rentabilidad (%)</th>
