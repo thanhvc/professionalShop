@@ -1496,6 +1496,36 @@ angular.module('ngMo', [
                                     item.prices = [0,0,0];
                                     item.price = 0;
                                     item.active = true;
+                                } else {
+                                    prices = [$scope.prices[0],$scope.prices[1],$scope.prices[2]];
+                                    monthError = false;
+                                   if (result.month !== "ok") {
+                                       prices[0] = 0;
+                                       monthError = true;
+                                   }
+                                    if (result.trimestral !== "ok") {
+                                        prices[1] = 0;
+                                        monthError = true;
+                                    }
+                                    if (result.year !== "ok") {
+                                        prices[2] = 0;
+                                        monthError = true;
+                                    }
+                                    if (monthError) {
+                                        item.prices = prices;
+                                        switch (item.duration) {
+                                            case "Mensual":
+                                                item.price = item.prices[0];
+                                                break;
+                                            case "Trimestral":
+                                                item.price = item.prices[1];
+                                                break;
+                                            case "Anual":
+                                                item.price = item.prices[2];
+                                                break;
+                                        }
+                                    }
+
                                 }
                                     //if not active pack with that user, add
                                     ShoppingCartService.addItemCart(item);

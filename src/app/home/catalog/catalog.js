@@ -289,6 +289,7 @@ angular.module('ngMo.catalog', [
             $scope.refreshSelectors(['industries']);
         };
         $scope.selectSector = function () {
+            $scope.filterOptions.filters.selectedIndustry = "";
             $scope.refreshSector();
             $scope.applyFilters();
         };
@@ -400,6 +401,9 @@ angular.module('ngMo.catalog', [
                 if (data.hasOwnProperty("sectors")) {
                     $scope.filterOptions.selectors.sectors = data.sectors;
                     //$scope.filterOptions.filters.selectedSector = "";
+                }
+                if (typeof data.selectedSector != 'undefined') {
+                    $scope.filterOptions.filters.selectedSector = data.selectedSector;
                 }
             });
         };
