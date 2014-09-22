@@ -5,7 +5,7 @@
                 <input ng-keypress="submitName($event)"  class="border-filters input-filter" placeholder="Nombre"
                        ng-model="filterOptions.filters.filterName">
             </td>
-            <td>
+            <td style="width: 150px;">
                 <select ng-change="selectRegion()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedRegion">
                     <option value="">- País -</option>
@@ -16,7 +16,7 @@
                 </select>
             </td>
 
-            <td>
+            <td style="width: 150px;">
                 <select ng-disabled="filterOptions.selectors.sectors.length <= 0" ng-change="selectSector()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedSector">
                     <option value="">- Sector -</option>
