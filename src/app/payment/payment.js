@@ -105,6 +105,9 @@ angular.module('ngMo.payment', [  'ui.router'])
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            if ($rootScope.isLog === false){
+                $state.go("home");
+            }
         });
 
 
@@ -469,7 +472,7 @@ angular.module('ngMo.payment', [  'ui.router'])
         };
 
         $scope.maestro= function(){
-            console.log("a");
+            //console.log("a");
         };
 
         SignUpService.getCountries(function(data) {
