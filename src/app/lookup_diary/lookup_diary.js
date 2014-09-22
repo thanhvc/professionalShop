@@ -586,8 +586,18 @@ angular.module('ngMo.lookup_diary', [
             }
 
             var elemDiv = document.createElement('div');
-            var h = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetHeight;
-            var w = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetWidth;
+            var h = 450; //inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetHeight;
+            var w = 955;//inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetWidth;
+
+            if (typeof inputEvent.srcElement !== "undefined") {
+                h = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetHeight;
+                w = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetWidth;
+            } else if (typeof inputEvent.currentTarget !== "undefined"){
+                h = inputEvent.currentTarget.parentNode.parentNode.parentNode.parentNode.offsetHeight;
+                w = inputEvent.currentTarget.parentNode.parentNode.parentNode.parentNode.offsetWidth;
+
+            }
+
             var elemTitle = document.createElement('span');
             //elemTitle.innerHTML = inputEvent.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
             elemTitle.innerHTML = name;
@@ -615,7 +625,11 @@ angular.module('ngMo.lookup_diary', [
             elemDiv.appendChild(elemTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
-            inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
+            if (typeof inputEvent.srcElement !== "undefined") {
+                inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
+            } else if (typeof inputEvent.target !== "undefined") {
+                inputEvent.target.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
+            }
 
             setTimeout(function(){
                 elemDiv.className+=' move';

@@ -601,13 +601,6 @@ angular.module('ngMo.correlation', [
         $scope.goToMonth = function () {
             $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
-            var month = date[0];
-            var year = date[1];
-            var currentMonth = new Date().getMonth() + 1;
-            var currentYear = new Date().getFullYear();
-
-            if (month > currentMonth){ date[0] = currentMonth.toString();}
-            if (year > currentYear){ date[1] = currentYear.toString();}
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
             $scope.restartFilter();
