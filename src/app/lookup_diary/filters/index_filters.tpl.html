@@ -5,7 +5,7 @@
                 <input ng-keypress="submitName($event)"  class="border-filters input-filter" placeholder="Nombre Índice"
                        ng-model="filterOptions.filters.filterName">
             </td>
-            <td>
+            <td style="width:155px;">
                 <select ng-change="selectIndexType()" ng-model="filterOptions.filters.index_type">
                     <option value="0">Índices</option>
                     <option value="1">Par Índices</option>
@@ -51,7 +51,7 @@
                            data-ng-model="filterOptions.filters.rentInput">
 
                 </td>
-                <td>
+                <td style="width: 158px;">
                     <span class="filter-label-select">Mejor Ganancia</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
