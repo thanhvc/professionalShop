@@ -26,12 +26,10 @@ angular.module('ngMo.portfolio', [
 
     .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
                                            ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters) {
+
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
-            }
-            if ($rootScope.isLog === false){
-                $state.go("home");
             }
         });
         $scope.moving = false; //moving between tables
@@ -727,7 +725,7 @@ angular.module('ngMo.portfolio', [
                     'patternId': patternId,
                     'add_delete': operation,
                     'page': page,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'portfolioList': portfolioIdsList,
@@ -773,7 +771,7 @@ angular.module('ngMo.portfolio', [
             config = {
                 params: {
                     'patternIdList': portfolioIdsList,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
@@ -810,7 +808,7 @@ angular.module('ngMo.portfolio', [
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,

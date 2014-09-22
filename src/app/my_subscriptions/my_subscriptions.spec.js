@@ -229,7 +229,6 @@ describe('My packs controller service', function() {
     });
 
     it("should be able to load the page", function () {
-
         $http.expectGET($scope.urlService + '/pack');
         $scope.loadPage();
         $http.flush();

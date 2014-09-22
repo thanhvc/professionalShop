@@ -48,7 +48,7 @@ angular.module('ngMo.Activate', [  'ui.router',
         //callback function to redirect to home with user activated or not
         $scope.callback = function(data) {
             if (data != null && data.status == "ok"){
-                $window.sessionStorage.token = data.authToken;
+                $window.localStorage.token = data.authToken;
                 //authService.loginConfirmed();
                 $scope.errorSignIn = false;
                // $scope.currentUser = data.name;

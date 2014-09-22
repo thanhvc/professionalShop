@@ -150,7 +150,7 @@
         </td>
 
         <td class="table-cell-patterns sub-border-right-table ng-binding alarm-column-width">
-            <div ng-click="open(data.id, data.asset.longName, '', data.patternType, data.priceAlert, data.conditionAlert);$event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
+            <div ng-click="open(data.id, data.asset.longName, '', data.patternType, data.priceAlert, data.conditionAlert, data.asset.lastQuote);$event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
                 <div style="margin-top: 10px;">
                     <span ng-show="data.conditionAlert == 'GREATER_THAN' &&  data.priceAlert != null">Mayor que</span>
                     <span ng-show="data.conditionAlert == 'LESS_THAN' &&  data.priceAlert != null">Menor que</span>

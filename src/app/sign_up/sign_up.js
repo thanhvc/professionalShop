@@ -174,7 +174,7 @@ angular.module('singUp', [])
                 data = $scope.login;
                 $http.post($rootScope.urlService+'/login', data)
                     .success(function (data, status, headers, config) {
-                        $window.sessionStorage.token = data.authToken;
+                        $window.localStorage.token = data.authToken;
                         authService.loginConfirmed();
                         $scope.errorSignIn = false;
                         // $state.go('my-patterns');

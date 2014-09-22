@@ -34,9 +34,6 @@ angular.module('ngMo.calendar', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
         });
         $scope.loading= false;
         $scope.selectedTab = TabsService.getActiveTab();
@@ -584,7 +581,7 @@ angular.module('ngMo.calendar', [
             config = {
                 params: {
                     'page': page,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'order': parseInt(filtering.order, 10),
@@ -629,7 +626,7 @@ angular.module('ngMo.calendar', [
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -650,7 +647,7 @@ angular.module('ngMo.calendar', [
             config = {
                 params: {
                     'month': month,
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/lastdaymonth', config).success(function (data) {
@@ -677,7 +674,7 @@ angular.module('ngMo.calendar', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
 
