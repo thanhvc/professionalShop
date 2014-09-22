@@ -84,7 +84,7 @@ angular.module('ngMo.payment', [  'ui.router'])
     })
 
     //confirm Card this status only is when the cpayment is OK, so always shows OK
-    .controller('ConfirmPaymentCardCtrl', function ($scope, $state,IsLogged) {
+    .controller('ConfirmPaymentCardCtrl', function ($scope, $state,IsLogged,$rootScope) {
         $scope.status = "OK";
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
@@ -104,6 +104,9 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+            if ($rootScope.isLog === false){
+                $state.go("home");
             }
         });
 
@@ -458,7 +461,7 @@ angular.module('ngMo.payment', [  'ui.router'])
         };
 
         $scope.maestro= function(){
-            console.log("a");
+            //console.log("a");
         };
 
         SignUpService.getCountries(function(data) {
