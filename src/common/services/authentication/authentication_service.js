@@ -55,7 +55,9 @@ angular.module('auth',['http-auth-interceptor'])
                 })
                 .error(function (params, status, headers, config) {
                     $rootScope.isLog = false;
-                    $location.path('/home');
+                    if ($location.path() !== '/new-subscription') {
+                        $location.path('/home');
+                    }
                 });
         };
     })
