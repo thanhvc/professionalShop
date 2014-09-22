@@ -231,7 +231,7 @@ angular.module('auth',['http-auth-interceptor'])
                             $rootScope.isLog = false;
                             $scope.removeAllItemsCart();
                             $state.go('home');
-                            $window.sessionStorage.removeItem('token');
+                            $window.localStorage.removeItem('token');
                             $window.sessionStorage.removeItem('username');
                             $window.sessionStorage.removeItem('cart');
                             clearAllCorrelationLists();

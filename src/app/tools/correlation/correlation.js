@@ -542,6 +542,7 @@ angular.module('ngMo.correlation', [
             }
         };
         $scope.selectRegion = function () {
+            $scope.filterOptions.filters.selectedMarket = "";
             $scope.startLoading();
             $scope.pagingOptions.currentPage = 1;
             $scope.setRegion();

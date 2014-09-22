@@ -460,6 +460,7 @@ angular.module('ngMo.portfolio', [
             }
         };
         $scope.selectRegion = function () {
+            $scope.filterOptions.filters.selectedMarket = "";
             $scope.startLoading();
             $scope.refreshRegion();
             $scope.applyFilters();

@@ -518,6 +518,7 @@ angular.module('ngMo.volatility', [
             }
         };
         $scope.selectRegion = function () {
+            $scope.filterOptions.filters.selectedMarket = "";
             $scope.refreshRegion();
             $scope.applyFilters();
 
