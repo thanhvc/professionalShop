@@ -635,7 +635,6 @@ angular.module('ngMo', [
         };
         
         $scope.$on('$stateChangeStart', function (event, toState){
-            IsLogged.isLogged();
             $scope.inWeekView = false;
             if (toState.url === '/the-week') {
                 $scope.inWeekView = true;
