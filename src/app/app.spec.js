@@ -142,11 +142,12 @@ describe('The cart directive', function () {
 //            };
 //        });
 
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend,$controller, _$window_) {
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend,$controller, _$window_, _$location_) {
 
             httpMock = $httpBackend;
             $compile = _$compile_;
             $state = _$state_;
+
             httpMock.when('GET', _$rootScope_.urlService+'/islogged').respond(200);
             httpMock.when('GET', _$rootScope_.urlService+"/prices").respond({
                 "data":{
@@ -154,7 +155,7 @@ describe('The cart directive', function () {
                 }});
             $scope = _$rootScope_.$new();
             $window = _$window_;
-
+            $location = _$location_;
         }));
 
 

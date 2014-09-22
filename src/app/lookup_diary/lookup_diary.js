@@ -94,12 +94,10 @@ angular.module('ngMo.lookup_diary', [
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
+
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
-            }
-            if ($rootScope.isLog === false){
-                $state.go("home");
             }
         });
 
@@ -262,7 +260,7 @@ angular.module('ngMo.lookup_diary', [
             $scope.myData =[];
         };
 
-        $scope.open = function (patternId, assetName, bearishAssetName, patternType, actualPrice, actualCondition) {
+        $scope.open = function (patternId, assetName, bearishAssetName, patternType, actualPrice, actualCondition, lastPrice) {
 
             var modalInstance = $modal.open({
                 templateUrl: 'myModalContent.html',
@@ -304,6 +302,9 @@ angular.module('ngMo.lookup_diary', [
                             return 1;
                         }
 
+                    },
+                    lastPrice : function () {
+                        return lastPrice;
                     }
                 }
             });
@@ -988,7 +989,7 @@ angular.module('ngMo.lookup_diary', [
             config = {
                 params: {
                     'page': page,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -1028,7 +1029,7 @@ angular.module('ngMo.lookup_diary', [
             config = {
                 params: {
                     'patternId': patternId,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'price': price,
                     'condition': condition
                 }
@@ -1047,7 +1048,7 @@ angular.module('ngMo.lookup_diary', [
             config = {
                 params: {
                     'patternId': patternId,
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/deletealert', config).then(function (response) {
@@ -1083,7 +1084,7 @@ angular.module('ngMo.lookup_diary', [
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -1101,13 +1102,14 @@ angular.module('ngMo.lookup_diary', [
 
 ;
 
-var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAlert, assetName, bearishAssetName, deleteAlert, patternType, actualPrice, actualCondition) {
+var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAlert, assetName, bearishAssetName, deleteAlert, patternType, actualPrice, actualCondition, lastPrice, $timeout) {
     $scope.setAlert = setAlert;
     $scope.deleteAlert = deleteAlert;
     $scope.patternId = patternId;
     $scope.assetName = assetName;
     $scope.bearishAssetName = bearishAssetName;
     $scope.patternType = patternType;
+    $scope.showAlertMessage = false;
 
     $scope.data = {
         price: (typeof actualPrice !== 'undefined' ? actualPrice : 0),
@@ -1115,8 +1117,27 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
     };
 
     $scope.ok = function () {
-        $scope.setAlert($scope.patternId, $scope.data.price, $scope.data.price_condition);
-        $modalInstance.close();
+        if ($scope.data.price_condition === 0){
+            if (actualPrice > lastPrice){
+                $scope.setAlert($scope.patternId, $scope.data.price, $scope.data.price_condition);
+                $modalInstance.close();
+            }else{
+                $scope.showAlertMessage = true;
+                $timeout(function () {
+                    $scope.showAlertMessage = false;
+                }, 2000);
+            }
+        }else if ($scope.data.price_condition === 1){
+            if (actualPrice < lastPrice){
+                $scope.setAlert($scope.patternId, $scope.data.price, $scope.data.price_condition);
+                $modalInstance.close();
+            }else{
+                $scope.showAlertMessage = true;
+                $timeout(function () {
+                    $scope.showAlertMessage = false;
+                }, 2000);
+            }
+        }
     };
 
     $scope.close = function () {

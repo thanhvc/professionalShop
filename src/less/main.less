@@ -29,7 +29,7 @@
   src: url("../assets/fonts/verdanab.ttf") format("truetype");
 }
 
-input[type="text"], input[type="password"]{
+input[type="text"], input[type="password"], input[type="email"]{
   border-radius: 0;
 }
 
@@ -326,6 +326,7 @@ b , strong {
       display: inline-block;
       color: @orangeColor;
       text-align: center;
+      margin-left: 2px;
       a, a:hover, span{
         cursor: pointer;
         color: inherit;
@@ -2223,6 +2224,10 @@ tooltip-placement=" top ultra-left-tooltip" **/
   p, ul{
     margin-top: 5px;
   }
+}
+
+.warning-text{
+  color: @red;
 }
 
 .negative-percent {

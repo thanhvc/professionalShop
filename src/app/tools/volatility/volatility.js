@@ -103,9 +103,6 @@ angular.module('ngMo.volatility', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
         });
         $scope.loading = false;
 
@@ -882,7 +879,7 @@ angular.module('ngMo.volatility', [
             config = {
                 params: {
                     'patternId': patternId,
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
@@ -908,7 +905,7 @@ angular.module('ngMo.volatility', [
             config = {
                 params: {
                     'page': page,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -966,7 +963,7 @@ angular.module('ngMo.volatility', [
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,

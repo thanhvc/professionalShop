@@ -185,7 +185,7 @@ angular.module('ngMo', [
 
         //ask to the server if the actual user has the actual pack already
         this.hasSubscribedToThisPack= function(item,callback){
-            token = $window.sessionStorage.token;
+            token = $window.localStorage.token;
             if (typeof token !== "undefined") {
 
                 newItem = {
@@ -635,7 +635,6 @@ angular.module('ngMo', [
         };
         
         $scope.$on('$stateChangeStart', function (event, toState){
-            IsLogged.isLogged();
             $scope.inWeekView = false;
             if (toState.url === '/the-week') {
                 $scope.inWeekView = true;
@@ -1491,7 +1490,7 @@ angular.module('ngMo', [
                     if (!ArrayContainItemService.containItem(totalList , item)) {
                         //if the status is that the user hast the pack, just add it
                             //we need to check if the user is subscribed to the actual item
-                        if (typeof $window.sessionStorage.token !== "undefined"){
+                        if (typeof $window.localStorage.token !== "undefined"){
                             ShoppingCartService.hasSubscribedToThisPack(item,function(result){
                                 if (result.status === "pack_active") {
                                     item.prices = [0,0,0];
@@ -1589,7 +1588,7 @@ angular.module('ngMo', [
                 };
                 //go to payment page
                 $scope.goToPay= function() {
-                    token = $window.sessionStorage.token;
+                    token = $window.localStorage.token;
                     if ((token != null) && ($rootScope.isLog)) {
                         $state.go('summary-pay');
                     } else {
@@ -1598,7 +1597,7 @@ angular.module('ngMo', [
                 };
                 //makes the petition to Pay with Paypal
                 $scope.submitCart = function () {
-                    token = $window.sessionStorage.token;
+                    token = $window.localStorage.token;
                     if (token != null) {
                         //user logged, then can add packs
 

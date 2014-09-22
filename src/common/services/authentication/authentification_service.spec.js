@@ -48,7 +48,7 @@ describe('The IsLogged Service ', function () {
             $compile = _$compile_;
             $http = _$httpBackend_;
             $window = _$window_;
-            $window.sessionStorage.token = 1;
+            $window.localStorage.token = 1;
         }));
 
         it('should check if a user is logged in or not', function(){
@@ -160,7 +160,7 @@ describe('The signInForm directive', function () {
                 "email" : 'userEmail@edosoft.es',
                 "password" : 'userpassword'
             };
-            $window.sessionStorage.token = '1';
+            $window.localStorage.token = '1';
             $scope.submit();
             httpMock.flush();
         });
@@ -173,7 +173,7 @@ describe('The signInForm directive', function () {
                 "email" : undefined,
                 "password" : undefined
             };
-            $window.sessionStorage.token = '1';
+            $window.localStorage.token = '1';
             $scope.submit();
             httpMock.flush();
 

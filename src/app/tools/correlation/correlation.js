@@ -26,12 +26,10 @@ angular.module('ngMo.correlation', [
 
     .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
                                              ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout,UserApplyFilters, SelectedMonthService) {
+
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
-            }
-            if ($rootScope.isLog === false){
-                $state.go("home");
             }
         });
 
@@ -890,7 +888,7 @@ angular.module('ngMo.correlation', [
                     'patternId': patternId,
                     'add_delete': operation,
                     'page': page,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'correlationList': correlationIdsList,
@@ -935,7 +933,7 @@ angular.module('ngMo.correlation', [
             config = {
                 params: {
                     'correlationList': correlationIdsList,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
@@ -972,7 +970,7 @@ angular.module('ngMo.correlation', [
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -1010,7 +1008,7 @@ angular.module('ngMo.correlation', [
             config = {
                 params: {
                     'correlationList': correlationIdsList,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
@@ -1046,7 +1044,7 @@ angular.module('ngMo.correlation', [
             config = {
                 params: {
                     'correlationList': correlationIdsList,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }

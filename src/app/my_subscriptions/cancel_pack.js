@@ -36,7 +36,7 @@ angular.module('ngMo.cancel_pack', [
                 params: {
                     'packCode': packCode,
                     'subCode': subCode,
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
             $http.get($rootScope.urlService+'/cancel-pack', config).success(function (response) {
@@ -60,7 +60,7 @@ angular.module('ngMo.cancel_pack', [
             config = {
                     'packCode':  $scope.pack.codePack,
                     'subCode': $scope.pack.codeSub,
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
             };
             $http.post($rootScope.urlService+'/cancel-pack', config).success(function (response) {
                 //$scope.pack = response.data;

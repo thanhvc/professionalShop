@@ -96,9 +96,6 @@ angular.module('ngMo.historic', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
         });
 
         //event for keypress in input search name, launch the filters if press enter
@@ -782,7 +779,7 @@ angular.module('ngMo.historic', [
             config = {
                 params: {
                     'page': page,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -839,7 +836,7 @@ angular.module('ngMo.historic', [
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
