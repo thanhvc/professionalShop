@@ -381,20 +381,6 @@ angular.module('ngMo.catalog', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors) {
-           /* aMonth = parseInt($scope.filterOptions.filters.month,10);
-            dat = new Date();
-            month = {
-                month: dat.getMonth()+1,
-                year: dat.getFullYear()
-            };
-            if (aMonth === 1) {
-                if (month.month === 12) {
-                    month.year = month.year +1;
-                }
-                month.month = month.month+1;
-            }
-            $scope.filterOptions.filters.month = month;
-            */
             SelectedPackService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
                 //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
