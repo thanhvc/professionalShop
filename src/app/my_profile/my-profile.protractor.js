@@ -26,10 +26,6 @@ var url = "http://mo.devel.edosoftfactory.com";
         browser.get(url + '/profile#top');
         browser.ignoreSynchronization = true;
 
-        var ptor = protractor.getInstance();
-        var promise = (ptor.getCurrentUrl());
-        promise.then(function(res){console.log(res);});
-
         this.tabs = element.all(by.css('.profile-submenu'));
     };
  };
