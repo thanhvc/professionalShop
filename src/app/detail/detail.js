@@ -85,7 +85,7 @@ angular.module('ngMo.detail', [
                 setTimeout(function(){
                     //event.srcElement.parentElement.className ='graphic-div';
                     $scope.graph.className='div-graph-detail move-to-the-right';
-                    $scope.graph.addEventListener('webkitTransitionEnd', function(event2) {
+                    $scope.graph.addEventListener('transitionend', function(event2) {
                         if ($scope.graph != null) {
                             $scope.graph.style.cssText = 'display:none';
                             $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
