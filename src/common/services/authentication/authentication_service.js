@@ -27,13 +27,12 @@ angular.module('auth',['http-auth-interceptor'])
         };
     })
 
-    .service('IsLogged', function ($http, $window, $rootScope,$location) {
+    .service('IsLogged', function ($http, $window, $rootScope) {
         this.isLogged = function(){
             token = $window.sessionStorage.token;
             if (typeof token ==="undefined" ) {
                 //doesnt exist a token, so the user is not loged
                 $rootScope.isLog = false;
-               // $location.path('/home');
                 return;
             } else {
                 if ($rootScope.isLog) {
@@ -56,7 +55,6 @@ angular.module('auth',['http-auth-interceptor'])
                 })
                 .error(function (params, status, headers, config) {
                     $rootScope.isLog = false;
-                   // $location.path('/home');
                 });
         };
     })
