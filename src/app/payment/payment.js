@@ -158,9 +158,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
+            IsLogged.isLogged();
         });
         $scope.taxPercent=0;
         $scope.allBought = false;// if all packs are subscribed already, or
