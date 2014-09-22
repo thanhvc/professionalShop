@@ -96,6 +96,7 @@ angular.module('ngMo.historic', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            IsLogged.isLogged();
         });
 
         //event for keypress in input search name, launch the filters if press enter

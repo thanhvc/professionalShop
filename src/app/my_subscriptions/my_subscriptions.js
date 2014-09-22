@@ -118,6 +118,7 @@ angular.module('ngMo.my_subscriptions', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
             }
+            IsLogged.isLogged();
         });
     })
     .controller('MyPacksCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService, $state,$modal) {
@@ -129,9 +130,7 @@ angular.module('ngMo.my_subscriptions', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
             }
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
+            IsLogged.isLogged();
         });
 
         $scope.loadPage = function() {

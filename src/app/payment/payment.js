@@ -105,9 +105,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
+            IsLogged.isLogged();
         });
 
 
@@ -155,9 +153,13 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
+        IsLogged.isLogged();
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+            if ($rootScope.isLog === false){
+                $state.go("home");
             }
         });
         $scope.taxPercent=0;
@@ -335,6 +337,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            IsLogged.isLogged();
         });
 
         $scope.status="NONE";

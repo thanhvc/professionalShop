@@ -45,7 +45,7 @@
 
                 <div class="footer-table-portfolio">
                     <div class="pagination-portfolio-container" >
-                        <pagination ng-show="found > pagingOptions.pageSize" boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                        <pagination ng-show="found > pagingOptions.pageSize" boundary-links="true" on-select-page="setPage(page);loading=false;" total-items="found"
                                     items-per-page="pagingOptions.pageSize" max-size="10"
                                     page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
                                     next-text="&gt;"

@@ -82,6 +82,7 @@ angular.module('ngMo.my_profile', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            IsLogged.isLogged();
         });
 
         if ($state.current.name === "profile.orders") {
@@ -217,6 +218,7 @@ angular.module('ngMo.my_profile', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            IsLogged.isLogged();
         });
 
         if ($state.current.name === "profile.orders") {

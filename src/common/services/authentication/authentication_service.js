@@ -33,6 +33,9 @@ angular.module('auth',['http-auth-interceptor'])
             if (typeof token ==="undefined" ) {
                 //doesnt exist a token, so the user is not loged
                 $rootScope.isLog = false;
+                if ($location.path() !== '/new-subscription') {
+                    $location.path('/home');
+                }
                 return;
             } else {
                 if ($rootScope.isLog) {
@@ -232,7 +235,7 @@ angular.module('auth',['http-auth-interceptor'])
                             $scope.removeAllItemsCart();
                             $state.go('home');
                             $window.localStorage.removeItem('token');
-                            $window.sessionStorage.removeItem('username');
+                            $window.localStorage.removeItem('username');
                             $window.sessionStorage.removeItem('cart');
                             clearAllCorrelationLists();
                             clearAllPortfolioLists();
