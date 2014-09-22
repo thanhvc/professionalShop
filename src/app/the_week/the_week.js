@@ -31,9 +31,7 @@ angular.module('ngMo.the_week', [
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
+            IsLogged.isLogged();
         });
         $scope.loading= false;
         $scope.days= [];

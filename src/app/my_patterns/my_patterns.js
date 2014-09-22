@@ -255,6 +255,7 @@ angular.module('ngMo.my_patterns', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            IsLogged.isLogged();
         });
         //tabs and variables
         //pattern number for rents

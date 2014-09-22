@@ -103,6 +103,7 @@ angular.module('ngMo.volatility', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            IsLogged.isLogged();
         });
         $scope.loading = false;
 
