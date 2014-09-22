@@ -31,6 +31,7 @@ angular.module('ngMo.portfolio', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            IsLogged.isLogged();
         });
         $scope.moving = false; //moving between tables
         $scope.startLoading = function() {

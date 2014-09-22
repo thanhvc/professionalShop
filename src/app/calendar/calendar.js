@@ -34,6 +34,7 @@ angular.module('ngMo.calendar', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            IsLogged.isLogged();
         });
         $scope.loading= false;
         $scope.selectedTab = TabsService.getActiveTab();

@@ -105,9 +105,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
+            IsLogged.isLogged();
         });
 
 
@@ -339,6 +337,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+            IsLogged.isLogged();
         });
 
         $scope.status="NONE";
