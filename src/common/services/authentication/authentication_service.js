@@ -27,9 +27,9 @@ angular.module('auth',['http-auth-interceptor'])
         };
     })
 
-    .service('IsLogged', function ($http, $window, $rootScope) {
+    .service('IsLogged', function ($http, $window, $rootScope, $location) {
         this.isLogged = function(){
-            token = $window.sessionStorage.token;
+            token = $window.localStorage.token;
             if (typeof token ==="undefined" ) {
                 //doesnt exist a token, so the user is not loged
                 $rootScope.isLog = false;
@@ -55,6 +55,7 @@ angular.module('auth',['http-auth-interceptor'])
                 })
                 .error(function (params, status, headers, config) {
                     $rootScope.isLog = false;
+                    $location.path('/home');
                 });
         };
     })
@@ -75,14 +76,14 @@ angular.module('auth',['http-auth-interceptor'])
 
 
 
-                if ($window.sessionStorage.username != null) {
-                    $scope.currentUser = $window.sessionStorage.username;
+                if ($window.localStorage.username != null) {
+                    $scope.currentUser = $window.localStorage.username;
                 }
                 $scope.$on('userLogged',function(data,params){
                     $scope.hideSignInForm();
                     $scope.currentUser = params.name;
-                    $window.sessionStorage.username = params.name;
-                    $window.sessionStorage.token = params.token;
+                    $window.localStorage.username = params.name;
+                    $window.localStorage.token = params.token;
                 });
 
                 $scope.stateSignInForm = false;
@@ -117,8 +118,8 @@ angular.module('auth',['http-auth-interceptor'])
                                 $cookieStore.put("token",data.authToken);
                                 $cookieStore.put("name",data.name);
                             }
-                            $window.sessionStorage.token = data.authToken;
-                            $window.sessionStorage.username = data.name;
+                            $window.localStorage.token = data.authToken;
+                            $window.localStorage.username = data.name;
                             authService.loginConfirmed();
                             clearAllCorrelationLists();
                             clearAllPortfolioLists();
@@ -217,7 +218,7 @@ angular.module('auth',['http-auth-interceptor'])
                 };
 
                 $scope.logout = function() {
-                    token = $window.sessionStorage.token;
+                    token = $window.localStorage.token;
                     config = {
                         headers: {
                             'X-Session-Token': token
@@ -262,8 +263,8 @@ angular.module('auth',['http-auth-interceptor'])
                  * */
 
                 if (typeof $cookieStore.get("token") !== "undefined") {
-                    $window.sessionStorage.token = $cookieStore.get("token");
-                    $window.sessionStorage.username =$cookieStore.get("name");
+                    $window.localStorage.token = $cookieStore.get("token");
+                    $window.localStorage.username =$cookieStore.get("name");
                     authService.loginConfirmed();
                     clearAllCorrelationLists();
                     clearAllPortfolioLists();

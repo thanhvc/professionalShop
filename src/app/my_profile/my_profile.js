@@ -82,9 +82,6 @@ angular.module('ngMo.my_profile', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
         });
 
         if ($state.current.name === "profile.orders") {
@@ -272,7 +269,7 @@ angular.module('ngMo.my_profile', [
     .factory('ProfileService', function ($http, $window,$rootScope) {
         var profileService = {};
         profileService.loadUser = function (callback) {
-            token = $window.sessionStorage.token;
+            token = $window.localStorage.token;
             config = {
                 headers: {
                     'X-Session-Token': token
@@ -288,7 +285,7 @@ angular.module('ngMo.my_profile', [
         };
         profileService.editUser = function (user, callback) {
             //data = user;
-            token = $window.sessionStorage.token;
+            token = $window.localStorage.token;
             config = {
                 headers: {
                     'X-Session-Token': token
@@ -307,7 +304,7 @@ angular.module('ngMo.my_profile', [
 
         profileService.editPassword = function (passwords, callback) {
             //data = user;
-            token = $window.sessionStorage.token;
+            token = $window.localStorage.token;
             config = {
                 headers: {
                     'X-Session-Token': token

@@ -70,7 +70,7 @@ angular.module('ngMo.my_subscriptions', [
             }
             config = {
                 params: {
-                    'token': $window.sessionStorage.token,
+                    'token': $window.localStorage.token,
                     'month': filtering.month.month
                 }
             };
@@ -96,7 +96,7 @@ angular.module('ngMo.my_subscriptions', [
             }*/
             config = {
                 params: {
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
 
@@ -117,9 +117,6 @@ angular.module('ngMo.my_subscriptions', [
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
-            }
-            if ($rootScope.isLog === false){
-                $state.go("home");
             }
         });
     })

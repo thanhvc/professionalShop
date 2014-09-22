@@ -59,11 +59,6 @@ angular.module('ngMo.detail', [
             IsLogged.isLogged();
         });
 
-        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            if ($rootScope.isLog === false){
-                $state.go("home");
-            }
-        });
         $scope.tabs = TabsService.getTabs();
 
         $scope.obtainActualTab = function () {
@@ -217,7 +212,7 @@ angular.module('ngMo.detail', [
 
             config = {
                 params: {
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
 
@@ -235,7 +230,7 @@ angular.module('ngMo.detail', [
             config = {
                 headers: {
                     'patternId': patternId,
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
 
@@ -254,7 +249,7 @@ angular.module('ngMo.detail', [
             config = {
                 headers: {
                     'patternId': patternId,
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
 
@@ -272,7 +267,7 @@ angular.module('ngMo.detail', [
             config = {
                 headers: {
                     'patternId': patternId,
-                    'token': $window.sessionStorage.token
+                    'token': $window.localStorage.token
                 }
             };
 
