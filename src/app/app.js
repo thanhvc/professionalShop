@@ -1205,6 +1205,18 @@ angular.module('ngMo', [
                     $scope.showCart = ShoppingCartService.closeCart();
                 };
 
+
+                //addMore goes to home or my subscriptions and close the cart if is open
+                $scope.addMore = function() {
+                    $scope.toggleCart();
+                    if ($state.current.name !== "my-subscriptions.my-subscriptions") {
+                        $state.go("home");
+                    }
+                };
+
+
+
+                //open/close cart
                 $scope.toggleCart = function () {
                     if ($scope.showCart === true){
                         $scope.showCart = false;

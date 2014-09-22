@@ -95,7 +95,7 @@ angular.module('ngMo.volatility', [
         });
     })
 
-    .controller('VolatilityCtrl', function VolatilityCtrl($scope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, UserApplyFilters) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -297,7 +297,7 @@ angular.module('ngMo.volatility', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: SelectedMonthService.getSelectedMonth(),
+                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
                     favourite: false},
                 selectors: {
                     regions: [
@@ -589,15 +589,6 @@ angular.module('ngMo.volatility', [
         $scope.goToMonth = function () {
             $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
-
-            var month = date[0];
-            var year = date[1];
-            var currentMonth = new Date().getMonth() + 1;
-            var currentYear = new Date().getFullYear();
-
-            if (month > currentMonth){ date[0] = currentMonth.toString();}
-            if (year > currentYear){ date[1] = currentYear.toString();}
-
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
             $scope.restartFilter();
@@ -696,6 +687,19 @@ angular.module('ngMo.volatility', [
 
             $location.path('/volatility').search(urlParamsSend);
         };
+
+        //check if a date in format 'MM_YYYY' exists in the months selector
+        $scope.isCorrectDate= function(date){
+
+            for (i=0; i< $scope.filterOptions.months.length;i++) {
+                if ($scope.filterOptions.months[i].value === date) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+
         $scope.loadUrlParams = function () {
             var params = $location.search();
 
@@ -750,16 +754,17 @@ angular.module('ngMo.volatility', [
             //if the month is defined in the params
             if (params.month) {
                 var date = params.month.split("_");
-                var month = date[0];
-                var year = date[1];
-                //Check if month and year are not greater than the actual ones
-                var currentMonth = new Date().getMonth() + 1;
-                var currentYear = new Date().getFullYear();
-
-                if (month > currentMonth){ date[0] = currentMonth.toString();}
-                if (year > currentYear){ date[1] = currentYear.toString();}
-                var d = new Date(date[1], date[0] - 1, 1);
+                var d;
+                //check if the date of the param is correct (is in the selector)
+                //if not, just select the actualmonth
+                if ($scope.isCorrectDate(params.month)) {
+                    d = new Date(date[1], date[0] - 1, 1);
+                } else {
+                    actual_date = new Date();
+                    d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
+                }
                 filters.month = MonthSelectorService.setDate(d);
+
 
 
             } else {
