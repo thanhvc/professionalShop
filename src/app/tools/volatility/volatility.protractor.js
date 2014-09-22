@@ -1,12 +1,12 @@
 /**
  * Created by laia on 25/06/14.
  */
-var url = 'http://mo.devel.edosoftfactory.com/';
+var url = 'http://mo.devel.edosoftfactory.com';
 var App = function(){
 
     this.open = function(){
 
-        browser.get(url + '#/volatility');
+        browser.get(url + '/#/volatility');
         browser.ignoreSynchronization = true;
     };
 
@@ -17,9 +17,9 @@ var App = function(){
         element(by.css(".mo-button")).click();
     };
 
-    this.checkNumberOfLines = function(){
+    this.loadData = function(){
 
-        this.n = element.all(by.css('tr')).count();
+        this.table = element(by.css('stocks-table'));
     };
 
     this.checkTableLoaded = function(){
@@ -60,7 +60,9 @@ var App = function(){
     };
 
     this.pagination = function(){
-        element.all(by.css('.ng-scope')).get(1).click();
+
+        this.pages = element(by.css('pagination-container')).all(by.tagName('li'));
+       // this.pages.get(1).click();
 
     };
 };
@@ -75,10 +77,10 @@ describe('The volatility page ', function() {
         expect(browser.isElementPresent(by.css('.ng-isolate-scope'))).toBeDefined();
     });
 
-   it('should have 10 lines', function(){
+   it('should load data', function(){
 
-        a.checkNumberOfLines();
-        expect(a.n).toBe(64);
+        a.loadData();
+        expect(a.table).toBeDefined();
     });
 
 
@@ -118,14 +120,14 @@ describe('The volatility page ', function() {
         a.loadGraphic();
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();
 
-        a.checkNumberOfLines();
-        expect(a.n).toBe(64);
+        a.loadData();
+        expect(a.table).toBeDefined();
 
         a.changeIndexTab();
         expect(a.cell).toBeDefined();
 
         a.pagination();
-        expect(a.cell).toBeDefined();
+        expect(a.pages.get(1)).toBeDefined();
     });
 
     it('should change index tab',function(){
@@ -133,17 +135,17 @@ describe('The volatility page ', function() {
         a.changeIndexTab();
         expect(a.cell).toBeDefined();
 
+        a.loadData();
+        expect(a.table).toBeDefined();
+
         a.loadGraphic();
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();
-
-        a.checkNumberOfLines();
-        expect(a.n).toBe(64);
 
         a.changeFuturesTab();
         expect(a.cell).toBeDefined();
 
         a.pagination();
-        expect(a.cell).toBeDefined();
+        expect(a.pages.get(1)).toBeDefined();
     });
 
     it('should futures tab',function(){
@@ -154,20 +156,20 @@ describe('The volatility page ', function() {
         a.loadGraphic();
         expect(browser.isElementPresent(by.css('move'))).toBeDefined();
 
-        a.checkNumberOfLines();
-        expect(a.n).toBe(64);
+        a.loadData();
+        expect(a.table).toBeDefined();
 
         a.changeIndexTab();
         expect(a.cell).toBeDefined();
 
         a.pagination();
-        expect(a.cell).toBeDefined();
+        expect(a.pages.get(1)).toBeDefined();
     });
 
     it('should have the pagination working ok',function(){
 
         a.pagination();
-        expect(a.cell).toBeDefined();
+        expect(a.pages.get(1)).toBeDefined();
 
     });
 });

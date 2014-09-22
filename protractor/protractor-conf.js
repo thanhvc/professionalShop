@@ -17,7 +17,7 @@ exports.config = {
     },
     multiCapabilities: [
         {
-            'browserName': 'phantomjs',
+            'browserName': 'chrome',
 
             /*
              * Can be used to specify the phantomjs binary path.
