@@ -215,8 +215,35 @@ angular.module('ngMo', [
                         month = parseInt(itemDate[1],10);
                         year = parseInt(itemDate[2],10);
                         if ((startDate.month  === month) && (startDate.year  === year)) {
-                            stockItems[i].price = 0;
-                            stockItems[i].prices = [0,0,0];
+                            //check the price in the option
+                            prices = stockItems[i].prices.slice();
+                            if (packs[j].collition === "error") {
+                                stockItems[i].price = 0;
+                                stockItems[i].prices = [0,0,0];
+                            } else {
+                                if (packs[j].monthError === "error") {
+                                    prices[0] = 0;
+                                }
+                                if (packs[j].trimestralError === "error") {
+                                    prices[1] = 0;
+                                }
+                                if (packs[j].yearError === "error") {
+                                    prices[2] = 0;
+                                }
+                                stockItems[i].prices = prices.slice();
+                                switch (stockItems[i].duration) {
+                                    case "Mensual":
+                                        stockItems[i].price = stockItems[i].prices[0];
+                                        break;
+                                    case "Trimestral":
+                                        stockItems[i].price = stockItems[i].prices[1];
+                                        break;
+                                    case "Anual":
+                                        stockItems[i].price = stockItems[i].prices[2];
+                                        break;
+                                }
+                            }
+
                         }
                     }
                 }
@@ -618,21 +645,6 @@ angular.module('ngMo', [
                 });
         };
 
-
-        $scope.emailRemember = "";
-        $scope.mailSent = false;
-        $scope.rememberPassword = function () {
-            config = {
-                email: $scope.emailRemember
-            };
-            return $http.post($rootScope.urlService+'/remember-password', config)
-                .success(function (data, status) {
-                    $scope.mailSent = true;
-                })
-                .error(function (data, status) {
-                    $scope.mailSent = true;
-                });
-        };
         
         $scope.$on('$stateChangeStart', function (event, toState){
             $scope.inWeekView = false;
