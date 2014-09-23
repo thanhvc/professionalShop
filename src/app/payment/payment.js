@@ -219,9 +219,11 @@ angular.module('ngMo.payment', [  'ui.router'])
                         $scope.amountOfPacks++;
                         if ($scope.stocks[i].price === 0) {
                             $scope.someBought = true;
-                            subscribedPacks.push($scope.stocks[i]);
                         } else {
                             $scope.allBought = false;
+                        }
+                        if ($scope.stocks[i].collition === "error" || $scope.stocks[i].monthError ==="error" || $scope.stocks[i].trimestralError ==="error" ||$scope.stocks[i].yearError ==="error") {
+                            subscribedPacks.push($scope.stocks[i]);
                         }
                     }
                 }
@@ -232,9 +234,11 @@ angular.module('ngMo.payment', [  'ui.router'])
                         $scope.amountOfPacks++;
                         if ($scope.pairs[i].price === 0) {
                             $scope.someBought = true;
-                            subscribedPacks.push($scope.pairs[i]);
                         } else {
                             $scope.allBought = false;
+                        }
+                        if ($scope.pairs[i].collition === "error" || $scope.pairs[i].monthError ==="error" || $scope.pairs[i].trimestralError ==="error" ||$scope.pairs[i].yearError ==="error") {
+                            subscribedPacks.push($scope.pairs[i]);
                         }
                     }
                 }
@@ -245,9 +249,11 @@ angular.module('ngMo.payment', [  'ui.router'])
                         $scope.amountOfPacks++;
                         if ($scope.index[i].price === 0) {
                             $scope.someBought = true;
-                            subscribedPacks.push($scope.index[i]);
                         } else {
                             $scope.allBought = false;
+                        }
+                        if ($scope.index[i].collition === "error" || $scope.index[i].monthError ==="error" || $scope.index[i].trimestralError ==="error" ||$scope.index[i].yearError ==="error") {
+                            subscribedPacks.push($scope.index[i]);
                         }
                     }
                 }
@@ -258,9 +264,11 @@ angular.module('ngMo.payment', [  'ui.router'])
                         $scope.amountOfPacks++;
                         if ($scope.pairIndex[i].price === 0) {
                             $scope.someBought = true;
-                            subscribedPacks.push($scope.pairIndex[i]);
                         } else {
                             $scope.allBought = false;
+                        }
+                        if ($scope.pairIndex[i].collition === "error" || $scope.pairIndex[i].monthError ==="error" || $scope.pairIndex[i].trimestralError ==="error" ||$scope.pairIndex[i].yearError ==="error") {
+                            subscribedPacks.push($scope.pairIndex[i]);
                         }
                     }
                 }
@@ -272,9 +280,11 @@ angular.module('ngMo.payment', [  'ui.router'])
                         $scope.amountOfPacks++;
                         if ($scope.futures[i].price === 0) {
                             $scope.someBought = true;
-                            subscribedPacks.push($scope.futures[i]);
                         } else {
                             $scope.allBought = false;
+                        }
+                        if ($scope.futures[i].collition === "error" || $scope.futures[i].monthError ==="error" || $scope.futures[i].trimestralError ==="error" ||$scope.futures[i].yearError ==="error") {
+                            subscribedPacks.push($scope.futures[i]);
                         }
                     }
                 }
