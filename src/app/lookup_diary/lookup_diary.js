@@ -1118,7 +1118,7 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
     };
 
     $scope.ok = function () {
-        if ($scope.data.price_condition === 0){
+        if ($scope.data.price_condition === 0 || $scope.data.price_condition === "0"){
             if ($scope.data.price > lastPrice){
                 $scope.setAlert($scope.patternId, $scope.data.price, $scope.data.price_condition);
                 $modalInstance.close();
@@ -1128,7 +1128,7 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
                     $scope.showAlertMessage = false;
                 }, 2000);
             }
-        }else if ($scope.data.price_condition === 1){
+        }else if ($scope.data.price_condition === 1 || $scope.data.price_condition === "1"){
             if ($scope.data.price < lastPrice){
                 $scope.setAlert($scope.patternId, $scope.data.price, $scope.data.price_condition);
                 $modalInstance.close();

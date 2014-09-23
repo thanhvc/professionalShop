@@ -28,7 +28,7 @@
             </td>
             <td>
                 <select ng-disabled="filterOptions.selectors.sectors.length <= 0" ng-change="selectSector()" class="border-filters select-filter"
-                        data-ng-model="filterOptions.filters.selectedSector">
+                        data-ng-model="filterOptions.filters.selectedSector" style="margin-left: 1px;">
                     <option value="">- Sector -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
@@ -38,7 +38,7 @@
             </td>
             <td>
                 <select ng-disabled="filterOptions.selectors.industries.length <= 0" ng-change="selectIndustry()" class="border-filters select-filter"
-                        data-ng-model="filterOptions.filters.selectedIndustry">
+                        data-ng-model="filterOptions.filters.selectedIndustry" style="margin-left: 1px;">
                     <option value="">- Industria -</option>
                     <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}" ><!---->
@@ -80,9 +80,9 @@
 
                 </td>
                 <td>
-                    <span class="filter-label-select">Mejor Ganancia</span><br>
+                    <span class="filter-label-select" style="margin-left: 2px;">Mejor Ganancia</span><br>
                     <select class="border-filters select-filter small-select-filter"
-
+                            style="margin-left: 1px;"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedAverage">
                         <option value="">- Elegir -</option>
@@ -94,7 +94,7 @@
                            data-ng-model="filterOptions.filters.rentAverageInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Peor Pérdida</span><br>
+                    <span class="filter-label-select" style="margin-left: 1px;">Peor Pérdida</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
