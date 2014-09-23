@@ -108,12 +108,16 @@
   width: 100%;
   thead{
     tr{
+      &:nth-child(1) {
+        border-left: 1px solid @black;
+      }
       &:nth-child(2) {
         td {
           border-right: 2px solid @greyLabel;
           border-bottom: 1px solid @black;
           &:nth-child(1) {
             width: 350px ;
+            border-left: 1px solid @black;
           }
           &:nth-child(2) {
             width: 140px ;
