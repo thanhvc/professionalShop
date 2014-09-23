@@ -130,21 +130,13 @@
 </ul>
 <ul id="submenu4" class="submenu"
     ng-class="{'display-block': actualSubmenu == 'submenu4' || selectSubmenu == 'submenu4', 'display-none': actualSubmenu != 'submenu4' || selectSubmenu!= 'submenu4'}">
-    <li id="prices-nav"
-        ng-click="onClickSubmenu()"
-        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','prices-nav')"
-        ng-mouseleave="onMouseLeaveSubmenu()">
-        <a ui-sref="prices" ng-class="{'item-nav-hover': selectItemSubmenu == 'prices-nav'
-            || actualItemSubmenu == 'prices-nav'}">
-            Precios
-        </a>
     <li id="products-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','products-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
         <a ui-sref="products" ng-class="{'item-nav-hover': selectItemSubmenu == 'products-nav'
             || actualItemSubmenu == 'products-nav'}">
-            Productos
+            Contenidos
         </a>
     <li id="subscription-types-nav"
         ng-click="onClickSubmenu()"
@@ -154,21 +146,22 @@
             || actualItemSubmenu == 'subscription-types-nav'}">
             Tipos Suscripción
         </a>
+    <li id="prices-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','prices-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="prices" ng-class="{'item-nav-hover': selectItemSubmenu == 'prices-nav'
+            || actualItemSubmenu == 'prices-nav'}">
+            Precios
+        </a>
+
     <li id="purchase-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','purchase-nav')"
         ng-mouseleave="onMouseLeaveSubmenu()">
         <a ui-sref="purchase" ng-class="{'item-nav-hover': selectItemSubmenu == 'purchase-nav'
             || actualItemSubmenu == 'purchase-nav'}">
-            Comprar
-        </a>
-    <li id="free-subscription-nav"
-        ng-click="onClickSubmenu()"
-        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','free-subscription-nav')"
-        ng-mouseleave="onMouseLeaveSubmenu()">
-        <a ui-sref="free_subscription" ng-class="{'item-nav-hover': selectItemSubmenu == 'free-subscription-nav'
-            || actualItemSubmenu == 'free-subscription-nav'}">
-            Suscripción Gratis 15 días
+            Acceder Contenidos
         </a>
     <li id="shopping-guide-nav"
         ng-click="onClickSubmenu()"
@@ -177,6 +170,14 @@
         <a ui-sref="shopping_guide" ng-class="{'item-nav-hover': selectItemSubmenu == 'shopping-guide-nav'
             || actualItemSubmenu == 'shopping-guide-nav'}">
             Guía Compras
+        </a>
+    <li id="free-subscription-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','free-subscription-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="free_subscription" ng-class="{'item-nav-hover': selectItemSubmenu == 'free-subscription-nav'
+            || actualItemSubmenu == 'free-subscription-nav'}">
+            Suscripción Gratis 15 días
         </a>
 </ul>
 <ul id="submenu5" class="float-right submenu"
