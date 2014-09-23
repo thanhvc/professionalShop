@@ -359,7 +359,9 @@ angular.module('ngMo', [
 
         var showCart = false;
         this.openCart = function (){
-            showCart = true;
+            if (!showCart) {
+                showCart = true;
+            }
             return showCart;
         };
 
