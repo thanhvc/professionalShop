@@ -54,6 +54,14 @@ angular.module('ngMo.home', [
         $scope.changePosCart = function () {
             $scope.positionCart = 'top';
         };
+
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+            IsLogged.isLogged();
+        });
+
         $scope.loading = false;
         //if the activated param is set, means that the homepage must show a special message for new users, this param  doesnt activate
         //any method, only shows the message. The activation of user is controlled in activate module

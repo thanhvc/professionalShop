@@ -25,10 +25,11 @@
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
                     <td><input ng-show="pack.selected" type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ng-change="togglePack(pack);">
-                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"></td>
+                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);" ng-click="$event.stopPropagation()"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
                         <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-click="$event.stopPropagation();"
                                 ng-options="duration.value as duration.text for duration in durations"
                                 ng-change="changeDuration(pack)"></select>
                     </td>
@@ -49,10 +50,11 @@
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
                     <td><input ng-show="pack.selected" type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ng-change="togglePack(pack);">
-                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"></td>
+                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);" ng-click="$event.stopPropagation()"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
                         <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-click="$event.stopPropagation();"
                                 ng-options="duration.value as duration.text for duration in durations"
                                 ng-change="changeDuration(pack)"></select>
                     </td>
@@ -73,10 +75,11 @@
                     <td>{{pack.name}}</td>
                     <td>{{pack.scopeText}}</td>
                     <td><input ng-show="pack.selected" type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ng-change="togglePack(pack);">
-                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"></td>
+                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);" ng-click="$event.stopPropagation()"></td>
                     <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
                     <td>
                         <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-click="$event.stopPropagation();"
                                 ng-options="duration.value as duration.text for duration in durations"
                                 ng-change="changeDuration(pack)">     </select>
                     </td>
