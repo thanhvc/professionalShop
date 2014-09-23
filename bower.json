@@ -2,8 +2,8 @@
   "name": "mo-shopclient",
   "version": "0.0.2",
   "devDependencies": {
-    "angular": "~1.2.22",
-    "angular-mocks": "~1.2.22",
+    "angular": "1.2.25",
+    "angular-mocks": "1.2.25",
     "bootstrap": "~3.1",
     "angular-bootstrap": "~0.10.0",
     "angular-ui-router": "~0.2",
@@ -11,7 +11,7 @@
     "angular-gettext": "~0.2.8"
   },
   "dependencies": {
-    "angular-cookies": "~1.2.22",
+    "angular-cookies": "1.2.25",
     "angular-bindonce": "~0.3.1",
     "autofill-event": "~1.0.0"
   }

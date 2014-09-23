@@ -41,6 +41,6 @@
     "karma-jasmine": "^0.1.5",
     "karma-junit-reporter": "*",
     "karma-phantomjs-launcher": "^0.1.4",
-    "protractor": "*"
+    "protractor": "1.2.0"
   }
 }
