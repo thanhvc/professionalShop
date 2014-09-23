@@ -13,7 +13,7 @@
             </td>
 
             <td>
-                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
+                <select ng-change="search()" style="width: 100px;margin-left: 5px;" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedOperation"
                         ng-options="item.description for item in filterOptions.selectors.operationsIndex"
                         ng-show="filterOptions.filters.index_type == 0">
@@ -52,10 +52,11 @@
 
                 </td>
                 <td style="width: 158px;">
-                    <span class="filter-label-select">Mejor Ganancia</span><br>
+                    <span class="filter-label-select" style="margin-left: 3px;">Mejor Ganancia</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
-                            data-ng-model="filterOptions.filters.selectedAverage">
+                            data-ng-model="filterOptions.filters.selectedAverage"
+                            style="margin-left: 2px;">
                         <option value="">- Elegir -</option>
 
                     </select>

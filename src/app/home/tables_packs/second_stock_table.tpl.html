@@ -20,7 +20,7 @@
                 <tbody>-->
                 <tr ng-repeat="pack in homeTablePack2.americaContent track by $index" ui-sref="catalog({packCode: pack.pack.code, month: 1})"
                     ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
-                    <td>{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})</td>
+                    <td><span tooltip="{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})">{{pack.pack.name}}</span></td>
                     <td>{{pack.pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
                 </tr>
@@ -38,7 +38,7 @@
                 <tbody>-->
                 <tr ng-repeat="pack in homeTablePack2.asiaContent track by $index" ui-sref="catalog({packCode: pack.pack.code, month: 1})"
                     ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
-                    <td>{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})</td>
+                    <td><span tooltip="{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})">{{pack.pack.name}}</span></td>
                     <td>{{pack.pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
                 </tr>
@@ -56,7 +56,7 @@
                 <tbody>-->
                 <tr ng-repeat="pack in homeTablePack2.europeContent track by $index " ui-sref="catalog({packCode: pack.pack.code, month: 1})"
                     ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
-                    <td>{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})</td>
+                    <td><span tooltip="{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})">{{pack.pack.name}}</span></td>
                     <td>{{pack.pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
                 </tr>

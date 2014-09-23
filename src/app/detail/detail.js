@@ -59,6 +59,10 @@ angular.module('ngMo.detail', [
             IsLogged.isLogged();
         });
 
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            IsLogged.isLogged();
+        });
+
         $scope.tabs = TabsService.getTabs();
 
         $scope.obtainActualTab = function () {
