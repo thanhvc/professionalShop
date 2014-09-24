@@ -48,7 +48,7 @@ describe('My packs page ', function() {
         a.open();
 
         a.checkDataLoaded();
-        expect(a.rows.count()).toBe(0);
+        expect(a.rows.count()).not.toBe(0);
     });
 
 });
