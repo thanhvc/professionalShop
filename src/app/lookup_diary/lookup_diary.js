@@ -27,6 +27,7 @@ angular.module('ngMo.lookup_diary', [
                 MonthSelectorService: "MonthSelectorService",
                 PatternsService: "PatternsService",
                 TabsService: "TabsService",
+                IsLogged: "IsLogged",
                 filtering : function(TabsService,MonthSelectorService,$location){
 
                     var params = $location.search();
@@ -70,7 +71,8 @@ angular.module('ngMo.lookup_diary', [
                         page: (typeof params.pag !== "undefined" ? params.pag : "" )
                     };
                 },
-                diaryData: function(LookupDiaryService, filtering) {
+                diaryData: function(LookupDiaryService, filtering,IsLogged) {
+                    IsLogged.isLogged();
                     var page =  parseInt(filtering.page,10) || 1;
                     return LookupDiaryService.getPagedDataAsync(page, filtering).then(function (data){
                         return {

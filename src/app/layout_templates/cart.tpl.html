@@ -21,7 +21,7 @@
                         </select>
                     </td>
                     <td>{{stockItem.price | number:2}} EUR</td>
-                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('stocks', stockItem)"></div></td>
+                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('stocks', stockItem);$event.stopPropagation();"></div></td>
                 </tr>
                 <tr class="subtotal-cart">
                     <td></td>
@@ -50,7 +50,7 @@
                         </select>
                     </td>
                     <td>{{pairsItem.price | number:2}} EUR</td>
-                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('pairs', pairsItem)"></div></td>
+                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('pairs', pairsItem);$event.stopPropagation();"></div></td>
                 </tr>
                 <tr class="subtotal-cart">
                     <td></td>
@@ -79,7 +79,7 @@
                         </select>
                     </td>
                     <td>{{indicesItem.price | number:2}} EUR</td>
-                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('indices', indicesItem)"></div></td>
+                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('indices', indicesItem);$event.stopPropagation();"></div></td>
                 </tr>
                 <tr class="subtotal-cart">
                     <td></td>
@@ -108,7 +108,7 @@
                         </select>
                     </td>
                     <td>{{pairsIndicesItem.price | number:2}} EUR</td>
-                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('pairsIndices', pairsIndicesItem)"></div></td>
+                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('pairsIndices', pairsIndicesItem);$event.stopPropagation();"></div></td>
                 </tr>
                 <tr class="subtotal-cart">
                     <td></td>
@@ -137,7 +137,7 @@
                         </select>
                     </td>
                     <td>{{futuresItem.price | number:2}} EUR</td>
-                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('futures', futuresItem)"></div></td>
+                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('futures', futuresItem);$event.stopPropagation();"></div></td>
                 </tr>
                 <tr class="subtotal-cart">
                     <td></td>

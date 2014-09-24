@@ -31,6 +31,7 @@ angular.module('ngMo.volatility', [
                 VolatilityService: "VolatilityService",
                 SelectedMonthService: "SelectedMonthService",
                 TabsService: "TabsService",
+                IsLogged: "IsLogged",
                 filtering : function(TabsService,MonthSelectorService,$location, SelectedMonthService){
                     comparatorsConversor= [1,0];
                     var params = $location.search();
@@ -81,7 +82,8 @@ angular.module('ngMo.volatility', [
                     return filters;
 
                 },
-                myPatternsData: function(VolatilityService, filtering) {
+                myPatternsData: function(VolatilityService, filtering,IsLogged) {
+                    IsLogged.isLogged();
                     return VolatilityService.getPagedDataAsync(1, filtering).then(function (data){
                         return {
                             patterns: data.patterns,
