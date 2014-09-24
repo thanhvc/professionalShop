@@ -530,7 +530,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                 }
                 for (i=0;i<$scope.futures.length;i++) {
                     $scope.futures[i].type= "Acción";//for the row type
-                    $scope.items.push($scope.stocks[i]);
+                    $scope.items.push($scope.futures[i]);
                 }
             });
         };
