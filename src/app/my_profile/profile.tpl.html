@@ -4,7 +4,7 @@
         <tr>
             <td>
                   <span>
-                     <a class="profile-submenu" ui-sref="profile.identification" ng-class='{"myclass":tog==0}' ng-click='tog=0'>
+                     <a class="profile-submenu" ui-sref="profile.identification" ui-sref-active="myclass">
                     Identificación personal
                   </a>
                     </span>
@@ -13,7 +13,7 @@
         <tr>
             <td>
                   <span>
-                      <a class="profile-submenu" ui-sref="profile.edit"   ng-class='{"myclass":tog==1}' ng-click='tog=1'>
+                      <a class="profile-submenu" ui-sref="profile.edit"  ui-sref-active="myclass" >
                     Datos de acceso
                   </a>
                     </span>
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>
-                <span><a class="profile-submenu" ui-sref="profile.orders"   ng-class='{"myclass":tog==2}' ng-click='tog=2'>
+                <span><a class="profile-submenu" ui-sref="profile.orders"  ui-sref-active="myclass" >
                     Mis órdenes
                 </a>
                  </span>
@@ -29,7 +29,6 @@
             </td>
         </tr>
     </table>
-
     <div ui-view="sub-profile">
 
     </div>

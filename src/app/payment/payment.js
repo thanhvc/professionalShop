@@ -278,6 +278,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                 if (typeof $scope.futures !== 'undefined') {
                     for (i = 0; i < $scope.futures.length; i++) {
                         $scope.amountOfPacks++;
+                        $scope.futures[i].name = "FUTURES Pack I";
                         if ($scope.futures[i].price === 0) {
                             $scope.someBought = true;
                         } else {
@@ -511,25 +512,28 @@ angular.module('ngMo.payment', [  'ui.router'])
 
                 //we put them all in one array
                 $scope.items =[];
-                var i=0;
+                var i=0; //types are 0= simple 1=pair for view
                 for (i=0;i<$scope.stocks.length;i++) {
-                    $scope.stocks[i].type= "Acción";//for the row type
+                    $scope.stocks[i].type= 0;//for the row type
                     $scope.items.push($scope.stocks[i]);
                 }
                 for (i=0;i<$scope.pairs.length;i++) {
-                    $scope.pairs[i].type= "Par";//for the row type
+                    $scope.pairs[i].type= 1;//for the row type
                     $scope.items.push($scope.pairs[i]);
                 }
                 for (i=0;i<$scope.index.length;i++) {
-                    $scope.index[i].type= "Acción";//for the row type
+                    $scope.index[i].type= 0;//for the row type
                     $scope.items.push($scope.index[i]);
                 }
                 for (i=0;i<$scope.pairIndex.length;i++) {
-                    $scope.pairIndex[i].type= "Par";//for the row type
+                    $scope.pairIndex[i].type= 1;//for the row type
                     $scope.items.push($scope.pairIndex[i]);
                 }
                 for (i=0;i<$scope.futures.length;i++) {
-                    $scope.futures[i].type= "Acción";//for the row type
+                    $scope.futures[i].type= 0;//for the row type
+                    //futures change name
+                    $scope.futures[i].name = "FUTURES Pack I";
+
                     $scope.items.push($scope.futures[i]);
                 }
             });

@@ -208,8 +208,9 @@ angular.module('ngMo.my_profile', [
 
 
     })
-    .controller('OrdersCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state,$http,$rootScope) {
+    .controller('OrdersCtrl', function ServicesCtrl($scope, IsLogged,$window, ProfileService, SignUpService, $state,$http,$rootScope) {
         $scope.subPage = $state.$current.data.subPage;
+        $scope.tog = 2;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -230,8 +231,17 @@ angular.module('ngMo.my_profile', [
                 PAIRS_INDEX: [],
                 FUTURES: []
             };
+            token = $window.localStorage.token;
+            config = {
+                headers: {
+                    'X-Session-Token': token
+                }
+            };
             $http.get($rootScope.urlService + '/orders', config)
                 .success(function (data, status) {
+                    for (i=0; i<data.FUTURES.length;i++) {
+                        data.FUTURES[i].name = "FUTURES Pack I";
+                    }
                     $scope.data = [
                         {name: "ACCIÓN",
                         packs: data.STOCKS},

@@ -137,6 +137,9 @@ angular.module('ngMo.my_subscriptions', [
             $scope.loading = true;
             var data = MyPacksService.obtainPacks().then(function (data) {
 
+                for (i = 0;i< data.FUTURE.length;i++) {
+                    data.FUTURE[i].name = "FUTURES Pack I";
+                }
                 $scope.myPacksTablePacks = [
                     {
                         title: 'Acciones',
