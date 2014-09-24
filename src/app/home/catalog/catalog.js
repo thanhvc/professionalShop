@@ -88,6 +88,7 @@ angular.module('ngMo.catalog', [
             } else {
                 indexType = 0;
             }
+
             config = {
                 params: {
                     'page': page,
