@@ -72,7 +72,7 @@ angular.module('ngMo.lookup_diary', [
                     };
                 },
                 diaryData: function(LookupDiaryService, filtering,IsLogged) {
-                    Islogged.isLogged();
+                    IsLogged.isLogged();
                     var page =  parseInt(filtering.page,10) || 1;
                     return LookupDiaryService.getPagedDataAsync(page, filtering).then(function (data){
                         return {

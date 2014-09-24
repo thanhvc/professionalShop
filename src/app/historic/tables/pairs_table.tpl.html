@@ -104,12 +104,12 @@
         <td style="width: 70px;" class="table-cell-patterns sub-border-right-table ">
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
-        <td style="width: 48px;" class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+        <td style="width: 48px;" class="table-cell-patterns border-right-table" >
             <div class="buy-color"><b>{{data.exitValue | twoDecimals}}</b></div>
             <div class="sell-color"><b>{{data.bearishExitValue | twoDecimals}}</b></div>
         </td>
 
-        <td class="table-cell-patterns border-right-table">
+        <td class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <span><b>{{data.lastPerformance | twoDecimals}}</b></span>
         </td>
         <td style="padding: 5px; width: 70px;" class="table-cell-patterns sub-border-right-table">
