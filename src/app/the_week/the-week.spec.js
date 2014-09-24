@@ -79,15 +79,12 @@ describe('The selected graphic panel directive', function () {
         it('should show the graphic selected by the user', inject(function () {
 
             var e = {
-                'srcElement': 'srcElement', 'clientX': 20
+                'target': 'target'
             };
-            var currentTarget = { 'clientHeight': 20};
             $scope.showSelectedGraphic(e,'graphicName', 'graphicUrl');
             expect( $scope.selectedGraphic).toBeDefined();
             //another branch
-            e = {
-                'srcElement': undefined, 'clientX': 20, 'clientY': 20, 'currentTarget' : currentTarget
-            };
+
             $scope.showSelectedGraphic(e,'graphicName', 'graphicUrl');
             expect( $scope.selectedGraphic).toBeDefined();
         }));

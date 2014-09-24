@@ -61,7 +61,7 @@
 
         </td>
         <td class="text-center pairs-vol-value">
-            <a ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartUrl);$event.stopPropagation();" >{{data.pairVolatility | number:0}}</a>
+            <a ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartURL);$event.stopPropagation();" >{{data.pairVolatility | number:0}}</a>
         </td>
         <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
             <div tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.favorite == true}"></div>

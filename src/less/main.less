@@ -336,6 +336,7 @@ b , strong {
         padding-top: 3px;
         display: inline-block;
         text-decoration: none;
+        padding-right: 2px;
       }
     }
   }
@@ -1079,7 +1080,7 @@ Flags styles
       -webkit-box-shadow: inset -2px -1px 6px -4px rgba(50, 50, 50, 0.5);
       -moz-box-shadow: inset -2px -1px 6px -4px rgba(50, 50, 50, 0.5);
       box-shadow: inset -2px -1px 6px -4px rgba(50, 50, 50, 0.5);
-      border-right: 0;
+      border-right: 0 !important;
     }
   }
   a{
@@ -1360,12 +1361,16 @@ table{
   -webkit-box-shadow: -2px 2px 5px 0 @greyBorderColor/*#868686*/;
   -moz-box-shadow: -2px 2px 5px 0@greyBorderColor/*#868686*/;
   box-shadow: -2px 2px 5px 0 @greyBorderColor/*#868686*/;
-  overflow-y: auto;
   max-height: 428px;
   text-align: center;
   padding: 5px 10px;
 }
 
+.tables-cart-container{
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 292px;
+}
 
 /******** end Tabs Classes ****/
 .home-text-container {
@@ -2357,6 +2362,13 @@ tooltip-placement=" top ultra-left-tooltip" **/
 .black-tr{
   background-color: @black;
   color: white;
+}
+
+.table-markets{
+  p{
+    font-size: 10px;
+    margin-bottom: 3px;
+  }
 }
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
