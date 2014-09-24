@@ -32,7 +32,7 @@
     "grunt-lesslint": "*",
     "grunt-ngmin": "*",
     "grunt-protractor-runner": "*",
-    "grunt-protractor-webdriver": "^0.1.9",
+    "grunt-protractor-webdriver": "*",
     "jasmine-reporters": "*",
     "karma": "^0.12.9",
     "karma-coffee-preprocessor": "^0.2.1",
