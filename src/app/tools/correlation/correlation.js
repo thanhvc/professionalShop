@@ -577,6 +577,7 @@ angular.module('ngMo.correlation', [
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.applyFilters();
             loadCorrelationList();
+            $scope.clearResults();
             $scope.loadPage();
         };
 
