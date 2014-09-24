@@ -31,6 +31,7 @@ angular.module('ngMo.my_patterns', [
                 SelectedMonthService: "SelectedMonthService",
                 PatternsService: "PatternsService",
                 TabsService: "TabsService",
+                IsLogged: "IsLogged",
                 filtering : function(TabsService,MonthSelectorService,$location, SelectedMonthService){
 
                     var params = $location.search();
@@ -75,7 +76,8 @@ angular.module('ngMo.my_patterns', [
                     };
                 },
 
-                myPatternsData: function(PatternsService, filtering) {
+                myPatternsData: function(PatternsService, filtering, IsLogged) {
+                    IsLogged.isLogged();
                     var page =  parseInt(filtering.page,10) || 1;
                     return PatternsService.getPagedDataAsync(page, filtering).then(function (data){
                         return {
