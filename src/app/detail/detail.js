@@ -17,7 +17,9 @@ angular.module('ngMo.detail', [
             },
             resolve: {
                 DetailService: "DetailService",
-                detailData: function(DetailService, $stateParams) {
+                IsLogged: "IsLogged",
+                detailData: function(DetailService, $stateParams,IsLogged) {
+                    IsLogged.isLogged();
                     return DetailService.getPagedDataAsync($stateParams.patternId).then(function (data){
                         return {
                             myData: data.historical,
@@ -42,7 +44,9 @@ angular.module('ngMo.detail', [
             },
             resolve: {
                 DetailService: "DetailService",
-                detailData: function(DetailService, $stateParams) {
+                IsLogged: "IsLogged",
+                detailData: function(DetailService, $stateParams,IsLogged) {
+                    IsLogged.isLogged();
                     return DetailService.getPagedDataAsync($stateParams.patternId).then(function (data){
                         return {
                             myData: data.historical,
