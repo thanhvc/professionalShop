@@ -185,8 +185,9 @@ angular.module('ngMo.my_subscriptions', [
                 var modalInstanceLimit = $modal.open({
                     template: "<div class=\"modal-confirm-packs\"><div class=\"header-alert-portfolio\">Aviso <img class=\"close-alert-portfolio\" " +
                         " src=\"assets/img/close_modal.png\" ng-click=\"close()\"></div><div class=\"modal-confirm-packs-body\">" +
-                        "Está seguro que desea realizar la devolución de la suscripción {{operationPack.name}} que finaliza en {{operationPack.endDate | date: 'MMMM yyyy'}}" +
-                        "</div> <div style='padding-top: 20px; width: 200px; margin: 0 auto;'> <button class='mo-button' style='margin-right: 5px; ' ng-click='confirm();'>Confirmar</button> <button ng-click='close();' class='mo-button'>cancelar</button></button></div></div>",
+                        "Está seguro que desea realizar la devolución de la suscripción <br/>{{operationPack.name}} que finaliza en {{operationPack.endDate | date: 'MMMM yyyy'}}" +
+                        "</div> <div class='modal-confirm-container'> <button class='mo-button modal-confirm-packs-acept' ng-click='confirm();'>Confirmar</button>" +
+                        " <button ng-click='close();' class='mo-button modal-confirm-packs-cancel' >cancelar</button></button></div></div>",
                     controller: ModalMyPackstCtrl,
                     resolve: {
                         operationPack: function () {
