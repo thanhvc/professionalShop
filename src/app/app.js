@@ -598,6 +598,7 @@ angular.module('ngMo', [
             pairsItems=cartSession.pairsItems;
             indicesItems=cartSession.indicesItems;
             pairsIndicesItems = cartSession.pairsIndicesItems;
+            futuresItems = cartSession.futuresItems;
             stockSubtotal = cartSession.stockSubtotal;
             pairsSubtotal = cartSession.pairsSubtotal;
             indicesSubtotal =cartSession.indicesSubtotal;
@@ -955,6 +956,7 @@ angular.module('ngMo', [
                         case 'FUTURE':
                             typeItem="futures";
                             typeItemNum = 4;
+                            item.name = "FUTURES Pack I";
                     }
 
 
@@ -1481,6 +1483,11 @@ angular.module('ngMo', [
                         "productType": newItem.productType,
                         prices: $scope.prices/*[29,82,313]*/
                     };
+
+
+                    if (item.productType === "FUTURE") {
+                        item.packName = "FUTURES Pack I";
+                    }
                     var totalList = [];
                     if ((typeof $scope.stockItems != "undefined")) {
                         totalList = totalList.concat($scope.stockItems);

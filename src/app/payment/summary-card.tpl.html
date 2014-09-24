@@ -28,7 +28,9 @@
         <tr ng-repeat="item in items">
             <td>{{item.name}}
             </td>
-            <td>{{item.type}}
+            <td>
+               <span ng-show="item.type == 0">Acción</span>
+                <span ng-show="item.type == 1">Par Acciones</span>
             </td>
             <td>{{item.price | number:2}}
             </td>
