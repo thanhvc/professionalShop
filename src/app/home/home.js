@@ -55,7 +55,7 @@ angular.module('ngMo.home', [
             $scope.positionCart = 'top';
         };
            //views allowed to no redirect, this views are states that load the homeCtrl for tooltips mainly,but dont need check logged status
-        $scope.allowed_views= ['service_conditions','products_and_exchanges','summary','detailed_description'];
+        $scope.allowed_views= ['service_conditions','products_and_exchanges','summary','detailed_description','volatility'];
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
