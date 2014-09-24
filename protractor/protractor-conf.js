@@ -41,7 +41,7 @@ exports.config = {
          {
          browserName:'firefox'
          }*/
-    ]
+    ],
 
     /*onPrepare: function () {
         // The require statement must be down here, since jasmine-reporters
