@@ -26,6 +26,7 @@ angular.module('ngMo.historic', [
                 MonthSelectorHistoricService: "MonthSelectorHistoricService",
                 HistoricsService: "HistoricsService",
                 TabsService: "TabsService",
+                IsLogged: "IsLogged",
                 filtering : function(TabsService,MonthSelectorHistoricService,$location){
 
                     var params = $location.search();
@@ -69,7 +70,8 @@ angular.module('ngMo.historic', [
                         page: (typeof params.pag !== "undefined" ? params.pag : "" )
                     };
                 },
-                historicDataData: function(HistoricsService, filtering) {
+                historicDataData: function(HistoricsService, filtering,IsLogged) {
+                    IsLogged.isLogged();
                     var page =  parseInt(filtering.page,10) || 1;
                     return HistoricsService.getPagedDataAsync(page, filtering).then(function (data){
                         return {
