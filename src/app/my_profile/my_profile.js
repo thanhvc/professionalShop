@@ -239,9 +239,6 @@ angular.module('ngMo.my_profile', [
             };
             $http.get($rootScope.urlService + '/orders', config)
                 .success(function (data, status) {
-                    for (i=0; i<data.FUTURES.length;i++) {
-                        data.FUTURES[i].name = "FUTURES Pack I";
-                    }
                     $scope.data = [
                         {name: "ACCIÓN",
                         packs: data.STOCKS},

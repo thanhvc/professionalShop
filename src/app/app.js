@@ -102,8 +102,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       //$rootScope.urlService = 'http://localhost:9000';
+       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       $rootScope.urlService = 'http://localhost:9000';
     })
 
     .service('ActiveTabService', function (){
@@ -956,7 +956,6 @@ angular.module('ngMo', [
                         case 'FUTURE':
                             typeItem="futures";
                             typeItemNum = 4;
-                            item.name = "FUTURES Pack I";
                     }
 
 
@@ -1484,10 +1483,6 @@ angular.module('ngMo', [
                         prices: $scope.prices/*[29,82,313]*/
                     };
 
-
-                    if (item.productType === "FUTURE") {
-                        item.packName = "FUTURES Pack I";
-                    }
                     var totalList = [];
                     if ((typeof $scope.stockItems != "undefined")) {
                         totalList = totalList.concat($scope.stockItems);

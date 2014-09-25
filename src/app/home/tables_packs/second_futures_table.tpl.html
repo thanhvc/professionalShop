@@ -20,7 +20,7 @@
                 <tbody>-->
                 <tr ng-repeat="pack in homeTablePack2.futuresContent track by $index" ui-sref="catalog({packCode: pack.pack.code, month: 1})"
                     ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
-                    <td>{{pack.pack.name}}</td>
+                    <td>{{pack.pack.subname}}</td>
                     <td>{{pack.pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
                 </tr>
