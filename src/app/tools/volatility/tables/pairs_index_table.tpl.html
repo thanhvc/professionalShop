@@ -4,12 +4,8 @@
         <thead >
         <tr  class="pairs-index-header">
             <th >
-                <span class="pairs-index-company" >Nombre Compañías PAR</span>
+                <span class="pairs-index-company" >Índices</span>
             </th>
-            <th  >
-                <span class="pairs-index-market">Mercado</span>
-            </th>
-
             <th >
                 <span style="padding-left:5px;">Volatilidad COMPONENTES (%)</span>
             </th>
@@ -40,15 +36,6 @@
             </span>
                 </div>
             </td>
-            <td class="black-font-market" style="width:70px;"  >
-                <div tooltip-html-unsafe="{{data.asset.exchange.name}}"  >
-                    {{data.asset.exchange.symbol}}
-                </div>
-                <div tooltip-html-unsafe="{{data.bearishAsset.exchange.name}}"  >
-                    {{data.bearishAsset.exchange.symbol | limitTo: 4}}
-                </div>
-
-            </td>
 
             <td  class="pairs-vol-value">
                 <a ng-click="loadGraphic($event,data.asset.longName,'BULLISH',null,false,data.asset.volatilityChartURL);$event.stopPropagation();" >{{data.asset.volatility | number:0}}</a><br/>
@@ -60,7 +47,7 @@
 
 
             </td>
-            <td >
+            <td class="pairs-index-vol-value">
                 <a ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartURL);$event.stopPropagation();" >{{data.pairVolatility}}</a>
             </td>
             <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
