@@ -183,7 +183,7 @@ angular.module('ngMo.detail', [
 
             var closeButton = document.createElement('div');
             //closeButton.src = "assets/img/close_modal.png";
-            closeButton.className = 'close-graphic-button-diary-lookup';
+            closeButton.className = 'close-graphic-button-detail';
             closeButton.onclick = function (event) {
 
                 $scope.closeGraph();
