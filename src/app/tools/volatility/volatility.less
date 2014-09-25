@@ -395,6 +395,22 @@
   color:white;
   font-family: fontpo;
   height:35px;
+  th{
+    text-align: center;
+    &:nth-child(1){
+      width: 260px;
+    }
+    &:nth-child(2){
+      width: 237px;
+    }
+  }
+}
+
+.pairs-header{
+  background-color:black;
+  color:white;
+  font-family: fontpo;
+  height:35px;
 }
 .pairs-index-company{
   text-align: center;
@@ -562,6 +578,16 @@
   }
 }
 
+.pairs-index-vol-value{
+  width:154px;
+  padding-top: 2px;
+  text-align: center;
+  border-right: 1px solid black;
+  a{
+    color: @linkColor !important;
+  }
+}
+
 .pairs-tbody{
   font-size:10px;
   color:#996600 !important;
@@ -661,7 +687,7 @@
   text-align: left;
   width: 90px;
   padding-left: 5px;
-
+  border-right: 1px solid black;
 }
 
 .graphic-div{
@@ -669,24 +695,30 @@
   top:0px;
   padding-top:30px;
   text-align:center;
-  left:45%;
+  left:43%;
   z-index:100;
   background:white;
-  min-width: 797px;
+  min-width: 807px;
+  min-height: 340px;
+}
+
+.title-container-graphic{
+  display: inline-block;
+  width: 780px;
+  float: left;
+  padding-left: 20px;
 }
 
 .graphic-image-div{
-  display:block;
+  display:inline-block !important;
   height:277px;
   width:700px;
   margin-right:20px;
 }
 
 .close-graphic-button{
-  display: inline !important;
   width: 15px;
   height: 15px;
-  position: relative;
   top: -16px;
   left: 293px;
   cursor: pointer;

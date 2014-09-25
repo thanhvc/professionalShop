@@ -172,6 +172,7 @@ angular.module('ngMo.volatility', [
             elemTitle.innerHTML = name1;
 
             var containerTitle = document.createElement("div");
+            containerTitle.className = 'title-container-graphic';
             //elemTitle.innerHTML = inputEvent.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
             if (pair) {
 

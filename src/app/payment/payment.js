@@ -278,7 +278,6 @@ angular.module('ngMo.payment', [  'ui.router'])
                 if (typeof $scope.futures !== 'undefined') {
                     for (i = 0; i < $scope.futures.length; i++) {
                         $scope.amountOfPacks++;
-                        $scope.futures[i].name = "FUTURES Pack I";
                         if ($scope.futures[i].price === 0) {
                             $scope.someBought = true;
                         } else {
@@ -531,9 +530,6 @@ angular.module('ngMo.payment', [  'ui.router'])
                 }
                 for (i=0;i<$scope.futures.length;i++) {
                     $scope.futures[i].type= 0;//for the row type
-                    //futures change name
-                    $scope.futures[i].name = "FUTURES Pack I";
-
                     $scope.items.push($scope.futures[i]);
                 }
             });
