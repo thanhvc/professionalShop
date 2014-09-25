@@ -16,12 +16,14 @@ describe('The cart directive', function () {
             $compile = _$compile_;
             $state = _$state_;
             httpMock.when('GET', _$rootScope_.urlService+'/islogged').respond(200);
+            httpMock.when('POST', _$rootScope_.urlService+'/has-pack').respond(200,{status : "pack_active"});
             httpMock.when('GET', _$rootScope_.urlService+"/prices").respond({
                 "data":{
                     "prices":[29,82,313]
                 }});
             $scope = _$rootScope_.$new();
             $window = _$window_;
+
 
         }));
 
@@ -219,7 +221,8 @@ describe('The cart directive', function () {
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
@@ -465,6 +468,7 @@ describe('The cart directive', function () {
         //Change duration
         it('should let the user change a month pairIndex item duration', inject(function() {
             delete $window.sessionStorage.cart;
+            httpMock.expectGET($scope.urlService + '/has-pack');
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(1, 'INDICE',1,'Mensual');
@@ -575,7 +579,8 @@ describe('The cart directive', function () {
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
@@ -584,19 +589,21 @@ describe('The cart directive', function () {
             var trsCart = template.find('tr');
             var log = [];
             log = obtainLog(trsCart, log);
-            // expect(log.length).toEqual(2);
+            //expect(log.length).toEqual(2);
 
         }));
 
         it('should let the user remove a future item', inject(function () {
             delete $window.sessionStorage.cart;
+            httpMock.expectPOST($scope.urlService + '/has-pack');
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(2,'FUTURE',0,'Anual');
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
@@ -611,12 +618,14 @@ describe('The cart directive', function () {
 
         it('should let the user remove an index item', inject(function () {
             delete $window.sessionStorage.cart;
+            httpMock.expectPOST($scope.urlService + '/has-pack');
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
@@ -637,7 +646,8 @@ describe('The cart directive', function () {
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
@@ -664,6 +674,7 @@ describe('The cart directive', function () {
 
         it('should let toggle the cart when there are items', inject(function(){
             delete $window.sessionStorage.cart;
+            httpMock.expectPOST($scope.urlService + '/has-pack');
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(2,'INDICE',1);
@@ -1147,6 +1158,12 @@ describe('The ShoppingCartService', function () {
         var $scope;
         var $compile;
         var $http;
+        var d = '28/09/2014';
+        var item = {code: 1234, date: d};
+        var config = {};
+
+        var pack = {code : 1234, date: d, startDate: d, patternType: 'STOCK'};
+        var packs = [pack,pack];
 
         beforeEach(angular.mock.module("ngMo"));
         beforeEach(module('templates-app'));
@@ -1155,12 +1172,72 @@ describe('The ShoppingCartService', function () {
             $scope = _$rootScope_;
             $compile = _$compile_;
             $http = _$httpBackend_;
+
+            _$httpBackend_.when('GET', _$rootScope_.urlService+"/prices").respond({
+                "data":{
+                    "prices":[29,82,313]
+                }});
+            _$httpBackend_.when('GET', _$rootScope_.urlService + '/islogged').respond(200);
+            _$httpBackend_.when('POST', _$rootScope_.urlService + '/has-pack',config).respond(200,{"status": "pack_active"});
         }));
 
         it('should check if user has subscribed to pack', inject(function(){
             delete $window.sessionStorage.cart;
+            $window.localStorage.token  = 1;
             $scope.$apply();
-            service.hasSubscribedToThisPack();
+
+            service.hasSubscribedToThisPack(item,function(result){
+                if (result.status === "pack_active") {
+                    item.prices = [0, 0, 0];
+                    item.price = 0;
+                    item.active = true;
+                }});
+            expect(service.hasSubscribedToThisPack);
+        }));
+
+        it('should check if packs are subscribed', inject(function(){
+            delete $window.sessionStorage.cart;
+            $window.localStorage.token  = 1;
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack1 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'STOCK', prices: prices, collition : "error"};
+            var pack2 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack3 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'INDICE', prices: prices, collition : "error"};
+            var pack4 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'FUTURE', prices: prices, collition : "error"};
+            var pack5 = {duration: 1,startDate: d,'date': d};
+            var pack6 = {duration: 2,startDate: d,'date': d};
+            var template = $compile("<div cart></div>")($scope);
+
+            service.addItemCart(pack0);
+            service.addItemCart(pack1);
+            service.addItemCart(pack2);
+            service.addItemCart(pack3);
+            service.addItemCart(pack4);
+
+            packs = [pack0,pack1,pack2];
+            $scope.$apply();
+            service.thisPacksAreSubscribed(packs);
+
+            //another branch
+            pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, monthError : "error", duration : "Mensual"};
+            service.addItemCart(pack0);
+            packs = [pack0];
+            service.thisPacksAreSubscribed(packs);
+
+            //another branch
+            pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, trimestralError : "error", duration : "Trimestral"};
+            service.addItemCart(pack0);
+            packs = [pack0];
+            service.thisPacksAreSubscribed(packs);
+
+            //another branch
+            pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, yearError : "error", duration : "Anual"};
+            service.addItemCart(pack0);
+            packs = [pack0];
+            service.thisPacksAreSubscribed(packs);
+            expect(service.thisPacksAreSubscribed);
+
         }));
 
         it('should hide elements', inject(function(){
