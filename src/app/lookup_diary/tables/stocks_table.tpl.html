@@ -115,14 +115,14 @@
             {{data.asset.lastQuoteDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns sub-border-right-table last-price-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
-            <a class="link" ng-click="loadGraphic($event,data.asset.priceChartURL,data.asset.longName);$event.stopPropagation();" ><b>{{data.asset.lastQuote | twoDecimals}}</b></a>
+            <a class="link" ng-click="loadGraphic($event,data.asset.longName,data.patternType,null,false,data.asset.priceChartURL);$event.stopPropagation();" ><b>{{data.asset.lastQuote | twoDecimals}}</b></a>
         </td>
         <td class="table-cell-patterns border-right-table last-percentage-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <b>{{data.lastPerformance | twoDecimals}}</b>
         </td>
 
         <td class="table-cell-patterns border-right-table volatility-column-width">
-            <a class="link" ng-click="loadGraphic($event,data.asset.volatilityChartURL,data.asset.longName);$event.stopPropagation();"><b>{{data.asset.volatility | twoDecimals}}</b></a>
+            <a class="link" ng-click="loadGraphic($event,data.asset.longName,data.patternType,null,false,data.asset.volatilityChartURL);$event.stopPropagation();"><b>{{data.asset.volatility | twoDecimals}}</b></a>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table best-gain-date-column-width">

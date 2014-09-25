@@ -122,15 +122,15 @@
             {{data.asset.lastQuoteDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns sub-border-right-table last-price-column-width">
-            <div class="link" ng-click="loadGraphic($event,data.asset.priceChartURL,data.asset.longName);$event.stopPropagation();"><b>{{data.asset.lastQuote | twoDecimals}}</b></div>
-            <div class="link" ng-click="loadGraphic($event,data.bearishAsset.priceChartURL,data.bearishAsset.longName);$event.stopPropagation();"><b>{{data.bearishAsset.lastQuote | twoDecimals}}</b></div>
+            <div class="link" ng-click="loadGraphic($event,data.asset.longName,'BULLISH',null,false,data.asset.priceChartURL);$event.stopPropagation();"><b>{{data.asset.lastQuote | twoDecimals}}</b></div>
+            <div class="link" ng-click="loadGraphic($event,data.bearishAsset.longName,'BEARISH',null,false,data.bearishAsset.priceChartURL);$event.stopPropagation();"><b>{{data.bearishAsset.lastQuote | twoDecimals}}</b></div>
         </td>
         <td class="table-cell-patterns border-right-table last-percentage-column-width">
             <b>{{data.lastPerformance | twoDecimals}}</b>
         </td>
 
         <td class="table-cell-patterns border-right-table volatility-column-width">
-            <a class="link" ng-click="loadGraphic($event,data.pairVolatilityChartURL,data.asset.longName);$event.stopPropagation();"><b>{{data.pairVolatility | twoDecimals}}</b></a>
+            <a class="link" ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartURL);$event.stopPropagation();"><b>{{data.pairVolatility | twoDecimals}}</b></a>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table best-gain-date-column-width">
