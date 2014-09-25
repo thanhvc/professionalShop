@@ -565,10 +565,18 @@ angular.module('ngMo.payment', [  'ui.router'])
                         expirationMonth: $scope.expirationMonth.id,
                         name: $scope.user.name,
                         surname: $scope.user.surname
-                    },//info of credit card
-                    bill:{}//info of bill (if modified)
+                    }//info of credit card
+
                 }
             };
+            if ($scope.editData) {
+                config.data.bill = {
+                    country: $scope.user.country,
+                    city: $scope.user.city,
+                    address: $scope.user.address,
+                    postalCode: $scope.user.postalCode
+                };
+            }
 
             //this code is like the card, just take the items from the service
             if ($scope.stockItems.length >0) {

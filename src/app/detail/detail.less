@@ -70,6 +70,9 @@
         color: #FF8200 !important;
         cursor: pointer;
       }
+      &:nth-child(6), &:nth-child(7)  {
+        background-color: @greyOver !important;
+      }
       background-color: @greyOver;
     }
   }
@@ -335,7 +338,20 @@
   z-index: 100;
   background: white;
   left: 44%;
-  min-height: 330px;
+ /* max-height: 480px;
+  max-width: 888px;*/
+}
+
+.close-graphic-button-detail {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 4px;
+  left: 860px;
+  clear: both;
+  cursor: pointer;
+  background-image: url('../assets/img/close_modal.png');
+  background-size: 16px 16px;
 }
 
 .detail-container{

@@ -465,11 +465,11 @@
             error en la conexión a Paypal
         </div>
          </form>
-    <div ng-show="allBought" class="bought-packs-message">
+    <div ng-show="allBought && !doingPayment" class="bought-packs-message">
         <span ng-show="amountOfPacks ==1">Usted ya está susbcrito a este pack</span>
         <span ng-show="amountOfPacks >1">Usted ya está susbcrito a estos packs</span>
     </div>
-    <div ng-show="someBought && !allBought" class="bought-packs-message">
+    <div ng-show="someBought && !allBought && !doingPayment" class="bought-packs-message">
         <span>Revise su selección, usted ya está subscrito a uno o varios packs de su carro</span>
     </div>
 </div>

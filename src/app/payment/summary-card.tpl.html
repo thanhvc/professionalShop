@@ -139,7 +139,7 @@
         <td></td>
     </tr>
 
-    <tr id="countryRow1" style="height: 25px; display: none;">
+    <tr id="countryRow1" style="height: 25px;  " ng-show="editData">
         <td style="vertical-align: middle;">País</td>
         <td style="vertical-align: middle;">Estado o Provincia</td>
     </tr>
@@ -157,7 +157,7 @@
     <td>
         <input ng-show="editData" type="text" name="state" ng-model="user.state" style="width:250px !important"></td>
     </tr>
-    <tr id="row3" style="height: 25px;"  >
+    <tr id="row3" style="height: 25px;" ng-show="editData"  >
         <td style="width:250px !important;vertical-align: middle;"><span ng-show="editData">Ciudad</span></td>
         <td style="width:250px !important;vertical-align: middle;"><span ng-show="editData">Calle</span></td>
     </tr>
