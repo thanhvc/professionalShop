@@ -1246,6 +1246,37 @@ describe('The ShoppingCartService', function () {
             //$scope.hideFSignInForm();
 
         }));
+
+        it('should get elements prices', inject(function(){
+
+            $http.expectGET($scope.urlService + '/prices');
+            service.getPrices();
+            $http.flush();
+
+        }));
+
+        it('should be able to change items duration', function(){
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack1 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'STOCK', prices: prices, collition : "error"};
+            var pack2 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack3 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'INDICE', prices: prices, collition : "error"};
+            var pack4 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'FUTURE', prices: prices, collition : "error"};
+
+            service.addItemCart(pack0);
+            service.addItemCart(pack1);
+            service.addItemCart(pack2);
+            service.addItemCart(pack3);
+            service.addItemCart(pack4);
+
+            item = {code: 1234, date: d, startDate: completeDate};
+            service.changeDuration(pack0,0);
+            service.changeDuration(pack1,1);
+            service.changeDuration(pack2,2);
+            service.changeDuration(pack3,3);
+            service.changeDuration(pack4,4);
+        });
     });
 });
 
@@ -1366,35 +1397,43 @@ describe('The ArrayContainItem service', function(){
 
 //Testing app controller
 describe('The app controller', function(){
-    var $scope, ctrl,actualService,location,$state,$routeParams,http;
+    var $scope, ctrl,actualService,location,$state,$routeParams,http,signInFormState,shoppingCartService;
     beforeEach(angular.mock.module("ngMo"));
-
     beforeEach(inject(function ($injector) {
         $state = $injector.get('$state');
     }));
 
-    beforeEach(inject(function($controller,$rootScope,ActualDateService,$location,_$httpBackend_) {
+    beforeEach(inject(function($controller,$rootScope,ActualDateService,$location,_$httpBackend_,SignInFormState,ShoppingCartService) {
         ctrl = $controller;
         $scope = $rootScope.$new();
+        signInFormState = SignInFormState;
         actualService = ActualDateService;
+        shoppingCartService = ShoppingCartService;
         location = $location;
         http = _$httpBackend_;
         $controller('AppCtrl', {'$rootScope' : $rootScope, '$scope': $scope, 'ActualDateService': actualService, '$state': $state});
+        _$httpBackend_.when('GET',$rootScope.urlService + '/actualdate').respond(200,{"data": new Date()});
+        _$httpBackend_.when('GET',$rootScope.urlService + '/nextdate').respond(200,{"data": new Date()});
     }));
 
     it('should success when changing state at the beginning', function(){
-
-        $scope.$broadcast('$stateChangeStart',[{},$state]);
+        $state.url = "/the-week";
+        $scope.$broadcast('$stateChangeStart',$state);
         expect($scope.inWeekView).toNotBe(undefined);
     });
     it('should success when changing state', function(){
-
-        /* $scope.$broadcast('$stateChangeSuccess',[{},$state,{},{},{}]);
-         expect($scope.actualMenu).toNotBe(undefined);*/
+         $state.data = {pageTitle : "Market Observatory"};
+         $scope.$broadcast('$stateChangeSuccess',$state,{},{},{});
+         expect($scope.actualMenu).toNotBe(undefined);
     });
 
     it('should hide elements', function() {
-        // $scope.hideElements();
+        $scope.hideSignInForm = signInFormState.hideSignInState;
+        $scope.closeCart =  shoppingCartService.closeCart;
+        $scope.$apply();
+        http.expectGET($scope.urlService + '/actualdate');
+        http.expectGET($scope.urlService + '/nextdate');
+        $scope.hideElements();
         expect($scope.hideElements).toNotBe(undefined);
     });
 
