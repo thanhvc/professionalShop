@@ -590,7 +590,7 @@ angular.module('ngMo.lookup_diary', [
 
             var elemDiv = document.createElement('div');
             var h = 450; //inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetHeight;
-            var w = 955;//inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetWidth;
+            var w = 900;//inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetWidth;
 
             if (typeof inputEvent.srcElement !== "undefined") {
                 h = inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.offsetHeight;
