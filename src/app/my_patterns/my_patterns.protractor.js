@@ -1,7 +1,7 @@
 /**
  * Created by laia on 10/06/14.
  */
-var url = 'http://mo.devel.edosoftfactory.com/';
+var url = 'http://mo.devel.edosoftfactory.com';
 var Patterns = function() {
 
     // All relevant elements
@@ -12,33 +12,54 @@ var Patterns = function() {
     this.text = '';
     this.graphic = '';
 
+    var ptor = protractor.getInstance();
     this.open = function () {
 
         browser.get(url +'/home');
         browser.ignoreSynchronization = true;
+
     };
 
     this.login = function(){
-         browser.get(url+'#/the-week');
+         browser.get(url+'/#/the-week');
 
     }
 
     this.graphicName = function(){
 
-        this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(13).getText();
-        this.nameGraphic = element.all(by.css('.ng-binding')).get(13).getText();
+        /*this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(10).getText();
+        this.nameGraphic = element.all(by.css('.ng-binding')).get(10).getText();*/
+
     };
 
+    this.checkPanels = function(){
+
+        browser.get(url + '/the-week');
+
+        ptor = protractor.getInstance();
+        ptor.waitForAngular();
+
+        /*this.panels1 = ptor.findElement(protractor.By.tagName('ul'))
+            .findElements(protractor.By.tagName('li'))
+            .then(function(links){
+                links[0].click();
+                });*/
+
+    };
     this.showMore = function(){
-         browser.get(url + '/#/the-week');
-        element.all(by.css('.toggle-tables-link')).get(0).click();
-        this.tableLength = element.all(by.repeater('region in area.regions')).get(0).getSize();
+        browser.get(url + '/the-week');
+
+        ptor = protractor.getInstance();
+        ptor.waitForAngular();
+
+        this.info = element(by.css(".toggle-link"));
+        this.moreInfo = element(by.css(".show"));
 
     };
 
     this.checkDate = function(){
-        this.text = element(by.css('.the-week-header')).getText();
-
+        browser.get(url + '/the-week');
+        //this.text = $('div > .the-week-header');
     };
 };
 
@@ -59,8 +80,8 @@ var SP = function(){
     }
 
     this.graphicName = function(){
-        this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(13).getText();
-        this.nameGraphic = element.all(by.css('.ng-binding')).get(13).getText();
+        this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(10).getText();
+        this.nameGraphic = element.all(by.css('.ng-binding')).get(10).getText();
     };
 
 };
@@ -81,8 +102,8 @@ var Commodities = function(){
     }
 
     this.graphicName = function(){
-       this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(13).getText();
-       this.nameGraphic = element.all(by.css('.ng-binding')).get(13).getText();
+       this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(10).getText();
+       this.nameGraphic = element.all(by.css('.ng-binding')).get(10).getText();
     };
 
 };
@@ -107,18 +128,6 @@ var Actions = function(){
     };
 
 
-    this.checkPanels = function(){
-
-        this.text = element.all(by.css('.ng-isolate-scope'));
-        this.tables = element.all(by.css('.table-header-top-patterns')).count();
-
-        this.text1 = this.text.get(1).getText();
-
-        this.filters = element.all(by.css('.border-filters')).count();
-        this.text2 = this.text.get(2).getText();
-        this.text3 = this.text.get(3).getText();
-        //this.text4 = this.text.get(4).getText();
-    };
 
     this.checkMonth = function(){
 
@@ -241,7 +250,7 @@ var Actions = function(){
 
 
 };
-describe('The patterns menu is ok', function() {
+describe('The patterns menu', function() {
 
     var p = new Patterns();
 
@@ -249,19 +258,21 @@ describe('The patterns menu is ok', function() {
         p.open();
     });
 
-
-    it('should have the correct graphic name', function(){
+   /* it('should have the correct graphic name', function(){
         p.login();
         p.graphicName();
         expect(p.graphic).toBe(p.nameGraphic);
+    });*/
 
+
+    it('should have the correct number of panels', function(){
+        p.checkPanels();
     });
 
-
     it('should show more options', function(){
-        p.showMore();
-        expect(p.tableLength).not.toBe(3);
-
+       p.showMore();
+       expect(p.info).toBeDefined();
+       expect(p.moreInfo).toBeDefined();
     });
 
     it('should have the current week', function(){
@@ -282,7 +293,7 @@ describe('The patterns menu is ok', function() {
         var w2 = weekNo() + 1;
         var t =  x + ' ' + months[month-1]+ ' / ' + n + ' '+ months[month-1] + '. Año ' + year + ' (semana ' + w2 +')';
 
-        //expect(p.text).toBe(t);
+
     });
 
 });
@@ -294,12 +305,12 @@ describe('The S&P table is ok', function(){
 
     s.open();
 
-       it('should have the correct graphic name', function(){
-         s.login();
-       s.graphicName();
+   /*it('should have the correct graphic name', function(){
+        s.login();
+        s.graphicName();
         expect(s.graphic).toBe(s.nameGraphic);
 
-    });
+   });*/
 
 });
 
@@ -311,10 +322,10 @@ describe('The Commodities table is ok', function(){
     c.open();
 
 
-   it('should have the correct graphic name', function(){
+   /*it('should have the correct graphic name', function(){
         c.graphicName();
         expect(c.graphic).toBe(c.nameGraphic);
-    });
+    });*/
 
 });
 
@@ -323,17 +334,6 @@ describe('Actions menu', function(){
 
     var a = new Actions();
 
-    it('should have 4 panels', function(){
-        a.checkPanels();
-
-        expect(a.text1).toBe('Bolsa');
-        expect(a.text2).toBe('Commodities');
-        expect(a.text3).toBe('S&P');
-       // expect(a.text4).toBe('Futuros');
-        expect(a.tables).toBe(0);
-        expect(a.filters).toBe(0);
-
-    });
 
 /*
     it('should have the correct America regions', function(){
@@ -342,6 +342,7 @@ describe('Actions menu', function(){
         expect(a.element.getAttribute('value')).toBe('11');
         expect(a.element2.getAttribute('value')).toBe('America Stock Exchange');
     });
+
 
 
     it('should have the correct India regions', function(){

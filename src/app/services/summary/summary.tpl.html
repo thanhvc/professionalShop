@@ -1,130 +1,153 @@
-<div class="public-zone-text container" >
+<div class="public-zone-text container" ng-controller="HomeCtrl">
 
-    <div class="lat-menu-detailed-nav" style="padding-top:40px;">
-    <table class="table-page-index"   ng-class="{'menu-position' : true,   'menu-fix' : positionFix}">
-        <tr>
-            <td>
-                  <span><a ng-click="scrollTo('basic'); selectedOption = 'basic';"
-                           ng-class="{'orange-text': selectedOption =='basic'}">
-                        Informaci&oacute;n b&aacute;sica de un patr&oacute;n
-                  </a>
-                    </span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span><a ng-click="scrollTo('diary'); selectedOption = 'diary';"
-                         ng-class="{'orange-text': selectedOption =='diary'}">
-                    Seguimiento Diario
-                    </a>
-                 </span>
+    <p class="text-block-title">Resumen</p>
 
-            </td>
-        </tr>
-    </table>
-    </div>
+    <p>
+       <em>“La diferencia entre un buen inversor y uno excelente, es que el primero sabe Cuándo invertir y el segundo además, en Qué”. (Aforismo de Bolsa).</em>
+    </p>
+    <p>
+        Market Observatory ofrece un servicio totalmente novedoso basado en análisis temporal y estacional, que le ayuda a identificar las mejores inversiones
+        durante las diferentes épocas del año en cualquier región del mundo y en distintas clases de Activos como valores de Bolsa, Bonos, Materias Primas o Divisas.
+    </p>
 
-    <!--<div class="submenu-content" ui-view="sum-view">
+    <p>
+        Market Observatory no es un bróker ni vende productos financieros, por lo cual para poner en práctica la información ofrecida necesitará un intermediario financiero que
+        le permita operar con diferentes instrumentos tales como Acciones, Fondos de Inversión, Fondos de Pensiones, ETF’s <em>–Exchange Traded Fund-, CFD’s –Contract for Difference-</em> o Futuros.
+    </p>
 
-    </div>-->
+    <p>
+        La misión de la Compañía es ofrecer un servicio diferencial de valor añadido identificando entre un universo de 80.000 activos, únicamente las mejores oportunidades
+        para invertir, las más rentables y durante el periodo favorable óptimo que permite reducir el riesgo de exposición al mercado. En cualquier mes del año siempre encontrará
+        buenas ocasiones para colocar su dinero. Una diferencia esencial con la mayoría de servicios financieros es que la información publicada es objetiva, imparcial, basada exclusivamente
+        en <span id="hechos" class="element-with-tooltip" tooltip-placement="top medium-right" tooltip-html-unsafe="{{tooltipFact}}">hechos</span> verificables, no encontrará <span tooltip-placement="top ultra-right-tooltip" class="element-with-tooltip" tooltip-html-unsafe="{{tooltipOpinions}}">opiniones</span> y por tanto sesgos subjetivos.
+    </p>
 
-    <div class="submenu-content content-detailed">
-        <div id="basic" class="anchor-detailed">
+    <p>
+        El servicio proporciona los <em>“ingredientes imprescindibles”</em> para realizar una mayoría de inversiones exitosas a lo largo del tiempo, fácil de poner en práctica incluso para
+        neófitos de la Bolsa e ideal para aquellos que disponen de poco tiempo de dedicación. Los inversores más avanzados podrán usar el servicio para implantar nuevas estrategias,
+        complementar sus actuales sistemas de inversión o desarrollar métodos sofisticados.
+    </p>
 
-            <p class="text-block-title">Informaci&oacute;n b&aacute;sica de un Patr&oacute;n</p>
+    <p>
+        En resumen, el servicio de Market Observatory se alinea plenamente con el aforismo bolsista citado al inicio, le identifica en <strong>Qué</strong> invertir seleccionando únicamente activos
+        con frecuencia de aciertos o <span class="element-with-tooltip" tooltip-html-unsafe="{{tooltipReliability}}">Fiabilidad 90%</span> y <strong>
+        Cuándo</strong> especificando el <span class="element-with-tooltip" tooltip-placement="top ultra-right-tooltip" tooltip-html-unsafe="{{tooltipPeriods}}">Periodo Óptimo</span> con las fechas de apertura y cierre de las operaciones de compra o venta.
+    </p>
 
-            <p>
-                Ejemplo Gr&aacute;fico de Patr&oacute;n. Expone el patr&oacute;n de la Compa&ntilde;&iacute;a en
-                los &uacute;ltimos 15 a&ntilde;os -en marr&oacute;n- y la evoluci&oacute;n de la cotizaci&oacute;n actual del a&ntilde;o en curso
-                -en azul-, marcando el periodo para invertir -en fondo coloreado-.
-            </p>
-            <p class="public-images">
-                <img src="assets/img/services/summary/basic-info1.png">
-            </p>
-            <p>
-                Para saber m&aacute;s sobre este gr&aacute;fico <a href="#/detailed_description#basic">leer</a>
-            </p>
-            <p>
-                Ejemplo Informe de Seguimiento Diario. Muestra lista de estrategias en vigor, con las fechas de Entrada o apertura,
-                fecha esperada de Salida o cierre, la fecha actual y cotizaci&oacute;n &uacute;ltima:
+    <p class="orange-title">
+        Catálogo Productos contratables
+    </p>
 
-            </p>
-            <p class="public-images">
-                <img src="assets/img/services/summary/basic-info2.png">
-            </p>
-            <p>
-                Para saber m&aacute;s sobre esta tabla <a href="#/detailed_description#diary">leer</a> <!--<a ui-sref="detailed_description.diary">leer</a>-->
-            </p>
-        </div>
+    <p>
+        Una Cartera de inversiones diversificada debe estar constituida por diferentes Activos y Valores no correlacionados, es decir que no se deprecien al mismo tiempo,
+        tradicionalmente han sido las Acciones o Bolsa, Bonos o Renta Fija, Materias Primas, Divisas o inversiones Inmobiliarias.
+    </p>
+
+    <p>
+        El servicio de Market Observatory ofrece la posibilidad de reconocer las mejores oportunidades en los Activos mencionados incluidos en alguno de los grupos siguientes,
+        Acciones, Par Acciones, Índices y Futuros. Lea la <a ui-sref="shopping_guide">Guía Compras</a> para entender qué productos debe contratar.
+    </p>
 
 
-    <div id="diary" class="anchor-detailed">
+    <p class="public-images">
+        <img src="assets/img/services/summary/summary1.png">
+    </p>
+    <p>
+        Estos grupos incluyen los Paquetes –Pack’s- de contenidos que son los que compra un cliente. A su vez cada Paquete consta de 50 Patrones o estrategias.
+        Por lo tanto con la compra de 1 Paquete, el cliente accederá a 50 Patrones. El acceso a los contenidos se presta exclusivamente a través de la web de <a ui-sref="home">www.MarketObservatory.com</a>
+    </p>
+    <p>
+        ¿Qué Paquetes hay en cada grupo y para qué se usan?
+    </p>
 
-        <p class="text-block-title">Seguimiento Diario</p>
+    <ul class="public-list-first-level">
+        <li><strong>Grupo Acciones</strong>: Incluye Pack’s de contenidos con las mejores estrategias de Bolsa encontradas al analizar unas 40,000 compañías de cualquier región del mundo.
+            Estos Paquetes son idóneos para invertir en Bolsa.</li>
+        <li><strong>Grupo Par Acciones</strong>: Hay Pack’s de contenidos con estrategias neutrales de Bolsa, a priori de menor riesgo. Un Par conlleva 2 operaciones simultáneas, una posición
+            Compra acciones de compañías con fuertes expectativas y otra Vende aquellas con débiles perspectivas. Estos Paquetes son atractivos para inversores con experiencia en
+            Bolsa que no desean sufrir grandes sobresaltos. Se ponen en práctica con CFD’s, Acciones o Futuros sobre Acciones. Necesitará un buen bróker que facilite Ventas a corto.</li>
+        <li><strong>Grupo Índices</strong>: Incluye Pack’s de contenidos con estrategias basadas en Índices de Bolsa, Bonos, Materias Primas o Explotación de Inmuebles –REIT’s, Real Estate Investment
+            Trust-. Podrá invertir en Bolsa de una región, país, sector,  segmento del mercado, en Bonos de diferentes países y plazos, en Materias Primas agregadas o individuales.
+            Es una compra ideal para aquellos que buscan invertir con el menor riesgo en multitud de activos. Se llevan a la práctica usando Fondos de Inversión, Fondos de Pensiones,
+            ETF’s y CFD’s.</li>
+        <li><strong>Grupo Futuros</strong>: Incluye Pack’s de contenidos con estrategias sobre Futuros Financieros, Divisas y Materias Primas que cotizan en los principales mercados del mundo. Hay
+            Futuros sobre Índices Bursátiles, Bonos, Depósitos, Divisas, Energía, Metales Preciosos, Metales Industriales, Mercaderías Agrícolas, Ganados, Productos Tropicales, Caucho o
+            Fibras. La compra de este Paquete es imprescindible para la supervivencia a largo plazo de los operadores en mercados de alto riesgo como el de Futuros.</li>
+    </ul>
 
-        <p class="orange-title">
-            Fases Principales del Servicio
-        </p>
+    <p class="orange-title">
+        Búsqueda y Compra de Paquetes –Pack- de contenidos
+    </p>
 
-        <p>
-            Una vez comprada una suscripci&oacute;n puede acceder al web como cliente para gestionar y analizar de forma sencilla y
-            profesional todas las estrategias -o patrones- de cualquiera de los Activos adquiridos. Para facilitar
-            la toma de decisiones Market Observatory proporciona el siguiente conjunto de herramientas y funcionalidades:
-        <ol class="ordered-list-first-level">
-            <li>
-                <b>Mis Patrones</b> contiene lista de Activos contratados. Permite tomar decisiones sobre sectores de negocio, tipo
-                de
-                industrias, plazos para colocar el dinero o perfil de riesgo
-            </li>
-            <li>
-                <b>Seguimiento Diario</b> permite vigilancia y control de estrategias en curso. El uso de Alarmas, informes y
-                gr&aacute;fico
-                s diarios, permite seguimiento de inversiones con stop loss, stop de beneficios o ajuste del timing de las
-                operaciones.
-            </li>
-            <li>
-                <b>Hist&oacute;rico</b> incluye estrategias reci&eacute;n concluidas permitiendo evaluar los resultados conseguidos bien por el
-                servicio y por las potenciales inversiones que haya realizado.
-            </li>
-            <li>
-                La Herramienta de <b>Gesti&oacute;n de Carteras</b> eval&uacute;a y valora estrategias as&iacute; como los Componentes de una Cartera
-                asignando a cada uno, porcentaje y cantidad de efectivo.
-            </li>
-            <li>
-                La Herramienta de <b>An&aacute;lisis de Volatilidad</b> posibilita adaptar el perfil de riesgo de un inversor versus
-                estrategias,
-                para obtener una cartera &oacute;ptima
-            </li>
-            <li>
-                La Herramienta de <b>An&aacute;lisis de Correlaci&oacute;n</b> permite una correcta diversificaci&oacute;n de activos.
-            </li>
-            <li>
-                <b>Calendario</b> es la agenda de Entradas -aperturas- y Salidas -cierres- de operaciones basadas en patrones.
-            </li>
-            <li>
-                <b>La Semana</b> contiene las estad&iacute;sticas de la semana actual y d&iacute;as en curso sobre los principales indicadores
-                mundiales de Bolsa y Commodities. La utilidad es muy diversa sirviendo para ajustar el timing de operaciones
-                de compra o venta o para operar con spread o pares.
-            </li>
-            <li>
-                <b>Suscripciones</b> incluye apartado de gesti&oacute;n de suscripciones en curso y un Mapa de Compras de f&aacute;cil uso
-                para futuras compras.
-            </li>
-            <li>
-                <b>Mi Cuenta</b> permite gestionar historial de &oacute;rdenes, compras, pagos, as&iacute; como usuarios y contrase&ntilde;as.
-            </li>
+    <p>
+        En cualquier época del año, Market Observatory publica los mejores Patrones o estrategias- clasificados en Paquetes de contenidos. En mercados grandes hay varios Pack’s que
+        incluyen compañías ordenadas alfabéticamente. Así alguien interesado en invertir en Acciones de compañías en algún país de América en diciembre 2012 observaría los diferentes Paquetes:
+    </p>
+    <p class="public-images">
+        <img src="assets/img/services/summary/summary2.png">
+    </p>
 
-        </ol>
-        </p>
-        <p>
-            <a ui-sref="detailed_description" onclick="scrollTo('diary');">Mas informaci&oacute;n</a>
-        </p>
+    <p>
+        Para ver el nombre de las compañías incluidas en un Paquete, se hace clic en la región o Pack de interés. Por ejemplo, si hace clic sobre Canadá en septiembre 2012
+        se muestra un avance de los contenidos de las estrategias sobre compañías de los mercados Venture y Toronto.
+    </p>
 
-    </div>
+    <p class="public-images">
+        <img src="assets/img/services/summary/summary3.png">
+    </p>
 
+    <p>
+        La tabla recoge un resumen de las estrategias para No clientes. Al Comprar el Paquete asociado a Canadá - mes Septiembre 2012, como cliente accederá a
+        los contenidos completos descubriendo los detalles de cada uno de los 50 Patrones,
+        herramientas de evaluación y análisis de estrategias, seguimiento diario con alarmas y muchas cosas más.
+    </p>
 
+    <p class="orange-title">
+        Información Básica de un Patrón
+    </p>
 
-</div>
+    <p>
+        En la Web de Market Observatory se encuentra toda la información de las estrategias y un amplio abanico de funciones para facilitar la toma de decisiones. Un Patrón posee la
+        información objetiva, completa y suficiente para llevar a cabo inversiones sofisticadas y controladas. Pero la información “básica” sobre en <strong>Qué</strong> invertir y <strong>Cuándo</strong> Comprar o
+        Vender se plasma en la denominada “Tabla Patrón” y “Gráfico Patrón”.
+    </p>
+    <p>
+        <strong>Ejemplo Tabla Patrón</strong>
+    </p>
+
+    <p class="public-images">
+        <img src="assets/img/services/summary/summary4.png">
+    </p>
+
+    <p>
+        La Tabla Patrón especifica, entre otras cosas, la operación a realizar “Comprar”, Nombre de la compañía “Tata Elxsi”, Mercado de cotización “BO, Bombay”, mejor fecha de Entrada –o apertura de la operación-
+        “13 agosto” y de Salida –o cierre de la posición- “10 septiembre”, con los resultados demostrados en los últimos 15 años expuestos en las filas 1997 a 2011.
+    </p>
+
+    <p>
+        <strong>Ejemplo Gráfico Patrón</strong>
+    </p>
+
+    <p class="public-images">
+        <img src="assets/img/services/summary/summary5.png">
+    </p>
+
+    <p>
+        El gráfico anterior representa el Patrón de rentabilidad de la compañía “Tata Elxsi” en 15 años –en marrón-, la cotización en curso del año actual –en azul- y el periodo favorable para invertir -en fondo coloreado-.
+    </p>
+
+    <p class="public-images">
+        <img src="assets/img/services/summary/summary6.png">
+    </p>
+
+    <p>
+        Este último gráfico muestra los patrones de rentabilidad histórica de “Tata Elsxi” de los últimos 15 años y los 6 años recientes.
+    </p>
+
+    <p>
+        Si desea entender las diferentes fases del servicio puede leer <a ui-sref="detailed_description">Descripción Detallada</a>. Si ha comprendido los conceptos básicos
+        puede acceder gratis durante 15 días al servicio registrándose en  <a ui-sref="free_subscription">Suscripción Gratis 15 días</a>.
+    </p>
 
 </div>
 
