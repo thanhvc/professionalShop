@@ -581,7 +581,7 @@ angular.module('ngMo.lookup_diary', [
             }
         };
         //open a graph and sve it to $scope.graph
-        $scope.loadGraphic = function (inputEvent,url,name) {
+        $scope.loadGraphic = function (inputEvent,name1,type,name2,pair,url) {
 
             if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
                 $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
@@ -601,16 +601,40 @@ angular.module('ngMo.lookup_diary', [
 
             }
 
+
             var elemTitle = document.createElement('span');
-            //elemTitle.innerHTML = inputEvent.srcElement.parentElement.parentElement.children[0].children[0].innerHTML;
-            elemTitle.innerHTML = name;
+
+            //check the name (if is simple or pair)
+            //name1 is obligatory, name2 is optional (to check if is pair or not)
+            //if pair, then name1 is buy name 2 is sell
+
+            elemTitle.innerHTML = name1;
             var img = document.createElement('img');
-            if (url == null){
-                //mocked graph
-                img.src = "assets/img/graphic.png";
+            var containerTitle = document.createElement("div");
+            if (pair) {
+
+                elemTitle.className = 'buy-color';
+                if (name2 != null) {
+                    var elemTitleSeparator = document.createElement('span');
+                    elemTitleSeparator.innerText = " / ";
+                    var elemTitle2 = document.createElement('span');
+                    elemTitle2.className = 'sell-color';
+                    elemTitle2.innerHTML = name2;
+                    containerTitle.appendChild(elemTitle);
+                    containerTitle.appendChild(elemTitleSeparator);
+                    containerTitle.appendChild(elemTitle2);
+                }
+
             } else {
-                //real graph
-                img.src=url;
+                if (type === 'BULLISH') {
+                    elemTitle.className = 'buy-color';
+                } else {
+                    elemTitle.className = 'sell-color';
+                }
+                containerTitle.appendChild(elemTitle);
+            }
+            if (url !== null) {
+                img.src = url;
             }
             img.className ="graphic-image-div-lookup-diary";
             elemDiv.className = 'div-graph-lookup-diary';
@@ -625,7 +649,7 @@ angular.module('ngMo.lookup_diary', [
 
                 $scope.closeGraph();
             };
-            elemDiv.appendChild(elemTitle);
+            elemDiv.appendChild(containerTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
             if (typeof inputEvent.srcElement !== "undefined") {
