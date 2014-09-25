@@ -209,6 +209,17 @@ angular.module('ngMo.the_week', [
             controller: function ($scope, $timeout, $state){
                 $scope.openGraph = false;
 
+                $scope.getOffset = function(el){
+                    var _x = 0;
+                    var _y = 0;
+                    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+                        _x += el.offsetLeft - el.scrollLeft;
+                        _y += el.offsetTop - el.scrollTop;
+                        el = el.offsetParent;
+                    }
+                    return { top: _y, left: _x };
+                };
+
                 $scope.showSelectedGraphic = function (e, name, url) {
 
                     if ($scope.openGraph === true){
@@ -226,8 +237,15 @@ angular.module('ngMo.the_week', [
                     };
 
                     if(typeof e !== 'undefined') {
-                        $scope.myTop = e.target.y + e.target.height + 'px';
-                        $scope.myLeft = e.target.x + (e.target.width+7) + 'px';
+                        if (typeof InstallTrigger !== 'undefined') {
+                            //firefox special case
+                            $scope.myTop = $scope.getOffset(e.target).top + e.target.height  + 'px';
+                            $scope.myLeft = $scope.getOffset(e.target).left + (e.target.width + 7) + 'px';
+                        } else {
+                            $scope.myTop = e.target.y + e.target.height + 'px';
+                            $scope.myLeft = e.target.x + (e.target.width + 7) + 'px';
+
+                        }
                     }
                 };
 
