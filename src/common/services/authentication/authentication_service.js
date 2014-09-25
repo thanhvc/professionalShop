@@ -133,7 +133,7 @@ angular.module('auth',['http-auth-interceptor'])
                             $scope.hideSignInForm();
                             $scope.currentUser = data.name;
                             //check if the user have packs subscribed in his cart, to pass the prices to 0
-
+                            $rootScope.isLog = true;
                             PaymentService.getPayments(true,function (data) {
 
                                 //this detect if some pack is with price=0, -> already subscribed pack
