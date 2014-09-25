@@ -56,8 +56,8 @@
             </table>
             <div>
                 <div class="button-cancel-container">
-                    <button class="mo-button" ng-click="cancel();" ng-show="!cancelOK">Cancelar devolución</button>
-                    <button class="mo-button" ng-click="confirmCancelation();" ng-show="!errorLoad && !cancelOK">
+                    <button class="mo-button" ng-click="cancel();" ng-show="!cancelOK" ng-disabled="loading">Cancelar devolución</button>
+                    <button class="mo-button" ng-click="confirmCancelation();" ng-show="!errorLoad && !cancelOK" ng-disabled="loading">
                         Devolver
                     </button>
 
@@ -66,7 +66,7 @@
                         <span ng-show="errorLoad">No hemos podido localizar la factura asociada. Consulte con nuestro departamento de administracion. <a ui-sref="support">Soporte</a> </span>
                         <span ng-show="cancelOK">Se ha cancelado el pack con éxito</span>
 
-                        <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span>
+                        <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Realizando el proceso de cancelación, por favor espere...</span>
                         </div>
 
                     </div>
