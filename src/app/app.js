@@ -477,7 +477,7 @@ angular.module('ngMo', [
             switch (type){
                 case 0:
                     //the new price is set with duration, the total cart is updated
-                    for (i=0;i<stockItems.oength;i++) {
+                    for (i=0;i<stockItems.length;i++) {
                         if (item.code === stockItems[i].code) {
                             if (item.startDate === stockItems[i].startDate) {
                                 stockItems[i] = item;
