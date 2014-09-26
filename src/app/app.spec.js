@@ -748,11 +748,11 @@ describe('The cart directive', function () {
             var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
             var prices =[23,12,45];
             var d = '28/09/2014';
-            var pack0 = {name: 'pack1', startDate: d,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
-            var pack1 = {name: 'pack1', startDate: d,'date': d,code: '1234', productType: 'STOCK', prices: prices, collition : "error"};
-            var pack2 = {name: 'pack1', startDate: d,'date': d,code: '1234', productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error"};
-            var pack3 = {name: 'pack1', startDate: d,'date': d,code: '1234', productType: 'INDICE', prices: prices, collition : "error"};
-            var pack4 = {name: 'pack1', startDate: d,'date': d,code: '1234', productType: 'FUTURE', prices: prices, collition : "error"};
+            var pack0 = {name: 'pack1', startDate: d,'date': d, code: 1234, productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack1 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'STOCK', prices: prices, collition : "error"};
+            var pack2 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack3 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE', prices: prices, collition : "error"};
+            var pack4 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE', prices: prices, collition : "error"};
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             $scope.$broadcast('toggleItemCart',pack0);
