@@ -310,22 +310,11 @@ describe('The Correlation controller', function () {
             $scope.setPage(1);
             expect($scope.pagingOptions.currentPage).toBe(1);
         }));
-/*
-        it('should let the user set a pattern as favourite', function() {
 
-           // $http.expectGET($scope.urlService + correlationPatternsRegionUn);
-            $http.expectGET($scope.urlService + favourite);
-           // $http.expectGET($scope.urlService + patternFiltersRegionUn);
-            $scope.toggleFavorite(1);
-            $http.flush();
-            expect($scope.toggleFavorite).toBeDefined();
-
-        });
-*/
         it('should add a pattern to correlation list', function() {
 
-            //$http.expectGET($scope.urlService + addCorrelation);
-            $http.expectGET($scope.urlService + addCorrelationRegionUn);
+            $http.expectGET($scope.urlService + addCorrelation);
+            //$http.expectGET($scope.urlService + addCorrelationRegionUn);
             $scope.addToCorrelationList(pattern);
             $http.flush();
             expect($scope.addToCorrelationList.length).toNotBe(0);

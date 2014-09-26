@@ -39,7 +39,6 @@ describe('The cart directive', function () {
                     publicationDate: 1404472269488
                 };
 
-
                 $scope.addNewItemCart(item,startDate,duration);
                 $scope.$apply();
 
@@ -273,7 +272,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 0); //type = stock
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 0); //type = stock
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -290,7 +298,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 0); //type = stock
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 0); //type = stock
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -307,7 +324,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 0); //type = stock
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 0); //type = stock
             $scope.$apply();
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
@@ -325,7 +351,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 2);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 2);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -342,7 +377,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 2);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 2);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -359,7 +403,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 2);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 2);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -375,7 +428,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,4);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item,4);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -392,7 +454,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 4);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 4);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -409,7 +480,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 4);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 4);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -426,7 +506,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,1);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item,1);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -443,7 +532,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 1);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 1);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -460,7 +558,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 1);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 1);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -478,7 +585,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,3);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item,3);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -495,7 +611,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,3);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item,3);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -512,7 +637,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 3);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 3);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -759,9 +893,9 @@ describe('The cart directive', function () {
             $scope.$broadcast('changeDurationItem',pack0);
             $scope.$apply();
 
-            $scope.$broadcast('toggleItemCart',pack1);
+           /* $scope.$broadcast('toggleItemCart',pack1);
             $scope.$broadcast('changeDurationItem',pack1);
-            $scope.$apply();
+            $scope.$apply();*/
             $scope.$broadcast('toggleItemCart',pack2);
             $scope.$broadcast('changeDurationItem',pack2);
             $scope.$apply();
@@ -788,6 +922,7 @@ describe('The cart directive', function () {
             $scope.$apply();
             $scope.$broadcast('updateSubscribedPacks',packs);
         }));
+
 
         it('should change duration from cart', inject(function(){
             var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
