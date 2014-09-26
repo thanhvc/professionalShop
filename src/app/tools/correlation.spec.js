@@ -313,8 +313,6 @@ describe('The Correlation controller', function () {
 
         it('should add a pattern to correlation list', function() {
 
-            $http.expectGET($scope.urlService + addCorrelation);
-            //$http.expectGET($scope.urlService + addCorrelationRegionUn);
             $scope.addToCorrelationList(pattern);
             $http.flush();
             expect($scope.addToCorrelationList.length).toNotBe(0);

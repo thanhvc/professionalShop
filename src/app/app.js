@@ -102,8 +102,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       $rootScope.urlService = 'http://localhost:9000';
+       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       //$rootScope.urlService = 'http://localhost:9000';
     })
 
     .service('ActiveTabService', function (){
@@ -477,7 +477,7 @@ angular.module('ngMo', [
             switch (type){
                 case 0:
                     //the new price is set with duration, the total cart is updated
-                    for (i=0;i<stockItems.length;i++) {
+                    for (i=0;i<stockItems.oength;i++) {
                         if (item.code === stockItems[i].code) {
                             if (item.startDate === stockItems[i].startDate) {
                                 stockItems[i] = item;
