@@ -102,8 +102,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope) {
-       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       $rootScope.urlService = 'http://localhost:9000';
+       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       //$rootScope.urlService = 'http://localhost:9000';
     })
 
     .service('ActiveTabService', function (){
@@ -1291,7 +1291,7 @@ angular.module('ngMo', [
                             }
                         }
                     }
-                    //idnex
+                    //index
                     for (i=0;i<$scope.indicesItems.length;i++) {
                         if (($scope.indicesItems[i].code == code) && (startDate != $scope.indicesItems[i].startDate)) {
                             //the item found is the same code, but not same startDate, check if the two packs are monthly
