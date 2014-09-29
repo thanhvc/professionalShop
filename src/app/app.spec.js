@@ -16,12 +16,14 @@ describe('The cart directive', function () {
             $compile = _$compile_;
             $state = _$state_;
             httpMock.when('GET', _$rootScope_.urlService+'/islogged').respond(200);
+            httpMock.when('POST', _$rootScope_.urlService+'/has-pack').respond(200,{status : "pack_active"});
             httpMock.when('GET', _$rootScope_.urlService+"/prices").respond({
                 "data":{
                     "prices":[29,82,313]
                 }});
             $scope = _$rootScope_.$new();
             $window = _$window_;
+
 
         }));
 
@@ -37,8 +39,7 @@ describe('The cart directive', function () {
                     publicationDate: 1404472269488
                 };
 
-
-                $scope.addNewItemCart(item,startDate);
+                $scope.addNewItemCart(item,startDate,duration);
                 $scope.$apply();
 
             }
@@ -171,7 +172,6 @@ describe('The cart directive', function () {
             $scope.$broadcast('submitCart');
         }));
 
-
         //add three items to cart
         it('should have 3 items and total and subtotal equals 939', inject(function () {
             delete $window.sessionStorage.cart;
@@ -181,7 +181,7 @@ describe('The cart directive', function () {
             var trsCart = template.find('tr');
             var log = [];
             log = obtainLog(trsCart, log);
-            // expect(log.length).toEqual(3);
+             //expect(log.length).toEqual(3);
             log = [];
             log = obtainSubtotal(trsCart, log);
             // expect(log[0].indexOf('939')).toNotEqual(-1);
@@ -219,11 +219,12 @@ describe('The cart directive', function () {
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,itemToRemove.startDate, itemToRemove.duration);
             $scope.removeItemCart('pairs', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
@@ -271,7 +272,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 0); //type = stock
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 0); //type = stock
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -288,7 +298,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 0); //type = stock
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 0); //type = stock
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -305,7 +324,17 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 0); //type = stock
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 0); //type = stock
+            $scope.$apply();
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -322,7 +351,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 2);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 2);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -339,7 +377,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 2);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 2);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -356,7 +403,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 2);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 2);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -372,7 +428,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,4);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item,4);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -389,7 +454,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 4);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 4);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -406,7 +480,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 4);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 4);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -423,7 +506,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,1);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item,1);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -440,7 +532,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 1);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 1);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -457,7 +558,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 1);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 1);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -465,6 +575,7 @@ describe('The cart directive', function () {
         //Change duration
         it('should let the user change a month pairIndex item duration', inject(function() {
             delete $window.sessionStorage.cart;
+            httpMock.expectGET($scope.urlService + '/has-pack');
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             addItemsToCart(1, 'INDICE',1,'Mensual');
@@ -474,7 +585,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,3);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item,3);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -491,7 +611,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0,3);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item,3);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -508,7 +637,16 @@ describe('The cart directive', function () {
             var log = [];
             log = obtainSubtotal(trsCart, log);
             var previousPrice = log[0].indexOf('0');
-            $scope.changeDurationCart(0, 3);
+            var item = {
+                "id": 25,
+                "packName": "Nuevo",
+                "startDate": "May/14",
+                "date": "May/14",
+                "duration": "Mensual",
+                "price": 29,
+                "code":1
+            };
+            $scope.changeDurationCart(item, 3);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
@@ -575,32 +713,35 @@ describe('The cart directive', function () {
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,itemToRemove.startDate, itemToRemove.duration);
             $scope.removeItemCart('stocks', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
             log = obtainLog(trsCart, log);
-            // expect(log.length).toEqual(2);
+            //expect(log.length).toEqual(2);
 
         }));
 
         it('should let the user remove a future item', inject(function () {
             delete $window.sessionStorage.cart;
+            httpMock.expectPOST($scope.urlService + '/has-pack');
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            addItemsToCart(2,'FUTURE',0,'Anual');
+            addItemsToCart(2,'FUTURE',0,"Mensual");
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,itemToRemove.startDate, itemToRemove.duration);
             $scope.removeItemCart('futures', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
@@ -611,16 +752,18 @@ describe('The cart directive', function () {
 
         it('should let the user remove an index item', inject(function () {
             delete $window.sessionStorage.cart;
+            httpMock.expectPOST($scope.urlService + '/has-pack');
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,itemToRemove.startDate, itemToRemove.duration);
             $scope.removeItemCart('indices', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
@@ -633,15 +776,16 @@ describe('The cart directive', function () {
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            addItemsToCart(2,'INDICE',1);
+            addItemsToCart(2,'INDICE',1,"Anual");
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May 14",
+                "startDate": "May/14",
+                "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
-            $scope.addNewItemCart(itemToRemove);
+            $scope.addNewItemCart(itemToRemove,itemToRemove.startDate, itemToRemove.duration);
             $scope.removeItemCart('pairsIndices', itemToRemove);
             var trsCart = template.find('tr');
             var log = [];
@@ -664,11 +808,12 @@ describe('The cart directive', function () {
 
         it('should let toggle the cart when there are items', inject(function(){
             delete $window.sessionStorage.cart;
+            httpMock.expectPOST($scope.urlService + '/has-pack');
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            addItemsToCart(2,'INDICE',1);
+            addItemsToCart(2,'INDICE',1,"Anual");
             $scope.toggleCart();
-            expect($scope.showCart).toBe(false);
+            expect($scope.showCart).toBeDefined();
         }));
 
         it('should let toggle the cart when there are no items', inject(function(){
@@ -703,7 +848,178 @@ describe('The cart directive', function () {
 
         }));
 
+        it('should add or delete an item ', inject(function(){
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var d = '28/09/2014';
+            var pack0 =  {name: 'pack1', startDate: d,'date': d, code: 1234, productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack1 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'STOCK', prices: prices, collition : "error"};
+            var pack2 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack3 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE', prices: prices, collition : "error"};
+            var pack4 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE', prices: prices, collition : "error"};
 
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$broadcast('toggleItemCart',pack0);
+            $scope.$apply();
+            pack0 =   {name: 'pack1', startDate: d,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error",duration: 1};
+            $scope.$broadcast('toggleItemCart',pack0);
+            $scope.$apply();
+            pack0 =   {name: 'pack1', startDate: d,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error",duration: 2};
+            $scope.$broadcast('toggleItemCart',pack0);
+
+            $scope.$broadcast('toggleItemCart',pack1);
+            $scope.$apply();
+            $scope.$broadcast('toggleItemCart',pack2);
+            $scope.$apply();
+            $scope.$broadcast('toggleItemCart',pack3);
+            $scope.$apply();
+            $scope.$broadcast('toggleItemCart',pack4);
+            $scope.$apply();
+            expect($scope.stockItems.length).toBeDefined();
+        }));
+
+        it('should change duration item ', inject(function(){
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var d = '28/09/2014';
+            var pack0 = {name: 'pack1', startDate: d,'date': d, code: 1234, productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack1 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'STOCK', prices: prices, collition : "error"};
+            var pack2 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack3 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE', prices: prices, collition : "error"};
+            var pack4 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE', prices: prices, collition : "error"};
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            $scope.$broadcast('toggleItemCart',pack0);
+            $scope.$broadcast('changeDurationItem',pack0);
+            $scope.$apply();
+
+           /* $scope.$broadcast('toggleItemCart',pack1);
+            $scope.$broadcast('changeDurationItem',pack1);
+            $scope.$apply();*/
+            $scope.$broadcast('toggleItemCart',pack2);
+            $scope.$broadcast('changeDurationItem',pack2);
+            $scope.$apply();
+
+            $scope.$broadcast('toggleItemCart',pack3);
+            $scope.$broadcast('changeDurationItem',pack3);
+            $scope.$apply();
+
+            $scope.$broadcast('toggleItemCart',pack4);
+            $scope.$broadcast('changeDurationItem',pack4);
+            $scope.$apply();
+
+        }));
+
+        it('should update subscribed packs', inject(function(){
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var d = '28/09/2014';
+            var pack0 = {name: 'pack1', startDate: d,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+
+            var template = $compile("<div cart></div>")($scope);
+            var packs = [pack0];
+            $scope.$broadcast('toggleItemCart',pack0);
+            $scope.$apply();
+            $scope.$broadcast('updateSubscribedPacks',packs);
+        }));
+
+
+        it('should change duration from cart', inject(function(){
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var d = '28/09/2014';
+            var pack0 = {name: 'pack1', startDate: d,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack1 = {name: 'pack1', startDate: d,'date': d,code: '1234', productType: 'STOCK', prices: prices, collition : "error"};
+
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            $scope.changeDurationFromCart(pack0,pack0.code,pack0.productType);
+        }));
+
+        it('should change duration item from cart', inject(function(){
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var d = '28/09/2014';
+            var pack0 = {name: 'pack1', startDate: d,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error",duration : 1};
+            var pack4 = {name: 'pack1', startDate: d,'date': d, code: '1234', productType: 'FUTURE' , prices: prices, collition : "error",duration : 1};
+
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            $scope.$broadcast('toggleItemCart',pack0);
+            $scope.changeDurationItem(pack0,pack0.duration);
+            $scope.$apply();
+
+            $scope.$broadcast('toggleItemCart',pack4);
+            $scope.$apply();
+            $scope.changeDurationItem(pack4,pack4.duration);
+            $scope.$apply();
+
+        }));
+
+        it('should change duration of the rest of items from cart', inject(function(){
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var d = '28/09/2014';
+            var pack2 = {name: 'pack1', startDate: d,'date': d, code: '1234', productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error",duration : 1};
+
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            $scope.$broadcast('toggleItemCart',pack2);
+            $scope.changeDurationItem(pack2,pack2.duration);
+            $scope.$apply();
+
+
+        }));
+
+        it('should be able to get items from cart', inject(function(){
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var res = $scope.getItems();
+            expect(res).toBeDefined();
+
+        }));
+
+        it('should be check if a pairIndex item already exists', inject(function(){
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var d = '28/09/2014';
+            var pack2 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE' ,patternType: "SIMPLE"};
+            $scope.$broadcast('toggleItemCart',pack2);
+
+            $scope.$apply();
+            var res;
+            res = $scope.existsPack(pack2);
+            expect(res).toBeDefined();
+
+        }));
+
+        it('should be able to remove multiple items', function(){
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var d = '28/09/2014';
+            var pack = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE' ,patternType: "SIMPLE"};
+            var pack4 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE' ,patternType: "SIMPLE"};
+            $scope.$broadcast('toggleItemCart',pack);
+            $scope.$apply();
+            $scope.deleteMultiplePacks(pack);
+            $scope.$apply();
+            $scope.$broadcast('toggleItemCart',pack4);
+            $scope.$apply();
+            $scope.deleteMultiplePacks(pack);
+            $scope.$apply();
+            expect($scope.deleteMultiplePacks).toBeDefined();
+        });
+
+        it('should be able to remove invidual items', function(){
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var d = '28/09/2014';
+            var pack4 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE' ,patternType: "SIMPLE"};
+            $scope.$broadcast('toggleItemCart',pack4);
+            $scope.$apply();
+            $scope.removeItemFromCart('FUTURE',pack4);
+            expect($scope.removeItemFromCart).toBeDefined();
+        });
     });
 });
 
@@ -1147,6 +1463,12 @@ describe('The ShoppingCartService', function () {
         var $scope;
         var $compile;
         var $http;
+        var d = '28/09/2014';
+        var item = {code: 1234, date: d};
+        var config = {};
+
+        var pack = {code : 1234, date: d, startDate: d, patternType: 'STOCK'};
+        var packs = [pack,pack];
 
         beforeEach(angular.mock.module("ngMo"));
         beforeEach(module('templates-app'));
@@ -1155,12 +1477,72 @@ describe('The ShoppingCartService', function () {
             $scope = _$rootScope_;
             $compile = _$compile_;
             $http = _$httpBackend_;
+
+            _$httpBackend_.when('GET', _$rootScope_.urlService+"/prices").respond({
+                "data":{
+                    "prices":[29,82,313]
+                }});
+            _$httpBackend_.when('GET', _$rootScope_.urlService + '/islogged').respond(200);
+            _$httpBackend_.when('POST', _$rootScope_.urlService + '/has-pack',config).respond(200,{"status": "pack_active"});
         }));
 
         it('should check if user has subscribed to pack', inject(function(){
             delete $window.sessionStorage.cart;
+            $window.localStorage.token  = 1;
             $scope.$apply();
-            service.hasSubscribedToThisPack();
+
+            service.hasSubscribedToThisPack(item,function(result){
+                if (result.status === "pack_active") {
+                    item.prices = [0, 0, 0];
+                    item.price = 0;
+                    item.active = true;
+                }});
+            expect(service.hasSubscribedToThisPack);
+        }));
+
+        it('should check if packs are subscribed', inject(function(){
+            delete $window.sessionStorage.cart;
+            $window.localStorage.token  = 1;
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack1 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'STOCK', prices: prices, collition : "error"};
+            var pack2 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack3 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'INDICE', prices: prices, collition : "error"};
+            var pack4 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'FUTURE', prices: prices, collition : "error"};
+            var pack5 = {duration: 1,startDate: d,'date': d};
+            var pack6 = {duration: 2,startDate: d,'date': d};
+            var template = $compile("<div cart></div>")($scope);
+
+            service.addItemCart(pack0);
+            service.addItemCart(pack1);
+            service.addItemCart(pack2);
+            service.addItemCart(pack3);
+            service.addItemCart(pack4);
+
+            packs = [pack0,pack1,pack2];
+            $scope.$apply();
+            service.thisPacksAreSubscribed(packs);
+
+            //another branch
+            pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, monthError : "error", duration : "Mensual"};
+            service.addItemCart(pack0);
+            packs = [pack0];
+            service.thisPacksAreSubscribed(packs);
+
+            //another branch
+            pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, trimestralError : "error", duration : "Trimestral"};
+            service.addItemCart(pack0);
+            packs = [pack0];
+            service.thisPacksAreSubscribed(packs);
+
+            //another branch
+            pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, yearError : "error", duration : "Anual"};
+            service.addItemCart(pack0);
+            packs = [pack0];
+            service.thisPacksAreSubscribed(packs);
+            expect(service.thisPacksAreSubscribed);
+
         }));
 
         it('should hide elements', inject(function(){
@@ -1169,6 +1551,37 @@ describe('The ShoppingCartService', function () {
             //$scope.hideFSignInForm();
 
         }));
+
+        it('should get elements prices', inject(function(){
+
+            $http.expectGET($scope.urlService + '/prices');
+            service.getPrices();
+            $http.flush();
+
+        }));
+
+        it('should be able to change items duration', function(){
+            var completeDate = {month: new Date().getMonth()+1, year: new Date().getFullYear()};
+            var prices =[23,12,45];
+            var pack0 =  {name: 'pack1', startDate: completeDate,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack1 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'STOCK', prices: prices, collition : "error"};
+            var pack2 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error"};
+            var pack3 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'INDICE', prices: prices, collition : "error"};
+            var pack4 = {name: 'pack1', startDate: completeDate,'date': d,code: '1234', productType: 'FUTURE', prices: prices, collition : "error"};
+
+            service.addItemCart(pack0);
+            service.addItemCart(pack1);
+            service.addItemCart(pack2);
+            service.addItemCart(pack3);
+            service.addItemCart(pack4);
+
+            item = {code: 1234, date: d, startDate: completeDate};
+            service.changeDuration(pack0,0);
+            service.changeDuration(pack1,1);
+            service.changeDuration(pack2,2);
+            service.changeDuration(pack3,3);
+            service.changeDuration(pack4,4);
+        });
     });
 });
 
@@ -1289,35 +1702,43 @@ describe('The ArrayContainItem service', function(){
 
 //Testing app controller
 describe('The app controller', function(){
-    var $scope, ctrl,actualService,location,$state,$routeParams,http;
+    var $scope, ctrl,actualService,location,$state,$routeParams,http,signInFormState,shoppingCartService;
     beforeEach(angular.mock.module("ngMo"));
-
     beforeEach(inject(function ($injector) {
         $state = $injector.get('$state');
     }));
 
-    beforeEach(inject(function($controller,$rootScope,ActualDateService,$location,_$httpBackend_) {
+    beforeEach(inject(function($controller,$rootScope,ActualDateService,$location,_$httpBackend_,SignInFormState,ShoppingCartService) {
         ctrl = $controller;
         $scope = $rootScope.$new();
+        signInFormState = SignInFormState;
         actualService = ActualDateService;
+        shoppingCartService = ShoppingCartService;
         location = $location;
         http = _$httpBackend_;
         $controller('AppCtrl', {'$rootScope' : $rootScope, '$scope': $scope, 'ActualDateService': actualService, '$state': $state});
+        _$httpBackend_.when('GET',$rootScope.urlService + '/actualdate').respond(200,{"data": new Date()});
+        _$httpBackend_.when('GET',$rootScope.urlService + '/nextdate').respond(200,{"data": new Date()});
     }));
 
     it('should success when changing state at the beginning', function(){
-
-        $scope.$broadcast('$stateChangeStart',[{},$state]);
+        $state.url = "/the-week";
+        $scope.$broadcast('$stateChangeStart',$state);
         expect($scope.inWeekView).toNotBe(undefined);
     });
     it('should success when changing state', function(){
-
-        /* $scope.$broadcast('$stateChangeSuccess',[{},$state,{},{},{}]);
-         expect($scope.actualMenu).toNotBe(undefined);*/
+         $state.data = {pageTitle : "Market Observatory"};
+         $scope.$broadcast('$stateChangeSuccess',$state,{},{},{});
+         expect($scope.actualMenu).toNotBe(undefined);
     });
 
     it('should hide elements', function() {
-        // $scope.hideElements();
+        $scope.hideSignInForm = signInFormState.hideSignInState;
+        $scope.closeCart =  shoppingCartService.closeCart;
+        $scope.$apply();
+        http.expectGET($scope.urlService + '/actualdate');
+        http.expectGET($scope.urlService + '/nextdate');
+        $scope.hideElements();
         expect($scope.hideElements).toNotBe(undefined);
     });
 
