@@ -24,9 +24,9 @@ angular.module('ngMo.my_patterns', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false,//with this option, the controller will not reload the page when it change
+            reloadOnSearch: false//,//with this option, the controller will not reload the page when it change
             //the params on url
-            resolve: {
+            /*resolve: {
                 MonthSelectorService: "MonthSelectorService",
                 SelectedMonthService: "SelectedMonthService",
                 PatternsService: "PatternsService",
@@ -88,7 +88,7 @@ angular.module('ngMo.my_patterns', [
 
                     });
                 }
-            }
+            }*/
         });
     })
     .service('TabsService', function () {
@@ -238,9 +238,9 @@ angular.module('ngMo.my_patterns', [
         };
 
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope) {
+    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope) {
         $scope.dataLoaded = false;
-        $scope.loading = false;
+        $scope.loading = true;
 
         //event for keypress in input search name, launch the filters if press enter
         $scope.submitName = function(keyEvent) {
@@ -931,6 +931,7 @@ angular.module('ngMo.my_patterns', [
         });
         /*First load on page ready*/
         $scope.restartFilter();
+        //in case of refresh..
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
@@ -938,10 +939,10 @@ angular.module('ngMo.my_patterns', [
         }
 
         //$scope.loadPage();
-        $scope.myData = myPatternsData.patterns;
+       /* $scope.myData = myPatternsData.patterns;
         $scope.results = myPatternsData.results;
         $scope.found = myPatternsData.found;
-
+*/
 
         //Expiration service
         $scope.getYearFromPatternName= function (patternName, expirationDate) {

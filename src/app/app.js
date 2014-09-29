@@ -925,6 +925,9 @@ angular.module('ngMo', [
                 });
                 //event from my subscription to add or delete from the cart a pack
                 $scope.$on('toggleItemCart',function(event,pack) {
+                    if (pack == null) {
+                        return;
+                    }
                     item= {code: pack.code ,
                             name: pack.name,
                             patternType: pack.patternType,
@@ -978,6 +981,9 @@ angular.module('ngMo', [
 
                 //change the durationItem from my subscriptions
                 $scope.$on('changeDurationItem',function(event,pack) {
+                    if (pack == null) {
+                        return;
+                    }
                     duration = "Mensual";
                     if (pack.duration ===1 ) {
                         duration = "Trimestral";

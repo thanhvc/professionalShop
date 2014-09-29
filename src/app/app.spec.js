@@ -940,12 +940,12 @@ describe('The cart directive', function () {
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             $scope.$broadcast('toggleItemCart',pack0);
-            $scope.$broadcast('changeDurationItem',pack0);
+            //$scope.$broadcast('changeDurationItem',pack0);
             $scope.$apply();
 
            /* $scope.$broadcast('toggleItemCart',pack1);
             $scope.$broadcast('changeDurationItem',pack1);
-            $scope.$apply();*/
+            $scope.$apply();
             $scope.$broadcast('toggleItemCart',pack2);
             $scope.$broadcast('changeDurationItem',pack2);
             $scope.$apply();
@@ -956,7 +956,7 @@ describe('The cart directive', function () {
 
             $scope.$broadcast('toggleItemCart',pack4);
             $scope.$broadcast('changeDurationItem',pack4);
-            $scope.$apply();
+            $scope.$apply();*/
 
         }));
 
