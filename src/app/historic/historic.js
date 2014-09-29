@@ -21,68 +21,8 @@ angular.module('ngMo.historic', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false,
-            resolve: {
-                MonthSelectorHistoricService: "MonthSelectorHistoricService",
-                HistoricsService: "HistoricsService",
-                TabsService: "TabsService",
-                IsLogged: "IsLogged",
-                filtering : function(TabsService,MonthSelectorHistoricService,$location){
+            reloadOnSearch: false
 
-                    var params = $location.search();
-                    //just to select a item like a selector for load params
-                    var selectors = [{
-                        id: 0,
-                        "description": "something"
-                    },{
-                        id: 1,
-                        "description": "something"}];
-                    //keep separatly in case of change
-                    var operations =  [{
-                        id: 0,
-                        "description": "something"
-                    },{
-                        id: 1,
-                        "description": "something"}];
-
-                    return {
-                        active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                        month: MonthSelectorHistoricService.getSelectedMonth(),
-                        durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
-                        favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
-                        filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
-                        index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
-                        rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
-                        rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
-                        rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
-                        selectedAverage: (typeof params.qselaver !== "undefined" ? selectors[parseInt(params.qselaver,10)] : "" ),
-                        selectedDuration: (typeof params.qseldur !== "undefined" ? selectors[parseInt(params.qseldur,10)] : "" ),
-                        selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "" ),
-                        selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
-                        selectedOperation: (typeof params.qop !== "undefined" ? operations[parseInt(params.qop,10)] : "" ),
-                        selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
-                        selectedRent:  (typeof params.qselrent !== "undefined" ? selectors[parseInt(params.qselrent,10)] : "" ),
-                        selectedRentDiary:  (typeof params.qseldiar !== "undefined" ? selectors[parseInt(params.qseldiar,10)] : "" ),
-                        selectedSector: (typeof params.qsector !== "undefined" ? $scope.qsector : ""),
-                        selectedVolatility: (typeof params.qselvol !== "undefined" ? selectors[parseInt(params.qselvol ,10)] : "" ),
-                        tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
-                        volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" ),
-                        page: (typeof params.pag !== "undefined" ? params.pag : "" )
-                    };
-                },
-                historicDataData: function(HistoricsService, filtering,IsLogged) {
-                    IsLogged.isLogged();
-                    var page =  parseInt(filtering.page,10) || 1;
-                    return HistoricsService.getPagedDataAsync(page, filtering).then(function (data){
-                        return {
-                            patterns: data.patterns,
-                            results: data.results,
-                            found: data.found
-                        };
-
-                    });
-                }
-            }
         });
     })
 
@@ -90,7 +30,7 @@ angular.module('ngMo.historic', [
     })
 
     .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
-                                          MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService,historicDataData, ExpirationYearFromPatternName,UserApplyFilters) {
+                                          MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService, ExpirationYearFromPatternName,UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -109,7 +49,7 @@ angular.module('ngMo.historic', [
 
         };
 
-        $scope.loading = false;
+        $scope.loading = true;
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
@@ -735,10 +675,6 @@ angular.module('ngMo.historic', [
             $scope.loadUrlParams();
             $scope.loadPage();
         }
-
-        $scope.myData = historicDataData.patterns;
-        $scope.results = historicDataData.results;
-        $scope.found = historicDataData.found;
 
 
         //Expiration service

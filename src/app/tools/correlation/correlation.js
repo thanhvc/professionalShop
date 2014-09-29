@@ -47,7 +47,7 @@ angular.module('ngMo.correlation', [
         $scope.endMoving = function() {
             $scope.moving = false;
         };
-        $scope.loading = false;
+        $scope.loading = true;
         $scope.calculating = false;
         //tabs and variables
         //pattern number for rents

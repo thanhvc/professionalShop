@@ -33,7 +33,8 @@ angular.module('ngMo.the_week', [
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
             IsLogged.isLogged();
         });
-        $scope.loading= false;
+        $scope.loading= true;
+        $scope.empty = false;
         $scope.days= [];
         $scope.obtainDateMondaythisWeek = function () {
             var firstDay = ActualDateService.actualDate(function (data) {
@@ -101,6 +102,7 @@ angular.module('ngMo.the_week', [
             $scope.loading= true;
             $http.get($rootScope.urlService+"/weekData/"+currentYear, config).success(function(data){
                 $scope.loading= false;
+
                 stockAreas = data[0];
                 $scope.stockAreas = data.STOCKS;
                 $scope.commoditiesAreas = data.COMMODITIES;
@@ -123,6 +125,15 @@ angular.module('ngMo.the_week', [
                 //in the same loop we are going to set which asset is grey and which is white (in the TR)
                 //that's because cant be set by CSS,
                 var isGrey=false;
+                if (typeof $scope.stockAreas === "undefined") {
+                    $scope.stockAreas = [];
+                    $scope.commoditiesAreas = [];
+                    $scope.sypSectors = [];
+                    $scope.empty = true;
+                    return;
+                } else {
+                    $scope.empty = true;
+                }
                 for (i= 0; i<$scope.stockAreas.length; i++) {
                     //areas loop
                     isGrey=false;

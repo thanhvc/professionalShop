@@ -154,7 +154,7 @@ describe('The signInForm directive', function () {
             });
             $scope.remember = true;
             httpMock.expectPOST($scope.urlService+'/login');
-            httpMock.expectGET($scope.urlService+ patterns);
+            //httpMock.expectGET($scope.urlService+ patterns);
             $cookieStore.put('token', '1234');
             $scope.fields = {
                 "email" : 'userEmail@edosoft.es',
