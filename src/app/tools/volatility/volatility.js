@@ -379,6 +379,7 @@ angular.module('ngMo.volatility', [
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
             //we change the page to 1, to load the new tab
+            $scope.startLoading();
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
             $scope.applyFilters();
