@@ -107,10 +107,6 @@ describe('SummaryPay controller', function()  {
         $scope.getMonthShortName(new Date());
     });
 
-    /*it("should cancel a pay", function ()  {
-        $scope.cancelPay();
-    });*/
-
     it("should translate duration", function ()  {
         var res = $scope.translateDuration(1);
         expect(res).toBeDefined();
@@ -215,7 +211,6 @@ describe('Payment Service', function()  {
 
     beforeEach(inject(function (PaymentService, $rootScope, _$http_, _$httpBackend_, _$state_,ShoppingCartService)  {
 
-        //_$httpBackend_.when('GET', $rootScope.urlService + '/homepacks').respond(200);
         service = PaymentService;
         shopping = ShoppingCartService;
         $scope = $rootScope.$new();
