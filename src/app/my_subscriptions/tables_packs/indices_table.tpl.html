@@ -22,7 +22,7 @@
             <table class="my-subscriptions-table">
                 <tbody>
                 <tr ng-repeat="pack in mySubscriptionsTablePack.indicesContent track by $index" >
-                    <td>{{pack.name}}</td>
+                    <td><span tooltip="{{pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})">{{pack.name}}</span></td>
                     <td>{{pack.scopeText}}</td>
                     <td><input ng-show="pack.selected" type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ng-change="togglePack(pack);">
                         <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"  ng-click="$event.stopPropagation();"></td>
