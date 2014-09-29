@@ -61,7 +61,9 @@ angular.module('ngMo.home', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
             if ($scope.allowed_views.indexOf($state.current.name) === -1) {
-                IsLogged.isLogged();
+                IsLogged.isLogged(true);
+            } else {
+                IsLogged.isLogged(false);
             }
 
         });

@@ -87,7 +87,7 @@ angular.module('ngMo.payment', [  'ui.router'])
     .controller('ConfirmPaymentCardCtrl', function ($scope, $state,IsLogged, $rootScope) {
         $scope.status = "OK";
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
@@ -99,13 +99,13 @@ angular.module('ngMo.payment', [  'ui.router'])
     .controller('ConfirmPaymentCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http,$stateParams) {
         $scope.status = "NONE";
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
 
@@ -151,14 +151,14 @@ angular.module('ngMo.payment', [  'ui.router'])
     .controller('SummaryPayCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService) {
         $scope.amountOfPacks = 0;
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
-        IsLogged.isLogged();
+        IsLogged.isLogged(true);
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.taxPercent=0;
         $scope.allBought = false;// if all packs are subscribed already, or
@@ -339,13 +339,13 @@ angular.module('ngMo.payment', [  'ui.router'])
     .controller('CreditPayCtrl',function($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService, ProfileService,SignUpService){
         $scope.formSubmited = false;
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
         $scope.status="NONE";

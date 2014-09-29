@@ -19,7 +19,7 @@ angular.module('ngMo.detail', [
                 DetailService: "DetailService",
                 IsLogged: "IsLogged",
                 detailData: function(DetailService, $stateParams,IsLogged) {
-                    IsLogged.isLogged();
+                    IsLogged.isLogged(true);
                     return DetailService.getPagedDataAsync($stateParams.patternId).then(function (data){
                         return {
                             myData: data.historical,
@@ -46,7 +46,7 @@ angular.module('ngMo.detail', [
                 DetailService: "DetailService",
                 IsLogged: "IsLogged",
                 detailData: function(DetailService, $stateParams,IsLogged) {
-                    IsLogged.isLogged();
+                    IsLogged.isLogged(true);
                     return DetailService.getPagedDataAsync($stateParams.patternId).then(function (data){
                         return {
                             myData: data.historical,
@@ -60,11 +60,11 @@ angular.module('ngMo.detail', [
     })
     .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $timeout, $rootScope) {
         $scope.$on('$stateChangeStart', function () {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
         $scope.tabs = TabsService.getTabs();

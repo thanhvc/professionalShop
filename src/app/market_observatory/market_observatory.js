@@ -75,6 +75,7 @@ angular.module('ngMo.market_observatory', [
     })
 
     .controller('Market_ObservatoryCtrl', function Market_ObservatoryCtrl($scope, IsLogged) {
+        IsLogged.isLogged(false);
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });
