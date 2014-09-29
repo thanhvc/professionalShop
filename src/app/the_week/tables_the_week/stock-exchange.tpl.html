@@ -77,3 +77,4 @@
     <div class="toggle-tables-link show-more" ng-click="showIndices=!showIndices" ng-show="(showIndices && area.regions.length > 1)">Mostrar más Índices {{area.name}}</div>
     <div class="toggle-tables-link show-less" ng-click="showIndices=!showIndices" ng-hide="showIndices">Mostrar menos Índices {{area.name}}</div>
 </div>
+<div style="width:800px" class="no-patterns-container" ng-if="stockAreas.length == 0">LA SEMANA ESTÁ PENDIENTE DE CALCULAR</div>
