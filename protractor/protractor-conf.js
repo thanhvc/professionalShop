@@ -20,6 +20,7 @@ exports.config = {
         packs: '../src/app/my_subscriptions/*protractor.js',
         profile: '../src/app/my_profile/*protractor.js',
         lookup_diary: '../src/app/lookup_diary/*protractor.js',
+        my_subscriptions: '../src/app/my_subscriptions/*protractor.js'
 
     },
     multiCapabilities: [
@@ -41,7 +42,7 @@ exports.config = {
             'phantomjs.cli.args': [ "--ignore-ssl-errors=true", "--web-security=false"],
             //},
 
-           //  browserName: 'chrome'
+             //browserName: 'chrome'
         }
         // },
         /*

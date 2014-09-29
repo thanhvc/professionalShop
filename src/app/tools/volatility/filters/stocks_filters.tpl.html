@@ -4,6 +4,7 @@
             <tr>
                 <td>
                     <input ng-change="search();" class="border-filters input-filter input-name-volat" placeholder="Nombre" ng-delay="2000"
+                           ng-enter="search();"
                            ng-model="filterOptions.filters.filterName">
 
                 </td>
@@ -47,7 +48,8 @@
                     </select>
                     <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
-                           style="margin-left: 2px;"
+                           ng-delay="2000"
+                           style="margin-left: 2px;" ng-delay="2000"
                            ng-change="search();"
                            ng-class=" {'warning-input':  (rentForm.volatilityInput.$error.pattern && (rentForm.volatilityInput.$dirty))}"
                            data-ng-model="filterOptions.filters.volatilityInput">

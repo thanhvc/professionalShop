@@ -1,12 +1,13 @@
 
 describe('The cart directive', function () {
     beforeEach(angular.mock.module("ngMo"));
+    beforeEach(angular.mock.module("ngMo.my_patterns"));
     describe('template', function () {
         var $compile;
         var $scope;
         var $state;
-        var httpMock;
-
+        var httpMock,startDate0;
+        var date = {month: new Date().getMonth() + 1, year: new Date().getFullYear()};
         beforeEach(module('templates-app'));
         beforeEach(module('auth'));
 
@@ -24,11 +25,62 @@ describe('The cart directive', function () {
             $scope = _$rootScope_.$new();
             $window = _$window_;
 
-
         }));
 
+        getMonthName = function (date) {
+
+            var monthString = "";
+            switch (date.month) {
+                case 1:
+                    monthString = "Enero";
+                    break;
+                case 2:
+                    monthString = "Febrero";
+                    break;
+                case 3:
+                    monthString = "Marzo";
+                    break;
+                case 4:
+                    monthString = "Abril";
+                    break;
+                case 5:
+                    monthString = "Mayo";
+                    break;
+                case 6:
+                    monthString = "Junio";
+                    break;
+                case 7:
+                    monthString = "Julio";
+                    break;
+                case 8:
+                    monthString = "Agosto";
+                    break;
+                case 9:
+                    monthString = "Septiembre";
+                    break;
+                case 10:
+                    monthString = "Octubre";
+                    break;
+                case 11:
+                    monthString = "Noviembre";
+                    break;
+                case 12:
+                    monthString = "Diciembre";
+                    break;
+                default :
+                    monthString = "notFound";
+                    break;
+
+            }
+            return monthString;
+        };
+
+        date.month = getMonthName(date);
+        startDate0 = date.month + ' ' +date.year;
+
         addItemsToCart = function (numItems,type,patternType, duration) {
-            startDate= 1406934000000;
+            //startDate= 1406934000000;
+            startDate = new Date();
             for (var i = 0; i < numItems; i++) {
                 item = {
                     "code": i,
@@ -215,21 +267,22 @@ describe('The cart directive', function () {
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
-            addItemsToCart(2,'STOCK',0,"Anual");
+            addItemsToCart(2,'STOCK','SIMPLE',"Anual");
             var itemToRemove = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29
             };
             $scope.addNewItemCart(itemToRemove,itemToRemove.startDate, itemToRemove.duration);
             $scope.removeItemCart('pairs', itemToRemove);
+            $scope.$apply();
             var trsCart = template.find('tr');
             var log = [];
             log = obtainLog(trsCart, log);
-            //expect(log.length).toEqual(2);
+           // expect(log.length).toEqual(2);
             log = [];
             log = obtainSubtotal(trsCart, log);
             // expect(log[0].indexOf('626')).toNotEqual(-1);
@@ -275,15 +328,14 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 0); //type = stock
             expect(log.indexOf('0')).toNotEqual(previousPrice);
-
         }));
 
         //Change duration
@@ -301,15 +353,14 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
-                "duration": "Mensual",
+                "duration": "Anual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 0); //type = stock
             expect(log.indexOf('0')).toNotEqual(previousPrice);
-
         }));
 
         //Change duration
@@ -327,11 +378,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
-                "duration": "Mensual",
+                "duration": "Trimestral",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 0); //type = stock
             $scope.$apply();
@@ -354,11 +405,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 2);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -380,11 +431,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
-                "duration": "Mensual",
+                "duration": "Anual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 2);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -406,11 +457,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
-                "duration": "Mensual",
+                "duration": "Trimestrañ",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 2);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -431,11 +482,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item,4);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -457,11 +508,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 4);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -483,11 +534,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 4);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -509,11 +560,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item,1);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -535,11 +586,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 1);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -561,11 +612,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 1);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -588,11 +639,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate":startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item,3);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -614,11 +665,11 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item,3);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
@@ -640,17 +691,16 @@ describe('The cart directive', function () {
             var item = {
                 "id": 25,
                 "packName": "Nuevo",
-                "startDate": "May/14",
+                "startDate": startDate0,
                 "date": "May/14",
                 "duration": "Mensual",
                 "price": 29,
-                "code":1
+                "code":0
             };
             $scope.changeDurationCart(item, 3);
             expect(log.indexOf('0')).toNotEqual(previousPrice);
 
         }));
-
 
         //Add index item
         it('should let the user add index items to cart', inject(function() {
@@ -853,10 +903,10 @@ describe('The cart directive', function () {
             var prices =[23,12,45];
             var d = '28/09/2014';
             var pack0 =  {name: 'pack1', startDate: d,'date': d, code: 1234, productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error"};
-            var pack1 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'STOCK', prices: prices, collition : "error"};
+            var pack1 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'STOCK', prices: prices, collition : "error",duration:2};
             var pack2 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE' ,patternType: "SIMPLE", prices: prices, collition : "error"};
-            var pack3 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE', prices: prices, collition : "error"};
-            var pack4 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE', prices: prices, collition : "error"};
+            var pack3 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE', prices: prices, collition : "error",duration:3};
+            var pack4 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE', prices: prices, collition : "error",duration:2};
 
             var template = $compile("<div cart></div>")($scope);
             $scope.$broadcast('toggleItemCart',pack0);
@@ -890,12 +940,12 @@ describe('The cart directive', function () {
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             $scope.$broadcast('toggleItemCart',pack0);
-            $scope.$broadcast('changeDurationItem',pack0);
+            //$scope.$broadcast('changeDurationItem',pack0);
             $scope.$apply();
 
            /* $scope.$broadcast('toggleItemCart',pack1);
             $scope.$broadcast('changeDurationItem',pack1);
-            $scope.$apply();*/
+            $scope.$apply();
             $scope.$broadcast('toggleItemCart',pack2);
             $scope.$broadcast('changeDurationItem',pack2);
             $scope.$apply();
@@ -906,7 +956,7 @@ describe('The cart directive', function () {
 
             $scope.$broadcast('toggleItemCart',pack4);
             $scope.$broadcast('changeDurationItem',pack4);
-            $scope.$apply();
+            $scope.$apply();*/
 
         }));
 
@@ -993,19 +1043,38 @@ describe('The cart directive', function () {
 
         }));
 
-        it('should be able to remove multiple items', function(){
+        it('should be check if a future item already exists', inject(function(){
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
             var d = '28/09/2014';
-            var pack = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'INDICE' ,patternType: "SIMPLE"};
-            var pack4 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE' ,patternType: "SIMPLE"};
+            var pack = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE'};
+            $scope.$broadcast('toggleItemCart',pack);
+
+            $scope.$apply();
+            var res;
+            res = $scope.existsPack(pack);
+            expect(res).toBeDefined();
+
+        }));
+
+        it('should be able to remove multiple items', function(){
+            var template = $compile("<div cart></div>")($scope);
+            $scope.$apply();
+            var pack = {name: 'pack1', startDate: startDate0,'date': startDate0,code: 1234, productType: 'INDICE' ,patternType: "SIMPLE",duration: "Trimestral"};
+            var pack2 = {name: 'pack1', startDate: startDate0,'date': startDate0,code: 1234, productType: 'INDICE' ,patternType: "",duration: "Trimestral"};
+            var pack4 = {name: 'pack1', startDate: startDate0,'date': startDate0,code: 1234, productType: 'FUTURE' ,patternType: "",duration: 1};
             $scope.$broadcast('toggleItemCart',pack);
             $scope.$apply();
+
             $scope.deleteMultiplePacks(pack);
             $scope.$apply();
             $scope.$broadcast('toggleItemCart',pack4);
             $scope.$apply();
-            $scope.deleteMultiplePacks(pack);
+            $scope.deleteMultiplePacks(pack4);
+
+            $scope.$broadcast('toggleItemCart,pack2');
+            $scope.$apply();
+            $scope.deleteMultiplePacks(pack2);
             $scope.$apply();
             expect($scope.deleteMultiplePacks).toBeDefined();
         });
@@ -1267,18 +1336,19 @@ describe('The scroll directive', function () {
     describe('template', function () {
         var $compile;
         var $scope;
-        var $state;
+        var $window;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, _$window_) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
+            $window = _$window_;
         }));
 
         it('should let the user scroll', function(){
             delete $window.sessionStorage.cart;
             var template = $compile("<div scroll></div>")($scope);
             $scope.$apply();
-            // template.triggerHandler('scroll');
+            $window.scrollTo(10000);
         });
     });
 
@@ -1349,7 +1419,8 @@ describe('The ngEnter directive', function () {
         it('should bind keypress event', function(){
             delete $window.sessionStorage.cart;
             var template = $compile("<div ng-enter></div>")($scope);
-            template.triggerHandler('keypress',13);
+            var e = {which: 13};
+            template.triggerHandler('keypress',e);
 
         });
     });
@@ -1549,7 +1620,6 @@ describe('The ShoppingCartService', function () {
             delete $window.sessionStorage.cart;
             $scope.$apply();
             //$scope.hideFSignInForm();
-
         }));
 
         it('should get elements prices', inject(function(){
@@ -1719,6 +1789,7 @@ describe('The app controller', function(){
         $controller('AppCtrl', {'$rootScope' : $rootScope, '$scope': $scope, 'ActualDateService': actualService, '$state': $state});
         _$httpBackend_.when('GET',$rootScope.urlService + '/actualdate').respond(200,{"data": new Date()});
         _$httpBackend_.when('GET',$rootScope.urlService + '/nextdate').respond(200,{"data": new Date()});
+        _$httpBackend_.when('POST',$rootScope.urlService + '/remember-password').respond(200,{"status":"ok"});
     }));
 
     it('should success when changing state at the beginning', function(){
@@ -1745,6 +1816,13 @@ describe('The app controller', function(){
     it('should open modal instance', function() {
         $scope.openModalInstance();
         expect($scope.openModalInstance).toNotBe(undefined);
+    });
+
+    it('should be able to remember password', function() {
+        http.expectPOST($scope.urlService + '/remember-password');
+        $scope.rememberPassword();
+        http.flush();
+        expect($scope.mailSent).toBe(true);
     });
 
 });

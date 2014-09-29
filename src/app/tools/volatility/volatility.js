@@ -25,79 +25,12 @@ angular.module('ngMo.volatility', [
                 selectItemSubmenu: 'volatility-nav',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false,
-            resolve: {
-                MonthSelectorService: "MonthSelectorService",
-                VolatilityService: "VolatilityService",
-                SelectedMonthService: "SelectedMonthService",
-                TabsService: "TabsService",
-                IsLogged: "IsLogged",
-                filtering : function(TabsService,MonthSelectorService,$location, SelectedMonthService){
-                    comparatorsConversor= [1,0];
-                    var params = $location.search();
-                    //just to select a item like a selector for load params
-                    operations= [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
-                    ];
-                        operationsIndex= [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
-                    ];
-                        comparators= [
-                        {"id": 1, "description": "Mayor que"},
-                        {"id": 0, "description": "Menor que"}
+            reloadOnSearch: false
 
-                    ];
-
-                    filters =  {
-                        active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                        month: SelectedMonthService.getSelectedMonth(),
-                        durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
-                        favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
-                        filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
-                        index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
-                        selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "" ),
-                        selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
-                        selectedOperation: (typeof params.qop !== "undefined" ? operations[parseInt(params.qop,10)] : "" ),
-                        selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
-                        selectedSector: (typeof params.qsector !== "undefined" ? $scope.qsector : ""),
-                        selectedVolatility: (typeof params.qselvol !== "undefined" ? comparators[comparatorsConversor[parseInt(params.qselvol ,10)]] : "" ),
-                        tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
-                        volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" ),
-                        page: (typeof params.pag !== "undefined" ? params.pag : "" )
-                    };
-                    //special case for index
-                    if ((filters.active_tab === 2)) {//case of index
-                        //only for index, not pair index
-                        if ((filters.index_type ===0) || (filters.index_type ==="0"))  {
-                            filters.selectedOperation= (typeof params.qop !== "undefined" ?  operationsIndex[parseInt(params.qop,10)] : "" );
-                        } else {
-                            filters.selectedOperation="";
-                        }
-
-                    } else {
-                        filters.selectedOperation= (typeof params.qop !== "undefined" ?  selectors.operations[parseInt(params.qop,10)] : "" );
-                    }
-                    return filters;
-
-                },
-                myPatternsData: function(VolatilityService, filtering,IsLogged) {
-                    IsLogged.isLogged();
-                    return VolatilityService.getPagedDataAsync(1, filtering).then(function (data){
-                        return {
-                            patterns: data.patterns,
-                            results: data.results,
-                            found: data.found
-                        };
-
-                    });
-                }
-            }
         });
     })
 
-    .controller('VolatilityCtrl', function VolatilityCtrl($scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged, myPatternsData, SelectedMonthService, UserApplyFilters) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,  SelectedMonthService, UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged();
         });
@@ -107,7 +40,7 @@ angular.module('ngMo.volatility', [
             }
             IsLogged.isLogged();
         });
-        $scope.loading = false;
+        $scope.loading = true;
 
         $scope.startLoading = function() {
             $scope.loading = true;
@@ -379,6 +312,7 @@ angular.module('ngMo.volatility', [
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
             //we change the page to 1, to load the new tab
+            $scope.startLoading();
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();
             $scope.applyFilters();
@@ -851,9 +785,6 @@ angular.module('ngMo.volatility', [
         }
 
         //$scope.loadPage();
-        $scope.myData = myPatternsData.patterns;
-        $scope.results = myPatternsData.results;
-        $scope.found = myPatternsData.found;
         $scope.$on('body-click',function() {
             $scope.closeGraph();
         });

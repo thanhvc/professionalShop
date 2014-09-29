@@ -39,6 +39,9 @@
 
         <div ng-include="the_week_table.url"></div>
             </div>
+        <div ng-show="empty" class="loading-div  loading-week">
+            LA SEMANA ESTÁ PENDIENTE DE CALCULAR.
+        </div>
     </tab>
 </tabset>
 <span style="margin-bottom:50px;" class="copyright">Copyright © {{actualDate | date: 'yyyy'}} Market Observatory</span>

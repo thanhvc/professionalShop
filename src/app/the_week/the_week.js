@@ -33,7 +33,8 @@ angular.module('ngMo.the_week', [
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
             IsLogged.isLogged();
         });
-        $scope.loading= false;
+        $scope.loading= true;
+        $scope.empty = false;
         $scope.days= [];
         $scope.obtainDateMondaythisWeek = function () {
             var firstDay = ActualDateService.actualDate(function (data) {
@@ -101,6 +102,7 @@ angular.module('ngMo.the_week', [
             $scope.loading= true;
             $http.get($rootScope.urlService+"/weekData/"+currentYear, config).success(function(data){
                 $scope.loading= false;
+
                 stockAreas = data[0];
                 $scope.stockAreas = data.STOCKS;
                 $scope.commoditiesAreas = data.COMMODITIES;
@@ -123,62 +125,58 @@ angular.module('ngMo.the_week', [
                 //in the same loop we are going to set which asset is grey and which is white (in the TR)
                 //that's because cant be set by CSS,
                 var isGrey=false;
-                if (typeof $scope.stockAreas !== 'undefined') {
-                    for (i = 0; i < $scope.stockAreas.length; i++) {
-                        //areas loop
-                        isGrey = false;
-                        for (j = 0; j < $scope.stockAreas[i].regions.length; j++) {
-                            if (j < sectionsToDisplay[i]) {
-                                $scope.stockAreas[i].regions[j].initial_show = true;
-                            }
-                            for (k = 0; k < $scope.stockAreas[i].regions[j].assets.length; k++) {
-                                //loop setting each css
-                                $scope.stockAreas[i].regions[j].assets[k].isGrey = isGrey;
-                                isGrey = !isGrey;
-                            }
+                if (typeof $scope.stockAreas === "undefined") {
+                    $scope.stockAreas = [];
+                    $scope.commoditiesAreas = [];
+                    $scope.sypSectors = [];
+                    $scope.empty = true;
+                    return;
+                } else {
+                    $scope.empty = true;
+                }
+                for (i= 0; i<$scope.stockAreas.length; i++) {
+                    //areas loop
+                    isGrey=false;
+                    for (j=0; j<$scope.stockAreas[i].regions.length;j++) {
+                        if (j<sectionsToDisplay[i]) {
+                            $scope.stockAreas[i].regions[j].initial_show= true;
+                        }
+                        for (k=0; k<$scope.stockAreas[i].regions[j].assets.length;k++) {
+                            //loop setting each css
+                            $scope.stockAreas[i].regions[j].assets[k].isGrey= isGrey;
+                            isGrey = !isGrey;
                         }
                     }
                 }
 
                 //for others tabs just is even/odd in each sect
-                if (typeof $scope.commoditiesAreas !== 'undefined') {
-                    for (i = 0; i < $scope.commoditiesAreas.length; i++) {
-                        //areas loop
 
-                        for (j = 0; j < $scope.commoditiesAreas[i].regions.length; j++) {
-                            isGrey = false;
-                            for (k = 0; k < $scope.commoditiesAreas[i].regions[j].assets.length; k++) {
-                                //loop setting each css
-                                $scope.commoditiesAreas[i].regions[j].assets[k].isGrey = isGrey;
-                                isGrey = !isGrey;
-                            }
+                for (i= 0; i<$scope.commoditiesAreas.length; i++) {
+                    //areas loop
+
+                    for (j=0; j<$scope.commoditiesAreas[i].regions.length;j++) {
+                        isGrey=false;
+                        for (k=0; k<$scope.commoditiesAreas[i].regions[j].assets.length;k++) {
+                            //loop setting each css
+                            $scope.commoditiesAreas[i].regions[j].assets[k].isGrey= isGrey;
+                            isGrey = !isGrey;
                         }
                     }
                 }
-                if (typeof $scope.sypSectors !== 'undefined') {
-                    for (i = 0; i < $scope.sypSectors.length; i++) {
-                        //areas loop
+                for (i= 0; i<$scope.sypSectors.length; i++) {
+                    //areas loop
 
-                        for (j = 0; j < $scope.sypSectors[i].regions.length; j++) {
-                            isGrey = false;
-                            for (k = 0; k < $scope.sypSectors[i].regions[j].assets.length; k++) {
-                                //loop setting each css
-                                $scope.sypSectors[i].regions[j].assets[k].isGrey = isGrey;
-                                isGrey = !isGrey;
-                            }
+                    for (j=0; j<$scope.sypSectors[i].regions.length;j++) {
+                        isGrey=false;
+                        for (k=0; k<$scope.sypSectors[i].regions[j].assets.length;k++) {
+                            //loop setting each css
+                            $scope.sypSectors[i].regions[j].assets[k].isGrey= isGrey;
+                            isGrey = !isGrey;
                         }
                     }
                 }
 
-                if (typeof $scope.stockAreas === 'undefined'){
-                    $scope.stockAreas = [];
-                }
-                if (typeof $scope.commoditiesAreas === 'undefined'){
-                    $scope.commoditiesAreas = [];
-                }
-                if (typeof $scope.sypSectors === 'undefined'){
-                    $scope.sypSectors = [];
-                }
+
             })
             .error(function(data){
                     console.log("error");

@@ -5,15 +5,18 @@ describe('The SignUp ', function () {
         var compile;
         var scope;
         var state;
-        var template;
+        var template,httpMock,$location;
+        var data = {password: "pass", length: 1};
         beforeEach(module('ui.router'));//needed to user $state
         beforeEach(module('ui.bootstrap'));//to load $modal
         beforeEach(angular.mock.module('singUp'));//start the module
-        beforeEach(inject(function ($templateCache, $compile, $rootScope, $controller, $state, $httpBackend) {
+        beforeEach(inject(function ($templateCache, $compile, $rootScope, $controller, $state, _$location_, $httpBackend) {
 
             httpMock = $httpBackend;
+            $location = _$location_;
             httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
             httpMock.when('GET', $rootScope.urlService+'/countries').respond(200);
+            httpMock.when('POST', $rootScope.urlService+'/login').respond(200,{'result': 'ok'});
             httpMock.when('POST', $rootScope.urlService+'/testemail').respond(
                 {
                     result: "ok"
@@ -121,8 +124,103 @@ describe('The SignUp ', function () {
 
             expect(state.$current.url.source).toEqual("/sign-up-successful");
 
+            var result = {username: "used"};
+            scope.firstCallback(result);
+
+            //another branch
+            result = {};
+            scope.firstCallback(result);
+            expect(scope.errorForm).toBe(true);
+
+            //clear state
+            scope.clearState();
+            expect(scope.result).toBe("");
+
+            //other branch of secondCallback
+            result = {username: "used", status: "incorrectCaptcha"};
+            scope.secondCallback(result);
+
+            //other branch of secondCallback
+            result = {username: "used", status: ""};
+            scope.secondCallback(result);
+            scope.newSubscriptionMode = "signup";
+            scope.$apply();
+            scope.createNewSubs();
+
+            scope.newSubscriptionMode = "login";
+            scope.$apply();
+            scope.createNewSubs();
+
+            scope.submit();
+            expect(scope.submit).toBeDefined();
         });
 
+    });
+});
+
+describe('The match directive', function () {
+
+    beforeEach(angular.mock.module("ngMo"));
+
+    describe('template', function () {
+        var $compile;
+        var $scope;
+        var $state;
+        var httpMock;
+
+        beforeEach(module('templates-app'));
+        beforeEach(angular.mock.module('singUp'));//start the module
+        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend) {
+            $compile = _$compile_;
+            $scope = _$rootScope_.$new();
+            $state = _$state_;
+            httpMock = $httpBackend;
+        }));
+
+        it('should respond to a click event', inject(function () {
+            var template = $compile("<watch></watch>")($scope);
+            $scope.$apply();
+            template.triggerHandler('click');
+        }));
+    });
+});
+
+describe('The signup service', function () {
+
+    beforeEach(angular.mock.module("ngMo"));
+
+    describe('template', function () {
+        var $compile;
+        var $scope;
+        var $state;
+        var httpMock,service,user;
+        var result = {status :"ok"};
+
+        beforeEach(module('templates-app'));
+        beforeEach(angular.mock.module('singUp'));//start the module
+        beforeEach(inject(function (SignUpService,_$compile_, _$rootScope_, _$state_, $httpBackend) {
+            service = SignUpService;
+            $compile = _$compile_;
+            $scope = _$rootScope_.$new();
+            $state = _$state_;
+            httpMock = $httpBackend;
+            httpMock.when('POST', _$rootScope_.urlService + '/testemail').respond(200,result);
+            httpMock.when('POST', _$rootScope_.urlService + '/user').respond(200,result);
+            user = {id: 1};
+        }));
+
+        it('should test email', inject(function () {
+            httpMock.expectPOST($scope.urlService + '/testemail');
+            service.firstStep(user,function(){var i = result;});
+            httpMock.flush();
+        }));
+
+
+        it('should check if user is ok', inject(function () {
+            httpMock.expectPOST($scope.urlService + '/user');
+            service.secondStep(user,function(){var i = result;});
+            httpMock.flush();
+        }));
 
     });
 });
