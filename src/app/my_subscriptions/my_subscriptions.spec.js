@@ -63,7 +63,7 @@ describe('My subscriptions controller', function() {
 
     var month = {month: date.getMonth(), year: date.getYear()};
     var m = date.getMonth()+1;
-    var url = '/mysubscriptions?month=' + m;
+    var url = '/mysubscriptions?month=' + m + '&token=1';
 
     var response = {STOCK : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, STOCKPAIR : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, INDICE : {INDEX: 'index'}, INDICEPAIR: {INDEX: 'index'},FUTURE : {FUTURE: 'future'}};
     beforeEach(angular.mock.module("ngMo"));
@@ -85,6 +85,7 @@ describe('My subscriptions controller', function() {
 
 
         _$httpBackend_.when('GET', $rootScope.urlService + url).respond(200,response);
+        _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200,response);
 
         $controller('MySubsCtrl', {'$rootScope' : $rootScope, '$scope': $scope, '$state': $state, 'ShoppingCartService' : _ShoppingCartService_});
 
@@ -197,6 +198,7 @@ describe('My subscriptions controller', function() {
         ShoppingCartService.addItemCart(item4);
 
         $http.expectGET($scope.urlService + url);
+        $http.expectGET($scope.urlService + '/islogged');
         $scope.loadPage();
         $http.flush();
         expect($scope.loading).toBe(false);
@@ -217,7 +219,8 @@ describe('My packs controller service', function() {
         $http = _$httpBackend_;
         $state = _$state_;
 
-        _$httpBackend_.when('GET', $rootScope.urlService + '/pack').respond(200,{pack: 'pack'});
+        _$httpBackend_.when('GET', $rootScope.urlService + '/pack?token=1').respond(200,{pack: 'pack'});
+        _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
 
         $controller('MyPacksCtrl', {'$rootScope' : $rootScope, '$scope': $scope, '$state': $state});
 
@@ -229,7 +232,8 @@ describe('My packs controller service', function() {
     });
 
     it("should be able to load the page", function () {
-        $http.expectGET($scope.urlService + '/pack');
+        $http.expectGET($scope.urlService + '/pack?token=1');
+        $http.expectGET($scope.urlService + '/islogged');
         $scope.loadPage();
         $http.flush();
         expect($scope.loading).toBe(false);

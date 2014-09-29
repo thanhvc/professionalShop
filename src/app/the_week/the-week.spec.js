@@ -17,6 +17,7 @@ describe('The week controller', function()  {
         actualDateService = ActualDateService;
         _$httpBackend_.when('GET', $rootScope.urlService + patternFilters).respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + '/weekData').respond(200);
+        _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + weekData).respond(200,{"STOCKS": [stock, stock], 'COMMODITIES': [stock,stock], 'SP500' : [stock,stock]});
         _$httpBackend_.when('GET',$rootScope.urlService + '/actualdate').respond(200,{"data": new Date()});
         _$httpBackend_.when('GET',$rootScope.urlService + '/numweek').respond(200,{"data": new Date()});
@@ -47,7 +48,8 @@ describe('The week controller', function()  {
 
         $http.expectGET($scope.urlService + '/actualdate');
         $http.expectGET($scope.urlService + '/numweek');
-        $http.expectGET($scope.urlService + weekData);
+        $http.expectGET($scope.urlService + '/islogged');
+       // $http.expectGET($scope.urlService + weekData);
         $scope.obtainDateMondaythisWeek();
         $http.flush();
         expect($scope.obtainDateMondaythisWeek).toBeDefined();

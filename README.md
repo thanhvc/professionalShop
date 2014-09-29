@@ -12,7 +12,8 @@ AngularJS client for Market Observatory Project
 Install Node.js latest version and then:
 
 ```sh
-$ git clone https://github.com/edosoft/mo-shopclient.git cd ng-boilerplate
+$ git clone https://github.com/edosoft/mo-shopclient.git 
+$ cd mo-shopclient
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
 $ bower install
