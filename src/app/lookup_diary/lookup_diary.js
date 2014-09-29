@@ -33,11 +33,11 @@ angular.module('ngMo.lookup_diary', [
                                              LookupDiaryService, $http, $state, $stateParams, $location,
                                              $modal,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope) {
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }

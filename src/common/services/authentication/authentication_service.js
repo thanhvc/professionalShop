@@ -28,7 +28,8 @@ angular.module('auth',['http-auth-interceptor'])
     })
 
     .service('IsLogged', function ($http, $window, $rootScope, $location) {
-        this.isLogged = function(){
+        //redirect param seys to the function if the service must redirect to home if the user is not logged
+        this.isLogged = function(redirect){
             token = $window.localStorage.token;
             if (typeof token ==="undefined" ) {
                 //doesnt exist a token, so the user is not loged
@@ -58,8 +59,10 @@ angular.module('auth',['http-auth-interceptor'])
                 })
                 .error(function (params, status, headers, config) {
                     $rootScope.isLog = false;
-                    if ($location.path() !== '/new-subscription') {
-                        $location.path('/home');
+                    if (redirect) {
+                        if ($location.path() !== '/new-subscription') {
+                            $location.path('/home');
+                        }
                     }
                 });
         };

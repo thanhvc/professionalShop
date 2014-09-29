@@ -111,26 +111,26 @@ angular.module('ngMo.my_subscriptions', [
     })
     .controller('MySubscriptionsCtrl',function ($scope,$rootScope, $state,IsLogged) {
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
     })
     .controller('MyPacksCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService, $state,$modal) {
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
                 $scope.subPage = toState.data.subPage;
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
         $scope.loadPage = function() {
@@ -242,7 +242,7 @@ angular.module('ngMo.my_subscriptions', [
         $scope.filterOptions = "";
         $scope.loading=true;
         $scope.$on('$stateChangeStart', function (event, toState){
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

@@ -32,13 +32,13 @@ angular.module('ngMo.volatility', [
 
     .controller('VolatilityCtrl', function VolatilityCtrl($scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,  SelectedMonthService, UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.loading = true;
 
