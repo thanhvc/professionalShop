@@ -223,7 +223,7 @@ angular.module('ngMo.services', [
     })
 
     .controller('ServicesCtrl', function ServicesCtrl($scope,PricesService, IsLogged,$templateCache) {
-
+        IsLogged.isLogged(false);
         $scope.tooltipOpinions = $templateCache.get("tooltips/opinion.tpl.html");
         $scope.tooltipReliability = $templateCache.get("tooltips/reliatibility.tpl.html");
         $scope.tooltipPeriods = $templateCache.get("tooltips/period.tpl.html");

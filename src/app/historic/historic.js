@@ -32,13 +32,13 @@ angular.module('ngMo.historic', [
     .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
                                           MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService, ExpirationYearFromPatternName,UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
         //event for keypress in input search name, launch the filters if press enter

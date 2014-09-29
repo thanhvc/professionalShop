@@ -28,13 +28,13 @@ angular.module('ngMo.calendar', [
     .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged,
                                           CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope) {//<- use location.search()
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.loading= false;
         $scope.selectedTab = TabsService.getActiveTab();

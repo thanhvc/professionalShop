@@ -76,13 +76,13 @@ angular.module('ngMo.my_profile', [
     .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state,$http,$rootScope, $timeout) {
         $scope.subPage = $state.$current.data.subPage;
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
         if ($state.current.name === "profile.orders") {
@@ -212,14 +212,14 @@ angular.module('ngMo.my_profile', [
         $scope.subPage = $state.$current.data.subPage;
         $scope.tog = 2;
         $scope.$on('$stateChangeStart', function (event, toState) {
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
         $scope.notFound= true;
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            IsLogged.isLogged();
+            IsLogged.isLogged(true);
         });
 
         if ($state.current.name === "profile.orders") {
