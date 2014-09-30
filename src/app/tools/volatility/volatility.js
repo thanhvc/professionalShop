@@ -42,6 +42,9 @@ angular.module('ngMo.volatility', [
         });
         $scope.loading = true;
 
+        //this shows if the user is filtering by volat filter, this is used to control the selector and the input of volat filter
+        $scope.filteringVolat = false;
+
         $scope.startLoading = function() {
             $scope.loading = true;
             $scope.myData = [];
@@ -390,6 +393,18 @@ angular.module('ngMo.volatility', [
             $scope.startLoading();
 
             $scope.applyFilters();
+        };
+
+        $scope.searchVolat = function () {
+            //if the user is filtering by the 2 filters (selector and input)
+            //the app start searching, if not, the filter is set to null, but we need check if the actual table is filtered, to
+            //search by default filter
+            if (($scope.filterOptions.filters.selectedVolatility !== "" && $scope.filterOptions.filters.selectedVolatility !== null) &&
+                ($scope.filterOptions.filters.volatilityInput !== "" && $scope.filterOptions.filters.volatilityInput !== null)) {
+                $scope.search();
+            } else if ($scope.filteringVolat) {
+                $scope.search();
+            }
         };
 
         /*apply filters to search, restarting the page*/
@@ -770,6 +785,14 @@ angular.module('ngMo.volatility', [
             $scope.filterOptions.filters = filters;
             $scope.updateSelectorMonth();
             $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
+
+            //check if is filtering by volat filter
+            if (($scope.filterOptions.filters.selectedVolatility !== "" && $scope.filterOptions.filters.selectedVolatility !== null) &&
+                ($scope.filterOptions.filters.volatilityInput !== "" && $scope.filterOptions.filters.volatilityInput !== null))  {
+               $scope.filteringVolat = true;
+            }  else {
+                $scope.filteringVolat = false;
+            }
 
         };
 

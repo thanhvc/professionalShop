@@ -16,8 +16,8 @@
             <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div class="name-pattern-container" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.asset.expirationYear}}"><span class="cursor-help">{{pattern.asset.longName | limitTo: 25}}</span></div></td>
             <td><span  class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
             <td>
-                <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'" class="cursor-help">V</span>
-                <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'" class="cursor-help">C</span>
+                <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BULLISH'" class="cursor-help">C</span>
+                <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BEARISH'" class="cursor-help">V</span>
             </td>
             <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 20}" ng-click="addToCorrelationList(pattern.id);">>></span></td>
         </tr>
@@ -52,8 +52,8 @@
                 <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div class="name-pattern-container" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}}) {{pattern.asset.expirationYear}}"><span class="cursor-help">{{pattern.asset.longName | limitTo: 25}}</span></div></td>
                 <td><span class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
                 <td>
-                    <span tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'" class="cursor-help">V</span>
-                    <span tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'" class="cursor-help">C</span>
+                    <span tooltip="COMPRA" ng-if="pattern.patternType == 'BULLISH'" class="cursor-help">C</span>
+                    <span tooltip="VENTA" ng-if="pattern.patternType == 'BEARISH'" class="cursor-help">V</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
                     <div class="current-favourite cursor-pointer" tooltip-placement="left" tooltip="Marcar Estrategia Favorita" ng-click="toggleFavoriteFromList(pattern.id);"
