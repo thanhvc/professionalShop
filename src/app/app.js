@@ -685,6 +685,22 @@ angular.module('ngMo', [
                 }
             });
         };
+
+
+
+        $scope.openModalCartAdvice = function(isTotal) {
+            $modal.open({
+                templateUrl: 'home/modalCartAdvice.tpl.html',
+                controller: ModalCartInstanceCtrl,
+                resolve: {
+                    totalCollide: function () {
+                        return isTotal;
+                    }
+                }
+            });
+        };
+
+
         //function trigger other functions when click into body
         $scope.hideElements = function () {
             $scope.hideSignInForm();
@@ -1516,6 +1532,7 @@ angular.module('ngMo', [
                                     item.prices = [0,0,0];
                                     item.price = 0;
                                     item.active = true;
+                                    $scope.openModalCartAdvice(true);
                                 } else {
                                     prices = [$scope.prices[0],$scope.prices[1],$scope.prices[2]];
                                     monthError = false;
@@ -1532,6 +1549,7 @@ angular.module('ngMo', [
                                         monthError = true;
                                     }
                                     if (monthError) {
+                                        $scope.openModalCartAdvice(false);
                                         item.prices = prices;
                                         switch (item.duration) {
                                             case "Mensual":
@@ -1850,3 +1868,16 @@ angular.module('ngMo', [
         $modalInstance.close();
     };
  };
+
+//modalPanel
+var ModalCartInstanceCtrl = function ($scope, $modalInstance, $timeout,totalCollide) {
+    $scope.totalCollide = totalCollide;
+    $scope.close = function () {
+        $modalInstance.close();
+    };
+    $scope.$on("body-click",function(){$scope.close();});
+    $timeout(function () {
+        $scope.close();
+    }, 3000);
+};
+
