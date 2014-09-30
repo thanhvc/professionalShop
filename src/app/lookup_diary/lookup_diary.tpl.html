@@ -89,31 +89,35 @@
 
 <script type="text/ng-template" id="myModalContent.html">
     <div class="modal-alert">
-        <div class="modal-header">
-            <div class="header">Alarma
-                <button class="btn-close btn-close-alert" ng-click="close()"></button>
+        <form name="alertForm">
+            <div class="modal-header">
+                <div class="header">Alarma
+                    <button class="btn-close btn-close-alert" ng-click="close()"></button>
+                </div>
             </div>
-        </div>
-        <div class="modal-body">
-            Establecer Condición Aviso en <span ng-if="patternType != null">Precio de Cierre</span> <span ng-if="patternType == null">Rentabilidad</span>
-            <br>
-            <span ng-class="{'buy-color': patternType == 'BULLISH' || patternType == null, 'sell-color' : patternType == 'BEARISH'}" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{assetName}}</b></span>
-            <br>
-            <div ng-show="bearishAssetName != ''" style="line-height: 0;margin-bottom: 15px;">
-                <span ng-show="bearishAssetName != ''" class="sell-color" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{bearishAssetName}}</b></span>
+            <div class="modal-body">
+                Establecer Condición Aviso en <span ng-if="patternType != null">Precio de Cierre</span> <span ng-if="patternType == null">Rentabilidad</span>
+                <br>
+                <span ng-class="{'buy-color': patternType == 'BULLISH' || patternType == null, 'sell-color' : patternType == 'BEARISH'}" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{assetName}}</b></span>
+                <br>
+                <div ng-show="bearishAssetName != ''" style="line-height: 0;margin-bottom: 15px;">
+                    <span ng-show="bearishAssetName != ''" class="sell-color" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{bearishAssetName}}</b></span>
+                </div>
+                <select data-ng-model="data.price_condition">
+                    <option value="0">Mayor que</option>
+                    <option value="1">Menor que</option>
+                </select>
+                <input type="text" data-ng-model="data.price" name="priceInput"
+                       ng-class=" {'warning-input':  (alertForm.priceInput.$error.pattern && (alertForm.priceInput.$dirty))}"
+                       ng-pattern="rentPattern">
+                <br>
+                <span class="warning-text" ng-if="showAlertMessage">Este Patrón ya cumple la condición introducida</span>
             </div>
-            <select data-ng-model="data.price_condition">
-                <option value="0">Mayor que</option>
-                <option value="1">Menor que</option>
-            </select>
-            <input type="text" data-ng-model="data.price">
-            <br>
-            <span class="warning-text" ng-if="showAlertMessage">Este Patrón ya cumple la condición introducida</span>
-        </div>
-        <div class="modal-footer">
-            <button class="mo-button float-left" ng-click="ok()">Aceptar</button>
-            <button class="mo-button float-right" ng-click="cancel()">Eliminar</button>
-        </div>
+            <div class="modal-footer">
+                <button class="mo-button float-left" ng-click="ok()">Aceptar</button>
+                <button class="mo-button float-right" ng-click="cancel()">Eliminar</button>
+            </div>
+        </form>
     </div>
 </script>
 
