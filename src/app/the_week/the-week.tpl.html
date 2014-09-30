@@ -39,7 +39,7 @@
 
         <div ng-include="the_week_table.url"></div>
             </div>
-        <div ng-show="empty" class="loading-div  loading-week">
+        <div ng-show="empty && !loading" class="loading-div  loading-week">
             LA SEMANA ESTÁ PENDIENTE DE CALCULAR.
         </div>
     </tab>
