@@ -18,8 +18,8 @@
                 <td><span class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
                 <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
                 <td>
-                    <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'">V</span>
-                    <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'">C</span>
+                    <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BULLISH'">C</span>
+                    <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BEARISH'">V</span>
                 </td>
                 <td class="portfolio-button"><span ng-class="{'disable-arrow': portfolioList.length >= 20}" ng-click="addToPortfolioList(pattern.id);">>></span></td>
             </tr>
@@ -63,8 +63,8 @@
                     {{pattern.entryDate | date: 'MMM'}}
                 </td>
                 <td>
-                    <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BULLISH'">V</span>
-                    <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BEARISH'">C</span>
+                    <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patternType == 'BULLISH'">C</span>
+                    <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patternType == 'BEARISH'">V</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
                     <div class="current-favourite cursor-pointer" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavoriteFromList(pattern.id);"
