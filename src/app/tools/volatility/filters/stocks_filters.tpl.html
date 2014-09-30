@@ -42,7 +42,7 @@
                 <td class="td-volatility-filter" style="width:145px;">  <form name="rentForm">
                     <select class="border-filters select-filter select-filter input-op-volat"
                             ng-options="item.description for item in filterOptions.selectors.comparators"
-                            ng-change="search();"
+                            ng-change="searchVolat();"
                             data-ng-model="filterOptions.filters.selectedVolatility">
                         <option value="">- Volatilidad -</option>
                     </select>
@@ -50,13 +50,13 @@
                            ng-pattern="rentPattern" ng-trim="false"
                            ng-delay="2000"
                            style="margin-left: 2px;" ng-delay="2000"
-                           ng-change="search();"
+                           ng-change="searchVolat();"
                            ng-class=" {'warning-input':  (rentForm.volatilityInput.$error.pattern && (rentForm.volatilityInput.$dirty))}"
                            data-ng-model="filterOptions.filters.volatilityInput">
                     </form>
                 </td>
                 <td>
-                    <input type="checkbox" ng-change="search();" style="float:left;"
+                    <input type="checkbox" ng-change="searchVolat();" style="float:left;"
                            ng-model="filterOptions.filters.favourite">
 
                     <div class="favourite-text" style="color:white;">Favoritos</div>
