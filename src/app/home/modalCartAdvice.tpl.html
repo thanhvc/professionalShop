@@ -1,0 +1,13 @@
+<div class="info-modal-cart" id="info-modal-cart">
+    <div class="modal-header">
+        <button class="btn-close" ng-click="close()"></button>
+    </div>
+    <div class="modal-body-cart">
+        <div ng-show="totalCollide">
+       Ha agregado una subscripción de un pack al que ya está subscrito.
+        </div>
+        <div ng-show="!totalCollide">
+            Ha agregado una subscripción de un pack que puede colisionar con otra subscripción que ya posee.
+        </div>
+    </div>
+</div>
