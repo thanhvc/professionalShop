@@ -132,7 +132,7 @@ angular.module('ngMo.the_week', [
                     $scope.empty = true;
                     return;
                 } else {
-                    $scope.empty = true;
+                    $scope.empty = false;
                 }
                 for (i= 0; i<$scope.stockAreas.length; i++) {
                     //areas loop
