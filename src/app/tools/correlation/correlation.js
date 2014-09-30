@@ -424,7 +424,7 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.toggleFavorite = function (patternId){
-            var data = PatternsService.setFavorite(patternId).then(function (data) {
+            var data = CorrelationService.setFavorite(patternId).then(function (data) {
                 $scope.loadPage();
             });
         };
@@ -987,6 +987,23 @@ angular.module('ngMo.correlation', [
                 callback(data);
             });
 
+        };
+
+        this.setFavorite = function (patternId) {
+            var deferred = $q.defer();
+            var data;
+            config = {
+                params: {
+                    'patternId': patternId,
+                    'token': $window.localStorage.token
+                }
+            };
+            var result = $http.get($rootScope.urlService+'/favoriteasset', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
 
         this.getCorrelationPdf = function (correlationList, filtering) {
