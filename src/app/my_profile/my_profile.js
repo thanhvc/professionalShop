@@ -189,6 +189,10 @@ angular.module('ngMo.my_profile', [
                         if (data.result == "ok") {
                             $scope.internalErrorPass = false;
                             $scope.passwordError = false;
+                            $scope.userSaved = true;
+                            $timeout(function () {
+                                $scope.userSaved = false;
+                            }, 800);
                         } else {
                             $scope.internalErrorPass = false;
                             $scope.passwordError = true;

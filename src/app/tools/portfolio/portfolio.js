@@ -25,7 +25,7 @@ angular.module('ngMo.portfolio', [
     })
 
     .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
-                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters) {
+                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters, AnchorLinkService) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
@@ -190,6 +190,9 @@ angular.module('ngMo.portfolio', [
         };
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            if (idTab === TabsService.getActiveTab()){
+                return;
+            }
             $scope.startLoading();
             //we change the page to 1, to load the new tab
             TabsService.changePortfolioActiveTab(idTab);
@@ -336,7 +339,7 @@ angular.module('ngMo.portfolio', [
 
 
         $scope.toggleFavoriteFromList =  function (patternId){
-            var data = PatternsService.setFavorite(patternId).then(function (data) {
+            var data = PortfolioService.setFavorite(patternId).then(function (data) {
                 //if returned, we set favorite true on the result table (if exists) and the pattern
                 for (i = 0; i<$scope.portfolioList.length;i++) {
                     if ($scope.portfolioList[i].id === patternId) {
@@ -356,7 +359,7 @@ angular.module('ngMo.portfolio', [
 
         //set favorite/or delete favorite in the DB, is used from the result table
         $scope.toggleFavorite = function (patternId){
-            var data = PatternsService.setFavorite(patternId).then(function (data) {
+            var data = PortfolioService.setFavorite(patternId).then(function (data) {
                 $scope.loadPage(false);
                 $scope.drawdown();
             });
@@ -379,7 +382,11 @@ angular.module('ngMo.portfolio', [
                     break;
             }
             $scope.portfolioData = [];
-            $scope.loadPage(true);
+            $scope.loadPage(false);
+        };
+
+        $scope.goToTop = function () {
+            AnchorLinkService.scrollTo('top');
         };
 
         //execute the calculation of portfolio
@@ -749,6 +756,23 @@ angular.module('ngMo.portfolio', [
                 error(function(data) {
                     callbackFunc(data);
                 });
+        };
+
+        this.setFavorite = function (patternId) {
+            var deferred = $q.defer();
+            var data;
+            config = {
+                params: {
+                    'patternId': patternId,
+                    'token': $window.localStorage.token
+                }
+            };
+            var result = $http.get($rootScope.urlService+'/favoriteasset', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
 
         this.getPortfolioData = function (portfolioList, filtering) {

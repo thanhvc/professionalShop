@@ -16,14 +16,14 @@ describe('The portfolio controller', function () {
 
         var pattern = {patternType: "STOCK", id:1};
         var patterns = {patterns :[pattern,pattern]};
-        var addPortfolio = '/portfoliopatterns?add_delete=0&durationInterval=&favourites=&indexType=0&market=&month=9&name=&operation=&page=1&patternId=%7B%22patternType%22:%22STOCK%22%7D&productType=0&region=&year=2014';
-        var addList = '/portfoliopatterns?add_delete=0&durationInterval=&favourites=&indexType=0&market=&month=9&name=&operation=&page=1&patternId=%7B%22patternType%22:%22STOCK%22,%22id%22:1%7D&portfolioList=1&productType=0&region=&token=1&year=2014';
-        var addPortfolioId = '/portfoliopatterns?add_delete=0&durationInterval=&favourites=&indexType=0&market=&month=9&name=&operation=&page=1&patternId=%7B%22patternType%22:%22STOCK%22,%22id%22:1%7D&productType=0&region=&year=2014';
-        var deletePortfolio = '/portfoliopatterns?add_delete=1&durationInterval=&favourites=&indexType=0&market=&month=9&name=&operation=&page=1&patternId=%7B%22patternType%22:%22STOCK%22%7D&productType=0&region=&year=2014';
-        var deleteList = '/portfoliopatterns?add_delete=1&durationInterval=&favourites=&indexType=0&market=&month=9&name=&operation=&page=1&patternId=1&portfolioList=1&productType=0&region=&token=1&year=2014';
-        var patternFilters = '/patternfilters?indexType=0&market=&month=9&productType=0&region=&token=1&view=&year=2014';
-        var portfolioPatternsList = '/portfoliopatterns?durationInterval=&favourites=&indexType=0&market=&month=9&name=&operation=&page=1&portfolioList=1&productType=0&region=&token=1&year=2014';
-        var portfolioPatterns = '/portfoliopatterns?durationInterval=&favourites=&indexType=0&market=&month=9&name=&operation=&page=1&productType=0&region=&token=1&year=2014';
+        var addPortfolio = '/portfoliopatterns?add_delete=0&durationInterval=&favourites=&indexType=0&market=&month=10&name=&operation=&page=1&patternId=%7B%22patternType%22:%22STOCK%22%7D&productType=0&region=&year=2014';
+        var addList = '/portfoliopatterns?add_delete=0&durationInterval=&favourites=&indexType=0&market=&month=10&name=&operation=&page=1&patternId=%7B%22patternType%22:%22STOCK%22,%22id%22:1%7D&portfolioList=1&productType=0&region=&token=1&year=2014';
+        var addPortfolioId = '/portfoliopatterns?add_delete=0&durationInterval=&favourites=&indexType=0&market=&month=10&name=&operation=&page=1&patternId=%7B%22patternType%22:%22STOCK%22,%22id%22:1%7D&productType=0&region=&year=2014';
+        var deletePortfolio = '/portfoliopatterns?add_delete=1&durationInterval=&favourites=&indexType=0&market=&month=10&name=&operation=&page=1&patternId=%7B%22patternType%22:%22STOCK%22%7D&productType=0&region=&year=2014';
+        var deleteList = '/portfoliopatterns?add_delete=1&durationInterval=&favourites=&indexType=0&market=&month=10&name=&operation=&page=1&patternId=1&portfolioList=1&productType=0&region=&token=1&year=2014';
+        var patternFilters = '/patternfilters?indexType=0&market=&month=10&productType=0&region=&token=1&view=&year=2014';
+        var portfolioPatternsList = '/portfoliopatterns?durationInterval=&favourites=&indexType=0&market=&month=10&name=&operation=&page=1&portfolioList=1&productType=0&region=&token=1&year=2014';
+        var portfolioPatterns = '/portfoliopatterns?durationInterval=&favourites=&indexType=0&market=&month=10&name=&operation=&page=1&productType=0&region=&token=1&year=2014';
         var favourite = '/favoritepattern?patternId=1&token=1';
 
         var config;

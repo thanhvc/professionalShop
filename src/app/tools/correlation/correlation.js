@@ -53,6 +53,8 @@ angular.module('ngMo.correlation', [
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
         $scope.daysPattern = /^\d+$/;
+        $scope.isDisabled = false;
+
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
         var data = ActualDateService.actualDate(function (data) {
@@ -196,6 +198,9 @@ angular.module('ngMo.correlation', [
         };
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            if (idTab === TabsService.getActiveTab()){
+                return;
+            }
             $scope.startLoading();
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
@@ -424,7 +429,7 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.toggleFavorite = function (patternId){
-            var data = PatternsService.setFavorite(patternId).then(function (data) {
+            var data = CorrelationService.setFavorite(patternId).then(function (data) {
                 $scope.loadPage();
             });
         };
@@ -761,6 +766,7 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.generatePdf = function () {
+            $scope.isDisabled = true;
             var data = CorrelationService.getCorrelationPdf($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
@@ -792,11 +798,14 @@ angular.module('ngMo.correlation', [
 
                 $timeout(function() {
                     element[0].click();
+                    $scope.isDisabled = false;
                 });
+
             });
         };
 
         $scope.generateCorrelationExcel = function () {
+            $scope.isDisabled = true;
             var data = CorrelationService.getCorrelationExcel($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
@@ -828,6 +837,7 @@ angular.module('ngMo.correlation', [
                 //var elem = document.getElementById("download_file");
                 $timeout(function() {
                     element[0].click();
+                    $scope.isDisabled = false;
                 });
             });
         };
@@ -987,6 +997,23 @@ angular.module('ngMo.correlation', [
                 callback(data);
             });
 
+        };
+
+        this.setFavorite = function (patternId) {
+            var deferred = $q.defer();
+            var data;
+            config = {
+                params: {
+                    'patternId': patternId,
+                    'token': $window.localStorage.token
+                }
+            };
+            var result = $http.get($rootScope.urlService+'/favoriteasset', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
 
         this.getCorrelationPdf = function (correlationList, filtering) {

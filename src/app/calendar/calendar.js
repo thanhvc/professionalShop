@@ -41,6 +41,7 @@ angular.module('ngMo.calendar', [
         $scope.tabs = TabsService.getTabs();
         $scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
         $scope.day = '';
+        $scope.isDisabled = false;
         $scope.startLoading = function() {
             $scope.myData = [];
             $scope.loading = true;
@@ -291,6 +292,9 @@ angular.module('ngMo.calendar', [
         };
 
         $scope.changeTab = function (idTab) {
+            if (idTab === TabsService.getActiveTab()){
+                return;
+            }
             $scope.startLoading();
             $scope.urlSelected = templateTables[idTab];
             $scope.selectedTab = idTab;
@@ -514,6 +518,7 @@ angular.module('ngMo.calendar', [
         $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
 
         $scope.obtainCalendarPdf = function () {
+            $scope.isDisabled = true;
             var data = CalendarService.generateCalendarPdf($scope.filterOptions.filters).then(function (data) {
                 var productType = "Acciones";
                 switch (TabsService.getActiveTab()) {
@@ -545,7 +550,9 @@ angular.module('ngMo.calendar', [
 
                 $timeout(function() {
                     element[0].click();
+                    $scope.isDisabled = false;
                 });
+
             });
         };
     })
