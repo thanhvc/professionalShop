@@ -43,7 +43,7 @@
 </p>
 
 <div class="detail-tab">{{actualTab}}</div>
-<div class="pdf-icon-detail" ng-click="generateHistoricalDetailPdf(infoPattern.id)"></div>
+<div class="pdf-icon-detail" ng-click="generateHistoricalDetailPdf(infoPattern.id)" ng-disabled="disableButton"></div>
 <div class="detail-container">
     <table class="pair-detail-table">
         <thead>
@@ -229,7 +229,7 @@
     </div>
 </div>
 
-<div class="pdf-icon-detail" ng-click="generateGraphicsPdf(infoPattern.id ,'PRICE');"></div>
+<div class="pdf-icon-detail" ng-click="generateGraphicsPdf(infoPattern.id ,'PRICE');" ng-disabled="disableButton"></div>
 <div class="graphic-header">
     <div class="float-left">
         <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color">{{infoPattern.nameBearishAsset}}</span>
@@ -262,7 +262,7 @@
 
 
 
-<div class="pdf-icon-detail" ng-click="generateGraphicsPdf(infoPattern.id ,'WEEKLY');"></div>
+<div class="pdf-icon-detail" ng-click="generateGraphicsPdf(infoPattern.id ,'WEEKLY');" ng-disabled="disableButton"></div>
 <div class="graphic-header">
     <div class="float-left">
         <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color">{{infoPattern.nameBearishAsset}}</span>

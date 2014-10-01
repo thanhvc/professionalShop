@@ -312,10 +312,16 @@ angular.module('ngMo.home', [
         return {
             controller: function ($scope) {
                 $scope.onClickTab = function (idTab) {
+                    if (idTab === ActiveTabService.activeTab()){
+                        return;
+                    }
                     selectedTab = ActiveTabService.changeActiveTab(idTab);
                 };
 
                 $scope.onClickSecondTab = function (idTab) {
+                    if (idTab === SecondActiveTabService.activeTab()){
+                        return;
+                    }
                     secondSelectedTab = SecondActiveTabService.changeActiveTab(idTab);
                 };
             },
