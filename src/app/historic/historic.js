@@ -221,6 +221,9 @@ angular.module('ngMo.historic', [
         };
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            if (idTab === TabsService.getActiveTab()){
+                return;
+            }
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
             $scope.restartFilter();

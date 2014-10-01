@@ -296,6 +296,9 @@ angular.module('ngMo.lookup_diary', [
         };
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            if (idTab === TabsService.getActiveTab()){
+                return;
+            }
             $scope.startLoading();
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
@@ -1081,6 +1084,13 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
     };
 
     $scope.ok = function () {
+        if (typeof $scope.data.price === 'undefined'){
+            $scope.showAlertMessageCorrectValue = true;
+            $timeout(function () {
+                $scope.showAlertMessageCorrectValue = false;
+            }, 2000);
+            return;
+        }
         if ($scope.data.price_condition === 0 || $scope.data.price_condition === "0"){
             if ($scope.data.price >= lastPrice){
                 $scope.setAlert($scope.patternId, $scope.data.price, $scope.data.price_condition);

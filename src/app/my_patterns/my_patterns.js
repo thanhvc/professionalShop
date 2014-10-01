@@ -422,6 +422,9 @@ angular.module('ngMo.my_patterns', [
         };
         /*ab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            if (idTab === TabsService.getActiveTab()){
+                return;
+            }
             $scope.myData= [];
             $scope.loading = true;
             $scope.dataLoaded = false; //Not showming data until they have been loaded

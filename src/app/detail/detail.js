@@ -106,6 +106,7 @@ angular.module('ngMo.detail', [
         };
 
         $scope.generateGraphicsPdf = function (patternId, graphicName) {
+            $scope.disableButton = true;
             if (graphicName === 'PRICE') {
                 data = DetailService.getFirstGraphicPdf(patternId).then(function (data) {
                     var filename = "detailGraphic1-"+patternId+".pdf";
@@ -120,6 +121,7 @@ angular.module('ngMo.detail', [
                     $timeout(function() {
                         element[0].click();
                     });
+                    $scope.disableButton = false;
                 });
             }else if ("WEEKLY"){
                 data = DetailService.getSecondGraphicPdf(patternId).then(function (data) {
@@ -135,6 +137,7 @@ angular.module('ngMo.detail', [
                     $timeout(function() {
                         element[0].click();
                     });
+                    $scope.disableButton = false;
                 });
             }
         };
