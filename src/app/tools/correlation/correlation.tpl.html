@@ -150,8 +150,8 @@
                 <button style="width: 120px;float:right;" class="mo-button" ng-click="clearCorrelationList();">
                     Aceptar
                 </button>-->
-                <div class="excel-correlation-icon" ng-click="generateCorrelationExcel()"></div>
-                <div class="pdf-correlation-icon" ng-click="generatePdf();"></div>
+                <div class="excel-correlation-icon" ng-click="generateCorrelationExcel()" ng-disabled="disableButton"></div>
+                <div class="pdf-correlation-icon" ng-click="generatePdf();" ng-disabled="disableButton"></div>
                 <div class="copyright">
                     Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
                 </div>

@@ -98,7 +98,7 @@
             <div class="modal-body">
                 Establecer Condición Aviso en <span ng-if="patternType != null">Precio de Cierre</span> <span ng-if="patternType == null">Rentabilidad</span>
                 <br>
-                <span ng-class="{'buy-color': patternType == 'BULLISH' || patternType == null, 'sell-color' : patternType == 'BEARISH'}" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{assetName}}</b></span>
+                <div style="max-height: 18px;"><span ng-class="{'buy-color': patternType == 'BULLISH' || patternType == null, 'sell-color' : patternType == 'BEARISH'}" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{assetName}}</b></span></div>
                 <br>
                 <div ng-show="bearishAssetName != ''" style="line-height: 0;margin-bottom: 15px;">
                     <span ng-show="bearishAssetName != ''" class="sell-color" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{bearishAssetName}}</b></span>
@@ -112,6 +112,7 @@
                        ng-pattern="rentPattern">
                 <br>
                 <span class="warning-text" ng-if="showAlertMessage">Este Patrón ya cumple la condición introducida</span>
+                <span class="warning-text" ng-if="showAlertMessageCorrectValue">Debe introducir un valor correcto</span>
             </div>
             <div class="modal-footer">
                 <button class="mo-button float-left" ng-click="ok()">Aceptar</button>

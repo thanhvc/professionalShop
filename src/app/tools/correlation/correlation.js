@@ -196,6 +196,9 @@ angular.module('ngMo.correlation', [
         };
         /*changeTab, launches the http get*/
         $scope.changeTab = function (idTab) {
+            if (idTab === TabsService.getActiveTab()){
+                return;
+            }
             $scope.startLoading();
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
@@ -761,6 +764,7 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.generatePdf = function () {
+            $scope.disableButton = true;
             var data = CorrelationService.getCorrelationPdf($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
@@ -793,10 +797,12 @@ angular.module('ngMo.correlation', [
                 $timeout(function() {
                     element[0].click();
                 });
+                $scope.disableButton = false;
             });
         };
 
         $scope.generateCorrelationExcel = function () {
+            $scope.disableButton = true;
             var data = CorrelationService.getCorrelationExcel($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
@@ -829,6 +835,7 @@ angular.module('ngMo.correlation', [
                 $timeout(function() {
                     element[0].click();
                 });
+                $scope.disableButton = false;
             });
         };
 
