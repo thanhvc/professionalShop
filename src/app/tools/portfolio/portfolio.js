@@ -25,7 +25,7 @@ angular.module('ngMo.portfolio', [
     })
 
     .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
-                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters) {
+                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters, AnchorLinkService) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
@@ -382,7 +382,11 @@ angular.module('ngMo.portfolio', [
                     break;
             }
             $scope.portfolioData = [];
-            $scope.loadPage(true);
+            $scope.loadPage(false);
+        };
+
+        $scope.goToTop = function () {
+            AnchorLinkService.scrollTo('top');
         };
 
         //execute the calculation of portfolio

@@ -43,7 +43,7 @@
 </p>
 
 <div class="detail-tab">{{actualTab}}</div>
-<div class="pdf-icon-detail" ng-click="generateHistoricalDetailPdf(infoPattern.id)" ng-disabled="disableButton"></div>
+<div class="pdf-icon-detail" ng-click="isDisabled || generateHistoricalDetailPdf(infoPattern.id)"></div>
 <div class="detail-container">
     <table class="detail-table">
         <thead>
@@ -194,7 +194,7 @@
     </div>
 </div>
 
-<div class="pdf-icon-detail" ng-click="generateGraphicsPdf(infoPattern.id ,'PRICE');" ng-disabled="disableButton"></div>
+<div class="pdf-icon-detail" ng-click="isDisabled || generateGraphicsPdf(infoPattern.id ,'PRICE');" ng-disabled="disableButton"></div>
 <div class="graphic-header">
     <div class="float-left">
         <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
@@ -227,7 +227,7 @@
 
 
 
-<div class="pdf-icon-detail"ng-click="generateGraphicsPdf(infoPattern.id, 'WEEKLY');" ng-disabled="disableButton"></div>
+<div class="pdf-icon-detail"ng-click="isDisabled ||  generateGraphicsPdf(infoPattern.id, 'WEEKLY');" ng-disabled="disableButton"></div>
 <div class="graphic-header">
     <div class="float-left">
         <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>

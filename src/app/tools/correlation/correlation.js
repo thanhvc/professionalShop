@@ -53,6 +53,8 @@ angular.module('ngMo.correlation', [
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
         $scope.daysPattern = /^\d+$/;
+        $scope.isDisabled = false;
+
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
         var data = ActualDateService.actualDate(function (data) {
@@ -764,7 +766,7 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.generatePdf = function () {
-            $scope.disableButton = true;
+            $scope.isDisabled = true;
             var data = CorrelationService.getCorrelationPdf($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
@@ -796,13 +798,14 @@ angular.module('ngMo.correlation', [
 
                 $timeout(function() {
                     element[0].click();
+                    $scope.isDisabled = false;
                 });
-                $scope.disableButton = false;
+
             });
         };
 
         $scope.generateCorrelationExcel = function () {
-            $scope.disableButton = true;
+            $scope.isDisabled = true;
             var data = CorrelationService.getCorrelationExcel($scope.correlationList, $scope.filterOptions.filters).then(function (data) {
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
@@ -834,8 +837,8 @@ angular.module('ngMo.correlation', [
                 //var elem = document.getElementById("download_file");
                 $timeout(function() {
                     element[0].click();
+                    $scope.isDisabled = false;
                 });
-                $scope.disableButton = false;
             });
         };
 
