@@ -68,7 +68,7 @@ angular.module('ngMo.detail', [
         });
 
         $scope.tabs = TabsService.getTabs();
-
+        $scope.isDisabled = false;
         $scope.obtainActualTab = function () {
 
           switch (detailData.infoPattern.productType){
@@ -106,7 +106,7 @@ angular.module('ngMo.detail', [
         };
 
         $scope.generateGraphicsPdf = function (patternId, graphicName) {
-            $scope.disableButton = true;
+            $scope.isDisabled = true;
             if (graphicName === 'PRICE') {
                 data = DetailService.getFirstGraphicPdf(patternId).then(function (data) {
                     var filename = "detailGraphic1-"+patternId+".pdf";
@@ -120,8 +120,9 @@ angular.module('ngMo.detail', [
 
                     $timeout(function() {
                         element[0].click();
+                        $scope.isDisabled = false;
                     });
-                    $scope.disableButton = false;
+
                 });
             }else if ("WEEKLY"){
                 data = DetailService.getSecondGraphicPdf(patternId).then(function (data) {
@@ -136,13 +137,15 @@ angular.module('ngMo.detail', [
 
                     $timeout(function() {
                         element[0].click();
+                        $scope.isDisabled = false;
                     });
-                    $scope.disableButton = false;
+
                 });
             }
         };
 
         $scope.generateHistoricalDetailPdf = function (patternId) {
+            $scope.isDisabled = true;
             var data = DetailService.getHistoricalDetailPdf(patternId).then(function (data) {
                 var filename = "detail-"+patternId+".pdf";
                 var element = angular.element('<a/>');
@@ -155,6 +158,7 @@ angular.module('ngMo.detail', [
 
                 $timeout(function() {
                     element[0].click();
+                    $scope.isDisabled = false;
                 });
             });
         };
