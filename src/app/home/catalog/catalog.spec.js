@@ -68,7 +68,7 @@ describe('The catalog controller', function() {
 
     var month = {month: 9, year:2014};
     var patternFilters = '/patternfilters?indexType=0&industry=&productType=0&sector=&view=';
-    var patternFilters2 = '/patternfilters?indexType=0&month=9&year=2014&productType=0&view=';
+    var patternFilters2 = '/patternfilters?indexType=0&month=10&year=2014&productType=0&view=';
     var filters = '/patternfilters?indexType=0&month=%7B%22month%22:8,%22year%22:2014%7D&productType=NaN&view=';
     var patterns = '/patternspack?month=%7B%22month%22:8,%22year%22:2014%7D&page=1&year=2014';
 
