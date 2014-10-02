@@ -1566,7 +1566,7 @@ angular.module('ngMo', [
                                     }
 
                                     $rootScope.$broadcast("itemAddedToCart");
-                                }
+
                                     //if not active pack with that user, add
                                     ShoppingCartService.addItemCart(item);
                                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
@@ -1586,6 +1586,7 @@ angular.module('ngMo', [
 
                                     //save the cart into session
                                     ShoppingCartService.saveSessionCart();
+                                }
 
                             });
 
@@ -1874,8 +1875,12 @@ angular.module('ngMo', [
 //modalPanel
 var ModalCartInstanceCtrl = function ($scope, $modalInstance, $timeout,totalCollide) {
     $scope.totalCollide = totalCollide;
+    $scope.opened = true;
     $scope.close = function () {
-        $modalInstance.close();
+        if ($scope.opened) {
+            $modalInstance.close();
+            $scope.opened= false;
+        }
     };
     $scope.$on("body-click",function(){$scope.close();});
     $timeout(function () {

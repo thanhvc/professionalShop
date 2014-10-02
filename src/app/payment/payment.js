@@ -84,7 +84,7 @@ angular.module('ngMo.payment', [  'ui.router'])
     })
 
     //confirm Card this status only is when the cpayment is OK, so always shows OK
-    .controller('ConfirmPaymentCardCtrl', function ($scope, $state,IsLogged, $rootScope) {
+    .controller('ConfirmPaymentCardCtrl', function ($scope, $state,IsLogged, $rootScope,$timeout) {
         $scope.status = "OK";
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -94,9 +94,12 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+        $timeout(function() {
+            $state.go('my-patterns');
+        },3000);
     })
     //confirm with expressCheckout
-    .controller('ConfirmPaymentCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http,$stateParams) {
+    .controller('ConfirmPaymentCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http,$stateParams,$timeout) {
         $scope.status = "NONE";
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -132,6 +135,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                 if (data.status === "OK") {
                     $scope.status = "OK";
                     $rootScope.$broadcast('removeItemsCart');
+                    $timeout($scope.goToPatterns,3000);
                 } else {
                     $scope.status = "ERROR";
                 }
