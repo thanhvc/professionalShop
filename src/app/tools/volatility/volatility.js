@@ -808,6 +808,7 @@ angular.module('ngMo.volatility', [
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
+            $scope.loadPage();
         }
 
         //$scope.loadPage();
