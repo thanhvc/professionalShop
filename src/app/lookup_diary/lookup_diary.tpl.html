@@ -98,10 +98,12 @@
             <div class="modal-body">
                 Establecer Condición Aviso en <span ng-if="patternType != null">Precio de Cierre</span> <span ng-if="patternType == null">Rentabilidad</span>
                 <br>
-                <div style="max-height: 18px;"><span ng-class="{'buy-color': patternType == 'BULLISH' || patternType == null, 'sell-color' : patternType == 'BEARISH'}" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{assetName}}</b></span></div>
-                <br>
-                <div ng-show="bearishAssetName != ''" style="line-height: 0;margin-bottom: 15px;">
-                    <span ng-show="bearishAssetName != ''" class="sell-color" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{bearishAssetName}}</b></span>
+                <div style="height: 36px;">
+                    <div style="height: 26px;overflow: hidden;"><span ng-class="{'buy-color': patternType == 'BULLISH' || patternType == null, 'sell-color' : patternType == 'BEARISH'}" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{assetName}}</b></span></div>
+                    <br ng-show="bearishAssetName == ''">
+                    <div ng-show="bearishAssetName != ''" style="line-height: 0;margin-bottom: 15px;">
+                        <span ng-show="bearishAssetName != ''" class="sell-color" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{bearishAssetName}}</b></span>
+                    </div>
                 </div>
                 <select data-ng-model="data.price_condition">
                     <option value="0">Mayor que</option>

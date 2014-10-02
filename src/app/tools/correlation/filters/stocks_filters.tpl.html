@@ -14,7 +14,7 @@
                 </select>
             </td>
             <td>
-                <select ng-disabled="correlationList.length > 0"  ng-change="selectRegion()" class="border-filters select-filter-correlation"
+                <select ng-disabled="correlationList.length > 0 || filterOptions.selectors.regions.length <= 0"  ng-change="selectRegion()" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedRegion">
                     <option value="">Región</option>
                     <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
