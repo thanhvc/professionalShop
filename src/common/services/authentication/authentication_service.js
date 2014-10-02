@@ -137,7 +137,8 @@ angular.module('auth',['http-auth-interceptor'])
                             $scope.currentUser = data.name;
                             //check if the user have packs subscribed in his cart, to pass the prices to 0
                             $rootScope.isLog = true;
-                            PaymentService.getPayments(true,function (data) {
+                            PaymentService.checkCart();
+                            /*PaymentService.getPayments(true,function (data) {
 
                                 //this detect if some pack is with price=0, -> already subscribed pack
                                 var subscribedPacks = [];
@@ -225,7 +226,7 @@ angular.module('auth',['http-auth-interceptor'])
                                     $rootScope.$broadcast('updateSubscribedPacks',subscribedPacks);
                                 }
 
-                            });
+                            });*/
                         })
                         .error(function (data, status, headers, config) {
                                 $scope.errorSignIn = true;
