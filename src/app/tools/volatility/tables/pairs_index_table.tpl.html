@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody class="pairs-tbody">
-        <tr ng-repeat="data in myData" ng-class-even="'ngRow-odd'" ng-class-odd="'ngRow-even'" style="font-size:10px;color:#996600 !important;">
+        <tr ng-repeat="data in myData" ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style="font-size:10px;color:#996600 !important;">
             <td  class="pairs-market-value">
                 <div class="text-limitator">
             <span class="cursor-help buy-color"
@@ -38,8 +38,10 @@
             </td>
 
             <td  class="pairs-vol-value">
-                <a ng-click="loadGraphic($event,data.asset.longName,'BULLISH',null,false,data.asset.volatilityChartURL);$event.stopPropagation();" >{{data.asset.volatility | number:0}}</a><br/>
-                <a ng-click="loadGraphic($event,data.bearishAsset.longName,'BEARISH',null,false,data.bearishAsset.volatilityChartURL);$event.stopPropagation();">{{data.bearishAsset.volatility | number:0}}</a>
+                <a ng-if="data.asset.volatility >= 0" ng-click="loadGraphic($event,data.asset.longName,'BULLISH',null,false,data.asset.volatilityChartURL);$event.stopPropagation();" >{{data.asset.volatility | twoDecimals}}</a>
+                <span ng-if="data.asset.volatility < 0">N/A</span><br/>
+                <a ng-if="data.bearishAsset.volatility >= 0" ng-click="loadGraphic($event,data.bearishAsset.longName,'BEARISH',null,false,data.bearishAsset.volatilityChartURL);$event.stopPropagation();">{{data.bearishAsset.volatility | twoDecimals}}</a>
+                <span ng-if="data.bearishAsset.volatility < 0">N/A</span>
             </td>
             <td class="black-font-pairs" >
                 <span ng-if="data.bearishAsset.lastQuoteDate < data.asset.lastQuoteDate">{{data.bearishAsset.lastQuoteDate | date: 'd MMM yyyy'}}</span>
@@ -48,7 +50,8 @@
 
             </td>
             <td class="pairs-index-vol-value">
-                <a ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartURL);$event.stopPropagation();" >{{data.pairVolatility}}</a>
+                <a ng-if="data.pairVolatility >= 0" ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartURL);$event.stopPropagation();" >{{data.pairVolatility | twoDecimals}}</a>
+                <span ng-if="data.pairVolatility < 0">{{data.pairVolatility | twoDecimals}}</span>
             </td>
             <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
                 <div tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.favorite == true}"></div>

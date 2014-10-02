@@ -51,8 +51,10 @@
         </td>
 
         <td  class="pairs-vol-value">
-            <a ng-click="loadGraphic($event,data.asset.longName,'BULLISH',null,false,data.asset.volatilityChartURL);$event.stopPropagation();" >{{data.asset.volatility | number:0}}</a><br/>
-            <a ng-click="loadGraphic($event,data.bearishAsset.longName,'BEARISH',null,false,data.bearishAsset.volatilityChartURL);$event.stopPropagation();">{{data.bearishAsset.volatility | number:0}}</a>
+            <a ng-if="data.asset.volatility >=0" ng-click="loadGraphic($event,data.asset.longName,'BULLISH',null,false,data.asset.volatilityChartURL);$event.stopPropagation();" >{{data.asset.volatility | twoDecimals}}</a>
+            <span ng-if="data.asset.volatility <0">N/A</span><br/>
+            <a ng-if="data.bearishAsset.volatility >=0" ng-click="loadGraphic($event,data.bearishAsset.longName,'BEARISH',null,false,data.bearishAsset.volatilityChartURL);$event.stopPropagation();">{{data.bearishAsset.volatility | twoDecimals}}</a>
+            <span ng-if="data.bearishAsset.volatility <0">N/A</span>
         </td>
         <td class="black-font-pairs" >
             <span ng-if="data.bearishAsset.lastQuoteDate < data.asset.lastQuoteDate">{{data.bearishAsset.lastQuoteDate | date: 'd MMM yyyy'}}</span>
@@ -61,7 +63,8 @@
 
         </td>
         <td class="text-center pairs-vol-value">
-            <a ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartURL);$event.stopPropagation();" >{{data.pairVolatility | number:0}}</a>
+            <a ng-if="data.pairVolatility >= 0" ng-click="loadGraphic($event,data.asset.longName,data.patternType,data.bearishAsset.longName,true,data.pairVolatilityChartURL);$event.stopPropagation();" >{{data.pairVolatility | twoDecimals}}</a>
+            <span ng-if="data.pairVolatility < 0">N/A</span>
         </td>
         <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
             <div tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.favorite == true}"></div>
