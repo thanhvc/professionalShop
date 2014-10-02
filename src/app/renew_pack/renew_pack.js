@@ -33,6 +33,7 @@ angular.module('ngMo.renew', [  'ui.router'])
         //$scope.status = "OK";
         $scope.loading = false;
         $scope.error = false;
+        $scope.errorPack= false;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(false);
         });
@@ -44,6 +45,8 @@ angular.module('ngMo.renew', [  'ui.router'])
         };
 
         $scope.loadPack = function () {
+
+            $scope.errorPack= false;
             config = {
                 params: {
                     packCode: $stateParams.packCode
@@ -51,6 +54,7 @@ angular.module('ngMo.renew', [  'ui.router'])
             };
             $http.get($rootScope.urlService + "/pack",config).then (function(data) {
                 if (typeof data.data.name != "undefined") {
+
                     $scope.pack = {
                         name : data.data.name,
                         code: data.data.packCode,
@@ -60,6 +64,9 @@ angular.module('ngMo.renew', [  'ui.router'])
                         patternType: data.data.patternType,
                         productType: data.data.productType
                     };
+                    $scope.errorPack= false;
+                } else {
+                    $scope.errorPack= true;
                 }
             });
         };
