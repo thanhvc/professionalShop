@@ -7,7 +7,8 @@
 
             <td>
                 <select ng-change="selectMarket()" class="border-filters select-filter"
-                        data-ng-model="filterOptions.filters.selectedMarket">
+                        data-ng-model="filterOptions.filters.selectedMarket"
+                        ng-disabled="filterOptions.selectors.markets.length <= 0">
                     <option value="">- Mercado -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">

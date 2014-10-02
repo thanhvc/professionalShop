@@ -307,8 +307,14 @@ angular.module('ngMo.my_subscriptions', [
         };
         //synchronize the selector with the month of the filter
         $scope.updateSelectorMonth = function () {
+            var today = new Date();
             for (i = 0; i < $scope.filterOptions.months.length; i++) {
-                if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
+                if (today.getDate() >=20){
+                    $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[$scope.filterOptions.months.length-1];
+                    var date = $scope.filterOptions.filters.selectMonth.value.split("_");
+                    var d = new Date(date[1], date[0] - 1, 1);
+                    $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
+                }else if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
                     $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[i];
                 }
             }

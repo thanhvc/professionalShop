@@ -1,7 +1,7 @@
 <div class="calendar-filters-container">
     <select data-ng-model="filterOptions.filters.selectMonth" class="filter-calendar"  ng-change="goToMonth()" ng-options="item.name for item in filterOptions.months">
     </select>
-    <select data-ng-model="filterOptions.filters.selectedRegion" class="filter-calendar"  ng-change="selectRegion();">
+    <select data-ng-model="filterOptions.filters.selectedRegion" class="filter-calendar"  ng-change="selectRegion();" ng-disabled="filterOptions.selectors.regions.length <= 0">
         <option selected value="">- Región -</option>
         <option ng-repeat="region in filterOptions.selectors.regions" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">{{region.description}}</option>
     </select>
