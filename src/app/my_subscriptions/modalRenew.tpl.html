@@ -1,0 +1,22 @@
+<div class="info-modal-cart" id="info-modal-cart">
+    <div class="modal-header">
+        <button class="btn-close" ng-click="close()"></button>
+    </div>
+    <div class="modal-body-cart">
+        <div>
+            <div ng-show="renewCreated">
+                Gracias por su interes en renovar la suscripción a
+                {{packName}}, cuando la fecha de renovacion esté
+                proxima recibirá un email con las instrucciones de pago.
+            </div>
+            <div ng-show="existentRenew">
+                La subscripción ya se encuentra pendiente de renovación, se le avisará mediante email cuando esté
+                disponible
+            </div>
+            <div ng-show="error">
+                Ha ocurrido un error, por favor vuelva a intentarlo mas tarde o póngase en contacto con soporte.
+            </div>
+
+        </div>
+    </div>
+</div>

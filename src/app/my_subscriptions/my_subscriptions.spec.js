@@ -219,7 +219,7 @@ describe('My packs controller service', function() {
         $http = _$httpBackend_;
         $state = _$state_;
 
-        _$httpBackend_.when('GET', $rootScope.urlService + '/pack?token=1').respond(200,{pack: 'pack'});
+        _$httpBackend_.when('GET', $rootScope.urlService + '/packs?token=1').respond(200,{pack: 'pack'});
         _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
 
         $controller('MyPacksCtrl', {'$rootScope' : $rootScope, '$scope': $scope, '$state': $state});
@@ -232,7 +232,7 @@ describe('My packs controller service', function() {
     });
 
     it("should be able to load the page", function () {
-        $http.expectGET($scope.urlService + '/pack?token=1');
+        $http.expectGET($scope.urlService + '/packs?token=1');
         $http.expectGET($scope.urlService + '/islogged');
         $scope.loadPage();
         $http.flush();

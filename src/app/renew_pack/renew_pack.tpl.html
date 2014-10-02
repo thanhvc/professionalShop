@@ -1,0 +1,75 @@
+<div class="panel">
+
+    <div  novalidate>
+        <div class="margin-top-header">
+            <div><span class="black-title-bold super-border">Renovar Pack</span>
+            </div>
+            <div class="sign-text default-format-text prices-font12">
+                Se va a proceder a renovar el pack {{pack.name}}, de {{pack.startDate | date: 'MMMM yyyy'}} {{pack.endDate | date: 'MMMM yyyy'}}, para su seguridad introduzca su usuario y password, para verificar que va a renovar el pack, y pasará al resumen de
+                compra donde podrá ver la información antes de realizar el pago.
+            </div>
+        </div>
+        <div class="prices-font11">
+
+            <div class="new-subscription-block">
+                <div class="orange-border" style="font-size:12px; margin-bottom:15px;">
+                    <table width="375">
+                        <tr>
+                            <td>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <form name="loginForm">
+                                    <table  class="signup-new-subscription-table" style="height:50px;">
+                                        <tr>
+                                            <td>
+                                                <span class="grey-label">Usuario (email)</span>
+                                            </td>
+                                            <td>
+                                                <input ng-model="login.email" type="email"
+                                                       name="uEmail" required="true" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="grey-label">Contraseña</span>
+                                            </td>
+                                            <td>
+                                                <input ng-model="login.password"  type="password"
+                                                       name="password1" required="true"
+                                                       ng-pattern="passwordPatten" ng-trim="false"
+                                                       ng-minlength="8"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button class="mo-button" name="continue"  ng-disabled="((loginForm.$invalid))" ng-click="submit()" style="float:right;margin-bottom: 25px;" type="button">Continuar
+                </button>
+
+                <div ng-show="loginForm.uEmail.$error.email && (loginForm.uEmail.$dirty &&  newSubscriptionMode== 'login' )"
+                     class="red-color-form prices-font12">
+                    Email inv&aacute;lido
+                </div>
+                <div class="red-color-form prices-font12"
+                     ng-show="loginForm.$error.required && (loginForm.$dirty && newSubscriptionMode== 'login' )">
+                    Faltan campos obligatorios
+                </div>
+                <div class="red-color-form prices-font12" ng-show="errorSignIn && (loginForm.$dirty && newSubscriptionMode== 'login' )">
+                    Email o password inválidos
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

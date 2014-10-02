@@ -150,6 +150,7 @@ angular.module('ngMo.payment', [  'ui.router'])
 
     .controller('SummaryPayCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService) {
         $scope.amountOfPacks = 0;
+        $scope.emptySummary= false;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -295,6 +296,11 @@ angular.module('ngMo.payment', [  'ui.router'])
                     $rootScope.$broadcast('updateSubscribedPacks',subscribedPacks);
                 }
 
+                if ($scope.stocks.length > 0 || $scope.pairs.length >0 || $scope.index.length > 0 || $scope.pairIndex.length > 0 || $scope.futures.length > 0  ) {
+                    $scope.emptySummary = false;
+                } else {
+                    $scope.emptySummary = true;
+                }
             });
         };
 
@@ -783,6 +789,101 @@ angular.module('ngMo.payment', [  'ui.router'])
             getDurationFromId: function(id) {
                 durations = ["Mensual","Trimestral","Anual"];
                 return durations[id];
+            },
+
+
+            /**
+             * Ask to the server for the items from cart and update the items by a event sent to the cart in the broadcast
+             * */
+            checkCart : function() {
+                this.getPayments(true,function (data) {
+
+                    //this detect if some pack is with price=0, -> already subscribed pack
+                    var subscribedPacks = [];
+                    allBought = true;
+                    amountOfPacks = 0;
+                    stocks = data.stocks;
+                    if (typeof stocks !== 'undefined') {
+                        for (i = 0; i < stocks.length; i++) {
+                            amountOfPacks++;
+                            if (stocks[i].price === 0) {
+                                someBought = true;
+
+                            } else {
+                                allBought = false;
+                            }
+                            if (stocks[i].collition === "error" || stocks[i].monthError === "error" || stocks[i].trimestralError === "error" || stocks[i].yearError === "error") {
+                                subscribedPacks.push(stocks[i]);
+                            }
+                        }
+                    }
+                    totalStocks = data.total_stocks;
+                    pairs = data.pairs;
+                    if (typeof pairs !== 'undefined') {
+                        for (i = 0; i < pairs.length; i++) {
+                            amountOfPacks++;
+                            if (pairs[i].price === 0) {
+                                someBought = true;
+                            } else {
+                                allBought = false;
+                            }
+                            if (pairs[i].collition === "error" || pairs[i].monthError === "error" || pairs[i].trimestralError === "error" || pairs[i].yearError === "error") {
+                                subscribedPacks.push(pairs[i]);
+                            }
+                        }
+                    }
+                    totalPairs = data.total_pairs;
+                    index = data.index;
+                    if (typeof index !== 'undefined') {
+                        for (i = 0; i < index.length; i++) {
+                            amountOfPacks++;
+                            if (index[i].price === 0) {
+                                someBought = true;
+                            } else {
+                                allBought = false;
+                            }
+                            if (index[i].collition === "error" || index[i].monthError === "error" || index[i].trimestralError === "error" || index[i].yearError === "error") {
+                                subscribedPacks.push(index[i]);
+                            }
+                        }
+                    }
+                    totalIndex = data.total_index;
+                    pairIndex = data.pairIndex;
+                    if (typeof pairIndex !== 'undefined') {
+                        for (i = 0; i < pairIndex.length; i++) {
+                            amountOfPacks++;
+                            if (pairIndex[i].price === 0) {
+                                someBought = true;
+                            } else {
+                                allBought = false;
+                            }
+                            if (pairIndex[i].collition === "error" || pairIndex[i].monthError === "error" || pairIndex[i].trimestralError === "error" || pairIndex[i].yearError === "error") {
+                                subscribedPacks.push(pairIndex[i]);
+                            }
+                        }
+                    }
+                    totalpairIndex = data.total_pairIndex;
+                    futures = data.futures;
+                    if (typeof futures !== 'undefined') {
+                        for (i = 0; i < futures.length; i++) {
+                            amountOfPacks++;
+                            if (futures[i].price === 0) {
+                                someBought = true;
+                            } else {
+                                allBought = false;
+                            }
+                            if (futures[i].collition === "error" || futures[i].monthError === "error" || futures[i].trimestralError === "error" || futures[i].yearError === "error") {
+                                subscribedPacks.push(futures[i]);
+                            }
+                        }
+                    }
+                    totalFutures = data.total_futures;
+                    total = data.total;
+                    if (subscribedPacks.length > 0) {
+                        //there are packs that have price 0, so we need check it in the cart. Launch an event to ask to the cart
+                        $rootScope.$broadcast('updateSubscribedPacks', subscribedPacks);
+                    }
+                });
             }
         };
     });
