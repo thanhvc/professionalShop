@@ -31,6 +31,8 @@ angular.module('ngMo.renew', [  'ui.router'])
     //confirm Card this status only is when the cpayment is OK, so always shows OK
     .controller('RenewPackCtrl', function ($scope, $state,IsLogged, $rootScope,$http,$stateParams,PaymentService,$window,authService) {
         //$scope.status = "OK";
+        $scope.loading = false;
+        $scope.error = false;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(false);
         });
@@ -63,7 +65,7 @@ angular.module('ngMo.renew', [  'ui.router'])
         };
 
         $scope.submit = function() {
-
+            $scope.loading = true;
             $scope.fields = {
                 email : $scope.login.email,
                 password: $scope.login.password
@@ -71,10 +73,12 @@ angular.module('ngMo.renew', [  'ui.router'])
 
             data = $scope.fields;
             $http.post($rootScope.urlService+'/login', data) .success(function (data, status, headers, config) {
+                    $scope.loading= false;
                     $window.localStorage.token = data.authToken;
                     $window.localStorage.username = data.name;
                     authService.loginConfirmed();
                     $scope.errorSignIn = false;
+                    $scope.error = false;
                     //check if the user have packs subscribed in his cart, to pass the prices to 0
                     IsLogged.isLogged();
                     PaymentService.checkCart();
@@ -88,7 +92,10 @@ angular.module('ngMo.renew', [  'ui.router'])
 
 
                 }
-                ).error();
+                ).error(function () {
+                    $scope.loading= false;
+                    $scope.error = true;
+                });
         };
 
 

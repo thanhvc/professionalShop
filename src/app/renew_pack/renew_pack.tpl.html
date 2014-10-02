@@ -52,16 +52,19 @@
                 </div>
                 <button class="mo-button" name="continue"  ng-disabled="((loginForm.$invalid))" ng-click="submit()" style="float:right;margin-bottom: 25px;" type="button">Continuar
                 </button>
-
-                <div ng-show="loginForm.uEmail.$error.email && (loginForm.uEmail.$dirty &&  newSubscriptionMode== 'login' )"
+                <div class="loading-div " ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando Pack, por favor espere...</span></div>
+                <div class="red-color-form prices-font12" ng-show="error">
+                    Email o password inválidos
+                </div>
+                <div ng-show="loginForm.uEmail.$error.email && (loginForm.uEmail.$dirty)"
                      class="red-color-form prices-font12">
                     Email inv&aacute;lido
                 </div>
                 <div class="red-color-form prices-font12"
-                     ng-show="loginForm.$error.required && (loginForm.$dirty && newSubscriptionMode== 'login' )">
+                     ng-show="loginForm.$error.required && (loginForm.$dirty)">
                     Faltan campos obligatorios
                 </div>
-                <div class="red-color-form prices-font12" ng-show="errorSignIn && (loginForm.$dirty && newSubscriptionMode== 'login' )">
+                <div class="red-color-form prices-font12" ng-show="errorSignIn">
                     Email o password inválidos
                 </div>
 
