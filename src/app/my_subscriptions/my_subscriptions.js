@@ -100,7 +100,25 @@ angular.module('ngMo.my_subscriptions', [
                 }
             };
 
-            var result = $http.get($rootScope.urlService+'/pack',config).then(function (response) {
+            var result = $http.get($rootScope.urlService+'/packs',config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+
+                return response.data;
+            });
+            return result;
+        };
+        this.renewPack = function(pack,startDate) {
+            var deferred = $q.defer();
+            config = {
+                params: {
+                    'token': $window.localStorage.token,
+                    'code': pack.code,
+                    'startDate': startDate
+                }
+            };
+
+            var result = $http.post($rootScope.urlService+'/renew-pack',config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
 
@@ -179,7 +197,7 @@ angular.module('ngMo.my_subscriptions', [
         /*select option of re-buy or cancel pack*/
         $scope.selectOption = function(pack) {
             if (pack.orden === "1") {
-
+                //CANCEL PACK
                 $scope.operationPack = pack;
                 pack.orden = "";
                 var modalInstanceLimit = $modal.open({
@@ -195,8 +213,51 @@ angular.module('ngMo.my_subscriptions', [
                         }
                     }
                 });
+            } else if (pack.orden === "0") {
+                //RENEW
+                newDate = new Date(pack.endDate);
+                renewDate = {
+                    month:(newDate.getMonth()+2),// + 2 because = +1 for month range (0-11) and +1 because the endDate is the last month, not
+                    //the real endDate, so if endDate is August 2015, the new pack has a startDate of September 2015
+                    year:newDate.getFullYear()
+                };
+                result=MyPacksService.renewPack(pack,renewDate).then(function(result) {
+                    if (result.status =="addToCart") {
+                        packToRenew = result.pack;
+                        //packToRenew.startDate = pack.endDate; // the startDate is the endDate of the actual pack
+                        $rootScope.$broadcast('toggleItemCart',packToRenew);
+                    } else if (result.status == "createdRenewal") {
+                        pack.canRenew= false;
+                        pack.orden = "";
+                        $scope.openRenewCartAdvice(true,false,false,pack.name);
+                    } else if (result.status == "existentRenewal") {
+                        $scope.openRenewCartAdvice(false,true,false,pack.name);
+                    }
+                });
             }
 
+        };
+
+
+        $scope.openRenewCartAdvice = function(renewCreated,existentRenew,error,packName) {
+            $modal.open({
+                templateUrl: 'my_subscriptions/modalRenew.tpl.html',
+                controller: ModalRenewInstanceCtrl,
+                resolve: {
+                    renewCreated: function () {
+                        return renewCreated;
+                    },
+                    existentRenew: function () {
+                        return existentRenew;
+                    },
+                    error: function () {
+                        return error;
+                    },
+                    packName: function () {
+                        return packName;
+                    }
+                }
+            });
         };
         $scope.loadPage();
     })
@@ -712,4 +773,24 @@ var ModalMyPackstCtrl = function ($scope, $modalInstance,$state,$stateParams, op
         $state.go('cancel-pack',{packCode: $scope.operationPack.code, subCode: $scope.operationPack.sub});
     };
 
+};
+
+
+//modalPanel
+var ModalRenewInstanceCtrl = function ($scope, $modalInstance, $timeout,renewCreated,existentRenew,error,packName) {
+    $scope.renewCreated = renewCreated;
+    $scope.existentRenew = existentRenew;
+    $scope.error = error;
+    $scope.packName = packName;
+    $scope.open = true;
+    $scope.close = function () {
+        if ($scope.open) {
+            $scope.open = false;
+            $modalInstance.close();
+        }
+    };
+    $scope.$on("body-click",function(){$scope.close();});
+    $timeout(function () {
+        $scope.close();
+    }, 3000);
 };
