@@ -207,6 +207,7 @@ angular.module('ngMo', [
 
         //says to the service  which packs are subscribed to set price 0
         this.thisPacksAreSubscribed=function(packs) {
+            itemsToDelete=[];
             for (j = 0;j< packs.length; j++) {
                 startDate =packs[j].startDate;
                 for (i = 0; i < stockItems.length; i++) {
@@ -221,6 +222,8 @@ angular.module('ngMo', [
                             if (packs[j].collition === "error") {
                                 stockItems[i].price = 0;
                                 stockItems[i].prices = [0,0,0];
+                                //delete item
+                                itemsToDelete.push(stockItems[i]);
                             } else {
                                 if (packs[j].monthError === "error") {
                                     prices[0] = 0;
@@ -248,6 +251,13 @@ angular.module('ngMo', [
                         }
                     }
                 }
+
+                if (itemsToDelete.length>0) {
+                    for (i = 0; i< itemsToDelete.length; i++) {
+                        this.removeItemCart("stocks",itemsToDelete[i]);
+                    }
+                }
+                itemsToDelete=[];
                 for (i = 0; i < pairsItems.length; i++) {
                     if (pairsItems[i].code === packs[j].code) {
                         itemDate = pairsItems[i].date;
@@ -255,11 +265,47 @@ angular.module('ngMo', [
                         month = parseInt(itemDate[1],10);
                         year = parseInt(itemDate[2],10);
                         if ((startDate.month  === month) && (startDate.year  === year)) {
-                            pairsItems[i].price = 0;
-                            pairsItems[i].prices = [0,0,0];
+                            //check the price in the option
+                            prices = pairsItems[i].prices.slice();
+                            if (packs[j].collition === "error") {
+                                pairsItems[i].price = 0;
+                                pairsItems[i].prices = [0,0,0];
+                                //delete item
+                                itemsToDelete.push(pairsItems[i]);
+                            } else {
+                                if (packs[j].monthError === "error") {
+                                    prices[0] = 0;
+                                }
+                                if (packs[j].trimestralError === "error") {
+                                    prices[1] = 0;
+                                }
+                                if (packs[j].yearError === "error") {
+                                    prices[2] = 0;
+                                }
+                                pairsItems[i].prices = prices.slice();
+                                switch (pairsItems[i].duration) {
+                                    case "Mensual":
+                                        pairsItems[i].price = pairsItems[i].prices[0];
+                                        break;
+                                    case "Trimestral":
+                                        pairsItems[i].price = pairsItems[i].prices[1];
+                                        break;
+                                    case "Anual":
+                                        pairsItems[i].price = pairsItems[i].prices[2];
+                                        break;
+                                }
+                            }
+
                         }
                     }
                 }
+
+                if (itemsToDelete.length>0) {
+                    for (i = 0; i< itemsToDelete.length; i++) {
+                        this.removeItemCart("pairs",itemsToDelete[i]);
+                    }
+                }
+                itemsToDelete=[];
                 for (i = 0; i < indicesItems.length; i++) {
                     if (indicesItems[i].code === packs[j].code) {
                         itemDate = indicesItems[i].date;
@@ -267,11 +313,46 @@ angular.module('ngMo', [
                         month = parseInt(itemDate[1],10);
                         year = parseInt(itemDate[2],10);
                         if ((startDate.month  === month) && (startDate.year  === year)) {
-                            indicesItems[i].price = 0;
-                            indicesItems[i].prices = [0,0,0];
+                            //check the price in the option
+                            prices = indicesItems[i].prices.slice();
+                            if (packs[j].collition === "error") {
+                                indicesItems[i].price = 0;
+                                indicesItems[i].prices = [0,0,0];
+                                //delete item
+                                itemsToDelete.push(indicesItems[i]);
+                            } else {
+                                if (packs[j].monthError === "error") {
+                                    prices[0] = 0;
+                                }
+                                if (packs[j].trimestralError === "error") {
+                                    prices[1] = 0;
+                                }
+                                if (packs[j].yearError === "error") {
+                                    prices[2] = 0;
+                                }
+                                indicesItems[i].prices = prices.slice();
+                                switch (indicesItems[i].duration) {
+                                    case "indicesItems":
+                                        indicesItems[i].price = indicesItems[i].prices[0];
+                                        break;
+                                    case "Trimestral":
+                                        indicesItems[i].price = indicesItems[i].prices[1];
+                                        break;
+                                    case "Anual":
+                                        indicesItems[i].price = indicesItems[i].prices[2];
+                                        break;
+                                }
+                            }
+
                         }
                     }
                 }
+                if (itemsToDelete.length>0) {
+                    for (i = 0; i< itemsToDelete.length; i++) {
+                        this.removeItemCart("indices",itemsToDelete[i]);
+                    }
+                }
+                itemsToDelete=[];
                 for (i = 0; i < pairsIndicesItems.length; i++) {
                     if (pairsIndicesItems[i].code === packs[j].code) {
                         itemDate = pairsIndicesItems[i].date;
@@ -279,11 +360,46 @@ angular.module('ngMo', [
                         month = parseInt(itemDate[1],10);
                         year = parseInt(itemDate[2],10);
                         if ((startDate.month  === month) && (startDate.year  === year)) {
-                            pairsIndicesItems[i].price = 0;
-                            pairsIndicesItems[i].prices = [0,0,0];
+                            //check the price in the option
+                            prices = pairsIndicesItems[i].prices.slice();
+                            if (packs[j].collition === "error") {
+                                pairsIndicesItems[i].price = 0;
+                                pairsIndicesItems[i].prices = [0,0,0];
+                                //delete item
+                                itemsToDelete.push(pairsIndicesItems[i]);
+                            } else {
+                                if (packs[j].monthError === "error") {
+                                    prices[0] = 0;
+                                }
+                                if (packs[j].trimestralError === "error") {
+                                    prices[1] = 0;
+                                }
+                                if (packs[j].yearError === "error") {
+                                    prices[2] = 0;
+                                }
+                                pairsIndicesItems[i].prices = prices.slice();
+                                switch (pairsIndicesItems[i].duration) {
+                                    case "indicesItems":
+                                        pairsIndicesItems[i].price = pairsIndicesItems[i].prices[0];
+                                        break;
+                                    case "Trimestral":
+                                        pairsIndicesItems[i].price = pairsIndicesItems[i].prices[1];
+                                        break;
+                                    case "Anual":
+                                        pairsIndicesItems[i].price = pairsIndicesItems[i].prices[2];
+                                        break;
+                                }
+                            }
+
                         }
                     }
                 }
+                if (itemsToDelete.length>0) {
+                    for (i = 0; i< itemsToDelete.length; i++) {
+                        this.removeItemCart("pairsIndices",itemsToDelete[i]);
+                    }
+                }
+                itemsToDelete=[];
                 for (i = 0; i < futuresItems.length; i++) {
                     if (futuresItems[i].code === packs[j].code) {
                         itemDate = futuresItems[i].date;
@@ -291,11 +407,46 @@ angular.module('ngMo', [
                         month = parseInt(itemDate[1],10);
                         year = parseInt(itemDate[2],10);
                         if ((startDate.month  === month) && (startDate.year  === year)) {
-                            futuresItems[i].price = 0;
-                            futuresItems[i].prices = [0,0,0];
+                            //check the price in the option
+                            prices = futuresItems[i].prices.slice();
+                            if (packs[j].collition === "error") {
+                                futuresItems[i].price = 0;
+                                futuresItems[i].prices = [0,0,0];
+                                //delete item
+                                itemsToDelete.push(futuresItems[i]);
+                            } else {
+                                if (packs[j].monthError === "error") {
+                                    prices[0] = 0;
+                                }
+                                if (packs[j].trimestralError === "error") {
+                                    prices[1] = 0;
+                                }
+                                if (packs[j].yearError === "error") {
+                                    prices[2] = 0;
+                                }
+                                futuresItems[i].prices = prices.slice();
+                                switch (futuresItems[i].duration) {
+                                    case "indicesItems":
+                                        futuresItems[i].price = futuresItems[i].prices[0];
+                                        break;
+                                    case "Trimestral":
+                                        futuresItems[i].price = futuresItems[i].prices[1];
+                                        break;
+                                    case "Anual":
+                                        futuresItems[i].price = futuresItems[i].prices[2];
+                                        break;
+                                }
+                            }
+
                         }
                     }
                 }
+                if (itemsToDelete.length>0) {
+                    for (i = 0; i< itemsToDelete.length; i++) {
+                        this.removeItemCart("futures",itemsToDelete[i]);
+                    }
+                }
+                itemsToDelete=[];
                 totalCart = 0;
                 stockSubtotal = 0;
                 pairsSubtotal = 0;
