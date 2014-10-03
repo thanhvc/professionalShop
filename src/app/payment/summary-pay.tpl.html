@@ -1,7 +1,10 @@
 <div>
 
 <div>
-<div ng-show="emptySummary">
+<div ng-show="emptySummary" style="font-size: 15px;
+margin: 30px;
+text-align: center;
+">
     No se han encontrado Packs para pagar, asegúrese que los packs que agrega al carro son válidos.
 </div>
 <div class="container-table-summary-pay" ng-if="stocks.length >0">
@@ -372,7 +375,7 @@
 </div>
 <div>
     <!--total-->
-    <div id="idTotales" style="clear: both; width: 900px; margin: 0 auto; ">
+    <div id="idTotales" style="clear: both; width: 900px; margin: 0 auto; " ng-show="!emptySummary">
         <div id="j_id382" style="font-size: 0px;">
             <div class="separator-pay"></div>
         </div>
@@ -386,7 +389,7 @@
     </div>
 </div>
 <!--payment-->
-<div class="summary-payment-container">
+<div class="summary-payment-container" ng-show="!emptySummary">
     <div style="height: 20px;">
     <div id="noAceptaCondicionesCamp" style="color: red; font-size: 11px; font-family: fontpo; display: block;" ng-show="errorConditions">Debe aceptar las condiciones del servicio</div>
     </div>
