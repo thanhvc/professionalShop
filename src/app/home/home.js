@@ -40,7 +40,7 @@ angular.module('ngMo.home', [
     })
     .service('PacksService', function ($http, $rootScope) {
         this.obtainPacks = function (callbackFunc) {
-            var europePacks = $http.get($rootScope.urlService+'/homepacks').success(function (data) {
+            var europePacks = $http.get($rootScope.urlService+'/homepacks', {cache: true}).success(function (data) {
                 callbackFunc(data);
             });
         };
