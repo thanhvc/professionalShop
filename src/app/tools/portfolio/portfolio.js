@@ -216,25 +216,25 @@ angular.module('ngMo.portfolio', [
             $scope.portfolioList = [];
             switch ($scope.filterOptions.filters.active_tab) {
                 case 0:
-                    if ($window.sessionStorage.portfolioStocks !== 'undefined') {
+                    if ((typeof $window.sessionStorage.portfolioStocks !== 'undefined') && ($window.sessionStorage.portfolioStocks !== 'undefined')) {
                         $scope.portfolioList = angular.fromJson($window.sessionStorage.portfolioStocks);
                     }
                     if (typeof $scope.portfolioList === 'undefined'){ $scope.portfolioList = [];}
                     break;
                 case 1:
-                    if ($window.sessionStorage.portfolioStockPairs !== 'undefined') {
+                    if ((typeof $window.sessionStorage.portfolioStockPairs !== 'undefined') && ($window.sessionStorage.portfolioStockPairs !== 'undefined')) {
                         $scope.portfolioList = angular.fromJson($window.sessionStorage.portfolioStockPairs);
                     }
                     if (typeof $scope.portfolioList === 'undefined'){ $scope.portfolioList = [];}
                     break;
                 case 2:
-                    if ($window.sessionStorage.portfolioIndices !== 'undefined') {
+                    if ((typeof $window.sessionStorage.portfolioIndices !== 'undefined') && ($window.sessionStorage.portfolioIndices !== 'undefined')) {
                         $scope.portfolioList = angular.fromJson($window.sessionStorage.portfolioIndices);
                     }
                     if (typeof $scope.portfolioList === 'undefined'){ $scope.portfolioList = [];}
                     break;
                 case 3:
-                    if ($window.sessionStorage.portfolioIndicePairs !== 'undefined') {
+                    if ((typeof $window.sessionStorage.portfolioIndicePairs !== 'undefined') && ($window.sessionStorage.portfolioIndicePairs !== 'undefined')) {
                         $scope.portfolioList = angular.fromJson($window.sessionStorage.portfolioIndicePairs);
                     }
                     if (typeof $scope.portfolioList === 'undefined'){ $scope.portfolioList = [];}
@@ -248,6 +248,7 @@ angular.module('ngMo.portfolio', [
             if (withLoad) {
                 $scope.loading = true;
             }
+            loadPortfolioList();
 
             var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.portfolioList, function (data) {
@@ -276,26 +277,42 @@ angular.module('ngMo.portfolio', [
                 case 0:
                     if (typeof $window.sessionStorage.portfolioStocks === 'undefined'){
                         $window.sessionStorage.portfolioStocks = [];
+                        $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioStocks = JSON.stringify(portfolioPatterns);
+                    if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
+                        delete $window.sessionStorage.portfolioStocks;
+                    }
                     break;
                 case 1:
                     if (typeof $window.sessionStorage.portfolioStockPairs === 'undefined'){
                         $window.sessionStorage.portfolioStockPairs = [];
+                        $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioStockPairs = JSON.stringify(portfolioPatterns);
+                    if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
+                        delete $window.sessionStorage.portfolioStockPairs;
+                    }
                     break;
                 case 2:
                     if (typeof $window.sessionStorage.portfolioIndices === 'undefined'){
                         $window.sessionStorage.portfolioIndices = [];
+                        $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioIndices = JSON.stringify(portfolioPatterns);
+                    if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
+                        delete $window.sessionStorage.portfolioIndices;
+                    }
                     break;
                 case 3:
                     if (typeof $window.sessionStorage.portfolioIndicePairs === 'undefined'){
                         $window.sessionStorage.portfolioIndicePairs = [];
+                        $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioIndicePairs = JSON.stringify(portfolioPatterns);
+                    if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
+                        delete $window.sessionStorage.portfolioIndicePairs;
+                    }
                     break;
             }
         };
