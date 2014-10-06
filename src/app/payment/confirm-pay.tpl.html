@@ -6,8 +6,8 @@
             <div style="margin-bottom:20px;"><img src="assets/img/ajax-loader.gif"><span>Confirmando pago, por favor espere...</span></div>
         </div>
         <div ng-show="status=='OK'">
-            <div style="margin-bottom:20px;">Pago realizado con éxito</div>
-            <div class="link" ui-sref="my-patterns">Ir a Mis Patrones</div>
+            <div >Su compra se ha realizado con éxito</div>
+            <div><span>Redirigiendo a mis patrones. Si quiere ir directamente haga click </span><span class="link" ui-sref="my-patterns">aqui</span></div>
         </div>
         <div ng-show="status == 'ERROR'">
             Ha ocurrido un error en el pago, por favor contacte con nosotros.

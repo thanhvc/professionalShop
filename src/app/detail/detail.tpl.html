@@ -108,10 +108,10 @@
                 <td class="sub-border-right-table">{{row.exitDate | date: 'dd/MMM/yy'}}</td>
                 <td class="border-right-table"><b>{{row.exitValue | twoDecimals}}</b></td>
                 <td class="border-right-table" ng-class="{'negative-percent': row.returnValue < 0}"><b>{{(row.returnValue) | twoDecimals}}</b></td>
-                <td class="sub-border-right-table">{{row.bestGainDate | date: 'dd/MMM/yy'}}</td>
-                <td class="border-right-table" ng-class="{'negative-percent': row.bestGainValue < 0}"><b>{{row.bestGainValue}}</b></td>
-                <td class="sub-border-right-table">{{row.worstLostDate | date: 'dd/MMM/yy'}}</td>
-                <td class="border-right-table"><span ng-class="{'negative-percent': row.worstLostValue < 0}"><b>{{row.worstLostValue}}</b></span></td>
+                <td class="sub-border-right-table"><span ng-show="row.bestGainValue >= 0.01">{{row.bestGainDate | date: 'dd/MMM/yy'}}</span></td>
+                <td class="border-right-table" ng-class="{'negative-percent': row.bestGainValue < 0}"><span ng-show="row.bestGainValue >= 0.01"><b>{{row.bestGainValue}}</b></span></td>
+                <td class="sub-border-right-table"><span ng-show="row.worstLostValue <= -0.01">{{row.worstLostDate | date: 'dd/MMM/yy'}}</span></td>
+                <td class="border-right-table"><span ng-class="{'negative-percent': row.worstLostValue < 0}" ng-show="row.worstLostValue <= -0.01"><b>{{row.worstLostValue}}</b></span></td>
             </tr>
         </tbody>
     </table>

@@ -678,6 +678,7 @@ angular.module('ngMo.calendar', [
             config = {
                 headers: {
                     'order': parseInt(filtering.order, 10),
+                    'filterDay': (filtering.dayDateInput === "" ? null : parseInt(filtering.dayDateInput,10)),
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
