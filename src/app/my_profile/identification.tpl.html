@@ -43,24 +43,23 @@
             </td>
         </tr>
         <tr class="accountRowHeight">
-            <td class="red-color-form">*</td>
+            <td class="red-color-form"></td>
             <td class="width-first-td"><span class="grey-label">Dirección</span></td>
-            <td><input type="text" name="address" required="true"
+            <td><input type="text" name="address"
                        ng-model="user.address" class="profile-input"
-                       ng-class="{'warning-input': (profileForm.address.$error.required)
-                                                  || (profileForm.address.$error.maxlength)}"
-                       alt="Direccion" required="true" ng-maxlength="200"></td>
+                       ng-class="{'warning-input':  (profileForm.address.$error.maxlength)}"
+                       alt="Direccion"  ng-maxlength="200"></td>
             <td><span
                     class="red-color-form prices-font11"
                     ng-show="profileForm.address.$error.required">Campo obligatorio</span>
             </td>
         </tr>
         <tr class="accountRowHeight">
-            <td class="red-color-form">*</td>
+            <td class="red-color-form"> </td>
             <td class="width-first-td"><span class="grey-label">Ciudad</span></td>
-            <td><input type="text" name="city" required="true"
+            <td><input type="text" name="city"
                        ng-model="user.city" class="profile-input"
-                       ng-class="{'warning-input': (profileForm.city.$error.required)
+                       ng-class="{'warning-input':
                                                   || (profileForm.city.$error.maxlength)}"
                        alt="Ciudad"></td>
             <td>
@@ -69,12 +68,11 @@
             </td>
         </tr>
         <tr class="accountRowHeight">
-            <td class="red-color-form">*</td>
+            <td class="red-color-form"> </td>
             <td class="width-first-td"><span class="grey-label">Código Postal</span></td>
-            <td><input type="text" name="zipCode" required="true"
+            <td><input type="text" name="zipCode"
                        ng-pattern="zipPattern"
-                       ng-class="{'warning-input': (profileForm.zipCode.$error.required)
-                                                  || ((profileForm.zipCode.$error.pattern)
+                       ng-class="{'warning-input':  ((profileForm.zipCode.$error.pattern)
                                                   || profileForm.zipCode.$error.maxlength)}"
                        ng-model="user.postalCode" class="profile-input"
                        alt="Codigo Postal"></td>
