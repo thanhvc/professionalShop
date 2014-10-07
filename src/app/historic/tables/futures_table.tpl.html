@@ -81,7 +81,7 @@
             <br/>
             <div class="text-limitator">
             <span class="cursor-help futures-market-patterns"
-                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}}) {{data.asset.expirationYear}}"
+                  tooltip-html-unsafe="{{data.asset.longName}} {{data.asset.expirationYear}} ({{data.asset.exchange.symbol}})"
                   ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
                 {{data.asset.longName}}
             </span>
