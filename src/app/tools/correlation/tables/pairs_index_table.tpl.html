@@ -12,9 +12,9 @@
             <td ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
             <td>
                 <span class="buy-color cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"
-                       >{{pattern.asset.longName | limitTo: 23}}</span><br>
+                       >{{pattern.asset.longName | limitTo: 22}}</span><br>
                 <span class="sell-color cursor-help" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})"
-                      >{{pattern.bearishAsset.longName | limitTo: 23}}</span>
+                      >{{pattern.bearishAsset.longName | limitTo: 22}}</span>
             </td>
             <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 10}" ng-click="addToCorrelationList(pattern.id);">>></span></td>
         </tr>
@@ -46,9 +46,9 @@
                 <td ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td>
                     <span class="buy-color cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"
-                              >{{pattern.asset.longName | limitTo: 23}}</span><br>
+                              >{{pattern.asset.longName | limitTo: 22}}</span><br>
                     <span class="sell-color cursor-help" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})"
-                            >{{pattern.bearishAsset.longName | limitTo: 23}}</span>
+                            >{{pattern.bearishAsset.longName | limitTo: 22}}</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
                     <div class="current-favourite cursor-help" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(pattern.id);"
