@@ -41,7 +41,7 @@ angular.module('ngMo.volatility', [
             IsLogged.isLogged(true);
         });
         $scope.loading = true;
-
+        $scope.loadingFilters = false;
         //this shows if the user is filtering by volat filter, this is used to control the selector and the input of volat filter
         $scope.filteringVolat = false;
 
@@ -352,6 +352,7 @@ angular.module('ngMo.volatility', [
          */
         $scope.refreshSelectors = function (selectors,filters,callback) {
             viewName = $state.$current.self.name;
+            $scope.loadingFilters = true;
             PatternsService.getSelectors(filters, selectors,callback,viewName);
         };
 
@@ -385,7 +386,7 @@ angular.module('ngMo.volatility', [
             if (typeof data.selectedSector != 'undefined') {
                 $scope.filterOptions.filters.selectedSector = data.selectedSector;
             }
-
+            $scope.loadingFilters = false;
         };
 
 

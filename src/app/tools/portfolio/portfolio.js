@@ -46,11 +46,12 @@ angular.module('ngMo.portfolio', [
         $scope.endMoving = function() {
             $scope.moving = false;
         };
-        $scope.loading = true;
+        $scope.loading = true;//patterns
+        $scope.loadingFilters = false;//filters
         $scope.calculating= false;
         //tabs and variables
         //pattern number for rents
-        $scope.loading = false;
+       // $scope.loading = false;
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
         $scope.daysPattern = /^\d+$/;
         /**private models*/
@@ -429,6 +430,7 @@ angular.module('ngMo.portfolio', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors) {
+            $scope.loadingFilters = true;
             PortfolioService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
                 //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
@@ -442,6 +444,7 @@ angular.module('ngMo.portfolio', [
                     $scope.filterOptions.selectors.regions = data.regions;
                     //$scope.filterOptions.filters.selectedRegion = "";
                 }
+                $scope.loadingFilters = false;
             });
         };
 
