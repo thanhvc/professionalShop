@@ -50,7 +50,8 @@ angular.module('ngMo.lookup_diary', [
             }
 
         };
-        $scope.loading = true;
+        $scope.loading = true;//loading patterns
+        $scope.loadingFilters = false;
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
@@ -397,6 +398,7 @@ angular.module('ngMo.lookup_diary', [
 
         $scope.refreshSelectors = function (selectors,filters,callback) {
             viewName = $state.$current.self.name;
+            $scope.loadingFilters = true;
             LookupDiaryService.getSelectors(filters, selectors,callback,viewName);
         };
 
@@ -428,6 +430,7 @@ angular.module('ngMo.lookup_diary', [
             if (typeof data.selectedSector != 'undefined') {
                 $scope.filterOptions.filters.selectedSector = data.selectedSector;
             }
+            $scope.loadingFilters = false;
         };
 
         /**

@@ -36,7 +36,8 @@ angular.module('ngMo.calendar', [
             }
             IsLogged.isLogged(true);
         });
-        $scope.loading= false;
+        $scope.loading= true;
+        $scope.loadingFilters = false;
         $scope.selectedTab = TabsService.getActiveTab();
         $scope.tabs = TabsService.getTabs();
         $scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
@@ -467,6 +468,7 @@ angular.module('ngMo.calendar', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors) {
+            $scope.loadingFilters = true;
             CalendarService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
                 //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
@@ -480,6 +482,7 @@ angular.module('ngMo.calendar', [
                     $scope.filterOptions.selectors.regions = data.regions;
                     //$scope.filterOptions.filters.selectedRegion = "";
                 }
+                $scope.loadingFilters = false;
             });
         };
 

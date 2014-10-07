@@ -1,84 +1,96 @@
-<fieldset ng-disabled="loading">
-<div class="super-border private-black-title">Históricos</div>
+<fieldset ng-disabled="loading || loadingFilters">
+    <div class="super-border private-black-title">Históricos</div>
 
-<div class="private-container-text" style="width: 100%;">
-    <p>Expone los resultados definitivos de las estrategias, clasificadas por <strong>mes de finalización</strong> y ordenadas por Fecha de Salida.</p>
+    <div class="private-container-text" style="width: 100%;">
+        <p>Expone los resultados definitivos de las estrategias, clasificadas por <strong>mes de finalización</strong> y
+            ordenadas por Fecha de Salida.</p>
 
-    <p><span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
-    <div ng-show="show">
-        <p>Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos “<span class="blue-text"><<</span>” y “<span class="blue-text">>></span>”.</p>
-        <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
-        <p>Haciendo clic en la celda de la columna “Id.” puede ver:</p>
-        <ul class="public-list-first-level">
-            <li>Tabla de Detalle del Patrón.</li>
-            <li>Evolución gráfica de la cotización recién finalizada superpuesta sobre Patrón.</li>
-        </ul>
-        <p>La marca Favorito “Fav”, diferencia las estrategias que señaló como preferidas. <a ng-click="openModalInstance('services/detailed_description/historic')">Más información.</a></p>
+        <p><span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
 
-        <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
+        <div ng-show="show">
+            <p>Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos “<span
+                    class="blue-text"><<</span>” y “<span class="blue-text">>></span>”.</p>
+
+            <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
+
+            <p>Haciendo clic en la celda de la columna “Id.” puede ver:</p>
+            <ul class="public-list-first-level">
+                <li>Tabla de Detalle del Patrón.</li>
+                <li>Evolución gráfica de la cotización recién finalizada superpuesta sobre Patrón.</li>
+            </ul>
+            <p>La marca Favorito “Fav”, diferencia las estrategias que señaló como preferidas. <a
+                    ng-click="openModalInstance('services/detailed_description/historic')">Más información.</a></p>
+
+            <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
+        </div>
+
     </div>
 
-</div>
+    <div style="margin-top: 15px;">
 
-<div style="margin-top: 15px;">
-
-    <tabset>
-        <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
-             active="ctab.active" disabled="tab.disabled">
-            <div class="black-head header-month-filter">
-                <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
-                <div style="float:left; text-transform:uppercase;">{{filterOptions.filters.month.monthString + " " + filterOptions.filters.month.year}}</div>
-                <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
-
-                <div>
-                    <select class="border-filters select-filter month-filter"
-                            data-ng-model="filterOptions.filters.selectMonth"
-                            ng-change="goToMonth()"
-                            ng-options="item.name for item in filterOptions.months"
-                            >
-                    </select>
-                </div>
-            </div>
-            <div class="filter-container-historic">
-                <!--filters-->
-                <div ng-include="getTemplateFilter()"></div>
-            </div>
-            <div class="loading-div-container">
-                <div ng-include="getTemplateTable()"></div>
-                <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando patrones, por favor espere...</span></div>
-                <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
-                <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
-
-
-
-                <!--footer-->
-                <div class="footer-table-private">
-                    <div class="total-patterns">
-                        <span>Número total de patrones:</span>
-                        <span>{{results}}</span>
+        <tabset>
+            <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+                 active="ctab.active" disabled="tab.disabled">
+                <div class="black-head header-month-filter">
+                    <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
+                    <div style="float:left; text-transform:uppercase;">{{filterOptions.filters.month.monthString + " " +
+                        filterOptions.filters.month.year}}
                     </div>
-                    <div style="float: left; margin-top: 3px;">
-                        <span>Patrones encontrados:</span>
-                        <span>{{found}}</span>
+                    <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
+
+                    <div>
+                        <select class="border-filters select-filter month-filter"
+                                data-ng-model="filterOptions.filters.selectMonth"
+                                ng-change="goToMonth()"
+                                ng-options="item.name for item in filterOptions.months"
+                                >
+                        </select>
                     </div>
-                    <button style="float:right; position: relative; top: -2px;" class="mo-button"
-                            ng-click="restoreData()">Mostrar todos
-                    </button>
                 </div>
-            </div>
-            <div class="copyright">
-                Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
-            </div>
-            <!--pagination-->
-            <div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;">
-                <pagination boundary-links="true" on-select-page="setPage(page);loading=false;" total-items="found"
-                            ng-show="found > pagingOptions.pageSize"
-                            items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
-                            page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
-                            next-text="&gt;"
-                            first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
-            </div>
-        </tab>
-    </tabset>
-</div>
-            </fieldset>
+                <div class="filter-container-historic">
+                    <!--filters-->
+                    <div ng-include="getTemplateFilter()"></div>
+                </div>
+                <div class="loading-div-container">
+                    <div ng-include="getTemplateTable()"></div>
+                    <div class="loading-div no-patterns-container" ng-show="loading"><img
+                            src="assets/img/ajax-loader.gif"><span>Cargando patrones, por favor espere...</span></div>
+                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">NO
+                        EXISTEN PATRONES CON ESTAS CONDICIONES
+                    </div>
+                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO
+                        EXISTEN PATRONES PARA EL MES SELECCIONADO
+                    </div>
+
+
+                    <!--footer-->
+                    <div class="footer-table-private">
+                        <div class="total-patterns">
+                            <span>Número total de patrones:</span>
+                            <span>{{results}}</span>
+                        </div>
+                        <div style="float: left; margin-top: 3px;">
+                            <span>Patrones encontrados:</span>
+                            <span>{{found}}</span>
+                        </div>
+                        <button style="float:right; position: relative; top: -2px;" class="mo-button"
+                                ng-click="restoreData()">Mostrar todos
+                        </button>
+                    </div>
+                </div>
+                <div class="copyright">
+                    Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+                </div>
+                <!--pagination-->
+                <div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;">
+                    <pagination boundary-links="true" on-select-page="setPage(page);loading=false;" total-items="found"
+                                ng-show="found > pagingOptions.pageSize"
+                                items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                                page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                                next-text="&gt;"
+                                first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</fieldset>

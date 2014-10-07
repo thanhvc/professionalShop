@@ -32,7 +32,7 @@
     <tabset>
         <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
              active="ctab.active" disabled="tab.disabled">
-            <fieldset ng-disabled="loading">
+            <fieldset ng-disabled="loading || loadingFilters">
             <div class="correlation-filter-container">
 
                 <div ng-include="getTemplateFilter()"></div>

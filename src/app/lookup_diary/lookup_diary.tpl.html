@@ -1,145 +1,177 @@
 <div ng-click="closeGraph();">
-    <fieldset ng-disabled="loading">
-<div class="super-border private-black-title">Seguimiento Diario</div>
-<div class="private-container-text">
-    <p>Diariamente al cierre de los mercados, se genera un informe del estado de las estrategias en curso clasificadas por <strong>mes de publicación</strong> y ordenadas por Fecha de Entrada. </p>
+    <fieldset ng-disabled="loading || loadingFilters">
+        <div class="super-border private-black-title">Seguimiento Diario</div>
+        <div class="private-container-text">
+            <p>Diariamente al cierre de los mercados, se genera un informe del estado de las estrategias en curso
+                clasificadas por <strong>mes de publicación</strong> y ordenadas por Fecha de Entrada. </p>
 
-    <p><span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
-    <div ng-show="show">
-        <p>Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos “<span class="blue-text"><<</span>” y “<span class="blue-text">>></span>”.
-            Para cambiar de grupo de Productos haga clic sobre las diferentes solapas Acciones, Par Acciones, Índices, Futuros.</p>
-        <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
-        <p>Hacer clic en las siguientes columnas:</p>
-        <ul class="public-list-first-level">
-            <li>“Id.” para mostrar la Tabla de Detalle del Patrón y la evolución gráfica de la cotización en curso superpuesta sobre Patrón.</li>
-            <li>“Último Precio” para observar la cotización de la estrategia en curso.</li>
-            <li>“Volatilidad” para mostrar los valores de la volatilidad en curso.</li>
-        </ul>
-        <p>La marca de Favorito “Fav”, se usa para diferenciar las estrategias preferidas, facilitar la gestión y análisis.</p>
-        <p>La columna Notas se reserva para informar sobre splits.</p>
-        <p>La columna Alarmas se usa para establecer criterios sobre Precios o Rentabilidad con notificación vía correo electrónico. <a ng-click="openModalInstance('services/detailed_description/diary')">Más información.</a></p>
+            <p><span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
 
-        <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
-    </div>
+            <div ng-show="show">
+                <p>Puede cambiar de mes directamente en el desplegable de Fechas o desplazádose mediante los símbolos
+                    “<span class="blue-text"><<</span>” y “<span class="blue-text">>></span>”.
+                    Para cambiar de grupo de Productos haga clic sobre las diferentes solapas Acciones, Par Acciones,
+                    Índices, Futuros.</p>
 
-</div>
+                <p>Use el Buscador con diferentes parámetros para preseleccionar estrategias.</p>
 
-<div style="margin-top: 15px;" >
+                <p>Hacer clic en las siguientes columnas:</p>
+                <ul class="public-list-first-level">
+                    <li>“Id.” para mostrar la Tabla de Detalle del Patrón y la evolución gráfica de la cotización en
+                        curso superpuesta sobre Patrón.
+                    </li>
+                    <li>“Último Precio” para observar la cotización de la estrategia en curso.</li>
+                    <li>“Volatilidad” para mostrar los valores de la volatilidad en curso.</li>
+                </ul>
+                <p>La marca de Favorito “Fav”, se usa para diferenciar las estrategias preferidas, facilitar la gestión
+                    y análisis.</p>
 
-    <tabset>
-        <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
-             active="ctab.active" disabled="tab.disabled">
-            <div class="black-head header-month-filter">
-                <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
-                <div style="float:left; text-transform:uppercase;">{{filterOptions.filters.month.monthString + " " + filterOptions.filters.month.year}}</div>
-                <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
+                <p>La columna Notas se reserva para informar sobre splits.</p>
 
-                <div>
-                    <select class="border-filters select-filter month-filter"
-                            data-ng-model="filterOptions.filters.selectMonth"
-                            ng-change="goToMonth()"
-                            ng-options="item.name for item in filterOptions.months"
-                            >
-                    </select>
-                </div>
+                <p>La columna Alarmas se usa para establecer criterios sobre Precios o Rentabilidad con notificación vía
+                    correo electrónico. <a ng-click="openModalInstance('services/detailed_description/diary')">Más
+                        información.</a></p>
+
+                <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
             </div>
-            <div class="filter-container-lookup-diary" >
-                <!--filters-->
-                <div ng-include="getTemplateFilter()" class="marginTop" ></div>
-            </div>
-            <div class="loading-div-container">
-                <div ng-include="getTemplateTable()"></div>
-                <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando patrones, por favor espere...</span></div>
-                <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
-                <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
 
-
-                <!--footer-->
-                <div class="footer-table-private">
-                    <div class="total-patterns">
-                        <span>Número total de patrones:</span>
-                        <span>{{results}}</span>
-                    </div>
-                    <div style="float: left; margin-top: 3px;">
-                        <span>Patrones encontrados:</span>
-                        <span>{{found}}</span>
-                    </div>
-                    <button style="float:right; position: relative; top: -2px;" class="mo-button"
-                            ng-click="restoreData()">Mostrar todos
-                    </button>
-                </div>
-            </div>
-            <div class="copyright">
-                Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
-            </div>
-            <!--pagination-->
-            <div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;">
-                <pagination boundary-links="true" on-select-page="setPage(page);loading=false;" total-items="found"
-                            ng-show="found > pagingOptions.pageSize"
-                            items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
-                            page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
-                            next-text="&gt;"
-                            first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
-            </div>
-        </tab>
-    </tabset>
-
-</div>
-
-
-<script type="text/ng-template" id="myModalContent.html">
-    <div class="modal-alert">
-        <form name="alertForm">
-            <div class="modal-header">
-                <div class="header">Alarma
-                    <button class="btn-close btn-close-alert" ng-click="close()"></button>
-                </div>
-            </div>
-            <div class="modal-body">
-                Establecer Condición Aviso en <span ng-if="patternType != null">Precio de Cierre</span> <span ng-if="patternType == null">Rentabilidad</span>
-                <br>
-                <div style="height: 36px;">
-                    <div style="height: 26px;overflow: hidden;"><span ng-class="{'buy-color': patternType == 'BULLISH' || patternType == null, 'sell-color' : patternType == 'BEARISH'}" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{assetName}}</b></span></div>
-                    <br ng-show="bearishAssetName == ''">
-                    <div ng-show="bearishAssetName != ''" style="line-height: 0;margin-bottom: 15px;">
-                        <span ng-show="bearishAssetName != ''" class="sell-color" style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{bearishAssetName}}</b></span>
-                    </div>
-                </div>
-                <select data-ng-model="data.price_condition">
-                    <option value="0">Mayor que</option>
-                    <option value="1">Menor que</option>
-                </select>
-                <input type="text" data-ng-model="data.price" name="priceInput"
-                       ng-class=" {'warning-input':  (alertForm.priceInput.$error.pattern && (alertForm.priceInput.$dirty))}"
-                       ng-pattern="rentPattern">
-                <br>
-                <span class="warning-text" ng-if="showAlertMessage">Este Patrón ya cumple la condición introducida</span>
-                <span class="warning-text" ng-if="showAlertMessageCorrectValue">Debe introducir un valor correcto</span>
-            </div>
-            <div class="modal-footer">
-                <button class="mo-button float-left" ng-click="ok()">Aceptar</button>
-                <button class="mo-button float-right" ng-click="cancel()">Eliminar</button>
-            </div>
-        </form>
-    </div>
-</script>
-
-<script type="text/ng-template" id="notesContent.html">
-    <div class="modal-alert">
-        <div class="modal-header">
-            <div class="header">Notas
-                <button class="btn-close btn-close-alert" ng-click="close()"></button>
-            </div>
         </div>
-        <div class="modal-body">
-            <div style="margin:0 auto;text-align: center;font-weight: bold;">{{data.assetName}}</div>
-            <span style="display: block;" ng-repeat="note in data.notes">{{note.date | date: 'dd/MM/yyyy'}} - {{note.content}}</span>
-            <br>
-            <div ng-if="data.bearishNotes.length > 0" style="margin:0 auto;text-align: center;font-weight: bold;">{{data.bearishAssetName}}</div>
-            <span ng-repeat="note in data.bearishNotes"><span>{{note.date | date: 'dd/MM/yyyy'}} - {{note.content}}</span></span>
-            <br>
+
+        <div style="margin-top: 15px;">
+
+            <tabset>
+                <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+                     active="ctab.active" disabled="tab.disabled">
+                    <div class="black-head header-month-filter">
+                        <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
+                        <div style="float:left; text-transform:uppercase;">{{filterOptions.filters.month.monthString + "
+                            " + filterOptions.filters.month.year}}
+                        </div>
+                        <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
+
+                        <div>
+                            <select class="border-filters select-filter month-filter"
+                                    data-ng-model="filterOptions.filters.selectMonth"
+                                    ng-change="goToMonth()"
+                                    ng-options="item.name for item in filterOptions.months"
+                                    >
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-container-lookup-diary">
+                        <!--filters-->
+                        <div ng-include="getTemplateFilter()" class="marginTop"></div>
+                    </div>
+                    <div class="loading-div-container">
+                        <div ng-include="getTemplateTable()"></div>
+                        <div class="loading-div no-patterns-container" ng-show="loading"><img
+                                src="assets/img/ajax-loader.gif"><span>Cargando patrones, por favor espere...</span>
+                        </div>
+                        <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">NO
+                            EXISTEN PATRONES CON ESTAS CONDICIONES
+                        </div>
+                        <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO
+                            EXISTEN PATRONES PARA EL MES SELECCIONADO
+                        </div>
+
+
+                        <!--footer-->
+                        <div class="footer-table-private">
+                            <div class="total-patterns">
+                                <span>Número total de patrones:</span>
+                                <span>{{results}}</span>
+                            </div>
+                            <div style="float: left; margin-top: 3px;">
+                                <span>Patrones encontrados:</span>
+                                <span>{{found}}</span>
+                            </div>
+                            <button style="float:right; position: relative; top: -2px;" class="mo-button"
+                                    ng-click="restoreData()">Mostrar todos
+                            </button>
+                        </div>
+                    </div>
+                    <div class="copyright">
+                        Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+                    </div>
+                    <!--pagination-->
+                    <div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;">
+                        <pagination boundary-links="true" on-select-page="setPage(page);loading=false;"
+                                    total-items="found"
+                                    ng-show="found > pagingOptions.pageSize"
+                                    items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                                    page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                                    next-text="&gt;"
+                                    first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+                    </div>
+                </tab>
+            </tabset>
+
         </div>
-    </div>
-</script>
-        </fieldset>
+
+
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-alert">
+                <form name="alertForm">
+                    <div class="modal-header">
+                        <div class="header">Alarma
+                            <button class="btn-close btn-close-alert" ng-click="close()"></button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        Establecer Condición Aviso en <span ng-if="patternType != null">Precio de Cierre</span> <span
+                            ng-if="patternType == null">Rentabilidad</span>
+                        <br>
+
+                        <div style="height: 36px;">
+                            <div style="height: 26px;overflow: hidden;"><span
+                                    ng-class="{'buy-color': patternType == 'BULLISH' || patternType == null, 'sell-color' : patternType == 'BEARISH'}"
+                                    style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{assetName}}</b></span>
+                            </div>
+                            <br ng-show="bearishAssetName == ''">
+
+                            <div ng-show="bearishAssetName != ''" style="line-height: 0;margin-bottom: 15px;">
+                                <span ng-show="bearishAssetName != ''" class="sell-color"
+                                      style="text-transform: uppercase; letter-spacing: 1.5px;"><b>{{bearishAssetName}}</b></span>
+                            </div>
+                        </div>
+                        <select data-ng-model="data.price_condition">
+                            <option value="0">Mayor que</option>
+                            <option value="1">Menor que</option>
+                        </select>
+                        <input type="text" data-ng-model="data.price" name="priceInput"
+                               ng-class=" {'warning-input':  (alertForm.priceInput.$error.pattern && (alertForm.priceInput.$dirty))}"
+                               ng-pattern="rentPattern">
+                        <br>
+                        <span class="warning-text" ng-if="showAlertMessage">Este Patrón ya cumple la condición introducida</span>
+                        <span class="warning-text" ng-if="showAlertMessageCorrectValue">Debe introducir un valor correcto</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="mo-button float-left" ng-click="ok()">Aceptar</button>
+                        <button class="mo-button float-right" ng-click="cancel()">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="notesContent.html">
+            <div class="modal-alert">
+                <div class="modal-header">
+                    <div class="header">Notas
+                        <button class="btn-close btn-close-alert" ng-click="close()"></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div style="margin:0 auto;text-align: center;font-weight: bold;">{{data.assetName}}</div>
+                    <span style="display: block;" ng-repeat="note in data.notes">{{note.date | date: 'dd/MM/yyyy'}} - {{note.content}}</span>
+                    <br>
+
+                    <div ng-if="data.bearishNotes.length > 0"
+                         style="margin:0 auto;text-align: center;font-weight: bold;">{{data.bearishAssetName}}
+                    </div>
+                    <span ng-repeat="note in data.bearishNotes"><span>{{note.date | date: 'dd/MM/yyyy'}} - {{note.content}}</span></span>
+                    <br>
+                </div>
+            </div>
+        </script>
+    </fieldset>
 </div>
