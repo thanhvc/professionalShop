@@ -142,6 +142,7 @@ angular.module('ngMo.calendar', [
             urlParams.page = $scope.pagingOptions.currentPage;
             //we ask each param to include in the url or not
             var urlParamsSend = {};
+            urlParamsSend.found= $scope.found;
             if (urlParams.dayDateInput) {
                 urlParamsSend.qday = urlParams.dayDateInput;
             }
@@ -274,6 +275,8 @@ angular.module('ngMo.calendar', [
 
             $scope.filterOptions.filters = filters;
             $scope.updateSelectorMonth();
+            $scope.found = (params.found ? params.found : 0);
+            $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {
                 switch (TabsService.getActiveTab()) {

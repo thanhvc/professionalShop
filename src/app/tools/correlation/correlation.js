@@ -335,7 +335,7 @@ angular.module('ngMo.correlation', [
                 case 0:
                     if (typeof $window.sessionStorage.correlationStocks === 'undefined'){
                         $window.sessionStorage.correlationStocks = [];
-                        $scope.pagingOptions.currentPage = 1;
+                        //$scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationStocks = JSON.stringify(correlationPatterns);
                     if (correlationPatterns.length === 0) {
@@ -345,7 +345,7 @@ angular.module('ngMo.correlation', [
                 case 1:
                     if (typeof $window.sessionStorage.correlationStockPairs === 'undefined'){
                         $window.sessionStorage.correlationStockPairs = [];
-                        $scope.pagingOptions.currentPage = 1;
+                       // $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationStockPairs = JSON.stringify(correlationPatterns);
                     if (correlationPatterns.length === 0) {
@@ -356,13 +356,13 @@ angular.module('ngMo.correlation', [
                     if ($scope.filterOptions.filters.index_type === "0"){
                         if (typeof $window.sessionStorage.correlationIndices === 'undefined'){
                             $window.sessionStorage.correlationIndices = [];
-                            $scope.pagingOptions.currentPage = 1;
+                           // $scope.pagingOptions.currentPage = 1;
                         }
                         $window.sessionStorage.correlationIndices = JSON.stringify(correlationPatterns);
                     }else{
                         if (typeof $window.sessionStorage.correlationIndicePairs === 'undefined'){
                             $window.sessionStorage.correlationIndicePairs = [];
-                            $scope.pagingOptions.currentPage = 1;
+                           // $scope.pagingOptions.currentPage = 1;
                         }
                         $window.sessionStorage.correlationIndicePairs = JSON.stringify(correlationPatterns);
                     }
@@ -370,7 +370,7 @@ angular.module('ngMo.correlation', [
                 case 3:
                     if (typeof $window.sessionStorage.correlationFutures === 'undefined'){
                         $window.sessionStorage.correlationFutures = [];
-                        $scope.pagingOptions.currentPage = 1;
+                        //$scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationFutures = JSON.stringify(correlationPatterns);
                     break;

@@ -719,8 +719,9 @@ angular.module('ngMo.lookup_diary', [
             var urlParams = $scope.filterOptions.filters;
             urlParams.page = $scope.pagingOptions.currentPage;
             //we ask each param to include in the url or not
-            var urlParamsSend = {};
 
+            var urlParamsSend = {};
+            urlParamsSend.found= $scope.found;
             if (urlParams.alarm) {
                 urlParamsSend.qalarm = urlParams.alarm;
             }
@@ -879,6 +880,7 @@ angular.module('ngMo.lookup_diary', [
             $scope.filterOptions.filters = filters;
             $scope.updateSelectorMonth();
             $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
+            $scope.found = (params.found ? params.found : 0);
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {
                 switch (TabsService.getActiveTab()) {
