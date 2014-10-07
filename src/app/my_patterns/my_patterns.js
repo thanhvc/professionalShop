@@ -741,6 +741,11 @@ angular.module('ngMo.my_patterns', [
             urlParams.page = $scope.pagingOptions.currentPage;
             //we ask each param to include in the url or not
             var urlParamsSend = {};
+            //Special case for pagination, we need save the total items
+
+            urlParamsSend.found= $scope.found;
+
+
             if (urlParams.filterName) {
                 urlParamsSend.qname = urlParams.filterName;
             }
@@ -899,6 +904,7 @@ angular.module('ngMo.my_patterns', [
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             $scope.filterOptions.filters = filters;
             $scope.updateSelectorMonth();
+            $scope.found = (params.found ? params.found : 0);
             $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
             if (tabChanged) {
 

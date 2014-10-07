@@ -278,7 +278,7 @@ angular.module('ngMo.portfolio', [
                 case 0:
                     if (typeof $window.sessionStorage.portfolioStocks === 'undefined'){
                         $window.sessionStorage.portfolioStocks = [];
-                        $scope.pagingOptions.currentPage = 1;
+                       // $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioStocks = JSON.stringify(portfolioPatterns);
                     if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
@@ -288,7 +288,7 @@ angular.module('ngMo.portfolio', [
                 case 1:
                     if (typeof $window.sessionStorage.portfolioStockPairs === 'undefined'){
                         $window.sessionStorage.portfolioStockPairs = [];
-                        $scope.pagingOptions.currentPage = 1;
+                       // $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioStockPairs = JSON.stringify(portfolioPatterns);
                     if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
@@ -298,7 +298,7 @@ angular.module('ngMo.portfolio', [
                 case 2:
                     if (typeof $window.sessionStorage.portfolioIndices === 'undefined'){
                         $window.sessionStorage.portfolioIndices = [];
-                        $scope.pagingOptions.currentPage = 1;
+                     //   $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioIndices = JSON.stringify(portfolioPatterns);
                     if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
@@ -308,7 +308,7 @@ angular.module('ngMo.portfolio', [
                 case 3:
                     if (typeof $window.sessionStorage.portfolioIndicePairs === 'undefined'){
                         $window.sessionStorage.portfolioIndicePairs = [];
-                        $scope.pagingOptions.currentPage = 1;
+                     //   $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioIndicePairs = JSON.stringify(portfolioPatterns);
                     if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
