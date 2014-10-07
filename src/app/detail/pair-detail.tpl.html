@@ -120,27 +120,27 @@
             <td ng-click="loadGraphic($event,row.yearChartURL);$event.stopPropagation();">{{row.year}}</td>
             <td class="sub-border-right-table">{{row.entryDate | date: 'dd/MMM/yy'}}</td>
             <td class="border-right-table">
-                <span class="buy-color"><b>{{row.entryValue}}</b></span>
+                <span class="buy-color"><b>{{row.entryValue |  twoDecimals}}</b></span>
                 <br>
-                <span class="sell-color"><b>{{row.bearishEntryValue}}</b></span>
+                <span class="sell-color"><b>{{row.bearishEntryValue |  twoDecimals}}</b></span>
             </td>
             <td class="sub-border-right-table">{{row.exitDate | date: 'dd/MMM/yy'}}</td>
             <td class="border-right-table">
-                <span class="buy-color"><b>{{row.exitValue}}</b></span>
+                <span class="buy-color"><b>{{row.exitValue |  twoDecimals}}</b></span>
                 <br>
-                <span class="sell-color"><b>{{row.bearishExitValue}}</b></span>
+                <span class="sell-color"><b>{{row.bearishExitValue |  twoDecimals}}</b></span>
             </td>
             <td class="sub-border-right-table">
-                <span class="buy-color"><b>{{row.bullishReturn | twoDecimals}}</b></span>
+                <span class="buy-color"><b>{{row.bullishReturn |  twoDecimals}}</b></span>
                 <br>
-                <span class="sell-color"><b>{{row.bearishReturn | twoDecimals}}</b></span>
+                <span class="sell-color"><b>{{row.bearishReturn |  twoDecimals}}</b></span>
             </td>
-            <td class="border-right-table" ng-class="{'negative-percent': row.returnValue < 0}"><b>{{row.returnValue}}</b></td>
+            <td class="border-right-table" ng-class="{'negative-percent': row.returnValue < 0}"><b>{{row.returnValue |  twoDecimals}}</b></td>
             <td class="sub-border-right-table"><span ng-show="row.bestGainValue >= 0.01">{{row.bestGainDate | date: 'dd/MMM/yy'}}</span></td>
 
-            <td class="border-right-table" ng-class="{'negative-percent': row.bestGainValue < 0}"><span ng-show="row.bestGainValue >= 0.01"> <b>{{row.bestGainValue}}</b></span></td>
+            <td class="border-right-table" ng-class="{'negative-percent': row.bestGainValue < 0}"><span ng-show="row.bestGainValue >= 0.01"> <b>{{row.bestGainValue |  twoDecimals}}</b></span></td>
             <td class="sub-border-right-table"><span ng-show="row.worstLostValue <= -0.01">{{row.worstLostDate | date: 'dd/MMM/yy'}}</span></td>
-            <td class="border-right-table"><span ng-class="{'negative-percent': row.worstLostValue < 0}" ng-show="row.worstLostValue <= -0.01"><b>{{row.worstLostValue}}</b></span></td>
+            <td class="border-right-table"><span ng-class="{'negative-percent': row.worstLostValue < 0}" ng-show="row.worstLostValue <= -0.01"><b>{{row.worstLostValue |  twoDecimals}}</b></span></td>
         </tr>
         </tbody>
     </table>
