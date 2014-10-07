@@ -10,7 +10,7 @@
                         data-ng-model="filterOptions.filters.selectedRegion"
                         ng-disabled="filterOptions.selectors.regions.length <= 0">
                     <option value="">- Región -</option>
-                    <option ng-repeat="item in filterOptions.selectors.regions" value="{{item.id}}"
+                    <option ng-repeat="item in filterOptions.selectors.regions | orderBy:['description']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
                         {{item.description}}
                     </option>
@@ -21,7 +21,7 @@
                         data-ng-model="filterOptions.filters.selectedMarket"
                         ng-disabled="filterOptions.selectors.markets.length <= 0">
                     <option value="">- Mercado -</option>
-                    <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"
+                    <option ng-repeat="item in filterOptions.selectors.markets | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
                         {{item.description}}
                     </option>
@@ -31,7 +31,7 @@
                 <select ng-disabled="filterOptions.selectors.sectors.length <= 0" ng-change="selectSector()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedSector">
                     <option value="">- Sector -</option>
-                    <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
+                    <option ng-repeat="item in filterOptions.selectors.sectors | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
                         {{item.description}}
                     </option>
@@ -41,7 +41,7 @@
                 <select ng-disabled="filterOptions.selectors.industries.length <= 0" ng-change="selectIndustry()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedIndustry">
                     <option value="">- Industria -</option>
-                    <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
+                    <option ng-repeat="item in filterOptions.selectors.industries | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}" ><!---->
                         {{item.description}}
                     </option>

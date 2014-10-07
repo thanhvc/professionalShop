@@ -3,7 +3,7 @@
     </select>
     <select data-ng-model="filterOptions.filters.selectedRegion" class="filter-calendar"  ng-change="selectRegion();" ng-disabled="filterOptions.selectors.regions.length <= 0">
         <option selected value="">- Región -</option>
-        <option ng-repeat="region in filterOptions.selectors.regions" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">{{region.description}}</option>
+        <option ng-repeat="region in filterOptions.selectors.regions | orderBy:['description']" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">{{region.description}}</option>
     </select>
     <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search()"><label>Favoritos</label>
     <input type="text" placeholder="Día" ng-change="search()" data-ng-model="filterOptions.filters.dayDateInput" ng-delay="3000">
