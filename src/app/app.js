@@ -1310,6 +1310,11 @@ angular.module('ngMo', [
                 //this is used when the user is not loged, add items to the cart and then log in.
                 $scope.$on('updateSubscribedPacks',function(event,packs){
                     //first synchronize the service, then reload the cart
+                    $scope.updateSubscribedCart(packs);
+                });
+
+                //funciton to update the cart (called by event)
+                $scope.updateSubscribedCart = function(packs) {
                     ShoppingCartService.thisPacksAreSubscribed(packs);
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                     $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
@@ -1323,7 +1328,7 @@ angular.module('ngMo', [
                     $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                     $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
-                });
+                };
 
 
 

@@ -543,7 +543,7 @@ angular.module('ngMo.my_subscriptions', [
         //change the duration in my subscriptions
         $scope.changeDuration = function(pack) {
             //changeDuration also check if the packs is not selected, then select it if not
-
+            pack.duration = parseInt(pack.duration,10);
             if (!pack.toBuy) {
                 //is not check to buy, add the item with the specific duration
                 pack.toBuy = true;
