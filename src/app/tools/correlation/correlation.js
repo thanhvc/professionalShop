@@ -1011,7 +1011,7 @@ angular.module('ngMo.correlation', [
                     'token': $window.localStorage.token
                 }
             };
-            var result = $http.get($rootScope.urlService+'/favoriteasset', config).then(function (response) {
+            var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;

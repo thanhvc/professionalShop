@@ -119,7 +119,7 @@
                                       ng-class="{'favourite-added': row.favorite == true}"></div>
                             </td> -->
                             <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
-                            <td>{{row.symbol}}</td>
+                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.symbol}}</td>
                             <td>{{row.name | limitTo: 35}}</td>
                         </tr>
                     </tbody>
@@ -141,7 +141,7 @@
                                      ng-class="{'favourite-added': row.favorite == true}"></div>
                             </td> -->
                             <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
-                            <td>{{row.symbol}}</td>
+                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.symbol}}</td>
                             <td>{{row.name | limitTo: 35}}</td>
                         </tr>
                     </tbody>
