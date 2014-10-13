@@ -1817,7 +1817,8 @@ table{
 
 .info-modal-cart {
   width: 511px;
-  height: 145px;
+  /*height: 145px;*/
+  padding-bottom: 20px;
   position: absolute;
   margin-left: 50%;
   left: -260px;
@@ -2426,6 +2427,28 @@ tooltip-placement=" top ultra-left-tooltip" **/
 }
 .duration-selector {
   width: 85px;
+}
+
+/*-Alerts modals -*/
+.modal-red {
+  background-color: @red-background;
+  border: 2px @red-border;
+  color: @red-text;
+  border-radius: 10px;
+}
+
+.modal-yellow {
+  background-color: @yellow-background;
+  border: 2px @yellow-border;
+  color: @yellow-text;
+  border-radius: 10px;
+}
+
+.modal-green {
+  background-color:@green-background;
+  border-color: @green-border;
+  color: @green-text;
+  border-radius: 10px;
 }
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
