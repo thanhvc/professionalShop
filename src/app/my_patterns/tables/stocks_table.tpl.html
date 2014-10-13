@@ -144,7 +144,7 @@
         </td>
 
         <td class="table-cell-patterns border-right-table volatility-column-my-patterns" ng-class="{'negative-percent': data.asset.volatility < 0 }">
-          <b> {{data.asset.volatility | twoDecimals}}</b>
+          <span ng-show="data.asset.volatility>=0"><b> {{data.asset.volatility | twoDecimals}}</b></span>
         </td>
 
         <td class="table-cell-patterns border-right-table favorite-column-my-patterns">
