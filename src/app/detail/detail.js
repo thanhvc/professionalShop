@@ -69,17 +69,29 @@ angular.module('ngMo.detail', [
 
         $scope.tabs = TabsService.getTabs();
         $scope.isDisabled = false;
+        $scope.productType= null;
         $scope.obtainActualTab = function () {
 
           switch (detailData.infoPattern.productType){
               case 'STOCK':
                   $scope.actualTab = "Acciones";
+                  if (detailData.infoPattern.indexType === 1){
+                      $scope.productType = "PAIR_STOCK";
+                  } else {
+                      $scope.productType = "SIMPLE_STOCK";
+                  }
                   break;
               case 'INDICE':
                   $scope.actualTab = "Indices";
+                  if (detailData.infoPattern.indexType === 1){
+                      $scope.productType = "PAIR_INDEX";
+                  } else {
+                      $scope.productType = "SIMPLE_INDEX";
+                  }
                   break;
               case 'FUTURE':
                   $scope.actualTab = "Futuros";
+                  $scope.productType = "FUTURE";
                   break;
           }
           if (detailData.infoPattern.indexType === 1){
