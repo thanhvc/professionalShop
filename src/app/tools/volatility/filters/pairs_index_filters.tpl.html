@@ -19,6 +19,21 @@
                         <option value="1">Par Índices</option>
                     </select>
                 </td>
+                <td class="td-volatility-filter" style="width:145px;">  <form name="rentForm">
+                    <select class="border-filters select-filter select-filter input-op-volat"
+                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-change="searchVolat();"
+                            data-ng-model="filterOptions.filters.selectedVolatility">
+                        <option value="">- Volatilidad -</option>
+                    </select>
+                    <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                           ng-pattern="rentPattern" ng-trim="false"
+                           style="margin-left: 2px;" ng-delay="2000"
+                           ng-change="searchVolat();"
+                           ng-class=" {'warning-input':  (rentForm.volatilityInput.$error.pattern && (rentForm.volatilityInput.$dirty))}"
+                           data-ng-model="filterOptions.filters.volatilityInput">
+                </form>
+                </td>
                 <td>
                     <input type="checkbox" ng-change="search();" style="float:left;"
                            ng-model="filterOptions.filters.favourite">
