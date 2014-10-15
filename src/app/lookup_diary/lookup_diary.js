@@ -368,9 +368,16 @@ angular.module('ngMo.lookup_diary', [
         //restore filters and load page
         $scope.restoreData = function () {
             if ($scope.isFilterActive()) {
-                $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
+                $scope.myData= [];
+                $scope.loading = true;
+                $scope.dataLoaded = false; //Not showming data until they have been loaded
+                $scope.restartFilter();
+                $scope.applyFilters();
             }
+
         };
+
+
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {

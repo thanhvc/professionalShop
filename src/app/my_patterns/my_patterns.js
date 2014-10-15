@@ -438,7 +438,11 @@ angular.module('ngMo.my_patterns', [
         //restore filters and load page
         $scope.restoreData = function () {
             if ($scope.isFilterActive()) {
-                $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
+                $scope.myData= [];
+                $scope.loading = true;
+                $scope.dataLoaded = false; //Not showming data until they have been loaded
+                $scope.restartFilter();
+                $scope.applyFilters();
             }
 
         };

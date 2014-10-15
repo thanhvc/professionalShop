@@ -234,7 +234,70 @@ angular.module('ngMo.historic', [
 
         //restore filters and load page
         $scope.restoreData = function () {
-            $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
+            if ($scope.isFilterActive()) {
+                $scope.myData= [];
+                $scope.loading = true;
+                $scope.dataLoaded = false; //Not showming data until they have been loaded
+                $scope.restartFilter();
+                $scope.applyFilters();
+            }
+
+        };
+
+        //check if exists some filter active, or is default search with all
+        $scope.isFilterActive = function() {
+            if ($scope.filterOptions.filters.durationInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.favourite!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.filterName!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.rentAverageInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.rentDiaryInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.rentInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedAverage!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedDuration!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedIndustry!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedMarket!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedOperation!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedRegion!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedRent!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedRentDiary!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedSector!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedVolatility!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.volatilityInput!== "") {
+                return true;
+            }
+            return false;
         };
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
