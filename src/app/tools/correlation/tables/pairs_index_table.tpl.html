@@ -11,10 +11,10 @@
         <tr ng-repeat="pattern in myData">
             <td ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
             <td>
-                <span class="buy-color cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"
-                       >{{pattern.asset.longName | limitTo: 22}}</span><br>
-                <span class="sell-color cursor-help" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})"
-                      >{{pattern.bearishAsset.longName | limitTo: 22}}</span>
+                <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
+                       >{{pattern.name | limitTo: 22}}</span><br>
+                <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
+                      >{{pattern.name2 | limitTo: 22}}</span>
             </td>
             <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 10}" ng-click="addToCorrelationList(pattern.id);">>></span></td>
         </tr>
@@ -45,14 +45,14 @@
             <tr ng-repeat="pattern in correlationList">
                 <td ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td>
-                    <span class="buy-color cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"
-                              >{{pattern.asset.longName | limitTo: 22}}</span><br>
-                    <span class="sell-color cursor-help" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.symbol}})"
-                            >{{pattern.bearishAsset.longName | limitTo: 22}}</span>
+                    <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
+                              >{{pattern.name | limitTo: 22}}</span><br>
+                    <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
+                            >{{pattern.name2 | limitTo: 22}}</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
                     <div class="current-favourite cursor-help" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(pattern.id);"
-                         ng-class="{'favourite-added': pattern.favorite == true}"></div>
+                         ng-class="{'favourite-added': pattern.fav == true}"></div>
                 </td>
                 <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern.id);"><<</span></td>
             </tr>

@@ -86,33 +86,33 @@
         </td>
 
         <td style="text-align: left;vertical-align: top;" class="table-cell-patterns border-right-table name-column-my-patterns">
-            <span ng-if="data.patternType == 'BULLISH'">Comprar</span>
-            <span ng-if="data.patternType == 'BEARISH'">Vender</span>
+            <span ng-if="data.patTyp == 'BULLISH'">Comprar</span>
+            <span ng-if="data.patTyp == 'BEARISH'">Vender</span>
             <br/>
             <div class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})"
-                  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
-                {{data.asset.longName}}
+                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
+                {{data.name}}
             </span>
             </div>
         </td>
 
         <td style="text-align: left; vertical-align: top;"
             class="table-cell-patterns border-right-table sector-industry-column-my-patterns"
-            ng-class="{'buy-color': data.patternType == 'BULLISH',
-                            'sell-color': data.patternType == 'BEARISH'}">
+            ng-class="{'buy-color': data.patTyp == 'BULLISH',
+                            'sell-color': data.patTyp == 'BEARISH'}">
             <!--sector/industry-->
-            <div class="text-limitator"><span class="cursor-help" tooltip-html-unsafe="{{data.asset.sector}}">{{data.asset.sector}}</span>
-                <span ng-show="{{(data.asset.sector != null && data.asset.industry != null) && (data.asset.sector != '' && data.asset.industry != '')}}"> / </span>
+            <div class="text-limitator"><span class="cursor-help" tooltip-html-unsafe="{{data.sector}}">{{data.sector}}</span>
+                <span ng-show="{{(data.sector != null && data.industry != null) && (data.sector != '' && data.industry != '')}}"> / </span>
             </div>
             <div class="text-limitator">
-                <span class="cursor-help" tooltip="{{data.asset.industry}}">{{data.asset.industry}}</span>
+                <span class="cursor-help" tooltip="{{data.industry}}">{{data.industry}}</span>
             </div>
         </td>
 
         <td class="table-cell-patterns border-right-table market-column-my-patterns">
-            <span tooltip-html-unsafe="{{data.asset.exchange.name}}" class="cursor-help">{{data.asset.exchange.symbol}}</span>
+            <span tooltip-html-unsafe="{{data.exchName}}" class="cursor-help">{{data.exchSymbol}}</span>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table years-gain-column-my-patterns">
@@ -143,13 +143,13 @@
             <b> {{data.duration | twoDecimals}}</b>
         </td>
 
-        <td class="table-cell-patterns border-right-table volatility-column-my-patterns" ng-class="{'negative-percent': data.asset.volatility < 0 }">
-          <span ng-show="data.asset.volatility>=0"><b> {{data.asset.volatility | twoDecimals}}</b></span>
+        <td class="table-cell-patterns border-right-table volatility-column-my-patterns" ng-class="{'negative-percent': data.volat < 0 }">
+          <span ng-show="data.volat>=0"><b> {{data.volat | twoDecimals}}</b></span>
         </td>
 
         <td class="table-cell-patterns border-right-table favorite-column-my-patterns">
             <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();"
-                 ng-class="{'favourite-added': data.favorite == true}"></div>
+                 ng-class="{'favourite-added': data.fav == true}"></div>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table state-column-my-patterns">

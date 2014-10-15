@@ -77,16 +77,16 @@
             <div class="text-limitator">
             <span>Alcista</span>
             <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
-                {{data.asset.longName}}
+                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
+                {{data.name}}
             </span></div>
             <div class="text-limitator">
             <span>
                 Bajista
             </span>
             <span  class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.bearishAsset.longName}} ({{data.bearishAsset.exchange.symbol}})">
-                {{data.bearishAsset.longName}}
+                  tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
+                {{data.name2}}
             </span>
             </div>
         </td>
@@ -129,7 +129,7 @@
         </td>
         <td class="table-cell-patterns border-right-table favorite-column-my-patterns">
             <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();"
-                 ng-class="{'favourite-added': data.favorite == true}"></div>
+                 ng-class="{'favourite-added': data.fav == true}"></div>
         </td>
         <td class="table-cell-patterns sub-border-right-table state-column-my-patterns">
             <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>
