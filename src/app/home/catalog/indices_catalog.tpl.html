@@ -53,21 +53,23 @@
     <!-- Index table -->
     <table class="patterns-table-index-catalog" ng-show="patterns.length > 0">
         <tr>
-            <th class="index-name-column-catalog">Patr&oacute;n Índices</th>
+            <th class="index-name-column-catalog border-right-thick-catalog">Patr&oacute;n Índices</th>
+            <th class="border-right-thick-catalog emisor-td-width">Emisor</th>
             <th class="border-right-thick-catalog index-number-of-years-column-catalog" colspan="2">N&uacute;mero de A&ntilde;os</th>
-            <th colspan="2" class="index-profit-column-catalog">Rentabilidad (%)</th>
+            <th colspan="2" class="index-profit-column-catalog border-right-thick-catalog">Rentabilidad (%)</th>
             <th class="border-right-thick-catalog index-duration-column-catalog">Duraci&oacute;n</th>
-            <th class="index-volatility-column-catalog"><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
+            <th class="index-volatility-column-catalog border-right-thick-catalog"><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
             <th style="border-right: 1px solid #6f7072 !important;" class="index-status-column-catalog">Estado</th>
         </tr>
         <tr>
-            <th class="index-name-column-catalog">Nombre Índice</th>
-            <th style="border-right: 1px solid #6f7072 !important;" class="index-number-of-years-gain-column-catalog">Ganancias</th>
-            <th class="index-number-of-years-loss-column-catalog">Pérdidas</th>
-            <th class="index-profit-accumulated-column-catalog">Acumulada</th>
-            <th class="index-profit-average-column-catalog">Promedio</th>
-            <th class="border-right-thick-catalog index-duration-column-catalog">Meses</th>
-            <th class="index-volatility-column-catalog">(%)</th>
+            <th class="index-name-column-catalog border-right-thick-catalog">Nombre Índice</th>
+            <th class="border-right-thick-catalog emisor-td-width"> </th>
+            <th style="border-right: 1px solid #6f7072 !important;" class="index-number-of-years-gain-column-catalog border-right-fine-catalog">Ganancias</th>
+            <th class="index-number-of-years-loss-column-catalog border-right-thick-catalog">Pérdidas</th>
+            <th class="index-profit-accumulated-column-catalog border-right-fine-catalog">Acumulada</th>
+            <th class="index-profit-average-column-catalog border-right-thick-catalog">Promedio</th>
+            <th class="border-right-thick-catalog index-duration-column-catalog border-right-thick-catalog">Meses</th>
+            <th class="index-volatility-column-catalog border-right-thick-catalog">(%)</th>
             <th style="border-right: 1px solid #6f7072 !important;" class="index-status-column-catalog"></th>
         </tr>
         <tr ng-repeat="pattern in patterns">
@@ -76,16 +78,16 @@
                     <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 70}}</span>
                 </div>
             </td>
-
-            <td class="index-number-of-years-gain-column-catalog">{{pattern.win | twoDecimals}}</td>
-            <td class="index-number-of-years-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
-            <td class="index-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
-            <td class="index-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
-            <td style="font-family: 'fontpo'"  class="index-duration-column-catalog border-right-thick-catalog">
+            <td class="border-right-thick-catalog prices-font10 emisor-td-width">{{pattern.asset.exchange.symbol }}</td>
+            <td class="index-number-of-years-gain-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.win | twoDecimals}}</td>
+            <td class="index-number-of-years-loss-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.loss | twoDecimals}}</td>
+            <td class="index-profit-accumulated-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td class="index-profit-average-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.averageReturn | twoDecimals}}</td>
+            <td style="font-family: 'fontpo'"  class="index-duration-column-catalog border-right-thick-catalog prices-font10">
                 <span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
-            <td  class="index-volatility-column-catalog">{{pattern.asset.volatility | twoDecimals}}</td>
+            <td  class="index-volatility-column-catalog prices-font10-bold">{{pattern.asset.volatility | twoDecimals}}</td>
             <td style="border-right: 1px solid #6f7072 !important;"  class="index-status-column-catalog"><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
                 <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
                 <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state cursor-help" ng-show="pattern.statePattern == 'STARTED'"></div>
