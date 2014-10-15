@@ -86,7 +86,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="row in portfolioData track by $index">
+                    <tr ng-repeat="row in portfolioData track by $index" class="cursor-pointer" ui-sref="detail({patternId:row.patternId})">
                         <td>{{row.patternId}}</td>
                         <td ng-if="row.patternType != null">
                             <span ng-show="row.patternType == 'BULLISH'">Comprar</span>
@@ -114,7 +114,7 @@
                         <td>{{row.portfolioPercentage | twoDecimals}}</td>
                         <td>{{row.portfolioRatio | twoDecimals}}</td>
                         <td>
-                            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.patternId);"
+                            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.patternId);$event.stopPropagation();"
                                  ng-class="{'favourite-added': row.favorite == true}"></div>
                         </td>
                     </tr>

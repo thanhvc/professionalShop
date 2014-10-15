@@ -27,7 +27,7 @@ angular.module('auth',['http-auth-interceptor'])
         };
     })
 
-    .service('IsLogged', function ($http, $window, $rootScope, $location) {
+    .service('IsLogged', function ($http, $window, $rootScope, $location/*,$cookieStore*/) {
         //redirect param seys to the function if the service must redirect to home if the user is not logged
         this.isLogged = function(redirect){
             token = $window.localStorage.token;
@@ -65,6 +65,27 @@ angular.module('auth',['http-auth-interceptor'])
                         }
                     }
                 });
+        };
+
+        /*unlog the user and redirect to home*/
+        this.unLog = function () {
+            $rootScope.isLog = false;
+            $rootScope.$broadcast("removeItemsCart");
+            $window.localStorage.removeItem('token');
+            $window.localStorage.removeItem('username');
+            $window.sessionStorage.removeItem('cart');
+            $window.sessionStorage.removeItem("correlationStocks");
+            $window.sessionStorage.removeItem("correlationStockPairs");
+            $window.sessionStorage.removeItem("correlationIndices");
+            $window.sessionStorage.removeItem("correlationIndicePairs");
+            $window.sessionStorage.removeItem("correlationFutures");
+            $window.sessionStorage.removeItem("portfolioStocks");
+            $window.sessionStorage.removeItem("portfolioStockPairs");
+            $window.sessionStorage.removeItem("portfolioIndices");
+            $window.sessionStorage.removeItem("portfolioIndicePairs");
+            //$cookieStore.remove("name");
+            //$cookieStore.remove("token");
+            $location.path('/home');
         };
     })
 
