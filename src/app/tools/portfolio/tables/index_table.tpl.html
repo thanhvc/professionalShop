@@ -14,12 +14,13 @@
         <tbody>
         <tr ng-repeat="pattern in myData">
             <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
-            <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div class="name-pattern-container cursor-help" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"><span>{{pattern.asset.longName | limitTo: 23}}</span></div></td>
-            <td><span class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
+            <td ng-class="{'buy-color': pattern.patTyp == 'BULLISH', 'sell-color': pattern.patTyp == 'BEARISH' }">
+                <div class="name-pattern-container cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"><span>{{pattern.name | limitTo: 23}}</span></div></td>
+            <td><span class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span></td>
             <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
             <td>
-                <span class="cursor-help" tooltip="ALCISTA" ng-if="pattern.patternType == 'BULLISH'">A</span>
-                <span class="cursor-help" tooltip="BAJISTA" ng-if="pattern.patternType == 'BEARISH'">B</span>
+                <span class="cursor-help" tooltip="ALCISTA" ng-if="pattern.patTyp == 'BULLISH'">A</span>
+                <span class="cursor-help" tooltip="BAJISTA" ng-if="pattern.patTyp == 'BEARISH'">B</span>
             </td>
             <td class="portfolio-button"><span ng-class="{'disable-arrow': portfolioList.length >= 20}" ng-click="addToPortfolioList(pattern.id);">>></span></td>
         </tr>
@@ -52,16 +53,16 @@
             <tbody>
             <tr ng-repeat="pattern in portfolioList">
                 <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
-                <td ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH' }"><div class="name-pattern-container" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})"><span class="cursor-help">{{pattern.asset.longName | limitTo: 25}}</span></div></td>
-                <td><span class="cursor-help" tooltip="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span></td>
+                <td ng-class="{'buy-color': pattern.patTyp == 'BULLISH', 'sell-color': pattern.patTyp == 'BEARISH' }"><div class="name-pattern-container" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"><span class="cursor-help">{{pattern.name | limitTo: 25}}</span></div></td>
+                <td><span class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span></td>
                 <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
                 <td>
-                    <span  class="cursor-help" tooltip="ALCISTA" ng-if="pattern.patternType == 'BULLISH'">A</span>
-                    <span  class="cursor-help" tooltip="BAJISTA" ng-if="pattern.patternType == 'BEARISH'">B</span>
+                    <span  class="cursor-help" tooltip="ALCISTA" ng-if="pattern.patTyp == 'BULLISH'">A</span>
+                    <span  class="cursor-help" tooltip="BAJISTA" ng-if="pattern.patTyp == 'BEARISH'">B</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
                     <div class="current-favourite cursor-pointer" tooltip-placement="left" tooltip="Marcar Estrategia Favorita" ng-click="toggleFavoriteFromList(pattern.id);"
-                         ng-class="{'favourite-added': pattern.favorite == true}"></div>
+                         ng-class="{'favourite-added': pattern.fav == true}"></div>
                 </td>
                 <td class="portfolio-button"><span ng-click="deleteFromPortfolioList(pattern.id);"><<</span></td>
             </tr>

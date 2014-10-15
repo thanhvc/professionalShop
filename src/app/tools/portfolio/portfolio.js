@@ -369,7 +369,7 @@ angular.module('ngMo.portfolio', [
                         $scope.portfolioData[i].favorite = !$scope.portfolioData[i].favorite;
                     }
                 }
-
+                    $scope.loadPage(false);
 
             });
         };

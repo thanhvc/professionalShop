@@ -24,19 +24,19 @@
         <tbody class="stocks-tbody">
         <tr ng-repeat="data in myData"  ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style=" font-size:11px;color:#996600 !important;">
             <td class="green"  >
-                    <span class="stocks-market-value" tooltip-html-unsafe="{{data.asset.longName}} {{data.asset.expirationYear}} ({{data.asset.exchange.symbol}})"
-                          ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">{{data.asset.longName}}</span>
+                    <span class="stocks-market-value cursor-help" tooltip-html-unsafe="{{data.name}} {{data.expYear}} ({{data.exchSymbol}})"
+                          ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">{{data.name}}</span>
             </td>
             <td class="black-font-market" >
-                <span tooltip-html-unsafe="{{data.asset.exchange.name}}" >{{data.asset.exchange.symbol}}</span>
+                <span tooltip-html-unsafe="{{data.name}}" class="cursor-help" >{{data.exchSymbol}}</span>
             </td>
-            <td class="stocks-date-value">{{data.asset.lastQuoteDate | date: 'd MMM yyyy'}}</td>
+            <td class="stocks-date-value">{{data.lastDate | date: 'd MMM yyyy'}}</td>
             <td class="stocks-vol-value">
-                <a ng-if="data.asset.volatility >= 0" ng-click="loadGraphic($event,data.asset.longName + ' ' +data.asset.expirationYear,data.patternType,null,false,data.asset.volatilityChartURL);$event.stopPropagation();" >{{ data.asset.volatility | twoDecimals}}</a>
-                <span ng-if="data.asset.volatility < 0">N/A</span>
+                <a ng-if="data.volat >= 0" ng-click="loadGraphic($event,data.name + ' ' +data.expYear,data.patTyp,null,false,data.volatChartURL);$event.stopPropagation();" >{{ data.volat | twoDecimals}}</a>
+                <span ng-if="data.volat < 0">N/A</span>
             </td>
             <td style="width: 62px;" class="table-cell-patterns sub-border-right-table">
-                <div tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.favorite == true}"></div>
+                <div tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.fav == true}"></div>
             </td>
         </tr>
         </tbody>
