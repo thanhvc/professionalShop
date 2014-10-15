@@ -1160,8 +1160,8 @@ angular.module('ngMo', [
             controller: function($scope, $modal){
                 $scope.openModal = function(idioma) {
                     $modal.open({
-                        templateUrl: 'layout_templates/modal-text.tpl.html',
-                        controller: ModalInstanceCtrl,
+                        templateUrl: 'layout_templates/modal-flag.tpl.html',
+                        controller: ModalFlagInstanceCtrl,
                         resolve: {
                             infoSelected: function () {
                                 switch (idioma) {
@@ -2203,3 +2203,19 @@ var ModalCartInstanceCtrl = function ($scope, $modalInstance, $timeout,totalColl
     }, 3000);
 };
 
+//for flags
+//modalPanel
+var ModalFlagInstanceCtrl = function ($scope, $modalInstance, $timeout,infoSelected) {
+    $scope.infoSelected = infoSelected;
+    $scope.opened = true;
+    $scope.close = function () {
+        if ($scope.opened) {
+            $modalInstance.close();
+            $scope.opened= false;
+        }
+    };
+   // $scope.$on("body-click",function(){$scope.close();});
+    $timeout(function () {
+        $scope.close();
+    }, 3000);
+};

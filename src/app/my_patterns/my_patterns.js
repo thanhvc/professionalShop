@@ -513,7 +513,14 @@ angular.module('ngMo.my_patterns', [
                 }else{
                     $scope.appliedFilters = false;
                 }
-            });
+            }/* if unauthorized, unlog
+            , function(dataError) {
+                //console.log("error");
+                if (dataError.status === 401) {
+                    IsLogged.unLog();
+                }
+
+            }*/);
 
 
         };
