@@ -70,14 +70,14 @@
             {{data.id}}
         </td>
         <td  class="table-cell-patterns border-right-table stocks-column-my-patterns">
-            <span ng-if="data.patternType == 'BULLISH'">Alcista</span>
-            <span ng-if="data.patternType == 'BEARISH'">Bajista</span>
+            <span ng-if="data.patTyp == 'BULLISH'">Alcista</span>
+            <span ng-if="data.patTyp == 'BEARISH'">Bajista</span>
             <br/>
             <div class="text-limitator">
                 <span class="cursor-help"
-                      tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})"
-                      ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
-                    {{data.asset.longName}}
+                      tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                      ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
+                    {{data.name}}
                 </span>
             </div>
         </td>
@@ -108,12 +108,12 @@
         <td  class="table-cell-patterns border-right-table duration-column-my-patterns">
             <b> {{data.duration | twoDecimals}}</b>
         </td>
-        <td  class="table-cell-patterns border-right-table volatility-column-my-patterns"  ng-class="{'negative-percent': data.asset.volatility < 0 }">
-            <b> {{data.asset.volatility | twoDecimals}}</b>
+        <td  class="table-cell-patterns border-right-table volatility-column-my-patterns"  ng-class="{'negative-percent': data.volat < 0 }">
+            <span ng-show="data.volat>=0"><b> {{data.volat | twoDecimals}}</b></span>
         </td>
         <td class="table-cell-patterns border-right-table favorite-column-my-patterns">
             <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();"
-                 ng-class="{'favourite-added': data.favorite == true}"></div>
+                 ng-class="{'favourite-added': data.fav == true}"></div>
         </td>
         <td class="table-cell-patterns sub-border-right-table state-column-my-patterns">
             <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>

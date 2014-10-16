@@ -47,7 +47,8 @@ angular.module('ngMo.correlation', [
         $scope.endMoving = function() {
             $scope.moving = false;
         };
-        $scope.loading = true;
+        $scope.loading = true;//patterns
+        $scope.loadingFilters = false;
         $scope.calculating = false;
         //tabs and variables
         //pattern number for rents
@@ -334,7 +335,7 @@ angular.module('ngMo.correlation', [
                 case 0:
                     if (typeof $window.sessionStorage.correlationStocks === 'undefined'){
                         $window.sessionStorage.correlationStocks = [];
-                        $scope.pagingOptions.currentPage = 1;
+                        //$scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationStocks = JSON.stringify(correlationPatterns);
                     if (correlationPatterns.length === 0) {
@@ -344,7 +345,7 @@ angular.module('ngMo.correlation', [
                 case 1:
                     if (typeof $window.sessionStorage.correlationStockPairs === 'undefined'){
                         $window.sessionStorage.correlationStockPairs = [];
-                        $scope.pagingOptions.currentPage = 1;
+                       // $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationStockPairs = JSON.stringify(correlationPatterns);
                     if (correlationPatterns.length === 0) {
@@ -355,13 +356,13 @@ angular.module('ngMo.correlation', [
                     if ($scope.filterOptions.filters.index_type === "0"){
                         if (typeof $window.sessionStorage.correlationIndices === 'undefined'){
                             $window.sessionStorage.correlationIndices = [];
-                            $scope.pagingOptions.currentPage = 1;
+                           // $scope.pagingOptions.currentPage = 1;
                         }
                         $window.sessionStorage.correlationIndices = JSON.stringify(correlationPatterns);
                     }else{
                         if (typeof $window.sessionStorage.correlationIndicePairs === 'undefined'){
                             $window.sessionStorage.correlationIndicePairs = [];
-                            $scope.pagingOptions.currentPage = 1;
+                           // $scope.pagingOptions.currentPage = 1;
                         }
                         $window.sessionStorage.correlationIndicePairs = JSON.stringify(correlationPatterns);
                     }
@@ -369,7 +370,7 @@ angular.module('ngMo.correlation', [
                 case 3:
                     if (typeof $window.sessionStorage.correlationFutures === 'undefined'){
                         $window.sessionStorage.correlationFutures = [];
-                        $scope.pagingOptions.currentPage = 1;
+                        //$scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationFutures = JSON.stringify(correlationPatterns);
                     break;
@@ -487,6 +488,7 @@ angular.module('ngMo.correlation', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors) {
+            $scope.loadingFilters = true;
             CorrelationService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
                 //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
@@ -500,6 +502,7 @@ angular.module('ngMo.correlation', [
                     $scope.filterOptions.selectors.regions = data.regions;
                     //$scope.filterOptions.filters.selectedRegion = "";
                 }
+                $scope.loadingFilters = false;
             });
         };
 
@@ -1008,7 +1011,7 @@ angular.module('ngMo.correlation', [
                     'token': $window.localStorage.token
                 }
             };
-            var result = $http.get($rootScope.urlService+'/favoriteasset', config).then(function (response) {
+            var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;

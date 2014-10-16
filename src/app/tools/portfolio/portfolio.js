@@ -46,11 +46,12 @@ angular.module('ngMo.portfolio', [
         $scope.endMoving = function() {
             $scope.moving = false;
         };
-        $scope.loading = true;
+        $scope.loading = true;//patterns
+        $scope.loadingFilters = false;//filters
         $scope.calculating= false;
         //tabs and variables
         //pattern number for rents
-        $scope.loading = false;
+       // $scope.loading = false;
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
         $scope.daysPattern = /^\d+$/;
         /**private models*/
@@ -277,7 +278,7 @@ angular.module('ngMo.portfolio', [
                 case 0:
                     if (typeof $window.sessionStorage.portfolioStocks === 'undefined'){
                         $window.sessionStorage.portfolioStocks = [];
-                        $scope.pagingOptions.currentPage = 1;
+                       // $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioStocks = JSON.stringify(portfolioPatterns);
                     if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
@@ -287,7 +288,7 @@ angular.module('ngMo.portfolio', [
                 case 1:
                     if (typeof $window.sessionStorage.portfolioStockPairs === 'undefined'){
                         $window.sessionStorage.portfolioStockPairs = [];
-                        $scope.pagingOptions.currentPage = 1;
+                       // $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioStockPairs = JSON.stringify(portfolioPatterns);
                     if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
@@ -297,7 +298,7 @@ angular.module('ngMo.portfolio', [
                 case 2:
                     if (typeof $window.sessionStorage.portfolioIndices === 'undefined'){
                         $window.sessionStorage.portfolioIndices = [];
-                        $scope.pagingOptions.currentPage = 1;
+                     //   $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioIndices = JSON.stringify(portfolioPatterns);
                     if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
@@ -307,7 +308,7 @@ angular.module('ngMo.portfolio', [
                 case 3:
                     if (typeof $window.sessionStorage.portfolioIndicePairs === 'undefined'){
                         $window.sessionStorage.portfolioIndicePairs = [];
-                        $scope.pagingOptions.currentPage = 1;
+                     //   $scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.portfolioIndicePairs = JSON.stringify(portfolioPatterns);
                     if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
@@ -368,7 +369,7 @@ angular.module('ngMo.portfolio', [
                         $scope.portfolioData[i].favorite = !$scope.portfolioData[i].favorite;
                     }
                 }
-
+                    $scope.loadPage(false);
 
             });
         };
@@ -429,6 +430,7 @@ angular.module('ngMo.portfolio', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors) {
+            $scope.loadingFilters = true;
             PortfolioService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
                 //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
@@ -442,6 +444,7 @@ angular.module('ngMo.portfolio', [
                     $scope.filterOptions.selectors.regions = data.regions;
                     //$scope.filterOptions.filters.selectedRegion = "";
                 }
+                $scope.loadingFilters = false;
             });
         };
 
@@ -784,7 +787,7 @@ angular.module('ngMo.portfolio', [
                     'token': $window.localStorage.token
                 }
             };
-            var result = $http.get($rootScope.urlService+'/favoriteasset', config).then(function (response) {
+            var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
                 return response.data;

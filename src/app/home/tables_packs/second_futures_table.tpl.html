@@ -18,10 +18,10 @@
        <!-- <td colspan="3">
             <table class="table-pack">
                 <tbody>-->
-                <tr ng-repeat="pack in homeTablePack2.futuresContent track by $index" ui-sref="catalog({packCode: pack.pack.code, month: 1})"
+                <tr ng-repeat="pack in homeTablePack2.futuresContent track by $index" ui-sref="catalog({packCode: pack.code, month: 1})"
                     ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
-                    <td><span tooltip="{{pack.pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})">{{pack.pack.subname}}</span></td>
-                    <td>{{pack.pack.scopeText}}</td>
+                    <td><span tooltip="{{pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})">{{pack.subname}}</span></td>
+                    <td>{{pack.scopeText}}</td>
                     <td>{{pack.numPatterns}}</td>
                 </tr>
                <!-- </tbody>

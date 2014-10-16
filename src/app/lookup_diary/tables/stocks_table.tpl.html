@@ -88,14 +88,14 @@
             {{data.id}}
         </td>
         <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table description-column-width">
-            <span ng-show="data.patternType == 'BULLISH'">Comprar</span>
-            <span ng-show="data.patternType == 'BEARISH'">Vender</span>
+            <span ng-show="data.patTyp == 'BULLISH'">Comprar</span>
+            <span ng-show="data.patTyp == 'BEARISH'">Vender</span>
             <br/>
             <div class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})"
-                  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
-                {{data.asset.longName}}
+                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
+                {{data.name}}
             </span>
             </div>
         </td>
@@ -112,17 +112,18 @@
         </td>
 
         <td class="table-cell-patterns sub-border-right-table last-date-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
-            {{data.asset.lastQuoteDate | date: 'dd/MMM/yy'}}
+            {{data.lastQuoteDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns sub-border-right-table last-price-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
-            <a class="link" ng-click="loadGraphic($event,data.asset.longName,data.patternType,null,false,data.asset.priceChartURL);$event.stopPropagation();" ><b>{{data.asset.lastQuote | twoDecimals}}</b></a>
+            <a class="link" ng-click="loadGraphic($event,data.name,data.patTyp,null,false,data.priceChartURL);$event.stopPropagation();" ><b>{{data.lastQuote | twoDecimals}}</b></a>
         </td>
         <td class="table-cell-patterns border-right-table last-percentage-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <b>{{data.lastPerformance | twoDecimals}}</b>
         </td>
 
         <td class="table-cell-patterns border-right-table volatility-column-width">
-            <a class="link" ng-click="loadGraphic($event,data.asset.longName,data.patternType,null,false,data.asset.volatilityChartURL);$event.stopPropagation();"><b>{{data.asset.volatility | twoDecimals}}</b></a>
+            <a class="link" ng-click="loadGraphic($event,data.name,data.patTyp,null,false,data.volatilityChartURL);$event.stopPropagation();">
+                <span ng-show="data.volatility>=0"><b>{{data.volatility | twoDecimals}}</b></span></a>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table best-gain-date-column-width">
@@ -140,11 +141,11 @@
         </td>
 
         <td class="table-cell-patterns border-right-table notes-column-width">
-            <div class="notes-pattern-icon" ng-if="data.asset.notes.length > 0" ng-click="openNotes(data.asset);$event.stopPropagation();"></div>
+            <div class="notes-pattern-icon" ng-if="data.notes.length > 0" ng-click="openNotes(data);$event.stopPropagation();"></div>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table ng-binding alarm-column-width">
-            <div ng-click="open(data.id, data.asset.longName, '', data.patternType, data.priceAlert, data.conditionAlert, data.asset.lastQuote);$event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
+            <div ng-click="open(data.id, data.name, '', data.patTyp, data.priceAlert, data.conditionAlert, data.lastQuote);$event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
                 <div style="margin-top: 10px;">
                     <span ng-show="data.conditionAlert == 'GREATER_THAN' &&  data.priceAlert != null">Mayor que</span>
                     <span ng-show="data.conditionAlert == 'LESS_THAN' &&  data.priceAlert != null">Menor que</span>

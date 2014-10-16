@@ -477,5 +477,8 @@ text-align: center;
     <div ng-show="someBought && !allBought && !doingPayment" class="bought-packs-message">
         <span>Revise su selección, usted ya está subscrito a uno o varios packs de su carro</span>
     </div>
+    <div ng-show="changedPacks && !doingPayment" class="bought-packs-message">
+        <span>Se ha modificado la selección de la duración de uno o mas packs debido a subscripciones ya realizadas</span>
+    </div>
 </div>
 </div>

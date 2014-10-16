@@ -50,7 +50,8 @@ angular.module('ngMo.lookup_diary', [
             }
 
         };
-        $scope.loading = true;
+        $scope.loading = true;//loading patterns
+        $scope.loadingFilters = false;
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
@@ -255,17 +256,14 @@ angular.module('ngMo.lookup_diary', [
             });
         };
 
-        $scope.openNotes = function (asset, bearishAsset) {
+        $scope.openNotes = function (pattern) {
 
             var modalNotesInstance = $modal.open({
                 templateUrl: 'notesContent.html',
                 controller: ModalNotesInstanceCtrl,
                 resolve: {
-                    asset: function () {
-                        return asset;
-                    },
-                    bearishAsset: function () {
-                        return bearishAsset;
+                    pattern: function () {
+                        return pattern;
                     },
                     month: function () {
                         return $scope.filterOptions.filters.month.month;
@@ -367,9 +365,16 @@ angular.module('ngMo.lookup_diary', [
         //restore filters and load page
         $scope.restoreData = function () {
             if ($scope.isFilterActive()) {
-                $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
+                $scope.myData= [];
+                $scope.loading = true;
+                $scope.dataLoaded = false; //Not showming data until they have been loaded
+                $scope.restartFilter();
+                $scope.applyFilters();
             }
+
         };
+
+
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
@@ -397,6 +402,7 @@ angular.module('ngMo.lookup_diary', [
 
         $scope.refreshSelectors = function (selectors,filters,callback) {
             viewName = $state.$current.self.name;
+            $scope.loadingFilters = true;
             LookupDiaryService.getSelectors(filters, selectors,callback,viewName);
         };
 
@@ -428,6 +434,7 @@ angular.module('ngMo.lookup_diary', [
             if (typeof data.selectedSector != 'undefined') {
                 $scope.filterOptions.filters.selectedSector = data.selectedSector;
             }
+            $scope.loadingFilters = false;
         };
 
         /**
@@ -716,8 +723,9 @@ angular.module('ngMo.lookup_diary', [
             var urlParams = $scope.filterOptions.filters;
             urlParams.page = $scope.pagingOptions.currentPage;
             //we ask each param to include in the url or not
-            var urlParamsSend = {};
 
+            var urlParamsSend = {};
+            urlParamsSend.found= $scope.found;
             if (urlParams.alarm) {
                 urlParamsSend.qalarm = urlParams.alarm;
             }
@@ -876,6 +884,7 @@ angular.module('ngMo.lookup_diary', [
             $scope.filterOptions.filters = filters;
             $scope.updateSelectorMonth();
             $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
+            $scope.found = (params.found ? params.found : 0);
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {
                 switch (TabsService.getActiveTab()) {
@@ -1124,13 +1133,13 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
     };
 };
 
-var ModalNotesInstanceCtrl = function ($scope, $modalInstance, asset, bearishAsset, month) {
+var ModalNotesInstanceCtrl = function ($scope, $modalInstance, pattern) {
 
     $scope.data = {
-        assetName: (typeof asset !== 'undefined' ? asset.longName : ''),
-        notes: (typeof asset !== 'undefined' ? asset.notes : ''),
-        bearishAssetName: (typeof bearishAsset !== 'undefined' ? bearishAsset.longName : ''),
-        bearishNotes: (typeof bearishAsset !== 'undefined' ? bearishAsset.notes : ''),
+        assetName: (typeof pattern.name !== 'undefined' ? pattern.name : ''),
+        notes: (typeof pattern.notes !== 'undefined' ? pattern.notes : ''),
+        bearishAssetName: (typeof pattern.name2 !== 'undefined' ? pattern.name2 : ''),
+        bearishNotes: (typeof pattern.notes2 !== 'undefined' ? pattern.notes2 : ''),
         month: (typeof month !== 'undefined' ? month : '')
     };
 

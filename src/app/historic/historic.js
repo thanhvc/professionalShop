@@ -49,7 +49,8 @@ angular.module('ngMo.historic', [
 
         };
 
-        $scope.loading = true;
+        $scope.loading = true;//loading patterns
+        $scope.loadingFilters = false;
         //tabs and variables
         //pattern number for rents
         $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
@@ -233,7 +234,70 @@ angular.module('ngMo.historic', [
 
         //restore filters and load page
         $scope.restoreData = function () {
-            $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
+            if ($scope.isFilterActive()) {
+                $scope.myData= [];
+                $scope.loading = true;
+                $scope.dataLoaded = false; //Not showming data until they have been loaded
+                $scope.restartFilter();
+                $scope.applyFilters();
+            }
+
+        };
+
+        //check if exists some filter active, or is default search with all
+        $scope.isFilterActive = function() {
+            if ($scope.filterOptions.filters.durationInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.favourite!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.filterName!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.rentAverageInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.rentDiaryInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.rentInput!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedAverage!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedDuration!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedIndustry!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedMarket!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedOperation!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedRegion!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedRent!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedRentDiary!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedSector!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.selectedVolatility!== "") {
+                return true;
+            }
+            if ($scope.filterOptions.filters.volatilityInput!== "") {
+                return true;
+            }
+            return false;
         };
 
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
@@ -261,6 +325,7 @@ angular.module('ngMo.historic', [
          */
         $scope.refreshSelectors = function (selectors,filters,callback) {
             viewName = $state.$current.self.name;
+            $scope.loadingFilters = true;
             HistoricsService.getSelectors(filters, selectors,callback,viewName);
         };
 
@@ -295,6 +360,7 @@ angular.module('ngMo.historic', [
             if (typeof data.selectedSector != 'undefined') {
                 $scope.filterOptions.filters.selectedSector = data.selectedSector;
             }
+            $scope.loadingFilters = false;
         };
 
         /**
@@ -490,6 +556,7 @@ angular.module('ngMo.historic', [
             urlParams.page = $scope.pagingOptions.currentPage;
             //we ask each param to include in the url or not
             var urlParamsSend = {};
+            urlParamsSend.found= $scope.found;
             if (urlParams.filterName) {
                 urlParamsSend.qname = urlParams.filterName;
             }
@@ -643,6 +710,7 @@ angular.module('ngMo.historic', [
 
             $scope.filterOptions.filters = filters;
             $scope.updateSelectorMonth();
+            $scope.found = (params.found ? params.found : 0);
             $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             if (tabChanged) {

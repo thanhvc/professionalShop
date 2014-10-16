@@ -59,8 +59,7 @@
             <td class="width-first-td"><span class="grey-label">Ciudad</span></td>
             <td><input type="text" name="city"
                        ng-model="user.city" class="profile-input"
-                       ng-class="{'warning-input':
-                                                  || (profileForm.city.$error.maxlength)}"
+                       ng-class="{'warning-input':  (profileForm.city.$error.maxlength)}"
                        alt="Ciudad"></td>
             <td>
                 <span class="red-color-form prices-font11"
@@ -72,8 +71,8 @@
             <td class="width-first-td"><span class="grey-label">Código Postal</span></td>
             <td><input type="text" name="zipCode"
                        ng-pattern="zipPattern"
-                       ng-class="{'warning-input':  ((profileForm.zipCode.$error.pattern)
-                                                  || profileForm.zipCode.$error.maxlength)}"
+                       ng-class="{'warning-input':  (profileForm.zipCode.$error.pattern)
+                                                  || (profileForm.zipCode.$error.maxlength)}"
                        ng-model="user.postalCode" class="profile-input"
                        alt="Codigo Postal"></td>
             <td><span

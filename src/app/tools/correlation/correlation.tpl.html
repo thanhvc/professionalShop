@@ -32,7 +32,7 @@
     <tabset>
         <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
              active="ctab.active" disabled="tab.disabled">
-            <fieldset ng-disabled="loading">
+            <fieldset ng-disabled="loading || loadingFilters">
             <div class="correlation-filter-container">
 
                 <div ng-include="getTemplateFilter()"></div>
@@ -94,9 +94,18 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="row in pairCorrelationData track by $index">
-                    <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column >= 80}">
+                    <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column.value >= 80}">
                         <span  ng-if="column.name == ''">{{column.value}}</span>
-                        <span tooltip-html-unsafe="{{column.name}}"  ng-if="column.name != ''" class="cursor-help">{{column.value}}</span>
+                        <div ng-if="column.name != '' && column.type == 'firstRow'"><!--first row-->
+                            <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help buy-color">{{column.value}}</span><br>
+                            <span>/</span><span tooltip-html-unsafe="{{column.name}}"   class="cursor-help sell-color">{{column.value2}}</span>
+                        </div>
+                        <div ng-if="column.name != '' && column.type == 'empty'"><!--first column-->
+                            <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help buy-color ">{{column.value}}</span>
+                            <span>/</span>
+                            <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help sell-color ">{{column.value2}}</span>
+                        </div>
+
                     </td>
                 </tr>
                 </tbody>
@@ -119,7 +128,7 @@
                                       ng-class="{'favourite-added': row.favorite == true}"></div>
                             </td> -->
                             <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
-                            <td>{{row.symbol}}</td>
+                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.symbol}}</td>
                             <td>{{row.name | limitTo: 35}}</td>
                         </tr>
                     </tbody>
@@ -141,7 +150,7 @@
                                      ng-class="{'favourite-added': row.favorite == true}"></div>
                             </td> -->
                             <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
-                            <td>{{row.symbol}}</td>
+                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.symbol}}</td>
                             <td>{{row.name | limitTo: 35}}</td>
                         </tr>
                     </tbody>

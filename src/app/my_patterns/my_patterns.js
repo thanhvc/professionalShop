@@ -215,7 +215,6 @@ angular.module('ngMo.my_patterns', [
             angular.forEach(filters, function(value, key) {
                 if (key !== "month" && key !== "selectMonth" && key !== "active_tab" && key !== "index_type" && key !== "tab_type") { //these filters always are provided
                     if (value !== "") {
-                        console.log(key+" "+value);
                         temp = true;
                     }
                 }
@@ -229,7 +228,6 @@ angular.module('ngMo.my_patterns', [
                 if (key !== "month" && key !== "selectMonth" && key !== "active_tab" && key !== "index_type" && key !== "tab_type" && key !=="order") { //these filters always are provided
                     //in case of order, in the calendar the order input doesnt affect to patterns to load
                     if ((value !== "") && (value !== null)) {
-                        console.log(key+" "+value);
                         temp = true;
                     }
                 }
@@ -240,7 +238,9 @@ angular.module('ngMo.my_patterns', [
     })
     .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope) {
         $scope.dataLoaded = false;
-        $scope.loading = true;
+        $scope.loading = true;//loading patterns
+        $scope.loadingFilters = false;
+
 
         //event for keypress in input search name, launch the filters if press enter
         $scope.submitName = function(keyEvent) {
@@ -438,7 +438,11 @@ angular.module('ngMo.my_patterns', [
         //restore filters and load page
         $scope.restoreData = function () {
             if ($scope.isFilterActive()) {
-                $scope.changeTab(TabsService.getActiveTab());//is like change to the same tab
+                $scope.myData= [];
+                $scope.loading = true;
+                $scope.dataLoaded = false; //Not showming data until they have been loaded
+                $scope.restartFilter();
+                $scope.applyFilters();
             }
 
         };
@@ -513,7 +517,14 @@ angular.module('ngMo.my_patterns', [
                 }else{
                     $scope.appliedFilters = false;
                 }
-            });
+            }/* if unauthorized, unlog
+            , function(dataError) {
+                //console.log("error");
+                if (dataError.status === 401) {
+                    IsLogged.unLog();
+                }
+
+            }*/);
 
 
         };
@@ -522,6 +533,7 @@ angular.module('ngMo.my_patterns', [
          */
         $scope.refreshSelectors = function (selectors,filters,callback) {
             viewName = $state.$current.self.name;
+            $scope.loadingFilters = true;
             PatternsService.getSelectors(filters, selectors,callback,viewName);
         };
 
@@ -555,6 +567,7 @@ angular.module('ngMo.my_patterns', [
             if (typeof data.selectedSector != 'undefined') {
                 $scope.filterOptions.filters.selectedSector = data.selectedSector;
             }
+            $scope.loadingFilters = false;
 
         };
 
@@ -739,6 +752,11 @@ angular.module('ngMo.my_patterns', [
             urlParams.page = $scope.pagingOptions.currentPage;
             //we ask each param to include in the url or not
             var urlParamsSend = {};
+            //Special case for pagination, we need save the total items
+
+            urlParamsSend.found= $scope.found;
+
+
             if (urlParams.filterName) {
                 urlParamsSend.qname = urlParams.filterName;
             }
@@ -897,6 +915,7 @@ angular.module('ngMo.my_patterns', [
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)
             $scope.filterOptions.filters = filters;
             $scope.updateSelectorMonth();
+            $scope.found = (params.found ? params.found : 0);
             $scope.pagingOptions.currentPage = (params.pag ? params.pag : 1);
             if (tabChanged) {
 

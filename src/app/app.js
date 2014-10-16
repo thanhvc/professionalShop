@@ -205,7 +205,8 @@ angular.module('ngMo', [
             }
         };
 
-        //says to the service  which packs are subscribed to set price 0
+        //says to the service  which packs are subscribed to set price 0, this method is launched when the user is logged, to update the cart with
+        //possible collitions
         this.thisPacksAreSubscribed=function(packs) {
             itemsToDelete=[];
             for (j = 0;j< packs.length; j++) {
@@ -237,13 +238,37 @@ angular.module('ngMo', [
                                 stockItems[i].prices = prices.slice();
                                 switch (stockItems[i].duration) {
                                     case "Mensual":
-                                        stockItems[i].price = stockItems[i].prices[0];
+                                        if (packs[j].monthError == "error") {
+                                            if (packs[j].trimestralError  == "ok") {
+                                                stockItems[i].price = stockItems[i].prices[1];
+                                                stockItems[i].duration = "Trimestral";
+                                            } else {
+                                                stockItems[i].price = stockItems[i].prices[2];
+                                                stockItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Trimestral":
-                                        stockItems[i].price = stockItems[i].prices[1];
+                                        if (packs[j].trimestralError == "error") {
+                                            if (packs[j].monthError == "ok") {
+                                                stockItems[i].price = stockItems[i].prices[0];
+                                                stockItems[i].duration = "Mensual";
+                                            } else {
+                                                stockItems[i].price = stockItems[i].prices[2];
+                                                stockItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Anual":
-                                        stockItems[i].price = stockItems[i].prices[2];
+                                        if (packs[j].yearError == "error") {
+                                            if (packs[j].monthError == "ok") {
+                                                stockItems[i].price = stockItems[i].prices[0];
+                                                stockItems[i].duration = "Mensual";
+                                            } else {
+                                                stockItems[i].price = stockItems[i].prices[1];
+                                                stockItems[i].duration = "Trimestral";
+                                            }
+                                        }
                                         break;
                                 }
                             }
@@ -285,13 +310,37 @@ angular.module('ngMo', [
                                 pairsItems[i].prices = prices.slice();
                                 switch (pairsItems[i].duration) {
                                     case "Mensual":
-                                        pairsItems[i].price = pairsItems[i].prices[0];
+                                        if (packs[j].monthError == "error") {
+                                            if (packs[j].trimestralError == "ok") {
+                                                pairsItems[i].price = pairsItems[i].prices[1];
+                                                pairsItems[i].duration = "Trimestral";
+                                            } else {
+                                                pairsItems[i].price = pairsItems[i].prices[2];
+                                                pairsItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Trimestral":
-                                        pairsItems[i].price = pairsItems[i].prices[1];
+                                        if (packs[j].trimestralError == "error") {
+                                            if (packs[j].monthError == "ok") {
+                                                pairsItems[i].price = pairsItems[i].prices[0];
+                                                pairsItems[i].duration = "Mensual";
+                                            } else {
+                                                pairsItems[i].price = pairsItems[i].prices[2];
+                                                pairsItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Anual":
-                                        pairsItems[i].price = pairsItems[i].prices[2];
+                                        if (packs[j].yearError == "error") {
+                                            if (packs[j].monthError == "ok") {
+                                                pairsItems[i].price = pairsItems[i].prices[0];
+                                                pairsItems[i].duration = "Mensual";
+                                            } else {
+                                                pairsItems[i].price = pairsItems[i].prices[1];
+                                                pairsItems[i].duration = "Trimestral";
+                                            }
+                                        }
                                         break;
                                 }
                             }
@@ -332,14 +381,38 @@ angular.module('ngMo', [
                                 }
                                 indicesItems[i].prices = prices.slice();
                                 switch (indicesItems[i].duration) {
-                                    case "indicesItems":
-                                        indicesItems[i].price = indicesItems[i].prices[0];
+                                    case "Mensual":
+                                        if (packs[j].monthError) {
+                                            if (!packs[j].trimestralError) {
+                                                indicesItems[i].price = indicesItems[i].prices[1];
+                                                indicesItems[i].duration = "Trimestral";
+                                            } else {
+                                                indicesItems[i].price = indicesItems[i].prices[2];
+                                                indicesItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Trimestral":
-                                        indicesItems[i].price = indicesItems[i].prices[1];
+                                        if (packs[j].trimestralError) {
+                                            if (!packs[j].monthError) {
+                                                indicesItems[i].price = indicesItems[i].prices[0];
+                                                indicesItems[i].duration = "Mensual";
+                                            } else {
+                                                indicesItems[i].price = indicesItems[i].prices[2];
+                                                indicesItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Anual":
-                                        indicesItems[i].price = indicesItems[i].prices[2];
+                                        if (packs[j].yearError) {
+                                            if (!packs[j].monthError) {
+                                                indicesItems[i].price = indicesItems[i].prices[0];
+                                                indicesItems[i].duration = "Mensual";
+                                            } else {
+                                                indicesItems[i].price = indicesItems[i].prices[1];
+                                                indicesItems[i].duration = "Trimestral";
+                                            }
+                                        }
                                         break;
                                 }
                             }
@@ -379,14 +452,38 @@ angular.module('ngMo', [
                                 }
                                 pairsIndicesItems[i].prices = prices.slice();
                                 switch (pairsIndicesItems[i].duration) {
-                                    case "indicesItems":
-                                        pairsIndicesItems[i].price = pairsIndicesItems[i].prices[0];
+                                    case "Mensual":
+                                        if (packs[j].monthError) {
+                                            if (!packs[j].trimestralError) {
+                                                pairsIndicesItems[i].price = pairsIndicesItems[i].prices[1];
+                                                pairsIndicesItems[i].duration = "Trimestral";
+                                            } else {
+                                                pairsIndicesItems[i].price = pairsIndicesItems[i].prices[2];
+                                                pairsIndicesItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Trimestral":
-                                        pairsIndicesItems[i].price = pairsIndicesItems[i].prices[1];
+                                        if (packs[j].trimestralError) {
+                                            if (!packs[j].monthError) {
+                                                pairsIndicesItems[i].price = pairsIndicesItems[i].prices[0];
+                                                pairsIndicesItems[i].duration = "Mensual";
+                                            } else {
+                                                pairsIndicesItems[i].price = pairsIndicesItems[i].prices[2];
+                                                pairsIndicesItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Anual":
-                                        pairsIndicesItems[i].price = pairsIndicesItems[i].prices[2];
+                                        if (packs[j].yearError) {
+                                            if (!packs[j].monthError) {
+                                                pairsIndicesItems[i].price = pairsIndicesItems[i].prices[0];
+                                                pairsIndicesItems[i].duration = "Mensual";
+                                            } else {
+                                                pairsIndicesItems[i].price = pairsIndicesItems[i].prices[1];
+                                                pairsIndicesItems[i].duration = "Trimestral";
+                                            }
+                                        }
                                         break;
                                 }
                             }
@@ -426,14 +523,38 @@ angular.module('ngMo', [
                                 }
                                 futuresItems[i].prices = prices.slice();
                                 switch (futuresItems[i].duration) {
-                                    case "indicesItems":
-                                        futuresItems[i].price = futuresItems[i].prices[0];
+                                    case "Mensual":
+                                        if (packs[j].monthError) {
+                                            if (!packs[j].trimestralError) {
+                                                futuresItems[i].price = futuresItems[i].prices[1];
+                                                futuresItems[i].duration = "Trimestral";
+                                            } else {
+                                                futuresItems[i].price = futuresItems[i].prices[2];
+                                                futuresItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Trimestral":
-                                        futuresItems[i].price = futuresItems[i].prices[1];
+                                        if (packs[j].trimestralError) {
+                                            if (!packs[j].monthError) {
+                                                futuresItems[i].price = futuresItems[i].prices[0];
+                                                futuresItems[i].duration = "Mensual";
+                                            } else {
+                                                futuresItems[i].price = futuresItems[i].prices[2];
+                                                futuresItems[i].duration = "Anual";
+                                            }
+                                        }
                                         break;
                                     case "Anual":
-                                        futuresItems[i].price = futuresItems[i].prices[2];
+                                        if (packs[j].yearError) {
+                                            if (!packs[j].monthError) {
+                                                futuresItems[i].price = futuresItems[i].prices[0];
+                                                futuresItems[i].duration = "Mensual";
+                                            } else {
+                                                futuresItems[i].price = futuresItems[i].prices[1];
+                                                futuresItems[i].duration = "Trimestral";
+                                            }
+                                        }
                                         break;
                                 }
                             }
@@ -1039,8 +1160,8 @@ angular.module('ngMo', [
             controller: function($scope, $modal){
                 $scope.openModal = function(idioma) {
                     $modal.open({
-                        templateUrl: 'layout_templates/modal-text.tpl.html',
-                        controller: ModalInstanceCtrl,
+                        templateUrl: 'layout_templates/modal-flag.tpl.html',
+                        controller: ModalFlagInstanceCtrl,
                         resolve: {
                             infoSelected: function () {
                                 switch (idioma) {
@@ -1189,6 +1310,11 @@ angular.module('ngMo', [
                 //this is used when the user is not loged, add items to the cart and then log in.
                 $scope.$on('updateSubscribedPacks',function(event,packs){
                     //first synchronize the service, then reload the cart
+                    $scope.updateSubscribedCart(packs);
+                });
+
+                //funciton to update the cart (called by event)
+                $scope.updateSubscribedCart = function(packs) {
                     ShoppingCartService.thisPacksAreSubscribed(packs);
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                     $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
@@ -1202,7 +1328,7 @@ angular.module('ngMo', [
                     $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                     $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
-                });
+                };
 
 
 
@@ -1687,31 +1813,69 @@ angular.module('ngMo', [
                                     $scope.openModalCartAdvice(true);
                                 } else {
                                     prices = [$scope.prices[0],$scope.prices[1],$scope.prices[2]];
-                                    monthError = false;
+                                    month1Error = false;
+                                    month3Error = false;
+                                    month12Error = false;
                                    if (result.month !== "ok") {
                                        prices[0] = 0;
-                                       monthError = true;
+                                       month1Error = true;
                                    }
                                     if (result.trimestral !== "ok") {
                                         prices[1] = 0;
-                                        monthError = true;
+                                        month3Error = true;
                                     }
                                     if (result.year !== "ok") {
                                         prices[2] = 0;
-                                        monthError = true;
+                                        month12Error = true;
                                     }
-                                    if (monthError) {
+                                    /*
+                                    * We need check each duration, for auto-select a valid option in case of collition in the
+                                    * subscriptions
+                                    * */
+                                    if (month1Error || month3Error || month12Error) {
                                         $scope.openModalCartAdvice(false);
                                         item.prices = prices;
                                         switch (item.duration) {
                                             case "Mensual":
+                                                //if the mensual duration of the item, check if is possible that duration,
+                                                //if not, check the next shorter duration, else the last option..
+                                                if (month1Error) {
+                                                    if (!month3Error) {
+                                                        item.duration = "Trimestral";
+                                                        item.price = item.prices[1];
+                                                    } else {
+                                                        item.duration = "Anual";
+                                                        item.price = item.prices[2];
+                                                    }
+                                                }
                                                 item.price = item.prices[0];
                                                 break;
                                             case "Trimestral":
-                                                item.price = item.prices[1];
+                                                if (month3Error) {
+                                                    if (!month1Error) {
+                                                        item.duration = "Mensual";
+                                                        item.price = item.prices[0];
+
+                                                    } else {
+                                                        item.duration = "Anual";
+                                                        item.price = item.prices[2];
+
+                                                    }
+
+                                                }
                                                 break;
                                             case "Anual":
-                                                item.price = item.prices[2];
+                                                if (month12Error) {
+                                                    if (!month1Error) {
+                                                        item.duration = "Mensual";
+                                                        item.price = item.prices[0];
+
+                                                    } else {
+                                                        item.duration = "Trimestral";
+                                                        item.price = item.prices[1];
+
+                                                    }
+                                                }
                                                 break;
                                         }
                                     }
@@ -2039,3 +2203,19 @@ var ModalCartInstanceCtrl = function ($scope, $modalInstance, $timeout,totalColl
     }, 3000);
 };
 
+//for flags
+//modalPanel
+var ModalFlagInstanceCtrl = function ($scope, $modalInstance, $timeout,infoSelected) {
+    $scope.infoSelected = infoSelected;
+    $scope.opened = true;
+    $scope.close = function () {
+        if ($scope.opened) {
+            $modalInstance.close();
+            $scope.opened= false;
+        }
+    };
+   // $scope.$on("body-click",function(){$scope.close();});
+    $timeout(function () {
+        $scope.close();
+    }, 3000);
+};

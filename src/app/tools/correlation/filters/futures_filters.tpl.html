@@ -17,7 +17,7 @@
                 <select ng-change="selectMarket()" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedMarket" ng-disabled="filterOptions.selectors.markets.length <= 0">
                     <option value="">- Mercado -</option>
-                    <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"
+                    <option ng-repeat="item in filterOptions.selectors.markets | orderBy:['description']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
                         {{item.description}}
                     </option>
