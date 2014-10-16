@@ -256,17 +256,14 @@ angular.module('ngMo.lookup_diary', [
             });
         };
 
-        $scope.openNotes = function (asset, bearishAsset) {
+        $scope.openNotes = function (pattern) {
 
             var modalNotesInstance = $modal.open({
                 templateUrl: 'notesContent.html',
                 controller: ModalNotesInstanceCtrl,
                 resolve: {
-                    asset: function () {
-                        return asset;
-                    },
-                    bearishAsset: function () {
-                        return bearishAsset;
+                    pattern: function () {
+                        return pattern;
                     },
                     month: function () {
                         return $scope.filterOptions.filters.month.month;
@@ -1136,13 +1133,13 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
     };
 };
 
-var ModalNotesInstanceCtrl = function ($scope, $modalInstance, asset, bearishAsset, month) {
+var ModalNotesInstanceCtrl = function ($scope, $modalInstance, pattern) {
 
     $scope.data = {
-        assetName: (typeof asset !== 'undefined' ? asset.longName : ''),
-        notes: (typeof asset !== 'undefined' ? asset.notes : ''),
-        bearishAssetName: (typeof bearishAsset !== 'undefined' ? bearishAsset.longName : ''),
-        bearishNotes: (typeof bearishAsset !== 'undefined' ? bearishAsset.notes : ''),
+        assetName: (typeof pattern.name !== 'undefined' ? pattern.name : ''),
+        notes: (typeof pattern.notes !== 'undefined' ? pattern.notes : ''),
+        bearishAssetName: (typeof pattern.name2 !== 'undefined' ? pattern.name2 : ''),
+        bearishNotes: (typeof pattern.notes2 !== 'undefined' ? pattern.notes2 : ''),
         month: (typeof month !== 'undefined' ? month : '')
     };
 
