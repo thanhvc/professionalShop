@@ -1,46 +1,72 @@
-<p class="super-border private-black-title">Detalle del Patrón PAR</p>
-<p>
-<ul class="public-list-first-level">
-    <li>Las cotizaciones que usa Market Observatory son al <b>Cierre del Mercado en el horario regular</b>, lo que en la práctica supone que una Compra o una Venta se realiza hacia el final de la sesión –end of day-.         <div style="display: inline-block;" ng-click="show=!show" ng-show="!show"><img
-            src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar más</a>
-    </div></li>
+<p class="super-border private-black-title">Detalle del Patrón</p>
+<!--DETAIL PATTERN STOCKPAIR -->
+<div ng-show="productType == 'PAIR_STOCK'" style="clear: both;">
+    <p>
+    <ul class="public-list-first-level">
+        <li>Las cotizaciones son al <strong>Cierre del Mercado</strong> del horario regular –end of day-.         <div style="display: inline-block;" ng-click="show=!show" ng-show="!show"><img
+                src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar más</a>
+        </div></li>
 
-    <div ng-show="show">
-        <ul class="public-list-first-level">
-            <li>Las Fechas de Entrada -o apertura de posición- y Salida -o cierre de posición- siguen el siguiente convenio:
-                <ul class="public-list-second-level">
-                    <li>Si Fecha de <b>Entrada</b> coincide en festivo, la operación se realiza el “Día <b>Siguiente</b> con Sesión”</li>
-                    <li>Si Fecha de <b>Salida</b> coincide en festivo, la operación se realiza el “Día <b>Anterior</b> con Sesión”</li>
-                </ul>
-            </li>
-            <li>Si desea afinar las Fechas de Entrada y Salida tenga en cuenta que:
-                <ul class="public-list-second-level">
-                    <li>En un mercado Alcista las Compras se pueden adelantar y las Ventas retrasar.</li>
-                    <li>En un mercado Bajista las Ventas se pueden adelantar y las Compras retrasar.</li>
-                </ul>
-            </li>
-            <li>Antes de tomar una posición en los valores menos líquidos, debe analizar el Volumen diario negociado y dimensionar correctamente el tamaño de su orden.</li>
-            <li>Una “Venta a Corto” tiene un riesgo mayor que una Compra y aumenta en valores de alta volatilidad y que negocian escaso Volumen.</li>
-            <li>Impacto de los Dividendos. Las cotizaciones recogen el reparto de los dividendos, un valor que cotiza a 10 EUR y distribuye en dividendos 1 EUR, baja su cotización a 9 EUR –aunque el valor neto de la inversión no ha bajado-. En el contexto de Market Observatory esto significa que:
-                <ul class="public-list-second-level">
-                    <li>Los Patrones Alcistas pueden estar infravalorados. A la rentabilidad acumulada habría que sumarle los dividendos repartidos en el periodo.</li>
-                    <li>Los Patrones Bajistas pueden estar sobrevalorados. A la rentabilidad acumulada habría que restarle los dividendos repartidos en el periodo</li>
-                </ul>
+        <div ng-show="show">
+            <ul class="public-list-first-level">
+                <li>Las Fechas de Entrada -o apertura- y Salida -o cierre- usan el siguiente convenio:
+                    <ul class="public-list-second-level">
+                        <li>Si Fecha de <strong>Entrada</strong> coincide en festivo se traslada al “<strong>Siguiente</strong> día con sesión”  </li>
+                        <li>Si Fecha de <strong>Salida</strong> coincide en festivo se traslada al “<strong>Anterior</strong> día con sesión” </li>
+                    </ul>
+                </li>
+                <li>En los valores poco líquidos, antes de tomar una posición debe analizar el Volumen diario negociado y dimensionar correctamente el tamaño de su orden.</li>
+                <li>Una “<strong>Venta a Corto</strong>” tiene un riesgo mayor que una Compra y aumenta notablemente en valores de alta volatilidad y que negocian escaso Volumen.</li>
+                <li>Impacto de los Dividendos. Las cotizaciones recogen el reparto de los dividendos, un valor que cotiza a 10 EUR y distribuye en dividendos 1 EUR, baja su cotización a 9 EUR –aunque el
+                    valor neto de su inversión no ha disminuido-. En el contexto de Market Observatory esto significa que:
+                    <ul class="public-list-second-level">
+                        <li>El Lado Alcista puede estar infravalorado. A la rentabilidad acumulada habría que sumarle los dividendos repartidos en el periodo. </li>
+                        <li>El Lado Bajista puede estar sobrevalorado. A la rentabilidad acumulada habría que restarle los dividendos repartidos en el periodo</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                <img src="assets/img/textup.png"> <a style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar
+                menos</a>
+            </p>
+        </div>
 
-            </li>
-            <li>Para ampliar información sobre el Detalle de un Patrón leer <a ng-click="openModalInstance('services/detailed_description/basic')">Detalle Patrón Acciones.</a></li>
-        </ul>
-        <p>
-            <img src="assets/img/textup.png"> <a style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar
-            menos</a>
-        </p>
-    </div>
+        <li>Nunca arriesgue un porcentaje elevado de su cartera en una sola estrategia. Use siempre técnicas de Gestión del Dinero.</li>
 
-    <li>Nunca arriesgue un porcentaje elevado de su cartera en una sola operación. Use siempre técnicas de Gestión del Dinero.</li>
+        <li>La información de la estrategia no puede ser considerada en ningún caso una recomendación.</li>
+    </ul>
+    </p>
+</div>
 
-    <li>La información de la Estrategia NO se puede considerar en ningún caso una recomendación.</li>
-</ul>
-</p>
+<div ng-show="productType == 'PAIR_INDEX'" style="clear: both;">
+    <p>
+    <ul class="public-list-first-level">
+        <li>Las cotizaciones son al Cierre del Mercado del horario regular –end of day-.         <div style="display: inline-block;" ng-click="show=!show" ng-show="!show"><img
+                src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar más</a>
+        </div></li>
+
+        <div ng-show="show">
+            <ul class="public-list-first-level">
+                <li>Las Fechas de Entrada y Salida usan el siguiente convenio:
+                    <ul class="public-list-second-level">
+                        <li>Si Fecha de <strong>Entrada</strong> coincide en festivo se traslada al “Siguiente día con sesión”</li>
+                        <li>Si Fecha de <strong>Salida</strong> coincide en festivo se traslada al “Anterior día con sesión”</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                <img src="assets/img/textup.png"> <a style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar
+                menos</a>
+            </p>
+        </div>
+
+        <li>Usted no puede comprar acciones o participaciones directamente de un Índice, para ello debe usar diferentes instrumentos como Fondos, ETF’s, CFD’s y Futuros. </li>
+        <li>Nunca arriesgue un porcentaje elevado de su cartera en una sola estrategia.</li>
+        <li>La información de la estrategia no puede ser considerada en ningún caso una recomendación.</li>
+    </ul>
+    </p>
+</div>
+
 
 <div class="detail-tab">{{actualTab}}</div>
 <div class="pdf-icon-detail" ng-click="generateHistoricalDetailPdf(infoPattern.id)" ng-disabled="disableButton"></div>
