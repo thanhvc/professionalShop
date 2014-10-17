@@ -56,7 +56,7 @@
 <div ng-show="productType == 'FUTURE'" style="clear: both;">
     <p>
     <ul class="public-list-first-level">
-        <li>Las cotizaciones son al Cierre del Mercado del horario regular –end of day-.
+        <li>Las cotizaciones son al <strong>Cierre del Mercado</strong> del horario regular –end of day-.
             <div style="display: inline-block;" ng-click="show=!show" ng-show="!show"><img
                     src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar más</a>
             </div>
@@ -95,38 +95,42 @@
 
 <!--SINGLE INDEX PATTERN -->
 <div ng-show="productType == 'SIMPLE_INDEX'" style="clear: both; margin-bottom: 10px;">
-    Las cotizaciones son al <b>Cierre del Mercado</b> del horario regular –end of day-.
-    <div style="display: inline-block;" ng-click="show=!show" ng-show="!show"><img
-            src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar más</a>
-    </div>
-    <br>
-    <div ng-show="show">
-        <ul class="public-list-first-level">
-            <li>Las Fechas de Entrada y Salida usan el siguiente convenio:
-                <ul class="public-list-second-level">
-                    <li>Si Fecha de <b>Entrada</b> coincide en festivo se traslada al “<b>Siguiente</b> día con sesión”
-                    </li>
-                    <li>Si Fecha de <b>Salida</b> coincide en festivo se traslada al “<b>Anterior</b> día con sesión”
-                    </li>
-                </ul>
-            </li>
-            <li>Si desea afinar las Fechas de Entrada y Salida tenga en cuenta que:
-                <ul class="public-list-second-level">
-                    <li>En un mercado Alcista las Compras se pueden adelantar y las Ventas retrasar.</li>
-                    <li>En un mercado Bajista las Ventas se pueden adelantar y las Compras retrasar.</li>
-                </ul>
-            </li>
-        </ul>
-        <p>
-            <img src="assets/img/textup.png"> <a style="padding-left: 5px;" class="toggle-link" ng-click="show=!show">Mostrar
-            menos</a>
-        </p>
-    </div>
-    Usted no puede comprar acciones o participaciones directamente de un Índice, para ello debe usar diferentes
-    instrumentos como Fondos, ETF’s, CFD’s y Futuros.<br>
-    Nunca arriesgue un porcentaje elevado de su cartera en una sola operación. Use siempre técnicas de Gestión del
-    Dinero.<br>
-    La información de la estrategia no puede ser considerada en ningún caso una recomendación.<br>
+    <p>
+    <ul class="public-list-first-level">
+        <li>Las cotizaciones son al <strong>Cierre del Mercado</strong> del horario regular –end of day-.
+            <div style="display: inline-block;" ng-click="show=!show" ng-show="!show"><img
+                    src="assets/img/textdown.png"><a class="toggle-link" style="padding-left: 5px;">Mostrar más</a>
+            </div>
+        </li>
+
+        <div ng-show="show">
+            <ul class="public-list-first-level">
+                <li>Las Fechas de Entrada y Salida usan el siguiente convenio:
+                    <ul class="public-list-second-level">
+                        <li>Si Fecha de <strong>Entrada</strong> coincide en festivo se traslada al “<strong>Siguiente</strong> día con sesión”</li>
+                        <li>Si Fecha de <strong>Salida</strong> coincide en festivo se traslada al “<strong>Anterior</strong> día con sesión”</li>
+                    </ul>
+                </li>
+                <li>Si desea afinar las Fechas de Entrada y Salida tenga en cuenta que:
+                    <ul class="public-list-second-level">
+                        <li>En un mercado Alcista las Compras se pueden adelantar y las Ventas retrasar.</li>
+                        <li>En un mercado Bajista las Ventas se pueden adelantar y las Compras retrasar.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                <img src="assets/img/textup.png"> <a style="padding-left: 5px;" class="toggle-link"
+                                                     ng-click="show=!show">Mostrar
+                menos</a>
+            </p>
+        </div>
+        <li>Usted no puede comprar acciones o participaciones directamente de un Índice, para ello debe usar diferentes instrumentos como Fondos, ETF’s, CFD’s y Futuros.</li>
+        <li>Nunca arriesgue un porcentaje elevado de su cartera en una sola operación. Use siempre técnicas de Gestión del Dinero.
+        </li>
+
+        <li>La información de la estrategia no puede ser considerada en ningún caso una recomendación.</li>
+    </ul>
+    </p>
 </div>
         <!--INFORMATION-->
 
