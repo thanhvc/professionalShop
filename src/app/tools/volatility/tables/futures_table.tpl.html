@@ -22,7 +22,7 @@
         </tr>
         </thead>
         <tbody class="stocks-tbody">
-        <tr ng-repeat="data in myData"  ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style=" font-size:11px;color:#996600 !important;">
+        <tr ng-repeat="data in myData"  ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style=" font-size:11px;">
             <td class="green"  >
                     <span class="stocks-market-value cursor-help" tooltip-html-unsafe="{{data.name}} {{data.expYear}} ({{data.exchSymbol}})"
                           ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">{{data.name}}</span>

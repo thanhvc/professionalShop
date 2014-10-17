@@ -145,14 +145,14 @@
                     <tr>
                         <th rowspan="2" style="padding-left: 10px;">
                             <span class="buy-color" ng-show="infoPattern.patternType == 'BULLISH'"><b>COMPRAR</b></span>
-                            <span class="sell-color" ng-show="infoPattern.patternType == 'BEARISH'"><b>VENDER (A corto)</b></span>
+                            <span class="sell-color-dark-background" ng-show="infoPattern.patternType == 'BEARISH'"><b>VENDER (A corto)</b></span>
                         </th>
-                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">
+                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color-dark-background': infoPattern.patternType == 'BEARISH'}">
                             <div  tooltip-html-unsafe="{{infoPattern.name}}" class="detail-div-tooltip-container cursor-help">
                                 <div class="detail-separator"><b >{{infoPattern.name}}</b></div>
                             </div>
                         </th>
-                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">
+                        <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color-dark-background': infoPattern.patternType == 'BEARISH'}">
                             <div  tooltip-html-unsafe="{{infoPattern.sector}} / {{infoPattern.industry}}" class="detail-div-tooltip-container cursor-help">
                                 <div class="detail-separator"><b >{{infoPattern.sector}} <span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></div>
                             </div>
@@ -289,7 +289,7 @@
 <div class="pdf-icon-detail" ng-click="isDisabled || generateGraphicsPdf(infoPattern.id ,'PRICE');" ng-disabled="disableButton"></div>
 <div class="graphic-header">
     <div class="float-left">
-        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
+        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color-dark-background': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
         <br>
         Precio / Patrón Estacional 15 años (00-14)
     </div>
@@ -302,7 +302,7 @@
 </div>
 <div class="graphic-header">
     <div class="float-left">
-        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
+        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color-dark-background': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
         <br>
         Patrones Estacionales 15 años (00-14) / 6 años (09-14)
     </div>
@@ -322,7 +322,7 @@
 <div class="pdf-icon-detail"ng-click="isDisabled ||  generateGraphicsPdf(infoPattern.id, 'WEEKLY');" ng-disabled="disableButton"></div>
 <div class="graphic-header">
     <div class="float-left">
-        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
+        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color-dark-background': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
         <br>
         Gráfico Semanal
     </div>
@@ -335,7 +335,7 @@
 </div>
 <div class="graphic-header">
     <div class="float-left">
-        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
+        <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color-dark-background': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
         <br>
         Gráfico Mensual
     </div>
