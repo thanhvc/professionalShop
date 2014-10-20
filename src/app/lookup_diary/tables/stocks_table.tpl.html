@@ -83,7 +83,7 @@
             Precio
         </th>
     </tr>
-    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ui-sref="detail({patternId:data.id})">
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ng-click="goToDetail(data.id)"> <!--ui-sref="detail({patternId:data.id})"-->
         <td class="table-id-orange">
             {{data.id}}
         </td>

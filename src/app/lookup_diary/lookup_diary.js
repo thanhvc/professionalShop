@@ -58,6 +58,7 @@ angular.module('ngMo.lookup_diary', [
         $scope.daysPattern = /^\d+$/;
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
+        $scope.graphOpen = false; //check if the graph is open
 
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
@@ -511,6 +512,13 @@ angular.module('ngMo.lookup_diary', [
             $scope.refreshRegion();
             $scope.applyFilters();
 
+        };
+
+        $scope.goToDetail = function (patternId){
+            if ($scope.graph == null) {
+                $state.go('detail',{patternId: patternId});
+                //graph is not open
+            }
         };
 
         $scope.closeGraph = function() {
@@ -1131,6 +1139,8 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
         $scope.deleteAlert($scope.patternId);
         $modalInstance.dismiss('cancel');
     };
+
+
 };
 
 var ModalNotesInstanceCtrl = function ($scope, $modalInstance, pattern) {
