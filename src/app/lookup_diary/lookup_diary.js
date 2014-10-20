@@ -513,6 +513,20 @@ angular.module('ngMo.lookup_diary', [
 
         };
 
+        $scope.goToDetail = function (patternId){
+            if ($scope.graph == null) {
+                $state.go('detail',{patternId: patternId});
+                //graph is not open
+            }
+        };
+
+        $scope.goToPairDetail = function (patternId){
+            if ($scope.graph == null) {
+                $state.go('pairDetail',{patternId: patternId});
+                //graph is not open
+            }
+        };
+
         $scope.closeGraph = function() {
             if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
                 setTimeout(function(){
@@ -1131,6 +1145,8 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
         $scope.deleteAlert($scope.patternId);
         $modalInstance.dismiss('cancel');
     };
+
+
 };
 
 var ModalNotesInstanceCtrl = function ($scope, $modalInstance, pattern) {
