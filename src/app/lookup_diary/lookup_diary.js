@@ -520,6 +520,13 @@ angular.module('ngMo.lookup_diary', [
             }
         };
 
+        $scope.goToPairDetail = function (patternId){
+            if ($scope.graph == null) {
+                $state.go('pairDetail',{patternId: patternId});
+                //graph is not open
+            }
+        };
+
         $scope.closeGraph = function() {
             if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
                 setTimeout(function(){
