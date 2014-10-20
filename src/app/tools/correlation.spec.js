@@ -319,7 +319,7 @@ describe('The Correlation controller', function () {
         });
 
         it('should delete a pattern from correlation list', function() {
-            $http.expectGET($scope.urlService + deleteCorrelationRegionUn);
+            //$http.expectGET($scope.urlService + deleteCorrelationRegionUn);
             $scope.deleteFromCorrelationList(pattern);
             $http.flush();
             expect($scope.deleteFromCorrelationList).toBeDefined();

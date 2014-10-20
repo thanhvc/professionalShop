@@ -317,16 +317,18 @@ angular.module('ngMo.correlation', [
                     }
                     //when the market is changed, we
                     $scope.refreshRegion();
-                    $scope.correlationList = data.correlationPatterns;
-                    updateCorrelationListSessionStorage(data.correlationPatterns);
+                    //$scope.correlationList = data.correlationPatterns; <- correlation patterns is not loaded from server anymore
+                    //updateCorrelationListSessionStorage(data.correlationPatterns);
                     if ($scope.correlationList.length > 0){
-                            $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                            $scope.filterOptions.filters.selectedRegion = $scope.correlationList[0].region;//data.selectedRegion;
                     }
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
+
+                    $scope.checkCorrelationPatterns();
                 });
         };
 
@@ -378,43 +380,80 @@ angular.module('ngMo.correlation', [
         };
 
         $scope.addToCorrelationList = function (pattern) {
-
-            if ($scope.correlationList.length < 10 && !$scope.moving ) {
-                /*if ($scope.correlationList.length === 0) {
-                    $scope.pagingOptions.currentPage = 1;
-                }*/
-                $scope.startMoving();
-                var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
-                    $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.correlationList, function (data) {
-                        $scope.endMoving();
-                        $scope.myData = data.patterns;//data.page;
-                        $scope.correlationList = data.correlationPatterns;
-                        updateCorrelationListSessionStorage(data.correlationPatterns);
-                        if ($scope.correlationList.length > 0){
-                            $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
-                            var pag = $scope.pagingOptions.currentPage;
-                            $scope.setRegion();
-                            $scope.pagingOptions.currentPage = pag;
-                            if ($scope.filterOptions.filters.active_tab === 0) {
-                                //if is simple stock, we save the selectedRegion
-                                $window.sessionStorage.correlationRegion = $scope.filterOptions.filters.selectedRegion;
-                            } else if ($scope.filterOptions.filters.active_tab ===1) {
-                                $window.sessionStorage.correlationRegionPair = $scope.filterOptions.filters.selectedRegion;
-                            }
-                        }
-                        $scope.results = data.results;//data.results;
-                        $scope.found = data.found;//data.found;
-                        if (!$scope.$$phase) {
-                            $scope.$apply();
-                        }
-                    });
+            //IS IMPORTANT THAT AN ASSET IS THE SLECTED (2 PATTERNS WITH SAME ASSET MUST CANT BE SELECTED AT SAME TIME)
+            if (!pattern.toUse ) {
+                return;//is is selected have toUse in false;
             }
+            if ($scope.correlationList.length < 10 && !$scope.moving ) {
+                $scope.startMoving();
+                //RELOAD THE IN THE FIRST ELEMENT ADD (BECAUSE WE NEED SET THE REGION)
+                if ($scope.correlationList.length === 0) {
+                    var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                        $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern.id, 0, $scope.correlationList, function (data) {
+                            $scope.endMoving();
+                            $scope.myData = data.patterns;//data.page;
+                            $scope.correlationList = data.correlationPatterns;
+                            updateCorrelationListSessionStorage(data.correlationPatterns);
+                            if ($scope.correlationList.length > 0) {
+                                $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                                var pag = $scope.pagingOptions.currentPage;
+                                $scope.setRegion();
+                                $scope.pagingOptions.currentPage = pag;
+                                if ($scope.filterOptions.filters.active_tab === 0) {
+                                    //if is simple stock, we save the selectedRegion
+                                    $window.sessionStorage.correlationRegion = $scope.filterOptions.filters.selectedRegion;
+                                } else if ($scope.filterOptions.filters.active_tab === 1) {
+                                    $window.sessionStorage.correlationRegionPair = $scope.filterOptions.filters.selectedRegion;
+                                }
+                            }
+                            $scope.results = data.results;//data.results;
+                            $scope.found = data.found;//data.found;
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                            $scope.checkCorrelationPatterns();
+                        });
+                } else {
+                    //the correlation list have elements, so the region is already set
+                    $scope.correlationList.push(pattern);
+                    updateCorrelationListSessionStorage($scope.correlationList);
+                    $scope.checkCorrelationPatterns();
+                    $scope.endMoving();
+                }
+            }
+        };
+
+        //check to disable the patterns with asset that are already selected to correlate
+        $scope.checkCorrelationPatterns = function () {
+            symbols = [];
+            //check case of pairs
+            if (typeof $scope.myData ==="undefined" || typeof $scope.correlationList ==="undefined" ) {
+                return;
+            }
+            for (i = 0 ; i< $scope.myData.length; i++) {
+                $scope.myData[i].toUse = true;//can be selected
+                for (j = 0; j< $scope.correlationList.length; j++) {
+                    if ($scope.myData[i].symbol === $scope.correlationList[j].symbol) {
+
+                        if ($scope.myData[i].symbol2 != null) {
+                            //is Pair
+                            if ($scope.myData[i].symbol2 === $scope.correlationList[j].symbol2) {
+                                $scope.myData[i].toUse = false; //symbol 1 and symbol2 in same order selected
+                            }
+                        } else {
+                            //symbol1 is found, and is simple pattern
+                            $scope.myData[i].toUse = false;
+                        }
+                    }
+                }
+            }
+
         };
 
         $scope.deleteFromCorrelationList = function (pattern) {
             if (!$scope.moving) {
                 $scope.startMoving();
-                var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                /*var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1, $scope.correlationList, function (data) {
                         $scope.endMoving();
                         $scope.myData = data.patterns;//data.page;
@@ -425,13 +464,28 @@ angular.module('ngMo.correlation', [
                         if (!$scope.$$phase) {
                             $scope.$apply();
                         }
-                    });
+                    });*/
+                //$scope.correlationList.pop(pattern);
+                var index = $scope.correlationList.indexOf(pattern);
+                if (index > -1) {
+                    $scope.correlationList.splice(index, 1);
+                }
+                updateCorrelationListSessionStorage($scope.correlationList);
+                $scope.checkCorrelationPatterns();
+                $scope.endMoving();
             }
         };
 
         $scope.toggleFavorite = function (patternId){
             var data = CorrelationService.setFavorite(patternId).then(function (data) {
                 $scope.loadPage();
+                //the favorite is to PATTERN (not asset), so if the petition is ok, search the pattern and change the fav status
+                for (i = 0 ; i< $scope.correlationList.length; i++) {
+                    if ($scope.correlationList[i].id === patternId) {
+                        $scope.correlationList[i].fav = !$scope.correlationList[i].fav;
+                    }
+                }
+                updateCorrelationListSessionStorage($scope.correlationList);
             });
         };
 

@@ -270,6 +270,7 @@ angular.module('ngMo.portfolio', [
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
+                    $scope.checkPortfolioPatterns();
                 });
         };
 
@@ -319,9 +320,12 @@ angular.module('ngMo.portfolio', [
         };
 
         $scope.addToPortfolioList = function (pattern) {
+            if (!pattern.toUse ) {
+                return;//is is selected have toUse in false;
+            }
             if ($scope.portfolioList.length < 20 && !$scope.moving ) {
                 $scope.startMoving();
-                var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                /*var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 0, $scope.portfolioList, function (data) {
                         $scope.endMoving();
                         $scope.myData = data.patterns;//data.page;
@@ -332,15 +336,46 @@ angular.module('ngMo.portfolio', [
                         if (!$scope.$$phase) {
                             $scope.$apply();
                         }
-                    });
+                    });*/
+                $scope.portfolioList.push(pattern);
+                updatePortfolioListSessionStorage($scope.portfolioList);
+                $scope.checkPortfolioPatterns();
+                $scope.endMoving();
             }
+        };
+
+        //check to disable the patterns with asset that are already selected to correlate
+        $scope.checkPortfolioPatterns = function () {
+            symbols = [];
+            //check case of pairs
+            if (typeof $scope.myData ==="undefined" || typeof $scope.portfolioList ==="undefined" ) {
+                return;
+            }
+            for (i = 0 ; i< $scope.myData.length; i++) {
+                $scope.myData[i].toUse = true;//can be selected
+                for (j = 0; j< $scope.portfolioList.length; j++) {
+                    if ($scope.myData[i].symbol === $scope.portfolioList[j].symbol) {
+
+                        if ($scope.myData[i].symbol2 != null) {
+                            //is Pair
+                            if ($scope.myData[i].symbol2 === $scope.portfolioList[j].symbol2) {
+                                $scope.myData[i].toUse = false; //symbol 1 and symbol2 in same order selected
+                            }
+                        } else {
+                            //symbol1 is found, and is simple pattern
+                            $scope.myData[i].toUse = false;
+                        }
+                    }
+                }
+            }
+
         };
 
         $scope.deleteFromPortfolioList = function (pattern) {
 
             if (!$scope.moving) {
                 $scope.startMoving();
-                var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
+                /*var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                     $scope.pagingOptions.currentPage, $scope.filterOptions.filters, pattern, 1, $scope.portfolioList, function (data) {
                         $scope.myData = data.patterns;//data.page;
                         $scope.portfolioList = data.portfolioPatterns;
@@ -351,7 +386,14 @@ angular.module('ngMo.portfolio', [
                         if (!$scope.$$phase) {
                             $scope.$apply();
                         }
-                    });
+                    });*/
+                var index = $scope.portfolioList.indexOf(pattern);
+                if (index > -1) {
+                    $scope.portfolioList.splice(index, 1);
+                }
+                updatePortfolioListSessionStorage($scope.correlationList);
+                $scope.checkPortfolioPatterns();
+                $scope.endMoving();
             }
         };
 
