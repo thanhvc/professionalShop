@@ -63,6 +63,9 @@ describe('My subscriptions controller', function() {
 
     var month = {month: date.getMonth(), year: date.getYear()};
     var m = date.getMonth()+1;
+    if (date.getDate() >= 15) {
+        m++;
+    }
     var url = '/mysubscriptions?month=' + m + '&token=1';
 
     var response = {STOCK : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, STOCKPAIR : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, INDICE : {INDEX: 'index'}, INDICEPAIR: {INDEX: 'index'},FUTURE : {FUTURE: 'future'}};
@@ -196,6 +199,7 @@ describe('My subscriptions controller', function() {
         ShoppingCartService.addItemCart(item2);
         ShoppingCartService.addItemCart(item3);
         ShoppingCartService.addItemCart(item4);
+
 
         $http.expectGET($scope.urlService + url);
         $http.expectGET($scope.urlService + '/islogged');
