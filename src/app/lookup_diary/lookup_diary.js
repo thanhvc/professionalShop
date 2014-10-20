@@ -58,7 +58,6 @@ angular.module('ngMo.lookup_diary', [
         $scope.daysPattern = /^\d+$/;
         /**private models*/
         $scope.selectedTab = TabsService.getActiveTab();
-        $scope.graphOpen = false; //check if the graph is open
 
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
