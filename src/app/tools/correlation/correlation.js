@@ -427,6 +427,9 @@ angular.module('ngMo.correlation', [
         $scope.checkCorrelationPatterns = function () {
             symbols = [];
             //check case of pairs
+            if (typeof $scope.myData ==="undefined" || typeof $scope.correlationList ==="undefined" ) {
+                return;
+            }
             for (i = 0 ; i< $scope.myData.length; i++) {
                 $scope.myData[i].toUse = true;//can be selected
                 for (j = 0; j< $scope.correlationList.length; j++) {

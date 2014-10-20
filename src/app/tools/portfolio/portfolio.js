@@ -348,6 +348,9 @@ angular.module('ngMo.portfolio', [
         $scope.checkPortfolioPatterns = function () {
             symbols = [];
             //check case of pairs
+            if (typeof $scope.myData ==="undefined" || typeof $scope.portfolioList ==="undefined" ) {
+                return;
+            }
             for (i = 0 ; i< $scope.myData.length; i++) {
                 $scope.myData[i].toUse = true;//can be selected
                 for (j = 0; j< $scope.portfolioList.length; j++) {
