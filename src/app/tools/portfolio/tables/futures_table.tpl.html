@@ -11,7 +11,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="pattern in myData">
+        <tr ng-repeat="pattern in myData"  ng-class="{'disabled-asset': !pattern.toUse}">
             <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
             <td ng-class="{'buy-color': pattern.patType == 'BULLISH', 'sell-color': pattern.patType == 'BEARISH' }"><div class="name-pattern-container" tooltip="{{pattern.name}} ({{pattern.exchSymbol}}) {{pattern.expYear}}"><span class="cursor-help">{{pattern.name | limitTo: 25}}</span></div></td>
             <td><span  class="cursor-help" tooltip="{{pattern..exchName}}">{{pattern.exchSymbol}}</span></td>
@@ -19,7 +19,7 @@
                 <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patType == 'BULLISH'" class="cursor-help">C</span>
                 <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patType == 'BEARISH'" class="cursor-help">V</span>
             </td>
-            <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 20}" ng-click="addToCorrelationList(pattern.id);">>></span></td>
+            <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 20 || (!pattern.toUse)}" ng-click="addToCorrelationList(pattern);">>></span></td>
         </tr>
         </tbody>
         <tfoot>
@@ -59,7 +59,7 @@
                     <div class="current-favourite cursor-pointer" tooltip-placement="left" tooltip="Marcar Estrategia Favorita" ng-click="toggleFavoriteFromList(pattern.id);"
                          ng-class="{'favourite-added': pattern.fav == true}"></div>
                 </td>
-                <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern.id);"><<</span></td>
+                <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern);"><<</span></td>
             </tr>
             </tbody>
         </table>

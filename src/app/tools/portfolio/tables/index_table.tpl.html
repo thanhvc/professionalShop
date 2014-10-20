@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="pattern in myData">
+        <tr ng-repeat="pattern in myData"  ng-class="{'disabled-asset': !pattern.toUse}">
             <td ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
             <td ng-class="{'buy-color': pattern.patTyp == 'BULLISH', 'sell-color': pattern.patTyp == 'BEARISH' }">
                 <div class="name-pattern-container cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"><span>{{pattern.name | limitTo: 23}}</span></div></td>
@@ -22,7 +22,7 @@
                 <span class="cursor-help" tooltip="ALCISTA" ng-if="pattern.patTyp == 'BULLISH'">A</span>
                 <span class="cursor-help" tooltip="BAJISTA" ng-if="pattern.patTyp == 'BEARISH'">B</span>
             </td>
-            <td class="portfolio-button"><span ng-class="{'disable-arrow': portfolioList.length >= 20}" ng-click="addToPortfolioList(pattern.id);">>></span></td>
+            <td class="portfolio-button"><span ng-class="{'disable-arrow': portfolioList.length >= 20 || (!pattern.toUse)}" ng-click="addToPortfolioList(pattern);">>></span></td>
         </tr>
         </tbody>
         <tfoot>
@@ -64,7 +64,7 @@
                     <div class="current-favourite cursor-pointer" tooltip-placement="left" tooltip="Marcar Estrategia Favorita" ng-click="toggleFavoriteFromList(pattern.id);"
                          ng-class="{'favourite-added': pattern.fav == true}"></div>
                 </td>
-                <td class="portfolio-button"><span ng-click="deleteFromPortfolioList(pattern.id);"><<</span></td>
+                <td class="portfolio-button"><span ng-click="deleteFromPortfolioList(pattern);"><<</span></td>
             </tr>
             </tbody>
         </table>
