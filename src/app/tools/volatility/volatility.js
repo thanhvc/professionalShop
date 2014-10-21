@@ -812,15 +812,68 @@ angular.module('ngMo.volatility', [
             $scope.loadPage();
         }
 
-        //$scope.loadPage();
-        $scope.$on('body-click',function() {
-            $scope.closeGraph();
-        });
-
-
-
-
     })
+
+    .directive('selectedGraphicVolatility', function () {
+        return {
+            controller: function ($scope, $timeout, $state, TabsService){
+                $scope.openGraph = false;
+
+
+                $scope.showSelectedGraphic = function (e, name, type, name2, pair, url) {
+                    $scope.animateClose = false;
+                    if ($scope.openGraph === true){
+                        $timeout( function(){
+                            $scope.openGraph = true;
+                        },800);
+                    }else{
+                        $scope.openGraph = true;
+                    }
+
+                    $scope.selectedGraphic = {
+                        indiceName:  name,
+                        type: type,
+                        secondIndiceName: name2,
+                        isPair: pair,
+                        url:  (typeof url !== "undefined" ? url : "")
+                    };
+                    if (TabsService.getActiveTab() == 1 || (TabsService.getActiveTab() == 2 && $scope.filterOptions.filters.index_type == 1)) {
+                        $scope.myStyle ={'height' : '450px'};
+                    }
+                };
+
+                $scope.hideSelectedGraphicVol = function () {
+                    if ($scope.openGraph === true) {
+                        $scope.animateClose = true;
+                        $timeout( function(){
+                            $scope.animateClose = false;
+                            $scope.openGraph = false;
+                            $scope.selectedGraphic = {
+                                indiceName:  '',
+                                url: ''
+                            };
+                        },1000);
+
+                    }
+                };
+
+                $scope.$on("body-click",function(){$scope.hideSelectedGraphicVol();});
+            },
+            link: function($scope) {
+                $scope.$watch('openGraph', function(){});
+            },
+
+            template: "<div id=\"graphicPanel\" class=\"graphic-div-volatility\" ng-class=\"{'move-left' : openGraph , 'move-right' : animateClose }\" ng-style=\"myStyle\" ng-click=\"$event.stopPropagation();\">"+
+                "<button class=\"btn-close-volatility-graphic\" ng-click=\"hideSelectedGraphicVol();\"></button>"+
+                "<br/>"+
+                "<span ng-class=\"{'buy-color': selectedGraphic.type == 'BULLISH', 'sell-color': selectedGraphic.type == 'BEARISH'}\">{{selectedGraphic.indiceName}}</span><span ng-if=\"selectedGraphic.isPair\">/</span><span class=\"sell-color\" ng-if=\"selectedGraphic.isPair\">{{selectGraphic.secondIndiceName}}</span>"+
+                "<br/>"+
+                "<img style='width:700px;height:245px;display:inline-block !important;' class=\"selected-graphic-image\" src=\"{{selectedGraphic.url}}\"/>"+
+                "</div>"
+        };
+    })
+
+
     .service("VolatilityService", function ($http, $window, $rootScope, $q) {
 
         /*make the string with the params for all the properties of the filter*/

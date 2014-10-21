@@ -925,6 +925,11 @@ angular.module('ngMo', [
             if (toState.url === '/the-week') {
                 $scope.inWeekView = true;
             }
+            $scope.inVolatilityView = false;
+            if (toState.url === '/volatility') {
+                $scope.inVolatilityView = true;
+            }
+
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
