@@ -87,8 +87,8 @@
                             </div>
                         </th>
                         <th class="buy-color">
-                            <div  tooltip-html-unsafe="{{infoPattern.sector}} / {{infoPattern.industry}}" class="detail-div-tooltip-container cursor-help">
-                                <div class="detail-separator"><b >{{infoPattern.sector}}<span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></div>
+                            <div  tooltip-html-unsafe="{{infoPattern.sector | capitalize}} / {{infoPattern.industry | capitalize}}" class="detail-div-tooltip-container cursor-help">
+                                <div class="detail-separator"><b >{{infoPattern.sector | capitalize}}<span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry | capitalize}}</b></div>
                             </div>
                         </th>
                         <th class="label-date-header-detail"><img src='assets/img/entry_orange_arrow.png'>Fecha Entrada</th>
@@ -110,8 +110,8 @@
                             </div>
                         </th>
                         <th class="sell-color-dark-background">
-                            <div  tooltip-html-unsafe="{{infoPattern.sectorBearishAsset}} / {{infoPattern.industryBearishAsset}}" class="detail-div-tooltip-container cursor-help">
-                                <div class="detail-separator"><b >{{infoPattern.sectorBearishAsset}}<span ng-show="infoPattern.sectorBearishAsset != null && infoPattern.industryBearishAsset">/</span> {{infoPattern.industryBearishAsset}}</b></div>
+                            <div  tooltip-html-unsafe="{{infoPattern.sectorBearishAsset | capitalize}} / {{infoPattern.industryBearishAsset | capitalize}}" class="detail-div-tooltip-container cursor-help">
+                                <div class="detail-separator"><b >{{infoPattern.sectorBearishAsset | capitalize}}<span ng-show="infoPattern.sectorBearishAsset != null && infoPattern.industryBearishAsset">/</span> {{infoPattern.industryBearishAsset | capitalize}}</b></div>
                             </div>
                         </th>
                         <th class="label-date-header-detail"><img src='assets/img/exit_orange_arrow.png'>Fecha Salida</th>

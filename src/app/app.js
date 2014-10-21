@@ -164,6 +164,11 @@ angular.module('ngMo', [
             return roundedValue.toString();
         };
     })
+    .filter('capitalize',function(){
+        return function(input) {
+            return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) : '';
+        };
+    })
     .service('ShoppingCartService', function (ActiveTabService,$q,$http,$rootScope,$window){
 
         var stockItems =  [];

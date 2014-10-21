@@ -107,9 +107,9 @@
             </td>
             <td class="stock-sector-industry-column-catalog">
                 <div class="long-name-breaker">
-                    <span tooltip-html-unsafe="{{pattern.asset.sector}}" class="cursor-help">{{pattern.asset.sector}}</span> <span
+                    <span tooltip-html-unsafe="{{pattern.asset.sector | capitalize}}" class="cursor-help">{{pattern.asset.sector | capitalize}}</span> <span
                         ng-show="pattern.asset.sector != null && pattern.asset.industry != null && pattern.asset.sector != '' && pattern.asset.industry != ''">/</span>
-                    <span tooltip-html-unsafe="{{pattern.asset.industry}}" class="cursor-help">{{pattern.asset.industry}}</span>
+                    <span tooltip-html-unsafe="{{pattern.asset.industry | capitalize}}" class="cursor-help">{{pattern.asset.industry | capitalize}}</span>
                 </div>
             </td>
             <td class="stock-year-number-gain-column-catalog">
