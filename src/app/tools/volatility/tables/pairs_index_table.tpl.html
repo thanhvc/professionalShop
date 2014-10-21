@@ -50,7 +50,7 @@
 
             </td>
             <td class="pairs-index-vol-value">
-                <a ng-if="data.volatPair >= 0" ng-click="loadGraphic($event,data.name,data.patTyp,data.name2,true,data.volatPairChartURL);$event.stopPropagation();" >{{data.volatPair | twoDecimals}}</a>
+                <a ng-if="data.volatPair >= 0" ng-click="showSelectedGraphic($event,data.name,data.patTyp,data.name2,true,data.volatPairChartURL);$event.stopPropagation();" >{{data.volatPair | twoDecimals}}</a>
                 <span ng-if="data.volatPair < 0">{{data.volatPair | twoDecimals}}</span>
             </td>
             <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
