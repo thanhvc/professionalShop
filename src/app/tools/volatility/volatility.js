@@ -868,7 +868,7 @@ angular.module('ngMo.volatility', [
                 "<br/>"+
                 "<span ng-class=\"{'buy-color': selectedGraphic.type == 'BULLISH', 'sell-color': selectedGraphic.type == 'BEARISH'}\">{{selectedGraphic.indiceName}}</span><span ng-if=\"selectedGraphic.isPair\">/</span><span class=\"sell-color\" ng-if=\"selectedGraphic.isPair\">{{selectGraphic.secondIndiceName}}</span>"+
                 "<br/>"+
-                "<img style='width:700px;display:inline-block !important;' class=\"selected-graphic-image\" src=\"{{selectedGraphic.url}}\"/>"+
+                "<img style='width:700px;height:245px;display:inline-block !important;' class=\"selected-graphic-image\" src=\"{{selectedGraphic.url}}\"/>"+
                 "</div>"
         };
     })
