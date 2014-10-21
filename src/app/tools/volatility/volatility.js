@@ -863,13 +863,7 @@ angular.module('ngMo.volatility', [
                 $scope.$watch('openGraph', function(){});
             },
 
-            template: "<div id=\"graphicPanel\" class=\"graphic-div-volatility\" ng-class=\"{'move-left' : openGraph , 'move-right' : animateClose }\" ng-style=\"myStyle\" ng-click=\"$event.stopPropagation();\">"+
-                "<button class=\"btn-close-volatility-graphic\" ng-click=\"hideSelectedGraphicVol();\"></button>"+
-                "<br/>"+
-                "<span ng-class=\"{'buy-color': selectedGraphic.type == 'BULLISH', 'sell-color': selectedGraphic.type == 'BEARISH'}\">{{selectedGraphic.indiceName}}</span><span ng-if=\"selectedGraphic.isPair\">/</span><span class=\"sell-color\" ng-if=\"selectedGraphic.isPair\">{{selectGraphic.secondIndiceName}}</span>"+
-                "<br/>"+
-                "<img style='width:700px;height:245px;display:inline-block !important;' class=\"selected-graphic-image\" src=\"{{selectedGraphic.url}}\"/>"+
-                "</div>"
+            templateUrl: "tools/volatility/graphPanel.tpl.html"
         };
     })
 
