@@ -95,7 +95,7 @@ angular.module('ngMo', [
                 selectMenu: '',
                 selectSubmenu: '',
                 selectItemSubmenu: '',
-       //         moMenuType: 'publicMenu'
+                moMenuType: 'publicMenu'
             }
         })
         ;
