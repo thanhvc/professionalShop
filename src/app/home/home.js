@@ -37,6 +37,13 @@ angular.module('ngMo.home', [
                 callbackFunc(data);
             });
         };
+
+        this.actualDateForWeek = function(callbackFunc){
+            var result = $http.get($rootScope.urlService+'/actualdateweek').success(function (data) {
+                callbackFunc(data);
+            });
+        };
+
     })
     .service('PacksService', function ($http, $rootScope) {
         this.obtainPacks = function (callbackFunc) {

@@ -20,6 +20,7 @@ describe('The week controller', function()  {
         _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + weekData).respond(200,{"STOCKS": [stock, stock], 'COMMODITIES': [stock,stock], 'SP500' : [stock,stock]});
         _$httpBackend_.when('GET',$rootScope.urlService + '/actualdate').respond(200,{"data": new Date()});
+        _$httpBackend_.when('GET',$rootScope.urlService + '/actualdateweek').respond(200,{"data": new Date()});
         _$httpBackend_.when('GET',$rootScope.urlService + '/numweek').respond(200,{"data": new Date()});
         _$httpBackend_.when('GET',$rootScope.urlService + numData).respond({"STOCKS": [stock, stock], 'COMMODITIES': [stock,stock], 'SP500' : [stock,stock]});
 
@@ -46,7 +47,7 @@ describe('The week controller', function()  {
 
     it('should return the monday date of the current week', function() {
 
-        $http.expectGET($scope.urlService + '/actualdate');
+        $http.expectGET($scope.urlService + '/actualdateweek');
         $http.expectGET($scope.urlService + '/numweek');
         $http.expectGET($scope.urlService + '/islogged');
        // $http.expectGET($scope.urlService + weekData);

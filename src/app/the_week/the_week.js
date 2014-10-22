@@ -37,7 +37,7 @@ angular.module('ngMo.the_week', [
         $scope.empty = false;
         $scope.days= [];
         $scope.obtainDateMondaythisWeek = function () {
-            var firstDay = ActualDateService.actualDate(function (data) {
+            var firstDay = ActualDateService.actualDateForWeek(function (data) {
                 var DAY = 86400000;//day in millisecs
                 var today = new Date(data.actualDate);
                 var monday = new Date();
@@ -77,7 +77,7 @@ angular.module('ngMo.the_week', [
 
         var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
-        var data = ActualDateService.actualDate(function (data) {
+        var data = ActualDateService.actualDateForWeek(function (data) {
             $scope.year = new Date(data.actualDate).getFullYear();
             $scope.month = months[new Date(data.actualDate).getMonth() ];
 
