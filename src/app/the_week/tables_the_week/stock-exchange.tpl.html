@@ -52,7 +52,6 @@
             </td>
             <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.l | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                {{(indice.bullish_years.m+indice.bearish_years.m)}}
                 <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.m/(indice.bullish_years.m+indice.bearish_years.m)) > 0.85 && (indice.bullish_years.m+indice.bearish_years.m) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.m/(indice.bullish_years.m+indice.bearish_years.m)) > 0.85 && (indice.bullish_years.m+indice.bearish_years.m) > 10" class="predominance-image"/>
             </td>
