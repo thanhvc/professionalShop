@@ -42,33 +42,33 @@
         </tr>
         <tr ng-repeat-end ng-class="{'ngRow-odd-week': !indice.isGrey,'ngRow-even-week': indice.isGrey}">
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) >=0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.86 && (indice.global_bullish_years+indice.global_bearish_years) != 0 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.85 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.85 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
             </td>
             <td class="bearish-year"><span tooltip="Años bajistas">{{indice.global_bearish_years | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.l/(indice.bullish_years.l+indice.bearish_years.l)) >=0.86 && (indice.bullish_years.l+indice.bearish_years.l) != 0 && (indice.bullish_years.l+indice.bearish_years.l) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.l/(indice.bullish_years.l+indice.bearish_years.l)) > 0.86 && (indice.bullish_years.l+indice.bearish_years.l) != 0 && (indice.bullish_years.l+indice.bearish_years.l) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.l/(indice.bullish_years.l+indice.bearish_years.l)) > 0.85 && (indice.bullish_years.l+indice.bearish_years.l) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.l/(indice.bullish_years.l+indice.bearish_years.l)) > 0.85 && (indice.bullish_years.l+indice.bearish_years.l) > 10" class="predominance-image"/>
             </td>
             <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.l | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.m/(indice.bullish_years.m+indice.bearish_years.m)) >=0.86 && (indice.bullish_years.m+indice.bearish_years.m) != 0 && (indice.bullish_years.m+indice.bearish_years.m) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.m/(indice.bullish_years.m+indice.bearish_years.m)) > 0.86 && (indice.bullish_years.m+indice.bearish_years.m) != 0 && (indice.bullish_years.m+indice.bearish_years.m) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.m/(indice.bullish_years.m+indice.bearish_years.m)) > 0.85 && (indice.bullish_years.m+indice.bearish_years.m) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.m/(indice.bullish_years.m+indice.bearish_years.m)) > 0.85 && (indice.bullish_years.m+indice.bearish_years.m) > 10" class="predominance-image"/>
             </td>
             <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.m | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.x/(indice.bullish_years.x+indice.bearish_years.x)) >=0.86 && (indice.bullish_years.x+indice.bearish_years.x) != 0 && (indice.bullish_years.x+indice.bearish_years.x) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.x/(indice.bullish_years.x+indice.bearish_years.x)) > 0.86 && (indice.bullish_years.x+indice.bearish_years.x) != 0 && (indice.bullish_years.x+indice.bearish_years.x) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.x/(indice.bullish_years.x+indice.bearish_years.x)) > 0.85 && (indice.bullish_years.x+indice.bearish_years.x) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.x/(indice.bullish_years.x+indice.bearish_years.x)) > 0.85 && (indice.bullish_years.x+indice.bearish_years.x) > 10" class="predominance-image"/>
             </td>
             <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.x | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.j/(indice.bullish_years.j+indice.bearish_years.j)) >=0.86 && (indice.bullish_years.j+indice.bearish_years.j) != 0 && (indice.bullish_years.j+indice.bearish_years.j) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.j/(indice.bullish_years.j+indice.bearish_years.j)) > 0.86 && (indice.bullish_years.j+indice.bearish_years.j) != 0 && (indice.bullish_years.j+indice.bearish_years.j) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.j/(indice.bullish_years.j+indice.bearish_years.j)) > 0.85 && (indice.bullish_years.j+indice.bearish_years.j) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.j/(indice.bullish_years.j+indice.bearish_years.j)) > 0.85 && (indice.bullish_years.j+indice.bearish_years.j) > 10" class="predominance-image"/>
             </td>
             <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.j | twoDecimals}}</span></td>
             <td class="predominance-cell">
-                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.v/(indice.bullish_years.v+indice.bearish_years.v)) >=0.86 && (indice.bullish_years.v+indice.bearish_years.v) != 0 && (indice.bullish_years.v+indice.bearish_years.v) > 10" class="predominance-image"/>
-                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.v/(indice.bullish_years.v+indice.bearish_years.v)) > 0.86 && (indice.bullish_years.v+indice.bearish_years.v) != 0 && (indice.bullish_years.v+indice.bearish_years.v) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.v/(indice.bullish_years.v+indice.bearish_years.v)) > 0.85  && (indice.bullish_years.v+indice.bearish_years.v) > 10" class="predominance-image"/>
+                <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.v/(indice.bullish_years.v+indice.bearish_years.v)) > 0.85  && (indice.bullish_years.v+indice.bearish_years.v) > 10" class="predominance-image"/>
             </td>
             <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.v | twoDecimals}}</span></td>
         </tr>

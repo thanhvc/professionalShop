@@ -87,8 +87,8 @@
                             </div>
                         </th>
                         <th class="buy-color">
-                            <div  tooltip-html-unsafe="{{infoPattern.sector}} / {{infoPattern.industry}}" class="detail-div-tooltip-container cursor-help">
-                                <div class="detail-separator"><b >{{infoPattern.sector}}<span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry}}</b></div>
+                            <div  tooltip-html-unsafe="{{infoPattern.sector | capitalize}} / {{infoPattern.industry | capitalize}}" class="detail-div-tooltip-container cursor-help">
+                                <div class="detail-separator"><b >{{infoPattern.sector | capitalize}}<span ng-show="infoPattern.sector != null && infoPattern.industry">/</span> {{infoPattern.industry | capitalize}}</b></div>
                             </div>
                         </th>
                         <th class="label-date-header-detail"><img src='assets/img/entry_orange_arrow.png'>Fecha Entrada</th>
@@ -101,17 +101,17 @@
                     </tr>
                     <tr>
                         <th style="padding-left: 20px;">
-                            <span class="sell-color"><b>VENDER</b></span>
+                            <span class="sell-color-dark-background"><b>VENDER</b></span>
                         </th>
 
-                        <th class="sell-color">
+                        <th class="sell-color-dark-background">
                             <div  tooltip-html-unsafe="{{infoPattern.nameBearishAsset}}" class="detail-div-tooltip-container cursor-help">
                                 <div class="detail-separator"><b >{{infoPattern.nameBearishAsset}}</b></div>
                             </div>
                         </th>
-                        <th class="sell-color">
-                            <div  tooltip-html-unsafe="{{infoPattern.sectorBearishAsset}} / {{infoPattern.industryBearishAsset}}" class="detail-div-tooltip-container cursor-help">
-                                <div class="detail-separator"><b >{{infoPattern.sectorBearishAsset}}<span ng-show="infoPattern.sectorBearishAsset != null && infoPattern.industryBearishAsset">/</span> {{infoPattern.industryBearishAsset}}</b></div>
+                        <th class="sell-color-dark-background">
+                            <div  tooltip-html-unsafe="{{infoPattern.sectorBearishAsset | capitalize}} / {{infoPattern.industryBearishAsset | capitalize}}" class="detail-div-tooltip-container cursor-help">
+                                <div class="detail-separator"><b >{{infoPattern.sectorBearishAsset | capitalize}}<span ng-show="infoPattern.sectorBearishAsset != null && infoPattern.industryBearishAsset">/</span> {{infoPattern.industryBearishAsset | capitalize}}</b></div>
                             </div>
                         </th>
                         <th class="label-date-header-detail"><img src='assets/img/exit_orange_arrow.png'>Fecha Salida</th>
@@ -182,7 +182,7 @@
         </tr>
         <tr>
             <th><span class="buy-color">Lado Comprador</span></th>
-            <th><span class="sell-color">Lado Vendedor</span></th>
+            <th><span class="sell-color-dark-background">Lado Vendedor</span></th>
             <th>Acumulada</th>
             <th>Promedio</th>
             <th>Diaria</th>
@@ -259,7 +259,7 @@
 <div class="pdf-icon-detail" ng-click="generateGraphicsPdf(infoPattern.id ,'PRICE');" ng-disabled="disableButton"></div>
 <div class="graphic-header">
     <div class="float-left">
-        <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color">{{infoPattern.nameBearishAsset}}</span>
+        <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color-dark-background">{{infoPattern.nameBearishAsset}}</span>
         <br>
         Precio / Patrón Estacional 15 años (00-14)
     </div>
@@ -272,7 +272,7 @@
 </div>
 <div class="graphic-header">
     <div class="float-left">
-        <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color">{{infoPattern.nameBearishAsset}}</span>
+        <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color-dark-background">{{infoPattern.nameBearishAsset}}</span>
         <br>
         Patrones Estacionales 15 años (00-14) / 6 años (09-14)
     </div>
@@ -292,7 +292,7 @@
 <div class="pdf-icon-detail" ng-click="generateGraphicsPdf(infoPattern.id ,'WEEKLY');" ng-disabled="disableButton"></div>
 <div class="graphic-header">
     <div class="float-left">
-        <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color">{{infoPattern.nameBearishAsset}}</span>
+        <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color-dark-background">{{infoPattern.nameBearishAsset}}</span>
         <br>
         Gráfico Semanal
     </div>
@@ -305,7 +305,7 @@
 </div>
 <div class="graphic-header">
     <div class="float-left">
-        <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color">{{infoPattern.nameBearishAsset}}</span>
+        <span class="buy-color">{{infoPattern.name}}</span> / <span class="sell-color-dark-background">{{infoPattern.nameBearishAsset}}</span>
         <br>
         Gráfico Mensual
     </div>

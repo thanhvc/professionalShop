@@ -9,9 +9,9 @@
         <th class="border-right-table operation-column-my-patterns">
             Operación
         </th>
-        <th class="border-right-table expiration-column-my-patterns cursor-help">
+      <!--  <th class="border-right-table expiration-column-my-patterns cursor-help">
             <span tooltip="Fecha Vencimiento">Vencimto.</span>
-        </th>
+        </th>-->
         <th class="border-right-table market-column-my-patterns" title="Mercado">
             <span class="cursor-help" tooltip-html-unsafe="Mercado">Merc.</span>
         </th>
@@ -42,7 +42,7 @@
             Producto
         </th>
 
-        <th class="border-right-table expiration-column-my-patterns"></th>
+        <!--<th class="border-right-table expiration-column-my-patterns"></th>-->
 
         <th class="border-right-table market-column-my-patterns"></th>
 
@@ -87,13 +87,13 @@
                 {{data.name}}
             </span>
         </td>
-        <td class="table-cell-patterns border-right-table expiration-column-my-patterns">
+        <!--<td class="table-cell-patterns border-right-table expiration-column-my-patterns">-->
             <!--expiration-->
-            <div class="text-limitator ">
-                <!--{{ getYearFromPatternName(data.asset.symbol, data.entryDate) }}-->
-                {{ data.expYear }}
-            </div>
-        </td>
+            <!--<div class="text-limitator ">-->
+
+                <!--{{ data.expYear }}-->
+            <!--</div>
+        </td>-->
         <td class="table-cell-patterns border-right-table market-column-my-patterns">
             <span tooltip-html-unsafe="{{data.exchName}}" class="cursor-help" style="font-family:fontpo-bold;">{{data.exchSymbol}}</span>
         </td>
