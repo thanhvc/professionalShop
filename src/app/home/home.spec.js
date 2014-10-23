@@ -128,7 +128,7 @@ describe('The carousel directive', function () {
 
         it('should work', function(){
             delete $window.sessionStorage.cart;
-            var template = $compile("<div carousel-controller-provider></div")($scope);
+            var template = $compile("<div carousel-controller-provider></div>")($scope);
             $scope.$apply();
             // $timeout.flush(100);
 
