@@ -20,8 +20,10 @@ var LookupDiary = function () {
         ptor.sleep(4000)
     }
 
-
-
+    this.close = function () {
+        but = element(by.css(".logged-box"));
+        but.click();
+    }
 };
 
 LookupDiary.prototype = Object.create({}, {
@@ -71,12 +73,8 @@ describe('The Daily Lookup', function () {
             page.removeAlarm(0);
             ptor.sleep(4000);
             text = page.getAlarmValueByRow(0);
-            expect(text).toEqual("")
-
-
-
-
-
+            expect(text).toEqual("");
+            page.close();
         });
 
 
