@@ -21,6 +21,7 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks('grunt-lesslint');
     grunt.loadNpmTasks('grunt-protractor-runner');
     grunt.loadNpmTasks('grunt-protractor-webdriver');
+    grunt.loadNpmTasks('grunt-contrib-connect');
     /**
      * Load in our build configuration file.
      */
@@ -303,6 +304,14 @@ module.exports = function ( grunt ) {
                 eqnull: true
             },
             globals: {}
+        },
+        connect: {
+            server: {
+                options: {
+                    port: 9001,
+                    base: '<%= build_dir %>'
+                }
+            }
         },
 
         /**
@@ -603,6 +612,8 @@ module.exports = function ( grunt ) {
      */
     grunt.registerTask( 'default', [ 'build', 'compile' ] );
     grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e']);
+    grunt.registerTask('connect_e2e',['connect','protractor:e2e']);
+
     grunt.registerTask('e2edebug',['protractor_webdriver:run','protractor:e2edebug']);
     grunt.registerTask('e2e_jenkins', ['protractor_webdriver:run', 'protractor:e2e_jenkins']);
 

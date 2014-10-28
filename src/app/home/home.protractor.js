@@ -10,6 +10,7 @@ var url = 'http://mo.devel.edosoftfactory.com/';
      this.free = element(by.css('.subscribe-free-link'));
      this.link = element(by.id('market-observatory-nav'));
      this.link1 = element(by.id('organization-nav'));
+     this.link1 = element(by.id('organization-nav'));
 
      this.open = function () {
          // Goto the login page

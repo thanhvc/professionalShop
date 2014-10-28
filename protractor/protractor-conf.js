@@ -2,6 +2,7 @@
  * Created by Aitor on 28/05/14.
  */
 exports.config = {
+    baseUrl:'http://localhost:9001/',
     // Options to be passed to Jasmine-node.
     jasmineNodeOpts: {
         showColors: true,
@@ -10,28 +11,28 @@ exports.config = {
     },
     seleniumAddress: 'http://localhost:4444/wd/hub',
     suites: {
-        homepage: '../src/app/home/*protractor.js',
-        layout: '../src/app/*protractor.js',
-        signup:' ../src/app/sign_up/*protractor.js',
-        cart:' ../src/app/home/catalog/*protractor.js',
-        menu:' ../src/app/layout_templates/*protractor.js',
-        patterns:' ../src/app/my_patterns/*protractor.js',
-        volatility: ' ../src/app/tools/volatility/*protractor.js',
-        packs: '../src/app/my_subscriptions/*protractor.js',
-        profile: '../src/app/my_profile/*protractor.js',
-        lookup_diary: '../src/app/lookup_diary/*protractor.js',
-        my_subscriptions: '../src/app/my_subscriptions/*protractor.js'
-
+//        homepage: '../src/app/home/*protractor.js',
+//        layout: '../src/app/*protractor.js',
+//        signup:' ../src/app/sign_up/*protractor.js',
+//        cart:' ../src/app/home/catalog/*protractor.js',
+//        menu:' ../src/app/layout_templates/*protractor.js',
+//        patterns:' ../src/app/my_patterns/*protractor.js',
+//        volatility: ' ../src/app/tools/volatility/*protractor.js',
+//        packs: '../src/app/my_subscriptions/*protractor.js',
+//        profile: '../src/app/my_profile/*protractor.js',
+//        lookup_diary: '../src/app/lookup_diary/*protractor.js',
+     //   my_subscriptions: '../src/app/my_subscriptions/*protractor.js'
+        login:'../src/app/home/login.protractor.js'
     },
     multiCapabilities: [
         {
-            'browserName': 'phantomjs',
+          //  'browserName': 'phantomjs',
 
             /*
              * Can be used to specify the phantomjs binary path.
              * This can generally be ommitted if you installed phantomjs globally.
              */
-            'phantomjs.binary.path': 'node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
+            'phantomjs.binary.path': '../../../node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
 
 
             /*
@@ -42,14 +43,14 @@ exports.config = {
             'phantomjs.cli.args': [ "--ignore-ssl-errors=true", "--web-security=false"],
             //},
 
-             //browserName: 'chrome'
+             browserName: 'chrome'
         }
         // },
         /*
          {
          browserName:'firefox'
          }*/
-    ],
+    ]
 
 /*    onPrepare: function () {
         // The require statement must be down here, since jasmine-reporters
