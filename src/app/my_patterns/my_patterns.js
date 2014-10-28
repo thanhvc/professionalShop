@@ -302,9 +302,11 @@ angular.module('ngMo.my_patterns', [
             $scope.saveUrlParams();
         };
 
-        $scope.toggleFavorite = function (patternId){
-            var data = PatternsService.setFavorite(patternId).then(function (data) {
-                $scope.loadPage();
+        $scope.toggleFavorite = function (pattern){
+            var data = PatternsService.setFavorite(pattern.id).then(function (data) {
+                //$scope.loadPage();
+                pattern.fav = !pattern.fav;
+
             });
         };
 
