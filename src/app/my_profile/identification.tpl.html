@@ -71,8 +71,7 @@
             <td class="width-first-td"><span class="grey-label">Código Postal</span></td>
             <td><input type="text" name="zipCode"
                        ng-pattern="zipPattern"
-                       ng-class="{'warning-input':  (profileForm.zipCode.$error.pattern)
-                                                  || (profileForm.zipCode.$error.maxlength)}"
+                       ng-class="{'warning-input':  (profileForm.zipCode.$error.maxlength)}"
                        ng-model="user.postalCode" class="profile-input"
                        alt="Codigo Postal"></td>
             <td><span

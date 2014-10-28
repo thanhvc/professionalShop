@@ -73,7 +73,22 @@ angular.module('ngMo.my_profile', [
     .run(function run() {
     })
 
-    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged, ProfileService, SignUpService, $state,$http,$rootScope, $timeout) {
+    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged,$modal, ProfileService, SignUpService, $state,$http,$rootScope, $timeout) {
+
+        $scope.modalMessage = function(message,type) {
+            $modal.open({
+                templateUrl: 'layout_templates/generic-modal.tpl.html',
+                controller: GenericModalCtrl,
+                resolve: {
+                    mode: function () {
+                        return type;
+                    },
+                    message: function() {
+                        return message;
+                    }
+                }
+            });
+        };
         $scope.subPage = $state.$current.data.subPage;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -163,7 +178,7 @@ angular.module('ngMo.my_profile', [
                     if (status === 200) {
                         //$scope.user = data;
                         $scope.internalError = false;
-
+                        $scope.modalMessage("Se ha modificado su perfil con éxito","success");
                         $scope.userSaved = true;
                         $timeout(function () {
                             $scope.userSaved = false;
@@ -172,6 +187,8 @@ angular.module('ngMo.my_profile', [
                     } else {
                         $scope.internalError = true;
                         $scope.userSaved = false;
+
+                        $scope.modalMessage("Ha ocurrido un error, por favor verifique sus datos y vuelva a intentarlo","error");
                         // $scope.loadUser();
                     }
                 });
@@ -193,13 +210,16 @@ angular.module('ngMo.my_profile', [
                             $timeout(function () {
                                 $scope.userSaved = false;
                             }, 800);
+                            $scope.modalMessage("Se ha modificado su password con éxito","success");
                         } else {
                             $scope.internalErrorPass = false;
                             $scope.passwordError = true;
+                            $scope.modalMessage("Ha ocurrido un error, verifique su password y vuelva a intentarlo ","error");
                         }
 
                     } else {
                         $scope.internalErrorPass = true;
+                        $scope.modalMessage("Ha ocurrido un error, verifique su password y vuelva a intentarlo ","error");
                     }
                 });
 

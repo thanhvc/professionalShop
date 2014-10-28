@@ -89,13 +89,15 @@ angular.module('ngMo.portfolio', [
 
 
         $scope.limitAlert = function() {
-            var modalInstanceLimit = $modal.open({
-                template:"<div class=\"modal-alert-portfolio\"><div class=\"header-alert-portfolio\">Aviso <img class=\"close-alert-portfolio\" " +
-                    " src=\"assets/img/close_modal.png\" ng-click=\"close()\"></div><div class=\"body-alert-portfolio\">Incluya al menos <b>5</b> Estrategias en la Cartera</div></div>",
-                controller: ModalAlertCtrl,
+            $modal.open({
+                templateUrl: 'layout_templates/generic-modal.tpl.html',
+                controller: GenericModalCtrl,
                 resolve: {
-                    infoViews: function () {
-                        return $scope.info_views;
+                    mode: function () {
+                        return "alert";
+                    },
+                    message: function() {
+                        return "Incluya al menos <b>5</b> Estrategias en la Cartera";
                     }
                 }
             });
