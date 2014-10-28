@@ -24,13 +24,41 @@ angular.module('ngMo.cancel_pack', [
 
     .run(function run() {
     })
-    .controller('CancelPackCtrl', function ($scope,$window, $state, $stateParams,$http,$rootScope) {
+    .controller('CancelPackCtrl', function ($scope,$window,$modal, $state, $stateParams,$http,$rootScope) {
        $scope.pack= {
        };
         $scope.cancelOK = false;
         $scope.loading= false;
         $scope.errorLoad = false;
+        $scope.errorMessage = function() {
+            $modal.open({
+                templateUrl: 'layout_templates/generic-modal.tpl.html',
+                controller: GenericModalCtrl,
+                resolve: {
+                    mode: function () {
+                        return "error";
+                    },
+                    message: function() {
+                        return "Ha ocurrido un error o el pack no se ha podido procesar para cancelar";
+                    }
+                }
+            });
+        };
 
+        $scope.successMessage = function() {
+            $modal.open({
+                templateUrl: 'layout_templates/generic-modal.tpl.html',
+                controller: GenericModalCtrl,
+                resolve: {
+                    mode: function () {
+                        return "success";
+                    },
+                    message: function() {
+                        return "Se ha cancelado su pack con éxito";
+                    }
+                }
+            });
+        };
         $scope.loadPack = function(packCode,subCode) {
             config = {
                 params: {
@@ -44,6 +72,8 @@ angular.module('ngMo.cancel_pack', [
                 $scope.errorLoad = false;
             }).error(function(response){
                 $scope.errorLoad = true;
+                $scope.errorMessage();
+
             });
 
         };
@@ -66,10 +96,12 @@ angular.module('ngMo.cancel_pack', [
                 //$scope.pack = response.data;
                 $scope.loading= false;
                 $scope.cancelOK= true;
+                $scope.successMessage();
             }).error(function(response) {
                 $scope.loading= false;
                 $scope.cancelOK= false;
                 $scope.errorLoad = true;
+                $scope.errorMessage();
             });
         };
 
