@@ -275,7 +275,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="row in infoPattern.samePeriodIndices">
-            <td colspan="3">{{row.asset.longName}} <span ng-if="infoPattern.productType == 'FUTURE'"> ({{row.asset.exchange.name}})</span></td>
+            <td colspan="3">{{row.asset.longName}} <span ng-if="infoPattern.productType == 'FUTURE'"> ({{row.asset.exchange.symbol}})</span></td>
             <td class="border-right-table" ng-class="{'negative-percent': row.accumulatedReturn < 0}">{{row.accumulatedReturn}}</td>
             <td class="border-right-table" ng-class="{'negative-percent': row.averageReturn < 0}">{{row.averageReturn}}</td>
             <td class="border-right-table">{{row.win}}</td>
