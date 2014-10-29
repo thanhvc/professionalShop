@@ -5,7 +5,7 @@ var Home = require('../../../test-helpers/page-objects/home.po.js')
 
 describe('The home page', function () {
     var page;
-    var conString = 'postgres://super:moserverpass@localhost:25432/moserver'
+    var conString = browser.params.sqlCon;/*'postgres://super:moserverpass@localhost:25432/moserver'*/
     beforeEach(function () {
         fixture = {
             type: 'insert',
@@ -41,6 +41,7 @@ describe('The home page', function () {
     it('should allow existing and active user to sign in and show my patterns view', function () {
         page.showLoginBox();
         page.login('john.snow@thewall.north','phantom');
+        ptor.sleep(20000);
 
     });
 })
