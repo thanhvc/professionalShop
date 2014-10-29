@@ -180,6 +180,7 @@ angular.module('ngMo.my_profile', [
                         $scope.internalError = false;
                         $scope.modalMessage("Se ha modificado su perfil con éxito","success");
                         $scope.userSaved = true;
+                        $rootScope.$broadcast("changeName",$scope.user);
                         $timeout(function () {
                             $scope.userSaved = false;
                         }, 800);
