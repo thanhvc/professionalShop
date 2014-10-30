@@ -23,4 +23,4 @@ MyPatterns.prototype =  Object.create({}, {
 });
 
 
-module.exports = MyPatterns
+module.exports = MyPatterns;

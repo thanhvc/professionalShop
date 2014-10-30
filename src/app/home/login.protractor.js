@@ -23,7 +23,7 @@ describe('The home page', function () {
                 status: 1
             }
         }
-        loadFixture(fixture,conString)
+        loadFixture.loadFixture(fixture,conString)
         browser.ignoreSynchronization = true;
         page = new Home();
     });
@@ -35,13 +35,13 @@ describe('The home page', function () {
                 id: 1
             }
         }
-        loadFixture(fixture,conString)
+        loadFixture.loadFixture(fixture,conString)
 
     });
     it('should allow existing and active user to sign in and show my patterns view', function () {
         page.showLoginBox();
         page.login('john.snow@thewall.north','phantom');
-        ptor.sleep(20000);
+        ptor.sleep(5000);
 
     });
 })

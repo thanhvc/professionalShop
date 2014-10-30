@@ -16,35 +16,49 @@ describe('The My Patterns page ', function () {
     var conString = browser.params.sqlCon;
     /*'postgres://super:moserverpass@localhost:25432/moserver'*/
     beforeEach(function () {
-        var user = fixtureGenerator.generateUser('john.snow@thewall.north','phantom','John');
-        ptor.sleep(10000);
-       /* var region = fixtureGenerator.generateRegion('REGION1','Region 1');
-        ptor.sleep(10000);
-        var pack = fixtureGenerator.generatePack('P-S-1','pack1',null);
-        ptor.sleep(10000);*/
-        var fixture1 = {
-            type: 'insert',
-            table: 'region',
-            values: {
-                code:  'REGION1'  ,
-                name:  'Region1'
+
+        var fixtures = [
+            {
+                type: 'insert',
+                table: 'users',
+                values: {
+                    id: 1,
+                    name: 'John',
+                    surname: 'Snow',
+                    creation_date: '10-06-2014',
+                    address: 'The wall',
+                    city: 'North',
+                    zip_code: 'Fr3zz3',
+                    email_address: 'john.snow@thewall.north',
+                    sha_password: "\\x" + sha512("phantom").toString('hex'),
+                    status: 1
+                }
+            },
+            {
+                type: 'insert',
+                table: 'region',
+                values: {
+                    code: 'REGION2',
+                    name: 'Region2'
+                }
+            },
+            {
+                type: 'insert',
+                table: 'pack',
+                values: {
+                    code: 'PACK1',
+                    region_code: 'REGION2',
+                    name: 'Pack Simple 1',
+                    product_type: 0,
+                    publication_date: '2014-07-04',
+                    scope_text: 'Simple Pack 1 text',
+                    pattern_type: 0,
+                    subname: ' '
+                }
             }
-        };
-        var fixture2 = {
-            type: 'insert',
-            table: 'pack',
-            values: {
-                code:  'PACK1',
-                region_code:  'REGION1',
-                name: 'Pack Simple 1',
-                product_type: 0,
-                publication_date: '2014-07-04',
-                scope_text: 'Simple Pack 1 text',
-                pattern_type: 0,
-                subname: ' '
-            }
-        };
-        loadFixture.loadMultipleFixture(fixture1, fixture2, conString);
+        ];
+        loadFixture.executeQueries(fixtures, conString);
+        // loadFixture.loadMultipleFixture(fixture1, fixture2, conString);
         browser.ignoreSynchronization = true;
 
 
@@ -52,35 +66,36 @@ describe('The My Patterns page ', function () {
         myPatterns = new MyPatterns();
     });
     afterEach(function () {
-        fixture = {
-            type: 'remove',
-            table: 'users',
-            condition: {
-                id: 1
+        var fixtures = [
+            {
+                type: 'remove',
+                table: 'users',
+                condition: {
+                    id: 1
+                }
+            },
+            {
+                type: 'remove',
+                table: 'pack',
+                condition: {
+                    code: 'PACK1'
+                }
+            },
+            {
+                type: 'remove',
+                table: 'region',
+                condition: {
+                    code: 'REGION2'
+                }
             }
-        }
-        loadFixture(fixture, conString);
-        fixture = {
-            type: 'remove',
-            table: 'pack',
-            condition: {
-                code: 'PACK1'
-            }
-        }
-        loadFixture(fixture, conString);
-        fixture = {
-            type: 'remove',
-            table: 'region',
-            condition: {
-                code: 'REGION1'
-            }
-        }
-        loadFixture(fixture, conString)
+        ];
+        loadFixture.executeQueries(fixtures, conString);
 
     });
     it('should be load patterns', function () {
         home.showLoginBox();
-        home.login('john.snow@thewall.north','phantom');
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(10000);
 
     });
 

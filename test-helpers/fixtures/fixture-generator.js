@@ -17,9 +17,9 @@ var FixtureGenerator = function () {
 };
 
 FixtureGenerator.prototype = Object.create({}, {
-        generateUser: {value: function (email, password, name) {
+        generateUser: {value: function (conString, email, password, name) {
             console.log("generating User");
-            var conString = browser.params.sqlCon;
+
               var  fixture = {
                     type: 'insert',
                     table: 'users',
@@ -41,7 +41,7 @@ FixtureGenerator.prototype = Object.create({}, {
             return fixture;
 
         }},
-        generateRegion: {value: function(code,name) {
+        generateRegion: {value: function(conString, code,name) {
             console.log("generatin Region--------");
             var conString = browser.params.sqlCon;
             var  fixture = {
@@ -56,7 +56,7 @@ FixtureGenerator.prototype = Object.create({}, {
             sleep(5000);
             return fixture;
         }},
-        generatePack: {value: function(code,name,regionCode) {
+        generatePack: {value: function(conString, code,name,regionCode) {
             console.log("generatin Pack--------");
             var conString = browser.params.sqlCon;
             var fixture = {
