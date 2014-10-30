@@ -115,6 +115,12 @@ angular.module('auth',['http-auth-interceptor'])
                     $window.localStorage.token = params.token;
                 });
 
+
+                $scope.$on('changeName',function(data,params) {
+                    $scope.currentUser = params.name;
+                    $window.localStorage.username = params.name;
+                });
+
                 $scope.stateSignInForm = false;
                 $scope.firstTime = false;
 

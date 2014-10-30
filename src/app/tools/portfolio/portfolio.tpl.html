@@ -1,28 +1,23 @@
-<div class="super-border private-black-title">Cartera. Composición y Asignación</div>
+<div class="super-border private-black-title">CARTERA. Composición y Asignación</div>
 <div class="private-container-text">
-    <p>Herramienta que permite valorar las estrategias a incluir en una Cartera y la proporción de efectivo a asignar.</p>
-    <p>Usa un modelo basado en la forma empírica de la Distribución, valores centrales y extremos de las colas.</p>
-    <p>NOTA: En general una estrategia con 8 meses de “exposición” al mercado sufrirá mayor volatilidad que otra expuesta 1 solo mes. Para un análisis coherente debería incluir estrategias con “Duración” comparable.</p>
+    <p>Permite valorar las estrategias a incluir en una cartera y la proporción de efectivo a asignar.</p>
+    <p>Es un modelo empírico basado en la forma de la distribución, valores centrales y extremos de las colas.</p>
+    <p>NOTA: Una estrategia de 8 meses de duración tendrá mayor riesgo de exposición al mercado que otra
+        que se mantenga tan solo 1 mes. Para un análisis coherente debería incluir estrategias con “duración” comparable</p>
 
     <p>El modo de uso es como sigue: <span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
     <div ng-show="show">
         <ul class="public-list-first-level">
-            <li>Use filtros para preseleccionar Mercados, Duración, etc.</li>
-            <li>Utilice “<span class="blue-text">>></span>” para incluir estrategias a evaluar.</li>
+            <li>➢	Use filtros para preseleccionar parámetros de las estrategias como duración, región, etc.</li>
+            <li>Utilice “<span class="blue-text">>></span>” para añadir estrategias a evaluar.</li>
+            <li>Use “<span class="blue-text"><<</span>” para eliminar estrategias que no desea evaluar.</li>
             <li>Pulse “Calcular” y analice los Resultados.</li>
-            <li>Use “<span class="blue-text"><<</span>” para eliminar los patrones menos interesantes.</li>
+            <li>Observe el detalle del Patrón haciendo clic en celda “Id”.</li>
+            <li>Utilice la marca de Favoritos para identificar sus estrategias preferidas.</li>
             <li>Añada con “<span class="blue-text">>></span>” nuevas estrategias y repita el ciclo.</li>
-            <li>Utilice la marca de Favoritos para separar sus patrones preferidos.</li>
-            <li>Evaluar los datos Fundamentales de las compañías favoritas.</li>
+            <li>Evaluar los datos Fundamentales de las compañías marcadas como favoritas.</li>
         </ul>
-
-        <p>Haga click sobre las celdas de columna 'Id.' para ver:</p>
-        <ul class="public-list-first-level">
-            <li>Detalle de la estrategia.</li>
-            <li>Evolución gráfica de la cotización en curso.</li>
-        </ul>
-
-        <p><a ng-click="openModalInstance('services/detailed_description/drawdown')">Más información.</a></p>
+       <!-- <p><a ng-click="openModalInstance('services/detailed_description/drawdown')">Más información.</a></p>-->
 
         <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
     </div>

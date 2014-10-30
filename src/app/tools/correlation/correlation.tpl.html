@@ -1,26 +1,26 @@
 <div class="super-border private-black-title">Correlación</div>
 
 <div class="private-container-text">
-    <p>El análisis de correlación entre activos, permite planificar la diversificación de los componentes de una Cartera.</p>
+    <p>El análisis de correlación permite planificar la diversificación de los componentes de una Cartera.</p>
     <p>Los valores de correlación entre dos activos están comprendidos entre [-100%, +100%] con zonas singulares:</p>
     <ul class="public-list-first-level">
-        <li>-100%. La variación de rentabilidades de ambos activos es en sentido opuesto e idénticas en proporción. Cuanto más negativo más eficaz es la diversificación.
-        <li>0%. No hay relación en las rentabilidades de ambas series. Pueden ser componentes válidos para diversificar.</li>
-        <li>+100%. La variación de rentabilidades de ambos activos es en el mismo sentido e idénticas en proporción. Cuanto más positivo menor diversificación, o
-            lo que es equivalente, mayor “asociación” o duplicación.</li>
+        <li>+100% (valor próximo). La variación de rentabilidades de ambos activos es similar, no hay diversificación.</li>
+        <li>0% (valor próximo). No hay relación entre las rentabilidades de ambas series. Pueden ser componentes válidos para diversificar.</li>
+        <li>-100% (valor próximo). La variación de rentabilidades de ambos activos es similar en proporción pero en sentido opuesto,
+            cuando uno sube el otro baja y viceversa. Son componentes válidos para diversificar.</li>
     </ul>
 
     <p>El modo de uso es como sigue: <span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
     <div ng-show="show">
         <ul class="public-list-first-level">
-            <li>Use “<span class="blue-text">>></span>” para incluir los activos a evaluar.</li>
+            <li>Use “<span class="blue-text">>></span>” para añadir activos a evaluar.</li>
+            <li>Use “<span class="blue-text"><<</span>” para descartar activos que no desea evaluar.</li>
             <li>Pulse “Calcular“ y analice los resultados.</li>
-            <li>Use “<span class="blue-text"><<</span>” para eliminar los activos descartables.</li>
-            <li>Añada con “<span class="blue-text">>></span>” nuevos activos y repita el ciclo.</li>
-            <li>Use la marca de Favoritos para separar sus activos preferidos.</li>
+            <li>Use la marca de Favoritos para incluir o eliminar los activos preferidos.</li>
+            <li>Evaluar los datos Fundamentales de las compañías marcadas como favoritas</li>
         </ul>
 
-        <p><a ng-click="openModalInstance('services/detailed_description/correlation')">Más información.</a></p>
+       <!-- <p><a ng-click="openModalInstance('services/detailed_description/correlation')">Más información.</a></p>-->
 
         <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
     </div>
@@ -78,7 +78,7 @@
                 <tbody>
                     <tr ng-repeat="row in correlationData track by $index">
                        <!-- <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column.value >= 80, 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">{{column.value}}</td>-->
-                       <td  ng-repeat="column in row track by $index"  ng-class="{'high-correlation': (column.value >= 80 || column.value <= -80), 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">
+                       <td  ng-repeat="column in row track by $index"  ng-class="{'high-correlation': (column.value >= 80 || column.value <=-80), 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">
                             <span  ng-if="column.name == ''">{{column.value}}</span>
                            <span tooltip-html-unsafe="{{column.name}}"  ng-if="column.name != ''" class="cursor-help">{{column.value}}</span>
                        </td>
@@ -94,7 +94,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="row in pairCorrelationData track by $index">
-                    <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': (column.value >= 80 || column.value <= -80)}">
+                    <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': (column.value >= 80 || column.value <=-80)}">
                         <span  ng-if="column.name == ''">{{column.value}}</span>
                         <div ng-if="column.name != '' && column.type == 'firstRow'"><!--first row-->
                             <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help buy-color">{{column.value}}</span><br>

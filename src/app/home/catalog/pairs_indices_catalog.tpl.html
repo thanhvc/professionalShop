@@ -77,9 +77,9 @@
         </tr>
         <tr ng-repeat="pattern in patterns">
             <td class="pair-index-name-column-catalog">
-                <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 40}}</span>
+                <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}">{{pattern.name | limitTo: 40}}</span>
                 <br/>
-                <span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishAsset.longName}}">{{pattern.bearishAsset.longName | limitTo: 40}}</span>
+                <span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishName}}">{{pattern.bearishName | limitTo: 40}}</span>
             </td>
             <td class="pair-index-number-of-year-gain-column-catalog">{{pattern.win | twoDecimals}}</td>
             <td class="pair-index-number-of-year-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
@@ -91,7 +91,7 @@
                 <span ng-show="(pattern.duration >92)">Más de 3</span>
             </td>
             <td class="pair-index-volatility-column-catalog">
-                {{pattern.pairVolatility | twoDecimals}}
+                {{pattern.volatility | twoDecimals}}
             </td>
             <td style="border-right: 1px solid #6f7072 !important;" class="pair-index-status-column-catalog">
                 <!--<div tooltip="{{pattern.state}}"
