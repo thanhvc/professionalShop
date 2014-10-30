@@ -99,17 +99,17 @@
         <tr ng-repeat="pattern in patterns">
             <td class="stock-name-column-catalog">
                 <div class="long-name-breaker">
-                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 60}}</span>
+                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}">{{pattern.name | limitTo: 60}}</span>
                 </div>
             </td>
             <td class="stock-market-column-catalog">
-                <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.exchange.name}}">{{pattern.asset.exchange.symbol}}</span>
+                <span class="cursor-help" tooltip-html-unsafe="{{pattern.exchName}}">{{pattern.exchSymbol}}</span>
             </td>
             <td class="stock-sector-industry-column-catalog">
                 <div class="long-name-breaker">
-                    <span tooltip-html-unsafe="{{pattern.asset.sector | capitalize}}" class="cursor-help">{{pattern.asset.sector | capitalize}}</span> <span
-                        ng-show="pattern.asset.sector != null && pattern.asset.industry != null && pattern.asset.sector != '' && pattern.asset.industry != ''">/</span>
-                    <span tooltip-html-unsafe="{{pattern.asset.industry | capitalize}}" class="cursor-help">{{pattern.asset.industry | capitalize}}</span>
+                    <span tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | capitalize}}</span> <span
+                        ng-show="pattern.sector != null && pattern.industry != null && pattern.sector != '' && pattern.industry != ''">/</span>
+                    <span tooltip-html-unsafe="{{pattern.industry | capitalize}}" class="cursor-help">{{pattern.industry | capitalize}}</span>
                 </div>
             </td>
             <td class="stock-year-number-gain-column-catalog">

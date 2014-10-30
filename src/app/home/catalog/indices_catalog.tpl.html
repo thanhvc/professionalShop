@@ -75,10 +75,10 @@
         <tr ng-repeat="pattern in patterns">
             <td class="index-name-column-catalog">
                 <div class="long-name-breaker">
-                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.asset.longName}}">{{pattern.asset.longName | limitTo: 70}}</span>
+                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}">{{pattern.name | limitTo: 70}}</span>
                 </div>
             </td>
-            <td class="border-right-thick-catalog prices-font10 emisor-td-width">{{pattern.asset.exchange.symbol }}</td>
+            <td class="border-right-thick-catalog prices-font10 emisor-td-width">{{pattern.exchSymbol }}</td>
             <td class="index-number-of-years-gain-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.win | twoDecimals}}</td>
             <td class="index-number-of-years-loss-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.loss | twoDecimals}}</td>
             <td class="index-profit-accumulated-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.accumulatedReturn | twoDecimals}}</td>
@@ -87,7 +87,7 @@
                 <span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
-            <td  class="index-volatility-column-catalog prices-font10-bold">{{pattern.asset.volatility | twoDecimals}}</td>
+            <td  class="index-volatility-column-catalog prices-font10-bold">{{pattern.volatility | twoDecimals}}</td>
             <td style="border-right: 1px solid #6f7072 !important;"  class="index-status-column-catalog"><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
                 <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
                 <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state cursor-help" ng-show="pattern.statePattern == 'STARTED'"></div>
