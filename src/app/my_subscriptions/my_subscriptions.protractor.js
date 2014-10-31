@@ -168,6 +168,10 @@ describe('the My Subscriptions page', function () {
             cart.selectSimpleDuration(0,0);
             ptor.sleep(1000);
             expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("0");
+
+            /*try a basic purchase*/
+            cart.getPurchaseButton().click();
+            ptor.sleep(2000);
         });
 
 

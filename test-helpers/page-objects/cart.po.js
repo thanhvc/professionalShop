@@ -30,6 +30,9 @@ Cart.prototype =  Object.create({}, {
     getSelector: {value: function(row_idx){
         return element(by.repeater("stockItem in stockItems track by $index")
             .row(row_idx)).element(by.model("stockItem.duration"));
+    }},
+    getPurchaseButton: {value: function(){
+        return element(by.css(".shopping-cart-container")).all(by.css(".mo-button")).get(1);
     }}
 });
 
