@@ -119,29 +119,55 @@ describe('the My Subscriptions page', function () {
            // page.open();
             ptor.sleep(4000);
             canadaPurchased = page.getPurchased(0);
-            expect(canadaPurchased).toEqual("false"); //is not purchased
+            expect(canadaPurchased.getAttribute("disabled")).toBe(null); //is not purchased
             //page.selectMonth(1);
             ptor.sleep(1000);
             //check the 3 options for Canada
             page.selectDuration(0,2);
             ptor.sleep(1000);
             namePackSubs = page.getNamePack(0);
-            console.log("pack in sub:"+namePackSubs);
             namePackCart = cart.getSimpleName(0);
-            console.log("pack in cart:"+namePackCart);
-            expect(namePackCart).toEqual(namePackSubs);
+
+            namePackSubs = element(by.repeater("pack in mySubscriptionsTablePack.americaContent track by $index")
+                .row(0)).all(by.tagName('td')).get(0).element(by.tagName('span'))
+            expect(namePackCart.getText()).toEqual(namePackSubs.getText());
+            namePackSubs.getText().then(function(text) {
+                console.log("pack in sub:"+text);
+            });
+
             //selectedCart = cart.getSimpleDuration(0);
 
-            page.selectDuration(0,3);
+            /*
+            * Select options of duration in subscription, and check that are synchronized in cart
+            * */
+            page.selectDuration(0,2);
             ptor.sleep(1000);
+            selectorSub = cart.getSelector(0);
+
+            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("Anual");
             page.selectDuration(0,1);
             ptor.sleep(1000);
 
-            /*canadaPurchased = page.getPurchased(0);
-            expect(canadaPurchased).toEqual("true");
-            canadaSelector =  page.getSelector(0);
-            expect(canadaSelector.getAttribute("disabled")).toEqual("true");*/
+            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("Trimestral");
+            page.selectDuration(0,0);
+            ptor.sleep(1000);
+            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("Mensual");
+            /*
+            * now viceversa, change in cart and synchro in sub
+            * */
 
+            cart.selectSimpleDuration(0,2);
+            ptor.sleep(1000);
+            selectorSub = page.getSelector(0);
+
+            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("2");
+            cart.selectSimpleDuration(0,1);
+            ptor.sleep(1000);
+
+            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("1");
+            cart.selectSimpleDuration(0,0);
+            ptor.sleep(1000);
+            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("0");
         });
 
 
