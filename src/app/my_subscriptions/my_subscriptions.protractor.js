@@ -54,6 +54,19 @@ describe('the My Subscriptions page', function () {
                         pattern_type: 0,
                         subname: ' '
                     }
+                },{
+                    type: 'insert',
+                    table: 'pack',
+                    values: {
+                        code: 'CAN-S-2',
+                        region_code: 'CAN',
+                        name: 'Canada Simple II',
+                        product_type: 0,
+                        publication_date: '2014-07-04',
+                        scope_text: 'Simple Pack 2 text',
+                        pattern_type: 0,
+                        subname: ' '
+                    }
                 },
                 {
                     type: 'insert',
@@ -65,6 +78,31 @@ describe('the My Subscriptions page', function () {
                         num_patterns: 50,
                         letter_from: 'aaa',
                         letter_until: 'zzz'
+                    }
+                },{
+                    type: 'insert',
+                    table: 'published_packs',
+                    values: {
+                        pack_code: 'CAN-S-2',
+                        pack_month: 201411, //date of the month of the pack ALWAYS actual month
+                        publication_date: '2014-09-15',
+                        num_patterns: 50,
+                        letter_from: 'aaa',
+                        letter_until: 'zzz'
+                    }
+                }, {
+                    type: 'insert',
+                    table: 'subscription',
+                    values: {
+                        subscription_disc: 1,
+                        id:1,
+                        pack_code: 'CAN-S-2',
+                        user_id: 1,
+                        subscription_date: '2014-09-05',
+                        start_date: '2014-09-01',
+                        subscription_duration: 2,
+                        end_date: '2015-09-01',
+                        status: 0
                     }
                 }
             ];
@@ -91,6 +129,12 @@ describe('the My Subscriptions page', function () {
                     condition: {
                         pack_code: 'CAN-S-1'
                     }
+                },{
+                    type: 'remove',
+                    table: 'published_packs',
+                    condition: {
+                        pack_code: 'CAN-S-2'
+                    }
                 },
                 {
                     type: 'remove',
@@ -101,9 +145,23 @@ describe('the My Subscriptions page', function () {
                 },
                 {
                     type: 'remove',
+                    table: 'pack',
+                    condition: {
+                        code: 'CAN-S-2'
+                    }
+                },
+                {
+                    type: 'remove',
                     table: 'region',
                     condition: {
                         code: 'CAN'
+                    }
+                },
+                {
+                    type: 'remove',
+                    table: 'subscription',
+                    condition: {
+                        id: 1
                     }
                 }
 
