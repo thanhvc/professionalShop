@@ -4,7 +4,7 @@ describe('The week controller', function()  {
     beforeEach(angular.mock.module("ngMo.the_week"));
     beforeEach(angular.mock.module("ngMo.home"));
 
-    var patternFilters = '/patternfilters?indexType=0&industry=&market=&month=10&productType=0&region=&sector=&view=&year=2014';
+    var patternFilters = '/patternfilters?indexType=0&industry=&market=&month=11&productType=0&region=&sector=&view=&year=2014';
     var numData = '/weekData/2014?authToken=1';
     var weekData = '/weekData/2014';
 

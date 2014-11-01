@@ -78,7 +78,7 @@ describe('The signInForm directive', function () {
 
     describe('template', function () {
         var $compile,$scope,httpMock,template, $modal,$cookieStore, $window,ShoppingCartService;
-        var patterns = '/patterns?accumulatedInput=&accumulatedReturn=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=10&name=&operation=&page=1&productType=0&region=&sector=&token=undefined&volatility=&volatilityInput=&year=2014';
+        var patterns = '/patterns?accumulatedInput=&accumulatedReturn=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=11&name=&operation=&page=1&productType=0&region=&sector=&token=undefined&volatility=&volatilityInput=&year=2014';
 
         beforeEach(inject(function (_$compile_, _$rootScope_, $httpBackend, _$modal_, _$cookieStore_, _$window_,_ShoppingCartService_) {
             $compile = _$compile_;
