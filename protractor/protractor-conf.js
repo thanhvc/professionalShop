@@ -6,7 +6,7 @@ exports.config = {
     // Options to be passed to Jasmine-node.
     jasmineNodeOpts: {
         showColors: true,
-        defaultTimeoutInterval: 30000,
+        defaultTimeoutInterval: 60000,
         isVerbose: true
     },
     seleniumAddress: 'http://localhost:4444/wd/hub',

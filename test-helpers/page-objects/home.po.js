@@ -15,6 +15,9 @@ Home.prototype =  Object.create({}, {
         element(by.model('fields.email')).sendKeys(user);
         element(by.model('fields.password')).sendKeys(pass);
         element.all(by.css('.mo-button')).get(0).click();
+    }},
+    logout:{value: function(){
+        element(by.css(".log-out-link")).click();
     }}
 
 

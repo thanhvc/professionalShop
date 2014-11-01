@@ -16,6 +16,11 @@ MyPatterns.prototype =  Object.create({}, {
         element(by.model('fields.email')).sendKeys(user);
         element(by.model('fields.password')).sendKeys(pass);
         element.all(by.css('.mo-button')).get(0).click();
+    }},
+    getName:{value:function(row) {
+        return element(by.repeater("data in myData").row(row))
+            .element(by.css(".name-column-my-patterns"))
+            .all(by.tagName("span")).get(1); //the span inside the TD are span -- buy/sell and span --name
     }}
 
 
