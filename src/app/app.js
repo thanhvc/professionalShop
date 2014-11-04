@@ -164,6 +164,21 @@ angular.module('ngMo', [
             return roundedValue.toString();
         };
     })
+    .filter('volatTruncate',function(){
+        return function(input) {
+
+            if (input > 5) {
+                return parseInt(input, 10); // 20
+            } else {
+                roundedValue = 0.0;
+                if (input != null && !isNaN(input)) {
+                    roundedValue = Math.round(input * 100) / 100;
+                }
+                return roundedValue.toString();
+            }
+
+        };
+    })
     .filter('capitalize',function(){
         return function(input) {
             return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) : '';
