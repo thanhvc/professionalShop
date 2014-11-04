@@ -51,9 +51,9 @@
         </td>
 
         <td  class="pairs-vol-value">
-            <a ng-if="data.volat >=0" ng-click="showSelectedGraphic($event,data.name,'BULLISH',null,false,data.volatChartURL);$event.stopPropagation();" >{{data.volat | twoDecimals}}</a>
+            <a ng-if="data.volat >=0" ng-click="showSelectedGraphic($event,data.name,'BULLISH',null,false,data.volatChartURL);$event.stopPropagation();" >{{data.volat | volatTruncate}}</a>
             <span ng-if="data.volat <0">N/A</span><br/>
-            <a ng-if="data.volat2 >=0" ng-click="showSelectedGraphic($event,data.name2,'BEARISH',null,false,data.volatChartURL2);$event.stopPropagation();">{{data.volat2 | twoDecimals}}</a>
+            <a ng-if="data.volat2 >=0" ng-click="showSelectedGraphic($event,data.name2,'BEARISH',null,false,data.volatChartURL2);$event.stopPropagation();">{{data.volat2 | volatTruncate}}</a>
             <span ng-if="data.volat2 <0">N/A</span>
         </td>
         <td class="black-font-pairs" >
@@ -63,7 +63,7 @@
 
         </td>
         <td class="text-center pairs-vol-value">
-            <a ng-if="data.volatPair >= 0" ng-click="showSelectedGraphic($event,data.name,null,data.name2,true,data.volatPairChartURL);$event.stopPropagation();" >{{data.volatPair | twoDecimals}}</a>
+            <a ng-if="data.volatPair >= 0" ng-click="showSelectedGraphic($event,data.name,null,data.name2,true,data.volatPairChartURL);$event.stopPropagation();" >{{data.volatPair | volatTruncate}}</a>
             <span ng-if="data.volatPair < 0">N/A</span>
         </td>
         <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">

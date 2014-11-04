@@ -123,7 +123,7 @@
 
         <td class="table-cell-patterns border-right-table volatility-column-width">
             <a class="link" ng-click="loadGraphic($event,data.name,data.patTyp,null,false,data.volatilityChartURL);$event.stopPropagation();">
-                <span ng-show="data.volatility>=0"><b>{{data.volatility | twoDecimals}}</b></span></a>
+                <span ng-show="data.volatility>=0"><b>{{data.volatility | volatTruncate}}</b></span></a>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table best-gain-date-column-width">

@@ -125,7 +125,7 @@
             <b> {{data.duration | twoDecimals}}</b>
         </td>
         <td  class="table-cell-patterns border-right-table volatility-column-my-patterns" ng-class="{'negative-percent': data.pairVolatility < 0 }">
-            <span ng-show="data.pairVolatility>=0"><b> {{data.pairVolatility | twoDecimals}}</b></span>
+            <span ng-show="data.pairVolatility>=0"><b> {{data.pairVolatility | volatTruncate}}</b></span>
         </td>
         <td class="table-cell-patterns border-right-table favorite-column-my-patterns">
             <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data);$event.stopPropagation();"

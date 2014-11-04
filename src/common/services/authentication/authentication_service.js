@@ -83,6 +83,11 @@ angular.module('auth',['http-auth-interceptor'])
             $window.sessionStorage.removeItem("portfolioStockPairs");
             $window.sessionStorage.removeItem("portfolioIndices");
             $window.sessionStorage.removeItem("portfolioIndicePairs");
+            $window.sessionStorage.removeItem("portfolioIndicePairsResult");
+            $window.sessionStorage.removeItem("portfolioStocksResult");
+            $window.sessionStorage.removeItem("portfolioStockPairsResult");
+            $window.sessionStorage.removeItem("portfolioIndicesResult");
+            $window.sessionStorage.removeItem("portfolioIndicePairsResult");
             //$cookieStore.remove("name");
             //$cookieStore.remove("token");
             $location.path('/home');
@@ -300,6 +305,11 @@ angular.module('auth',['http-auth-interceptor'])
                     $window.sessionStorage.removeItem("portfolioStockPairs");
                     $window.sessionStorage.removeItem("portfolioIndices");
                     $window.sessionStorage.removeItem("portfolioIndicePairs");
+                    $window.sessionStorage.removeItem("portfolioIndicePairsResult");
+                    $window.sessionStorage.removeItem("portfolioStocksResult");
+                    $window.sessionStorage.removeItem("portfolioStockPairsResult");
+                    $window.sessionStorage.removeItem("portfolioIndicesResult");
+                    $window.sessionStorage.removeItem("portfolioIndicePairsResult");
                 };
 
 
