@@ -146,7 +146,7 @@ describe('the My Subscriptions page', function () {
             paypal.doPayment("test12@testedo.com", "testing123", ptor);//navigate in the paypal page to do the payment
             console.log("end payment");
             var myPatterns = new MyPatterns();
-            var nameAsset = myPatterns.getName(0,0);
+            var nameAsset = myPatterns.getSimpleName(0,0);
             expect(nameAsset.getText()).toEqual("Long name Asset 1");
             nameAsset.getText().then(function (data) {
                 console.log("found pattern 1 of the purchased pack:" + data);
