@@ -203,6 +203,7 @@ angular.module('ngMo.portfolio', [
             $scope.applyFilters();
             $scope.clearResults();
             loadPortfolioList();
+            loadPortfolioResult();
         };
 
         $scope.clearResults = function () {
@@ -246,12 +247,47 @@ angular.module('ngMo.portfolio', [
 
         };
 
+        loadPortfolioResult = function () {
+           var data = null;
+            switch ($scope.filterOptions.filters.active_tab) {
+                case 0:
+                    if ((typeof $window.sessionStorage.portfolioStocksResult !== 'undefined') && ($window.sessionStorage.portfolioStocksResult !== 'undefined')) {
+                        data = angular.fromJson($window.sessionStorage.portfolioStocksResult);
+                    }
+                    if (typeof data === 'undefined'){ data = null;}
+                    break;
+                case 1:
+                    if ((typeof $window.sessionStorage.portfolioStockPairsResult !== 'undefined') && ($window.sessionStorage.portfolioStockPairsResult !== 'undefined')) {
+                        data = angular.fromJson($window.sessionStorage.portfolioStockPairsResult);
+                    }
+                    if (typeof data === 'undefined'){ data = null;}
+                    break;
+                case 2:
+                    if ((typeof $window.sessionStorage.portfolioIndicesResult !== 'undefined') && ($window.sessionStorage.portfolioIndicesResult !== 'undefined')) {
+                        data = angular.fromJson($window.sessionStorage.portfolioIndicesResult);
+                    }
+                    if (typeof data === 'undefined'){ data = null;}
+                    break;
+                case 3:
+                    if ((typeof $window.sessionStorage.portfolioIndicePairsResult !== 'undefined') && ($window.sessionStorage.portfolioIndicePairsResult !== 'undefined')) {
+                        data = angular.fromJson($window.sessionStorage.portfolioIndicePairsResult);
+                    }
+                    if (typeof data === 'undefined'){ data = null;}
+                    break;
+            }
+            if (data != null) {
+                $scope.portfolioData = data;
+            }
+
+        };
+
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function (withLoad) {
             if (withLoad) {
                 $scope.loading = true;
             }
             loadPortfolioList();
+            loadPortfolioResult();
 
             var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.portfolioList, function (data) {
@@ -316,6 +352,51 @@ angular.module('ngMo.portfolio', [
                     $window.sessionStorage.portfolioIndicePairs = JSON.stringify(portfolioPatterns);
                     if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
                         delete $window.sessionStorage.portfolioIndicePairs;
+                    }
+                    break;
+            }
+        };
+
+        updatePortfolioResultSessionStorage = function (portfolioPatterns){
+            switch ($scope.filterOptions.filters.active_tab) {
+                case 0:
+                    if (typeof $window.sessionStorage.portfolioStocksResult === 'undefined'){
+                        $window.sessionStorage.portfolioStocksResult = [];
+                        // $scope.pagingOptions.currentPage = 1;
+                    }
+                    $window.sessionStorage.portfolioStocksResult = JSON.stringify(portfolioPatterns);
+                    if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
+                        delete $window.sessionStorage.portfolioStocksResult;
+                    }
+                    break;
+                case 1:
+                    if (typeof $window.sessionStorage.portfolioStockPairsResult === 'undefined'){
+                        $window.sessionStorage.portfolioStockPairsResult = [];
+                        // $scope.pagingOptions.currentPage = 1;
+                    }
+                    $window.sessionStorage.portfolioStockPairsResult = JSON.stringify(portfolioPatterns);
+                    if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
+                        delete $window.sessionStorage.portfolioStockPairsResult;
+                    }
+                    break;
+                case 2:
+                    if (typeof $window.sessionStorage.portfolioIndicesResult === 'undefined'){
+                        $window.sessionStorage.portfolioIndicesResult = [];
+                        //   $scope.pagingOptions.currentPage = 1;
+                    }
+                    $window.sessionStorage.portfolioIndicesResult = JSON.stringify(portfolioPatterns);
+                    if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
+                        delete $window.sessionStorage.portfolioIndicesResult;
+                    }
+                    break;
+                case 3:
+                    if (typeof $window.sessionStorage.portfolioIndicePairsResult === 'undefined'){
+                        $window.sessionStorage.portfolioIndicePairsResult = [];
+                        //   $scope.pagingOptions.currentPage = 1;
+                    }
+                    $window.sessionStorage.portfolioIndicePairsResult = JSON.stringify(portfolioPatterns);
+                    if (typeof portfolioPatterns === "undefined" || portfolioPatterns.length === 0) {
+                        delete $window.sessionStorage.portfolioIndicePairsResult;
                     }
                     break;
             }
@@ -443,6 +524,8 @@ angular.module('ngMo.portfolio', [
                     $window.sessionStorage.removeItem("portfolioIndicePairs");
                     break;
             }
+
+            updatePortfolioResultSessionStorage([]);
             $scope.portfolioData = [];
             $scope.loadPage(false);
         };
@@ -460,6 +543,7 @@ angular.module('ngMo.portfolio', [
 
                 var data = PortfolioService.getPortfolioData($scope.portfolioList, $scope.filterOptions.filters).then(function (data) {
                     $scope.portfolioData = data;
+                    updatePortfolioResultSessionStorage(data);
                     if (withCalculate) {
                         $scope.calculating = false;
                     }
@@ -560,6 +644,7 @@ angular.module('ngMo.portfolio', [
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.applyFilters();
             loadPortfolioList();
+            loadPortfolioResult();
             $scope.loadPage(true);
         };
 
@@ -750,6 +835,7 @@ angular.module('ngMo.portfolio', [
         }
 
         loadPortfolioList();
+        loadPortfolioResult();
         $scope.clearResults();
         $scope.loadPage(true);
 

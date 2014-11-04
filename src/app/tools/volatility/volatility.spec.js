@@ -3,8 +3,8 @@ describe('Volatility controller', function()  {
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(angular.mock.module("ngMo.volatility"));
 
-    var patternFilters = '/patternfilters?indexType=0&industry=&market=&month=10&productType=0&region=&sector=&token=1&view=&year=2014';
-    var patterns = '/patterns?accumulatedInput=&accumulatedReturn=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=10&name=&operation=&page=1&productType=0&region=&sector=&token=1&volatility=&volatilityInput=&year=2014';
+    var patternFilters = '/patternfilters?indexType=0&industry=&market=&month=11&productType=0&region=&sector=&token=1&view=&year=2014';
+    var patterns = '/patterns?accumulatedInput=&accumulatedReturn=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=11&name=&operation=&page=1&productType=0&region=&sector=&token=1&volatility=&volatilityInput=&year=2014';
 
     beforeEach(inject(function ($controller, $rootScope, _$http_, _$httpBackend_, _$state_, _$compile_,_$location_, TabsService)  {
 
