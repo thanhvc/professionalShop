@@ -82,6 +82,7 @@ angular.module('auth',['http-auth-interceptor'])
             $window.sessionStorage.removeItem("portfolioStocks");
             $window.sessionStorage.removeItem("portfolioStockPairs");
             $window.sessionStorage.removeItem("portfolioIndices");
+            $window.sessionStorage.removeItem("portfolioIndicePairs");
             $window.sessionStorage.removeItem("portfolioIndicePairsResult");
             $window.sessionStorage.removeItem("portfolioStocksResult");
             $window.sessionStorage.removeItem("portfolioStockPairsResult");
@@ -304,6 +305,11 @@ angular.module('auth',['http-auth-interceptor'])
                     $window.sessionStorage.removeItem("portfolioStockPairs");
                     $window.sessionStorage.removeItem("portfolioIndices");
                     $window.sessionStorage.removeItem("portfolioIndicePairs");
+                    $window.sessionStorage.removeItem("portfolioIndicePairsResult");
+                    $window.sessionStorage.removeItem("portfolioStocksResult");
+                    $window.sessionStorage.removeItem("portfolioStockPairsResult");
+                    $window.sessionStorage.removeItem("portfolioIndicesResult");
+                    $window.sessionStorage.removeItem("portfolioIndicePairsResult");
                 };
 
 
