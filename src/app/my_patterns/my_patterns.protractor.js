@@ -1,7 +1,67 @@
 /**
  * Created by laia on 10/06/14.
  */
-var url = 'http://mo.devel.edosoftfactory.com';
+
+
+var loadFixture = require('../../../test-helpers/load-fixture.js');
+var sha512 = require('sha512');
+var ptor = protractor.getInstance();
+var Home = require('../../../test-helpers/page-objects/home.po.js');
+var Helper = require('../../../test-helpers/helper.js');
+var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js');
+var MyPatterns = require('../../../test-helpers/page-objects/mypatterns.po.js');
+describe('The My Patterns page ', function () {
+    var home;
+    var myPatterns;
+    var helper;
+    var conString = browser.params.sqlCon;
+    /*'postgres://super:moserverpass@localhost:25432/moserver'*/
+    beforeEach(function () {
+        helper = new Helper();
+        var fixtures = fixtureGenerator.fixture_myPatterns();
+        loadFixture.executeQueries(fixtures, conString);
+        // loadFixture.loadMultipleFixture(fixture1, fixture2, conString);
+        browser.ignoreSynchronization = true;
+
+
+        home = new Home();
+        myPatterns = new MyPatterns();
+    });
+    afterEach(function () {
+        var fixtures = fixtureGenerator.remove_fixtures_subscriptions();
+        loadFixture.executeQueries(fixtures, conString);
+
+    });
+    it('should be load patterns', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        browser.get('/');
+        ptor.sleep(helper.oneSec());
+        myPatterns.goToMyPatterns();
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 1");
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getNumberTotalPatterns(0).getText()).toEqual("4");
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("4");
+        myPatterns.goToTab(1);
+        ptor.sleep(helper.oneSec());
+        //pairs
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset Pair 1");
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getNumberTotalPatterns(1).getText()).toEqual("4");
+        expect(myPatterns.getNumberFoundPatterns(1).getText()).toEqual("4");
+        ptor.sleep(helper.tenSecs());
+    });
+
+    it('should be load filters', function () {
+
+    });
+
+
+});
+
+/*
 var Patterns = function() {
 
     // All relevant elements
@@ -27,8 +87,7 @@ var Patterns = function() {
 
     this.graphicName = function(){
 
-        /*this.graphic = element.all(by.css('.ng-scope .ng-binding')).get(10).getText();
-        this.nameGraphic = element.all(by.css('.ng-binding')).get(10).getText();*/
+
 
     };
 
@@ -39,11 +98,7 @@ var Patterns = function() {
         ptor = protractor.getInstance();
         ptor.waitForAngular();
 
-        /*this.panels1 = ptor.findElement(protractor.By.tagName('ul'))
-            .findElements(protractor.By.tagName('li'))
-            .then(function(links){
-                links[0].click();
-                });*/
+
 
     };
     this.showMore = function(){
@@ -258,11 +313,7 @@ describe('The patterns menu', function() {
         p.open();
     });
 
-   /* it('should have the correct graphic name', function(){
-        p.login();
-        p.graphicName();
-        expect(p.graphic).toBe(p.nameGraphic);
-    });*/
+
 
 
     it('should have the correct number of panels', function(){
@@ -305,12 +356,7 @@ describe('The S&P table is ok', function(){
 
     s.open();
 
-   /*it('should have the correct graphic name', function(){
-        s.login();
-        s.graphicName();
-        expect(s.graphic).toBe(s.nameGraphic);
 
-   });*/
 
 });
 
@@ -322,10 +368,7 @@ describe('The Commodities table is ok', function(){
     c.open();
 
 
-   /*it('should have the correct graphic name', function(){
-        c.graphicName();
-        expect(c.graphic).toBe(c.nameGraphic);
-    });*/
+
 
 });
 
@@ -335,120 +378,7 @@ describe('Actions menu', function(){
     var a = new Actions();
 
 
-/*
-    it('should have the correct America regions', function(){
 
-        a.checkAmericaRegions();
-        expect(a.element.getAttribute('value')).toBe('11');
-        expect(a.element2.getAttribute('value')).toBe('America Stock Exchange');
-    });
-
-
-
-    it('should have the correct India regions', function(){
-
-        a.checkIndiaRegions();
-        expect(a.element.getAttribute('value')).toBe('11');
-        expect(a.element2.getAttribute('value')).toBe('Bombay Stock Exchange');
-    });
-
-
-    it('should have the correct China regions', function(){
-
-        a.checkChinaRegions();
-        expect(a.element.getAttribute('value')).toBe('11');
-        expect(a.element2.getAttribute('value')).toBe('Shangai Stock Exchange');
-    });
-
-
-    it('should have numeric fields', function(){
-        a.checkNumericFields();
-        expect(a.element.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
-        expect(a.element1.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
-        expect(a.element2.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
-        expect(a.element3.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
-        expect(a.element4.getCssValue('background-color')).toBe('rgba(255, 255, 255, 1)');
-    });
-
-
-    it('should reset the values', function(){
-        a.open();
-        a.restoreAll();
-        expect(a.element.getText()).toBe('');
-    });
-
-
-    it('should go back', function(){
-
-        a.goBack();
-        expect(a.button).toBeDefined();
-    });
-
-    it('should go ahead', function(){
-
-        a.goAhead();
-        expect(a.button).toBeDefined();
-    });
-
-    it('should show the correct month',function(){
-
-        a.checkMonth();
-        var t,v;
-        a.element.getText().then(function(r) {
-            t = String(r);
-            t= t.substring(0, t.indexOf('2')-1).toLowerCase();
-
-            expect(a.element2).toBe(getMonth(t).toString());
-        });
-
-
-    });
-
-
-    it('should show more info',function(){
-         a.open();
-         a.showMoreInfo();
-         expect(a.element).toBeDefined();
-
-    });
-
-
-    it('should show less info',function(){
-         a.open();
-         a.showLess();
-         expect(a.element).toBeDefined();
-
-    });
-
-
-    it('should have a correct URL', function(){
-
-        a.element2 = a.checkURL();
-        expect(a.name).toBe('prueba');
-        expect(a.region).toBe('9');
-        expect(a.op).toBe('1');
-
-        expect(a.index).toBe('10');
-
-        a.element2.get(5).getText().then(function(r){
-            var t = String(r);
-            t= t.substring(0, t.indexOf('2')-1).toLowerCase();
-            t = getMonthNumber(t);
-            expect('7').toBe((t+1).toString());
-        });
-
-        expect(a.acttab).toBe('rgba(255, 130, 0, 1)');
-        expect(a.market).toBe('1');
-        expect(a.rent).toBe('11');
-        expect(a.selaver).toBe('1');
-        expect(a.seldiar).toBe('1');
-        expect(a.selvol).toBe('1');
-        expect(a.seldur).toBe('1');
-        expect(a.vol).toBe('44');
-        expect(a.diar).toBe('33');
-        expect(a.dur).toBe('55');
-    });
-*/
 
 });
 
@@ -540,4 +470,4 @@ function getMonthNumber(m){
         i = -1;
     }
     return i;
-}
+}*/
