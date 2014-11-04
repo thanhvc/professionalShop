@@ -373,7 +373,7 @@ exports.fixture_myPatterns = function() {
                 area_code: 0
             }
         },
-        {
+        {/*SIMPLES*/
             type: 'insert',
             table: 'pack',
             values: {
@@ -422,7 +422,9 @@ exports.fixture_myPatterns = function() {
                 letter_from: 'aaa',
                 letter_until: 'zzz'
             }
-        }, {
+        },
+
+        {
             type: 'insert',
             table: 'subscription',
             values: {
@@ -738,6 +740,434 @@ exports.fixture_myPatterns = function() {
                 bullish_average_loss:null,
                 bearish_average_win:null,
                 bearish_average_loss:null
+            }
+        },
+        /*PARES*/
+        {
+            type: 'insert',
+            table: 'pack',
+            values: {
+                code: 'CAN-P-1',
+                region_code: 'CAN',
+                name: 'Canada Simple 1',
+                product_type: 0,
+                publication_date: '2014-07-04',
+                scope_text: 'Simple Pack 1 text',
+                pattern_type: 0,
+                subname: ' '
+            }
+        },{
+            type: 'insert',
+            table: 'pack',
+            values: {
+                code: 'USA-P-1',
+                region_code: 'USA',
+                name: 'Estados Unidos Pack I',
+                product_type: 0,
+                publication_date: '2014-07-04',
+                scope_text: 'Estados Unidos Pack I text',
+                pattern_type: 0,
+                subname: ' '
+            }
+        },
+        {
+            type: 'insert',
+            table: 'published_packs',
+            values: {
+                pack_code: 'CAN-P-1',
+                pack_month: 201411, //date of the month of the pack ALWAYS actual month
+                publication_date: '2014-09-15',
+                num_patterns: 50,
+                letter_from: 'aaa',
+                letter_until: 'zzz'
+            }
+        },{
+            type: 'insert',
+            table: 'published_packs',
+            values: {
+                pack_code: 'USA-P-1',
+                pack_month: 201411, //date of the month of the pack ALWAYS actual month
+                publication_date: '2014-09-15',
+                num_patterns: 50,
+                letter_from: 'aaa',
+                letter_until: 'zzz'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 3,
+                pack_code: 'CAN-P-1',
+                user_id: 1,
+                subscription_date: '2014-09-05',
+                start_date: '2014-09-01',
+                subscription_duration: 2,
+                end_date: '2015-09-01',
+                status: 0
+            }
+        },{
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 4,
+                pack_code: 'USA-P-1',
+                user_id: 1,
+                subscription_date: '2014-09-05',
+                start_date: '2014-09-01',
+                subscription_duration: 2,
+                end_date: '2015-09-01',
+                status: 0
+            }
+        } ,
+        {
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSET11',
+                short_name: 'Asset Pair 1',
+                long_name: 'Long name Asset Pair 1',
+                last_quote: 27.9,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },{
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSET12',
+                short_name: 'Asset Pair 1 2',
+                long_name: 'Long name Asset Pair 1 2',
+                last_quote: 27.9,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },{
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSET21',
+                short_name: 'Asset Pair 2 1',
+                long_name: 'Long name Asset Pair 2 1',
+                last_quote: 27.7,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },{
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSET22',
+                short_name: 'Asset Pair 2 2',
+                long_name: 'Long name Asset Pair 2 2',
+                last_quote: 27.7,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSET31',
+                short_name: 'Asset Pair 3 1',
+                long_name: 'Long name Asset Pair 3 1',
+                last_quote: 27.7,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },{
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSET32',
+                short_name: 'Asset Pair 3 2',
+                long_name: 'Long name Asset Pair 3 2',
+                last_quote: 27.7,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSET41',
+                short_name: 'Asset Pair 4 1',
+                long_name: 'Long name Asset Pair 4 1',
+                last_quote: 27.7,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSET42',
+                short_name: 'Asset Pair 4 1',
+                long_name: 'Long name Asset Pair 4 2',
+                last_quote: 27.7,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'pattern',
+            values: {
+                pattern_disc: 2,
+                id: 5,
+                pack_code: 'CAN-P-1',
+                pattern_type: 1,
+                win: 14,
+                loss: 1,
+                asset_symbol: 'ASSET11',
+                entry_date: '2014-11-11',
+                exit_date:'2014-05-03',
+                accumulated_return:212.33,
+                average_return:14.16,
+                daily_return:0.08,
+                entry_value:1,
+                effective_entry_date:'2014-10-24',
+                exit_value:2,
+                effective_exit_date:'2014-10-29',
+                pattern_close_chart_url: 'www.chartUrl1.com',
+                pattern_six_years_chart_url:'www.sixYearsChartUrl',
+                week_trend_chart_url:'www.chartWeekUrl',
+                month_trend_chart_url:'monthTrendUrl',
+                duration:173,
+                best_gain:2,
+                best_gain_date: '2014-10-01',
+                worst_loss:-5,
+                worst_loss_date:'2014-10-02',
+                last_performance:1.4,
+                bearish_asset_symbol:'ASSET12',
+                bearish_average_return:1,
+                bullish_average_return:2,
+                bearish_entry_value:11,
+                bearish_exit_value:22,
+                daily_pair_return: 12.13,
+                pair_volatility:23,
+                last_performance_date: '2014-10-19',
+                drawdown: -27.31,
+                winning_years_mean_rent: 220.41,
+                losing_years_mean_rent:-8.08,
+                product_type:0,
+                bullish_average_win:14,
+                bullish_average_loss:1,
+                bearish_average_win:13,
+                bearish_average_loss:2
+            }
+        },
+        {
+            type: 'insert',
+            table: 'pattern',
+            values: {
+                pattern_disc: 2,
+                id: 6,
+                pack_code: 'CAN-P-1',
+                pattern_type: 1,
+                win: 13,
+                loss: 2,
+                asset_symbol: 'ASSET21',
+                entry_date: '2014-11-11',
+                exit_date:'2014-05-03',
+                accumulated_return:213.33,
+                average_return:15.16,
+                daily_return:0.09,
+                entry_value:13,
+                effective_entry_date:'2014-10-01',
+                exit_value:23,
+                effective_exit_date:'2014-10-29',
+                pattern_close_chart_url: 'www.chartUrl1.com',
+                pattern_six_years_chart_url:'www.sixYearsChartUrl',
+                week_trend_chart_url:'www.chartWeekUrl',
+                month_trend_chart_url:'monthTrendUrl',
+                duration:173,
+                best_gain:13,
+                best_gain_date: '2014-11-01',
+                worst_loss:10,
+                worst_loss_date:'2014-11-05',
+                last_performance:3,
+                bearish_asset_symbol:'ASSET22',
+                bearish_average_return:13,
+                bullish_average_return:4,
+                bearish_entry_value:1,
+                bearish_exit_value:3,
+                daily_pair_return: 23,
+                pair_volatility:12,
+                last_performance_date: '2014-10-11',
+                drawdown: -27.31,
+                winning_years_mean_rent: 220.41,
+                losing_years_mean_rent:-8.08,
+                product_type:0,
+                bullish_average_win:11,
+                bullish_average_loss:4,
+                bearish_average_win:13,
+                bearish_average_loss:2
+            }
+        },
+        {
+            type: 'insert',
+            table: 'pattern',
+            values: {
+                pattern_disc: 2,
+                id: 7,
+                pack_code: 'USA-S-1',
+                pattern_type: 0,
+                win: 13,
+                loss: 3,
+                asset_symbol: 'ASSET31',
+                entry_date: '2014-11-11',
+                exit_date:'2014-05-03',
+                accumulated_return:213.33,
+                average_return:15.16,
+                daily_return:0.09,
+                entry_value:3,
+                effective_entry_date:'2014-10-09',
+                exit_value:3,
+                effective_exit_date:'2014-10-09',
+                pattern_close_chart_url: 'www.chartUrl1.com',
+                pattern_six_years_chart_url:'www.sixYearsChartUrl',
+                week_trend_chart_url:'www.chartWeekUrl',
+                month_trend_chart_url:'monthTrendUrl',
+                duration:173,
+                best_gain:13,
+                best_gain_date: '2014-10-12',
+                worst_loss:-2,
+                worst_loss_date:'2014-09-13',
+                last_performance:3,
+                bearish_asset_symbol:'ASSET32',
+                bearish_average_return:13,
+                bullish_average_return:14,
+                bearish_entry_value:33,
+                bearish_exit_value:4,
+                daily_pair_return: 4,
+                pair_volatility:5,
+                last_performance_date: '2014-10-14',
+                drawdown: -27.31,
+                winning_years_mean_rent: 220.41,
+                losing_years_mean_rent:-8.08,
+                product_type:0,
+                bullish_average_win:15,
+                bullish_average_loss:0,
+                bearish_average_win:13,
+                bearish_average_loss:2
+            }
+        },
+        {
+            type: 'insert',
+            table: 'pattern',
+            values: {
+                pattern_disc: 2,
+                id: 8,
+                pack_code: 'USA-P-1',
+                pattern_type: 1,
+                win: 13,
+                loss: 2,
+                asset_symbol: 'ASSET41',
+                entry_date: '2014-11-11',
+                exit_date:'2014-05-03',
+                accumulated_return:213.33,
+                average_return:15.16,
+                daily_return:0.09,
+                entry_value:11,
+                effective_entry_date:'2014-11-01',
+                exit_value:13,
+                effective_exit_date:'2014-11-02',
+                pattern_close_chart_url: 'www.chartUrl1.com',
+                pattern_six_years_chart_url:'www.sixYearsChartUrl',
+                week_trend_chart_url:'www.chartWeekUrl',
+                month_trend_chart_url:'monthTrendUrl',
+                duration:173,
+                best_gain:-2,
+                best_gain_date:'2014-10-03',
+                worst_loss:-3,
+                worst_loss_date:'2014-10-04',
+                last_performance:2,
+                bearish_asset_symbol:'ASSET42',
+                bearish_average_return:12,
+                bullish_average_return:13,
+                bearish_entry_value:4,
+                bearish_exit_value:5,
+                daily_pair_return: 6,
+                pair_volatility:7,
+                last_performance_date: '2014-10-01',
+                drawdown: -27.31,
+                winning_years_mean_rent: 220.41,
+                losing_years_mean_rent:-8.08,
+                product_type:0,
+                bullish_average_win:12,
+                bullish_average_loss:3,
+                bearish_average_win:11,
+                bearish_average_loss:4
             }
         }
     ];
