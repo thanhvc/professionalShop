@@ -3,59 +3,22 @@
  */
 
 
-var loadFixture = require('../../../test-helpers/load-fixture.js')
-var sha512 = require('sha512')
+var loadFixture = require('../../../test-helpers/load-fixture.js');
+var sha512 = require('sha512');
 var ptor = protractor.getInstance();
-var Home = require('../../../test-helpers/page-objects/home.po.js')
-var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js')
+var Home = require('../../../test-helpers/page-objects/home.po.js');
+var Helper = require('../../../test-helpers/helper.js');
+var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js');
 var MyPatterns = require('../../../test-helpers/page-objects/mypatterns.po.js');
 describe('The My Patterns page ', function () {
     var home;
     var myPatterns;
+    var helper;
     var conString = browser.params.sqlCon;
     /*'postgres://super:moserverpass@localhost:25432/moserver'*/
     beforeEach(function () {
-
-        var fixtures = [
-            {
-                type: 'insert',
-                table: 'users',
-                values: {
-                    id: 1,
-                    name: 'John',
-                    surname: 'Snow',
-                    creation_date: '10-06-2014',
-                    address: 'The wall',
-                    city: 'North',
-                    zip_code: 'Fr3zz3',
-                    email_address: 'john.snow@thewall.north',
-                    sha_password: "\\x" + sha512("phantom").toString('hex'),
-                    status: 1
-                }
-            },
-            {
-                type: 'insert',
-                table: 'region',
-                values: {
-                    code: 'REGION2',
-                    name: 'Region2'
-                }
-            },
-            {
-                type: 'insert',
-                table: 'pack',
-                values: {
-                    code: 'PACK1',
-                    region_code: 'REGION2',
-                    name: 'Pack Simple 1',
-                    product_type: 0,
-                    publication_date: '2014-07-04',
-                    scope_text: 'Simple Pack 1 text',
-                    pattern_type: 0,
-                    subname: ' '
-                }
-            }
-        ];
+        helper = new Helper();
+        var fixtures = fixtureGenerator.fixture_myPatterns();
         loadFixture.executeQueries(fixtures, conString);
         // loadFixture.loadMultipleFixture(fixture1, fixture2, conString);
         browser.ignoreSynchronization = true;
@@ -65,36 +28,23 @@ describe('The My Patterns page ', function () {
         myPatterns = new MyPatterns();
     });
     afterEach(function () {
-        var fixtures = [
-            {
-                type: 'remove',
-                table: 'users',
-                condition: {
-                    id: 1
-                }
-            },
-            {
-                type: 'remove',
-                table: 'pack',
-                condition: {
-                    code: 'PACK1'
-                }
-            },
-            {
-                type: 'remove',
-                table: 'region',
-                condition: {
-                    code: 'REGION2'
-                }
-            }
-        ];
+        var fixtures = fixtureGenerator.remove_fixtures_subscriptions();
         loadFixture.executeQueries(fixtures, conString);
 
     });
     it('should be load patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
-        ptor.sleep(10000);
+        ptor.sleep(helper.oneSec());
+        browser.get('/');
+        ptor.sleep(helper.oneSec());
+        myPatterns.goToMyPatterns();
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getName(0).getText()).toEqual("Long name Asset 1");
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getNumberTotalPatterns().getText()).toEqual("4");
+        expect(myPatterns.getNumberFoundPatterns().getText()).toEqual("4");
+
 
     });
 
@@ -102,7 +52,6 @@ describe('The My Patterns page ', function () {
 });
 
 /*
-var url = 'http://mo.devel.edosoftfactory.com';
 var Patterns = function() {
 
     // All relevant elements

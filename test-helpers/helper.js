@@ -14,6 +14,15 @@ Helper.prototype =  Object.create({}, {
         return element.getAttribute('class').then(function (classes) {
             return classes.split(' ').indexOf(cls) !== -1;
         });
+    }},
+    oneSec:  {value: function(){
+        return 1000;
+    }},
+    halfSec: {value: function(){
+        return 500;
+    }},
+    tenSecs: {value: function(){
+        return 10000;
     }}
 });
 
