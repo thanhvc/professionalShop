@@ -33,13 +33,18 @@
     <div class="header-catalog-table">
         <div class="catalog-filter">
             <input placeholder="Nombre" class="home-filter-input" ng-model="filterOptions.filters.filterName" ng-change="search();">
-            <select ng-model="filterOptions.filters.selectedIndustry" ng-change="selectIndustry();">
+            <!--<select ng-model="filterOptions.filters.selectedIndustry" ng-change="selectIndustry();">
                 <option value="">- Elegir Grupo -</option>
                 <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
                         ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}">
                     {{item.description}}
                 </option>
-            </select>
+            </select>-->
+
+            <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Elegir Grupo"
+                   typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
+                   typeahead-on-select="selectIndustry()"
+                   class="stocks-catalog-input">
             <select ng-model="filterOptions.filters.durationInterval" ng-change="search();">
                 <option selected="selected" value="">- Elegir duración -</option>
                 <option value="[*/1]">Hasta 1 mes</option>
