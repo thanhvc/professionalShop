@@ -7,9 +7,8 @@ var loadFixture = require('../../../test-helpers/load-fixture.js')
 var sha512 = require('sha512')
 var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js')
-var FixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js')
-var MyPatterns = require('../../../test-helpers/page-objects/mypatterns.po.js')
-var fixtureGenerator = new FixtureGenerator();
+var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js')
+var MyPatterns = require('../../../test-helpers/page-objects/mypatterns.po.js');
 describe('The My Patterns page ', function () {
     var home;
     var myPatterns;

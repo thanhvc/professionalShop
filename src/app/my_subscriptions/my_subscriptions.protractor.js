@@ -2,8 +2,9 @@
  * Created by robgon on 26/09/14.
  */
 
-var loadFixture = require('../../../test-helpers/load-fixture.js')
-var sha512 = require('sha512')
+var loadFixture = require('../../../test-helpers/load-fixture.js');
+var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js');
+var sha512 = require('sha512');
 var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js');
 var MySubscriptions = require('../../../test-helpers/page-objects/mySubscriptions.po.js');
@@ -20,7 +21,7 @@ describe('the My Subscriptions page', function () {
         var conString = browser.params.sqlCon;
         var cart = new Cart();
         beforeEach(function () {
-            var fixtures = [
+            var fixtures = fixtureGenerator.my_subscription_fixture();/*[
                 {
                     type: 'insert',
                     table: 'country',
@@ -204,7 +205,7 @@ describe('the My Subscriptions page', function () {
                         bearish_average_loss:null
                     }
                 }
-            ];
+            ];*/
             loadFixture.executeQueries(fixtures, conString);
             // loadFixture.loadMultipleFi xture(fixture1, fixture2, conString);
             browser.ignoreSynchronization = true;
@@ -217,7 +218,7 @@ describe('the My Subscriptions page', function () {
 
             home.logout();
             ptor.sleep(1000);
-            var fixtures = [
+            var fixtures = fixtureGenerator.remove_fixtures_subscriptions();/*[
                 {
                     type: 'remove',
                     table: 'email_log'
@@ -278,7 +279,7 @@ describe('the My Subscriptions page', function () {
 
 
 
-            ];
+            ];*/
             loadFixture.executeQueries(fixtures, conString);
         });
 
