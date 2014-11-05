@@ -164,6 +164,16 @@ angular.module('ngMo', [
             return roundedValue.toString();
         };
     })
+    .filter('sectorName', function(){ //TRANSFORM A SECTOR NAME WITHOUT THE SECTOR WORD
+        return function(n){
+            if (typeof n !== "undefined" && n != null) {
+                return n.replace(" SECTOR","");
+            } else {
+                return n;
+            }
+
+        };
+    })
     .filter('volatTruncate',function(){
         return function(input) {
 

@@ -121,7 +121,7 @@
             </td>
             <td class="stock-sector-industry-column-catalog">
                 <div class="long-name-breaker">
-                    <span tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | capitalize}}</span> <span
+                    <span tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | sectorName | capitalize}}</span> <span
                         ng-show="pattern.sector != null && pattern.industry != null && pattern.sector != '' && pattern.industry != ''">/</span>
                     <span tooltip-html-unsafe="{{pattern.industry | capitalize}}" class="cursor-help">{{pattern.industry | capitalize}}</span>
                 </div>

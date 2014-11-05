@@ -340,7 +340,7 @@ describe('The search external catalog', function () {
             ActiveTabService = _ActiveTabService_;
             PacksService = _PacksService_;
             httpMock = $httpBackend;
-            httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
+            httpMock.when('GET', _$rootScope_.urlService + '/islogged').respond(200);
         }));
 
         var obtainTemplate = function () {
