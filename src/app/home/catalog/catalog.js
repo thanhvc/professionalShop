@@ -96,8 +96,8 @@ angular.module('ngMo.catalog', [
                     'month': filtering.month,
                     'year': filtering.month.year,
                     'name': filtering.filterName,
-                    'sector': filtering.selectedSector,
-                    'industry': filtering.selectedIndustry,
+                    'sector': (typeof filtering.selectedSector !== "undefined" ? filtering.selectedSector.id : filtering.selectedSector),
+                    'industry':  (typeof filtering.selectedIndustry !== "undefined" ? filtering.selectedIndustry.id : filtering.selectedIndustry),
                     'volatilityInterval': filtering.volatilityInterval,
                     'durationInterval': filtering.durationInterval
                 }
@@ -133,8 +133,8 @@ angular.module('ngMo.catalog', [
 
             config = {
                 params: {
-                    'sector': filtering.selectedSector,
-                    'industry': filtering.selectedIndustry,
+                    'sector': (typeof filtering.selectedSector !== "undefined" ? filtering.selectedSector.id : filtering.selectedSector),
+                    'industry':  (typeof filtering.selectedIndustry !== "undefined" ? filtering.selectedIndustry.id : filtering.selectedIndustry),
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month,
@@ -288,15 +288,29 @@ angular.module('ngMo.catalog', [
         $scope.refreshSector = function () {
             $scope.refreshSelectors(['industries']);
         };
+
+
         $scope.selectSector = function () {
             $scope.filterOptions.filters.selectedIndustry = "";
             $scope.refreshSector();
             $scope.applyFilters();
         };
+        //the typeAhead directive (autocomplete) doesnt work with empty values, so we use a watch and triggers the search in case of empty sector
+        $scope.$watch('filterOptions.filters.selectedSector', function(newValue, oldValue) {
+            if ($scope.filterOptions.filters.selectedSector === "" || $scope.filterOptions.filters.selectedSector === null ) {
+                $scope.selectSector();
+            }
+        });
 
         $scope.selectIndustry = function () {
             $scope.applyFilters();
         };
+
+        $scope.$watch('filterOptions.filters.selectedIndustry', function(newValue, oldValue) {
+            if ($scope.filterOptions.filters.selectedIndustry === "" || $scope.filterOptions.filters.selectedIndustry === null ) {
+                $scope.selectIndustry();
+            }
+        });
 
         /*apply filters to search, restarting the page*/
         $scope.applyFilters = function () {
@@ -314,11 +328,20 @@ angular.module('ngMo.catalog', [
             }
 
             if (urlParams.selectedSector) {
-                urlParamsSend.qsector = urlParams.selectedSector;
+                if (typeof urlParams.selectedSector.id !== "undefined") {
+                    urlParamsSend.qsector = urlParams.selectedSector.id;
+                } else {
+                    urlParamsSend.qsector = urlParams.selectedSector;
+                }
             }
 
             if (urlParams.selectedIndustry) {
-                urlParamsSend.qindust = urlParams.selectedIndustry;
+                if (typeof urlParams.selectedIndustry.id !== "undefined") {
+                    urlParamsSend.qindust = urlParams.selectedIndustry.id;
+                } else {
+                    urlParamsSend.qindust = urlParams.selectedIndustry;
+                }
+
             }
 
             if (urlParams.durationInput) {

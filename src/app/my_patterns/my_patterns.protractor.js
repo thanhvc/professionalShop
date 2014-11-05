@@ -47,11 +47,16 @@ describe('The My Patterns page ', function () {
         myPatterns.goToTab(1);
         ptor.sleep(helper.oneSec());
         //pairs
-        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset Pair 1");
+        myPatterns.getPairName(1,0,0).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Pair 1");
+        });
+        myPatterns.getPairName(1,0,1).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Pair 1 2");
+        });
         ptor.sleep(helper.oneSec());
         expect(myPatterns.getNumberTotalPatterns(1).getText()).toEqual("4");
         expect(myPatterns.getNumberFoundPatterns(1).getText()).toEqual("4");
-        ptor.sleep(helper.tenSecs());
+
     });
 
     it('should be load filters', function () {

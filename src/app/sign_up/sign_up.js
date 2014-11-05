@@ -318,7 +318,7 @@ angular.module('singUp', [])
  * the directive must be used like: < input ng-model="user.repeatEmail" match="user.email"/>
  * and can be checked like <div ng-show="form.repeatMail.$error.mismatch">ERROR</div>
  */
-    .directive('match', function ($parse) {
+    .directive('matchWith', function ($parse) {
         return {
             require: 'ngModel',
             link: function (scope, elem, attrs, ctrl) {
