@@ -71,6 +71,17 @@ describe('The My Patterns page ', function () {
         ptor.sleep(helper.oneSec());
         expect(myPatterns.getNumberTotalPatterns(2).getText()).toEqual("4");
         expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("4");
+        myPatterns.selectIndexType(1); // to pairs
+        ptor.sleep(helper.oneSec());
+        myPatterns.getPairName(2,0,0).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Pair Index 1");
+        });
+        myPatterns.getPairName(2,0,1).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Pair Index 1 2");
+        });
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getNumberTotalPatterns(2).getText()).toEqual("4");
+        expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("4");
 
     });
 
