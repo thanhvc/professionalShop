@@ -20,6 +20,7 @@ describe('The My Patterns page ', function () {
         helper = new Helper();
         var fixtures = fixtureGenerator.fixture_myPatterns();
         loadFixture.executeQueries(fixtures, conString);
+        ptor.sleep(helper.oneSec());
         // loadFixture.loadMultipleFixture(fixture1, fixture2, conString);
         browser.ignoreSynchronization = true;
 
@@ -30,6 +31,7 @@ describe('The My Patterns page ', function () {
     afterEach(function () {
         var fixtures = fixtureGenerator.remove_fixtures_subscriptions();
         loadFixture.executeQueries(fixtures, conString);
+        ptor.sleep(helper.oneSec());
 
     });
     it('should be load patterns', function () {
@@ -47,7 +49,7 @@ describe('The My Patterns page ', function () {
         myPatterns.goToTab(1);
         ptor.sleep(helper.oneSec());
         //pairs
-        myPatterns.getPairName(1,0,0).getText().then(function(data) {
+       myPatterns.getPairName(1,0,0).getText().then(function(data) {
             expect(data).toEqual("Long name Asset Pair 1");
         });
         myPatterns.getPairName(1,0,1).getText().then(function(data) {
@@ -56,6 +58,19 @@ describe('The My Patterns page ', function () {
         ptor.sleep(helper.oneSec());
         expect(myPatterns.getNumberTotalPatterns(1).getText()).toEqual("4");
         expect(myPatterns.getNumberFoundPatterns(1).getText()).toEqual("4");
+        //index
+         myPatterns.goToTab(2);
+        ptor.sleep(helper.oneSec());
+        //pairs
+        myPatterns.getSimpleName(2,0).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Index 1");
+        });
+        myPatterns.getSimpleName(2,1).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Index 2");
+        });
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getNumberTotalPatterns(2).getText()).toEqual("4");
+        expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("4");
 
     });
 

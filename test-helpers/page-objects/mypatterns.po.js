@@ -19,7 +19,8 @@ MyPatterns.prototype =  Object.create({}, {
     }},*/
     getSimpleName:{value:function(tab,row) {
         return  element.all(by.css(".tab-pane")).get(tab).element(by.repeater("data in myData").row(row))
-            .element(by.css(".name-column-my-patterns"))
+            /*.element(by.css(".name-column-my-patterns"))*/
+            .all(by.tagName("td")).get(1)
             .all(by.tagName("span")).get(1); //the span inside the TD are span -- buy/sell and span --name
     }},
     //tab 0-3, row, and pattern (buy=0,sell=1)
