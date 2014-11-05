@@ -381,6 +381,14 @@ exports.fixture_myPatterns = function() {
                 name: 'Index',
                 area_code: 0
             }
+        },{
+            type: 'insert',
+            table: 'region',
+            values: {
+                code: 'FUTURE',
+                name: 'Futures',
+                area_code: 0
+            }
         },
         {/*SIMPLES*/
             type: 'insert',
@@ -1967,6 +1975,182 @@ exports.fixture_myPatterns = function() {
                 bearish_average_win:11,
                 bearish_average_loss:4
             }
+        },{/*FUTURES*/
+            type: 'insert',
+            table: 'pack',
+            values: {
+                code: 'FUTURE-S-1',
+                region_code: 'FUTURE',
+                name: 'Futures Pack 1',
+                product_type: 2,
+                publication_date: '2014-07-04',
+                scope_text: 'Futures Pack 1 text',
+                pattern_type: 0,
+                subname: ' '
+            }
+        },
+        {
+            type: 'insert',
+            table: 'published_packs',
+            values: {
+                pack_code: 'FUTURE-S-1',
+                pack_month: 201411, //date of the month of the pack ALWAYS actual month
+                publication_date: '2014-09-15',
+                num_patterns: 50,
+                letter_from: 'aaa',
+                letter_until: 'zzz'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 9,
+                pack_code: 'FUTURE-S-1',
+                user_id: 1,
+                subscription_date: '2014-09-05',
+                start_date: '2014-09-01',
+                subscription_duration: 2,
+                end_date: '2015-09-01',
+                status: 0
+            }
+        },
+        {
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSETF1',
+                short_name: 'Asset Future 1',
+                long_name: 'Long name Asset Future 1',
+                last_quote: 27.7,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },{
+            type: 'insert',
+            table: 'asset',
+            values: {
+                asset_disc: 1,
+                symbol: 'ASSETF2',
+                short_name: 'Asset Future 2',
+                long_name: 'Long name Asset Future 2',
+                last_quote: 27.7,
+                last_quote_date: '2014-10-30',
+                price_chart_url: 'www.urlPriceChart.com',
+                volatility: 19.20,
+                exchange_symbol: 'EX1',
+                sector: 'Sector1',
+                industry: 'Industry1',
+                expiration_year: null,
+                expiration_month: null,
+                volatility_chart_url: 'www.urlVolatChart.com'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'pattern',
+            values: {
+                pattern_disc: 1,
+                id: 17,
+                pack_code: 'FUTURE-S-1',
+                pattern_type: 0,
+                win: 14,
+                loss: 1,
+                asset_symbol: 'ASSETF1',
+                entry_date: '2014-11-11',
+                exit_date:'2014-05-03',
+                accumulated_return:212.33,
+                average_return:14.16,
+                daily_return:0.08,
+                entry_value:null,
+                effective_entry_date:null,
+                exit_value:null,
+                effective_exit_date:null,
+                pattern_close_chart_url: 'www.chartUrl1.com',
+                pattern_six_years_chart_url:'www.sixYearsChartUrl',
+                week_trend_chart_url:'www.chartWeekUrl',
+                month_trend_chart_url:'monthTrendUrl',
+                duration:173,
+                best_gain:null,
+                best_gain_date: null,
+                worst_loss:null,
+                worst_loss_date:null,
+                last_performance:null,
+                bearish_asset_symbol:null,
+                bearish_average_return:null,
+                bullish_average_return:null,
+                bearish_entry_value:null,
+                bearish_exit_value:null,
+                daily_pair_return: null,
+                pair_volatility:null,
+                last_performance_date: null,
+                drawdown: -27.31,
+                winning_years_mean_rent: 220.41,
+                losing_years_mean_rent:-8.08,
+                product_type:2,
+                bullish_average_win:null,
+                bullish_average_loss:null,
+                bearish_average_win:null,
+                bearish_average_loss:null
+            }
+        },
+        {
+            type: 'insert',
+            table: 'pattern',
+            values: {
+                pattern_disc: 1,
+                id: 18,
+                pack_code: 'FUTURE-S-1',
+                pattern_type: 0,
+                win: 13,
+                loss: 2,
+                asset_symbol: 'ASSETF2',
+                entry_date: '2014-11-11',
+                exit_date:'2014-05-03',
+                accumulated_return:213.33,
+                average_return:15.16,
+                daily_return:0.09,
+                entry_value:null,
+                effective_entry_date:null,
+                exit_value:null,
+                effective_exit_date:null,
+                pattern_close_chart_url: 'www.chartUrl1.com',
+                pattern_six_years_chart_url:'www.sixYearsChartUrl',
+                week_trend_chart_url:'www.chartWeekUrl',
+                month_trend_chart_url:'monthTrendUrl',
+                duration:173,
+                best_gain:null,
+                best_gain_date: null,
+                worst_loss:null,
+                worst_loss_date:null,
+                last_performance:null,
+                bearish_asset_symbol:null,
+                bearish_average_return:null,
+                bullish_average_return:null,
+                bearish_entry_value:null,
+                bearish_exit_value:null,
+                daily_pair_return: null,
+                pair_volatility:null,
+                last_performance_date: null,
+                drawdown: -27.31,
+                winning_years_mean_rent: 220.41,
+                losing_years_mean_rent:-8.08,
+                product_type:2,
+                bullish_average_win:null,
+                bullish_average_loss:null,
+                bearish_average_win:null,
+                bearish_average_loss:null
+            }
         }
+
     ];
 };

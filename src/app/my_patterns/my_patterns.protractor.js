@@ -82,6 +82,12 @@ describe('The My Patterns page ', function () {
         ptor.sleep(helper.oneSec());
         expect(myPatterns.getNumberTotalPatterns(2).getText()).toEqual("4");
         expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("4");
+        myPatterns.goToTab(3);
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getNumberTotalPatterns(3).getText()).toEqual("2");
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("2");
 
     });
 
