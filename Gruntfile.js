@@ -122,6 +122,16 @@ module.exports = function ( grunt ) {
                     }
                 ]
             },
+            i18n_files: {
+                files: [
+                    {
+                        src: [ '<%= app_files.i18n %>' ],
+                        dest: '<%= build_dir %>',
+                        cwd: '.',
+                        expand: true
+                    }
+                ]
+            },
             build_appjs: {
                 files: [
                     {
@@ -578,6 +588,13 @@ module.exports = function ( grunt ) {
                     livereload: false
                 }
             },
+            i18n: {
+              files:[
+                  '<%= app_files.i18n %>'
+              ],
+               tasks: ['copy:i18n_files']
+
+            },
 
             /**
              * When a CoffeeScript unit test file changes, we only want to lint it and
@@ -624,7 +641,7 @@ module.exports = function ( grunt ) {
     grunt.registerTask( 'build', [
         'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
         'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-        'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
+        'copy:build_appjs','copy:i18n_files', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
         'karma:continuous'
     ]);
 

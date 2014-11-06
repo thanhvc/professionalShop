@@ -88,13 +88,15 @@ describe('The carousel directive', function () {
 
         beforeEach(module('templates-app'));
 
-        beforeEach(inject(function (_$compile_, $rootScope, _$state_, $httpBackend, _$timeout_) {
+        beforeEach(inject(function (_$compile_, $rootScope, _$state_, _$httpBackend_, _$timeout_) {
             $compile = _$compile_;
             $scope = $rootScope.$new();
             $state = _$state_;
-            httpMock = $httpBackend;
+            httpMock = _$httpBackend_;
             $timeout = _$timeout_;
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
             httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
+
         }));
 
         it('should have 3 selectors', inject(function () {
@@ -122,6 +124,8 @@ describe('The carousel directive', function () {
                 }
             ];
             $scope.$apply();
+            httpMock.expectGET('i18n/common/es.json');
+
             var lis = template.find('li');
             expect(lis.length).toEqual(3);
         }));
@@ -151,7 +155,8 @@ describe('The homeText directive', function () {
             $scope = $rootScope.$new();
             $state = _$state_;
             httpMock = $httpBackend;
-            httpMock.when('GET', $rootScope.urlService+':9000/islogged').respond(200);
+            httpMock.when('GET','i18n/common/es.json').respond(200);
+            httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
         }));
 
         var searchClass = function (classname, classExpected) {
@@ -167,6 +172,7 @@ describe('The homeText directive', function () {
 
         it('should have 2 text container', inject(function () {
             var template = $compile("<div home-texts></div>")($scope);
+            $http.expectGET('i18n/common/es.json');
             $scope.$apply();
             $scope.selectedTab = 0;
             $scope.$apply();
@@ -216,6 +222,7 @@ describe('The homeTablePack', function () {
             ActiveTabService = _ActiveTabService_;
             PacksService = _PacksService_;
             httpMock = $httpBackend;
+            httpMock.when('GET','i18n/common/es.json').respond(200);
             httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
             httpMock.when('GET', $rootScope.urlService+'/homepacks').respond(200);
             $scope.myData =  {"region0": [
@@ -285,9 +292,11 @@ describe('The homeTablePack', function () {
                 "<div ng-include='homeTablePack.url'></div>" +
                 "</tab>" +
                 "</tabset>")($scope);
+
             $scope.$apply();
             $scope.selectedTab = 0;
             $scope.$apply();
+            httpMock.expectGET('i18n/common/es.json');
 
             var trs = template.find('tr');
             var log = [];
@@ -340,7 +349,8 @@ describe('The search external catalog', function () {
             ActiveTabService = _ActiveTabService_;
             PacksService = _PacksService_;
             httpMock = $httpBackend;
-            httpMock.when('GET', 'http://localhost:9000/islogged').respond(200);
+            httpMock.when('GET','i18n/common/es.json').respond(200);
+            httpMock.when('GET', _$rootScope_.urlService + '/islogged').respond(200);
         }));
 
         var obtainTemplate = function () {

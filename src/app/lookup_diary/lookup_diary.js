@@ -1,6 +1,8 @@
 /**
  * Created by laura on 6/06/14.
  */
+
+//TODO: rename this module to daily_lookup
 angular.module('ngMo.lookup_diary', [
     'ui.router'
 ])

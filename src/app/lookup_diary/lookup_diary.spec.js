@@ -25,7 +25,7 @@ describe('The Lookup diary controller', function () {
             }};
             stateParams = $stateParams;
             $http = _$httpBackend_;
-
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
             $http.when('GET', $rootScope.urlService + '/actualdate').respond(200);
             $http.when('GET', $rootScope.urlService + '/islogged').respond(200);
             $http.when('GET', $rootScope.urlService + patternsFilter).respond(200);
@@ -198,7 +198,7 @@ describe('The Lookup diary controller', function () {
         });
 
        it('should be able to open a graph', function(){
-
+            $http.expectGET('i18n/common/es.json');
             $http.expectGET($scope.urlService+'/actualdate');
             $http.expectGET($scope.urlService + patternsFilter);
             $http.expectGET($scope.urlService + lookup);

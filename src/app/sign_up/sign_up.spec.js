@@ -14,6 +14,7 @@ describe('The SignUp ', function () {
 
             httpMock = $httpBackend;
             $location = _$location_;
+            httpMock.when('GET','i18n/common/es.json').respond(200);
             httpMock.when('GET', $rootScope.urlService+'/islogged').respond(200);
             httpMock.when('GET', $rootScope.urlService+'/countries').respond(200);
             httpMock.when('POST', $rootScope.urlService+'/login').respond(200,{'result': 'ok'});
@@ -175,6 +176,7 @@ describe('The match directive', function () {
             $scope = _$rootScope_.$new();
             $state = _$state_;
             httpMock = $httpBackend;
+            httpMock.when('GET','i18n/common/es.json').respond(200);
         }));
 
         it('should respond to a click event', inject(function () {
@@ -204,6 +206,7 @@ describe('The signup service', function () {
             $scope = _$rootScope_.$new();
             $state = _$state_;
             httpMock = $httpBackend;
+            httpMock.when('GET','i18n/common/es.json').respond(200);
             httpMock.when('POST', _$rootScope_.urlService + '/testemail').respond(200,result);
             httpMock.when('POST', _$rootScope_.urlService + '/user').respond(200,result);
             user = {id: 1};
