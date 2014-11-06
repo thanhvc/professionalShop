@@ -9,6 +9,20 @@ var MyPatterns = function () {
 };
 
 MyPatterns.prototype =  Object.create({}, {
+    selectDropdownbyNum: { value:  function (element, index, milliseconds) {
+        element.all(by.tagName('option'))
+            .then(function (options) {
+                console.log("selecting option:"+index+" in MySubscriptions");
+                if (typeof options[index] ==="undefined") {
+                    console.log("selecting option "+index+" is not defined!");
+                } else {
+                    options[index].click();
+                }
+            });
+        if (typeof milliseconds != 'undefined') {
+            browser.sleep(milliseconds);
+        }
+    }},
   /*  showLoginBox : {value: function(){
         element(by.css(".no-logged-box")).click()
     }},
@@ -19,7 +33,8 @@ MyPatterns.prototype =  Object.create({}, {
     }},*/
     getSimpleName:{value:function(tab,row) {
         return  element.all(by.css(".tab-pane")).get(tab).element(by.repeater("data in myData").row(row))
-            .element(by.css(".name-column-my-patterns"))
+            /*.element(by.css(".name-column-my-patterns"))*/
+            .all(by.tagName("td")).get(1)
             .all(by.tagName("span")).get(1); //the span inside the TD are span -- buy/sell and span --name
     }},
     //tab 0-3, row, and pattern (buy=0,sell=1)
@@ -31,7 +46,8 @@ MyPatterns.prototype =  Object.create({}, {
             spanPos = ".sell-color";
         }
         return  element.all(by.css(".tab-pane")).get(tab).element(by.repeater("data in myData").row(row))
-            .element(by.css(".name-with-sides-column-my-patterns"))
+            /*.element(by.css(".name-with-sides-column-my-patterns"))*/
+            .all(by.tagName("td")).get(1)
             .element(by.css(spanPos)); //the span inside the TD are span -- buy/sell and span --name
     }},
     goToMyPatterns:{value:function(){
@@ -46,6 +62,9 @@ MyPatterns.prototype =  Object.create({}, {
     goToTab:{value:function(tab){
         return element(by.repeater("ctab in tabs").row(tab)).click();
 
+    }},
+    selectIndexType:{value:function(opt){
+        return this.selectDropdownbyNum( element.all(by.css(".tab-pane")).get(2).element(by.model("filterOptions.filters.index_type")),opt);
     }}
 
 
