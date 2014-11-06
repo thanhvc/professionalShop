@@ -9,10 +9,13 @@ var MyPatterns = function () {
 };
 
 MyPatterns.prototype =  Object.create({}, {
+    getContainerTab: {value: function(tab) {
+        return element.all(by.css(".tab-pane")).get(tab);
+    }},
+
     selectDropdownbyNum: { value:  function (element, index, milliseconds) {
         element.all(by.tagName('option'))
             .then(function (options) {
-                console.log("selecting option:"+index+" in MySubscriptions");
                 if (typeof options[index] ==="undefined") {
                     console.log("selecting option "+index+" is not defined!");
                 } else {
@@ -32,7 +35,7 @@ MyPatterns.prototype =  Object.create({}, {
         element.all(by.css('.mo-button')).get(0).click();
     }},*/
     getSimpleName:{value:function(tab,row) {
-        return  element.all(by.css(".tab-pane")).get(tab).element(by.repeater("data in myData").row(row))
+        return  this.getContainerTab(tab).element(by.repeater("data in myData").row(row))
             /*.element(by.css(".name-column-my-patterns"))*/
             .all(by.tagName("td")).get(1)
             .all(by.tagName("span")).get(1); //the span inside the TD are span -- buy/sell and span --name
@@ -45,7 +48,7 @@ MyPatterns.prototype =  Object.create({}, {
         } else {
             spanPos = ".sell-color";
         }
-        return  element.all(by.css(".tab-pane")).get(tab).element(by.repeater("data in myData").row(row))
+        return  this.getContainerTab(tab).element(by.repeater("data in myData").row(row))
             /*.element(by.css(".name-with-sides-column-my-patterns"))*/
             .all(by.tagName("td")).get(1)
             .element(by.css(spanPos)); //the span inside the TD are span -- buy/sell and span --name
@@ -54,10 +57,10 @@ MyPatterns.prototype =  Object.create({}, {
         browser.get('/#/patterns');
     }},
     getNumberTotalPatterns:{value:function(tab){
-        return element.all(by.css(".tab-pane")).get(tab).element(by.css(".total-patterns")).element(by.css(".ng-binding"));
+        return this.getContainerTab(tab).element(by.css(".total-patterns")).element(by.css(".ng-binding"));
     }},
     getNumberFoundPatterns:{value:function(tab){
-        return element.all(by.css(".tab-pane")).get(tab).element(by.css(".found-patterns")).element(by.css(".ng-binding"));
+        return this.getContainerTab(tab).element(by.css(".found-patterns")).element(by.css(".ng-binding"));
     }},
     goToTab:{value:function(tab){
         return element(by.repeater("ctab in tabs").row(tab)).click();
@@ -65,6 +68,36 @@ MyPatterns.prototype =  Object.create({}, {
     }},
     selectIndexType:{value:function(opt){
         return this.selectDropdownbyNum( element.all(by.css(".tab-pane")).get(2).element(by.model("filterOptions.filters.index_type")),opt);
+    }},
+    getNameFilter:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.filterName"));
+    }},
+    getSearchButton:{value:function(tab) {
+        return this.getContainerTab(tab).all(by.css(".mo-button")).get(0);
+    }},
+    getRegionFilter: {value: function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedRegion"));
+    }},
+    selectRegion:{value: function(tab,opt) { //0 -> Select Region, 1 -> first region, (canada for example..)
+        return this.selectDropdownbyNum(this.getRegionFilter(tab),opt);
+    }},
+    getExchangeFilter: {value: function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedMarket"));
+    }},
+    selectExchange:{value: function(tab,opt) { //0 -> Select Region, 1 -> first region, (canada for example..)
+        return this.selectDropdownbyNum(this.getExchangeFilter(tab),opt);
+    }},
+    getSectorFilter:{value: function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedSector"));
+    }},
+    selectSector: {value: function(tab,opt) {
+        return this.selectDropdownbyNum(this.getSectorFilter(tab),opt);
+    }},
+    getIndustryFilter:{value: function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedIndustry"));
+    }},
+    selectIndustry: {value: function(tab,opt) {
+        return this.selectDropdownbyNum(this.getIndustryFilter(tab),opt);
     }}
 
 
