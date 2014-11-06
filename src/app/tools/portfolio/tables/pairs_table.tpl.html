@@ -12,7 +12,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="pattern in myData"  ng-class="{'disabled-asset': !pattern.toUse}">
-            <td ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
+            <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
             <td>
                 <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
                 >{{pattern.name | limitTo: 22}}</span>
@@ -54,7 +54,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="pattern in portfolioList">
-                <td ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
+                <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td>
                     <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
                             >{{pattern.name | limitTo: 22}}</span>
