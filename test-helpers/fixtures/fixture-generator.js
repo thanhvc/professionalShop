@@ -328,6 +328,83 @@ exports.remove_fixtures_subscriptions = function(){
     ];
 };
 
+exports.signup_fixture = function() {
+    return [
+        {
+            type: 'insert',
+            table: 'country',
+            values: {
+                code: 'ES',
+                name: 'Spain'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'users',
+            values: {
+                id: 1,
+                name: 'Pending',
+                surname: 'User',
+                creation_date: '10-06-2014',
+                address: 'The wall',
+                city: 'North',
+                zip_code: 'Fr3zz3',
+                email_address: 'pending.user@foo.bar',
+                sha_password: "\\x" + sha512("phantom").toString('hex'),
+                status: 0,
+                country_code: 'ES'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'users',
+            values: {
+                id: 2,
+                name: 'Registered',
+                surname: 'User',
+                creation_date: '10-06-2014',
+                address: 'The wall',
+                city: 'North',
+                zip_code: 'Fr3zz3',
+                email_address: 'registered.user@foo.bar',
+                sha_password: "\\x" + sha512("phantom").toString('hex'),
+                status: 1,
+                country_code: 'ES'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'users',
+            values: {
+                id: 3,
+                name: 'Expired',
+                surname: 'User',
+                creation_date: '10-06-2014',
+                address: 'The wall',
+                city: 'North',
+                zip_code: 'Fr3zz3',
+                email_address: 'expired.user@foo.bar',
+                sha_password: "\\x" + sha512("phantom").toString('hex'),
+                status: 2,
+                country_code: 'ES'
+            }
+        }
+    ];
+};
+
+exports.remove_signup_fixture = function() {
+    return [
+        {
+            type: 'remove',
+            table: 'users'
+        },
+        {
+            type: 'remove',
+            table: 'country'
+        }
+    ];
+};
+
 exports.fixture_myPatterns = function() {
     return [
         {
