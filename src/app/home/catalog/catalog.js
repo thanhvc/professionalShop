@@ -149,7 +149,7 @@ angular.module('ngMo.catalog', [
             });
         };
     })
-    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService, initializedData, $stateParams, TabsService,ActiveTabService, SelectedPackService, $location) {
+    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService, initializedData, $stateParams, TabsService,ActiveTabService, SelectedPackService, $location,$filter) {
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
         });
@@ -423,10 +423,15 @@ angular.module('ngMo.catalog', [
                 }
                 if (data.hasOwnProperty("sectors")) {
                     $scope.filterOptions.selectors.sectors = data.sectors;
+
+                    for (i=0;i<$scope.filterOptions.selectors.sectors.length;i++) {
+                        $scope.filterOptions.selectors.sectors[i].description = $filter('sectorName')($scope.filterOptions.selectors.sectors[i].description);
+                    }
                     //$scope.filterOptions.filters.selectedSector = "";
                 }
                 if (typeof data.selectedSector != 'undefined') {
-                    $scope.filterOptions.filters.selectedSector = data.selectedSector;
+                    $scope.filterOptions.filters.selectedSector = $filter('sectorName')(data.selectedSector);
+
                 }
             });
         };

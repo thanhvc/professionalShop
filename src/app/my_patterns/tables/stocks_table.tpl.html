@@ -103,7 +103,7 @@
             ng-class="{'buy-color': data.patTyp == 'BULLISH',
                             'sell-color': data.patTyp == 'BEARISH'}">
             <!--sector/industry-->
-            <div class="text-limitator"><span class="cursor-help" tooltip-html-unsafe="{{data.sector | capitalize}}">{{data.sector | capitalize}}</span>
+            <div class="text-limitator"><span class="cursor-help" tooltip-html-unsafe="{{data.sector | capitalize}}">{{data.sector | sectorName | capitalize}}</span>
                 <span ng-show="{{(data.sector != null && data.industry != null) && (data.sector != '' && data.industry != '')}}"> / </span>
             </div>
             <div class="text-limitator">

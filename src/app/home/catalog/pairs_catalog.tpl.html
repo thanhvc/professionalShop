@@ -115,12 +115,12 @@
             </td>
             <td class="pairs-sector-industry-column-catalog">
                 <div class="sector-industry-pair-breaker pair-index-sector-catalog">
-                    <span tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | capitalize}}</span>
+                    <span tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | sectorName | capitalize}}</span>
                     <span ng-show="pattern.sector != null && pattern.industry != null && pattern.sector != '' && pattern.industry != ''">/</span>
                     <span tooltip-html-unsafe="{{pattern.industry | capitalize}}" class="cursor-help">{{pattern.industry | capitalize}}</span>
                 </div>
                 <div class="sector-industry-pair-breaker">
-                    <span tooltip-html-unsafe="{{pattern.bearishSector | capitalize}}" class="grey-text-pair cursor-help">{{pattern.bearishSector | capitalize}}</span>
+                    <span tooltip-html-unsafe="{{pattern.bearishSector | capitalize}}" class="grey-text-pair cursor-help">{{pattern.bearishSector | sectorName | capitalize}}</span>
                     <span ng-show="pattern.bearishSector != null && pattern.bearishIndustry != null && pattern.bearishSector != '' && pattern.bearishIndustry != ''">/</span>
                     <span tooltip-html-unsafe="{{pattern.bearishIndustry | capitalize}}" class="grey-text-pair cursor-help">{{pattern.bearishIndustry | capitalize}}</span>
                 </div>
