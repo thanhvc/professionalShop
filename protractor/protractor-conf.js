@@ -10,13 +10,14 @@ exports.config = {
         isVerbose: true
     },
     seleniumAddress: 'http://localhost:4444/wd/hub',
+    // Spec patterns are relative to the location of this config.
     suites: {
 //        homepage: '../src/app/home/*protractor.js',
 //        layout: '../src/app/*protractor.js',
 //        signup:' ../src/app/sign_up/*protractor.js',
 //        cart:' ../src/app/home/catalog/*protractor.js',
 //        menu:' ../src/app/layout_templates/*protractor.js',
-         // patterns:' ../src/app/my_patterns/*protractor.js'
+          // patterns:' ../src/app/my_patterns/*protractor.js'
 //        volatility: ' ../src/app/tools/volatility/*protractor.js',
 //        packs: '../src/app/my_subscriptions/*protractor.js',
 //        profile: '../src/app/my_profile/*protractor.js',
