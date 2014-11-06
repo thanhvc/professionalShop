@@ -56,11 +56,13 @@ angular.module('ngMo.home', [
 
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, SecondActiveTabService, AnchorLinkService, IsLogged, $state, $stateParams) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, SecondActiveTabService, AnchorLinkService, IsLogged, $state, $stateParams,$translatePartialLoader, $translate) {
 
         $scope.changePosCart = function () {
             $scope.positionCart = 'top';
         };
+        $translatePartialLoader.addPart("home");
+        $translate.refresh();
            //views allowed to no redirect, this views are states that load the homeCtrl for tooltips mainly,but dont need check logged status
         $scope.allowed_views= ['service_conditions','products_and_exchanges','summary','detailed_description','volatility'];
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -157,7 +159,7 @@ angular.module('ngMo.home', [
                 $scope.loading = false;
                 $scope.homeTablePacks = [
                     {
-                        title: 'Acciones',
+                        title: 'STOCKS',
                         active: ActiveTabService.activeTab() === 0,
                         value: 0,
                         americaContent: $scope.myData.firstTable.STOCK.NALA,
@@ -166,7 +168,7 @@ angular.module('ngMo.home', [
                         url: 'home/tables_packs/stock_table.tpl.html'
                     },
                     {
-                        title: 'Pares',
+                        title: 'PAIRS',
                         active: ActiveTabService.activeTab() === 1,
                         value: 1,
                         americaContent: $scope.myData.firstTable.STOCKPAIR.NALA,
@@ -175,7 +177,7 @@ angular.module('ngMo.home', [
                         url: 'home/tables_packs/pairs_table.tpl.html'
                     },
                     {
-                        title: 'Índices',
+                        title: 'INDICES',
                         active: ActiveTabService.activeTab() === 2,
                         value: 2,
                         indicesContent: $scope.myData.firstTable.INDICE.INDEX,
@@ -183,13 +185,14 @@ angular.module('ngMo.home', [
                         url: 'home/tables_packs/indices_table.tpl.html'
                     },
                     {
-                        title: 'Futuros',
+                        title: 'FUTURES',
                         active: ActiveTabService.activeTab() === 3,
                         value: 3,
                         futuresContent: $scope.myData.firstTable.FUTURE.FUTURE,
                         url: 'home/tables_packs/futures_table.tpl.html'
                     }
                 ];
+
 
                 if (typeof $scope.myData.secondTable !== "undefined")
                 {

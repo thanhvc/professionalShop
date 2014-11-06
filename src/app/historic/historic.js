@@ -870,40 +870,40 @@ angular.module('ngMo.historic', [
                 var monthString = "";
                 switch (date.month) {
                     case 1:
-                        monthString = "Enero";
+                        monthString = "JANUARY";
                         break;
                     case 2:
-                        monthString = "Febrero";
+                        monthString = "FEBRUARY";
                         break;
                     case 3:
-                        monthString = "Marzo";
+                        monthString = "MARCH";
                         break;
                     case 4:
-                        monthString = "Abril";
+                        monthString = "APRIL";
                         break;
                     case 5:
-                        monthString = "Mayo";
+                        monthString = "MAY";
                         break;
                     case 6:
-                        monthString = "Junio";
+                        monthString = "JUNE";
                         break;
                     case 7:
-                        monthString = "Julio";
+                        monthString = "JULY";
                         break;
                     case 8:
-                        monthString = "Agosto";
+                        monthString = "AUGUST";
                         break;
                     case 9:
-                        monthString = "Septiembre";
+                        monthString = "SEPTEMBER";
                         break;
                     case 10:
-                        monthString = "Octubre";
+                        monthString = "OCTOBER";
                         break;
                     case 11:
-                        monthString = "Noviembre";
+                        monthString = "NOVEMBER";
                         break;
                     case 12:
-                        monthString = "Diciembre";
+                        monthString = "DECEMBER";
                         break;
                     default :
                         monthString = "notFound";

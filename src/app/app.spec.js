@@ -16,6 +16,7 @@ describe('The cart directive', function () {
             httpMock = $httpBackend;
             $compile = _$compile_;
             $state = _$state_;
+            $httpBackend.when('GET','i18n/common/es.json').respond(200);
             httpMock.when('GET', _$rootScope_.urlService+'/islogged').respond(200);
             httpMock.when('POST', _$rootScope_.urlService+'/has-pack').respond(200,{status : "pack_active"});
             httpMock.when('GET', _$rootScope_.urlService+"/prices").respond({
@@ -909,6 +910,7 @@ describe('The cart directive', function () {
             var pack4 = {name: 'pack1', startDate: d,'date': d,code: 1234, productType: 'FUTURE', prices: prices, collition : "error",duration:2};
 
             var template = $compile("<div cart></div>")($scope);
+            httpMock.when('GET','i18n/common/es.json').respond(200);
             $scope.$broadcast('toggleItemCart',pack0);
             $scope.$apply();
             pack0 =   {name: 'pack1', startDate: d,'date': d, code: '1234', productType: 'STOCK' ,patternType: "SIMPLE", prices: prices, collition : "error",duration: 1};
@@ -1111,6 +1113,8 @@ describe('The privateMenu directive', function () {
             $scope = _$rootScope_.$new();
             $state = _$state_;
             httpMock = $httpBackend;
+            httpMock.when('GET','i18n/common/es.json').respond(200);
+
             httpMock.when('GET', $scope.urlService+'/islogged').respond(200);
         }));
 
@@ -1170,6 +1174,8 @@ describe('The privateSubMenu directive', function () {
             $scope = _$rootScope_.$new();
             $state = _$state_;
             httpMock = $httpBackend;
+            httpMock.when('GET','i18n/common/es.json').respond(200);
+
             httpMock.when('GET', $scope.urlService + '/islogged').respond(200);
             $modal = _$modal_.open({
                 templateUrl: 'layout_templates/private-submenu.tpl.html'
@@ -1221,6 +1227,7 @@ describe('The signin-signup-box ng-scope div', function () {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
             httpMock = $httpBackend;
+            httpMock.when('GET','i18n/common/es.json').respond(200);
             httpMock.when('GET', $scope.urlService+'/islogged').respond(200);
         }));
 
@@ -1252,9 +1259,11 @@ describe('The signin box fades in', function () {
         var $scope;
         var $state;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_,_$httpBackend_) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
 
         }));
 
@@ -1304,20 +1313,24 @@ describe('The flag box works ok', function () {
         var $state;
         var element;
         var $modal;
+        var $http;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, _$modal_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, _$modal_,_$httpBackend_) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
             element = $compile("<flag-box></flag-box>")($scope);
             $modal = _$modal_.open({
                 templateUrl: 'layout_templates/modal-text.tpl.html'
             });
+            $http = _$httpBackend_;
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
 
         }));
 
         it('should work', function(){
             delete $window.sessionStorage.cart;
             var template = $compile("<flag-box></flag-box>")($scope);
+            $http.expectGET('i18n/common/es.json');
             $scope.$apply();
             $scope.openModal('English');
             $scope.openModal('Germany');
@@ -1338,10 +1351,12 @@ describe('The scroll directive', function () {
         var $scope;
         var $window;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, _$window_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, _$window_,_$httpBackend_) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
             $window = _$window_;
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
         }));
 
         it('should let the user scroll', function(){
@@ -1362,11 +1377,13 @@ describe('The scrollFaq directive', function () {
         var $scope;
         var $window;
 
-        beforeEach(inject(function (_$rootScope_, _$compile_, _$window_, _$location_ ) {
+        beforeEach(inject(function (_$rootScope_, _$compile_, _$window_, _$location_,_$httpBackend_ ) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
             $window = _$window_;
             $location = _$location_;
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
 
         }));
 
@@ -1438,7 +1455,7 @@ describe('The publicMenu directive', function () {
         var element;
         var $modal;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, _$modal_, _$state_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, _$modal_, _$state_,_$httpBackend_) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
             element = $compile("<div public-menu></div>")($scope);
@@ -1446,6 +1463,8 @@ describe('The publicMenu directive', function () {
                 templateUrl: 'layout_templates/public-menu.tpl.html'
             });
             $state = _$state_;
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
 
         }));
 
@@ -1475,7 +1494,7 @@ describe('The publicSubMenu directive', function () {
         var element;
         var $modal;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, _$modal_, _$state_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_, _$modal_, _$state_,_$httpBackend_) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
             element = $compile("<div public-sub-menu></div>")($scope);
@@ -1483,6 +1502,8 @@ describe('The publicSubMenu directive', function () {
                 templateUrl: 'layout_templates/public-submenu.tpl.html'
             });
             $state = _$state_;
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
 
         }));
 
@@ -1509,9 +1530,11 @@ describe('The scroll faq directive', function () {
         var $compile;
         var $scope;
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_) {
+        beforeEach(inject(function (_$controller_, _$rootScope_, _$compile_,_$httpBackend_) {
             $scope = _$rootScope_.$new();
             $compile = _$compile_;
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
 
         }));
 
@@ -1548,6 +1571,8 @@ describe('The ShoppingCartService', function () {
             $scope = _$rootScope_;
             $compile = _$compile_;
             $http = _$httpBackend_;
+
+            _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
 
             _$httpBackend_.when('GET', _$rootScope_.urlService+"/prices").respond({
                 "data":{
@@ -1663,10 +1688,12 @@ describe('The position anchors faq service', function(){
 
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(module('templates-app'));
-    beforeEach(inject(function (PositionAnchorsFaq, _$rootScope_, _$compile_) {
+    beforeEach(inject(function (PositionAnchorsFaq, _$rootScope_, _$compile_,_$httpBackend_) {
         service = PositionAnchorsFaq;
         $scope = _$rootScope_;
         $compile = _$compile_;
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
     }));
 
     it('should work', function(){
@@ -1688,15 +1715,19 @@ describe('The ActiveTab service', function(){
 
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(module('templates-app'));
-    beforeEach(inject(function (ActiveTabService, _$rootScope_, _$compile_) {
+    beforeEach(inject(function (ActiveTabService, _$rootScope_, _$compile_,_$httpBackend_) {
         service = ActiveTabService;
         $scope = _$rootScope_;
         $compile = _$compile_;
+        $http = _$httpBackend_;
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
     }));
 
     it('should work', function(){
         delete $window.sessionStorage.cart;
         $scope.$apply();
+        $http.expectGET('i18n/common/es.json');
         service.changeActiveTab();
 
     });
@@ -1710,10 +1741,12 @@ describe('The SecondActiveTab service', function(){
 
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(module('templates-app'));
-    beforeEach(inject(function (SecondActiveTabService, _$rootScope_, _$compile_) {
+    beforeEach(inject(function (SecondActiveTabService, _$rootScope_, _$compile_,_$httpBackend_) {
         service = SecondActiveTabService;
         $scope = _$rootScope_;
         $compile = _$compile_;
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
     }));
 
     it('should work', function(){
@@ -1731,14 +1764,17 @@ describe('The AnchorLink service', function(){
 
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(module('templates-app'));
-    beforeEach(inject(function (AnchorLinkService, _$rootScope_, _$compile_) {
+    beforeEach(inject(function (AnchorLinkService, _$rootScope_, _$compile_,_$httpBackend_) {
         service = AnchorLinkService;
         $scope = _$rootScope_;
         $compile = _$compile_;
+        $http = _$httpBackend_;
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
     }));
 
     it('should work', function(){
         delete $window.sessionStorage.cart;
+        $http.expectGET('i18n/common/es.json');
         $scope.$apply();
         service.scrollTo();
     });
@@ -1749,13 +1785,18 @@ describe('The ArrayContainItem service', function(){
     var service;
     var $scope;
     var $compile;
+    var $http;
 
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(module('templates-app'));
-    beforeEach(inject(function (ArrayContainItemService, _$rootScope_, _$compile_) {
+    beforeEach(inject(function (ArrayContainItemService, _$rootScope_, _$compile_,_$httpBackend_) {
         service = ArrayContainItemService;
         $scope = _$rootScope_;
         $compile = _$compile_;
+        $http = _$httpBackend_;
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
+
     }));
 
     it('should check if array contains item', function(){
@@ -1763,7 +1804,7 @@ describe('The ArrayContainItem service', function(){
         $scope.$apply();
         var array = [];
         var item = {code: 'code'};
-
+        $http.expectGET('i18n/common/es.json');
         expect(service.containItem(array,item)).toBe(false);
         array[0] = item;
         expect(service.containItem(array,item)).toBe(true);
@@ -1787,6 +1828,7 @@ describe('The app controller', function(){
         location = $location;
         http = _$httpBackend_;
         $controller('AppCtrl', {'$rootScope' : $rootScope, '$scope': $scope, 'ActualDateService': actualService, '$state': $state});
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
         _$httpBackend_.when('GET',$rootScope.urlService + '/actualdate').respond(200,{"data": new Date()});
         _$httpBackend_.when('GET',$rootScope.urlService + '/nextdate').respond(200,{"data": new Date()});
         _$httpBackend_.when('POST',$rootScope.urlService + '/remember-password').respond(200,{"status":"ok"});
@@ -1807,6 +1849,7 @@ describe('The app controller', function(){
         $scope.hideSignInForm = signInFormState.hideSignInState;
         $scope.closeCart =  shoppingCartService.closeCart;
         $scope.$apply();
+        http.expectGET('i18n/common/es.json');
         http.expectGET($scope.urlService + '/actualdate');
         http.expectGET($scope.urlService + '/nextdate');
         $scope.hideElements();
@@ -1819,75 +1862,11 @@ describe('The app controller', function(){
     });
 
     it('should be able to remember password', function() {
+        http.expectGET('i18n/common/es.json');
         http.expectPOST($scope.urlService + '/remember-password');
         $scope.rememberPassword();
         http.flush();
         expect($scope.mailSent).toBe(true);
     });
 
-});
-
-
-describe('The delay directive', function () {
-
-    beforeEach(angular.mock.module("ngMo"));
-
-    describe('template', function () {
-        var $compile;
-        var $scope;
-        var $state;
-        var timeout;
-        var httpMock;
-
-        beforeEach(module('templates-app'));
-
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend, $timeout) {
-            $compile = _$compile_;
-            $scope = _$rootScope_.$new();
-            $state = _$state_;
-            httpMock = $httpBackend;
-            timeout = $timeout;
-        }));
-
-        it('should success to post requests', inject(function () {
-            var template = $compile("<div ng-delay></div>")($scope);
-            $scope.$apply();
-
-            template.triggerHandler('compile');
-            // timeout.flush();
-        }));
-    });
-});
-
-
-
-describe('The delay directive', function () {
-
-    beforeEach(angular.mock.module("ngMo"));
-
-    describe('template', function () {
-        var $compile;
-        var $scope;
-        var $state;
-        var timeout;
-        var httpMock;
-
-        beforeEach(module('templates-app'));
-
-        beforeEach(inject(function (_$compile_, _$rootScope_, _$state_, $httpBackend, $timeout) {
-            $compile = _$compile_;
-            $scope = _$rootScope_.$new();
-            $state = _$state_;
-            httpMock = $httpBackend;
-            timeout = $timeout;
-        }));
-
-        it('should success to post requests', inject(function () {
-            var template = $compile("<div ng-delay></div>")($scope);
-            $scope.$apply();
-
-            template.triggerHandler('compile');
-            // timeout.flush();
-        }));
-    });
 });

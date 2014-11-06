@@ -1,3 +1,11 @@
+angular.module('translateNoop', [])
+    .factory('$translateStaticFilesLoader', function ($q) {
+        return function () {
+            var deferred = $q.defer();
+            deferred.resolve({});
+            return deferred.promise;
+        };
+    });
 describe('My MySubscriptionPacks service', function() {
     var $scope, ctrl, $http, $state,service;
     beforeEach(angular.mock.module("ngMo"));
@@ -86,7 +94,7 @@ describe('My subscriptions controller', function() {
         tabsService = TabsService;
         _$state_.data = {pageTitle: 'title'};
 
-
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + url).respond(200,response);
         _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200,response);
 
@@ -200,7 +208,7 @@ describe('My subscriptions controller', function() {
         ShoppingCartService.addItemCart(item3);
         ShoppingCartService.addItemCart(item4);
 
-
+        $http.expectGET('i18n/common/es.json');
         $http.expectGET($scope.urlService + url);
         $http.expectGET($scope.urlService + '/islogged');
         $scope.loadPage();
@@ -214,6 +222,7 @@ describe('My packs controller service', function() {
     var $scope, ctrl, $http, $state,$stateParams;
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(angular.mock.module("ngMo.my_subscriptions"));
+    beforeEach(module('translateNoop'));
 
 
     beforeEach(inject(function ($controller, $rootScope, _$http_, _$httpBackend_, _$state_, _$stateParams_) {
@@ -222,6 +231,9 @@ describe('My packs controller service', function() {
         ctrl = $controller;
         $http = _$httpBackend_;
         $state = _$state_;
+
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+
 
         _$httpBackend_.when('GET', $rootScope.urlService + '/packs?token=1').respond(200,{pack: 'pack'});
         _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
@@ -236,6 +248,7 @@ describe('My packs controller service', function() {
     });
 
     it("should be able to load the page", function () {
+        $http.expectGET('i18n/common/es.json');
         $http.expectGET($scope.urlService + '/packs?token=1');
         $http.expectGET($scope.urlService + '/islogged');
         $scope.loadPage();

@@ -91,7 +91,7 @@ describe('The catalog controller', function() {
         stateParams = $stateParams;
         $http = _$httpBackend_;
         service = SelectedPackService;
-
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
         $http.when('GET', $rootScope.urlService + '/actualdate').respond(200,{data: new Date()});
         $http.when('GET', $rootScope.urlService + patternFilters).respond(200,response);
         $http.when('GET', $rootScope.urlService + patternFilters2).respond(200,response);
@@ -111,6 +111,7 @@ describe('The catalog controller', function() {
     it('should generate the search url', function(){
 
         initializedData.pack ={ productType: 'INDICE',patternType: "SIMPLE"};
+        $http.expectGET('i18n/common/es.json');
         $http.expectGET($scope.urlService + '/actualdate');
         $http.expectGET($scope.urlService + patternFilters);
         $http.expectGET($scope.urlService + patterns);
@@ -164,6 +165,7 @@ describe('The catalog controller', function() {
     it('should be able to load the page', function(){
 
         initializedData = { pack: { 'productType': 'INDICE','patternType': "SIMPLE"}};
+        $http.expectGET('i18n/common/es.json');
         $http.expectGET($scope.urlService + '/actualdate');
         $http.expectGET($scope.urlService + patternFilters);
         $http.expectGET($scope.urlService + patterns);

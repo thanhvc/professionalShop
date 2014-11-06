@@ -130,7 +130,7 @@ angular.module('singUp', [])
     .run(function run() {
     })
 
-    .controller('SignupCtrl', function ($scope, $state, SignUpService, IsLogged, $rootScope, $window, authService,$http) {
+    .controller('SignupCtrl', function ($scope, $state, SignUpService, IsLogged, $rootScope, $window, authService,$http, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
            // IsLogged.isLogged();
         });
@@ -138,7 +138,7 @@ angular.module('singUp', [])
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-
+            $translatePartialLoader.addPart('sing_up');
 
 
 

@@ -22,7 +22,7 @@ angular.module('ngMo', [
         'ngMo.my_subscriptions',
         'ngMo.my_profile',
         'ui.router',
-        'gettext' ,
+        'pascalprecht.translate',
         'singUp',
         'auth',
         'ngMo.Activate',
@@ -32,7 +32,7 @@ angular.module('ngMo', [
         'ngMo.renew'
     ])
 
- .config(function config( $stateProvider, $urlRouterProvider) {
+ .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider) {
 
         $stateProvider.state('home', {
             url: '/home?activated',
@@ -99,7 +99,14 @@ angular.module('ngMo', [
             }
         })
         ;
+
         $urlRouterProvider.otherwise('/home');
+        $translatePartialLoaderProvider.addPart('common');
+        $translateProvider.useLoader('$translatePartialLoader', {
+            urlTemplate: 'i18n/{part}/{lang}.json'
+        });
+        $translateProvider.preferredLanguage('es');
+        $translateProvider.useCookieStorage();
     })
 
     .run(function run($rootScope) {
@@ -932,8 +939,8 @@ angular.module('ngMo', [
 
 
     })
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http) {
-
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http,$translate,$translatePartialLoader) {
+        $translate.refresh();
         $scope.emailRemember = "";
         $scope.mailSent = false;
         $scope.rememberPassword = function () {
@@ -1018,6 +1025,10 @@ angular.module('ngMo', [
             }
             $rootScope.$broadcast("body-click");//added event of body click to trigger all
             //the lsiteners about body clicks.. like hide graphs in lookup_diary
+        };
+
+        $scope.changeLanguage = function(lang) {
+            $translate.use(lang);
         };
 
     })

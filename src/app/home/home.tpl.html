@@ -25,7 +25,7 @@
     <div class="loading-div-container">
     <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando tablas, por favor espere...</span></div>
     <tabset>
-        <tab ng-click="onClickTab(homeTablePack.value)" ng-repeat="homeTablePack in homeTablePacks" heading="{{homeTablePack.title}}" active="homeTablePack.active" disabled="tab.disabled">
+        <tab ng-click="onClickTab(homeTablePack.value)" ng-repeat="homeTablePack in homeTablePacks" heading="{{homeTablePack.title|translate}}" active="homeTablePack.active" disabled="tab.disabled">
                 <div ng-include="homeTablePack.url"></div>
         </tab>
     </tabset>

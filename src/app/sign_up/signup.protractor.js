@@ -5,7 +5,7 @@
 /* The signup menu is correct*/
 
 var url = 'http://mo.devel.edosoftfactory.com/';
-var SigunMenu = function() {
+var SignupMenu = function() {
 
     // All relevant elements
     this.items = element.all(by.css('.signup-input'));
@@ -71,7 +71,7 @@ var SigunMenu = function() {
 };
 describe('signupMenu', function(){
 
-    var sMenu = new SigunMenu();
+    var sMenu = new SignupMenu();
 
     it('should open the page', function() {
 
