@@ -106,13 +106,13 @@
         <td class="table-cell-patterns border-right-table sector-industry-column-my-patterns" style="text-align: left">
             <!--sector/industry-->
             <div  class="max-length-pairs-sector text-limitator buy-color" >
-                <span tooltip="{{data.sector | capitalize}} / {{data.industry | capitalize}}" ng-show="{{(data.sector != null && data.sector != '')}}" class="cursor-help">{{data.sector | sectorName | capitalize}}</span>
-                <span tooltip="{{data.sector | capitalize}} / {{data.industry | capitalize}}" ng-show="{{(data.sector != null && data.sector != '' ) && (data.industry != null && data.industry != '')}}"> / </span>
-                <span tooltip="{{data.sector | capitalize}} / {{data.industry | capitalize}}" ng-show="{{(data.industry != null && data.industry != '')}}" class="cursor-help">{{data.industry | capitalize}}</span>
+                <span tooltip="{{data.sector | sectorName | capitalize}} / {{data.industry | capitalize}}" ng-show="{{(data.sector != null && data.sector != '')}}" class="cursor-help">{{data.sector | sectorName | capitalize}}</span>
+                <span tooltip="{{data.sector | sectorName | capitalize}} / {{data.industry | capitalize}}" ng-show="{{(data.sector != null && data.sector != '' ) && (data.industry != null && data.industry != '')}}"> / </span>
+                <span tooltip="{{data.sector | sectorName | capitalize}} / {{data.industry | capitalize}}" ng-show="{{(data.industry != null && data.industry != '')}}" class="cursor-help">{{data.industry | capitalize}}</span>
             </div>
             <div tooltip="{{data.sector2 | capitalize}} / {{data.industry2 | capitalize}}" class="max-length-pairs-sector text-limitator sell-color"
                  ng-show="{{(data.sector2.length > 0 && data.industry2.length > 0)}}">
-                <span class="cursor-help" tooltip-html-unsafe="{{data.sector2 | capitalize}}">{{data.sector2 | sectorName | capitalize}}</span>
+                <span class="cursor-help" tooltip-html-unsafe="{{data.sector2 | sectorName | capitalize}}">{{data.sector2 | sectorName | capitalize}}</span>
                 <span> / </span>
                 <span class="cursor-help" tooltip="{{data.industry2 | capitalize}}">{{data.industry2 | capitalize}}</span>
             </div>
