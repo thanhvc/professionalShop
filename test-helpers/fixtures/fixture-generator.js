@@ -194,7 +194,7 @@ exports.my_subscription_fixture = function() {
                 name: 'exchange1',
                 currency_code: 'CU1',
                 region_code:'CAN',
-                sector_group: 'SectGroup1'
+                sector_group: 'sectGroup1'
             }
         },
         {
@@ -210,8 +210,8 @@ exports.my_subscription_fixture = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -271,12 +271,13 @@ exports.remove_fixtures_subscriptions = function(){
     return [
         {
             type: 'remove',
-            table: 'sector'
+            table: 'industry'
         },
         {
             type: 'remove',
-            table: 'industry'
+            table: 'sector'
         },
+
         {
             type: 'remove',
             table: 'email_log'
@@ -386,7 +387,7 @@ exports.fixture_myPatterns = function() {
             table: 'region',
             values: {
                 code: 'INDEX',
-                name: 'Index',
+                name: 'index',
                 area_code: 0
             }
         },{
@@ -396,6 +397,71 @@ exports.fixture_myPatterns = function() {
                 code: 'FUTURE',
                 name: 'Futures',
                 area_code: 0
+            }
+        },
+        {
+            type: 'insert',
+            table: 'sector',
+            values: {
+                id: 'sector1 SECTOR CD',
+                sector_group:'sector_group1'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'sector',
+            values: {
+                id: 'sector2 SECTOR CD',
+                sector_group:'sector_group2'
+            }
+        },{
+            type: 'insert',
+            table: 'sector',
+            values: {
+                id: 'sector3 SECTOR CD',
+                sector_group:'sector_group3'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'sector',
+            values: {
+                id: 'sector4 SECTOR CD',
+                sector_group:'sector_group4'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'industry',
+            values: {
+                id: 'industry1 CD',
+                sector_group:'sector_group1',
+                sector_id: 'sector1 SECTOR CD'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'industry',
+            values: {
+                id: 'industry2 CD',
+                sector_group:'sector_group2',
+                sector_id: 'sector2 SECTOR CD'
+            }
+        },{
+            type: 'insert',
+            table: 'industry',
+            values: {
+                id: 'industry3 CD',
+                sector_group:'sector_group3',
+                sector_id: 'sector3 SECTOR CD'
+            }
+        },{
+            type: 'insert',
+            table: 'industry',
+            values: {
+                id: 'industry4 CD',
+                sector_group:'sector_group4',
+                sector_id: 'sector4 SECTOR CD'
             }
         },
         {/*SIMPLES*/
@@ -493,7 +559,7 @@ exports.fixture_myPatterns = function() {
                 name: 'exchangeCanada1',
                 currency_code: 'CU1',
                 region_code:'CAN',
-                sector_group: 'SectGroup1'
+                sector_group: 'sector_group1'
             }
         },{
             type: 'insert',
@@ -503,7 +569,7 @@ exports.fixture_myPatterns = function() {
                 name: 'exchangeCanada2',
                 currency_code: 'CU1',
                 region_code:'CAN',
-                sector_group: 'SectGroup1'
+                sector_group: 'sector_group2'
             }
         },{
             type: 'insert',
@@ -513,7 +579,7 @@ exports.fixture_myPatterns = function() {
                 name: 'exchangeUSA1',
                 currency_code: 'CU1',
                 region_code:'USA',
-                sector_group: 'SectGroup2'
+                sector_group: 'sector_group3'
             }
         },{
             type: 'insert',
@@ -523,7 +589,7 @@ exports.fixture_myPatterns = function() {
                 name: 'exchangeUSA2',
                 currency_code: 'CU1',
                 region_code:'USA',
-                sector_group: 'SectGroup2'
+                sector_group: 'sector_group4'
             }
         },
         {
@@ -539,8 +605,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -558,8 +624,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX2',
-                sector: 'Sector2',
-                industry: 'Industry2',
+                sector: 'sector2 SECTOR CD',
+                industry: 'industry2 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -578,8 +644,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX3',
-                sector: 'Sector3',
-                industry: 'Industry3',
+                sector: 'sector3 SECTOR CD',
+                industry: 'industry3 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -598,8 +664,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX4',
-                sector: 'Sector4',
-                industry: 'Industry4',
+                sector: 'sector4 SECTOR CD',
+                industry: 'industry4 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -890,8 +956,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -909,8 +975,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -928,8 +994,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -947,8 +1013,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -967,8 +1033,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -986,8 +1052,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1006,8 +1072,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1026,8 +1092,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1230,10 +1296,10 @@ exports.fixture_myPatterns = function() {
             values: {
                 code: 'INDEX-S-1',
                 region_code: 'INDEX',
-                name: 'Index Simple 1',
+                name: 'index Simple 1',
                 product_type: 1,
                 publication_date: '2014-07-04',
-                scope_text: 'Index Simple 1 text',
+                scope_text: 'index Simple 1 text',
                 pattern_type: 0,
                 subname: ' '
             }
@@ -1243,10 +1309,10 @@ exports.fixture_myPatterns = function() {
             values: {
                 code: 'INDEX-S-2',
                 region_code: 'INDEX',
-                name: 'Index Simple 2',
+                name: 'index Simple 2',
                 product_type: 1,
                 publication_date: '2014-07-04',
-                scope_text: 'Index Simple 2 text',
+                scope_text: 'index Simple 2 text',
                 pattern_type: 0,
                 subname: ' '
             }
@@ -1312,7 +1378,7 @@ exports.fixture_myPatterns = function() {
                 name: 'exchangeIndex1',
                 currency_code: 'CU1',
                 region_code:'INDEX',
-                sector_group: 'SectGroup2'
+                sector_group: 'sectGroup2'
             }
         },
         {
@@ -1328,8 +1394,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'IN1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1347,8 +1413,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'IN1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1367,8 +1433,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'IN1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1387,8 +1453,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'IN1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1593,7 +1659,7 @@ exports.fixture_myPatterns = function() {
             values: {
                 code: 'INDEX-P-1',
                 region_code: 'INDEX',
-                name: 'Index Pair I',
+                name: 'index Pair I',
                 product_type: 1,
                 publication_date: '2014-07-04',
                 scope_text: 'PairIndex  Pack 1 text',
@@ -1606,7 +1672,7 @@ exports.fixture_myPatterns = function() {
             values: {
                 code: 'INDEX-P-2',
                 region_code: 'INDEX',
-                name: 'Index Pair II',
+                name: 'index Pair II',
                 product_type: 1,
                 publication_date: '2014-07-04',
                 scope_text: 'PairIndex Pack II text',
@@ -1679,8 +1745,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1698,8 +1764,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1717,8 +1783,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1736,8 +1802,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1756,8 +1822,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1775,8 +1841,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1795,8 +1861,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -1815,8 +1881,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -2067,8 +2133,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -2086,8 +2152,8 @@ exports.fixture_myPatterns = function() {
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
                 exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                sector: 'sector1 SECTOR CD',
+                industry: 'industry1 CD',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
