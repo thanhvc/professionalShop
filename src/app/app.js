@@ -174,7 +174,8 @@ angular.module('ngMo', [
     .filter('sectorName', function(){ //TRANSFORM A SECTOR NAME WITHOUT THE SECTOR WORD
         return function(n){
             if (typeof n !== "undefined" && n != null) {
-                return n.replace(" SECTOR","");
+                x= n.replace(" Sector","");
+                return x.replace(" SECTOR","");
             } else {
                 return n;
             }

@@ -29,7 +29,7 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
+    .controller('HistoricCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
                                           MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService, ExpirationYearFromPatternName,UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -347,10 +347,17 @@ angular.module('ngMo.historic', [
 
             if (data.hasOwnProperty("industries")) {
                 $scope.filterOptions.selectors.industries = data.industries;
+                for (i=0;i<$scope.filterOptions.selectors.industries.length-1;i++) {
+                    $scope.filterOptions.selectors.industries[i].description = $filter('capitalize')( $scope.filterOptions.selectors.industries[i].description);
+                }
                 //$scope.filterOptions.filters.selectedIndustry = "";
             }
             if (data.hasOwnProperty("sectors")) {
                 $scope.filterOptions.selectors.sectors = data.sectors;
+                for (i=0;i<$scope.filterOptions.selectors.sectors.length-1;i++) {
+                    $scope.filterOptions.selectors.sectors[i].description = $filter('capitalize')( $scope.filterOptions.selectors.sectors[i].description);
+                    $scope.filterOptions.selectors.sectors[i].description = $scope.filterOptions.selectors.sectors[i].description.substr(0,$scope.filterOptions.selectors.sectors[i].description.length-7);
+                }
                 //$scope.filterOptions.filters.selectedSector = "";
             }
 
