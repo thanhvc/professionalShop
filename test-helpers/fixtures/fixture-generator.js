@@ -271,6 +271,14 @@ exports.remove_fixtures_subscriptions = function(){
     return [
         {
             type: 'remove',
+            table: 'sector'
+        },
+        {
+            type: 'remove',
+            table: 'industry'
+        },
+        {
+            type: 'remove',
             table: 'email_log'
         },
         {
@@ -482,10 +490,40 @@ exports.fixture_myPatterns = function() {
             table: 'exchange',
             values: {
                 symbol: 'EX1',
-                name: 'exchange1',
+                name: 'exchangeCanada1',
                 currency_code: 'CU1',
                 region_code:'CAN',
                 sector_group: 'SectGroup1'
+            }
+        },{
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EX2',
+                name: 'exchangeCanada2',
+                currency_code: 'CU1',
+                region_code:'CAN',
+                sector_group: 'SectGroup1'
+            }
+        },{
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EX3',
+                name: 'exchangeUSA1',
+                currency_code: 'CU1',
+                region_code:'USA',
+                sector_group: 'SectGroup2'
+            }
+        },{
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EX4',
+                name: 'exchangeUSA2',
+                currency_code: 'CU1',
+                region_code:'USA',
+                sector_group: 'SectGroup2'
             }
         },
         {
@@ -519,9 +557,9 @@ exports.fixture_myPatterns = function() {
                 last_quote_date: '2014-10-30',
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                exchange_symbol: 'EX2',
+                sector: 'Sector2',
+                industry: 'Industry2',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -539,9 +577,9 @@ exports.fixture_myPatterns = function() {
                 last_quote_date: '2014-10-30',
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                exchange_symbol: 'EX3',
+                sector: 'Sector3',
+                industry: 'Industry3',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
@@ -559,9 +597,9 @@ exports.fixture_myPatterns = function() {
                 last_quote_date: '2014-10-30',
                 price_chart_url: 'www.urlPriceChart.com',
                 volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'Sector1',
-                industry: 'Industry1',
+                exchange_symbol: 'EX4',
+                sector: 'Sector4',
+                industry: 'Industry4',
                 expiration_year: null,
                 expiration_month: null,
                 volatility_chart_url: 'www.urlVolatChart.com'
