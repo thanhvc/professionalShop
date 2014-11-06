@@ -46,6 +46,7 @@
                 </option>
             </select>-->
             <input type="text" ng-model="filterOptions.filters.selectedSector" placeholder="Elegir Sector"
+                   ng-blur="blurSector();"
                    typeahead="sector as sector.description for sector in filterOptions.selectors.sectors | filter:{description:$viewValue}"
                    typeahead-on-select="selectSector()"
                    class="stocks-catalog-input">
@@ -60,6 +61,7 @@
             </select>-->
 
             <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Elegir Industria"
+                   ng-blur="blurIndustry();"
                    typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
                    typeahead-on-select="selectIndustry()"
                    class="stocks-catalog-input">
