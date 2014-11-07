@@ -21,6 +21,12 @@ Home.prototype =  Object.create({}, {
     }},
     signupLink:{value: function(){
         return element(by.css("div.signin-signup-box a.subscribe-free-link"));
+    }},
+    logoutLink:{value: function(){
+        return element(by.css(".log-out-link"));
+    }},
+    myAccountLink:{value: function(){
+        return element(by.css("a.my-account-link"));
     }}
 
 

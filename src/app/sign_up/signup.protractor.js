@@ -11,7 +11,7 @@ var SignUp = require('../../../test-helpers/page-objects/signup.po.js');
 var Helper = require('../../../test-helpers/helper.js');
 
 describe('the Sign Up page', function () {
-        var page;
+        var signup_page;
         var helper = new Helper();
         var conString = browser.params.sqlCon;
 
@@ -31,63 +31,130 @@ describe('the Sign Up page', function () {
             loadFixture.executeQueries(fixtures, conString);
         });
 
-        it(' should show error message when no field is filled in', function () {
-
-            ptor.sleep(2000);
-            page = new SignUp();
-            ptor.sleep(2000);
-            page.clickContinue();
-            ptor.sleep(2000);
-
-/*
-            ptor.sleep(2000);
-            page = new MySubscriptions();
-            // page.open();
-            ptor.sleep(2000);
-            canadaPurchased = page.getPurchased(0);
-            expect(canadaPurchased.getAttribute("disabled")).toBe(null); //is not purchased
-            //page.selectMonth(1);
-            ptor.sleep(1000);
-            //check the 3 options for Canada
-            page.selectDuration(0, 2);
-            ptor.sleep(1000);
-            namePackSubs = page.getNamePack(0);
-            namePackCart = cart.getSimpleName(0);
-
-            namePackSubs = element(by.repeater("pack in mySubscriptionsTablePack.americaContent track by $index")
-                .row(0)).all(by.tagName('td')).get(0).element(by.tagName('span'));
-            expect(namePackCart.getText()).toEqual(namePackSubs.getText());
-            namePackSubs.getText().then(function (text) {
-                console.log("pack in sub:" + text);
+        describe('test link to signup page logged out', function() {
+            beforeEach(function() {
+                ptor.sleep(2000);
+                signup_page = new SignUp(false);
+                ptor.sleep(2000);
             });
 
-            page.selectDuration(0, 2);
-            ptor.sleep(1000);
-            selectorSub = cart.getSelector(0);
+            it('signup page link must be present', function() {
+                expect(home.signupLink().isPresent()).toBe(true);
+                expect(home.logoutLink().isPresent()).toBe(false);
+                expect(home.myAccountLink().isPresent()).toBe(false);
+            });
 
-            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("Anual");
-            page.selectDuration(0, 1);
-            ptor.sleep(1000);
-
-            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("Trimestral");
-            page.selectDuration(0, 0);
-            ptor.sleep(1000);
-            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("Mensual");
-
-            cart.selectSimpleDuration(0, 2);
-            ptor.sleep(1000);
-            selectorSub = page.getSelector(0);
-
-            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("2");
-            cart.selectSimpleDuration(0, 1);
-            ptor.sleep(1000);
-
-            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("1");
-            cart.selectSimpleDuration(0, 0);
-            ptor.sleep(1000);
-            expect(selectorSub.$('option:checked').getAttribute("value")).toEqual("0");
-
-*/
+            it('should go to signup page if I click on signup link', function() {
+                expect(home.signupLink().isPresent()).toBe(true);
+                home.signupLink().click();
+                ptor.sleep(2000);
+                expect(signup_page.isCurrentPage()).toBe(true);
+            });
         });
+
+        describe('test signup link and page when logged in', function() {
+            beforeEach(function() {
+                ptor.sleep(2000);
+                home.showLoginBox();
+                home.login('registered.user@foo.bar', 'phantom');
+                ptor.sleep(5000);
+            });
+        
+            afterEach(function () {
+                home.logout();
+                ptor.sleep(1000);
+            });
+
+            it('signup page link must not be present', function() {
+                expect(home.signupLink().isPresent()).toBe(false);
+                expect(home.logoutLink().isPresent()).toBe(true);
+                expect(home.myAccountLink().isPresent()).toBe(true);
+            });
+
+            it('should exit from signup page if I enter that url when I am logged in', function() {
+                signup_page = new SignUp(true);
+                ptor.sleep(3000);
+                expect(signup_page.isCurrentPage()).toBe(false);
+            });
+        });
+
+        describe('validations on first step page', function() {
+            
+            beforeEach(function() {
+                ptor.sleep(2000);
+                signup_page = new SignUp();
+                ptor.sleep(2000);
+            });
+
+            xit(' should show error message when click on continue with no field filled in', function () {
+
+                signup_page.clickContinue();
+                ptor.sleep(1000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                //TODO need to be fixed in the application code
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
+            });
+
+            it(' should show error message when click on continue with incorrect email', function () {
+                signup_page.fillInEmail("incorrect_email");
+                signup_page.fillInEmailConfirmation("incorrect_email");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(1000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_invalid'), 'ng-hide')).toBe(false);
+                //expect(helper.hasClass(signup_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
+            });
+
+            it(' should show error message when click on continue with mismatch email', function () {
+                signup_page.fillInEmail("new.email@foo.bar");
+                signup_page.fillInEmailConfirmation("mismatch.email@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(1000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_mismatch'), 'ng-hide')).toBe(false);
+            });
+
+            it(' should show error message when click on continue with password too short', function () {
+                signup_page.fillInEmail("new.email@foo.bar");
+                signup_page.fillInEmailConfirmation("new.email@foo.bar");
+                signup_page.fillInPassword("short");
+                signup_page.fillInPasswordConfirmation("short");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('password_minlength'), 'ng-hide')).toBe(false);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('password_minlength'), 'ng-hide')).toBe(true);
+            });
+
+
+        });
+        
 
 });
