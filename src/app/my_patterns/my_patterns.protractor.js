@@ -11,6 +11,57 @@ var Helper = require('../../../test-helpers/helper.js');
 var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js');
 var MyPatterns = require('../../../test-helpers/page-objects/mypatterns.po.js');
 describe('The My Patterns page ', function () {
+
+    /*function to help the filters check, the accumulated, average, diary... are filters with a similar functionality
+    * just use this function to check each filter,
+    * NOTE: the values of the pattterns for this inputs (pattern1,pattern2,pattern3,pattern4)
+    * are 5.xx,10.xx,15.xx,20.xx in all fields, so we can check each filter with same values
+    *
+    * value1, value2 are values for filter: 0 pattern must be <value1,
+     *                                      1 pattern must be <value2
+     *                                      3 patterns must be > value2
+     *                                      4 patterns must be >value1
+    * */
+
+
+    function checkNumericFilter(elementSelect,elementInput,tab,value1,value2) {
+        myPatterns.selectDropdownbyNum(elementSelect,2);//less than
+        elementInput.sendKeys(value1);
+        myPatterns.getSearchButton(tab).click();
+        expect(myPatterns.getNumberFoundPatterns(tab).getText()).toEqual("0");//there is no patterns with accum < value1
+        //with greater than value1 are 4 patterns
+        myPatterns.selectDropdownbyNum(elementSelect,1);//greater than  value1
+        myPatterns.getSearchButton(tab).click();
+        expect(myPatterns.getNumberFoundPatterns(tab).getText()).toEqual("4");//there is no patterns with accum < value1
+        myPatterns.selectDropdownbyNum(elementSelect,2);//less than
+        elementInput.clear();
+        elementInput.sendKeys(value2);
+        myPatterns.getSearchButton(tab).click();
+        expect(myPatterns.getNumberFoundPatterns(tab).getText()).toEqual("1");//there 1 patterns with filter < value2
+        expect(myPatterns.getSimpleName(tab,0).getText()).toEqual("Long name Asset 1");
+        //greater than value2 -> 3 patterns
+        myPatterns.selectDropdownbyNum(elementSelect,1);//greater than
+        myPatterns.getSearchButton(tab).click();
+        expect(myPatterns.getNumberFoundPatterns(tab).getText()).toEqual("3");//there 1 patterns with filter < value2
+        expect(myPatterns.getSimpleName(tab,0).getText()).toEqual("Long name Asset 2");
+        expect(myPatterns.getSimpleName(tab,1).getText()).toEqual("Long name Asset 3");
+        expect(myPatterns.getSimpleName(tab,2).getText()).toEqual("Long name Asset 4");
+        //now check wrong value
+        elementInput.clear();
+        elementInput.sendKeys("asd");
+        myPatterns.selectDropdownbyNum(elementSelect,2);//less than
+        expect(helper.hasClass(elementInput,"ng-invalid")).toBe(true);
+        myPatterns.getSearchButton(tab).click(); //search with wrong value, clears the input
+        expect(elementInput.getText()).toEqual("");
+        //reset the status of the filter to initial state
+        myPatterns.selectDropdownbyNum(elementSelect,0);
+        elementInput.clear();
+        myPatterns.getSearchButton(tab).click();
+    }
+
+
+
+
     var home;
     var myPatterns;
     var helper;
@@ -91,7 +142,7 @@ describe('The My Patterns page ', function () {
 
     });
 
-    it('should be load filters', function () {
+    xit('should be load filters and use it for filter the actual patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -176,12 +227,65 @@ describe('The My Patterns page ', function () {
         expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1"); //check that are loaded 2 patterns
         //now select a Industry to check if its sector is selected
         myPatterns.selectIndustry(0,1); //select Industry2
-        expect(myPatterns.getSectorFilter(0).$('option:checked').getText()).toContain("sector2"); //sector 2 is selected by industry2
+        expect(myPatterns.getSectorFilter(0).$('option:checked').getText()).toContain("Sector2"); //sector 2 is selected by industry2
         expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
         expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 2"); //the sector 2 and industry2 load the asset2
+        //Select operation types
+        myPatterns.selectRegion(0,0);
+        myPatterns.selectOperation(0,1); //select Buy option
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 2");
+        expect(myPatterns.getSimpleName(0,1).getText()).toEqual("Long name Asset 4");
+        myPatterns.selectOperation(0,2); //select Buy option
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 1");
+        expect(myPatterns.getSimpleName(0,1).getText()).toEqual("Long name Asset 3");
+    });
+
+    it('should be load the volat,rent,duration... filters and use it for filter the actual patterns', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getAccumulatedFilter(0),myPatterns.getAccumulatedInput(0),0,"5","6");
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getAverageFilter(0),myPatterns.getAverageInput(0),0,"5","6");
+
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDurationFilter(0),myPatterns.getDurationInput(0),0,"6","9");
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getVolatFilter(0),myPatterns.getVolatInput(0),0,"5","6");
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDiaryFilter(0),myPatterns.getDiaryInput(0),0,"5","6");
 
 
-
+        //now filter the patterns by the second row of filters
+        //filter by Accumulated Rent
+        /*myPatterns.selectAccumulatedFilter(0,2);//less than
+        myPatterns.getAccumulatedInput(0).sendKeys("5");
+        myPatterns.getSearchButton(0).click();
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("0");//there is no patterns with accum < 5
+        //with greater than 5 are 4 patterns
+        myPatterns.selectAccumulatedFilter(0,1);//greater than  5
+        myPatterns.getSearchButton(0).click();
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("4");//there is no patterns with accum < 5
+        myPatterns.selectAccumulatedFilter(0,2);//less than
+        myPatterns.getAccumulatedInput(0).clear();
+        myPatterns.getAccumulatedInput(0).sendKeys("6");
+        myPatterns.getSearchButton(0).click();
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");//there 1 patterns with accum < 6
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 1");
+        //greater than 6 -> 3 patterns
+        myPatterns.selectAccumulatedFilter(0,1);//greater than
+        myPatterns.getSearchButton(0).click();
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("3");//there 1 patterns with accum < 6
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 2");
+        expect(myPatterns.getSimpleName(0,1).getText()).toEqual("Long name Asset 3");
+        expect(myPatterns.getSimpleName(0,2).getText()).toEqual("Long name Asset 4");
+        //now check wrong value
+        myPatterns.getAccumulatedInput(0).clear();
+        myPatterns.getAccumulatedInput(0).sendKeys("asd");
+        myPatterns.selectAccumulatedFilter(0,2);//less than
+        expect(helper.hasClass(myPatterns.getAccumulatedInput(0),"ng-invalid")).toBe(true);
+        myPatterns.getSearchButton(0).click(); //search with wrong value, clears the input
+        expect(myPatterns.getAccumulatedInput(0).getText()).toEqual("");*/
 
 
 
