@@ -73,7 +73,8 @@ MyPatterns.prototype =  Object.create({}, {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.filterName"));
     }},
     getSearchButton:{value:function(tab) {
-        return this.getContainerTab(tab).all(by.css(".mo-button")).get(0);
+        //return this.getContainerTab(tab).all(by.css(".mo-button")).get(0);
+        return this.getContainerTab(tab).element(by.buttonText("Buscar"));
     }},
     getRegionFilter: {value: function(tab) {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedRegion"));

@@ -345,7 +345,7 @@ describe('The My Patterns page ', function () {
         expect(myPatterns.getPairName(1,0,0).getText()).toEqual("Long name Asset Pair 2 1"); //the sector 2 and industry2 load the asset2
     });
 
-    it(' the numeric filters should work with pair patterns',function(){
+    xit(' the numeric filters should work with pair patterns',function(){
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.fiveSec());
@@ -370,5 +370,223 @@ describe('The My Patterns page ', function () {
 
     });
 
+    xit('should be load filters and use it for filter the actual simple index patterns', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        /*TEST FOR SIMPLE FILTERS*/
+        //search by name
+        myPatterns.goToTab(2);
+        ptor.sleep(helper.oneSec())
+        myPatterns.getNameFilter(2).sendKeys("Long name Asset Index 1").then(
+            function(data) {
+                myPatterns.getSearchButton(2).click();
+
+                ptor.sleep(helper.oneSec());
+                expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("1");
+            }
+        );
+
+        ptor.sleep(helper.oneSec());
+
+        //clear the name filter
+        myPatterns.getNameFilter(2).clear().then(
+            function(data) {
+                myPatterns.getSearchButton(2).click();
+                ptor.sleep(helper.oneSec());
+                expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("4");
+
+            }
+        );
+        expect(myPatterns.getSimpleName(2,0).getText()).toEqual("Long name Asset Index 1");
+        expect(myPatterns.getSimpleName(2,3).getText()).toEqual("Long name Asset Index 4");
+
+        ptor.sleep(helper.oneSec()); //Select operation types
+        myPatterns.selectOperation(2,1); //select Alcista option
+        expect(myPatterns.getSimpleName(2,0).getText()).toEqual("Long name Asset Index 2");
+        expect(myPatterns.getSimpleName(2,1).getText()).toEqual("Long name Asset Index 4");
+        myPatterns.selectOperation(2,2); //select Bajista option
+        expect(myPatterns.getSimpleName(2,0).getText()).toEqual("Long name Asset Index 1");
+        expect(myPatterns.getSimpleName(2,1).getText()).toEqual("Long name Asset Index 3");
+    });
+
+    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple index patterns', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.fiveSec());
+        myPatterns.goToTab(2);
+        ptor.sleep(helper.oneSec())
+        checkNumericFilter(myPatterns.getAccumulatedFilter(2),myPatterns.getAccumulatedInput(2),2,"5","6",
+            "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getAverageFilter(2),myPatterns.getAverageInput(2),2,"5","6",
+            "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
+
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDurationFilter(2),myPatterns.getDurationInput(2),2,"6","9",
+            "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getVolatFilter(2),myPatterns.getVolatInput(2),2,"5","6",
+            "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDiaryFilter(2),myPatterns.getDiaryInput(2),2,"5","6",
+            "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
+
+    });
+
+    /*
+     PAIRS INDEX FILTERS
+     */
+    xit('should be load and use the filters for index pairs',function() {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        /*TEST FOR PAIRS FILTERS*/
+        //search by name
+        myPatterns.goToTab(2);
+        ptor.sleep(helper.oneSec());
+        myPatterns.selectIndexType(1);
+        ptor.sleep(helper.oneSec());
+        myPatterns.getNameFilter(2).sendKeys("Long name Asset Pair Index 1").then(
+            function(data) {
+                myPatterns.getSearchButton(2).click();
+
+                ptor.sleep(helper.oneSec());
+                expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("1");
+                expect(myPatterns.getPairName(2,0,0).getText()).toEqual("Long name Asset Pair Index 1 1");
+                expect(myPatterns.getPairName(2,0,1).getText()).toEqual("Long name Asset Pair Index 1 2");
+            }
+        );
+
+        ptor.sleep(helper.oneSec());
+
+        //clear the name filter
+        myPatterns.getNameFilter(2).clear().then(
+            function(data) {
+                myPatterns.getSearchButton(2).click();
+                ptor.sleep(helper.oneSec());
+                expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("4");
+
+            }
+        );
+
+        ptor.sleep(helper.oneSec());  //only there is one filter in the upper form, name and pattern type..
+
+    });
+
+    xit(' the numeric filters should work with pair index patterns',function(){
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.fiveSec());
+
+        myPatterns.goToTab(2);
+        ptor.sleep(helper.oneSec())
+        myPatterns.selectIndexType(1);
+        ptor.sleep(helper.oneSec());
+        checkNumericFilter(myPatterns.getAccumulatedFilter(2),myPatterns.getAccumulatedInput(2),2,"5","6",
+            "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getAverageFilter(2),myPatterns.getAverageInput(2),2,"5","6",
+            "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDurationFilter(2),myPatterns.getDurationInput(2),2,"6","9",
+            "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getVolatFilter(2),myPatterns.getVolatInput(2),2,"5","6",
+            "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDiaryFilter(2),myPatterns.getDiaryInput(2),2,"5","6",
+            "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
+
+    });
+
+    it('should be load filters and use it for filter the actual future patterns', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        myPatterns.goToTab(3);
+        ptor.sleep(helper.oneSec())
+        /*TEST FOR SIMPLE FILTERS*/
+        //search by name
+        myPatterns.getNameFilter(3).sendKeys("Long name Asset Future 1").then(
+            function(data) {
+                myPatterns.getSearchButton(3).click();
+
+                ptor.sleep(helper.oneSec());
+                expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("1");
+            }
+        );
+
+        ptor.sleep(helper.oneSec());
+
+        //clear the name filter
+        myPatterns.getNameFilter(3).clear().then(
+            function(data) {
+                myPatterns.getSearchButton(3).click();
+                ptor.sleep(helper.oneSec());
+                expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("4");
+
+            }
+        );
+
+        ptor.sleep(helper.oneSec());
+        //echange selector
+
+        myPatterns.selectExchange(3,1);
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
+        myPatterns.selectExchange(3,2);
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 2");
+        myPatterns.selectExchange(3,3);
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 3");
+        myPatterns.selectExchange(3,4);
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 4");
+        myPatterns.selectExchange(3,0);
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("4");
+        //select Canada 1st option
+        myPatterns.selectRegion(3,1);
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("2");
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
+        expect(myPatterns.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 2");
+        //USA
+        myPatterns.selectRegion(3,2);
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("2");
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 3");
+        expect(myPatterns.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 4");
+
+        myPatterns.selectOperation(3,1); //select Buy option
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 2");
+        expect(myPatterns.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 4");
+        myPatterns.selectOperation(3,2); //select Buy option
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
+        expect(myPatterns.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 3");
+    });
+
+    it('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.fiveSec());
+        myPatterns.goToTab(3);
+        ptor.sleep(helper.oneSec())
+        checkNumericFilter(myPatterns.getAccumulatedFilter(3),myPatterns.getAccumulatedInput(3),3,"5","6"
+            ,"Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getAverageFilter(3),myPatterns.getAverageInput(3),3,"5","6",
+            "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
+
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDurationFilter(3),myPatterns.getDurationInput(3),3,"6","9",
+            "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getVolatFilter(3),myPatterns.getVolatInput(3),3,"5","6",
+            "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDiaryFilter(3),myPatterns.getDiaryInput(3),3,"5","6",
+            "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
+
+    });
 
 });
