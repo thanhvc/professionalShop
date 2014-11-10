@@ -1,18 +1,15 @@
 <div class="panel">
 
     <div ng-controller="SignupCtrl" novalidate>
-        <div  class="margin-top-header">
-            <div ><span class="black-title-bold super-border">ACCESO SERVICIO ONLINE</span>
-            </div>
-            <div class="sign-text default-format-text prices-font12">Lorem ipsum dolor sit amet,
-                consectetur adipisicing
-                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+        <p class="text-block-title">
+            Usuario y Contrase&ntilde;a para Acceso Online
+        </p>
 
-            </div>
-        </div>
+        <p>
+            Si nunca se ha registrado en Market Observatory, necesitará un Usuario –un email operativo- y una Contraseña
+            para acceder al servicio. El email se usará exclusivamente para las funciones propias del servicio y en cualquier
+            momento podrá darse de baja.
+        </p>
         <div  class="prices-font11">
             <form name="form" method="POST" autocomplete="on">
                 <div class="sign-up-block">
@@ -28,7 +25,7 @@
                             <tr>
                                 <td><span class="grey-label">Repetir email</span></td>
                                 <td><input  class="signup-input" type="email" ng-model="user.email2" id="email2"
-                                           name="username2" style="width:200px;" required="true" matchWith"user.email" ng-enter="nextInput('password')">
+                                           name="username2" style="width:200px;" required="true" matchWith="user.email" ng-enter="nextInput('password')">
                                 </td>
                             </tr>
                             <tr>
@@ -41,7 +38,7 @@
                             <tr>
                                 <td><span class="grey-label">Repetir contrase&ntilde;a</span></td>
                                 <td><input  class="signup-input" ng-model="user.password2" type="password" id="password2"
-                                           name="password2" required="true" matchWith"user.password" ng-enter="nextInput('submit1')"
+                                           name="password2" required="true" matchWith="user.password" ng-enter="nextInput('submit1')"
                                            style="width:200px;">
                                 </td>
                             </tr>
