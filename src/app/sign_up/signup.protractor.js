@@ -8,10 +8,12 @@ var sha512 = require('sha512');
 var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js');
 var SignUp = require('../../../test-helpers/page-objects/signup.po.js');
+var SignUpStep2 = require('../../../test-helpers/page-objects/signup_step2.po.js');
 var Helper = require('../../../test-helpers/helper.js');
 
 describe('the Sign Up page', function () {
         var signup_page;
+        var signup_step2_page;
         var helper = new Helper();
         var conString = browser.params.sqlCon;
 
@@ -78,7 +80,7 @@ describe('the Sign Up page', function () {
             });
         });
 
-        describe('validations on first step page', function() {
+        xdescribe('validations on first step page', function() {
             
             beforeEach(function() {
                 ptor.sleep(2000);
@@ -172,7 +174,7 @@ describe('the Sign Up page', function () {
                 expect(helper.hasClass(signup_page.getErrorMessageElement('password_mismatch'), 'ng-hide')).toBe(true);
             });
 
-            it('should show error message when click on continue with a repeated email', function () {
+            it('should show error message when click on continue with a repeated email with a validated', function () {
                 signup_page.fillInEmail("registered.user@foo.bar");
                 signup_page.fillInEmailConfirmation("registered.user@foo.bar");
                 signup_page.fillInPassword("MySecretPassword");
@@ -190,8 +192,83 @@ describe('the Sign Up page', function () {
                 expect(helper.hasClass(signup_page.getErrorMessageElement('email_used'), 'ng-hide')).toBe(false);
             });
 
+            it('should show error message when click on continue with a repeated email with a pending user', function () {
+                signup_page.fillInEmail("pending.user@foo.bar");
+                signup_page.fillInEmailConfirmation("pending.user@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_used'), 'ng-hide')).toBe(false);
+            });
+
+            it('should show error message when click on continue with a repeated email with an expired user', function () {
+                signup_page.fillInEmail("expired.user@foo.bar");
+                signup_page.fillInEmailConfirmation("expired.user@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_used'), 'ng-hide')).toBe(false);
+            });
 
         });
         
+        describe('go to second step page', function() {
+            
+            beforeEach(function() {
+                ptor.sleep(2000);
+                signup_page = new SignUp();
+                ptor.sleep(2000);
+                signup_page.fillInEmail("new.user@foo.bar");
+                signup_page.fillInEmailConfirmation("new.user@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                signup_step2_page = new SignUpStep2();
+            });
+
+            xit('should be on second step page', function() {
+                //I still in this page after click continue
+                expect(signup_step2_page.isCurrentPage()).toBe(true);
+            });
+
+            describe('second step page validations', function() {
+                xit('should display form errors when no field filled in', function() {
+                    signup_step2_page.clickSignUp();
+                    ptor.sleep(2000);
+                    expect(signup_step2_page.errorMessagesCount()).toBe(2);
+                });
+                
+                it('should display form errors when only term condiditions is checked', function() {
+                    signup_step2_page.checkAcceptTermConditions();
+                    ptor.sleep(1000);
+                    signup_step2_page.clickSignUp();
+                    ptor.sleep(1000);
+                    expect(signup_step2_page.errorMessagesCount()).toBe(1);
+                });
+            });
+
+            
+        }); 
+
 
 });
