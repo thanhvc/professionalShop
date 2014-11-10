@@ -5,7 +5,7 @@
 base_url = 'http://mo.devel.edosoftfactory.com/';
 url_suffix = '#/lookup-diary';
 var ptor = protractor.getInstance();
-var LookupDiary = function () {
+var LookupWorstLoss = function () {
 
 
     this.open = function () {
@@ -27,7 +27,7 @@ var LookupDiary = function () {
     }
 };
 
-LookupDiary.prototype = Object.create({}, {
+LookupWorstLoss.prototype = Object.create({}, {
     selectedMonth: { get: function () {
         return element(by.binding('filterOptions.filters.month.monthString')).getAttribute('value');
     }},
@@ -58,7 +58,7 @@ LookupDiary.prototype = Object.create({}, {
 describe('The Daily Lookup', function () {
         var page;
         beforeEach(function () {
-            page = new LookupDiary();
+            page = new LookupWorstLoss();
             page.open();
 
         });
@@ -349,16 +349,16 @@ describe('The Lookup Diary page ', function () {
         ptor.sleep(helper.fiveSec());
 
         expect(ptor.getCurrentUrl()).toContain('/lookup-diary');
-        checkNumericFilter(lookupDiary.getAccumulatedFilter(0),lookupDiary.getAccumulatedInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
+        checkNumericFilter(lookupDiary.getLastRentFilter(0),lookupDiary.getLastRentInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getAverageFilter(0),lookupDiary.getAverageInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
+        checkNumericFilter(lookupDiary.getBestGainFilter(0),lookupDiary.getBestGainInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
 
         ptor.sleep(helper.fiveSec());
         checkNumericFilter(lookupDiary.getDurationFilter(0),lookupDiary.getDurationInput(0),0,"6","9","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
         ptor.sleep(helper.fiveSec());
         checkNumericFilter(lookupDiary.getVolatFilter(0),lookupDiary.getVolatInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getDiaryFilter(0),lookupDiary.getDiaryInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
+        checkNumericFilter(lookupDiary.getWorstLossFilter(0),lookupDiary.getWorstLossInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
 
     });
     /*
@@ -449,10 +449,10 @@ describe('The Lookup Diary page ', function () {
         expect(ptor.getCurrentUrl()).toContain('/lookup-diary');
         lookupDiary.goToTab(1);
         ptor.sleep(helper.oneSec())
-        checkNumericFilter(lookupDiary.getAccumulatedFilter(1),lookupDiary.getAccumulatedInput(1),1,"5","6",
+        checkNumericFilter(lookupDiary.getLastRentFilter(1),lookupDiary.getLastRentInput(1),1,"5","6",
             "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getAverageFilter(1),lookupDiary.getAverageInput(1),1,"5","6",
+        checkNumericFilter(lookupDiary.getBestGainFilter(1),lookupDiary.getBestGainInput(1),1,"5","6",
             "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
 
         ptor.sleep(helper.fiveSec());
@@ -462,7 +462,7 @@ describe('The Lookup Diary page ', function () {
         checkNumericFilter(lookupDiary.getVolatFilter(1),lookupDiary.getVolatInput(1),1,"5","6",
             "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getDiaryFilter(1),lookupDiary.getDiaryInput(1),1,"5","6",
+        checkNumericFilter(lookupDiary.getWorstLossFilter(1),lookupDiary.getWorstLossInput(1),1,"5","6",
             "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
 
     });
@@ -521,10 +521,10 @@ describe('The Lookup Diary page ', function () {
         expect(ptor.getCurrentUrl()).toContain('/lookup-diary');
         lookupDiary.goToTab(2);
         ptor.sleep(helper.oneSec())
-        checkNumericFilter(lookupDiary.getAccumulatedFilter(2),lookupDiary.getAccumulatedInput(2),2,"5","6",
+        checkNumericFilter(lookupDiary.getLastRentFilter(2),lookupDiary.getLastRentInput(2),2,"5","6",
             "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getAverageFilter(2),lookupDiary.getAverageInput(2),2,"5","6",
+        checkNumericFilter(lookupDiary.getBestGainFilter(2),lookupDiary.getBestGainInput(2),2,"5","6",
             "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
 
         ptor.sleep(helper.fiveSec());
@@ -534,7 +534,7 @@ describe('The Lookup Diary page ', function () {
         checkNumericFilter(lookupDiary.getVolatFilter(2),lookupDiary.getVolatInput(2),2,"5","6",
             "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getDiaryFilter(2),lookupDiary.getDiaryInput(2),2,"5","6",
+        checkNumericFilter(lookupDiary.getWorstLossFilter(2),lookupDiary.getWorstLossInput(2),2,"5","6",
             "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
 
     });
@@ -596,10 +596,10 @@ describe('The Lookup Diary page ', function () {
         ptor.sleep(helper.oneSec())
         lookupDiary.selectIndexType(1);
         ptor.sleep(helper.oneSec());
-        checkNumericFilter(lookupDiary.getAccumulatedFilter(2),lookupDiary.getAccumulatedInput(2),2,"5","6",
+        checkNumericFilter(lookupDiary.getLastRentFilter(2),lookupDiary.getLastRentInput(2),2,"5","6",
             "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getAverageFilter(2),lookupDiary.getAverageInput(2),2,"5","6",
+        checkNumericFilter(lookupDiary.getBestGainFilter(2),lookupDiary.getBestGainInput(2),2,"5","6",
             "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
         ptor.sleep(helper.fiveSec());
         checkNumericFilter(lookupDiary.getDurationFilter(2),lookupDiary.getDurationInput(2),2,"6","9",
@@ -608,7 +608,7 @@ describe('The Lookup Diary page ', function () {
         checkNumericFilter(lookupDiary.getVolatFilter(2),lookupDiary.getVolatInput(2),2,"5","6",
             "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getDiaryFilter(2),lookupDiary.getDiaryInput(2),2,"5","6",
+        checkNumericFilter(lookupDiary.getWorstLossFilter(2),lookupDiary.getWorstLossInput(2),2,"5","6",
             "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
 
     });
@@ -680,10 +680,10 @@ describe('The Lookup Diary page ', function () {
         expect(ptor.getCurrentUrl()).toContain('/lookup-diary');
         lookupDiary.goToTab(3);
         ptor.sleep(helper.oneSec())
-        checkNumericFilter(lookupDiary.getAccumulatedFilter(3),lookupDiary.getAccumulatedInput(3),3,"5","6"
+        checkNumericFilter(lookupDiary.getLastRentFilter(3),lookupDiary.getLastRentInput(3),3,"5","6"
             ,"Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getAverageFilter(3),lookupDiary.getAverageInput(3),3,"5","6",
+        checkNumericFilter(lookupDiary.getBestGainFilter(3),lookupDiary.getBestGainInput(3),3,"5","6",
             "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
 
         ptor.sleep(helper.fiveSec());
@@ -693,7 +693,7 @@ describe('The Lookup Diary page ', function () {
         checkNumericFilter(lookupDiary.getVolatFilter(3),lookupDiary.getVolatInput(3),3,"5","6",
             "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(lookupDiary.getDiaryFilter(3),lookupDiary.getDiaryInput(3),3,"5","6",
+        checkNumericFilter(lookupDiary.getWorstLossFilter(3),lookupDiary.getWorstLossInput(3),3,"5","6",
             "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
 
     });

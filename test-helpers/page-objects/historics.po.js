@@ -1,14 +1,14 @@
 /**
- * Created by aitor on 23/10/14.
+ * Created by roberto on 10/11/14.
  */
 'use strict';
 //constructor
-var LookupDiary = function () {
+var Historics = function () {
     //browser.get('/'); <- the constructor will not load the page, we are going to login
 
 };
 
-LookupDiary.prototype =  Object.create({}, {
+Historics.prototype =  Object.create({}, {
     getContainerTab: {value: function(tab) {
         return element.all(by.css(".tab-pane")).get(tab);
     }},
@@ -53,8 +53,8 @@ LookupDiary.prototype =  Object.create({}, {
             .all(by.tagName("td")).get(1)
             .element(by.css(spanPos)); //the span inside the TD are span -- buy/sell and span --name
     }},
-    goToLookupDiary:{value:function(){
-        browser.get('/#/lookup-diary');
+    goToHistorics:{value:function(){
+        browser.get('/#/historic');
     }},
     getNumberTotalPatterns:{value:function(tab){
         return this.getContainerTab(tab).element(by.css(".total-patterns")).element(by.css(".ng-binding"));
@@ -161,4 +161,4 @@ LookupDiary.prototype =  Object.create({}, {
 });
 
 
-module.exports = LookupDiary;
+module.exports = Historics;
