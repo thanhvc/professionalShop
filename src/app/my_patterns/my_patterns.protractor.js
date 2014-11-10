@@ -24,7 +24,7 @@ describe('The My Patterns page ', function () {
     * */
 
 
-    function checkNumericFilter(elementSelect,elementInput,tab,value1,value2) {
+    function checkNumericFilter(elementSelect,elementInput,tab,value1,value2,name1,name2,name3,name4,isPair) {
         myPatterns.selectDropdownbyNum(elementSelect,2);//less than
         elementInput.sendKeys(value1);
         myPatterns.getSearchButton(tab).click();
@@ -38,15 +38,29 @@ describe('The My Patterns page ', function () {
         elementInput.sendKeys(value2);
         myPatterns.getSearchButton(tab).click();
         expect(myPatterns.getNumberFoundPatterns(tab).getText()).toEqual("1");//there 1 patterns with filter < value2
-        expect(myPatterns.getSimpleName(tab,0).getText()).toEqual("Long name Asset 1");
+        if (isPair) {
+            expect(myPatterns.getPairName(tab,0,0).getText()).toEqual(name1);
+        } else {
+            expect(myPatterns.getSimpleName(tab,0).getText()).toEqual(name1);
+        }
+
         //greater than value2 -> 3 patterns
         myPatterns.selectDropdownbyNum(elementSelect,1);//greater than
         myPatterns.getSearchButton(tab).click();
         expect(myPatterns.getNumberFoundPatterns(tab).getText()).toEqual("3");//there 1 patterns with filter < value2
-        expect(myPatterns.getSimpleName(tab,0).getText()).toEqual("Long name Asset 2");
-        expect(myPatterns.getSimpleName(tab,1).getText()).toEqual("Long name Asset 3");
-        expect(myPatterns.getSimpleName(tab,2).getText()).toEqual("Long name Asset 4");
-        //now check wrong value
+        if (isPair) {
+            expect(myPatterns.getPairName(tab,0,0).getText()).toEqual(name2);
+            expect(myPatterns.getPairName(tab,1,0).getText()).toEqual(name3);
+            expect(myPatterns.getPairName(tab,2,0).getText()).toEqual(name4);
+            //now check wrong value
+
+        } else {
+            expect(myPatterns.getSimpleName(tab,0).getText()).toEqual(name2);
+            expect(myPatterns.getSimpleName(tab,1).getText()).toEqual(name3);
+            expect(myPatterns.getSimpleName(tab,2).getText()).toEqual(name4);
+            //now check wrong value
+
+        }
         elementInput.clear();
         elementInput.sendKeys("asd");
         myPatterns.selectDropdownbyNum(elementSelect,2);//less than
@@ -244,22 +258,22 @@ describe('The My Patterns page ', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(myPatterns.getAccumulatedFilter(0),myPatterns.getAccumulatedInput(0),0,"5","6");
+        checkNumericFilter(myPatterns.getAccumulatedFilter(0),myPatterns.getAccumulatedInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(myPatterns.getAverageFilter(0),myPatterns.getAverageInput(0),0,"5","6");
+        checkNumericFilter(myPatterns.getAverageFilter(0),myPatterns.getAverageInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
 
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(myPatterns.getDurationFilter(0),myPatterns.getDurationInput(0),0,"6","9");
+        checkNumericFilter(myPatterns.getDurationFilter(0),myPatterns.getDurationInput(0),0,"6","9","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(myPatterns.getVolatFilter(0),myPatterns.getVolatInput(0),0,"5","6");
+        checkNumericFilter(myPatterns.getVolatFilter(0),myPatterns.getVolatInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(myPatterns.getDiaryFilter(0),myPatterns.getDiaryInput(0),0,"5","6");
+        checkNumericFilter(myPatterns.getDiaryFilter(0),myPatterns.getDiaryInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
 
     });
     /*
     PAIRS FILTERS
      */
-    it('should be load and use the filters for pairs',function() {
+    xit('should be load and use the filters for pairs',function() {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -332,6 +346,27 @@ describe('The My Patterns page ', function () {
     });
 
     it(' the numeric filters should work with pair patterns',function(){
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.fiveSec());
+
+        myPatterns.goToTab(1);
+        ptor.sleep(helper.oneSec())
+        checkNumericFilter(myPatterns.getAccumulatedFilter(1),myPatterns.getAccumulatedInput(1),1,"5","6",
+            "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getAverageFilter(1),myPatterns.getAverageInput(1),1,"5","6",
+            "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
+
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDurationFilter(1),myPatterns.getDurationInput(1),1,"6","9",
+            "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getVolatFilter(1),myPatterns.getVolatInput(1),1,"5","6",
+            "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
+        ptor.sleep(helper.fiveSec());
+        checkNumericFilter(myPatterns.getDiaryFilter(1),myPatterns.getDiaryInput(1),1,"5","6",
+            "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
 
     });
 
