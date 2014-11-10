@@ -3,7 +3,7 @@
  */
 
 var loadFixture = require('../../../test-helpers/load-fixture.js');
-var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js');
+var fixtureGenerator = require('../../../test-helpers/fixtures/signup-fixture-generator.js');
 var sha512 = require('sha512');
 var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js');
@@ -31,7 +31,7 @@ describe('the Sign Up page', function () {
             loadFixture.executeQueries(fixtures, conString);
         });
 
-        describe('test link to signup page logged out', function() {
+        xdescribe('test link to signup page logged out', function() {
             beforeEach(function() {
                 ptor.sleep(2000);
                 signup_page = new SignUp(false);
@@ -52,7 +52,7 @@ describe('the Sign Up page', function () {
             });
         });
 
-        describe('test signup link and page when logged in', function() {
+        xdescribe('test signup link and page when logged in', function() {
             beforeEach(function() {
                 ptor.sleep(2000);
                 home.showLoginBox();
@@ -86,7 +86,7 @@ describe('the Sign Up page', function () {
                 ptor.sleep(2000);
             });
 
-            xit(' should show error message when click on continue with no field filled in', function () {
+            xit('should show error message when click on continue with no field filled in', function () {
 
                 signup_page.clickContinue();
                 ptor.sleep(1000);
@@ -100,7 +100,7 @@ describe('the Sign Up page', function () {
                 expect(helper.hasClass(signup_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
             });
 
-            it(' should show error message when click on continue with incorrect email', function () {
+            xit('should show error message when click on continue with incorrect email', function () {
                 signup_page.fillInEmail("incorrect_email");
                 signup_page.fillInEmailConfirmation("incorrect_email");
                 signup_page.fillInPassword("MySecretPassword");
@@ -118,7 +118,7 @@ describe('the Sign Up page', function () {
                 //expect(helper.hasClass(signup_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
             });
 
-            it(' should show error message when click on continue with mismatch email', function () {
+            xit('should show error message when click on continue with mismatch email', function () {
                 signup_page.fillInEmail("new.email@foo.bar");
                 signup_page.fillInEmailConfirmation("mismatch.email@foo.bar");
                 signup_page.fillInPassword("MySecretPassword");
@@ -135,7 +135,7 @@ describe('the Sign Up page', function () {
                 expect(helper.hasClass(signup_page.getErrorMessageElement('email_mismatch'), 'ng-hide')).toBe(false);
             });
 
-            it(' should show error message when click on continue with password too short', function () {
+            xit('should show error message when click on continue with password too short', function () {
                 signup_page.fillInEmail("new.email@foo.bar");
                 signup_page.fillInEmailConfirmation("new.email@foo.bar");
                 signup_page.fillInPassword("short");
@@ -150,7 +150,44 @@ describe('the Sign Up page', function () {
                 //the error message should be shown
                 expect(signup_page.errorMessagesCount()).toBe(1);
                 expect(helper.hasClass(signup_page.getErrorMessageElement('password_minlength'), 'ng-hide')).toBe(false);
-                expect(helper.hasClass(signup_page.getErrorMessageElement('password_minlength'), 'ng-hide')).toBe(true);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('password_mismatch'), 'ng-hide')).toBe(true);
+            });
+
+            it('should show error message when click on continue with password with invalid characters', function () {
+                signup_page.fillInEmail("new.email@foo.bar");
+                signup_page.fillInEmailConfirmation("new.email@foo.bar");
+                signup_page.fillInPassword("weirdPattern?%_ñÑ&");
+                signup_page.fillInPasswordConfirmation("weirdPattern?%_ñÑ&");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('password_invalid_characters'), 'ng-hide')).toBe(false);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('password_mismatch'), 'ng-hide')).toBe(true);
+            });
+
+            it('should show error message when click on continue with a repeated email', function () {
+                signup_page.fillInEmail("registered.user@foo.bar");
+                signup_page.fillInEmailConfirmation("registered.user@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_used'), 'ng-hide')).toBe(false);
             });
 
 

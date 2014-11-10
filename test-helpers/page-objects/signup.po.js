@@ -15,7 +15,7 @@ SignUp.prototype =  Object.create({}, {
     isCurrentPage : {value: function(){
                             return browser.getLocationAbsUrl().then(function(url) {
                               console.log("current url: " + url); 
-                              return (url.indexOf("sign-up") > -1);
+                              return (url.indexOf("sign-up") > -1 && url.indexOf("step2") == -1);
                             });
                      }},
     clickContinue : {value: function(){
@@ -48,20 +48,20 @@ SignUp.prototype =  Object.create({}, {
                             
                      }},
     fillInEmail : {value: function(value){
+                            element(by.model("user.email")).clear();
                             element(by.model("user.email")).sendKeys(value);
-                            
                      }},
     fillInEmailConfirmation : {value: function(value){
+                            element(by.model("user.email2")).clear();
                             element(by.model("user.email2")).sendKeys(value);
-                            
                      }},
     fillInPassword : {value: function(value){
+                            element(by.model("user.password")).clear();
                             element(by.model("user.password")).sendKeys(value);
-                            
                      }},
     fillInPasswordConfirmation : {value: function(value){
+                            element(by.model("user.password2")).clear();
                             element(by.model("user.password2")).sendKeys(value);
-                            
                      }}
 
 });
