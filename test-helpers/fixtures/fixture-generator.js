@@ -2104,7 +2104,7 @@ exports.fixture_myPatterns = function() {
             table: 'exchange',
             values: {
                 symbol: 'EXF3',
-                name: 'exchangeFuture1',
+                name: 'exchangeFuture3',
                 currency_code: 'CU1',
                 region_code:'FUTURE',
                 sector_group: 'sector_group3'
@@ -2114,7 +2114,7 @@ exports.fixture_myPatterns = function() {
             table: 'exchange',
             values: {
                 symbol: 'EXF4',
-                name: 'exchangeFuture2',
+                name: 'exchangeFuture4',
                 currency_code: 'CU1',
                 region_code:'FUTURE',
                 sector_group: 'sector_group4'

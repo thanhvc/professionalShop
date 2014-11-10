@@ -546,23 +546,11 @@ describe('The My Patterns page ', function () {
         expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 4");
         myPatterns.selectExchange(3,0);
         expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("4");
-        //select Canada 1st option
-        myPatterns.selectRegion(3,1);
-        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("2");
         expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
         expect(myPatterns.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 2");
-        //USA
-        myPatterns.selectRegion(3,2);
-        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("2");
-        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 3");
-        expect(myPatterns.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 4");
+        expect(myPatterns.getSimpleName(3,2).getText()).toEqual("Long name Asset Future 3");
+        expect(myPatterns.getSimpleName(3,3).getText()).toEqual("Long name Asset Future 4");
 
-        myPatterns.selectOperation(3,1); //select Buy option
-        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 2");
-        expect(myPatterns.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 4");
-        myPatterns.selectOperation(3,2); //select Buy option
-        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
-        expect(myPatterns.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 3");
     });
 
     it('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
