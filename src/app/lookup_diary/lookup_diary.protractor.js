@@ -183,7 +183,7 @@ describe('The Lookup Diary page ', function () {
         ptor.sleep(helper.oneSec());
 
     });
-    xit('should be load patterns', function () {
+    it('should be load patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -240,7 +240,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 
-    xit('should be load filters and use it for filter the actual simple patterns', function () {
+    it('should be load filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         lookupDiary.goToLookupDiary();
@@ -341,7 +341,7 @@ describe('The Lookup Diary page ', function () {
         expect(lookupDiary.getSimpleName(0,1).getText()).toEqual("Long name Asset 3");
     });
 
-    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
+    it('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -364,7 +364,7 @@ describe('The Lookup Diary page ', function () {
     /*
      PAIRS FILTERS
      */
-    xit('should be load and use the filters for pairs',function() {
+    it('should be load and use the filters for pairs',function() {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -439,7 +439,7 @@ describe('The Lookup Diary page ', function () {
         expect(lookupDiary.getPairName(1,0,0).getText()).toEqual("Long name Asset Pair 2 1"); //the sector 2 and industry2 load the asset2
     });
 
-    xit(' the numeric filters should work with pair patterns',function(){
+    it(' the numeric filters should work with pair patterns',function(){
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -467,7 +467,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 
-    xit('should be load filters and use it for filter the actual simple index patterns', function () {
+    it('should be load filters and use it for filter the actual simple index patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -511,7 +511,7 @@ describe('The Lookup Diary page ', function () {
         expect(lookupDiary.getSimpleName(2,1).getText()).toEqual("Long name Asset Index 3");
     });
 
-    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple index patterns', function () {
+    it('should be load the volat,rent,duration... filters and use it for filter the actual simple index patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -542,7 +542,7 @@ describe('The Lookup Diary page ', function () {
     /*
      PAIRS INDEX FILTERS
      */
-    xit('should be load and use the filters for index pairs',function() {
+    it('should be load and use the filters for index pairs',function() {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -583,7 +583,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 
-    xit(' the numeric filters should work with pair index patterns',function(){
+    it(' the numeric filters should work with pair index patterns',function(){
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
 
@@ -613,7 +613,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 /*FUTURES*/
-    xit('should be load filters and use it for filter the actual future patterns', function () {
+    it('should be load filters and use it for filter the actual future patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -670,7 +670,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 
-    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
+    it('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
