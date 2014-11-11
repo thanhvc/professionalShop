@@ -95,3 +95,25 @@ exports.executeQueries = function (fixtures,conString) {
         nextQuery(client,queries,0);
     });
 }
+
+exports.executeQuery = function(fixture,conString,processResultCallback) {
+    jsonSql.configure({namedValues:false});
+    sql = jsonSql.build(fixture);
+    console.log(sql.query);
+    console.log(sql.values);
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+        }
+        client.query(sql.query,sql.values, function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            console.log(JSON.stringify(result));
+            client.end();
+            processResultCallback(result);
+        });
+    });
+
+};
