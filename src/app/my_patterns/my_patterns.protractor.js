@@ -99,7 +99,7 @@ describe('The My Patterns page ', function () {
         ptor.sleep(helper.oneSec());
 
     });
-    xit('should be load patterns', function () {
+    it('should be load patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -115,7 +115,7 @@ describe('The My Patterns page ', function () {
         ptor.sleep(helper.oneSec());
         //pairs
        myPatterns.getPairName(1,0,0).getText().then(function(data) {
-            expect(data).toEqual("Long name Asset Pair 1");
+            expect(data).toEqual("Long name Asset Pair 1 1");
         });
         myPatterns.getPairName(1,0,1).getText().then(function(data) {
             expect(data).toEqual("Long name Asset Pair 1 2");
@@ -139,7 +139,7 @@ describe('The My Patterns page ', function () {
         myPatterns.selectIndexType(1); // to pairs
         ptor.sleep(helper.oneSec());
         myPatterns.getPairName(2,0,0).getText().then(function(data) {
-            expect(data).toEqual("Long name Asset Pair Index 1");
+            expect(data).toEqual("Long name Asset Pair Index 1 1");
         });
         myPatterns.getPairName(2,0,1).getText().then(function(data) {
             expect(data).toEqual("Long name Asset Pair Index 1 2");
@@ -151,12 +151,12 @@ describe('The My Patterns page ', function () {
         ptor.sleep(helper.oneSec());
         expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
         ptor.sleep(helper.oneSec());
-        expect(myPatterns.getNumberTotalPatterns(3).getText()).toEqual("2");
-        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("2");
+        expect(myPatterns.getNumberTotalPatterns(3).getText()).toEqual("4");
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("4");
 
     });
 
-    xit('should be load filters and use it for filter the actual simple patterns', function () {
+    it('should be load filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -254,7 +254,7 @@ describe('The My Patterns page ', function () {
         expect(myPatterns.getSimpleName(0,1).getText()).toEqual("Long name Asset 3");
     });
 
-    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
+    it('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.fiveSec());
@@ -273,7 +273,7 @@ describe('The My Patterns page ', function () {
     /*
     PAIRS FILTERS
      */
-    xit('should be load and use the filters for pairs',function() {
+    it('should be load and use the filters for pairs',function() {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -345,7 +345,7 @@ describe('The My Patterns page ', function () {
         expect(myPatterns.getPairName(1,0,0).getText()).toEqual("Long name Asset Pair 2 1"); //the sector 2 and industry2 load the asset2
     });
 
-    xit(' the numeric filters should work with pair patterns',function(){
+    it(' the numeric filters should work with pair patterns',function(){
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.fiveSec());
@@ -370,7 +370,7 @@ describe('The My Patterns page ', function () {
 
     });
 
-    xit('should be load filters and use it for filter the actual simple index patterns', function () {
+    it('should be load filters and use it for filter the actual simple index patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -410,7 +410,7 @@ describe('The My Patterns page ', function () {
         expect(myPatterns.getSimpleName(2,1).getText()).toEqual("Long name Asset Index 3");
     });
 
-    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple index patterns', function () {
+    it('should be load the volat,rent,duration... filters and use it for filter the actual simple index patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.fiveSec());
@@ -437,7 +437,7 @@ describe('The My Patterns page ', function () {
     /*
      PAIRS INDEX FILTERS
      */
-    xit('should be load and use the filters for index pairs',function() {
+    it('should be load and use the filters for index pairs',function() {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -474,7 +474,7 @@ describe('The My Patterns page ', function () {
 
     });
 
-    xit(' the numeric filters should work with pair index patterns',function(){
+    it(' the numeric filters should work with pair index patterns',function(){
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.fiveSec());
