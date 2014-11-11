@@ -119,6 +119,10 @@ exports.remove_signup_fixture = function() {
         },
         {
             type: 'remove',
+            table: 'email_log'
+        },
+        {
+            type: 'remove',
             table: 'free_pack'
         },
         {
@@ -134,5 +138,35 @@ exports.remove_signup_fixture = function() {
             table: 'country'
         }
     ];
+};
+
+exports.select_user_fixture = function(conditions) {
+    var conditions = conditions || {};
+    return {
+            type: 'select',
+            table: 'users',
+            //fields: ['id','name','surname','address','city','email_address'],
+            condition: conditions
+        };
+};
+
+exports.select_email_log_fixture = function(conditions) {
+    var conditions = conditions || {};
+    return {
+            type: 'select',
+            table: 'email_log',
+            //fields: ['id','name','surname','address','city','email_address'],
+            condition: conditions
+        };
+};
+
+exports.select_free_subscription_fixture = function(conditions) {
+    var conditions = conditions || {};
+    return {
+            type: 'select',
+            table: 'free_subscription',
+            //fields: ['id','name','surname','address','city','email_address'],
+            condition: conditions
+        };
 };
 

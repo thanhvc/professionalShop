@@ -9,11 +9,13 @@ var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js');
 var SignUp = require('../../../test-helpers/page-objects/signup.po.js');
 var SignUpStep2 = require('../../../test-helpers/page-objects/signup_step2.po.js');
+var SignUpSuccessful = require('../../../test-helpers/page-objects/signup_successful.po.js');
 var Helper = require('../../../test-helpers/helper.js');
 
 describe('the Sign Up page', function () {
         var signup_page;
         var signup_step2_page;
+        var signup_successful_page;
         var helper = new Helper();
         var conString = browser.params.sqlCon;
 
@@ -33,7 +35,7 @@ describe('the Sign Up page', function () {
             loadFixture.executeQueries(fixtures, conString);
         });
 
-        xdescribe('test link to signup page logged out', function() {
+        describe('test link to signup page logged out', function() {
             beforeEach(function() {
                 ptor.sleep(2000);
                 signup_page = new SignUp(false);
@@ -54,7 +56,7 @@ describe('the Sign Up page', function () {
             });
         });
 
-        xdescribe('test signup link and page when logged in', function() {
+        describe('test signup link and page when logged in', function() {
             beforeEach(function() {
                 ptor.sleep(2000);
                 home.showLoginBox();
@@ -80,7 +82,7 @@ describe('the Sign Up page', function () {
             });
         });
 
-        xdescribe('validations on first step page', function() {
+        describe('validations on first step page', function() {
             
             beforeEach(function() {
                 ptor.sleep(2000);
@@ -88,7 +90,7 @@ describe('the Sign Up page', function () {
                 ptor.sleep(2000);
             });
 
-            xit('should show error message when click on continue with no field filled in', function () {
+            it('should show error message when click on continue with no field filled in', function () {
 
                 signup_page.clickContinue();
                 ptor.sleep(1000);
@@ -102,7 +104,7 @@ describe('the Sign Up page', function () {
                 expect(helper.hasClass(signup_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
             });
 
-            xit('should show error message when click on continue with incorrect email', function () {
+            it('should show error message when click on continue with incorrect email', function () {
                 signup_page.fillInEmail("incorrect_email");
                 signup_page.fillInEmailConfirmation("incorrect_email");
                 signup_page.fillInPassword("MySecretPassword");
@@ -120,7 +122,7 @@ describe('the Sign Up page', function () {
                 //expect(helper.hasClass(signup_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
             });
 
-            xit('should show error message when click on continue with mismatch email', function () {
+            it('should show error message when click on continue with mismatch email', function () {
                 signup_page.fillInEmail("new.email@foo.bar");
                 signup_page.fillInEmailConfirmation("mismatch.email@foo.bar");
                 signup_page.fillInPassword("MySecretPassword");
@@ -137,7 +139,7 @@ describe('the Sign Up page', function () {
                 expect(helper.hasClass(signup_page.getErrorMessageElement('email_mismatch'), 'ng-hide')).toBe(false);
             });
 
-            xit('should show error message when click on continue with password too short', function () {
+            it('should show error message when click on continue with password too short', function () {
                 signup_page.fillInEmail("new.email@foo.bar");
                 signup_page.fillInEmailConfirmation("new.email@foo.bar");
                 signup_page.fillInPassword("short");
@@ -246,27 +248,112 @@ describe('the Sign Up page', function () {
                 signup_step2_page = new SignUpStep2();
             });
 
-            xit('should be on second step page', function() {
-                //I still in this page after click continue
+            it('should be on second step page', function() {
+                //I still in this page after click sign up
                 expect(signup_step2_page.isCurrentPage()).toBe(true);
             });
 
             describe('second step page validations', function() {
-                xit('should display form errors when no field filled in', function() {
+                it('should display form errors when no field filled in', function() {
                     signup_step2_page.clickSignUp();
                     ptor.sleep(2000);
                     expect(signup_step2_page.errorMessagesCount()).toBe(2);
+                    //I still in this page after click sign up
+                    expect(signup_step2_page.isCurrentPage()).toBe(true);
+                    expect(helper.hasClass(signup_step2_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
+                    expect(helper.hasClass(signup_step2_page.getErrorMessageElement('terms_contidions_must_be_accepted'), 'ng-hide')).toBe(false);
                 });
                 
                 it('should display form errors when only term condiditions is checked', function() {
                     signup_step2_page.checkAcceptTermConditions();
                     ptor.sleep(1000);
-                    signup_step2_page.clickSignUp();
+                    signup_step2_page.clickSignUp().then(function() { ptor.sleep(2000); }).then(function() {
+                        expect(signup_step2_page.errorMessagesCount()).toBe(1);
+                        //I still in this page after click sign up
+                        expect(signup_step2_page.isCurrentPage()).toBe(true);
+                        expect(helper.hasClass(signup_step2_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
+ 
+                        var select_fixture = fixtureGenerator.select_user_fixture({email_address: "new.user@foo.bar"});
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(0);
+                        });
+
+                    });
+                });
+
+                it('should display captha error when is bad entered', function() {
+                    signup_step2_page.fillInName("John");
+                    signup_step2_page.fillInSurname("Doe");
+                    signup_step2_page.fillInAddress("Mesa y López 16");
+                    signup_step2_page.fillInCity("Las Palmas de Gran Canaria");
+                    signup_step2_page.fillInPostal("35012");
+                    signup_step2_page.selectCountry();
+                    signup_step2_page.fillInCaptcha("2");
+                    signup_step2_page.checkAcceptTermConditions();
                     ptor.sleep(1000);
-                    expect(signup_step2_page.errorMessagesCount()).toBe(1);
+                    signup_step2_page.clickSignUp().then(function() { ptor.sleep(2000); }).then(function() {
+                        expect(signup_step2_page.errorMessagesCount()).toBe(1);
+                        //I still in this page after click sign up
+                        expect(signup_step2_page.isCurrentPage()).toBe(true);
+                        expect(helper.hasClass(signup_step2_page.getErrorMessageElement('captcha_error'), 'ng-hide')).toBe(false);
+ 
+                        var select_fixture = fixtureGenerator.select_user_fixture({email_address: "new.user@foo.bar"});
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(0);
+                        });
+
+                    });
                 });
             });
 
+            describe('second step page correct form', function() {
+            
+                beforeEach(function() {
+                    signup_successful_page = new SignUpSuccessful();
+                    ptor.sleep(2000);
+                });
+
+                it('should register user and send email', function() {
+                    signup_step2_page.fillInName("John");
+                    signup_step2_page.fillInSurname("Doe");
+                    signup_step2_page.fillInAddress("Mesa y López 16");
+                    signup_step2_page.fillInCity("Las Palmas de Gran Canaria");
+                    signup_step2_page.fillInPostal("35012");
+                    signup_step2_page.selectCountry();
+                    signup_step2_page.fillInCaptcha("4");
+                    signup_step2_page.checkAcceptTermConditions();
+                    ptor.sleep(6000);
+                    signup_step2_page.clickSignUp().then(function() { ptor.sleep(40000); }).then(function(data) {
+                        //ptor.sleep(40000);
+                        expect(signup_successful_page.isCurrentPage()).toBe(true);
+
+                        var select_fixture = fixtureGenerator.select_user_fixture({email_address: "new.user@foo.bar"});
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(1);
+                            expect(result.rows[0].name).toBe('John');
+                            expect(result.rows[0].surname).toBe('Doe');
+                            expect(result.rows[0].email_address).toBe('new.user@foo.bar');
+                        });
+                    }).then(function() {    
+                        var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: "new.user@foo.bar"});
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(1);
+                        });
+                        return 0;
+
+                    }).then(function() { ptor.sleep(2000); }).then(function() {    
+                        var select_fixture = fixtureGenerator.select_free_subscription_fixture();
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(1);
+                            expect(result.rows[0].free_pack_code).toBe('11');
+                        });
+
+                    });
+                    
+
+                });
+
+            });
             
         }); 
 
