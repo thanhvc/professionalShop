@@ -34,4 +34,4 @@ Home.prototype =  Object.create({}, {
 });
 
 
-module.exports = Home
+module.exports = Home;
