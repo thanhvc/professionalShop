@@ -80,7 +80,7 @@ exports.calendar_fixture = function() {
                 area_code: 0
             }
         },
-       /* {
+        {
             type: 'insert',
             table: 'sector',
             values: {
@@ -144,7 +144,7 @@ exports.calendar_fixture = function() {
                 sector_group:'sector_group4',
                 sector_id: 'sector4 SECTOR CD'
             }
-        },*/
+        },
         {/*SIMPLES*/
             type: 'insert',
             table: 'pack',
@@ -1942,14 +1942,14 @@ exports.calendar_fixture = function() {
 
 exports.remove_calendar_fixture = function(){
     return [
-/*        {
+        {
             type: 'remove',
             table: 'industry'
         },
         {
             type: 'remove',
             table: 'sector'
-        },*/
+        },
 
         {
             type: 'remove',

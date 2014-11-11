@@ -8,6 +8,12 @@ var Home = function () {
 };
 
 Home.prototype =  Object.create({}, {
+    isCurrentPage : {value: function(){
+                            return browser.getLocationAbsUrl().then(function(url) {
+                              console.log("current url: " + url); 
+                              return (url.indexOf("home") > -1);
+                            });
+                     }},
     showLoginBox : {value: function(){
                             element(by.css(".no-logged-box")).click()
                      }},

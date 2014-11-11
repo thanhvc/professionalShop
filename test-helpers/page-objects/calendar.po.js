@@ -2,9 +2,12 @@
  * Created by David Verdú on 11/11/14.
  */
 'use strict';
-var Calendar = function () {
-        //browser.get('/');
-
+var Calendar = function (go_to_page) {
+    var go_to_page = go_to_page || true;
+    if (go_to_page) {
+      //browser.get('/sign-up');
+      browser.setLocation('/calendar');
+    }
 };
 
 Calendar.prototype =  Object.create({}, {
