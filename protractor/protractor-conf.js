@@ -24,6 +24,7 @@ exports.config = {
 //        lookup_diary: '../src/app/lookup_diary/*protractor.js',
         //my_subscriptions: '../src/app/my_subscriptions/*protractor.js'
         //my_subscriptions: '../src/app/my_subscriptions/my_subscriptions.protractor.js'
+        //sign_up: '../src/app/sign_up/signup.protractor.js'
         //login:'../src/app/home/login.protractor.js'
     },
     multiCapabilities: [

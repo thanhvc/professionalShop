@@ -1,14 +1,14 @@
 /**
- * Created by aitor on 23/10/14.
+ * Created by roberto on 10/11/14.
  */
 'use strict';
 //constructor
-var MyPatterns = function () {
+var Historics = function () {
     //browser.get('/'); <- the constructor will not load the page, we are going to login
 
 };
 
-MyPatterns.prototype =  Object.create({}, {
+Historics.prototype =  Object.create({}, {
     getContainerTab: {value: function(tab) {
         return element.all(by.css(".tab-pane")).get(tab);
     }},
@@ -26,19 +26,19 @@ MyPatterns.prototype =  Object.create({}, {
             browser.sleep(milliseconds);
         }
     }},
-  /*  showLoginBox : {value: function(){
-        element(by.css(".no-logged-box")).click()
-    }},
-    login:{value:function(user,pass){
-        element(by.model('fields.email')).sendKeys(user);
-        element(by.model('fields.password')).sendKeys(pass);
-        element.all(by.css('.mo-button')).get(0).click();
-    }},*/
+    /*  showLoginBox : {value: function(){
+     element(by.css(".no-logged-box")).click()
+     }},
+     login:{value:function(user,pass){
+     element(by.model('fields.email')).sendKeys(user);
+     element(by.model('fields.password')).sendKeys(pass);
+     element.all(by.css('.mo-button')).get(0).click();
+     }},*/
     getSimpleName:{value:function(tab,row) {
         return  this.getContainerTab(tab).element(by.repeater("data in myData").row(row))
             /*.element(by.css(".name-column-my-patterns"))*/
             .all(by.tagName("td")).get(1)
-            .all(by.tagName("span")).get(1); //the span inside the TD are span -- buy/sell and span --name
+            .element(by.tagName("div")).element(by.tagName("span")); //the span inside the TD are span -- buy/sell and span --name
     }},
     //tab 0-3, row, and pattern (buy=0,sell=1)
     getPairName:{value:function(tab,row,pattern) {
@@ -53,8 +53,8 @@ MyPatterns.prototype =  Object.create({}, {
             .all(by.tagName("td")).get(1)
             .element(by.css(spanPos)); //the span inside the TD are span -- buy/sell and span --name
     }},
-    goToMyPatterns:{value:function(){
-        browser.get('/#/patterns');
+    goToHistorics:{value:function(){
+        browser.get('/#/historic');
     }},
     getNumberTotalPatterns:{value:function(tab){
         return this.getContainerTab(tab).element(by.css(".total-patterns")).element(by.css(".ng-binding"));
@@ -101,36 +101,36 @@ MyPatterns.prototype =  Object.create({}, {
         return this.selectDropdownbyNum(this.getIndustryFilter(tab),opt);
     }},
     getOperationFilter:{value: function(tab) {
-       return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedOperation"));
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedOperation"));
     }},
     selectOperation:{value: function(tab,opt) {
         return this.selectDropdownbyNum(this.getOperationFilter(tab),opt);
     }},
-    getAccumulatedFilter:{value:function(tab) {
+    getLastRentFilter:{value:function(tab) {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedRent"));
     }},
-    selectAccumulatedFilter:{value:function(tab,opt) {
-        return this.selectDropdownbyNum(this.getAccumulatedFilter(tab),opt);
+    selectLastRentFilter:{value:function(tab,opt) {
+        return this.selectDropdownbyNum(this.getLastRentFilter(tab),opt);
     }},
-    getAccumulatedInput:{value:function(tab) {
+    getLastRentInput:{value:function(tab) {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.rentInput"));
     }},
-    getAverageFilter:{value: function(tab) {
+    getBestGainFilter:{value: function(tab) {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedAverage"));
     }},
-    selectAverageFilter:{value:function(tab,opt) {
-        return this.selectDropdownbyNum(this.getAverageFilter(tab),opt);
+    selectBestGainFilter:{value:function(tab,opt) {
+        return this.selectDropdownbyNum(this.getBestGainFilter(tab),opt);
     }},
-    getAverageInput:{value:function(tab) {
+    getBestGainInput:{value:function(tab) {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.rentAverageInput"));
     }},
-    getDiaryFilter:{value:function(tab) {
-       return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedRentDiary"));
+    getWorstLossFilter:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedRentDiary"));
     }},
-    selectDiaryFilter:{value:function(tab,opt) {
-        return this.selectDropdownbyNum(this.getDiaryFilter(tab),opt);
+    selectWorstLossFilter:{value:function(tab,opt) {
+        return this.selectDropdownbyNum(this.getWorstLossFilter(tab),opt);
     }},
-    getDiaryInput:{value:function(tab) {
+    getWorstLossInput:{value:function(tab) {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.rentDiaryInput"));
     }},
     getVolatFilter:{value: function(tab) {
@@ -161,4 +161,4 @@ MyPatterns.prototype =  Object.create({}, {
 });
 
 
-module.exports = MyPatterns;
+module.exports = Historics;

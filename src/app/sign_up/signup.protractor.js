@@ -1,238 +1,361 @@
 /**
- * Created by laia on 4/06/14.
+ * Created by David Verdú on 6/11/14.
  */
 
-/* The signup menu is correct*/
+var loadFixture = require('../../../test-helpers/load-fixture.js');
+var fixtureGenerator = require('../../../test-helpers/fixtures/signup-fixture-generator.js');
+var sha512 = require('sha512');
+var ptor = protractor.getInstance();
+var Home = require('../../../test-helpers/page-objects/home.po.js');
+var SignUp = require('../../../test-helpers/page-objects/signup.po.js');
+var SignUpStep2 = require('../../../test-helpers/page-objects/signup_step2.po.js');
+var SignUpSuccessful = require('../../../test-helpers/page-objects/signup_successful.po.js');
+var Helper = require('../../../test-helpers/helper.js');
 
-var url = 'http://mo.devel.edosoftfactory.com/';
-var SignupMenu = function() {
+describe('the Sign Up page', function () {
+        var signup_page;
+        var signup_step2_page;
+        var signup_successful_page;
+        var helper = new Helper();
+        var conString = browser.params.sqlCon;
 
-    // All relevant elements
-    this.items = element.all(by.css('.signup-input'));
-    this.input1 = this.items.first();
-    this.input2 = this.items.get(1);
-    this.input3 = this.items.get(2);
-    this.input4 = this.items.last();
-    this.patterns = null;
-    this.error = element.all(by.css('.red-color-form')).get(2);
-
-    this.open = function() {
-        // Goto the login page
-        browser.get(url + '#/sign-up');
-    };
-
-    this.checkIdenticalInputs = function(){
-
-        this.input1.getAttribute('value').sendKeys('userEmail');
-        this.input2.getAttribute('value').sendKeys('userEmail');
-        this.input3.getAttribute('value').sendKeys('userpass');
-        this.input4.getAttribute('value').sendKeys('userpass');
-    };
-
-
-    this.checkCorrectFormat = function(){
-        this.matcher = new RegExp('[\b[a-z0-9._%+-]+@[a-z0-9.-]+\/.[a-z]b.]');
-
-    };
-
-    this.checkAtLeastEightCharacters = function(){
-        this.input3.sendKeys('pass');
-
-    };
-
-    this.checkIfAlphanumeris = function(){
-        this.input3.sendKeys('***');
-
-    };
-
-    this.checkPack = function(){
-
-        //Do the signup
-        $('a[href*="sign-up"]').click();
-         this.input1.sendKeys('user@edosoft.es');
-         this.input2.sendKeys('user@edosoft.es');
-         this.input3.sendKeys('userpass');
-         this.input4.sendKeys('userpass');
-        //Clickkkk
-
-        //Do login
-        $('.no-logged-box').click();
-        this.userName = element.all(by.css('input')).get(0);
-        this.userName.sendKeys('user');
-        this.userName = element.all(by.css('input')).get(1);
-        this.userName.sendKeys('userpass');
-        element.all(by.css('.mo-button')).first().click();
-
-        //Check user's pack
-        this.patterns = element.all(by.css('.ng-binding'));
-
-    };
-
-};
-describe('signupMenu', function(){
-
-    var sMenu = new SignupMenu();
-
-    it('should open the page', function() {
-
-        sMenu.open();
-        expect(sMenu.items.count()).toBe(4);
-        expect(sMenu.input1.getAttribute('type')).toBe('email');
-        expect(sMenu.input2.getAttribute('type')).toBe('email');
-        expect(sMenu.input3.getAttribute('type')).toBe('password');
-        expect(sMenu.input4.getAttribute('type')).toBe('password');
-
-    });
-
-    /*it(' should have Identical Inputs' , function(){
-
-        sMenu.checkIdenticalInputs();
-        expect(sMenu.input1.getAttribute('value')).toBe(sMenu.input2.getAttribute('value'));
-        expect(sMenu.input3.getAttribute('value')).toBe(sMenu.input4.getAttribute('value'));
-    });
-
-    it('should have the correct format', function(){
-        sMenu.checkCorrectFormat();
-        sMenu.matcher.test(sMenu.input1.getAttribute('value'));
-
-    });
-
-    it('should have at least 8 characters', function(){
-
-        sMenu.checkAtLeastEightCharacters();
-        expect(sMenu.error.getText()).toBeDefined();
-    });
-
-    it('should be alphanumeric',function(){
-        sMenu.checkIfAlphanumeris();
-        expect(sMenu.error.getText()).toBeDefined();
-    });
-
-    it('should have the same pack as a free suscriptor', function(){
-
-        sMenu.checkPack();
-        expect(sMenu.patterns.count()).toBe(10);
-    });*/
-});
-
-
-var SignupMenuStep2 = function() {
-
-    // All relevant elements
-    this.items = element.all(by.css('.signup-input'));
-    this.input1 = this.items.first();
-    this.input2 = this.items.get(1);
-    this.input3 = this.items.get(2);
-    this.input4 = this.items.get(3);
-    this.input6 = this.items.get(5);
-    this.country = element(by.css('.signup-select'));
-    this.errorI = element.all(by.css('text-warning-form'));
-
-    this.open = function () {
-        browser.get(url + '#/sign-up-step2');
-        browser.ignoreSynchronization = true;
-    };
-
-    this.checkValidName = function () {
-        this.input1.sendKeys('nameUser');
-
-    };
-    this.checkValidSurname = function () {
-        this.input2.sendKeys('surnameUser');
-    };
-    this.checkCorrectAddressField = function(){
-        this.input3.sendKeys('userAddress');
-
-    };
-    this.checkValidCity = function(){
-        this.input4.sendKeys('Las Palmas de G.C');
-    };
-    this.checkCountrySelected = function(){
-         this.country.sendKeys('Albania');
-
-    };
-    this.checkCaptchaSelected = function(){
-        this.input6.sendKeys('4');
-
-    };
-    this.checkPostalCode = function(){
-        this.input4.sendKeys('userPostalCode');
-
-    };
-    this.checkConditionsAceppted = function(){
-        var conditions = error.last();
-        expect(conditions.getText()).toBeDefined();
-    };
-
-    this.freeSuscription = function(){
-
-        element(by.id('subscriptions-and-prices-nav')).click();
-        element(by.id('free-subscription-nav')).click();
-        $('a[href*="#/sign-up"]').click();
-
-    };
-
-
-
-};
-
-describe('Signup step2 should work', function(){
-
-    var sMenu2 = new SignupMenuStep2();
-   // sMenu2.open();
-
-    /*it('should have a valid name',function(){
-
-        sMenu2.checkValidName();
-        expect(sMenu2.errorI.first()).toBeDefined();
-    });
-
-    it('should have a valid surname',function(){
-
-        sMenu2.checkValidSurname();
-        expect(sMenu2.errorI.get(1)).toBeDefined();
-    });
-
-    it('should have a valid address',function(){
-
-        sMenu2.checkCorrectAddressField();
-        expect(sMenu2.errorI.get(1)).toBeDefined();
-    });
-
-    it('should have a valid city',function(){
-
-        sMenu2.checkValidCity();
-        expect(sMenu2.errorI.get(1)).toBeDefined();
-    });
-
-    it('should have a country selected', function(){
-        sMenu2.open();
-        sMenu2.checkCountrySelected();
-        sMenu2.country.getAttribute('value').then(function(result) {
-            expect(result).toBe('');
+        beforeEach(function () {
+            var fixtures = fixtureGenerator.signup_fixture();
+            loadFixture.executeQueries(fixtures, conString);
+            browser.ignoreSynchronization = true;
+            home = new Home();
+            //home.showLoginBox();
+            //home.login('john.snow@thewall.north', 'phantom');
         });
 
+        afterEach(function () {
+            //home.logout(); //TODO
+            ptor.sleep(1000);
+            var fixtures = fixtureGenerator.remove_signup_fixture();
+            loadFixture.executeQueries(fixtures, conString);
+        });
 
-    });
+        describe('test link to signup page logged out', function() {
+            beforeEach(function() {
+                ptor.sleep(2000);
+                signup_page = new SignUp(false);
+                ptor.sleep(2000);
+            });
 
-    it('should have a  valid captcha', function(){
+            it('signup page link must be present', function() {
+                expect(home.signupLink().isPresent()).toBe(true);
+                expect(home.logoutLink().isPresent()).toBe(false);
+                expect(home.myAccountLink().isPresent()).toBe(false);
+            });
 
-        sMenu2.checkCaptchaSelected();
-        expect(sMenu2.input6.getAttribute('value')).toBe('4');
+            it('should go to signup page if I click on signup link', function() {
+                expect(home.signupLink().isPresent()).toBe(true);
+                home.signupLink().click();
+                ptor.sleep(2000);
+                expect(signup_page.isCurrentPage()).toBe(true);
+            });
+        });
 
-    });
+        describe('test signup link and page when logged in', function() {
+            beforeEach(function() {
+                ptor.sleep(2000);
+                home.showLoginBox();
+                home.login('registered.user@foo.bar', 'phantom');
+                ptor.sleep(5000);
+            });
+        
+            afterEach(function () {
+                home.logout();
+                ptor.sleep(1000);
+            });
 
-    it('should have a postal code', function(){
+            it('signup page link must not be present', function() {
+                expect(home.signupLink().isPresent()).toBe(false);
+                expect(home.logoutLink().isPresent()).toBe(true);
+                expect(home.myAccountLink().isPresent()).toBe(true);
+            });
 
-        sMenu2.checkPostalCode();
-        expect(sMenu2.errorI.get(1)).toBeDefined();
-    });
+            it('should exit from signup page if I enter that url when I am logged in', function() {
+                signup_page = new SignUp(true);
+                ptor.sleep(3000);
+                expect(signup_page.isCurrentPage()).toBe(false);
+            });
+        });
 
-    it('should go the free subscription', function(){
-        sMenu2.freeSuscription();
-        expect(element(by.css('signup-table'))).toBeDefined();
+        describe('validations on first step page', function() {
+            
+            beforeEach(function() {
+                ptor.sleep(2000);
+                signup_page = new SignUp();
+                ptor.sleep(2000);
+            });
 
-    });*/
+            it('should show error message when click on continue with no field filled in', function () {
+
+                signup_page.clickContinue();
+                ptor.sleep(1000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                //TODO need to be fixed in the application code
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
+            });
+
+            it('should show error message when click on continue with incorrect email', function () {
+                signup_page.fillInEmail("incorrect_email");
+                signup_page.fillInEmailConfirmation("incorrect_email");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(1000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_invalid'), 'ng-hide')).toBe(false);
+                //expect(helper.hasClass(signup_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
+            });
+
+            it('should show error message when click on continue with mismatch email', function () {
+                signup_page.fillInEmail("new.email@foo.bar");
+                signup_page.fillInEmailConfirmation("mismatch.email@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(1000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_mismatch'), 'ng-hide')).toBe(false);
+            });
+
+            it('should show error message when click on continue with password too short', function () {
+                signup_page.fillInEmail("new.email@foo.bar");
+                signup_page.fillInEmailConfirmation("new.email@foo.bar");
+                signup_page.fillInPassword("short");
+                signup_page.fillInPasswordConfirmation("short");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('password_minlength'), 'ng-hide')).toBe(false);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('password_mismatch'), 'ng-hide')).toBe(true);
+            });
+
+            it('should show error message when click on continue with password with invalid characters', function () {
+                signup_page.fillInEmail("new.email@foo.bar");
+                signup_page.fillInEmailConfirmation("new.email@foo.bar");
+                signup_page.fillInPassword("weirdPattern?%_ñÑ&");
+                signup_page.fillInPasswordConfirmation("weirdPattern?%_ñÑ&");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('password_invalid_characters'), 'ng-hide')).toBe(false);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('password_mismatch'), 'ng-hide')).toBe(true);
+            });
+
+            it('should show error message when click on continue with a repeated email with a validated', function () {
+                signup_page.fillInEmail("registered.user@foo.bar");
+                signup_page.fillInEmailConfirmation("registered.user@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_used'), 'ng-hide')).toBe(false);
+            });
+
+            it('should show error message when click on continue with a repeated email with a pending user', function () {
+                signup_page.fillInEmail("pending.user@foo.bar");
+                signup_page.fillInEmailConfirmation("pending.user@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_used'), 'ng-hide')).toBe(false);
+            });
+
+            it('should show error message when click on continue with a repeated email with an expired user', function () {
+                signup_page.fillInEmail("expired.user@foo.bar");
+                signup_page.fillInEmailConfirmation("expired.user@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                ptor.sleep(3000);
+                
+                //I still in this page after click continue
+                expect(signup_page.isCurrentPage()).toBe(true);
+
+                //the error message should be shown
+                expect(signup_page.errorMessagesCount()).toBe(1);
+                expect(helper.hasClass(signup_page.getErrorMessageElement('email_used'), 'ng-hide')).toBe(false);
+            });
+
+        });
+        
+        describe('go to second step page', function() {
+            
+            beforeEach(function() {
+                ptor.sleep(2000);
+                signup_page = new SignUp();
+                ptor.sleep(2000);
+                signup_page.fillInEmail("new.user@foo.bar");
+                signup_page.fillInEmailConfirmation("new.user@foo.bar");
+                signup_page.fillInPassword("MySecretPassword");
+                signup_page.fillInPasswordConfirmation("MySecretPassword");
+               
+                signup_page.clickContinue();
+                ptor.sleep(3000);
+                signup_step2_page = new SignUpStep2();
+            });
+
+            it('should be on second step page', function() {
+                //I still in this page after click sign up
+                expect(signup_step2_page.isCurrentPage()).toBe(true);
+            });
+
+            describe('second step page validations', function() {
+                it('should display form errors when no field filled in', function() {
+                    signup_step2_page.clickSignUp();
+                    ptor.sleep(2000);
+                    expect(signup_step2_page.errorMessagesCount()).toBe(2);
+                    //I still in this page after click sign up
+                    expect(signup_step2_page.isCurrentPage()).toBe(true);
+                    expect(helper.hasClass(signup_step2_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
+                    expect(helper.hasClass(signup_step2_page.getErrorMessageElement('terms_contidions_must_be_accepted'), 'ng-hide')).toBe(false);
+                });
+                
+                it('should display form errors when only term condiditions is checked', function() {
+                    signup_step2_page.checkAcceptTermConditions();
+                    ptor.sleep(1000);
+                    signup_step2_page.clickSignUp().then(function() { ptor.sleep(2000); }).then(function() {
+                        expect(signup_step2_page.errorMessagesCount()).toBe(1);
+                        //I still in this page after click sign up
+                        expect(signup_step2_page.isCurrentPage()).toBe(true);
+                        expect(helper.hasClass(signup_step2_page.getErrorMessageElement('missing_required_fields'), 'ng-hide')).toBe(false);
+ 
+                        var select_fixture = fixtureGenerator.select_user_fixture({email_address: "new.user@foo.bar"});
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(0);
+                        });
+
+                    });
+                });
+
+                it('should display captha error when is bad entered', function() {
+                    signup_step2_page.fillInName("John");
+                    signup_step2_page.fillInSurname("Doe");
+                    signup_step2_page.fillInAddress("Mesa y López 16");
+                    signup_step2_page.fillInCity("Las Palmas de Gran Canaria");
+                    signup_step2_page.fillInPostal("35012");
+                    signup_step2_page.selectCountry();
+                    signup_step2_page.fillInCaptcha("2");
+                    signup_step2_page.checkAcceptTermConditions();
+                    ptor.sleep(1000);
+                    signup_step2_page.clickSignUp().then(function() { ptor.sleep(2000); }).then(function() {
+                        expect(signup_step2_page.errorMessagesCount()).toBe(1);
+                        //I still in this page after click sign up
+                        expect(signup_step2_page.isCurrentPage()).toBe(true);
+                        expect(helper.hasClass(signup_step2_page.getErrorMessageElement('captcha_error'), 'ng-hide')).toBe(false);
+ 
+                        var select_fixture = fixtureGenerator.select_user_fixture({email_address: "new.user@foo.bar"});
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(0);
+                        });
+
+                    });
+                });
+            });
+
+            describe('second step page correct form', function() {
+            
+                beforeEach(function() {
+                    signup_successful_page = new SignUpSuccessful();
+                    ptor.sleep(2000);
+                });
+
+                it('should register user and send email', function() {
+                    signup_step2_page.fillInName("John");
+                    signup_step2_page.fillInSurname("Doe");
+                    signup_step2_page.fillInAddress("Mesa y López 16");
+                    signup_step2_page.fillInCity("Las Palmas de Gran Canaria");
+                    signup_step2_page.fillInPostal("35012");
+                    signup_step2_page.selectCountry();
+                    signup_step2_page.fillInCaptcha("4");
+                    signup_step2_page.checkAcceptTermConditions();
+                    ptor.sleep(6000);
+                    signup_step2_page.clickSignUp().then(function() { ptor.sleep(40000); }).then(function(data) {
+                        //ptor.sleep(40000);
+                        expect(signup_successful_page.isCurrentPage()).toBe(true);
+
+                        var select_fixture = fixtureGenerator.select_user_fixture({email_address: "new.user@foo.bar"});
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(1);
+                            expect(result.rows[0].name).toBe('John');
+                            expect(result.rows[0].surname).toBe('Doe');
+                            expect(result.rows[0].email_address).toBe('new.user@foo.bar');
+                        });
+                    }).then(function() {    
+                        var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: "new.user@foo.bar"});
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(1);
+                        });
+                        return 0;
+
+                    }).then(function() { ptor.sleep(2000); }).then(function() {    
+                        var select_fixture = fixtureGenerator.select_free_subscription_fixture();
+                        loadFixture.executeQuery(select_fixture, conString, function(result) {
+                            expect(result.rowCount).toBe(1);
+                            expect(result.rows[0].free_pack_code).toBe('11');
+                        });
+
+                    });
+                    
+
+                });
+
+            });
+            
+        }); 
 
 
 });

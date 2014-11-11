@@ -21,6 +21,9 @@ Helper.prototype =  Object.create({}, {
     halfSec: {value: function(){
         return 500;
     }},
+    fiveSec: {value: function(){
+        return 5000;
+    }},
     tenSecs: {value: function(){
         return 10000;
     }}
