@@ -16,7 +16,7 @@ Helper.prototype =  Object.create({}, {
         });
     }},
     oneSec:  {value: function(){
-        return 2000;
+        return 1000;
     }},
     halfSec: {value: function(){
         return 500;
