@@ -67,10 +67,11 @@ describe('The catalog controller', function() {
     var $scope, ctrl, state, $http,selectedService, service, stateParams,tabsService,initializedData;
 
     var month = {month: 9, year:2014};
-    var patternFilters = '/patternfilters?indexType=0&productType=0&view=';
+    var patternFilters = '/patternfilters?indexType=0&industry=&productType=0&sector=&view=';
     var patternFilters2 = '/patternfilters?indexType=0&month=11&year=2014&productType=0&view=';
     var filters = '/patternfilters?indexType=0&month=%7B%22month%22:8,%22year%22:2014%7D&productType=NaN&view=';
-    var patterns = '/patternspack?month=%7B%22month%22:8,%22year%22:2014%7D&page=1&year=2014';
+    var patternFilters3= '/patternfilters?indexType=0&industry=&month=%7B%22month%22:8,%22year%22:2014%7D&productType=NaN&sector=&view=';
+    var patterns = '/patternspack?industry=&month=%7B%22month%22:8,%22year%22:2014%7D&page=1&sector=&year=2014';
 
     var response = {selectedRegion: 'region', markets: ['market'], regions: ['region'], industries: ['industry'], sectors:['sector']};
     var response2 = {pack:{ month: 8, productType :'INDICE'}};
@@ -91,10 +92,11 @@ describe('The catalog controller', function() {
         stateParams = $stateParams;
         $http = _$httpBackend_;
         service = SelectedPackService;
-
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
         $http.when('GET', $rootScope.urlService + '/actualdate').respond(200,{data: new Date()});
         $http.when('GET', $rootScope.urlService + patternFilters).respond(200,response);
         $http.when('GET', $rootScope.urlService + patternFilters2).respond(200,response);
+        $http.when('GET', $rootScope.urlService + patternFilters3).respond(200,response);
         $http.when('GET', $rootScope.urlService + filters).respond(200, response);
         $http.when('GET', $rootScope.urlService + patterns).respond(200,response2);
 
@@ -111,6 +113,7 @@ describe('The catalog controller', function() {
     it('should generate the search url', function(){
 
         initializedData.pack ={ productType: 'INDICE',patternType: "SIMPLE"};
+        $http.expectGET('i18n/common/es.json');
         $http.expectGET($scope.urlService + '/actualdate');
         $http.expectGET($scope.urlService + patternFilters);
         $http.expectGET($scope.urlService + patterns);
@@ -164,6 +167,7 @@ describe('The catalog controller', function() {
     it('should be able to load the page', function(){
 
         initializedData = { pack: { 'productType': 'INDICE','patternType': "SIMPLE"}};
+        $http.expectGET('i18n/common/es.json');
         $http.expectGET($scope.urlService + '/actualdate');
         $http.expectGET($scope.urlService + patternFilters);
         $http.expectGET($scope.urlService + patterns);

@@ -9,7 +9,7 @@ AngularJS client for Market Observatory Project
 
 ##Quickstart
 
-Install Node.js latest version and then:
+Install Node.js latest version from http://nodejs.org/ (apt-get version sometimes don't work ok):
 
 ```sh
 $ git clone https://github.com/edosoft/mo-shopclient.git 

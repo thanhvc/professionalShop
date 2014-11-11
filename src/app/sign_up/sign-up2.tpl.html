@@ -1,4 +1,13 @@
 <div class="panel">
+
+    <p class="text-block-title">
+        Datos de Registro
+    </p>
+
+    <p>
+        Introduzca los datos solicitados de identificaci&oacute;n.
+    </p>
+
     <div>
         <form name="formReg" novalidate method="POST" autocomplete="on">
             <div class="sign-up-body-step2" ng-controller="SignupCtrl">
@@ -64,11 +73,10 @@
 
                                 <select class="signup-select" name="country" size="1"
                                         ng-model="user.country" id="country" ng-enter="nextInput('captcha')"
-
                                         ng-options="opt as opt.name for opt in countries"
                                         required="true"
                                         ng-class="{'warning-input': (formReg.country.$error.required && (formReg.country.$dirty || formSubmited))}" >
-                                    <option style="display:none" value="">select a Country</option>
+                                    <option style="display:none" value="">Seleccione un país</option>
 
                                 </select>
 
@@ -78,12 +86,14 @@
 
                         <tr>
                             <td class="red-color-form">*</td>
+                            <td colspan="2">Pregunta de seguridad</td>
+                        </tr>
+                        <tr>
+                            <td class="red-color-form"></td>
                             <td colspan="2">
                                 <div id="bodyCaptcha">
-                                <span>
-                                Pregunta de seguridad:</span>
                                     <img id="captchaImg" src="assets/img/captcha.png/captcha.png" class="captcha-img">
-                                    <input type="text" name="captcha" style="width:65px;" id="captcha" ng-enter="nextInput('conditions')"
+                                    <input type="text" name="captcha" style="width:212px;" id="captcha" ng-enter="nextInput('conditions')"
                                            class="signup-input"
                                            ng-model="user.captcha" required="true" ng-pattern="captchaPattern"
                                            ng-class="{'warning-input': ((formReg.captcha.$error.required &&
@@ -97,7 +107,7 @@
                             <td class="red-color-form">*</td>
                             <td colspan="2">Acepto las
                                 <div id="terms-conditions-link" ng-click="openModalInstance('sign_up/terms-and-conditions');" style="display:inline;">
-                                    <span style="color:#0663D7;cursor:pointer;">condiciones del servicio</span>
+                                    <span style="color:#0663D7;cursor:pointer;">Condiciones de Uso</span>
                                 </div>
                                 <input  type="checkbox" name="conditions" id="conditions" ng-enter="nextInput('submit2')"
                                        style="margin-left:20px !important;" ng-model="user.conditions" required="true">

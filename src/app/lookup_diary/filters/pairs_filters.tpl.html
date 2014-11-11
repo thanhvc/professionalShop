@@ -23,7 +23,7 @@
                     <option value="">- Sector -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
-                        {{item.description}}
+                        {{item.description | sectorName}}
                     </option>
                 </select>
             </td>

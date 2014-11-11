@@ -1,6 +1,8 @@
 /**
  * Created by laura on 6/06/14.
  */
+
+//TODO: rename this module to daily_lookup
 angular.module('ngMo.lookup_diary', [
     'ui.router'
 ])
@@ -29,7 +31,7 @@ angular.module('ngMo.lookup_diary', [
     .run(function run() {
     })
 
-    .controller('LookupDiaryCtrl', function ($scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
+    .controller('LookupDiaryCtrl', function ($filter,$scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
                                              LookupDiaryService, $http, $state, $stateParams, $location,
                                              $modal,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope) {
         $scope.$on('$stateChangeStart', function (event, toState) {
@@ -421,10 +423,17 @@ angular.module('ngMo.lookup_diary', [
             }
             if (data.hasOwnProperty("industries")) {
                 $scope.filterOptions.selectors.industries = data.industries;
+                for (i=0;i<$scope.filterOptions.selectors.industries.length-1;i++) {
+                    $scope.filterOptions.selectors.industries[i].description = $filter('capitalize')( $scope.filterOptions.selectors.industries[i].description);
+                }
                 //$scope.filterOptions.filters.selectedIndustry = "";
             }
             if (data.hasOwnProperty("sectors")) {
                 $scope.filterOptions.selectors.sectors = data.sectors;
+                for (i=0;i<$scope.filterOptions.selectors.sectors.length-1;i++) {
+                    $scope.filterOptions.selectors.sectors[i].description = $filter('capitalize')( $scope.filterOptions.selectors.sectors[i].description);
+                    $scope.filterOptions.selectors.sectors[i].description = $scope.filterOptions.selectors.sectors[i].description.substr(0,$scope.filterOptions.selectors.sectors[i].description.length-7);
+                }
                 //$scope.filterOptions.filters.selectedSector = "";
             }
 

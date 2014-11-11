@@ -88,6 +88,14 @@ angular.module('ngMo.catalog', [
             } else {
                 indexType = 0;
             }
+            sector = "";
+            industry = "";
+            if (typeof filtering.selectedSector !== "undefined" && typeof filtering.selectedSector.id !== "undefined") {
+                sector = filtering.selectedSector.id;
+            }
+            if (typeof filtering.selectedIndustry !== "undefined" && typeof filtering.selectedIndustry.id !== "undefined") {
+                industry = filtering.selectedIndustry.id;
+            }
 
             config = {
                 params: {
@@ -96,8 +104,8 @@ angular.module('ngMo.catalog', [
                     'month': filtering.month,
                     'year': filtering.month.year,
                     'name': filtering.filterName,
-                    'sector': (typeof filtering.selectedSector !== "undefined" ? filtering.selectedSector.id : filtering.selectedSector),
-                    'industry':  (typeof filtering.selectedIndustry !== "undefined" ? filtering.selectedIndustry.id : filtering.selectedIndustry),
+                    'sector': sector,
+                    'industry':  industry,
                     'volatilityInterval': filtering.volatilityInterval,
                     'durationInterval': filtering.durationInterval
                 }
@@ -130,11 +138,18 @@ angular.module('ngMo.catalog', [
             }
 
             view = location.hash.replace("#/","");
-
+            sector = "";
+            industry = "";
+            if (typeof filtering.selectedSector !== "undefined" && typeof filtering.selectedSector.id !== "undefined") {
+                sector = filtering.selectedSector.id;
+            }
+            if (typeof filtering.selectedIndustry !== "undefined" && typeof filtering.selectedIndustry.id !== "undefined") {
+                industry = filtering.selectedIndustry.id;
+            }
             config = {
                 params: {
-                    'sector': (typeof filtering.selectedSector !== "undefined" ? filtering.selectedSector.id : filtering.selectedSector),
-                    'industry':  (typeof filtering.selectedIndustry !== "undefined" ? filtering.selectedIndustry.id : filtering.selectedIndustry),
+                    'sector': sector,
+                    'industry':  industry,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month,
@@ -149,7 +164,7 @@ angular.module('ngMo.catalog', [
             });
         };
     })
-    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService, initializedData, $stateParams, TabsService,ActiveTabService, SelectedPackService, $location) {
+    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService, initializedData, $stateParams, TabsService,ActiveTabService, SelectedPackService, $location,$filter) {
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
         });
@@ -301,6 +316,18 @@ angular.module('ngMo.catalog', [
                 $scope.selectSector();
             }
         });
+        //function that clear the input of sector if is not option selected in a blur event
+        $scope.blurSector = function(){
+            if (typeof $scope.filterOptions.filters.selectedSector.id === "undefined") {
+                $scope.filterOptions.filters.selectedSector = "";
+            }
+        };
+
+        $scope.blurIndustry = function(){
+            if (typeof $scope.filterOptions.filters.selectedIndustry.id === "undefined") {
+                $scope.filterOptions.filters.selectedIndustry = "";
+            }
+        };
 
         $scope.selectIndustry = function () {
             $scope.applyFilters();
@@ -423,10 +450,15 @@ angular.module('ngMo.catalog', [
                 }
                 if (data.hasOwnProperty("sectors")) {
                     $scope.filterOptions.selectors.sectors = data.sectors;
+
+                    for (i=0;i<$scope.filterOptions.selectors.sectors.length;i++) {
+                        $scope.filterOptions.selectors.sectors[i].description = $filter('sectorName')($scope.filterOptions.selectors.sectors[i].description);
+                    }
                     //$scope.filterOptions.filters.selectedSector = "";
                 }
                 if (typeof data.selectedSector != 'undefined') {
-                    $scope.filterOptions.filters.selectedSector = data.selectedSector;
+                    $scope.filterOptions.filters.selectedSector = $filter('sectorName')(data.selectedSector);
+
                 }
             });
         };

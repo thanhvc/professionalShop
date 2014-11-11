@@ -8,7 +8,7 @@
     <p>El modo de uso es como sigue: <span ng-click="show=!show" ng-hide="show" class="toggle-link show-more">Mostrar Más</span></p>
     <div ng-show="show">
         <ul class="public-list-first-level">
-            <li>➢	Use filtros para preseleccionar parámetros de las estrategias como duración, región, etc.</li>
+            <li>Use filtros para preseleccionar parámetros de las estrategias como duración, región, etc.</li>
             <li>Utilice “<span class="blue-text">>></span>” para añadir estrategias a evaluar.</li>
             <li>Use “<span class="blue-text"><<</span>” para eliminar estrategias que no desea evaluar.</li>
             <li>Pulse “Calcular” y analice los Resultados.</li>
@@ -26,7 +26,7 @@
 
 <div style="margin-top: 15px;">
     <tabset>
-        <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+        <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title|translate}}"
              active="ctab.active" disabled="tab.disabled">
             <fieldset ng-disabled="loading || loadingFilters">
             <div class="portfolio-filter-container">

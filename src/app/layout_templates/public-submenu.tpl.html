@@ -70,6 +70,14 @@
             || actualItemSubmenu == 'fundamentals-nav'}">
             Fundamentos
         </a>
+    <li id="professionals-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('services-nav','submenu2','professionals-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="professionals" ng-class="{'item-nav-hover': selectItemSubmenu == 'professionals-nav'
+            || actualItemSubmenu == 'professionals-nav'}">
+            Profesionales
+        </a>
 </ul>
 <ul id="submenu3" class="submenu"
     ng-class="{'display-block': actualSubmenu == 'submenu3' || selectSubmenu == 'submenu3', 'display-none': actualSubmenu != 'submenu3' || selectSubmenu!= 'submenu3'}">

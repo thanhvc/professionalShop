@@ -15,6 +15,7 @@ describe('The week controller', function()  {
 
         $location = _$location_;
         actualDateService = ActualDateService;
+        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + patternFilters).respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + '/weekData').respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
@@ -76,6 +77,7 @@ describe('The selected graphic panel directive', function () {
             $state = _$state_;
             httpMock = $httpBackend;
             var template = $compile("<div selected-graphic-panel></div>")($scope);
+            httpMock.when('GET','i18n/common/es.json').respond(200);
             $scope.$apply();
         }));
 

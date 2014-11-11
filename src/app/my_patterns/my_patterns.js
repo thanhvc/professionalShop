@@ -96,22 +96,22 @@ angular.module('ngMo.my_patterns', [
         /**Tabs services for private zone**/
         var tabs = [
             {
-                title: 'Acciones',
+                title: 'STOCKS',
                 active: activeTab === 0,
                 value: 0
             },
             {
-                title: 'Pares',
+                title: 'PAIRS',
                 active: activeTab === 1,
                 value: 1
             },
             {
-                title: 'Indices',
+                title: 'INDICES',
                 active: activeTab === 2,
                 value: 2
             },
             {
-                title: 'Futuros',
+                title: 'FUTURES',
                 active: activeTab === 3,
                 value: 3
             }
@@ -120,34 +120,34 @@ angular.module('ngMo.my_patterns', [
 
         var portfolioTabs = [
             {
-                title: 'Acciones',
+                title: 'STOCKS',
                 active: activeTab === 0,
                 value: 0
             },
             {
-                title: 'Par Acciones',
+                title: 'PAIRS',
                 active: activeTab === 1,
                 value: 1
             },
             {
-                title: 'Indices',
+                title: 'INDICES',
                 active: activeTab === 2,
                 value: 2
             },
             {
-                title: 'Par Índices',
+                title: 'INDEX_PAIRS',
                 active: activeTab === 3,
                 value: 3
             }
         ];
         var indexTypes = [
             {
-                title: "Indices",
+                title: "INDICES",
                 active: activeIndex === 0,
                 value: 0
             },
             {
-                title: "Pares Indices",
+                title: "INDEX_PAIRS",
                 active: activeIndex === 1,
                 value: 1
 
@@ -236,7 +236,7 @@ angular.module('ngMo.my_patterns', [
         };
 
     })
-    .controller('PatternsCtrl', function PatternsCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope) {
+    .controller('PatternsCtrl', function PatternsCtrl($filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope) {
         $scope.dataLoaded = false;
         $scope.loading = true;//loading patterns
         $scope.loadingFilters = false;
@@ -556,10 +556,19 @@ angular.module('ngMo.my_patterns', [
 
             if (data.hasOwnProperty("industries")) {
                 $scope.filterOptions.selectors.industries = data.industries;
+                for (i=0;i<$scope.filterOptions.selectors.industries.length-1;i++) {
+                    $scope.filterOptions.selectors.industries[i].description = $filter('capitalize')( $scope.filterOptions.selectors.industries[i].description);
+                }
                 //$scope.filterOptions.filters.selectedIndustry = "";
             }
             if (data.hasOwnProperty("sectors")) {
                 $scope.filterOptions.selectors.sectors = data.sectors;
+                //capitalize all sectors, except the last (wihtou classification)
+                for (i=0;i<$scope.filterOptions.selectors.sectors.length-1;i++) {
+                    $scope.filterOptions.selectors.sectors[i].description = $filter('capitalize')( $scope.filterOptions.selectors.sectors[i].description);
+                    $scope.filterOptions.selectors.sectors[i].description = $scope.filterOptions.selectors.sectors[i].description.substr(0,$scope.filterOptions.selectors.sectors[i].description.length-7);
+                }
+
                 //$scope.filterOptions.filters.selectedSector = "";
             }
 
@@ -1112,40 +1121,40 @@ angular.module('ngMo.my_patterns', [
                 var monthString = "";
                 switch (date.month) {
                     case 1:
-                        monthString = "Enero";
+                        monthString = "JANUARY";
                         break;
                     case 2:
-                        monthString = "Febrero";
+                        monthString = "FEBRUARY";
                         break;
                     case 3:
-                        monthString = "Marzo";
+                        monthString = "MARCH";
                         break;
                     case 4:
-                        monthString = "Abril";
+                        monthString = "APRIL";
                         break;
                     case 5:
-                        monthString = "Mayo";
+                        monthString = "MAY";
                         break;
                     case 6:
-                        monthString = "Junio";
+                        monthString = "JUNE";
                         break;
                     case 7:
-                        monthString = "Julio";
+                        monthString = "JULY";
                         break;
                     case 8:
-                        monthString = "Agosto";
+                        monthString = "AUGUST";
                         break;
                     case 9:
-                        monthString = "Septiembre";
+                        monthString = "SEPTEMBER";
                         break;
                     case 10:
-                        monthString = "Octubre";
+                        monthString = "OCTOBER";
                         break;
                     case 11:
-                        monthString = "Noviembre";
+                        monthString = "NOVEMBER";
                         break;
                     case 12:
-                        monthString = "Diciembre";
+                        monthString = "DECEMBER";
                         break;
                     default :
                         monthString = "notFound";

@@ -96,7 +96,7 @@ describe('The signInForm directive', function () {
 
             $scope.removeAllItemsCart = ShoppingCartService.removeAllItemsCart;
             $scope.restartSessionCart = ShoppingCartService.restartSessionCart;
-
+            httpMock.when('GET','i18n/common/es.json').respond(200);
             httpMock.when('GET', $scope.urlService + '/islogged').respond(200);
             httpMock.when('GET', $scope.urlService + '/logout').respond(200);
             httpMock.when('GET', $scope.urlService + patterns).respond(200,{patterns :['pattern1', 'pattern2']});

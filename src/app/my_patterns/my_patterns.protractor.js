@@ -20,6 +20,7 @@ describe('The My Patterns page ', function () {
         helper = new Helper();
         var fixtures = fixtureGenerator.fixture_myPatterns();
         loadFixture.executeQueries(fixtures, conString);
+        ptor.sleep(helper.oneSec());
         // loadFixture.loadMultipleFixture(fixture1, fixture2, conString);
         browser.ignoreSynchronization = true;
 
@@ -30,9 +31,10 @@ describe('The My Patterns page ', function () {
     afterEach(function () {
         var fixtures = fixtureGenerator.remove_fixtures_subscriptions();
         loadFixture.executeQueries(fixtures, conString);
+        ptor.sleep(helper.oneSec());
 
     });
-    it('should be load patterns', function () {
+    xit('should be load patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -47,7 +49,7 @@ describe('The My Patterns page ', function () {
         myPatterns.goToTab(1);
         ptor.sleep(helper.oneSec());
         //pairs
-        myPatterns.getPairName(1,0,0).getText().then(function(data) {
+       myPatterns.getPairName(1,0,0).getText().then(function(data) {
             expect(data).toEqual("Long name Asset Pair 1");
         });
         myPatterns.getPairName(1,0,1).getText().then(function(data) {
@@ -56,10 +58,132 @@ describe('The My Patterns page ', function () {
         ptor.sleep(helper.oneSec());
         expect(myPatterns.getNumberTotalPatterns(1).getText()).toEqual("4");
         expect(myPatterns.getNumberFoundPatterns(1).getText()).toEqual("4");
+        //index
+         myPatterns.goToTab(2);
+        ptor.sleep(helper.oneSec());
+        //pairs
+        myPatterns.getSimpleName(2,0).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Index 1");
+        });
+        myPatterns.getSimpleName(2,1).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Index 2");
+        });
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getNumberTotalPatterns(2).getText()).toEqual("4");
+        expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("4");
+        myPatterns.selectIndexType(1); // to pairs
+        ptor.sleep(helper.oneSec());
+        myPatterns.getPairName(2,0,0).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Pair Index 1");
+        });
+        myPatterns.getPairName(2,0,1).getText().then(function(data) {
+            expect(data).toEqual("Long name Asset Pair Index 1 2");
+        });
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getNumberTotalPatterns(2).getText()).toEqual("4");
+        expect(myPatterns.getNumberFoundPatterns(2).getText()).toEqual("4");
+        myPatterns.goToTab(3);
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
+        ptor.sleep(helper.oneSec());
+        expect(myPatterns.getNumberTotalPatterns(3).getText()).toEqual("2");
+        expect(myPatterns.getNumberFoundPatterns(3).getText()).toEqual("2");
 
     });
 
     it('should be load filters', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        /*TEST FOR SIMPLE FILTERS*/
+        //search by name
+        myPatterns.getNameFilter(0).sendKeys("Long name Asset 1").then(
+            function(data) {
+                myPatterns.getSearchButton(0).click();
+
+                ptor.sleep(helper.oneSec());
+                expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
+            }
+        );
+
+        ptor.sleep(helper.oneSec());
+
+        //clear the name filter
+        myPatterns.getNameFilter(0).clear().then(
+            function(data) {
+                myPatterns.getSearchButton(0).click();
+                ptor.sleep(helper.oneSec());
+                expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("4");
+
+            }
+        );
+
+        ptor.sleep(helper.oneSec());
+        //region selector
+        //select Canada 1st option
+        myPatterns.selectRegion(0,1);
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("2");
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 1");
+        expect(myPatterns.getSimpleName(0,1).getText()).toEqual("Long name Asset 2");
+        //USA
+        myPatterns.selectRegion(0,2);
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("2");
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 3");
+        expect(myPatterns.getSimpleName(0,1).getText()).toEqual("Long name Asset 4");
+        //now we are going to check the exchanges, first selecting a exchange with a unselected region,
+
+        myPatterns.selectRegion(0,0); //unselect Region
+        myPatterns.selectExchange(0,1);//select market-canada 1
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 1");
+        myPatterns.selectExchange(0,2);//select market-canada 2
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 2");
+        //check that the Canada Region is selected (as a reaction for select a canada-exchange)
+        expect(myPatterns.getRegionFilter(0).$('option:checked').getText()).toContain('Canada');
+        //now unselect region, to select exchanges for USA
+        myPatterns.selectRegion(0,0); //unselect Region
+        myPatterns.selectExchange(0,3);//select market-usa 1
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 3");
+        myPatterns.selectExchange(0,2);//select market-usa 2 -> the exchanges list is refreshed, and now have only 2 options
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 4");
+        //check that the Canada Region is selected (as a reaction for select a canada-exchange)
+        expect(myPatterns.getRegionFilter(0).$('option:checked').getText()).toContain('Estados Unidos');
+        //Check sector/industries filters
+        //first, unselect all
+        myPatterns.selectRegion(0,0); //unselect Region
+        //sector and insdustries must be disabled
+        expect(myPatterns.getSectorFilter(0).getAttribute("disabled")).toEqual("true");
+        expect(myPatterns.getIndustryFilter(0).getAttribute("disabled")).toEqual("true");
+        //select Canada and check the options of sectors/industries
+        myPatterns.selectRegion(0,1); //select Region Canada
+        expect(myPatterns.getSectorFilter(0).getAttribute("disabled")).not.toEqual("true");
+        expect(myPatterns.getIndustryFilter(0).getAttribute("disabled")).not.toEqual("true");
+        myPatterns.selectSector(0,1);//select sector1
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 1");
+        myPatterns.selectIndustry(0,1);//select industry
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 1");
+        myPatterns.selectIndustry(0,2);//select industry
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("0");
+        myPatterns.selectSector(0,2);//select sector1
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
+        //select other exchange
+        myPatterns.selectExchange(0,2);
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1"); //check that are loaded 2 patterns
+        //now select a Industry to check if its sector is selected
+        myPatterns.selectIndustry(0,1); //select Industry2
+        expect(myPatterns.getSectorFilter(0).$('option:checked').getText()).toContain("sector2"); //sector 2 is selected by industry2
+        expect(myPatterns.getNumberFoundPatterns(0).getText()).toEqual("1");
+        expect(myPatterns.getSimpleName(0,0).getText()).toEqual("Long name Asset 2"); //the sector 2 and industry2 load the asset2
+
+
+
+
+
 
     });
 

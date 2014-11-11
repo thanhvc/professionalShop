@@ -215,6 +215,22 @@ angular.module('ngMo.services', [
                     selectItemSubmenu: 'fundamentals-nav',
                     moMenuType: 'publicMenu'
                 }
+            })
+            .state('professionals', {
+                url: '/professionals',
+                views: {
+                    "main": {
+                        controller: 'ServicesCtrl',
+                        templateUrl: 'services/professionals/professionals.tpl.html'
+                    }
+                },
+                data: {
+                    pageTitle: 'Profesionales',
+                    selectMenu: 'services-nav',
+                    selectSubmenu: 'submenu2',
+                    selectItemSubmenu: 'professionals-nav',
+                    moMenuType: 'publicMenu'
+                }
             });
 
     })

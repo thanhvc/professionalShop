@@ -29,7 +29,7 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
+    .controller('HistoricCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
                                           MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService, ExpirationYearFromPatternName,UserApplyFilters) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -347,10 +347,17 @@ angular.module('ngMo.historic', [
 
             if (data.hasOwnProperty("industries")) {
                 $scope.filterOptions.selectors.industries = data.industries;
+                for (i=0;i<$scope.filterOptions.selectors.industries.length-1;i++) {
+                    $scope.filterOptions.selectors.industries[i].description = $filter('capitalize')( $scope.filterOptions.selectors.industries[i].description);
+                }
                 //$scope.filterOptions.filters.selectedIndustry = "";
             }
             if (data.hasOwnProperty("sectors")) {
                 $scope.filterOptions.selectors.sectors = data.sectors;
+                for (i=0;i<$scope.filterOptions.selectors.sectors.length-1;i++) {
+                    $scope.filterOptions.selectors.sectors[i].description = $filter('capitalize')( $scope.filterOptions.selectors.sectors[i].description);
+                    $scope.filterOptions.selectors.sectors[i].description = $scope.filterOptions.selectors.sectors[i].description.substr(0,$scope.filterOptions.selectors.sectors[i].description.length-7);
+                }
                 //$scope.filterOptions.filters.selectedSector = "";
             }
 
@@ -870,40 +877,40 @@ angular.module('ngMo.historic', [
                 var monthString = "";
                 switch (date.month) {
                     case 1:
-                        monthString = "Enero";
+                        monthString = "JANUARY";
                         break;
                     case 2:
-                        monthString = "Febrero";
+                        monthString = "FEBRUARY";
                         break;
                     case 3:
-                        monthString = "Marzo";
+                        monthString = "MARCH";
                         break;
                     case 4:
-                        monthString = "Abril";
+                        monthString = "APRIL";
                         break;
                     case 5:
-                        monthString = "Mayo";
+                        monthString = "MAY";
                         break;
                     case 6:
-                        monthString = "Junio";
+                        monthString = "JUNE";
                         break;
                     case 7:
-                        monthString = "Julio";
+                        monthString = "JULY";
                         break;
                     case 8:
-                        monthString = "Agosto";
+                        monthString = "AUGUST";
                         break;
                     case 9:
-                        monthString = "Septiembre";
+                        monthString = "SEPTEMBER";
                         break;
                     case 10:
-                        monthString = "Octubre";
+                        monthString = "OCTOBER";
                         break;
                     case 11:
-                        monthString = "Noviembre";
+                        monthString = "NOVEMBER";
                         break;
                     case 12:
-                        monthString = "Diciembre";
+                        monthString = "DECEMBER";
                         break;
                     default :
                         monthString = "notFound";

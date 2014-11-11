@@ -31,7 +31,9 @@ module.exports = {
         ctpl: [ 'src/common/**/*.tpl.html' ],
 
         html: [ 'src/index.html' ],
-        less: 'src/less/main.less'
+        less: 'src/less/main.less',
+        i18n:'i18n/**'
+
     },
 
     /**
@@ -67,11 +69,13 @@ module.exports = {
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'vendor/angular-ui-router/release/angular-ui-router.js',
             'vendor/angular-ui-utils/modules/route/route.js',
-            'vendor/angular-gettext/dist/angular-gettext.min.js',
             'vendor/angular-cookies/angular-cookies.min.js',
             'vendor/angular-bindonce/bindonce.js',
             'vendor/angular-cookies/angular-cookies.min.js.map',
-            'vendor/autofill-event/src/autofill-event.js'
+            'vendor/autofill-event/src/autofill-event.js',
+            'vendor/angular-translate/angular-translate.min.js',
+            'vendor/angular-translate-loader-partial/angular-translate-loader-partial.min.js',
+            'vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.js'
         ],
         css: [
         ],

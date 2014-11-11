@@ -46,6 +46,7 @@
                 </option>
             </select>-->
             <input type="text" ng-model="filterOptions.filters.selectedSector" placeholder="Elegir Sector"
+                   ng-blur="blurSector();"
                    typeahead="sector as sector.description for sector in filterOptions.selectors.sectors | filter:{description:$viewValue}"
                    typeahead-on-select="selectSector()"
                    class="stocks-catalog-input">
@@ -60,6 +61,7 @@
             </select>-->
 
             <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Elegir Industria"
+                   ng-blur="blurIndustry();"
                    typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
                    typeahead-on-select="selectIndustry()"
                    class="stocks-catalog-input">
@@ -121,7 +123,7 @@
             </td>
             <td class="stock-sector-industry-column-catalog">
                 <div class="long-name-breaker">
-                    <span tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | capitalize}}</span> <span
+                    <span tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | sectorName | capitalize}}</span> <span
                         ng-show="pattern.sector != null && pattern.industry != null && pattern.sector != '' && pattern.industry != ''">/</span>
                     <span tooltip-html-unsafe="{{pattern.industry | capitalize}}" class="cursor-help">{{pattern.industry | capitalize}}</span>
                 </div>

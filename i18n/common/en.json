@@ -1,0 +1,21 @@
+{
+    "STOCKS":"Stocks",
+    "PAIRS":"Pairs",
+    "INDICES":"Indices",
+    "INDEX_PAIRS":"Index Pairs",
+    "FUTURES":"Futures",
+    "INDEX_PAIRS":"Index Pairs",
+    "JANUARY":"January",
+    "FEBRUARY":"February",
+    "MARCH":"March",
+    "APRIL":"April",
+    "MAY":"May",
+    "JUNE":"June",
+    "JULY":"July",
+    "AUGUST":"August",
+    "SEPTEMBER":"September",
+    "OCTOBER":"October",
+    "NOVEMBER":"November",
+    "DECEMBER":"December"
+
+}
