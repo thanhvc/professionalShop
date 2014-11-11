@@ -32,11 +32,13 @@ describe('The Historics page ', function () {
         //with greater than value1 are 4 patterns
         historics.selectDropdownbyNum(elementSelect,1);//greater than  value1
         historics.getSearchButton(tab).click();
+        ptor.sleep(helper.oneSec());
         expect(historics.getNumberFoundPatterns(tab).getText()).toEqual("4");//there is no patterns with accum < value1
         historics.selectDropdownbyNum(elementSelect,2);//less than
         elementInput.clear();
         elementInput.sendKeys(value2);
         historics.getSearchButton(tab).click();
+        ptor.sleep(helper.oneSec());
         expect(historics.getNumberFoundPatterns(tab).getText()).toEqual("1");//there 1 patterns with filter < value2
         if (isPair) {
             expect(historics.getPairName(tab,0,0).getText()).toEqual(name1);
@@ -47,6 +49,7 @@ describe('The Historics page ', function () {
         //greater than value2 -> 3 patterns
         historics.selectDropdownbyNum(elementSelect,1);//greater than
         historics.getSearchButton(tab).click();
+        ptor.sleep(helper.oneSec());
         expect(historics.getNumberFoundPatterns(tab).getText()).toEqual("3");//there 1 patterns with filter < value2
         if (isPair) {
             expect(historics.getPairName(tab,0,0).getText()).toEqual(name2);
@@ -66,6 +69,7 @@ describe('The Historics page ', function () {
         historics.selectDropdownbyNum(elementSelect,2);//less than
         expect(helper.hasClass(elementInput,"ng-invalid")).toBe(true);
         historics.getSearchButton(tab).click(); //search with wrong value, clears the input
+        ptor.sleep(helper.oneSec());
         expect(elementInput.getText()).toEqual("");
         //reset the status of the filter to initial state
         historics.selectDropdownbyNum(elementSelect,0);
@@ -155,9 +159,10 @@ describe('The Historics page ', function () {
 
     });
 
-    xit('should be load filters and use it for filter the actual simple patterns', function () {
+    it('should be load filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
         historics.goToHistorics();
         ptor.sleep(helper.oneSec());
 
@@ -256,7 +261,7 @@ describe('The Historics page ', function () {
         expect(historics.getSimpleName(0,1).getText()).toEqual("Long name Asset 3");
     });
 
-    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
+    it('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -264,22 +269,24 @@ describe('The Historics page ', function () {
         ptor.sleep(helper.fiveSec());
 
         expect(ptor.getCurrentUrl()).toContain('/historic');
-        checkNumericFilter(historics.getLastRentFilter(0),historics.getLastRentInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
+        checkNumericFilter(historics.getLastRentFilter(0),historics.getLastRentInput(0),0,"5","6",
+            "Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(historics.getBestGainFilter(0),historics.getBestGainInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
+        checkNumericFilter(historics.getBestGainFilter(0),historics.getBestGainInput(0),0,"5","6",
+            "Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
 
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(historics.getDurationFilter(0),historics.getDurationInput(0),0,"6","9","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
+        checkNumericFilter(historics.getDurationFilter(0),historics.getDurationInput(0),0,"6","9",
+            "Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(historics.getVolatFilter(0),historics.getVolatInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
-        ptor.sleep(helper.fiveSec());
-        checkNumericFilter(historics.getWorstLossFilter(0),historics.getWorstLossInput(0),0,"5","6","Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
+        checkNumericFilter(historics.getWorstLossFilter(0),historics.getWorstLossInput(0),0,"5","6",
+            "Long name Asset 1","Long name Asset 2","Long name Asset 3","Long name Asset 4",false);
 
     });
     /*
      PAIRS FILTERS
      */
-    xit('should be load and use the filters for pairs',function() {
+    it('should be load and use the filters for pairs',function() {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -354,7 +361,7 @@ describe('The Historics page ', function () {
         expect(historics.getPairName(1,0,0).getText()).toEqual("Long name Asset Pair 2 1"); //the sector 2 and industry2 load the asset2
     });
 
-    xit(' the numeric filters should work with pair patterns',function(){
+    it(' the numeric filters should work with pair patterns',function(){
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -374,15 +381,12 @@ describe('The Historics page ', function () {
         checkNumericFilter(historics.getDurationFilter(1),historics.getDurationInput(1),1,"6","9",
             "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(historics.getVolatFilter(1),historics.getVolatInput(1),1,"5","6",
-            "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
-        ptor.sleep(helper.fiveSec());
         checkNumericFilter(historics.getWorstLossFilter(1),historics.getWorstLossInput(1),1,"5","6",
             "Long name Asset Pair 1 1","Long name Asset Pair 2 1","Long name Asset Pair 3 1","Long name Asset Pair 4 1",true);
 
     });
 
-    xit('should be load filters and use it for filter the actual simple index patterns', function () {
+    it('should be load filters and use it for filter the actual simple index patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -426,7 +430,7 @@ describe('The Historics page ', function () {
         expect(historics.getSimpleName(2,1).getText()).toEqual("Long name Asset Index 3");
     });
 
-    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple index patterns', function () {
+    it('should be load the volat,rent,duration... filters and use it for filter the actual simple index patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -446,9 +450,6 @@ describe('The Historics page ', function () {
         checkNumericFilter(historics.getDurationFilter(2),historics.getDurationInput(2),2,"6","9",
             "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(historics.getVolatFilter(2),historics.getVolatInput(2),2,"5","6",
-            "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
-        ptor.sleep(helper.fiveSec());
         checkNumericFilter(historics.getWorstLossFilter(2),historics.getWorstLossInput(2),2,"5","6",
             "Long name Asset Index 1","Long name Asset Index 2","Long name Asset Index 3","Long name Asset Index 4",false);
 
@@ -457,7 +458,7 @@ describe('The Historics page ', function () {
     /*
      PAIRS INDEX FILTERS
      */
-    xit('should be load and use the filters for index pairs',function() {
+    it('should be load and use the filters for index pairs',function() {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -498,7 +499,7 @@ describe('The Historics page ', function () {
 
     });
 
-    xit(' the numeric filters should work with pair index patterns',function(){
+    it(' the numeric filters should work with pair index patterns',function(){
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
 
@@ -520,15 +521,12 @@ describe('The Historics page ', function () {
         checkNumericFilter(historics.getDurationFilter(2),historics.getDurationInput(2),2,"6","9",
             "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(historics.getVolatFilter(2),historics.getVolatInput(2),2,"5","6",
-            "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
-        ptor.sleep(helper.fiveSec());
         checkNumericFilter(historics.getWorstLossFilter(2),historics.getWorstLossInput(2),2,"5","6",
             "Long name Asset Pair Index 1 1","Long name Asset Pair Index 2 1","Long name Asset Pair Index 3 1","Long name Asset Pair Index 4 1",true);
 
     });
     /*FUTURES*/
-    xit('should be load filters and use it for filter the actual future patterns', function () {
+    it('should be load filters and use it for filter the actual future patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -563,29 +561,20 @@ describe('The Historics page ', function () {
 
         ptor.sleep(helper.oneSec());
         //echange selector
-
-        historics.selectExchange(3,1);
-        expect(historics.getNumberFoundPatterns(3).getText()).toEqual("1");
-        expect(historics.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
-        historics.selectExchange(3,2);
-        expect(historics.getNumberFoundPatterns(3).getText()).toEqual("1");
+        historics.selectOperation(3,1);
+        expect(historics.getNumberFoundPatterns(3).getText()).toEqual("2");
         expect(historics.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 2");
-        historics.selectExchange(3,3);
-        expect(historics.getNumberFoundPatterns(3).getText()).toEqual("1");
-        expect(historics.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 3");
-        historics.selectExchange(3,4);
-        expect(historics.getNumberFoundPatterns(3).getText()).toEqual("1");
-        expect(historics.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 4");
-        historics.selectExchange(3,0);
-        expect(historics.getNumberFoundPatterns(3).getText()).toEqual("4");
+        expect(historics.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 4");
+        historics.selectOperation(3,2);
+        expect(historics.getNumberFoundPatterns(3).getText()).toEqual("2");
         expect(historics.getSimpleName(3,0).getText()).toEqual("Long name Asset Future 1");
-        expect(historics.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 2");
-        expect(historics.getSimpleName(3,2).getText()).toEqual("Long name Asset Future 3");
-        expect(historics.getSimpleName(3,3).getText()).toEqual("Long name Asset Future 4");
+        expect(historics.getSimpleName(3,1).getText()).toEqual("Long name Asset Future 3");
+        historics.selectOperation(3,0);
+        expect(historics.getNumberFoundPatterns(3).getText()).toEqual("4");
 
     });
 
-    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
+    it('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -605,9 +594,7 @@ describe('The Historics page ', function () {
         checkNumericFilter(historics.getDurationFilter(3),historics.getDurationInput(3),3,"6","9",
             "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
         ptor.sleep(helper.fiveSec());
-        checkNumericFilter(historics.getVolatFilter(3),historics.getVolatInput(3),3,"5","6",
-            "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
-        ptor.sleep(helper.fiveSec());
+
         checkNumericFilter(historics.getWorstLossFilter(3),historics.getWorstLossInput(3),3,"5","6",
             "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
 
