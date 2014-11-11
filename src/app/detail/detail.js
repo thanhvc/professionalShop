@@ -58,7 +58,7 @@ angular.module('ngMo.detail', [
             }
         });
     })
-    .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $timeout, $rootScope) {
+    .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $timeout, $rootScope, $translatePartialLoader,$translate) {
         $scope.$on('$stateChangeStart', function () {
             IsLogged.isLogged(true);
         });
@@ -67,35 +67,33 @@ angular.module('ngMo.detail', [
             IsLogged.isLogged(true);
         });
 
+        $translatePartialLoader.addPart("detail");
+        $translate.refresh();
+
         $scope.tabs = TabsService.getTabs();
         $scope.isDisabled = false;
         $scope.productType= null;
+        $scope.patternYear = new Date(detailData.infoPattern.entryDate).getFullYear();
         $scope.obtainActualTab = function () {
 
           switch (detailData.infoPattern.productType){
               case 'STOCK':
-                  $scope.actualTab = "Acciones";
                   if (detailData.infoPattern.indexType === 1){
-                      $scope.productType = "PAIR_STOCK";
+                      $scope.productType = "STOCKS_PAIRS";
                   } else {
-                      $scope.productType = "SIMPLE_STOCK";
+                      $scope.productType = "STOCKS";
                   }
                   break;
               case 'INDICE':
-                  $scope.actualTab = "Indices";
                   if (detailData.infoPattern.indexType === 1){
-                      $scope.productType = "PAIR_INDEX";
+                      $scope.productType = "INDEX_PAIRS";
                   } else {
-                      $scope.productType = "SIMPLE_INDEX";
+                      $scope.productType = "INDICES";
                   }
                   break;
               case 'FUTURE':
-                  $scope.actualTab = "Futuros";
                   $scope.productType = "FUTURE";
                   break;
-          }
-          if (detailData.infoPattern.indexType === 1){
-            $scope.actualTab = "Par "+$scope.actualTab;
           }
         };
 

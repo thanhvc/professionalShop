@@ -1,9 +1,11 @@
 {
     "STOCKS":"Acciones",
+    "STOCKS_PAIRS":"Par Acciones",
     "PAIRS":"Pares",
     "INDICES":"Índices",
+    "INDEX_PAIRS":"Par Índices",
     "FUTURES":"Futuros",
-    "INDEX_PAIRS":"Pares de Índices",
+
 	"JANUARY":"Enero",
 	"FEBRUARY":"Febrero",
 	"MARCH":"Marzo",
@@ -15,5 +17,28 @@
 	"SEPTEMBER":"Septiembre",
 	"OCTOBER":"Octubre",
 	"NOVEMBER":"Noviembre",
-	"DECEMBER":"Diciembre"
+	"DECEMBER":"Diciembre",
+    "SIN CLASIFICAR":"SIN CLASIFICAR",
+    "REGIONS":{
+        "OCEANIA":"Australia + Nueva Zelanda",
+        "CEE":"Suiza + Europa del Este + Rusia",
+        "GBR":"Reino Unido",
+        "CAN":"Canada",
+        "KOR":"Corea",
+        "TWN":"Taiwan",
+        "CHN":"China",
+        "ZAF":"Sudáfrica",
+        "NORDEN":"Paises Nórdicos",
+        "LATAM":"Latino América",
+        "ANSA":"Sudeste Asiático",
+        "GMEI":"Oriente Medio + Magreb",
+        "SOUTHASIA":"India + Pakistan + Sri Lanka",
+        "USA":"Estados Unidos",
+        "HKG-SGP":"Hong Kong + Singapur",
+        "INDEX":"Índices",
+        "JPN":"Japón",
+        "EUR":"EURO Zona",
+        "FUTURE":"Futuros",
+        "FOREX":"Forex"
+    }
 }
