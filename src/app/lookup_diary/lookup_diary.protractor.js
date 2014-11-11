@@ -27,33 +27,7 @@ var LookupWorstLoss = function () {
     }
 };
 
-LookupWorstLoss.prototype = Object.create({}, {
-    selectedMonth: { get: function () {
-        return element(by.binding('filterOptions.filters.month.monthString')).getAttribute('value');
-    }},
-    stocksTableFirstRow: {get: function(){
-        return element.all(by.repeater("data in myData"))
-    }},
-    clickOnAlarm: {value: function(row_idx){
-        element(by.repeater('data in myData').row(row_idx)).element(by.css('.alarm-column-width')).click();
-    }},
-    addAlarm:{value: function(threshold){
-        element(by.model('data.price')).clear().sendKeys(threshold);
-        buttons = element.all(by.css('.mo-button.float-left'));
-        expect(buttons.count()).toEqual(1);
-        buttons.get(0).click()
-    }},
-    removeAlarm:{value: function(){
-        buttons = element.all(by.css('.mo-button.float-right'));
-        expect(buttons.count()).toEqual(2);
-        buttons.get(1).click()
-    }},
-    getAlarmValueByRow : {value: function(row_idx){
-        return element(by.repeater('data in myData').row(row_idx)).element(by.binding('data.priceAlert')).getText();
-    }}
 
-
-});
 
 describe('The Daily Lookup', function () {
         var page;
@@ -63,27 +37,14 @@ describe('The Daily Lookup', function () {
 
         });
 
-        it(' should be able to set a price alert in Stocks', function () {
-            value = 12345;
-            page.clickOnAlarm(0);
-            page.addAlarm(value);
-            ptor.sleep(4000);
-            text = page.getAlarmValueByRow(0);
-            expect(text).toEqual("Mayor que "+value);
-            page.clickOnAlarm(0);
-            page.removeAlarm(0);
-            ptor.sleep(4000);
-            text = page.getAlarmValueByRow(0);
-            expect(text).toEqual("");
-            page.close();
-        });
+
 
 
     }
 );*/
 
 /**
- * Created by laia on 10/06/14.
+ * Created by Roberto on 10/06/14.
  */
 
 
@@ -183,7 +144,7 @@ describe('The Lookup Diary page ', function () {
         ptor.sleep(helper.oneSec());
 
     });
-    it('should be load patterns', function () {
+    xit('should be load patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -240,7 +201,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 
-    it('should be load filters and use it for filter the actual simple patterns', function () {
+    xit('should be load filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         lookupDiary.goToLookupDiary();
@@ -341,7 +302,7 @@ describe('The Lookup Diary page ', function () {
         expect(lookupDiary.getSimpleName(0,1).getText()).toEqual("Long name Asset 3");
     });
 
-    it('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
+    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -364,7 +325,7 @@ describe('The Lookup Diary page ', function () {
     /*
      PAIRS FILTERS
      */
-    it('should be load and use the filters for pairs',function() {
+    xit('should be load and use the filters for pairs',function() {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -439,7 +400,7 @@ describe('The Lookup Diary page ', function () {
         expect(lookupDiary.getPairName(1,0,0).getText()).toEqual("Long name Asset Pair 2 1"); //the sector 2 and industry2 load the asset2
     });
 
-    it(' the numeric filters should work with pair patterns',function(){
+    xit(' the numeric filters should work with pair patterns',function(){
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -467,7 +428,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 
-    it('should be load filters and use it for filter the actual simple index patterns', function () {
+    xit('should be load filters and use it for filter the actual simple index patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -511,7 +472,7 @@ describe('The Lookup Diary page ', function () {
         expect(lookupDiary.getSimpleName(2,1).getText()).toEqual("Long name Asset Index 3");
     });
 
-    it('should be load the volat,rent,duration... filters and use it for filter the actual simple index patterns', function () {
+    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple index patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -542,7 +503,7 @@ describe('The Lookup Diary page ', function () {
     /*
      PAIRS INDEX FILTERS
      */
-    it('should be load and use the filters for index pairs',function() {
+    xit('should be load and use the filters for index pairs',function() {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -583,7 +544,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 
-    it(' the numeric filters should work with pair index patterns',function(){
+    xit(' the numeric filters should work with pair index patterns',function(){
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
 
@@ -613,7 +574,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 /*FUTURES*/
-    it('should be load filters and use it for filter the actual future patterns', function () {
+    xit('should be load filters and use it for filter the actual future patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -670,7 +631,7 @@ describe('The Lookup Diary page ', function () {
 
     });
 
-    it('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
+    xit('should be load the volat,rent,duration... filters and use it for filter the actual simple patterns', function () {
         home.showLoginBox();
         home.login('john.snow@thewall.north', 'phantom');
         ptor.sleep(helper.oneSec());
@@ -696,6 +657,120 @@ describe('The Lookup Diary page ', function () {
         checkNumericFilter(lookupDiary.getWorstLossFilter(3),lookupDiary.getWorstLossInput(3),3,"5","6",
             "Long name Asset Future 1","Long name Asset Future 2","Long name Asset Future 3","Long name Asset Future 4",false);
 
+    });
+
+
+    it(' should be able to set a price alert in Stocks', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        lookupDiary.goToLookupDiary();
+        ptor.sleep(helper.oneSec());
+        var value = "12345";
+        lookupDiary.clickOnAlarm(0,0);
+        lookupDiary.addAlarm(value);
+        ptor.sleep(helper.halfSec());
+        var text = lookupDiary.getAlarmValueByRow(0,0);
+        expect(text).toEqual("Mayor que "+value);
+        lookupDiary.clickOnAlarm(0,0);
+        ptor.sleep(helper.halfSec());
+        lookupDiary.removeAlarm(0);
+        ptor.sleep(helper.halfSec());
+        text = lookupDiary.getAlarmValueByRow(0,0);
+        expect(text).toEqual("");
+    });
+
+    it(' should be able to set a price alert in Pairs', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        lookupDiary.goToLookupDiary();
+        ptor.sleep(helper.oneSec());
+        lookupDiary.goToTab(1);
+        ptor.sleep(helper.oneSec());
+        var value = "12345";
+        lookupDiary.clickOnAlarm(1,0);
+        lookupDiary.addAlarm(value);
+        ptor.sleep(helper.halfSec());
+        var text = lookupDiary.getAlarmValueByRow(1,0);
+        expect(text).toEqual("Mayor que "+value);
+        lookupDiary.clickOnAlarm(1,0);
+        ptor.sleep(helper.halfSec());
+        lookupDiary.removeAlarm(0);
+        ptor.sleep(helper.halfSec());
+        text = lookupDiary.getAlarmValueByRow(1,0);
+        expect(text).toEqual("");
+    });
+
+    it(' should be able to set a price alert in Index', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        lookupDiary.goToLookupDiary();
+        ptor.sleep(helper.oneSec());
+
+        lookupDiary.goToTab(2);
+        ptor.sleep(helper.oneSec());
+        var value = "12345";
+        lookupDiary.clickOnAlarm(2,0);
+        lookupDiary.addAlarm(value);
+        ptor.sleep(helper.halfSec());
+        var text = lookupDiary.getAlarmValueByRow(2,0);
+        expect(text).toEqual("Mayor que "+value);
+        lookupDiary.clickOnAlarm(2,0);
+        ptor.sleep(helper.halfSec());
+        lookupDiary.removeAlarm(0);
+        ptor.sleep(helper.halfSec());
+        text = lookupDiary.getAlarmValueByRow(2,0);
+        expect(text).toEqual("");
+    });
+
+    it(' should be able to set a price alert in Pair Index', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        lookupDiary.goToLookupDiary();
+        ptor.sleep(helper.oneSec());
+
+        lookupDiary.goToTab(2);
+        ptor.sleep(helper.oneSec());
+
+        lookupDiary.selectIndexType(1);
+        var value = "12345";
+        lookupDiary.clickOnAlarm(2,0);
+        lookupDiary.addAlarm(value);
+        ptor.sleep(helper.halfSec());
+        var text = lookupDiary.getAlarmValueByRow(2,0);
+        expect(text).toEqual("Mayor que "+value);
+        lookupDiary.clickOnAlarm(2,0);
+        ptor.sleep(helper.halfSec());
+        lookupDiary.removeAlarm(0);
+        ptor.sleep(helper.halfSec());
+        text = lookupDiary.getAlarmValueByRow(2,0);
+        expect(text).toEqual("");
+    });
+    it(' should be able to set a price alert in Futures', function () {
+        home.showLoginBox();
+        home.login('john.snow@thewall.north', 'phantom');
+        ptor.sleep(helper.oneSec());
+        lookupDiary.goToLookupDiary();
+        ptor.sleep(helper.oneSec());
+
+        lookupDiary.goToTab(3);
+
+        ptor.sleep(helper.oneSec());
+        var value = "12345";
+        lookupDiary.clickOnAlarm(3,0);
+        lookupDiary.addAlarm(value);
+        ptor.sleep(helper.halfSec());
+        var text = lookupDiary.getAlarmValueByRow(3,0);
+        expect(text).toEqual("Mayor que "+value);
+        lookupDiary.clickOnAlarm(3,0);
+        ptor.sleep(helper.halfSec());
+        lookupDiary.removeAlarm(0);
+        ptor.sleep(helper.halfSec());
+        text = lookupDiary.getAlarmValueByRow(3,0);
+        expect(text).toEqual("");
     });
 
 });

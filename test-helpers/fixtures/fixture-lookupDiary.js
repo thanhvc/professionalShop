@@ -20,6 +20,10 @@ exports.remove_fixtures_subscriptions = function(){
     return [
         {
             type: 'remove',
+            table: 'alert'
+        },
+        {
+            type: 'remove',
             table: 'industry'
         },
         {

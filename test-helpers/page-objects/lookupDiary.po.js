@@ -153,8 +153,25 @@ LookupDiary.prototype =  Object.create({}, {
     }},
     getFavFilter:{value:function(tab) {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.favourite"));
+    }},
+    clickOnAlarm: {value: function(tab,row_idx){
+        return this.getContainerTab(tab).element(by.repeater('data in myData').row(row_idx)).element(by.css('.alarm-column-width')).click();
+    }},
+    addAlarm:{value: function(threshold){
+        element(by.model('data.price')).clear().sendKeys(threshold);
+        console.log("added :"+threshold);
+        var buttons = element.all(by.css('.mo-button.float-left'));
+        expect(buttons.count()).toEqual(1);
+        buttons.get(0).click()
+    }},
+    removeAlarm:{value: function(){
+        var buttons = element.all(by.css('.mo-button.float-right'));
+        expect(buttons.count()).toEqual(2);
+        buttons.get(1).click()
+    }},
+    getAlarmValueByRow : {value: function(tab,row_idx){
+        return this.getContainerTab(tab).element(by.repeater('data in myData').row(row_idx)).element(by.binding('data.priceAlert')).getText();
     }}
-
 
 
 
