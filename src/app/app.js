@@ -29,10 +29,11 @@ angular.module('ngMo', [
         'ngMo.detail',
         'ngMo.payment',
         'ngMo.cancel_pack',
-        'ngMo.renew'
+        'ngMo.renew',
+        'tmh.dynamicLocale'
     ])
 
- .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider) {
+ .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
 
         $stateProvider.state('home', {
             url: '/home?activated',
@@ -107,6 +108,8 @@ angular.module('ngMo', [
         });
         $translateProvider.preferredLanguage('es');
         $translateProvider.useCookieStorage();
+
+        tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
     })
 
     .run(function run($rootScope) {
@@ -940,7 +943,7 @@ angular.module('ngMo', [
 
 
     })
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http,$translate,$translatePartialLoader) {
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http,$translate,$translatePartialLoader,tmhDynamicLocale) {
         $translate.refresh();
         $scope.emailRemember = "";
         $scope.mailSent = false;
@@ -1030,6 +1033,7 @@ angular.module('ngMo', [
 
         $scope.changeLanguage = function(lang) {
             $translate.use(lang);
+            tmhDynamicLocale.set(lang);
         };
 
     })
