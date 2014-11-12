@@ -33,7 +33,7 @@ angular.module('ngMo.lookup_diary', [
 
     .controller('LookupDiaryCtrl', function ($filter,$scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
                                              LookupDiaryService, $http, $state, $stateParams, $location,
-                                             $modal,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope) {
+                                             $modal,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope, $translatePartialLoader, $translate) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -44,6 +44,9 @@ angular.module('ngMo.lookup_diary', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+
+        $translatePartialLoader.addPart("followup");
+        $translate.refresh();
 
         //event for keypress in input search name, launch the filters if press enter
         $scope.submitName = function(keyEvent) {

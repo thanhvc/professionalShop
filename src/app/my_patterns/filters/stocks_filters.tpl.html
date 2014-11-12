@@ -12,7 +12,7 @@
                     <option value="">- {{'MY_PATT.region'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.regions | orderBy:['description']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
-                        {{item.description}}
+                        {{'REGIONS.' + item.id | translate}}
                     </option>
                 </select>
             </td>
