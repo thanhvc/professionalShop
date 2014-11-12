@@ -695,6 +695,15 @@ exports.calendar_fixture = function() {
                 bearish_average_loss:null
             }
         },
+        {
+            type: 'insert',
+            table: 'favorite',
+            values: {
+                id: 1,
+                pattern_id: 1,
+                user_id: 1
+            }
+        },
         /*PAIRS*/
         {
             type: 'insert',
@@ -2093,6 +2102,10 @@ exports.calendar_fixture = function() {
 
 exports.remove_calendar_fixture = function(){
     return [
+        {
+            type: 'remove',
+            table: 'favorite'
+        },
         {
             type: 'remove',
             table: 'industry'

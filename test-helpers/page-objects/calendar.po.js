@@ -72,24 +72,45 @@ Calendar.prototype =  Object.create({}, {
         return this.getActiveContainerTab().all(by.repeater("pattern in myData").row(row))
             .all(by.css("td span.bullish-year")).get(column);
     }},
-    getOrderFilter:{value:function(row,column) {
+    getMonthFilter:{value:function() {
+        return this.getActiveContainerTab().element(by.model("filterOptions.filters.selectMonth"));
+    }},
+    selectMonthFilter:{value:function(index) {
+        this.selectDropdownbyNum(this.getMonthFilter(),index,3500);
+    }},
+    getOrderFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.order"));
     }},
     selectOrderFilter:{value:function(filter) {
         var filters_map = { 'entry_date': 0, 'exit_date': 1};
         this.selectDropdownbyNum(this.getOrderFilter(),filters_map[filter],3000);
     }},
-    getRegionFilter:{value:function(row,column) {
+    getRegionFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.selectedRegion"));
     }},
     selectRegionFilter:{value:function(index) {
-        this.selectDropdownbyNum(this.getRegionFilter(),index,3000);
+        this.selectDropdownbyNum(this.getRegionFilter(),index,3500);
     }},
-    getMarketFilter:{value:function(row,column) {
+    getMarketFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.selectedMarket"));
     }},
     selectMarketFilter:{value:function(index) {
-        this.selectDropdownbyNum(this.getMarketFilter(),index,3000);
+        this.selectDropdownbyNum(this.getMarketFilter(),index,3500);
+    }},
+    getOperationFilter:{value:function() {
+        return this.getActiveContainerTab().element(by.model("filterOptions.filters.selectedOperation"));
+    }},
+    selectOperationFilter:{value:function(index) {
+        this.selectDropdownbyNum(this.getOperationFilter(),index,3000);
+    }},
+    getFavouriteFilter:{value:function() {
+        return this.getActiveContainerTab().element(by.model("filterOptions.filters.favourite"));
+    }},
+    fillInDayDateInputFilter:{value:function(value) {
+        this.getActiveContainerTab().element(by.model("filterOptions.filters.dayDateInput")).clear();
+        this.getActiveContainerTab().element(by.model("filterOptions.filters.dayDateInput")).sendKeys(value);
+        this.getActiveContainerTab().element(by.css("div.calendar-filters-container")).click();
+        return value;
     }},
     navTabs : {value: function(){
                         return element.all(by.css("ul.nav.nav-tabs li.ng-isolate-scope"));
