@@ -75,7 +75,10 @@ module.exports = {
             'vendor/autofill-event/src/autofill-event.js',
             'vendor/angular-translate/angular-translate.min.js',
             'vendor/angular-translate-loader-partial/angular-translate-loader-partial.min.js',
+            'vendor/angular-dynamic-locale/tmhDynamicLocale.min.js',
+            'vendor/angular-dynamic-locale/tmhDynamicLocale.min.js.map',
             'vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.js'
+
         ],
         css: [
         ],

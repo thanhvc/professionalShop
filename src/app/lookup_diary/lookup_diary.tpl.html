@@ -58,28 +58,29 @@
                     <div class="loading-div-container">
                         <div ng-include="getTemplateTable()"></div>
                         <div class="loading-div no-patterns-container" ng-show="loading"><img
-                                src="assets/img/ajax-loader.gif"><span>Cargando patrones, por favor espere...</span>
+                                src="assets/img/ajax-loader.gif">
+                            <span>{{'FOLLOW.loading_patters'|translate}}</span>
                         </div>
-                        <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">NO
-                            EXISTEN PATRONES CON ESTAS CONDICIONES
+                        <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">
+                            <span>{{'FOLLOW.no_patterns_with_condition'|translate}}</span>
                         </div>
-                        <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO
-                            EXISTEN PATRONES PARA EL MES SELECCIONADO
+                        <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">
+                            <span>{{'FOLLOW.no_patterns_in_month'|translate}}</span>
                         </div>
 
 
                         <!--footer-->
                         <div class="footer-table-private">
                             <div class="total-patterns">
-                                <span>Número total de patrones:</span>
+                                <span>{{'FOLLOW.total_patterns'|translate}}:</span>
                                 <span>{{results}}</span>
                             </div>
                             <div class="found-patterns">
-                                <span>Patrones encontrados:</span>
+                                <span>{{'FOLLOW.found_patterns'|translate}}:</span>
                                 <span>{{found}}</span>
                             </div>
                             <button style="float:right; position: relative; top: -2px;" class="mo-button"
-                                    ng-click="restoreData()">Mostrar todos
+                                    ng-click="restoreData()">{{'FOLLOW.show_all'|translate}}
                             </button>
                         </div>
                     </div>

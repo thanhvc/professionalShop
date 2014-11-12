@@ -1,10 +1,11 @@
 {
     "STOCKS":"Stocks",
-    "PAIRS":"Pairs",
+    "STOCKS_PAIRS":"Stocks Pairs",
+    "PAIRS":"Stock Pairs",
     "INDICES":"Indices",
     "INDEX_PAIRS":"Index Pairs",
     "FUTURES":"Futures",
-    "INDEX_PAIRS":"Index Pairs",
+
     "JANUARY":"January",
     "FEBRUARY":"February",
     "MARCH":"March",
@@ -16,6 +17,28 @@
     "SEPTEMBER":"September",
     "OCTOBER":"October",
     "NOVEMBER":"November",
-    "DECEMBER":"December"
-
+    "DECEMBER":"December",
+    "SIN CLASIFICAR":"NOT CLASSIFIED",
+    "REGIONS":{
+        "OCEANIA":"Australia + New Zealand",
+        "CEE":"Swiss + Eastern Europe + Russia",
+        "GBR":"United Kingdom",
+        "CAN":"Canada",
+        "KOR":"Korea",
+        "TWN":"Taiwan",
+        "CHN":"China",
+        "ZAF":"South Africa",
+        "NORDEN":"Nordic countries",
+        "LATAM":"Latin America",
+        "ANSA":"Southeast Asia",
+        "GMEI":"Middle East & North Africa",
+        "SOUTHASIA":"Pakistan + India + Sri Lanka",
+        "USA":"United States",
+        "HKG-SGP":"Hong Kong & Singapore",
+        "INDEX":"Indices",
+        "JPN":"Japan",
+        "EUR":"EURO Zone",
+        "FUTURE":"Futures",
+        "FOREX":"Forex"
+    }
 }

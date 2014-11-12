@@ -16,6 +16,7 @@
     "autofill-event": "~1.0.0",
     "angular-translate": "2.4.2",
     "angular-translate-loader-partial": "~2.4.2",
-    "angular-translate-storage-cookie": "~2.4.2"
+    "angular-translate-storage-cookie": "~2.4.2",
+    "angular-dynamic-locale": "0.1.21"
   }
 }

@@ -236,7 +236,7 @@ angular.module('ngMo.my_patterns', [
         };
 
     })
-    .controller('PatternsCtrl', function PatternsCtrl($filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope) {
+    .controller('PatternsCtrl', function PatternsCtrl($filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate) {
         $scope.dataLoaded = false;
         $scope.loading = true;//loading patterns
         $scope.loadingFilters = false;
@@ -249,6 +249,9 @@ angular.module('ngMo.my_patterns', [
             }
 
         };
+        $translatePartialLoader.addPart("my_patterns");
+        $translate.refresh();
+
 
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -362,16 +365,16 @@ angular.module('ngMo.my_patterns', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "MY_PATT.buy"},
+                        {"id": 1, "description": "MY_PATT.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "MY_PATT.bullish"},
+                        {"id": 1, "description": "MY_PATT.bearish"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Mayor que"},
-                        {"id": 0, "description": "Menor que"}
+                        {"id": 1, "description": "MY_PATT.gt"},
+                        {"id": 0, "description": "MY_PATT.lt"}
 
                     ],
 
