@@ -154,16 +154,16 @@ angular.module('ngMo.lookup_diary', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "FOLLOW.buy"},
+                        {"id": 1, "description": "FOLLOW.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "FOLLOW.bullish"},
+                        {"id": 1, "description": "FOLLOW.bearish"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Mayor que"},
-                        {"id": 0, "description": "Menor que"}
+                        {"id": 1, "description": "FOLLOW.gt"},
+                        {"id": 0, "description": "FOLLOW.lt"}
                     ],
 
                     comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value

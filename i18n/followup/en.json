@@ -1,7 +1,7 @@
 {
     "FOLLOW":{
-        "alarms":"Alarmas",
-        "alarm":"Alarma",
+        "alarms":"Alarms",
+        "alarm":"Alarm",
         "bearish":"Bearish",
         "best_rent":"Best Gain",
         "bullish":"Bullish",
@@ -9,6 +9,7 @@
         "choose":"Select",
         "date":"Date",
         "days":"Days",
+        "duration":"Duration",
         "entry":"Entry",
         "exit":"Exit",
         "favorites":"Favorites",
