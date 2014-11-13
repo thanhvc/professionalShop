@@ -8,7 +8,7 @@ var sha512 = require('sha512');
 var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js');
 var Helper = require('../../../test-helpers/helper.js');
-var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js');
+var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-myPatterns.js');
 var MyPatterns = require('../../../test-helpers/page-objects/mypatterns.po.js');
 describe('The My Patterns page ', function () {
 
@@ -94,7 +94,7 @@ describe('The My Patterns page ', function () {
         myPatterns = new MyPatterns();
     });
     afterEach(function () {
-        var fixtures = fixtureGenerator.remove_fixtures_subscriptions();
+        var fixtures = fixtureGenerator.remove_fixtures_myPatterns();
         loadFixture.executeQueries(fixtures, conString);
         ptor.sleep(helper.oneSec());
 
