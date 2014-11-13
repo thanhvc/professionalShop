@@ -125,7 +125,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 headers: {
                     'X-Session-Token': token
                 },
-                data: {token: $stateParams.token,
+                data: {
+                    //token: $stateParams.token,
                         payerId: $stateParams.PayerID
                 }
             };

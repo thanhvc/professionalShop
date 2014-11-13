@@ -69,8 +69,11 @@ angular.module('ngMo.my_subscriptions', [
                 indexType = 0;
             }
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'month': filtering.month.month
                 }
             };
@@ -95,8 +98,11 @@ angular.module('ngMo.my_subscriptions', [
                 indexType = 0;
             }*/
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'token': $window.localStorage.token
+                   // 'token': $window.localStorage.token
                 }
             };
 

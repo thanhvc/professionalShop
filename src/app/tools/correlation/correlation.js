@@ -954,11 +954,14 @@ angular.module('ngMo.correlation', [
             //Operation -> Add or delete Pattern to correlationList
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'patternId': patternId,
                     'add_delete': operation,
                     'page': page,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'correlationList': correlationIdsList,
@@ -1001,9 +1004,12 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'correlationList': correlationIdsList,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
@@ -1037,10 +1043,13 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -1060,9 +1069,12 @@ angular.module('ngMo.correlation', [
             var deferred = $q.defer();
             var data;
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'patternId': patternId
+                    //'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
@@ -1093,9 +1105,12 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'correlationList': correlationIdsList,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
@@ -1129,9 +1144,12 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'correlationList': correlationIdsList,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
