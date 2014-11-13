@@ -250,7 +250,6 @@ angular.module('ngMo.my_patterns', [
 
         };
         $translatePartialLoader.addPart("my_patterns");
-        $translate.refresh();
 
 
         $scope.$on('$stateChangeStart', function (event, toState) {
