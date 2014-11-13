@@ -114,14 +114,18 @@ angular.module('ngMo', [
         $translateProvider.translationNotFoundIndicator("-missing-");
         $translateProvider.preferredLanguage('es');
         $translateProvider.useCookieStorage();
+        $translateProvider.storageKey('lang');
 
         tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
     })
 
-    .run(function run($rootScope,$translate) {
+    .run(function run($rootScope,$translate,$translateCookieStorage) {
        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
        //$rootScope.urlService = 'http://localhost:9000';
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
+            $translate.refresh();
+            $translate.use($translateCookieStorage.get('lang'));
+            console.log("now refresh");
             $translate.refresh();
         });
     })
