@@ -3,7 +3,7 @@
  */
 
 var loadFixture = require('../../../test-helpers/load-fixture.js');
-var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-generator.js');
+var fixtureGenerator = require('../../../test-helpers/fixtures/fixture-subscriptions.js');
 var sha512 = require('sha512');
 var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js');

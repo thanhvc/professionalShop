@@ -1,4 +1,7 @@
 /**
+ * Created by robgon on 11/11/14.
+ */
+/**
  * Created by robgon on 29/10/14.
  */
 'use strict';
@@ -337,7 +340,7 @@ exports.remove_fixtures_subscriptions = function(){
     ];
 };
 
-exports.fixture_myPatterns = function() {
+exports.fixture_subscriptions = function() {
     return [
         {
             type: 'insert',
