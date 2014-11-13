@@ -198,7 +198,7 @@ angular.module('ngMo.home', [
                 {
                     $scope.homeTablePacks2 = [
                         {
-                            title: 'Acciones',
+                            title: 'STOCKS',
                             active: SecondActiveTabService.activeTab() === 0,
                             value: 0,
                             americaContent: $scope.myData.secondTable.STOCK.NALA,
@@ -207,7 +207,7 @@ angular.module('ngMo.home', [
                             url: 'home/tables_packs/second_stock_table.tpl.html'
                         },
                         {
-                            title: 'Pares',
+                            title: 'PAIRS',
                             active: SecondActiveTabService.activeTab() === 1,
                             value: 1,
                             americaContent: $scope.myData.secondTable.STOCKPAIR.NALA,
@@ -216,7 +216,7 @@ angular.module('ngMo.home', [
                             url: 'home/tables_packs/second_pairs_table.tpl.html'
                         },
                         {
-                            title: 'Indices',
+                            title: 'INDICES',
                             active: SecondActiveTabService.activeTab() === 2,
                             value: 2,
                             indicesContent: $scope.myData.secondTable.INDICE.INDEX,
@@ -224,7 +224,7 @@ angular.module('ngMo.home', [
                             url: 'home/tables_packs/second_indices_table.tpl.html'
                         },
                         {
-                            title: 'Futuros',
+                            title: 'FUTURES',
                             active: SecondActiveTabService.activeTab() === 3,
                             value: 3,
                             futuresContent: $scope.myData.secondTable.FUTURE.FUTURE,
