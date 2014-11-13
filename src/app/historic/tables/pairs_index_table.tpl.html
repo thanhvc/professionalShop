@@ -6,59 +6,59 @@
             Id
         </th>
         <th class="border-right-table" style="width: 360px">
-            Descripción
+            {{'HISTORIC.indices'|translate}}
         </th>
         <th class="border-right-table" colspan="2">
-            Entrada
+            {{'HISTORIC.entry'|translate}}
             <img src="assets/img/entryArrow.png">
         </th>
         <th class="border-right-table" colspan="2">
             <img src="assets/img/exitArrow.png">
-            <span>Salida</span>
+            {{'HISTORIC.exit'|translate}}
         </th>
-        <th class="border-right-table">
-            <span tooltip-html-unsafe="Renta Final">Rent.</span>
+        <th  class="border-right-table">
+            <span tooltip-html-unsafe="{{'HISTORIC.last_rent'|translate}}">{{'HISTORIC.rent'|translate}}</span>
         </th>
         <th class="border-right-table"
             colspan="2">
-            Mejor Ganancia
+            {{'HISTORIC.best_rent'|translate}}
         </th>
         <th class="border-right-table"  colspan="2">
-            <span >Peor Pérdida</span>
+            {{'HISTORIC.worst_rent'|translate}}
         </th>
         <th class="sub-border-right-table">
-            <span >Notas</span>
+            {{'HISTORIC.notes'|translate}}
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table" style="width:300px;">
-            Nombre Índice
+        <th class="border-right-table" style="width: 340px;">
+            {{'HISTORIC.name'|translate}}
         </th>
         <th class="sub-border-right-table">
-            Fecha
+            {{'HISTORIC.date'|translate}}
         </th>
         <th class="border-right-table">
-            Precio
+            {{'HISTORIC.price'|translate}}
         </th>
         <th class="sub-border-right-table">
-            Fecha
+            {{'HISTORIC.date'|translate}}
         </th>
         <th class="border-right-table">
-            Precio
+            {{'HISTORIC.price'|translate}}
         </th>
         <th class="border-right-table">
             (%)
         </th>
         <th class="sub-border-right-table">
-            Fecha
+            {{'HISTORIC.date'|translate}}
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table" style="width: 20px">
             (%)
         </th>
         <th class="sub-border-right-table">
-            Fecha
+            {{'HISTORIC.date'|translate}}
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table" style="width: 20px">
             (%)
         </th>
         <th class="sub-border-right-table">
@@ -70,14 +70,14 @@
             {{data.id}}
         </td>
         <td style="text-align: left; width: 230px;" class="table-cell-patterns border-right-table">
-            <span>Alcista</span>
+            <span>{{'HISTORIC.bullish'|translate}}</span>
             <span class="cursor-help buy-color"
                   tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
                  {{data.asset.longName}}
             </span>
             <br/>
             <div class="text-limitator">
-                <span>Bajista</span>
+                <span>{{'HISTORIC.bearish'|translate}}</span>
             <span class="cursor-help sell-color"
                   tooltip-html-unsafe="{{data.bearishAsset.longName}} ({{data.bearishAsset.exchange.symbol}})">
                 {{data.bearishAsset.longName}}
