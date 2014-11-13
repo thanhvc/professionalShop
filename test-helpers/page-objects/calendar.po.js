@@ -57,6 +57,18 @@ Calendar.prototype =  Object.create({}, {
             .all(by.tagName("td")).get(0)
             .all(by.tagName("span")).get(0);
     }},
+    getPairName:{value:function(row,pattern) {
+        var spanPos = "";
+        if (pattern == 0) {
+            spanPos = ".buy-color";
+        } else {
+            spanPos = ".sell-color";
+        }
+        return  this.getActiveContainerTab().all(by.repeater("pattern in myData").row(row))
+            /*.element(by.css(".name-with-sides-column-my-patterns"))*/
+            .all(by.tagName("td")).get(0)
+            .element(by.css(spanPos)); //the span inside the TD are span -- buy/sell and span --name
+    }},
     getPatterns:{value:function(){
         return this.getActiveContainerTab().all(by.repeater("pattern in myData"));
     }},
@@ -71,6 +83,10 @@ Calendar.prototype =  Object.create({}, {
     getPatternDayBullishSlot:{value:function(row,column) {
         return this.getActiveContainerTab().all(by.repeater("pattern in myData").row(row))
             .all(by.css("td span.bullish-year")).get(column);
+    }},
+    getPatternDayPairSlot:{value:function(row,column) {
+        return this.getActiveContainerTab().all(by.repeater("pattern in myData").row(row))
+            .all(by.css("td span.pairs-letter")).get(column);
     }},
     getMonthFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.selectMonth"));

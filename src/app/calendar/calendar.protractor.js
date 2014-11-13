@@ -108,6 +108,7 @@ describe('Calendar for logged in users', function () {
                             expect(calendar_page.getPatternDayBullishSlot(0,4).isDisplayed()).toBe(true);
                             expect(calendar_page.getPatternDayBullishSlot(0,9).isDisplayed()).toBe(true);
                             expect(calendar_page.getPatternDayBullishSlot(0,10).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayBullishSlot(0,29).isDisplayed()).toBe(false);
 
                             //second pattern
                             expect(calendar_page.getSimpleName(1).getText()).toEqual("Long name Asset 3");
@@ -247,6 +248,7 @@ describe('Calendar for logged in users', function () {
                             expect(calendar_page.getPatternDayBullishSlot(0,4).isDisplayed()).toBe(true);
                             expect(calendar_page.getPatternDayBullishSlot(0,9).isDisplayed()).toBe(true);
                             expect(calendar_page.getPatternDayBullishSlot(0,10).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayBullishSlot(0,29).isDisplayed()).toBe(false);
 
                             //second pattern
                             expect(calendar_page.getSimpleName(1).getText()).toEqual("Long name Asset 4");
@@ -255,6 +257,7 @@ describe('Calendar for logged in users', function () {
                             expect(calendar_page.getPatternDayBearishSlot(1,9).isDisplayed()).toBe(true);
                             expect(calendar_page.getPatternDayBearishSlot(1,19).isDisplayed()).toBe(true);
                             expect(calendar_page.getPatternDayBearishSlot(1,20).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayBearishSlot(1,29).isDisplayed()).toBe(false);
                             
                             //third pattern
                             expect(calendar_page.getSimpleName(2).getText()).toEqual("Long name Asset 3");
@@ -489,15 +492,302 @@ describe('Calendar for logged in users', function () {
             describe('Pairs tab',function() {
                 beforeEach(function() {
                     calendar_page.goToTab("pairs");
-                    ptor.sleep(3000);
+                    ptor.sleep(3500);
                 });
 
-                it('should be true',function() {
-                    expect(true).toBe(true);
+                describe('in november 2014', function() {
+                    describe('ordered by entry date', function() {
+                        it('should have 3 ordered patterns',function() {
+                            calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(3); });
+                            calendar_page.getPatternDaySlots(0).then(function(slots) { expect(slots.length).toBe(30); });
+                            //first pattern
+                            expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 1 1");
+                            expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 1 2");
+                            expect(calendar_page.getPatternDayPairSlot(0,0).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(0,8).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(0,14).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(0,15).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayPairSlot(0,29).isDisplayed()).toBe(false);
+
+                            //second pattern
+                            expect(calendar_page.getPairName(1,0).getText()).toEqual("Long name Asset Pair 3 1");
+                            expect(calendar_page.getPairName(1,1).getText()).toEqual("Long name Asset Pair 3 2");
+                            expect(calendar_page.getPatternDayPairSlot(1,3).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayPairSlot(1,4).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(1,19).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(1,29).isDisplayed()).toBe(true);
+                            
+                            //third pattern
+                            expect(calendar_page.getPairName(2,0).getText()).toEqual("Long name Asset Pair 2 1");
+                            expect(calendar_page.getPairName(2,1).getText()).toEqual("Long name Asset Pair 2 2");
+                            expect(calendar_page.getPatternDayPairSlot(2,9).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayPairSlot(2,10).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(2,19).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(2,29).isDisplayed()).toBe(true);
+                        });
+                           
+                        describe('input date filter',function() {
+                            it('should appear 2 patterns filtering by 5th day',function() {
+                                calendar_page.fillInDayDateInputFilter('5');
+                                ptor.sleep(3000);
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(2); });
+                                expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 3 1");
+                                expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 3 2");
+                                expect(calendar_page.getPairName(1,0).getText()).toEqual("Long name Asset Pair 2 1");
+                                expect(calendar_page.getPairName(1,1).getText()).toEqual("Long name Asset Pair 2 2");
+                            });
+
+                            it('should appear 1 pattern filtering by 11th day',function() {
+                                calendar_page.fillInDayDateInputFilter('11');
+                                ptor.sleep(3000);
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(1); });
+                                expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 2 1");
+                                expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 2 2");
+                            });
+
+                            it('should appear 0 patterns filtering by 12th day',function() {
+                                calendar_page.fillInDayDateInputFilter('12');
+                                ptor.sleep(3000);
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(0); });
+                            });
+                        });
+                        
+                        describe('favorite',function() {
+                            beforeEach(function() {
+                                calendar_page.getFavouriteFilter().click();
+                                ptor.sleep(3000);  
+                            });
+
+                            it('should appear my favorite pattern',function() {
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(1); });
+                                expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 3 1");
+                                expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 3 2");
+                            });
+                        });
+                        
+                        describe('filter by region',function() {
+                            describe('Canada', function() {
+                                beforeEach(function() {
+                                    calendar_page.selectRegionFilter(1);
+                                });
+                            
+                                it('should select Canada region patterns', function() {
+                                    calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(2); });
+                                    expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 1 1");
+                                    expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 1 2");
+                                    expect(calendar_page.getPairName(1,0).getText()).toEqual("Long name Asset Pair 2 1");
+                                    expect(calendar_page.getPairName(1,1).getText()).toEqual("Long name Asset Pair 2 2");
+                                });
+                            });
+                       
+                            describe('USA', function() {
+                                beforeEach(function() {
+                                    calendar_page.selectRegionFilter(2);
+                                });
+                            
+                                it('should select USA region patterns', function() {
+                                    calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(1); });
+                                    expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 3 1");
+                                    expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 3 2");
+                                });
+                            });
+                       
+                        });
+                    });
+
+                    describe('ordered by exit date', function() {
+                        beforeEach(function() {
+                            calendar_page.selectOrderFilter("exit_date");
+                            //ptor.sleep(3000);
+                        });
+ 
+                        it('should have 3 ordered patterns',function() {
+                            calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(3); });
+                            calendar_page.getPatternDaySlots(0).then(function(slots) { expect(slots.length).toBe(30); });
+                            
+                            //first pattern
+                            expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 4 1");
+                            expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 4 2");
+                            expect(calendar_page.getPatternDayPairSlot(0,0).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(0,8).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(0,14).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(0,15).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayPairSlot(0,29).isDisplayed()).toBe(false);
+
+                            //second pattern
+                            expect(calendar_page.getPairName(1,0).getText()).toEqual("Long name Asset Pair 1 1");
+                            expect(calendar_page.getPairName(1,1).getText()).toEqual("Long name Asset Pair 1 2");
+                            expect(calendar_page.getPatternDayPairSlot(1,0).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(1,8).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(1,14).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(1,15).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayPairSlot(1,29).isDisplayed()).toBe(false);
+                            
+                            //third pattern
+                            expect(calendar_page.getPairName(2,0).getText()).toEqual("Long name Asset Pair 3 1");
+                            expect(calendar_page.getPairName(2,1).getText()).toEqual("Long name Asset Pair 3 2");
+                            expect(calendar_page.getPatternDayPairSlot(2,3).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayPairSlot(2,4).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(2,19).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(2,29).isDisplayed()).toBe(true);
+                        });
+                           
+                        describe('input date filter',function() {
+                            it('should appear 3 patterns filtering by 15th day',function() {
+                                calendar_page.fillInDayDateInputFilter('15');
+                                ptor.sleep(3000);
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(3); });
+                                expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 4 1");
+                                expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 4 2");
+                                expect(calendar_page.getPairName(1,0).getText()).toEqual("Long name Asset Pair 1 1");
+                                expect(calendar_page.getPairName(1,1).getText()).toEqual("Long name Asset Pair 1 2");
+                                expect(calendar_page.getPairName(2,0).getText()).toEqual("Long name Asset Pair 3 1");
+                                expect(calendar_page.getPairName(2,1).getText()).toEqual("Long name Asset Pair 3 2");
+                            });
+
+                            it('should appear 1 pattern filtering by 16th day',function() {
+                                calendar_page.fillInDayDateInputFilter('16');
+                                ptor.sleep(3000);
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(1); });
+                                expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 3 1");
+                                expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 3 2");
+                            });
+                        });
+                        
+                        describe('favorite',function() {
+                            beforeEach(function() {
+                                calendar_page.getFavouriteFilter().click();
+                                ptor.sleep(3000);  
+                            });
+
+                            it('should appear my favorite pattern',function() {
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(1); });
+                                expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 3 1");
+                                expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 3 2");
+                            });
+                        });
+                        
+                        describe('filter by region',function() {
+                            describe('Canada', function() {
+                                beforeEach(function() {
+                                    calendar_page.selectRegionFilter(1);
+                                });
+                            
+                                it('should select Canada region patterns', function() {
+                                    calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(1); });
+                                    expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 1 1");
+                                    expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 1 2");
+                                });
+                            });
+                       
+                            describe('USA', function() {
+                                beforeEach(function() {
+                                    calendar_page.selectRegionFilter(2);
+                                });
+                            
+                                it('should select USA region patterns', function() {
+                                    calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(2); });
+                                    expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 4 1");
+                                    expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 4 2");
+                                    expect(calendar_page.getPairName(1,0).getText()).toEqual("Long name Asset Pair 3 1");
+                                    expect(calendar_page.getPairName(1,1).getText()).toEqual("Long name Asset Pair 3 2");
+                                });
+                            });
+                       
+                        });
+                    });
                 });
+
+                describe('in december 2014', function() {
+                    beforeEach(function() {
+                        calendar_page.selectMonthFilter(1);
+                    });
+
+                    describe('ordered by entry date', function() {
+                        it('should have 0 patterns',function() {
+                            calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(0); });
+                        });
+                    });
+
+                    describe('ordered by exit date', function() {
+                        beforeEach(function() {
+                            calendar_page.selectOrderFilter("exit_date");
+                            //ptor.sleep(3000);
+                        });
+ 
+                        it('should have 1 ordered pattern',function() {
+                            calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(1); });
+                            calendar_page.getPatternDaySlots(0).then(function(slots) { expect(slots.length).toBe(31); });
+                            
+                            //first pattern
+                            expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 2 1");
+                            expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 2 2");
+                            expect(calendar_page.getPatternDayPairSlot(0,0).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(0,2).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(0,4).isDisplayed()).toBe(true);
+                            expect(calendar_page.getPatternDayPairSlot(0,5).isDisplayed()).toBe(false);
+                            expect(calendar_page.getPatternDayPairSlot(0,30).isDisplayed()).toBe(false);
+
+                        });
+                           
+                        describe('input date filter',function() {
+                            it('should appear 1 pattern filtering by 5th day',function() {
+                                calendar_page.fillInDayDateInputFilter('5');
+                                ptor.sleep(3000);
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(1); });
+                                expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 2 1");
+                                expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 2 2");
+                            });
+
+                            it('should appear 0 patterns filtering by 6th day',function() {
+                                calendar_page.fillInDayDateInputFilter('6');
+                                ptor.sleep(3000);
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(0); });
+                            });
+                        });
+                        
+                        describe('favorite',function() {
+                            beforeEach(function() {
+                                calendar_page.getFavouriteFilter().click();
+                                ptor.sleep(3000);  
+                            });
+
+                            it('should appear no favorite pattern',function() {
+                                calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(0); });
+                            });
+                        });
+                        
+                        describe('filter by region',function() {
+                            describe('Canada', function() {
+                                beforeEach(function() {
+                                    calendar_page.selectRegionFilter(1);
+                                });
+                            
+                                it('should select Canada region patterns', function() {
+                                    calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(1); });
+                                    expect(calendar_page.getPairName(0,0).getText()).toEqual("Long name Asset Pair 2 1");
+                                    expect(calendar_page.getPairName(0,1).getText()).toEqual("Long name Asset Pair 2 2");
+                                });
+                            });
+                       
+                            describe('USA', function() {
+                                beforeEach(function() {
+                                    calendar_page.selectRegionFilter(2);
+                                });
+                            
+                                it('should select USA region patterns', function() {
+                                    calendar_page.getPatterns().then(function(rows) { expect(rows.length).toBe(0); });
+                                });
+                            });
+                       
+                        });
+                    });
+                });
+
+
             });
 
-            describe('Indices tab',function() {
+            xdescribe('Indices tab',function() {
                 beforeEach(function() {
                     calendar_page.goToTab("indices");
                     ptor.sleep(3000);
@@ -508,7 +798,7 @@ describe('Calendar for logged in users', function () {
                 });
             });
 
-            describe('Futures tab',function() {
+            xdescribe('Futures tab',function() {
                 beforeEach(function() {
                     calendar_page.goToTab("futures");
                     ptor.sleep(3000);
