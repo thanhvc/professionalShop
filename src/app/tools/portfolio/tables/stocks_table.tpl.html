@@ -4,11 +4,11 @@
         <thead>
             <tr>
                 <td>Id</td>
-                <td>Nombre</td>
-                <td>Mercado</td>
-                <td>Mes</td>
-                <td><span tooltip="Operación" class="cursor-help">Op.</span></td>
-                <td>Añadir</td>
+                <td>{{'TOOLS.name'|translate}}</td>
+                <td>{{'TOOLS.market'|translate}}</td>
+                <td>{{'TOOLS.month'|translate}}</td>
+                <td><span tooltip="{{'TOOLS.operation'|translate}}" class="cursor-help">{{'TOOLS.operation_short'|translate}}</span></td>
+                <td>{{'TOOLS.add'|translate}}</td>
             </tr>
         </thead>
         <tbody>
@@ -18,8 +18,8 @@
                 <td><span class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span></td>
                 <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
                 <td>
-                    <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patTyp == 'BULLISH'">C</span>
-                    <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patTyp == 'BEARISH'">V</span>
+                    <span  class="cursor-help" tooltip="{{'TOOLS.buy'|translate}}" ng-if="pattern.patTyp == 'BULLISH'">{{'TOOLS.buy_short'|translate}}</span>
+                    <span  class="cursor-help" tooltip="{{'TOOLS.sell'|translate}}" ng-if="pattern.patTyp == 'BEARISH'">{{'TOOLS.sell_short'|translate}}</span>
                 </td>
                 <td class="portfolio-button"><span ng-class="{'disable-arrow': portfolioList.length >= 20 || (!pattern.toUse)}" ng-click="addToPortfolioList(pattern);">>></span></td>
             </tr>
@@ -28,9 +28,9 @@
             <tr>
                 <td colspan="6">
                     <div style="padding-top: 20px;">
-                        <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
-                        <span ng-if="myData.length == 0 && !loading && appliedFilters">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
-                        <span ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</span>
+                        <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>{{'TOOLS.loading_patterns'|translate}}</span></div>
+                        <span ng-if="myData.length == 0 && !loading && appliedFilters">{{'TOOLS.no_patterns_with_condition'|translate}}</span>
+                        <span ng-show="myData.length==0 && !loading && !appliedFilters">{{'TOOLS.no_patterns_in_month'|translate}}</span>
                     </div>
                 </td>
             </tr>
@@ -42,12 +42,12 @@
             <thead>
             <tr>
                 <td>Id</td>
-                <td>Nombre</td>
-                <td>Mercado</td>
-                <td>Mes</td>
-                <td><span class="cursor-help" tooltip="Operación">Op.</span></td>
-                <td><span class="cursor-help" tooltip="Favoritos">Fav.</span></td>
-                <td>Quitar</td>
+                <td>{{'TOOLS.name'|translate}}</td>
+                <td>{{'TOOLS.market'|translate}}</td>
+                <td>{{'TOOLS.month'|translate}}</td>
+                <td><span tooltip="{{'TOOLS.operation'|translate}}" class="cursor-help">{{'TOOLS.operation_short'|translate}}</span></td>
+                <td><span tooltip="{{'TOOLS.favorite_long'|translate}}" class="cursor-help">{{'TOOLS.favorite_short'|translate}}</span></td>
+                <td>{{'TOOLS.remove'|translate}}</td>
             </tr>
             </thead>
             <tbody>
@@ -63,19 +63,20 @@
                     {{pattern.entryDate | date: 'MMM'}}
                 </td>
                 <td>
-                    <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patTyp == 'BULLISH'">C</span>
-                    <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patTyp == 'BEARISH'">V</span>
+                    <span  class="cursor-help" tooltip="{{'TOOLS.buy'|translate}}" ng-if="pattern.patTyp == 'BULLISH'">{{'TOOLS.buy_short'|translate}}</span>
+                    <span  class="cursor-help" tooltip="{{'TOOLS.sell'|translate}}" ng-if="pattern.patTyp == 'BEARISH'">{{'TOOLS.sell_short'|translate}}</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
-                    <div class="current-favourite cursor-pointer" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavoriteFromList(pattern.id);"
+                    <div class="current-favourite cursor-pointer" tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavoriteFromList(pattern.id);"
                          ng-class="{'favourite-added': pattern.fav == true}"></div>
+
                 </td>
                 <td class="portfolio-button"><span ng-click="deleteFromPortfolioList(pattern);"><<</span></td>
             </tr>
             </tbody>
         </table>
         <div style="width: 450px;float:right;">
-            <span class="portfolio-note">Incluya entre 5 y 20 Estrategias</span>
+            <span class="portfolio-note">{{'TOOLS.include_text'|translate}}</span>
         </div>
     </div>
 </div>
