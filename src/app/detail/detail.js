@@ -235,9 +235,13 @@ angular.module('ngMo.detail', [
             var data;
 
             config = {
-                params: {
-                    'token': $window.localStorage.token
+
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
                 }
+                /*params: {
+                    'token': $window.localStorage.token
+                }*/
             };
 
             var result = $http.get($rootScope.urlService + '/detail/'+patternId, config).then(function (response) {

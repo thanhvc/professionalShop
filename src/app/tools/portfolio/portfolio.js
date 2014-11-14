@@ -881,11 +881,14 @@ angular.module('ngMo.portfolio', [
             //Operation -> Add or delete Pattern to portfolioList
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'patternId': patternId,
                     'add_delete': operation,
                     'page': page,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'portfolioList': portfolioIdsList,
@@ -913,9 +916,12 @@ angular.module('ngMo.portfolio', [
             var deferred = $q.defer();
             var data;
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'patternId': patternId
+                    //'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
@@ -946,9 +952,12 @@ angular.module('ngMo.portfolio', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'patternIdList': portfolioIdsList,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
@@ -982,10 +991,13 @@ angular.module('ngMo.portfolio', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,

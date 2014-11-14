@@ -987,9 +987,12 @@ angular.module('ngMo.lookup_diary', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'page': page,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -1027,9 +1030,12 @@ angular.module('ngMo.lookup_diary', [
             var deferred = $q.defer();
             var data;
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'patternId': patternId,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'price': price,
                     'condition': condition
                 }
@@ -1046,9 +1052,12 @@ angular.module('ngMo.lookup_diary', [
             var deferred = $q.defer();
             var data;
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'patternId': patternId
+                   // 'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/deletealert', config).then(function (response) {
@@ -1079,12 +1088,16 @@ angular.module('ngMo.lookup_diary', [
             }
 
             config = {
+
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
