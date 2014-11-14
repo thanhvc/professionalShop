@@ -4,9 +4,9 @@
         <thead>
         <tr>
             <td>Id</td>
-            <td>Nombre</td>
-            <td>Mercado</td>
-            <td>Añadir</td>
+            <td>{{'TOOLS.name'|translate}}</td>
+            <td>{{'TOOLS.market'|translate}}</td>
+            <td>{{'TOOLS.add'|translate}}</td>
         </tr>
         </thead>
         <tbody>
@@ -29,9 +29,9 @@
         <tr>
             <td colspan="4">
                 <div style="padding-top: 20px;">
-                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
-                    <span ng-if="myData.length == 0 && !loading && appliedFilters">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
-                    <span ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</span>
+                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>{{'TOOLS.loading_patterns'|translate}}</span></div>
+                    <span ng-if="myData.length == 0 && !loading && appliedFilters">{{'TOOLS.no_patterns_with_condition'|translate}}</span>
+                    <span ng-show="myData.length==0 && !loading && !appliedFilters">{{'TOOLS.no_patterns_in_month'|translate}}</span>
                 </div>
             </td>
         </tr>
@@ -42,10 +42,10 @@
             <thead>
             <tr>
                 <td>Id</td>
-                <td>Nombre</td>
-                <td>Mercado</td>
-                <td><span tooltip="Favoritos" class="cursor-help">Fav.</span></td>
-                <td>Quitar</td>
+                <td>{{'TOOLS.name'|translate}}</td>
+                <td>{{'TOOLS.market'|translate}}</td>
+                <td><span tooltip="{{'TOOLS.favorite_long'|translate}}" class="cursor-help">{{'TOOLS.favorite_short'|translate}}</span></td>
+                <td>{{'TOOLS.remove'|translate}}</td>
             </tr>
             </thead>
             <tbody>
@@ -62,7 +62,7 @@
                     <span  class="cursor-help" tooltip="{{pattern.exchName2}}">{{pattern.exchSymbol2}}</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
-                    <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(pattern.id);"
+                    <div class="current-favourite" tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(pattern.id);"
                          ng-class="{'favourite-added': pattern.fav == true}"></div>
                 </td>
                 <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern);"><<</span></td>
@@ -70,7 +70,7 @@
             </tbody>
         </table>
         <div style="width: 450px;float:right;">
-            <span class="correlation-note">Lista a Correlar (máx. 10 items)</span>
+            <span class="correlation-note">{{'TOOLS.correlation_list'|translate}}</span>
         </div>
     </div>
 </div>

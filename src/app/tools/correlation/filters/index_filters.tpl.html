@@ -2,33 +2,33 @@
     <table>
         <tr>
             <td>
-                <input class="border-filters input-filter" ng-change="search();" style="width: 112px;" placeholder="Nombre" ng-delay="2000"
+                <input class="border-filters input-filter" ng-change="search();" style="width: 112px;" placeholder="{{'TOOLS.name'|translate}}" ng-delay="2000"
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
                 <select class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectMonth"
                         ng-change="goToMonth()"
-                        ng-options="item.name for item in filterOptions.months"
+                        ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months"
                         >
                 </select>
             </td>
             <td>
                 <select ng-change="selectIndexType()" ng-model="filterOptions.filters.index_type" class="select-filter-correlation select-filter-correlation-operation">
-                    <option value="0">Índices</option>
-                    <option value="1">Par Índices</option>
+                    <option value="0">{{'INDICES'|translate}}</option>
+                    <option value="1">{{'INDEX_PAIRS'|translate}}</option>
                 </select>
             </td>
             <td>
                 <select ng-change="search()" style="width: 100px;" class="border-filters select-filter-correlation"
-                        ng-options="item.description for item in filterOptions.selectors.operationsIndex"
+                        ng-options="item.description | translate for item in filterOptions.selectors.operationsIndex"
                         data-ng-model="filterOptions.filters.selectedOperation">
-                    <option value="">- Operacion -</option>
+                    <option value="">- {{'TOOLS.operation'|translate}} -</option>
                 </select>
             </td>
             <td style="text-align: center;">
                 <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();">
-                <span class="filter-label-select-correlation">Favoritos</span>
+                <span class="filter-label-select-correlation">{{'TOOLS.favorites'|translate}}</span>
             </td>
         </tr>
     </table>

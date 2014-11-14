@@ -30,7 +30,7 @@
 <div style="margin-top: 15px;">
 
     <tabset>
-        <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+        <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title | translate}}"
              active="ctab.active" disabled="tab.disabled">
             <fieldset ng-disabled="loading || loadingFilters">
             <div class="correlation-filter-container">
@@ -53,10 +53,10 @@
                     </div>
                     <div>
                         <button style="width: 120px;margin-left: 165px;margin-right:35px;" class="mo-cancel-button" ng-click="clearCorrelationList();">
-                            Cancelar
+                            {{'TOOLS.cancel'|translate}}
                         </button>
                         <button style="width: 120px;" class="mo-button" ng-click="correlate();">
-                            Calcular
+                            {{'TOOLS.calc'|translate}}
                         </button>
                     </div>
                 </div>
@@ -66,13 +66,13 @@
         </tab>
     </tabset>
     <div class="loading-div-container">
-        <div class="loading-div" ng-show="calculating"><img src="assets/img/ajax-loader.gif"><span>Calculando, por favor espere...</span></div>
+        <div class="loading-div" ng-show="calculating"><img src="assets/img/ajax-loader.gif"><span>{{'TOOLS.calculating'|translate}}</span></div>
 
         <div ng-if="correlationData.length > 0" id="correlation-result-container">
             <table class="table-correlation-result" style="margin-bottom: 30px;">
                 <thead>
                     <tr>
-                        <th colspan="{{correlationData.length}}"><span style="float:left;">COEFICIENTES DE CORRELACIÓN (%) </span> <span style="float:right;">({{lastUpdateDateCorrelation | date: 'dd MMM yyyy'}})</span></th>
+                        <th colspan="{{correlationData.length}}"><span style="float:left;">{{'TOOLS.correlation_result_header'|translate}} </span> <span style="float:right;">({{lastUpdateDateCorrelation | date: 'dd MMM yyyy'}})</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,7 +89,7 @@
             <table class="table-correlation-result" ng-if="filterOptions.filters.active_tab == 1 && pairCorrelationData.length > 2 || (filterOptions.filters.active_tab == 2 && filterOptions.filters.index_type == 1) && pairCorrelationData.length > 2">
                 <thead>
                 <tr>
-                    <th colspan="{{pairCorrelationData.length}}"><span style="float:left;">COEFICIENTES DE CORRELACIÓN PARES (%) </span></th>
+                    <th colspan="{{pairCorrelationData.length}}"><span style="float:left;">{{'TOOLS.correlation_pair_result_header'|translate}} </span></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -116,9 +116,9 @@
                     <thead>
                         <tr>
                             <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
-                            <th>Código</td>
-                            <th>Símbolo</td>
-                            <th>Nombre</td>
+                            <th>{{'TOOLS.code'|translate}}</td>
+                            <th>{{'TOOLS.symbol'|translate}}</td>
+                            <th>{{'TOOLS.name'|translate}}</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,9 +138,9 @@
                     <thead>
                     <tr>
                         <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
-                        <th>Código</td>
-                        <th>Símbolo</td>
-                        <th>Nombre</td>
+                        <th>{{'TOOLS.code'|translate}}</td>
+                        <th>{{'TOOLS.symbol'|translate}}</td>
+                        <th>{{'TOOLS.name'|translate}}</td>
                     </tr>
                     </thead>
                     <tbody>
