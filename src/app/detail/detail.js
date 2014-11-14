@@ -68,7 +68,6 @@ angular.module('ngMo.detail', [
         });
 
         $translatePartialLoader.addPart("detail");
-        $translate.refresh();
 
         $scope.tabs = TabsService.getTabs();
         $scope.isDisabled = false;

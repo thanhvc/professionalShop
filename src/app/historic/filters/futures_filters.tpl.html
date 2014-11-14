@@ -2,26 +2,14 @@
     <table>
         <tr>
             <td>
-                <input ng-keypress="submitName($event)" class="border-filters input-filter" placeholder="Producto" ng-model="filterOptions.filters.filterName">
+                <input ng-keypress="submitName($event)" class="border-filters input-filter" placeholder="{{'HISTORIC.product'|translate}}" ng-model="filterOptions.filters.filterName">
             </td>
-<!--
-            <td>
-                <select ng-change="selectMarket()" class="border-filters select-filter"
-                        data-ng-model="filterOptions.filters.selectedMarket">
-                    <option value="">- Mercado -</option>
-                    <option ng-repeat="item in filterOptions.selectors.markets" value="{{item.id}}"
-                            ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
-                        {{item.description}}
-                    </option>
-                </select>
-            </td>
--->
-            <td>
-                <select ng-change="applyFilters()" style="width: 100px;" class="border-filters select-filter"
-                        ng-options="item.description for item in filterOptions.selectors.operations"
-                        data-ng-model="filterOptions.filters.selectedOperation">
-                    <option value="">- Operacion -</option>
 
+            <td>
+                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
+                        ng-options="item.description|translate for item in filterOptions.selectors.operations"
+                        data-ng-model="filterOptions.filters.selectedOperation">
+                    <option value="">- {{'HISTORIC.operation'|translate}} -</option>
                 </select>
             </td>
         </tr>
@@ -31,12 +19,11 @@
             <tr>
                 <td>
 
-                    <span class="filter-label-select">Renta Final</span><br>
+                    <span class="filter-label-select">{{'HISTORIC.last_rent'|translate}}</span><br>
                     <select class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRent">
-                        <option value="">- Elegir -</option>
-
+                        <option value="">- {{'HISTORIC.choose'|translate}} -</option>
                     </select>
                     <input name="rentInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-class=" {'warning-input':  (rentForm.rentInput.$error.pattern && (rentForm.rentInput.$dirty))}"
@@ -45,12 +32,11 @@
 
                 </td>
                 <td>
-                    <span class="filter-label-select">Mejor Ganancia</span><br>
+                    <span class="filter-label-select">{{'HISTORIC.best_rent'|translate}}</span><br>
                     <select class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedAverage">
-                        <option value="">- Elegir -</option>
-
+                        <option value="">- {{'HISTORIC.choose'|translate}} -</option>
                     </select>
                     <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
@@ -58,42 +44,26 @@
                            data-ng-model="filterOptions.filters.rentAverageInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Peor Pérdida</span><br>
+                    <span class="filter-label-select">{{'HISTORIC.worst_rent'|translate}}</span><br>
                     <select class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
-                        <option value="">- Elegir -</option>
-
+                        <option value="">- {{'HISTORIC.choose'|translate}} -</option>
                     </select>
                     <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.rentDiaryInput.$error.pattern && (rentForm.rentDiaryInput.$dirty))}"
                            data-ng-model="filterOptions.filters.rentDiaryInput">
                 </td>
-                <!--
                 <td>
-                    <span class="filter-label-select">Volatilidad (%)</span><br>
+                    <span class="filter-label-select">{{'HISTORIC.duration'|translate}} ({{'HISTORIC.days'|translate}})</span><br>
                     <select class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
-                            data-ng-model="filterOptions.filters.selectedVolatility">
-                        <option value="">- Elegir -</option>
-
-                    </select>
-                    <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
-                           ng-pattern="daysPattern" ng-trim="false"
-                           ng-class=" {'warning-input':  (rentForm.volatilityInput.$error.pattern && (rentForm.volatilityInput.$dirty))}"
-                           data-ng-model="filterOptions.filters.volatilityInput">
-                </td>
-                -->
-                <td>
-                    <span class="filter-label-select">Duración (Días)</span><br>
-                    <select class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedDuration">
-                        <option value="">- Elegir -</option>
+                        <option value="">- {{'HISTORIC.choose'|translate}} -</option>
 
                     </select>
-                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="días"
+                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="{{'HISTORIC.days'|translate}}"
                            ng-pattern="daysPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
                            data-ng-model="filterOptions.filters.durationInput">
@@ -103,7 +73,7 @@
                         <tr>
                             <td style="text-align: center;">
 
-                                <span class="filter-label-select">Favoritos</span><br>
+                                <span class="filter-label-select">{{'HISTORIC.favorites'|translate}}</span><br>
                                 <input type="checkbox" ng-change="search();"
                                        ng-model="filterOptions.filters.favourite">
                             </td>
@@ -113,7 +83,7 @@
 
                 </td>
                 <td style="vertical-align: bottom; text-align: right; width:165px;">
-                    <button class="mo-button" ng-click="search()">Buscar</button>
+                    <button class="mo-button" ng-click="search()">{{'HISTORIC.search'|translate}}</button>
                 </td>
             </tr>
 

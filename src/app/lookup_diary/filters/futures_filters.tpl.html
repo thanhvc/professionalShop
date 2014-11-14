@@ -2,14 +2,14 @@
     <table class="table-filter-lookup">
         <tr>
             <td>
-                <input ng-keypress="submitName($event)"  class="border-filters input-filter" placeholder="Nombre" ng-model="filterOptions.filters.filterName">
+                <input ng-keypress="submitName($event)"  class="border-filters input-filter" placeholder="{{'FOLLOW.product'|translate}}" ng-model="filterOptions.filters.filterName">
             </td>
 
             <td>
                 <select  ng-change="selectMarket()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedMarket"
                         ng-disabled="filterOptions.selectors.markets.length <= 0">
-                    <option value="">- Mercado -</option>
+                    <option value="">- {{'FOLLOW.market'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets | orderBy:['description']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
                         {{item.description}}
@@ -18,11 +18,10 @@
             </td>
 
             <td>
-                <select  ng-change="applyFilters()" style="width: 100px;" class="border-filters select-filter"
-                        ng-options="item.description for item in filterOptions.selectors.operations"
+                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
+                        ng-options="item.description|translate for item in filterOptions.selectors.operations"
                         data-ng-model="filterOptions.filters.selectedOperation">
-                    <option value="">- Operacion -</option>
-
+                    <option value="">- {{'FOLLOW.operation'|translate}} -</option>
                 </select>
             </td>
             <td></td>
@@ -30,7 +29,7 @@
             <td></td>
 
             <td style="text-align: center; width: 45px;">
-                <span class="filter-label-select">Alarmas</span><br>
+                <span class="filter-label-select">{{'FOLLOW.alarms'|translate}}</span><br>
                 <input class="checkbox-filters" type="checkbox" ng-change="applyFilters();"
                        ng-model="filterOptions.filters.alarm">
             </td>
@@ -41,12 +40,11 @@
             <tr>
                 <td>
 
-                    <span class="filter-label-select">Última rentabilidad</span><br>
-                    <select  class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                    <span class="filter-label-select">{{'FOLLOW.last_rent'|translate}}</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRent">
-                        <option value="">- Elegir -</option>
-
+                        <option value="">- {{'FOLLOW.choose'|translate}} -</option>
                     </select>
                     <input name="rentInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-class=" {'warning-input':  (rentForm.rentInput.$error.pattern && (rentForm.rentInput.$dirty))}"
@@ -55,12 +53,12 @@
 
                 </td>
                 <td>
-                    <span class="filter-label-select">Mejor Ganancia</span><br>
-                    <select  class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                    <span class="filter-label-select">{{'FOLLOW.best_rent'|translate}}</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            style="margin-left: 1px;"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedAverage">
-                        <option value="">- Elegir -</option>
-
+                        <option value="">- {{'FOLLOW.choose'|translate}} -</option>
                     </select>
                     <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
@@ -68,13 +66,11 @@
                            data-ng-model="filterOptions.filters.rentAverageInput">
                 </td>
                 <td>
-                    <span class="filter-label-select" style="margin-left: 5px;">Peor Pérdida</span><br>
-                    <select  class="border-filters select-filter small-select-filter"
-                             style="margin-left: 4px;"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                    <span class="filter-label-select" style="margin-left: 5px;">{{'FOLLOW.worst_rent'|translate}}</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
-                        <option value="">- Elegir -</option>
-
+                        <option value="">- {{'FOLLOW.choose'|translate}} -</option>
                     </select>
                     <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
@@ -82,12 +78,11 @@
                            data-ng-model="filterOptions.filters.rentDiaryInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Volatilidad (%)</span><br>
-                    <select  class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                    <span class="filter-label-select">{{'FOLLOW.volatility_long'|translate}} (%)</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedVolatility">
-                        <option value="">- Elegir -</option>
-
+                        <option value="">- {{'FOLLOW.choose'|translate}} -</option>
                     </select>
                     <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
@@ -95,14 +90,13 @@
                            data-ng-model="filterOptions.filters.volatilityInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Duración (Días)</span><br>
-                    <select  class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                    <span class="filter-label-select">{{'FOLLOW.duration'|translate}} ({{'FOLLOW.days'|translate}})</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedDuration">
-                        <option value="">- Elegir -</option>
-
+                        <option value="">- {{'FOLLOW.choose'|translate}} -</option>
                     </select>
-                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="días"
+                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="{{'FOLLOW.days'|translate}}"
                            ng-pattern="daysPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
                            data-ng-model="filterOptions.filters.durationInput">
@@ -110,13 +104,13 @@
                 <td>
                     <table style="position: relative; left: -15px;">
                         <tr>
-                            <td style="text-align: center;"><span class="filter-label-select">Favoritos</span><br>
+                            <td style="text-align: center;"><span class="filter-label-select">{{'FOLLOW.favorites'|translate}}</span><br>
                                 <input type="checkbox" ng-change="search();"
                                        ng-model="filterOptions.filters.favourite">
                             </td>
 
                             <td style="vertical-align: bottom; text-align: center;">
-                                <button class="mo-button" ng-click="search()">Buscar</button>
+                                <button class="mo-button" ng-click="search()">{{'FOLLOW.search'|translate}}</button>
                             </td>
                         </tr>
                     </table>

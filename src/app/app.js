@@ -106,15 +106,28 @@ angular.module('ngMo', [
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: 'i18n/{part}/{lang}.json'
         });
+        $translateProvider.registerAvailableLanguageKeys(['en', 'de'], {
+            'en_US': 'en',
+            'en_GB': 'en',
+            'es_ES': 'de'
+        });
+        $translateProvider.translationNotFoundIndicator("-missing-");
         $translateProvider.preferredLanguage('es');
         $translateProvider.useCookieStorage();
+        $translateProvider.storageKey('lang');
 
         tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
     })
 
-    .run(function run($rootScope) {
+    .run(function run($rootScope,$translate,$translateCookieStorage) {
        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
        //$rootScope.urlService = 'http://localhost:9000';
+        $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
+            $translate.refresh();
+            $translate.use($translateCookieStorage.get('lang'));
+            console.log("now refresh");
+            $translate.refresh();
+        });
     })
 
     .service('ActiveTabService', function (){
@@ -1032,6 +1045,7 @@ angular.module('ngMo', [
         };
 
         $scope.changeLanguage = function(lang) {
+            $translate.refresh();
             $translate.use(lang);
             tmhDynamicLocale.set(lang);
         };

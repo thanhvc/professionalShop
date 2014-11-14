@@ -6,65 +6,59 @@
             Id
         </th>
         <th class="border-right-table patterns-stocks-column-width">
-              Operación
+            {{'HISTORIC.operation'|translate}}
         </th>
-       <!-- <th class="border-right-table cursor-help">
-            <span tooltip-html-unsafe="Fecha Vencimiento">Vencimto.</span>
-        </th>-->
         <th class="border-right-table" colspan="2">
-            Entrada
+            {{'HISTORIC.entry'|translate}}
             <img src="assets/img/entryArrow.png">
         </th>
         <th class="border-right-table" colspan="2">
             <img src="assets/img/exitArrow.png">
-            <span>Salida</span>
+            {{'HISTORIC.exit'|translate}}
         </th>
-        <th class="border-right-table">
-            <span tooltip-html-unsafe="Renta Final">Renta</span>
+        <th  class="border-right-table">
+            <span tooltip-html-unsafe="{{'HISTORIC.last_rent'|translate}}">{{'HISTORIC.rent'|translate}}</span>
         </th>
         <th class="border-right-table"
             colspan="2">
-            Mejor Ganancia
+            {{'HISTORIC.best_rent'|translate}}
         </th>
         <th class="border-right-table"  colspan="2">
-            <span >Peor Pérdida</span>
+            {{'HISTORIC.worst_rent'|translate}}
         </th>
         <th class="sub-border-right-table">
-            <span>Notas</span>
+            {{'HISTORIC.notes'|translate}}
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
         <th class="border-right-table">
-            Producto
-        </th>
-        <!--<th class="border-right-table">
-
-        </th>-->
-        <th class="sub-border-right-table">
-            Fecha
-        </th>
-        <th class="border-right-table">
-            Precio
+            {{'HISTORIC.product'|translate}}
         </th>
         <th class="sub-border-right-table">
-            Fecha
+            {{'HISTORIC.date'|translate}}
         </th>
         <th class="border-right-table">
-            Precio
+            {{'HISTORIC.price'|translate}}
+        </th>
+        <th class="sub-border-right-table">
+            {{'HISTORIC.date'|translate}}
+        </th>
+        <th class="border-right-table">
+            {{'HISTORIC.price'|translate}}
         </th>
         <th class="border-right-table">
             (%)
         </th>
         <th class="sub-border-right-table">
-            Fecha
+            {{'HISTORIC.date'|translate}}
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table" style="width: 20px">
             (%)
         </th>
         <th class="sub-border-right-table">
-            Fecha
+            {{'HISTORIC.date'|translate}}
         </th>
-        <th class="border-right-table">
+        <th class="border-right-table" style="width: 20px">
             (%)
         </th>
         <th class="sub-border-right-table">
@@ -76,8 +70,8 @@
             {{data.id}}
         </td>
         <td class="table-cell-patterns border-right-table futures-operation-patterns-value">
-            <span ng-show="data.patternType == 'BULLISH'">Alcista</span>
-            <span ng-show="data.patternType == 'BEARISH'">Bajista</span>
+            <span ng-show="data.patternType == 'BULLISH'">{{'HISTORIC.buy'|translate}}</span>
+            <span ng-show="data.patternType == 'BEARISH'">{{'HISTORIC.sell'|translate}}</span>
             <br/>
             <div class="text-limitator">
             <span class="cursor-help futures-market-patterns"

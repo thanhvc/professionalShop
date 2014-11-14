@@ -6,54 +6,56 @@
             Id
         </th>
         <th class="border-right-table description-column-width">
-            Descripción
+            {{'FOLLOW.indices'|translate}}
         </th>
         <th class="border-right-table entry-column-width" colspan="2">
-            Entrada
+            {{'FOLLOW.entry'|translate}}
             <img src="assets/img/entryArrow.png">
         </th>
         <th class="border-right-table exit-column-width exit-column-width">
             <img src="assets/img/exitArrow.png">
-            <span>Salida</span>
+            {{'FOLLOW.exit'|translate}}>
         </th>
         <th class="border-right-table last-column-width" colspan="3">
-            <span>Último</span>
+            <{{'FOLLOW.last'|translate}}
         </th>
         <th class="border-right-table volatility-column-width">
-            <span class="cursor-help" tooltip-html-unsafe="Volatilidad">Vol.</span>
+            <span class="cursor-help" tooltip-html-unsafe="{{'FOLLOW.volatility_long'|translate}}">{{'FOLLOW.volatility_short'|translate}}</span>
         </th>
         <th class="border-right-table best-gain-column-width" colspan="2">
-            Mejor Ganancia
+            {{'FOLLOW.best_rent'|translate}}
         </th>
         <th class="border-right-table worst-loss-column-width" colspan="2">
-            <span>Peor Pérdida</span>
+            {{'FOLLOW.worst_rent'|translate}}
         </th>
         <th class="border-right-table notes-column-width">
-            <span>Notas</span>
+            {{'FOLLOW.notes'|translate}}
         </th>
         <th class="sub-border-right-table alarm-column-width">
-            <span>Alarma</span>
+            {{'FOLLOW.alarm'|translate}}
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table description-column-width"></th>
+        <th class="border-right-table description-column-width">
+            {{'FOLLOW.names'|translate}}
+        </th>
 
         <th class="sub-border-right-table entry-date-column-width">
-            Fecha
+            {{'FOLLOW.date'|translate}}
         </th>
         <th class="border-right-table entry-price-column-width">
-            Precio
+            {{'FOLLOW.price'|translate}}
         </th>
 
         <th class="border-right-table exit-column-width">
-            Fecha
+            {{'FOLLOW.date'|translate}}
         </th>
 
         <th class="sub-border-right-table last-date-column-width">
-            Fecha
+            {{'FOLLOW.date'|translate}}
         </th>
         <th class="sub-border-right-table last-price-column-width">
-            Precio
+            {{'FOLLOW.price'|translate}}
         </th>
         <th class="border-right-table last-percentage-column-width">
             (%)
@@ -64,14 +66,14 @@
         </th>
 
         <th class="sub-border-right-table best-gain-date-column-width">
-            Fecha
+            {{'FOLLOW.date'|translate}}
         </th>
         <th class="border-right-table best-gain-percentage-column-width">
             (%)
         </th>
 
         <th class="sub-border-right-table worst-loss-date-column-width">
-            Fecha
+            {{'FOLLOW.date'|translate}}
         </th>
         <th class="border-right-table worst-loss-percentage-column-width">
             (%)
@@ -79,9 +81,7 @@
 
         <th class="border-right-table notes-column-width"></th>
 
-        <th class="sub-border-right-table alarm-column-width">
-            Precio
-        </th>
+        <th class="sub-border-right-table alarm-column-width"></th>
 
     </tr>
     <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'"  ng-click="goToPairDetail(data.id)" > <!--ui-sref="pairDetail({patternId:data.id})"-->
@@ -91,14 +91,14 @@
 
         <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table description-column-width">
             <div class="text-limitator">
-            <span>Alcista</span>
+            <span>{{'FOLLOW.bullish'|translate}}</span>
             <span class="cursor-help buy-color"
                   tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
                  {{data.name}}
             </span>
             </div>
             <div class="text-limitator">
-                <span>Bajista</span>
+                <span>{{'FOLLOW.bearish'|translate}}</span>
                 <span class="cursor-help sell-color"
                   tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
                 {{data.name2}}
@@ -156,8 +156,8 @@
         <td class="table-cell-patterns sub-border-right-table ng-binding alarm-column-width">
             <div ng-click="open(data.id, data.name, data.name2, null, data.priceAlert, data.conditionAlert, data.lastPerformance);$event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
                 <div style="margin-top: 10px;">
-                    <span ng-show="data.conditionAlert == 'GREATER_THAN' &&  data.priceAlert != null">Mayor que</span>
-                    <span ng-show="data.conditionAlert == 'LESS_THAN' &&  data.priceAlert != null">Menor que</span>
+                    <span ng-show="data.conditionAlert == 'GREATER_THAN' &&  data.priceAlert != null">{{'FOLLOW.gt'|translate}}</span>
+                    <span ng-show="data.conditionAlert == 'LESS_THAN' &&  data.priceAlert != null">{{'FOLLOW.lt'|translate}}</span>
                     {{data.priceAlert}}
                 </div>
             </div>
