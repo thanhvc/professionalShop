@@ -96,10 +96,13 @@
                             </div>
                             <div class="text-limitator">
                                 <!--span>{{'TOOLS.sell'|translate}}</span-->
-                                <span class="sell-color cursor-help" tooltip-html-unsafe="{{row.bearishAssetName}} ({{row.marketSymbol}})">{{row.bearishAssetName | limitTo: 30}}</span>
+                                <span class="sell-color cursor-help" tooltip-html-unsafe="{{row.bearishAssetName}} ({{row.marketSymbol2}})">{{row.bearishAssetName | limitTo: 30}}</span>
                             </div>
                         </td>
-                        <td><span tooltip-html-unsafe="{{row.marketName}}" class="cursor-help">{{row.marketSymbol}}</span></td>
+                        <td><span tooltip-html-unsafe="{{row.marketName}}" class="cursor-help">{{row.marketSymbol}}</span><br>
+                            <span ng-if="row.marketName2 != null" tooltip-html-unsafe="{{row.marketName2}}" class="cursor-help">{{row.marketSymbol2}}</span>
+                        </td>
+
                         <td>{{row.entryDate | date: 'MMM yy'}}</td>
                         <td>
                             <span ng-show="(row.length <31)">{{'TOOLS.duration_short'|translate}}</span>
