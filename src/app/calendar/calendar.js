@@ -593,9 +593,12 @@ angular.module('ngMo.calendar', [
             }
 
             config = {
+                headers: {
+                'X-Session-Token': $window.localStorage.token
+            },
                 params: {
                     'page': page,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'order': parseInt(filtering.order, 10),
@@ -635,12 +638,15 @@ angular.module('ngMo.calendar', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -659,9 +665,12 @@ angular.module('ngMo.calendar', [
         this.getLastDayOfMonth = function (month, callbackFunc) {
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'month': month,
-                    'token': $window.localStorage.token
+                    'month': month
+                  //  'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/lastdaymonth', config).success(function (data) {

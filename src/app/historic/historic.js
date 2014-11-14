@@ -796,9 +796,12 @@ angular.module('ngMo.historic', [
                 indexType = 0;
             }
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'page': page,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -850,12 +853,15 @@ angular.module('ngMo.historic', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,

@@ -888,9 +888,13 @@ angular.module('ngMo.volatility', [
             var deferred = $q.defer();
             var data;
             config = {
+
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'patternId': patternId
+                    //'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/favoriteasset', config).then(function (response) {
@@ -914,9 +918,12 @@ angular.module('ngMo.volatility', [
                 indexType = 0;
             }
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'page': page,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -969,12 +976,15 @@ angular.module('ngMo.volatility', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
