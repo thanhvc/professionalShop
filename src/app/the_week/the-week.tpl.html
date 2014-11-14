@@ -30,17 +30,21 @@
 </div>
 
 <div class="the-week-header">
-    {{days[0]}} {{month}} / {{days[4]}} {{month}}. Año {{year}} (semana {{weekOfYear}})
+    {{days[0]}} {{month|translate}} / {{days[4]}} {{month|translate}}. {{"WEEK.year"|translate}} {{year}} ({{"WEEK.week"|translate}} {{weekOfYear}})
 </div>
 
 <tabset>
-    <tab ng-click="onClickTab(the_week_table.value)" ng-repeat="the_week_table in the_week_tables" heading="{{the_week_table.title}}" active="tab.active" disabled="tab.disabled">
-        <div class="loading-div-container">  <div class="loading-div  loading-week" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>Cargando, por favor espere...</span></div>
-
-        <div ng-include="the_week_table.url"></div>
+    <tab ng-click="onClickTab(the_week_table.value)" ng-repeat="the_week_table in the_week_tables" heading="{{the_week_table.title|translate}}" active="tab.active" disabled="tab.disabled">
+        <div class="loading-div-container">
+            <div class="loading-div  loading-week" ng-show="loading">
+                <img src="assets/img/ajax-loader.gif" class="loading-gif">
+                <span>{{'WEEK.loading' | translate}}</span>
             </div>
+
+            <div ng-include="the_week_table.url"></div>
+        </div>
         <div ng-show="empty && !loading" class="loading-div  loading-week">
-            LA SEMANA ESTÁ PENDIENTE DE CALCULAR.
+           {{'WEEK.no_calculated' | translate}}
         </div>
     </tab>
 </tabset>

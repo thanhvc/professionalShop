@@ -1248,7 +1248,9 @@ angular.module('ngMo.my_patterns', [
                     monthList.push({
                         id: i,
                         value: d_act.value,
-                        name: d_act.monthString + " " + d_act.year
+                        name: d_act.monthString + " " + d_act.year,
+                        month: d_act.monthString,
+                        year: d_act.year
                     });
 
                     d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
