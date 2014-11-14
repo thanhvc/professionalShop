@@ -30,7 +30,7 @@ angular.module('ngMo.volatility', [
         });
     })
 
-    .controller('VolatilityCtrl', function VolatilityCtrl($scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,  SelectedMonthService, UserApplyFilters) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,  SelectedMonthService, UserApplyFilters, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -40,6 +40,7 @@ angular.module('ngMo.volatility', [
             }
             IsLogged.isLogged(true);
         });
+        $translatePartialLoader.addPart("tools");
         $scope.loading = true;
         $scope.loadingFilters = false;
         //this shows if the user is filtering by volat filter, this is used to control the selector and the input of volat filter
@@ -251,16 +252,16 @@ angular.module('ngMo.volatility', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "TOOLS.buy"},
+                        {"id": 1, "description": "TOOLS.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "TOOLS.bullish"},
+                        {"id": 1, "description": "TOOLS.bearish"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Mayor que"},
-                        {"id": 0, "description": "Menor que"}
+                        {"id": 1, "description": "TOOLS.gt"},
+                        {"id": 0, "description": "TOOLS.lt"}
 
                     ],
 
