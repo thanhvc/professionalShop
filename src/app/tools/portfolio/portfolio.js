@@ -25,7 +25,7 @@ angular.module('ngMo.portfolio', [
     })
 
     .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
-                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters, AnchorLinkService) {
+                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters, AnchorLinkService, $translatePartialLoader) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
@@ -33,6 +33,7 @@ angular.module('ngMo.portfolio', [
             }
             IsLogged.isLogged(true);
         });
+        $translatePartialLoader.addPart("tools");
         $scope.moving = false; //moving between tables
         $scope.startLoading = function() {
 
@@ -142,12 +143,12 @@ angular.module('ngMo.portfolio', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "TOOLS.buy"},
+                        {"id": 1, "description": "TOOLS.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "TOOLS.bullish"},
+                        {"id": 1, "description": "TOOLS.bearish"}
                     ],
                     comparators: [
                         {"id": 1, "description": "Mayor que"},
