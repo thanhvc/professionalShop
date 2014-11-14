@@ -1075,7 +1075,7 @@ angular.module('ngMo.correlation', [
                 callbackFunc(data);
             }).
                 error(function(data) {
-                    callbackFunc(data);
+                   // callbackFunc(data);
                 });
         };
 

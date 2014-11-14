@@ -908,7 +908,7 @@ angular.module('ngMo.portfolio', [
                 callbackFunc(data);
             }).
                 error(function(data) {
-                    callbackFunc(data);
+                    //callbackFunc(data);
                 });
         };
 
