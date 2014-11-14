@@ -1,0 +1,28 @@
+{
+    "SUBSCRIPTIONS":{
+        "pack":"Pack",
+        "start":"Inicio",
+        "end":"Fin",
+        "order":"Orden",
+        "choose":"Elegir",
+        "renovate":"Renovar",
+        "cancel":"Cancelar",
+        "region":"Región",
+        "markets":"Mercados",
+        "select":"Seleccionar",
+        "type":"Tipo",
+        "month_1":"Mensual",
+        "month_3":"Trimestral",
+        "month_12":"Anual",
+        "class":"Clase",
+        "types":"Alcance",
+        "groups":"Grupos",
+        "subscription_loading":"Cargando suscripciones, por favor espere...",
+        "america":"AMERICA",
+        "asia":"ASIA",
+        "pacific":"PACÍFICO",
+        "europe":"EUROPA",
+        "africa":"ÁFRICA",
+        "middle_east":"ORIENTE MEDIO"
+    }
+}

@@ -6,10 +6,10 @@
         </td>
     </tr>
     <tr class="subheader-my-packs-table">
-        <td>Pack</td>
-        <td>Inicio</td>
-        <td>Fin</td>
-        <td>Orden</td>
+        <td>{{'SUBSCRIPTIONS.pack'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.start'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.end'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.order'|translate}}</td>
     </tr>
     </thead>
     <tbody>
@@ -19,9 +19,9 @@
             <td>{{pack.endDate | date: 'MMMM yyyy'}}</td>
             <td>
                 <select ng-model="pack.orden" ng-change="selectOption(pack)" ng-disabled="pack.cancelled || (!pack.canRenew && !pack.refund)" class="selector-my-packs">
-                    <option value="">Elegir</option>
-                    <option ng-if="pack.canRenew" value="0">Renovar</option>
-                    <option ng-if="pack.refund"  value="1">Cancelar</option>
+                    <option value="">{{'SUBSCRIPTIONS.choose'|translate}}</option>
+                    <option ng-if="pack.canRenew" value="0">{{'SUBSCRIPTIONS.renovate'|translate}}</option>
+                    <option ng-if="pack.refund"  value="1">{{'SUBSCRIPTIONS.cancel'|translate}}</option>
                 </select>
             </td>
         </tr>
