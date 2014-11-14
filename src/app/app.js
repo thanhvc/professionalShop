@@ -123,10 +123,9 @@ angular.module('ngMo', [
        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
        //$rootScope.urlService = 'http://localhost:9000';
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
-            $translate.refresh();
             $translate.use($translateCookieStorage.get('lang'));
-            console.log("now refresh");
             $translate.refresh();
+
         });
     })
 
@@ -957,7 +956,6 @@ angular.module('ngMo', [
 
     })
     .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http,$translate,$translatePartialLoader,tmhDynamicLocale) {
-        $translate.refresh();
         $scope.emailRemember = "";
         $scope.mailSent = false;
         $scope.rememberPassword = function () {
