@@ -1,0 +1,40 @@
+{
+    "CALENDAR":{
+        "accept":"Accept",
+        "bearish":"Bearish",
+        "bullish":"Bullish",
+        "buy":"Buy",
+        "cancel":"Cancel",
+        "day":"Day",
+        "favorites":"Favorites",
+        "index":"Index",
+        "indices":"Indices",
+        "loading_patterns":"Loading calendar, please wait...",
+        "market":"Market",
+        "name":"Name",
+        "names":"Names",
+        "no_patterns_in_month":"THERE IS NOT PATTERNS IN SELECTED MONTH",
+        "no_patterns_with_condition":"THERE IS NOT PATTERNS WITH THIS CONDITIONS",
+        "operation":"Transaction",
+        "product":"Product",
+        "region":"Region",
+        "sell":"Sell",
+        "stock":"Stock",
+        "stock_pair":"Stock Pair",
+        "sort_entry":"Sort by Entry Date",
+        "sort_exit":"Sort by Departure Date",
+        "send_mail":"Calendar - PDF Email Request",
+        "select_region":"Select a region",
+        "select_region_2":"You must select a region",
+        "sended_mail":"We've sent an email with the document requested.",
+        "DAYS":{
+            "Lu":"Mo",
+            "Ma":"Tu",
+            "Mi":"We",
+            "Ju":"Th",
+            "Vi":"Fr",
+            "Sa":"Sa",
+            "Do":"Su"
+        }
+    }
+}

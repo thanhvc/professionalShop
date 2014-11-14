@@ -1,26 +1,29 @@
 <div class="calendar-filters-container">
-    <select data-ng-model="filterOptions.filters.selectMonth" class="filter-calendar"  ng-change="goToMonth()" ng-options="item.name for item in filterOptions.months">
+    <select data-ng-model="filterOptions.filters.selectMonth" class="filter-calendar"  ng-change="goToMonth()"
+            ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months">
     </select>
     <select data-ng-model="filterOptions.filters.selectedRegion" class="filter-calendar"  ng-change="selectRegion();" ng-disabled="filterOptions.selectors.regions.length <= 0">
-        <option selected value="">- Región -</option>
-        <option ng-repeat="region in filterOptions.selectors.regions | orderBy:['description']" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">{{region.description}}</option>
+        <option selected value="">- {{'CALENDAR.region'|translate}} -</option>
+        <option ng-repeat="region in filterOptions.selectors.regions | orderBy:['description']" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">
+            {{('REGIONS.' + region.id) | translate}}
+        </option>
     </select>
-    <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search()"><label>Favoritos</label>
-    <input type="text" placeholder="Día" ng-change="search()" data-ng-model="filterOptions.filters.dayDateInput" ng-delay="3000">
+    <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search()"><label>{{'CALENDAR.favorites'|translate}}</label>
+    <input type="text" placeholder="{{'CALENDAR.day'|translate}}" ng-change="search()" data-ng-model="filterOptions.filters.dayDateInput" ng-delay="3000">
     <select data-ng-model="filterOptions.filters.order" class="select-order filter-calendar" ng-change="search()" ng-delay="3000">
-        <option selected="selected" value="0">Ordenar por Fecha Entrada</option>
-        <option value="1">Ordenar por Fecha Salida</option>
+        <option selected value="0">{{'CALENDAR.sort_entry'|translate}}</option>
+        <option value="1">{{'CALENDAR.sort_exit'|translate}}</option>
     </select>
 </div>
-<div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>Cargando calendario, por favor espere...</span></div>
-<div class="no-patterns-container" ng-if="myData.length == 0 && !loading && appliedFilters"><span >NO EXISTEN PATRONES CON ESTAS CONDICIONES</span></div>
-<div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
+<div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>{{'CALENDAR.loading_patterns'|translate}}</span></div>
+<div class="no-patterns-container" ng-if="myData.length == 0 && !loading && appliedFilters"><span >{{'CALENDAR.no_patterns_with_condition'|translate}}</span></div>
+<div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">{{'CALENDAR.no_patterns_in_month'|translate}}</div>
 <div ng-show="myData.length >0">
 <table class="calendar-table">
     <thead>
     <tr>
-        <th>Par</th>
-        <th ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">{{day.dayOfWeek}}<br/>{{day.dayOfMonth}}</th>
+        <th>{{'CALENDAR.names'|translate}}</th>
+        <th ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">{{('CALENDAR.DAYS.'+day.dayOfWeek)|translate}}<br/>{{day.dayOfMonth}}</th>
     </tr>
     </thead>
     <tbody>
