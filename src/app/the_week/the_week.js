@@ -285,7 +285,7 @@ angular.module('ngMo.the_week', [
                 "<br/>"+
                 "<span>Rentabilidad Diaria Acumulada (%)</span>"+
                 "<br/>"+
-                "<img class=\"selected-graphic-image\" src=\"{{selectedGraphic.url}}\"/>"+
+                "<img class=\"selected-graphic-image\" ng-src=\"{{selectedGraphic.url}}\"/>"+
                 "</div>"
         };
     })
