@@ -1045,6 +1045,7 @@ angular.module('ngMo', [
         $scope.changeLanguage = function(lang) {
             $translate.refresh();
             $translate.use(lang);
+            $translate.refresh();
             tmhDynamicLocale.set(lang);
         };
 
