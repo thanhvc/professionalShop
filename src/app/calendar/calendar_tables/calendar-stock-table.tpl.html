@@ -1,36 +1,38 @@
 <div class="calendar-filters-container">
 
     <select data-ng-model="filterOptions.filters.selectMonth" class="filter-calendar"  ng-change="goToMonth()"
-            ng-options="item.name for item in filterOptions.months">
+            ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months">
     </select>
     <select data-ng-model="filterOptions.filters.selectedRegion" class="filter-calendar" ng-change="selectRegion();" ng-disabled="filterOptions.selectors.regions.length <= 0">
-        <option selected value="">- Región -</option>
-        <option ng-repeat="region in filterOptions.selectors.regions | orderBy:['description']" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">{{region.description}}</option>
+        <option selected value="">- {{'CALENDAR.region'|translate}} -</option>
+        <option ng-repeat="region in filterOptions.selectors.regions | orderBy:['description']" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">
+            {{('REGIONS.' + region.id) | translate}}
+        </option>
     </select>
     <select data-ng-model="filterOptions.filters.selectedMarket" class="filter-calendar"  ng-change="selectMarket();" ng-disabled="filterOptions.selectors.markets.length <= 0">
-        <option selected value="">- Mercado -</option>
+        <option selected value="">- {{'CALENDAR.market'|translate}} -</option>
         <option ng-repeat="market in filterOptions.selectors.markets | orderBy:['description']" ng-selected="{{market.id == filterOptions.filters.selectedMarket}}" value="{{market.id}}">{{market.description}}</option>
     </select>
     <select data-ng-model="filterOptions.filters.selectedOperation" class="filter-calendar"  ng-change="search();">
-        <option selected value="">- Operación -</option>
-        <option ng-repeat="operation in filterOptions.selectors.operations" value="{{operation.id}}">{{operation.description}}</option>
+        <option selected value="">- {{'CALENDAR.operation'|translate}} -</option>
+        <option ng-repeat="operation in filterOptions.selectors.operations" value="{{operation.id}}">{{operation.description | translate}}</option>
     </select>
-    <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>Favoritos</label>
-    <input type="text" placeholder="Día" data-ng-model="filterOptions.filters.dayDateInput" ng-change="search();" ng-delay="3000">
+    <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>{{'CALENDAR.favorites'|translate}}</label>
+    <input type="text" placeholder="{{'CALENDAR.day'|translate}}" data-ng-model="filterOptions.filters.dayDateInput" ng-change="search();" ng-delay="3000">
     <select data-ng-model="filterOptions.filters.order" class="filter-calendar select-order"  class="select-order" ng-change="search();" ng-delay="3000" >
-        <option selected value="0">Ordenar por Fecha Entrada</option>
-        <option value="1">Ordenar por Fecha Salida</option>
+        <option selected value="0">{{'CALENDAR.sort_entry'|translate}}</option>
+        <option value="1">{{'CALENDAR.sort_exit'|translate}}</option>
     </select>
 </div>
-<div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>Cargando calendario, por favor espere...</span></div>
-<div class="no-patterns-container" ng-if="myData.length == 0 && !loading && appliedFilters"><span >NO EXISTEN PATRONES CON ESTAS CONDICIONES</span></div>
-<div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
+<div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>{{'CALENDAR.loading_patterns'|translate}}</span></div>
+<div class="no-patterns-container" ng-if="myData.length == 0 && !loading && appliedFilters"><span >{{'CALENDAR.no_patterns_with_condition'|translate}}</span></div>
+<div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">{{'CALENDAR.no_patterns_in_month'|translate}}</div>
 <div ng-show="myData.length >0">
 <table class="calendar-table">
     <thead>
     <tr>
-        <th>Compañía</th>
-        <th ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">{{day.dayOfWeek}}<br/>{{day.dayOfMonth}}</th>
+        <th>{{'CALENDAR.name'|translate}}</th>
+        <th ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">{{('CALENDAR.DAYS.'+day.dayOfWeek)|translate}}<br/>{{day.dayOfMonth}}</th>
     </tr>
     </thead>
     <tbody>
@@ -72,6 +74,6 @@
 </div>
 
 <div class="calendar-caption">
-    <span class="bullish-year calendar-letter">L: </span> Long (Compra)
-    <span style="margin-left: 14px;" class="bearish-year calendar-letter">S: </span> Short (Venta)
+    <span class="bullish-year calendar-letter">L: </span> Long ({{'CALENDAR.buy'|translate}})
+    <span style="margin-left: 14px;" class="bearish-year calendar-letter">S: </span> Short ({{'CALENDAR.sell'|translate}})
 </div>

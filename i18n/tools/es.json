@@ -24,10 +24,12 @@
         "favorite_long":"Favorito",
         "favorite_short":"Fav.",
         "favorites":"Favoritos",
+        "gt":"Mayor que",
         "include_text":"Incluya entre 5 y 20 Estrategias",
         "index":"Índice",
         "indices":"Índices",
-        "loading_patters":"Cargando patrones, por favor espere...",
+        "loading_patterns":"Cargando patrones, por favor espere...",
+        "lt":"Menor que",
         "market":"Mercado",
         "month":"Mes",
         "name":"Nombre",
@@ -47,6 +49,9 @@
         "start":"Inicio",
         "stock":"Acción",
         "stock_pair":"Par acciones",
-        "symbol":"Símbolo"
+        "symbol":"Símbolo",
+        "volatility":"Volatilidad",
+        "vol_date":"Fecha Cálculo",
+        "vol_pair":"Volatilidad PAR"
     }
 }

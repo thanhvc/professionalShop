@@ -26,7 +26,7 @@ angular.module('ngMo.calendar', [
     })
 
     .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged,
-                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope) {//<- use location.search()
+                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope, $translatePartialLoader) {//<- use location.search()
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -36,6 +36,7 @@ angular.module('ngMo.calendar', [
             }
             IsLogged.isLogged(true);
         });
+        $translatePartialLoader.addPart("calendar");
         $scope.loading= true;
         $scope.loadingFilters = false;
         $scope.selectedTab = TabsService.getActiveTab();
@@ -101,8 +102,13 @@ angular.module('ngMo.calendar', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "CALENDAR.buy"},
+                        {"id": 1, "description": "CALENDAR.sell"}
+                    ],
+
+                    indexOperations: [
+                        {"id": 0, "description": "CALENDAR.bullish"},
+                        {"id": 1, "description": "CALENDAR.bearish"}
                     ]
                 }
             };

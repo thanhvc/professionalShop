@@ -2,24 +2,24 @@
     <table>
         <tr>
             <td>
-                <input class="border-filters input-filter" ng-change="search();" style="width: 112px;" placeholder="Nombre" ng-delay="2000"
+                <input class="border-filters input-filter" ng-change="search();" style="width: 112px;" placeholder="{{'TOOLS.name'|translate}}" ng-delay="2000"
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
                 <select class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectMonth"
                         ng-change="goToMonth()"
-                        ng-options="item.name for item in filterOptions.months"
+                        ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months"
                         >
                 </select>
             </td>
             <td>
                 <select ng-disabled="correlationList.length > 0 || filterOptions.selectors.regions.length <= 0"  ng-change="selectRegion()" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedRegion">
-                    <option value="">Región</option>
+                    <option value="">{{'TOOLS.region'|translate}}</option>
                     <option ng-repeat="item in filterOptions.selectors.regions | orderBy:['description']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
-                        {{item.description}}
+                        {{('REGIONS.' + item.id) | translate}}
                     </option>
                 </select>
             </td>
@@ -27,7 +27,7 @@
                 <select ng-change="selectMarket()" class="border-filters select-filter-correlation"
                         ng-disabled="correlationList.length > 0 && (filterOptions.filters.selectedRegion == '')"
                         data-ng-model="filterOptions.filters.selectedMarket">
-                    <option value="">- Mercado -</option>
+                    <option value="">- {{'TOOLS.market'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets | orderBy:['description']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
                         {{item.description}}
@@ -36,15 +36,15 @@
             </td>
             <td>
                 <select ng-change="search()" style="width: 100px;" class="border-filters select-filter-correlation"
-                        ng-options="item.description for item in filterOptions.selectors.operations"
+                        ng-options="item.description | translate for item in filterOptions.selectors.operations"
                         data-ng-model="filterOptions.filters.selectedOperation">
-                    <option value="">- Operacion -</option>
+                    <option value="">- {{'TOOLS.operation'|translate}} -</option>
 
                 </select>
             </td>
             <td style="text-align: center;">
                 <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();">
-                <span class="filter-label-select-correlation">Favoritos</span>
+                <span class="filter-label-select-correlation">{{'TOOLS.favorites'|translate}}</span>
             </td>
         </tr>
     </table>

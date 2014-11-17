@@ -19,7 +19,7 @@
     </div>
     <div class="volatility-content">
         <tabset>
-            <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+            <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title | translate}}"
                  active="ctab.active" disabled="tab.disabled">
                 <fieldset ng-disabled="loading || loadingFilters">
                 <div class="filter-container-volatility"  >
@@ -30,9 +30,9 @@
                 <table>
                 <div class="loading-div-container">
                     <div ng-include="getTemplateTable()" style="width:800px"></div>
-                    <div class="loading-div no-patterns-container loading-volat no-packs-load-volat" ng-show="loading" style="width: 800px;"><img src="assets/img/ajax-loader.gif" class="volat-load"><span>Cargando patrones, por favor espere...</span></div>
-                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
-                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
+                    <div class="loading-div no-patterns-container loading-volat no-packs-load-volat" ng-show="loading" style="width: 800px;"><img src="assets/img/ajax-loader.gif" class="volat-load"><span>{{'TOOLS.loading_patterns'|translate}}</span></div>
+                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">{{'TOOLS.no_patterns_with_condition'|translate}}</div>
+                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">{{'TOOLS.no_patterns_in_month'|translate}}</div>
 
                 </div>
                 </table>

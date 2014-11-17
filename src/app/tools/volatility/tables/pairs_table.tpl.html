@@ -4,23 +4,23 @@
         <thead >
         <tr  class="pairs-header">
             <th class="text-center">
-                <span class="pairs-index-company" >Nombre Compañías PAR</span>
+                <span class="pairs-index-company" >{{'TOOLS.name'|translate}}</span>
             </th>
             <th  class="text-center">
-                <span class="pairs-index-market">Mercado</span>
+                <span class="pairs-index-market">{{'TOOLS.market'|translate}}</span>
             </th>
 
-            <th class="width-pair-vol text-center">
-                <span style="padding-left:5px;">Volatilidad COMPONENTES (%)</span>
+            <th class="text-center">
+                <span style="padding-left:5px;">{{'TOOLS.volatility'|translate}} %</span>
             </th>
             <th class="text-center">
-                <span class="pairs-index-date">Fecha Cálculo</span>
+                <span class="pairs-index-date">{{'TOOLS.vol_date'|translate}}</span>
             </th>
             <th class="text-center">
-                <span class="pairs-index-vol">Volatilidad PAR (%)</span>
+                <span class="pairs-index-vol">{{'TOOLS.vol_pair'|translate}} (%)</span>
             </th>
             <th  class="text-center">
-                <span class="pairs-index-fav" tooltip-html-unsafe="Favoritos">Fav.</span>
+                <span class="pairs-index-fav" tooltip-html-unsafe="{{'TOOLS.favorite_long'|translate}}">{{'TOOLS.favorite_short'|translate}}</span>
             </th>
         </tr>
         </thead>
@@ -57,8 +57,8 @@
             <span ng-if="data.volat2 <0">N/A</span>
         </td>
         <td class="black-font-pairs" >
-            <span ng-if="data.lastDate2 <data.lastDate">{{data.lastDate2 | date: 'd MMM yyyy'}}</span>
-            <span ng-if="data.lastDate2 >=data.lastDate">{{data.lastDate | date: 'd MMM yyyy'}}</span>
+            <span ng-if="data.lastDate2 <data.lastDate">{{data.lastDate2 | date: 'dd MMM yyyy'}}</span>
+            <span ng-if="data.lastDate2 >=data.lastDate">{{data.lastDate | date: 'dd MMM yyyy'}}</span>
 
 
         </td>
@@ -67,7 +67,7 @@
             <span ng-if="data.volatPair < 0">N/A</span>
         </td>
         <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
-            <div tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.fav == true}"></div>
+            <div tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.fav == true}"></div>
         </td>
         </tr>
         </tbody>

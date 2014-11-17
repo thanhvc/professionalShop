@@ -25,7 +25,7 @@ angular.module('ngMo.correlation', [
     })
 
     .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
-                                             ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout,UserApplyFilters, SelectedMonthService) {
+                                             ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout,UserApplyFilters, SelectedMonthService, $translatePartialLoader) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
@@ -34,6 +34,7 @@ angular.module('ngMo.correlation', [
             IsLogged.isLogged(true);
         });
 
+        $translatePartialLoader.addPart("tools");
         $scope.moving = false; //moving between tables
         $scope.startLoading = function() {
 
@@ -129,12 +130,12 @@ angular.module('ngMo.correlation', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "TOOLS.buy"},
+                        {"id": 1, "description": "TOOLS.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "TOOLS.bullish"},
+                        {"id": 1, "description": "TOOLS.bearish"}
                     ],
                     comparators: [
                         {"id": 0, "description": "Menor que"},

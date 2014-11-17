@@ -26,7 +26,7 @@
 </div>
 
 <tabset class="float-left">
-    <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}" active="ctab.active" disabled="tab.disabled">
+    <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title | translate}}" active="ctab.active" disabled="tab.disabled">
         <div class="pdf-icon-calendar" ng-click="isDisabled || obtainCalendarPdf();"></div>
         <div class="loading-div-container">
             <fieldset ng-disabled="loading || loadingFilters">
@@ -39,24 +39,24 @@
 <script type="text/ng-template" id="calendarPdfContent.html">
     <div class="modal-alert">
         <div class="modal-header">
-            <div class="header">Calendar - Solicitud envío correo electrónico
+            <div class="header">{{'WEEK.send_mail' | translate}}
                 <button class="btn-close btn-close-alert" ng-click="close()"></button>
             </div>
         </div>
         <div class="modal-body">
             <br>
             <select data-ng-model="data.region">
-                <option value="" ng-selected="{{region.id == data.region}}">- Seleccione la región deseada -</option>
+                <option value="" ng-selected="{{region.id == data.region}}">- {{'WEEK.select_region' | translate}} -</option>
                 <option ng-repeat="region in regions" value="{{region.id}}"
                         ng-selected="{{region.id == data.region}}">
-                    {{region.description}}
+                    {{('REGIONS.' + region.description) | translate}}
                 </option>
             </select>
-            <div class="signup-form-warning" ng-show="showText">Debe seleccionar una región</div>
+            <div class="signup-form-warning" ng-show="showText">{{'WEEK.select_region_2' | translate}}</div>
         </div>
         <div class="modal-footer">
-            <button class="mo-button float-left" ng-click="cancel()">Cancelar</button>
-            <button class="mo-button float-right" ng-click="ok()">Aceptar</button>
+            <button class="mo-button float-left" ng-click="cancel()">{{'WEEK.cancel' | translate}}</button>
+            <button class="mo-button float-right" ng-click="ok()">{{'WEEK.accept' | translate}}</button>
 
         </div>
     </div>
@@ -66,10 +66,10 @@
     <div class="modal-alert">
         <div class="modal-body">
             <br>
-            <div class="calendar-modal-text">Hemos enviado un correo electrónico con el documento solicitado.</div>
+            <div class="calendar-modal-text">{{'WEEK.sended_mail' | translate}}</div>
         </div>
         <div class="modal-footer">
-            <button class="mo-button float-left" ng-click="close()">Aceptar</button>
+            <button class="mo-button float-left" ng-click="close()">{{'WEEK.accept' | translate}}</button>
 
         </div>
     </div>

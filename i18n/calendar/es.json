@@ -1,0 +1,40 @@
+{
+    "CALENDAR": {
+        "accept":"Aceptar",
+        "bearish":"Bajista",
+        "bullish":"Alcista",
+        "buy":"Comprar",
+        "cancel":"Cancelar",
+        "day":"Día",
+        "favorites":"Favoritos",
+        "index":"Índice",
+        "indices":"Índices",
+        "loading_patterns":"Cargando calendario, por favor espere...",
+        "market":"Mercado",
+        "name":"Nombre",
+        "names":"Nombres",
+        "no_patterns_in_month":"NO EXISTEN PATRONES PARA EL MES SELECCIONADO",
+        "no_patterns_with_condition":"NO EXISTEN PATRONES CON ESTAS CONDICIONES",
+        "operation":"Operación",
+        "product":"Producto",
+        "region":"Región",
+        "sell":"Vender",
+        "stock":"Acción",
+        "stock_pair":"Par acciones",
+        "sort_entry":"Ordenar por Fecha Entrada",
+        "sort_exit":"Ordenar por Fecha Salida",
+        "send_mail":"Calendar - Solicitud envío correo electrónico",
+        "select_region":"Seleccione la región deseada",
+        "select_region_2":"Debe seleccionar una región",
+        "sended_mail":"Hemos enviado un correo electrónico con el documento solicitado.",
+        "DAYS":{
+            "Lu":"Lu",
+            "Ma":"Ma",
+            "Mi":"Mi",
+            "Ju":"Ju",
+            "Vi":"Vi",
+            "Sa":"Sa",
+            "Do":"Do"
+        }
+    }
+}
