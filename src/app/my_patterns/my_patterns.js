@@ -236,7 +236,7 @@ angular.module('ngMo.my_patterns', [
         };
 
     })
-    .controller('PatternsCtrl', function PatternsCtrl($filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope) {
+    .controller('PatternsCtrl', function PatternsCtrl($filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate,$translateCookieStorage) {
         $scope.dataLoaded = false;
         $scope.loading = true;//loading patterns
         $scope.loadingFilters = false;
@@ -249,6 +249,8 @@ angular.module('ngMo.my_patterns', [
             }
 
         };
+        $translatePartialLoader.addPart("my_patterns");
+
 
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -362,16 +364,16 @@ angular.module('ngMo.my_patterns', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "MY_PATT.buy"},
+                        {"id": 1, "description": "MY_PATT.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "MY_PATT.bullish"},
+                        {"id": 1, "description": "MY_PATT.bearish"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Mayor que"},
-                        {"id": 0, "description": "Menor que"}
+                        {"id": 1, "description": "MY_PATT.gt"},
+                        {"id": 0, "description": "MY_PATT.lt"}
 
                     ],
 
@@ -1007,9 +1009,12 @@ angular.module('ngMo.my_patterns', [
             var deferred = $q.defer();
             var data;
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'patternId': patternId
+                    //'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
@@ -1033,9 +1038,12 @@ angular.module('ngMo.my_patterns', [
                 indexType = 0;
             }
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'page': page,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -1088,12 +1096,15 @@ angular.module('ngMo.my_patterns', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -1217,7 +1228,9 @@ angular.module('ngMo.my_patterns', [
                     monthList.push({
                         id: i,
                         value: d_act.value,
-                        name: d_act.monthString + " " + d_act.year
+                        name: d_act.monthString + " " + d_act.year,
+                        month: d_act.monthString,
+                        year: d_act.year
                     });
 
                     d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
@@ -1235,7 +1248,9 @@ angular.module('ngMo.my_patterns', [
                     monthList.push({
                         id: i,
                         value: d_act.value,
-                        name: d_act.monthString + " " + d_act.year
+                        name: d_act.monthString + " " + d_act.year,
+                        month: d_act.monthString,
+                        year: d_act.year
                     });
 
                     d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
@@ -1257,7 +1272,9 @@ angular.module('ngMo.my_patterns', [
                     monthList.push({
                         id: i,
                         value: d_act.value,
-                        name: d_act.monthString + " " + d_act.year
+                        name: d_act.monthString + " " + d_act.year,
+                        month: d_act.monthString,
+                        year: d_act.year
                     });
 
                     d = new Date(d.getFullYear(), d.getMonth() + 1, 1);

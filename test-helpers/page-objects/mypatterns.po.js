@@ -73,7 +73,8 @@ MyPatterns.prototype =  Object.create({}, {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.filterName"));
     }},
     getSearchButton:{value:function(tab) {
-        return this.getContainerTab(tab).all(by.css(".mo-button")).get(0);
+        //return this.getContainerTab(tab).all(by.css(".mo-button")).get(0);
+        return this.getContainerTab(tab).element(by.buttonText("Buscar"));
     }},
     getRegionFilter: {value: function(tab) {
         return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedRegion"));
@@ -98,6 +99,60 @@ MyPatterns.prototype =  Object.create({}, {
     }},
     selectIndustry: {value: function(tab,opt) {
         return this.selectDropdownbyNum(this.getIndustryFilter(tab),opt);
+    }},
+    getOperationFilter:{value: function(tab) {
+       return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedOperation"));
+    }},
+    selectOperation:{value: function(tab,opt) {
+        return this.selectDropdownbyNum(this.getOperationFilter(tab),opt);
+    }},
+    getAccumulatedFilter:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedRent"));
+    }},
+    selectAccumulatedFilter:{value:function(tab,opt) {
+        return this.selectDropdownbyNum(this.getAccumulatedFilter(tab),opt);
+    }},
+    getAccumulatedInput:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.rentInput"));
+    }},
+    getAverageFilter:{value: function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedAverage"));
+    }},
+    selectAverageFilter:{value:function(tab,opt) {
+        return this.selectDropdownbyNum(this.getAverageFilter(tab),opt);
+    }},
+    getAverageInput:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.rentAverageInput"));
+    }},
+    getDiaryFilter:{value:function(tab) {
+       return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedRentDiary"));
+    }},
+    selectDiaryFilter:{value:function(tab,opt) {
+        return this.selectDropdownbyNum(this.getDiaryFilter(tab),opt);
+    }},
+    getDiaryInput:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.rentDiaryInput"));
+    }},
+    getVolatFilter:{value: function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedVolatility"));
+    }},
+    selectVolatFilter:{value:function(tab,opt) {
+        return this.selectDropdownbyNum(this.getVolatFilter(tab),opt);
+    }},
+    getVolatInput:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.volatilityInput"));
+    }},
+    getDurationFilter:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.selectedDuration"));
+    }},
+    selectDurationFilter:{value:function(tab,opt) {
+        return this.selectDropdownbyNum(this.getDurationFilter(tab),opt);
+    }},
+    getDurationInput:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.durationInput"));
+    }},
+    getFavFilter:{value:function(tab) {
+        return this.getContainerTab(tab).element(by.model("filterOptions.filters.favourite"));
     }}
 
 

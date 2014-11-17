@@ -3,7 +3,7 @@
         <table class="volatility-table-filter">
             <tr>
                 <td>
-                    <input ng-change="search();" class="border-filters input-filter input-name-volat" placeholder="Nombre" ng-delay="2000"
+                    <input ng-change="search();" class="border-filters input-filter input-name-volat" placeholder="{{'TOOLS.name'|translate}}" ng-delay="2000"
                            ng-model="filterOptions.filters.filterName">
 
                 </td>
@@ -11,25 +11,25 @@
                     <select class="border-filters select-filter month-filter input-month-volat"
                             data-ng-model="filterOptions.filters.selectMonth"
                             ng-change="goToMonth()"
-                            ng-options="item.name for item in filterOptions.months">
+                            ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months">
                     </select></td>
                 <td>
                     <select name="regionSelector" ng-change="selectRegion()" class="border-filters select-filter input-region-volat"
                             data-ng-model="filterOptions.filters.selectedRegion"
                             ng-disabled="filterOptions.selectors.regions.length <= 0">
-                        <option value="">- Región -</option>
+                        <option value="">{{'TOOLS.region'|translate}}</option>
                         <option ng-repeat="item in filterOptions.selectors.regions | orderBy:['description']" value="{{item.id}}"
                                 ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
-                            {{item.description}}
+                            {{('REGIONS.' + item.id) | translate}}
                         </option>
                     </select></td>
 
                 <td class="td-volatility-filter" style="width:145px;">  <form name="rentForm">
                     <select class="border-filters select-filter select-filter input-op-volat"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             ng-change="searchVolat();"
                             data-ng-model="filterOptions.filters.selectedVolatility">
-                        <option value="">- Volatilidad -</option>
+                        <option value="">- {{'TOOLS.volatility'|translate}} -</option>
                     </select>
                     <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
@@ -43,7 +43,7 @@
                     <input type="checkbox" ng-change="search();" style="float:left;"
                            ng-model="filterOptions.filters.favourite">
 
-                    <div class="favourite-text" style="color:white;">Favoritos</div>
+                    <div class="favourite-text" style="color:white;">{{'TOOLS.favorites'|translate}}</div>
                 </td>
 
 

@@ -4,10 +4,10 @@
         <thead>
         <tr>
             <td>Id</td>
-            <td>Nombre</td>
-            <td>Mercado</td>
-            <td><span tooltip="Operación" class="cursor-help">Op.</span></td>
-            <td>Añadir</td>
+            <td>{{'TOOLS.name'|translate}}</td>
+            <td>{{'TOOLS.market'|translate}}</td>
+            <td><span tooltip="{{'TOOLS.operation'|translate}}" class="cursor-help">{{'TOOLS.operation_short'|translate}}</span></td>
+            <td>{{'TOOLS.add'|translate}}</td>
         </tr>
         </thead>
         <tbody>
@@ -16,8 +16,8 @@
             <td ng-class="{'buy-color': pattern.patTyp == 'BULLISH', 'sell-color': pattern.patTyp == 'BEARISH' }"><div tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="name-pattern-container"><span class="cursor-help">{{pattern.name | limitTo: 23}}</span></div></td>
             <td><span class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span></td>
             <td>
-                <span class="cursor-help" tooltip="ALCISTA" ng-if="pattern.patTyp == 'BULLISH'">A</span>
-                <span class="cursor-help" tooltip="BAJISTA" ng-if="pattern.patTyp == 'BEARISH'">B</span>
+                <span  class="cursor-help" tooltip="{{'TOOLS.bullish'|translate}}" ng-if="pattern.patTyp == 'BULLISH'">{{'TOOLS.bullish_short'|translate}}</span>
+                <span  class="cursor-help" tooltip="{{'TOOLS.bearish'|translate}}" ng-if="pattern.patTyp == 'BEARISH'">{{'TOOLS.bearish_short'|translate}}</span>
             </td>
             <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 10 || (!pattern.toUse)}" ng-click="addToCorrelationList(pattern);">>></span></td>
         </tr>
@@ -26,9 +26,9 @@
         <tr>
             <td colspan="5">
                 <div style="padding-top: 20px;">
-                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando, por favor espere...</span></div>
-                    <span ng-if="myData.length == 0 && !loading && appliedFilters">NO EXISTEN PATRONES CON ESTAS CONDICIONES</span>
-                    <span ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</span>
+                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>{{'TOOLS.loading_patterns'|translate}}</span></div>
+                    <span ng-if="myData.length == 0 && !loading && appliedFilters">{{'TOOLS.no_patterns_with_condition'|translate}}</span>
+                    <span ng-show="myData.length==0 && !loading && !appliedFilters">{{'TOOLS.no_patterns_in_month'|translate}}</span>
                 </div>
             </td>
         </tr>
@@ -39,11 +39,11 @@
             <thead>
             <tr>
                 <td>Id</td>
-                <td>Nombre</td>
-                <td>Mercado</td>
-                <td><span tooltip="Operación" class="cursor-help">Op.</span></td>
-                <td><span tooltip="Favoritos" class="cursor-help">Fav.</span></td>
-                <td>Quitar</td>
+                <td>{{'TOOLS.name'|translate}}</td>
+                <td>{{'TOOLS.market'|translate}}</td>
+                <td><span tooltip="{{'TOOLS.operation'|translate}}" class="cursor-help">{{'TOOLS.operation_short'|translate}}</span></td>
+                <td><span tooltip="{{'TOOLS.favorite_long'|translate}}" class="cursor-help">{{'TOOLS.favorite_short'|translate}}</span></td>
+                <td>{{'TOOLS.remove'|translate}}</td>
             </tr>
             </thead>
             <tbody>
@@ -52,11 +52,11 @@
                 <td ng-class="{'buy-color': pattern.patTyp == 'BULLISH', 'sell-color': pattern.patTyp == 'BEARISH' }"><div tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="name-pattern-container"><span class="cursor-help">{{pattern.name | limitTo: 25}}</span></div></td>
                 <td><span class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span></td>
                 <td>
-                    <span  class="cursor-help" tooltip="ALCISTA" ng-if="pattern.patTyp == 'BULLISH'">A</span>
-                    <span  class="cursor-help" tooltip="BAJISTA" ng-if="pattern.patTyp == 'BEARISH'">B</span>
+                    <span  class="cursor-help" tooltip="{{'TOOLS.bullish'|translate}}" ng-if="pattern.patTyp == 'BULLISH'">{{'TOOLS.bullish_short'|translate}}</span>
+                    <span  class="cursor-help" tooltip="{{'TOOLS.bearish'|translate}}" ng-if="pattern.patTyp == 'BEARISH'">{{'TOOLS.bearish_short'|translate}}</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
-                    <div class="current-favourite" tooltip-placement="left" tooltip="Marcar Estrategia Favorita" ng-click="toggleFavorite(pattern.id);"
+                    <div class="current-favourite" tooltip-placement="left" tooltip="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(pattern.id);"
                          ng-class="{'favourite-added': pattern.fav == true}"></div>
                 </td>
                 <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern);"><<</span></td>
@@ -64,7 +64,7 @@
             </tbody>
         </table>
         <div style="width: 450px;float:right;">
-            <span class="correlation-note">Lista a Correlar (máx. 10 items)</span>
+            <span class="correlation-note">{{'TOOLS.correlation_list'|translate}}</span>
         </div>
     </div>
 </div>

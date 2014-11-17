@@ -69,8 +69,11 @@ angular.module('ngMo.my_subscriptions', [
                 indexType = 0;
             }
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'month': filtering.month.month
                 }
             };
@@ -95,8 +98,11 @@ angular.module('ngMo.my_subscriptions', [
                 indexType = 0;
             }*/
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'token': $window.localStorage.token
+                   // 'token': $window.localStorage.token
                 }
             };
 
@@ -127,10 +133,11 @@ angular.module('ngMo.my_subscriptions', [
             return result;
         };
     })
-    .controller('MySubscriptionsCtrl',function ($scope,$rootScope, $state,IsLogged) {
+    .controller('MySubscriptionsCtrl',function ($scope,$rootScope, $state,IsLogged, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
+        $translatePartialLoader.addPart("subscriptions");
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -139,7 +146,7 @@ angular.module('ngMo.my_subscriptions', [
             IsLogged.isLogged(true);
         });
     })
-    .controller('MyPacksCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService, $state,$modal) {
+    .controller('MyPacksCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService, $state,$modal, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -150,28 +157,28 @@ angular.module('ngMo.my_subscriptions', [
             }
             IsLogged.isLogged(true);
         });
-
+        $translatePartialLoader.addPart("subscriptions");
         $scope.loadPage = function() {
             $scope.loading = true;
             var data = MyPacksService.obtainPacks().then(function (data) {
 
                 $scope.myPacksTablePacks = [
                     {
-                        title: 'Acciones',
+                        title: 'STOCKS',
                         active: ActiveTabService.activeTab() === 0,
                         value: 0,
                         content: data.STOCK,
                         url: 'my_subscriptions/tables_my_packs/stock_table.tpl.html'
                     },
                     {
-                        title: 'Pares',
+                        title: 'STOCKS_PAIRS',
                         active: ActiveTabService.activeTab() === 1,
                         value: 1,
                         content: data.STOCKPAIR,
                         url: 'my_subscriptions/tables_my_packs/pairs_table.tpl.html'
                     },
                     {
-                        title: 'Índices',
+                        title: 'INDICES',
                         active: ActiveTabService.activeTab() === 2,
                         value: 2,
                         content: data.INDICE,
@@ -179,7 +186,7 @@ angular.module('ngMo.my_subscriptions', [
                         url: 'my_subscriptions/tables_my_packs/indices_table.tpl.html'
                     },
                     {
-                        title: 'Futuros',
+                        title: 'FUTURES',
                         active: ActiveTabService.activeTab() === 3,
                         value: 3,
                         content: data.FUTURE,
@@ -264,10 +271,9 @@ angular.module('ngMo.my_subscriptions', [
 
     .controller('MySubsCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter) {
 
-
         $scope.mySubscriptionsTablePacks = [
             {
-                title: 'Acciones',
+                title: 'STOCKS',
                 active: ActiveTabService.activeTab() === 0,
                 value: 0,
                 americaContent: [],
@@ -276,7 +282,7 @@ angular.module('ngMo.my_subscriptions', [
                 url: 'my_subscriptions/tables_packs/stock_table.tpl.html'
             },
             {
-                title: 'Pares',
+                title: 'STOCKS_PAIRS',
                 active: ActiveTabService.activeTab() === 1,
                 value: 1,
                 americaPairContent: [],
@@ -285,7 +291,7 @@ angular.module('ngMo.my_subscriptions', [
                 url: 'my_subscriptions/tables_packs/pairs_table.tpl.html'
             },
             {
-                title: 'Indices',
+                title: 'INDICES',
                 active: ActiveTabService.activeTab() === 2,
                 value: 2,
                 indicesContent: [],
@@ -293,7 +299,7 @@ angular.module('ngMo.my_subscriptions', [
                 url: 'my_subscriptions/tables_packs/indices_table.tpl.html'
             },
             {
-                title: 'Futuros',
+                title: 'FUTURES',
                 active: ActiveTabService.activeTab() === 3,
                 value: 3,
                 futuresContent: [],

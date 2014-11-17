@@ -30,7 +30,7 @@
     <div style="margin-top: 15px;">
 
         <tabset>
-            <tab ng-click="changeTab(ctab.value);" ng-repeat="ctab in tabs" heading="{{ctab.title|translate}}"
+            <tab ng-click="changeTab(ctab.value);" ng-repeat="ctab in tabs" heading="{{ctab.title| translate}}"
                  active="ctab.active" >
                 <div class="black-head header-month-filter">
                     <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
@@ -41,7 +41,7 @@
                         <select class="border-filters select-filter month-filter"
                                 data-ng-model="filterOptions.filters.selectMonth"
                                 ng-change="goToMonth()"
-                                ng-options="item.name for item in filterOptions.months"
+                                ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months"
                                 >
                         </select>
                     </div>
@@ -52,24 +52,24 @@
                 </div>
                 <div class="loading-div-container">
                     <div ng-include="getTemplateTable()"></div>
-                    <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando patrones, por favor espere...</span></div>
-                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">NO EXISTEN PATRONES CON ESTAS CONDICIONES</div>
-                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO EXISTEN PATRONES PARA EL MES SELECCIONADO</div>
+                    <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>{{ 'MY_PATT.loading_patters' | translate}}</span></div>
+                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">{{ 'MY_PATT.no_patterns_with_condition' | translate}}</div>
+                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">{{ 'MY_PATT.no_patterns_in_month' | translate}}</div>
 
 
 
                     <!--footer-->
                     <div class="footer-table-private">
                         <div class="total-patterns">
-                            <span>Número total de patrones:</span>
+                            <span>{{ 'MY_PATT.total_patterns' | translate}}:</span>
                             <span>{{results}}</span>
                         </div>
                         <div class="found-patterns">
-                            <span>Patrones encontrados:</span>
+                            <span>{{ 'MY_PATT.found_patterns' | translate}}:</span>
                             <span>{{found}}</span>
                         </div>
                         <button style="float:right; position: relative; top: -2px;" class="mo-button"
-                                ng-click="restoreData()">Mostrar todos
+                                ng-click="restoreData()">{{ 'MY_PATT.show_all' | translate}}
                         </button>
                     </div>
                 </div>

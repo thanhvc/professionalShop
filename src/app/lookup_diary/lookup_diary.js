@@ -33,7 +33,7 @@ angular.module('ngMo.lookup_diary', [
 
     .controller('LookupDiaryCtrl', function ($filter,$scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
                                              LookupDiaryService, $http, $state, $stateParams, $location,
-                                             $modal,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope) {
+                                             $modal,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -44,6 +44,8 @@ angular.module('ngMo.lookup_diary', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
+
+        $translatePartialLoader.addPart("followup");
 
         //event for keypress in input search name, launch the filters if press enter
         $scope.submitName = function(keyEvent) {
@@ -152,16 +154,16 @@ angular.module('ngMo.lookup_diary', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "FOLLOW.buy"},
+                        {"id": 1, "description": "FOLLOW.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "FOLLOW.bullish"},
+                        {"id": 1, "description": "FOLLOW.bearish"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Mayor que"},
-                        {"id": 0, "description": "Menor que"}
+                        {"id": 1, "description": "FOLLOW.gt"},
+                        {"id": 0, "description": "FOLLOW.lt"}
                     ],
 
                     comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value
@@ -394,7 +396,13 @@ angular.module('ngMo.lookup_diary', [
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
-                });
+                }, function(dataError) {
+                //console.log("error");
+                if (dataError.status === 401) {
+                    IsLogged.unLog();
+                }
+
+            });
         };
 
 
@@ -985,9 +993,12 @@ angular.module('ngMo.lookup_diary', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'page': page,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -1025,9 +1036,12 @@ angular.module('ngMo.lookup_diary', [
             var deferred = $q.defer();
             var data;
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'patternId': patternId,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'price': price,
                     'condition': condition
                 }
@@ -1044,9 +1058,12 @@ angular.module('ngMo.lookup_diary', [
             var deferred = $q.defer();
             var data;
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'patternId': patternId
+                   // 'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/deletealert', config).then(function (response) {
@@ -1077,12 +1094,16 @@ angular.module('ngMo.lookup_diary', [
             }
 
             config = {
+
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,

@@ -25,7 +25,7 @@ angular.module('ngMo.portfolio', [
     })
 
     .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
-                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters, AnchorLinkService) {
+                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters, AnchorLinkService, $translatePartialLoader) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
@@ -33,6 +33,7 @@ angular.module('ngMo.portfolio', [
             }
             IsLogged.isLogged(true);
         });
+        $translatePartialLoader.addPart("tools");
         $scope.moving = false; //moving between tables
         $scope.startLoading = function() {
 
@@ -142,12 +143,12 @@ angular.module('ngMo.portfolio', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "TOOLS.buy"},
+                        {"id": 1, "description": "TOOLS.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "TOOLS.bullish"},
+                        {"id": 1, "description": "TOOLS.bearish"}
                     ],
                     comparators: [
                         {"id": 1, "description": "Mayor que"},
@@ -880,11 +881,14 @@ angular.module('ngMo.portfolio', [
             //Operation -> Add or delete Pattern to portfolioList
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'patternId': patternId,
                     'add_delete': operation,
                     'page': page,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'portfolioList': portfolioIdsList,
@@ -904,7 +908,7 @@ angular.module('ngMo.portfolio', [
                 callbackFunc(data);
             }).
                 error(function(data) {
-                    callbackFunc(data);
+                    //callbackFunc(data);
                 });
         };
 
@@ -912,9 +916,12 @@ angular.module('ngMo.portfolio', [
             var deferred = $q.defer();
             var data;
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'patternId': patternId
+                    //'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
@@ -945,9 +952,12 @@ angular.module('ngMo.portfolio', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'patternIdList': portfolioIdsList,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
@@ -981,10 +991,13 @@ angular.module('ngMo.portfolio', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,

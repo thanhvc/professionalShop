@@ -29,10 +29,11 @@ angular.module('ngMo', [
         'ngMo.detail',
         'ngMo.payment',
         'ngMo.cancel_pack',
-        'ngMo.renew'
+        'ngMo.renew',
+        'tmh.dynamicLocale'
     ])
 
- .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider) {
+ .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
 
         $stateProvider.state('home', {
             url: '/home?activated',
@@ -105,13 +106,27 @@ angular.module('ngMo', [
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: 'i18n/{part}/{lang}.json'
         });
+        $translateProvider.registerAvailableLanguageKeys(['en', 'de'], {
+            'en_US': 'en',
+            'en_GB': 'en',
+            'es_ES': 'de'
+        });
+        $translateProvider.translationNotFoundIndicator("-missing-");
         $translateProvider.preferredLanguage('es');
         $translateProvider.useCookieStorage();
+        $translateProvider.storageKey('lang');
+
+        tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
     })
 
-    .run(function run($rootScope) {
+    .run(function run($rootScope,$translate,$translateCookieStorage) {
        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
        //$rootScope.urlService = 'http://localhost:9000';
+        $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
+            $translate.use($translateCookieStorage.get('lang'));
+            $translate.refresh();
+
+        });
     })
 
     .service('ActiveTabService', function (){
@@ -940,8 +955,7 @@ angular.module('ngMo', [
 
 
     })
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http,$translate,$translatePartialLoader) {
-        $translate.refresh();
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http,$translate,$translatePartialLoader,tmhDynamicLocale) {
         $scope.emailRemember = "";
         $scope.mailSent = false;
         $scope.rememberPassword = function () {
@@ -1029,7 +1043,10 @@ angular.module('ngMo', [
         };
 
         $scope.changeLanguage = function(lang) {
+            $translate.refresh();
             $translate.use(lang);
+            $translate.refresh();
+            tmhDynamicLocale.set(lang);
         };
 
     })

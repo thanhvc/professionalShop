@@ -48,10 +48,10 @@
                     </div>
                     <div>
                         <button style="width: 120px;margin-left: 165px;margin-right:35px;" class="mo-cancel-button" ng-click="clearPortfolioList();" ng-disabled="portfolioList.length == 0">
-                            Cancelar
+                            {{'TOOLS.cancel'|translate}}
                         </button>
                         <button style="width: 120px;" class="mo-button" ng-click="drawdown(true);">
-                            Calcular
+                            {{'TOOLS.calc'|translate}}
                         </button>
                     </div>
                 </div>
@@ -61,62 +61,65 @@
         </tab>
     </tabset>
     <div class="loading-div-container">
-        <div class="loading-div" ng-show="calculating"><img src="assets/img/ajax-loader.gif"><span>Calculando, por favor espere...</span></div>
+        <div class="loading-div" ng-show="calculating"><img src="assets/img/ajax-loader.gif"><span>{{'TOOLS.calculating'|translate}}</span></div>
         <div ng-show="portfolioData.length > 0" >
 
             <table class="table-portfolio-result" style="margin-bottom: 30px;">
                 <thead>
                     <tr>
-                        <th colspan="8">COMPOSICIÓN - ASIGNACIÓN DE LA CARTERA</th>
+                        <th colspan="8">{{'TOOLS.portfolio_result_header'|translate}}</th>
                     </tr>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre Estrategia</th>
-                    <th>Mercado</th>
-                    <th>Inicio</th>
-                    <th>Duración (mes)</th>
-                    <th>Porcentaje (%)</th>
-                    <th>Proporción</th>
-                    <th class="cursor-help"><span tooltip-html-unsafe="Favorito">Fav.</span></th>
+                    <th>{{'TOOLS.name'|translate}}</th>
+                    <th>{{'TOOLS.market'|translate}}</th>
+                    <th>{{'TOOLS.start'|translate}}</th>
+                    <th>{{'TOOLS.duration'|translate}}</th>
+                    <th>{{'TOOLS.percentage'|translate}} (%)</th>
+                    <th>{{'TOOLS.ratio'|translate}}</th>
+                    <th class="cursor-help"><span tooltip-html-unsafe="{{'TOOLS.favorite_long'|translate}}">{{'TOOLS.favorite_short'|translate}}</span></th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="row in portfolioData track by $index" class="cursor-pointer" ui-sref="detail({patternId:row.patternId})">
                         <td>{{row.patternId}}</td>
                         <td ng-if="row.patternType != null">
-                            <span ng-show="row.patternType == 'BULLISH'">Comprar</span>
-                            <span ng-show="row.patternType == 'BEARISH'">Vender</span>
-                            <br>
+                            <!--span ng-show="row.patternType == 'BULLISH'">{{'TOOLS.buy'|translate}}</span>
+                            <span ng-show="row.patternType == 'BEARISH'">{{'TOOLS.sell'|translate}}</span>
+                            <br-->
                             <span ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}" class="cursor-help"  tooltip-html-unsafe="{{row.bullishAssetName}} ({{row.marketSymbol}})">{{row.bullishAssetName | limitTo: 30}}</span>
                         </td>
                         <td ng-if="row.patternType == null">
                             <div class="text-limitator">
-                                <span>Comprar</span>
+                                <!--span>{{'TOOLS.buy'|translate}}</span-->
                                 <span class="buy-color cursor-help" tooltip-html-unsafe="{{row.bullishAssetName}} ({{row.marketSymbol}})">{{row.bullishAssetName | limitTo: 30}}</span>
                             </div>
                             <div class="text-limitator">
-                                <span>Vender</span>
-                                <span class="sell-color cursor-help" tooltip-html-unsafe="{{row.bearishAssetName}} ({{row.marketSymbol}})">{{row.bearishAssetName | limitTo: 30}}</span>
+                                <!--span>{{'TOOLS.sell'|translate}}</span-->
+                                <span class="sell-color cursor-help" tooltip-html-unsafe="{{row.bearishAssetName}} ({{row.marketSymbol2}})">{{row.bearishAssetName | limitTo: 30}}</span>
                             </div>
                         </td>
-                        <td><span tooltip-html-unsafe="{{row.marketName}}" class="cursor-help">{{row.marketSymbol}}</span></td>
+                        <td><span tooltip-html-unsafe="{{row.marketName}}" class="cursor-help">{{row.marketSymbol}}</span><br>
+                            <span ng-if="row.marketName2 != null" tooltip-html-unsafe="{{row.marketName2}}" class="cursor-help">{{row.marketSymbol2}}</span>
+                        </td>
+
                         <td>{{row.entryDate | date: 'MMM yy'}}</td>
                         <td>
-                            <span ng-show="(row.length <31)">Hasta 1</span>
-                            <span ng-show="(row.length >30 && row.length <93)">De 1 a 3</span>
-                            <span ng-show="(row.length >92)">Más de 3</span>
+                            <span ng-show="(row.length <31)">{{'TOOLS.duration_short'|translate}}</span>
+                            <span ng-show="(row.length >30 && row.length <93)">{{'TOOLS.duration_medium'|translate}}</span>
+                            <span ng-show="(row.length >92)">{{'TOOLS.duration_long'|translate}}</span>
                         </td>
                         <td>{{row.portfolioPercentage | twoDecimals}}</td>
                         <td>{{row.portfolioRatio | twoDecimals}}</td>
                         <td>
-                            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.patternId);$event.stopPropagation();"
+                            <div class="current-favourite" tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(row.patternId);$event.stopPropagation();"
                                  ng-class="{'favourite-added': row.favorite == true}"></div>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <button style="width: 75px;float:right;margin-bottom: 10px; margin-right: 20px;" class="mo-button" ng-click="clearPortfolioList();goToTop();">
-                Aceptar
+                {{'TOOLS.accept'|translate}}
             </button>
         </div>
     </div>

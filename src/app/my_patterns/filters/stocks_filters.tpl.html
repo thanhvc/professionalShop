@@ -2,17 +2,17 @@
     <table>
         <tr>
             <td>
-                <input ng-keypress="submitName($event)" class="border-filters input-filter" placeholder="Nombre"
+                <input ng-keypress="submitName($event)" class="border-filters input-filter" placeholder="{{'MY_PATT.name'|translate}}"
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
                 <select name="regionSelector" ng-change="selectRegion()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedRegion"
                         ng-disabled="filterOptions.selectors.regions.length <= 0">
-                    <option value="">- Región -</option>
+                    <option value="">- {{'MY_PATT.region'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.regions | orderBy:['description']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
-                        {{item.description}}
+                        {{'REGIONS.' + item.id | translate}}
                     </option>
                 </select>
             </td>
@@ -20,7 +20,7 @@
                 <select ng-change="selectMarket()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedMarket"
                         ng-disabled="filterOptions.selectors.markets.length <= 0">
-                    <option value="">- Mercado -</option>
+                    <option value="">- {{'MY_PATT.market_long'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
                         {{item.description}}
@@ -30,28 +30,28 @@
             <td>
                 <select ng-disabled="filterOptions.selectors.sectors.length <= 0" ng-change="selectSector()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedSector">
-                    <option value="">- Sector -</option>
+                    <option value="">- {{'MY_PATT.sector'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
-                        {{item.description | sectorName}}
+                        {{item.description | sectorName |translate}}
                     </option>
                 </select>
             </td>
             <td>
                 <select ng-disabled="filterOptions.selectors.industries.length <= 0" ng-change="selectIndustry()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedIndustry">
-                    <option value="">- Industria -</option>
+                    <option value="">- {{'MY_PATT.industry'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.industries | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}" ><!---->
-                        {{item.description}}
+                        {{item.description |translate}}
                     </option>
                 </select>
             </td>
             <td>
                 <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
-                        ng-options="item.description for item in filterOptions.selectors.operations"
+                        ng-options="item.description|translate for item in filterOptions.selectors.operations"
                         data-ng-model="filterOptions.filters.selectedOperation">
-                    <option value="">- Operacion -</option>
+                    <option value="">- {{'MY_PATT.operation'|translate}} -</option>
                 </select>
             </td>
         </tr>
@@ -61,12 +61,12 @@
             <tr>
                 <td>
 
-                    <span class="filter-label-select">Renta Acumulada</span><br>
+                    <span class="filter-label-select">{{'MY_PATT.acc_rent'|translate}}</span><br>
                     <select class="border-filters select-filter small-select-filter"
 
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRent">
-                        <option value="">- Elegir -</option>
+                        <option value="">- {{'MY_PATT.choose'|translate}} -</option>
 
                     </select>
 
@@ -77,11 +77,11 @@
 
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta media</span><br>
+                    <span class="filter-label-select">{{'MY_PATT.avg_rent'|translate}}</span><br>
                     <select class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedAverage">
-                        <option value="">- Elegir -</option>
+                        <option value="">- {{'MY_PATT.choose'|translate}} -</option>
                     </select>
                     <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
@@ -89,11 +89,11 @@
                            data-ng-model="filterOptions.filters.rentAverageInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Renta diaria</span><br>
+                    <span class="filter-label-select">{{'MY_PATT.dia_rent'|translate}}</span><br>
                     <select class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRentDiary">
-                        <option value="">- Elegir -</option>
+                        <option value="">- {{'MY_PATT.choose'|translate}} -</option>
 
                     </select>
                     <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
@@ -102,11 +102,11 @@
                            data-ng-model="filterOptions.filters.rentDiaryInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Volatilidad (%)</span><br>
+                    <span class="filter-label-select">{{'MY_PATT.volatility_long'|translate}} (%)</span><br>
                     <select class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedVolatility">
-                        <option value="">- Elegir -</option>
+                        <option value="">- {{'MY_PATT.choose'|translate}} -</option>
 
                     </select>
                     <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
@@ -115,14 +115,14 @@
                            data-ng-model="filterOptions.filters.volatilityInput">
                 </td>
                 <td>
-                    <span class="filter-label-select">Duración (Días)</span><br>
+                    <span class="filter-label-select">{{'MY_PATT.duration_long'|translate}} ({{'MY_PATT.days'|translate}})</span><br>
                     <select class="border-filters select-filter small-select-filter"
-                            ng-options="item.description for item in filterOptions.selectors.comparators"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedDuration">
-                        <option value="">- Elegir -</option>
+                        <option value="">- {{'MY_PATT.choose'|translate}} -</option>
 
                     </select>
-                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="días"
+                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="{{'MY_PATT.days'|translate}}"
                            ng-pattern="daysPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
                            data-ng-model="filterOptions.filters.durationInput">
@@ -130,13 +130,13 @@
                 <td>
                     <table style="position: relative; left: -15px;">
                         <tr>
-                            <td style="text-align: center;"><span class="filter-label-select">Favoritos</span><br>
+                            <td style="text-align: center;"><span class="filter-label-select">{{'MY_PATT.favorite_long'|translate}}</span><br>
                                 <input type="checkbox" ng-change="search();"
                                        ng-model="filterOptions.filters.favourite">
                             </td>
 
                             <td style="vertical-align: bottom; text-align: center;">
-                                <button class="mo-button" ng-click="search()">Buscar</button>
+                                <button class="mo-button" ng-click="search()">{{'MY_PATT.search'|translate}}</button>
                             </td>
                         </tr>
                     </table>

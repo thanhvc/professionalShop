@@ -24,7 +24,7 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged, $window,$rootScope, $state) {
+    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged, $window,$rootScope, $state, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged(true);
         });
@@ -33,6 +33,8 @@ angular.module('ngMo.the_week', [
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
             IsLogged.isLogged(true);
         });
+
+        $translatePartialLoader.addPart("week");
         $scope.loading= true;
         $scope.empty = false;
         $scope.days= [];
@@ -75,7 +77,7 @@ angular.module('ngMo.the_week', [
          */
 
 
-        var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        var months = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
 
         var data = ActualDateService.actualDateForWeek(function (data) {
             $scope.year = new Date(data.actualDate).getFullYear();
@@ -92,8 +94,12 @@ angular.module('ngMo.the_week', [
 
         $scope.loadData = function() {
             config = {
+
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'authToken': $window.localStorage.token
+                //    'authToken': $window.localStorage.token
                 }
             };
 
@@ -190,17 +196,17 @@ angular.module('ngMo.the_week', [
         $scope.the_week_tables =
              [
                 {
-                    title: 'Bolsa',
+                    title: 'WEEK.stocks',
                     value: 0,
                     url: 'the_week/tables_the_week/stock-exchange.tpl.html'
                 },
                 {
-                    title: 'Commodities',
+                    title: 'WEEK.commodities',
                     value: 1,
                     url: 'the_week/tables_the_week/commodities.tpl.html'
                 },
                 {
-                    title: 'S&P',
+                    title: 'WEEK.SP',
                     value: 2,
                     url: 'the_week/tables_the_week/s&p.tpl.html'
                 }
@@ -281,7 +287,7 @@ angular.module('ngMo.the_week', [
                 "<br/>"+
                 "<span>Rentabilidad Diaria Acumulada (%)</span>"+
                 "<br/>"+
-                "<img class=\"selected-graphic-image\" src=\"{{selectedGraphic.url}}\"/>"+
+                "<img class=\"selected-graphic-image\" ng-src=\"{{selectedGraphic.url}}\"/>"+
                 "</div>"
         };
     })

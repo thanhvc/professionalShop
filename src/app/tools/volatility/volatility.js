@@ -30,7 +30,7 @@ angular.module('ngMo.volatility', [
         });
     })
 
-    .controller('VolatilityCtrl', function VolatilityCtrl($scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,  SelectedMonthService, UserApplyFilters) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,  SelectedMonthService, UserApplyFilters, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -40,6 +40,7 @@ angular.module('ngMo.volatility', [
             }
             IsLogged.isLogged(true);
         });
+        $translatePartialLoader.addPart("tools");
         $scope.loading = true;
         $scope.loadingFilters = false;
         //this shows if the user is filtering by volat filter, this is used to control the selector and the input of volat filter
@@ -251,16 +252,16 @@ angular.module('ngMo.volatility', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "TOOLS.buy"},
+                        {"id": 1, "description": "TOOLS.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "TOOLS.bullish"},
+                        {"id": 1, "description": "TOOLS.bearish"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Mayor que"},
-                        {"id": 0, "description": "Menor que"}
+                        {"id": 1, "description": "TOOLS.gt"},
+                        {"id": 0, "description": "TOOLS.lt"}
 
                     ],
 
@@ -888,9 +889,13 @@ angular.module('ngMo.volatility', [
             var deferred = $q.defer();
             var data;
             config = {
+
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'patternId': patternId
+                    //'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/favoriteasset', config).then(function (response) {
@@ -914,9 +919,12 @@ angular.module('ngMo.volatility', [
                 indexType = 0;
             }
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'page': page,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -969,12 +977,15 @@ angular.module('ngMo.volatility', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,

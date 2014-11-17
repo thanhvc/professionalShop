@@ -125,7 +125,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 headers: {
                     'X-Session-Token': token
                 },
-                data: {token: $stateParams.token,
+                data: {
+                    //token: $stateParams.token,
                         payerId: $stateParams.PayerID
                 }
             };
@@ -152,7 +153,7 @@ angular.module('ngMo.payment', [  'ui.router'])
     })
 //controller of summary-pay
 
-    .controller('SummaryPayCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService) {
+    .controller('SummaryPayCtrl', function ($scope,$modal, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService) {
         $scope.amountOfPacks = 0;
         $scope.emptySummary= false;
         $scope.$on('$stateChangeStart', function (event, toState) {
@@ -347,6 +348,19 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.errorConditions= true;
             }
 
+        };
+
+
+        $scope.openModalInstanceTerms = function(url) {
+            $modal.open({
+                templateUrl: 'home/modalPayment.tpl.html',
+                controller: ModalInstanceTermsCtrl,
+                resolve: {
+                    infoSelected: function () {
+                        return url+".tpl.html";
+                    }
+                }
+            });
         };
 
         //first load of the summary
@@ -899,7 +913,22 @@ angular.module('ngMo.payment', [  'ui.router'])
             }
         };
     });
+var ModalInstanceTermsCtrl = function ($scope, $modalInstance,$timeout, infoSelected) {
+    $scope.infoSelected = infoSelected;
+    $scope.opened = true;
+    $scope.close = function () {
+        if ($scope.opened) {
+            $modalInstance.close();
+            $scope.opened = false;
+        }
+    };
+    $timeout(function() { //the body click event will be in a 1sec timeout, the modal will be shown minimun 1 second
+        $scope.$on("body-click",function(){
+            $scope.close();
+        },1000);
+    });
 
+};
 
 
 

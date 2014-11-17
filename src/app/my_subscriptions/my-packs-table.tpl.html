@@ -1,5 +1,5 @@
 <tabset>
-    <tab ng-click="onclickTab(mysubscriptionsTablePack.value)" ng-repeat="myPacksTablePack in myPacksTablePacks" heading="{{myPacksTablePack.title}}"
+    <tab ng-click="onclickTab(mysubscriptionsTablePack.value)" ng-repeat="myPacksTablePack in myPacksTablePacks" heading="{{myPacksTablePack.title | translate}}"
          active="myPacksTablePack.active" disabled="tab.disabled">
         <div ng-include="myPacksTablePack.url"></div>
     </tab>

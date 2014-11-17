@@ -71,10 +71,10 @@ describe('My subscriptions controller', function() {
 
     var month = {month: date.getMonth(), year: date.getYear()};
     var m = date.getMonth()+1;
-    if (date.getDate() >= 15) {
+    if (date.getDate() >= 20 ) {
         m++;
     }
-    var url = '/mysubscriptions?month=' + m + '&token=1';
+    var url = '/mysubscriptions?month=' + m /*+ '&token=1'*/;
 
     var response = {STOCK : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, STOCKPAIR : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, INDICE : {INDEX: 'index'}, INDICEPAIR: {INDEX: 'index'},FUTURE : {FUTURE: 'future'}};
     beforeEach(angular.mock.module("ngMo"));
@@ -235,7 +235,7 @@ describe('My packs controller service', function() {
         _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
 
 
-        _$httpBackend_.when('GET', $rootScope.urlService + '/packs?token=1').respond(200,{pack: 'pack'});
+        _$httpBackend_.when('GET', $rootScope.urlService + '/packs').respond(200,{pack: 'pack'});
         _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
 
         $controller('MyPacksCtrl', {'$rootScope' : $rootScope, '$scope': $scope, '$state': $state});
@@ -249,7 +249,7 @@ describe('My packs controller service', function() {
 
     it("should be able to load the page", function () {
         $http.expectGET('i18n/common/es.json');
-        $http.expectGET($scope.urlService + '/packs?token=1');
+        $http.expectGET($scope.urlService + '/packs');
         $http.expectGET($scope.urlService + '/islogged');
         $scope.loadPage();
         $http.flush();

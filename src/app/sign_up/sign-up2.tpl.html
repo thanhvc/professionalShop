@@ -16,7 +16,7 @@
                         <tbody>
                         <tr>
                             <td class="red-color-form">*</td>
-                            <td>Nombre</td>
+                            <td class="grey-label">Nombre y apellidos</td>
                             <td >
                                 <input  type="text" name="name" id="name" ng-enter="nextInput('surname')"
                                        class="signup-input "
@@ -27,7 +27,7 @@
                                        ng-pattern="namePattern" ng-trim="false" ng-model="user.name" required="true"
                                        ng-maxlength="80"></td>
                         </tr>
-                        <tr>
+                         <!--<tr>
                             <td class="red-color-form">*</td>
                             <td>Apellido</td>
                             <td >
@@ -38,10 +38,10 @@
                                         ng-class="{'warning-input': (formReg.surname.$error.required && (formReg.surname.$dirty || formSubmited))
                                                   || (formReg.surname.$error.pattern && (formReg.surname.$dirty || formSubmited))
                                                   || formReg.surname.$error.maxlength}"></td>
-                        </tr>
+                        </tr>-->
                         <tr>
                             <td class="red-color-form"></td>
-                            <td>Direcci&oacute;n</td>
+                            <td class="grey-label">Direcci&oacute;n</td>
                             <td ><input  type="text" name="address" id="address" ng-enter="nextInput('city')"
                                                            class="signup-input" alt="Direccion"
                                                            ng-model="user.address" ng-maxlength="200"
@@ -50,7 +50,7 @@
                         </tr>
                         <tr>
                             <td class="red-color-form"></td>
-                            <td>Ciudad</td>
+                            <td class="grey-label">Ciudad</td>
                             <td ><input  type="text" name="city" id="city" ng-enter="nextInput('postal')"
                                                            class="signup-input" alt="Ciudad"
                                                            ng-model="user.city"  ng-maxlength="200"
@@ -58,7 +58,7 @@
                         </tr>
                         <tr>
                             <td class="red-color-form"></td>
-                            <td>C&oacute;digo Postal</td>
+                            <td class="grey-label">C&oacute;digo Postal</td>
                             <td ><input  type="text" name="postal" id="postal" ng-enter="nextInput('country')"
                                                            class="signup-input" alt="Codigo Postal"
                                                            ng-model="user.postal"  ng-maxlength="80"
@@ -67,7 +67,7 @@
                         </tr>
                         <tr>
                             <td class="red-color-form">*</td>
-                            <td>Pa&iacute;s</td>
+                            <td class="grey-label">Pa&iacute;s</td>
                             <td >
 
 
@@ -86,7 +86,7 @@
 
                         <tr>
                             <td class="red-color-form">*</td>
-                            <td colspan="2">Pregunta de seguridad</td>
+                            <td colspan="2" class="grey-label">Pregunta de seguridad</td>
                         </tr>
                         <tr>
                             <td class="red-color-form"></td>
@@ -105,7 +105,7 @@
 
                         <tr>
                             <td class="red-color-form">*</td>
-                            <td colspan="2">Acepto las
+                            <td colspan="2" class="grey-label">Acepto las
                                 <div id="terms-conditions-link" ng-click="openModalInstance('sign_up/terms-and-conditions');" style="display:inline;">
                                     <span style="color:#0663D7;cursor:pointer;">Condiciones de Uso</span>
                                 </div>

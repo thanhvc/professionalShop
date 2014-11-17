@@ -70,12 +70,12 @@ text-align: center;
             <div class="summary-subtotal-format summary-subtotal-ammount">
                 {{totalStocks | twoDecimals | number:2}} EUR
             </div>
-            <div class="summary-subtotal summary-subtotal-format">
+            <!--<div class="summary-subtotal summary-subtotal-format">
                 Impuestos (0.0 %):
             </div>
             <div class="summary-subtotal-format summary-subtotal-ammount">
                 0,00 EUR
-            </div>
+            </div>-->
         </div>
 
     </div>
@@ -396,15 +396,26 @@ text-align: center;
     <form id="paymentForm" name="paymentForm">
         <div class="summary-payment-button-container">
 
-            <input class="mo-button" name="cancel-pay" ng-click="cancelPay()"
-                   value="Cancelar Compra" style="margin-left: 10px !important;" type="button">
+            <input class="mo-cancel-button pay-summary-button" name="cancel-pay" ng-click="cancelPay()"
+                   value="Cancelar" style="margin-left: 10px !important;" type="button">
             <input class="mo-button pay-summary-button" name="pay-button" ng-click="doPayment()" value="Pagar" ng-disabled="doingPayment"
                    ng-show="!allBought"
                    type="button">
         </div>
+        <div class="div-terms">
+            <input  type="checkbox" name="conditions" id="conditions" ng-model="conditions" required="true"
+                    style="margin-right:5px !important;">
+            Debe aceptar las
+            <div id="terms-conditions-link" ng-click="openModalInstanceTerms('sign_up/terms-and-conditions');"  style="display: inline; "><span
+                    class="link" style="text-decoration: none;">Condiciones de Uso</span>
+            </div> del servicio
+            *
+        </div>
     </form>
+
+
     <form id="selectPagoForm" name="selectPagoForm" method="post" autocomplete="on">
-        <div id="selectPagoForm:idTablas" style="height: 50px; width: 400px;">
+        <div id="selectPagoForm:idTablas" class="div-pay-box">
 
             <table style="height: 50px; font-size: 11px; font-family: 'fontpo'; float: right;">
                 <tbody>
@@ -443,20 +454,7 @@ text-align: center;
                     style="float: right; font-size: 11px; font-family: 'fontpot'; margin-top:15px;">
                 Seleccione el método de pago
             </div>
-            <div
-                 style="clear:both;float: right;font-family: 'fontpo';font-size: 11px;margin-top:10px;">
 
-
-
-
-                <input  type="checkbox" name="conditions" id="conditions" ng-model="conditions" required="true"
-                         style="margin-right:5px !important;">
-                Acepto las
-                <div id="terms-conditions-link" ng-click="openModalInstance('sign_up/terms-and-conditions');"  style="display: inline; "><span
-                        class="link" style="text-decoration: none;">Condiciones de Uso</span>
-                </div>
-                *
-            </div>
 
         </div>
 

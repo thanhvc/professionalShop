@@ -8,16 +8,16 @@
     </tr>
     <tr class="subheader-my-subscriptions-table">
         <td></td>
-        <td>Clase</td>
-        <td>Alcance</td>
-        <td>Seleccionar</td>
-        <td>Fecha Inicio</td>
-        <td>Tipo</td>
+        <td>{{'SUBSCRIPTIONS.class'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.types'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.select'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.start'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.type'|translate}}</td>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td class="area-cell">&Iacute;NDICES</td>
+        <td class="area-cell">{{'INDICES'|translate}}</td>
         <td colspan="5">
             <table class="my-subscriptions-table">
                 <tbody>
@@ -31,9 +31,9 @@
                         <select ng-disabled="pack.selected" ng-model="pack.duration"
                                 ng-click="$event.stopPropagation();"
                                 ng-change="changeDuration(pack)">
-                            <option ng-if="pack.canMonth" value="0">Mensual</option>
-                            <option ng-if="pack.canTrimestral" value="1">Trimestral</option>
-                            <option ng-if="pack.canYear" value="2">Anual</option>
+                            <option ng-if="pack.canMonth" value="0">{{'SUBSCRIPTIONS.month_1'|translate}}</option>
+                            <option ng-if="pack.canTrimestral" value="1">{{'SUBSCRIPTIONS.month_2'|translate}}</option>
+                            <option ng-if="pack.canYear" value="2">{{'SUBSCRIPTIONS.month_12'|translate}}</option>
                             </select>
                     </td>
                 </tr>
@@ -45,7 +45,7 @@
         <td class="separator"></td>
     </tr>
     <tr>
-        <td class="area-cell">PAR &Iacute;NDICES</td>
+        <td class="area-cell">{{'INDEX_PAIRS'|translate}}</td>
         <td colspan="5">
             <table class="my-subscriptions-table">
                 <tbody>
@@ -59,9 +59,9 @@
                         <select ng-disabled="pack.selected" ng-model="pack.duration"
                                 ng-click="$event.stopPropagation();"
                                 ng-change="changeDuration(pack)">
-                            <option ng-if="pack.canMonth" value="0">Mensual</option>
-                            <option ng-if="pack.canTrimestral" value="1">Trimestral</option>
-                            <option ng-if="pack.canYear" value="2">Anual</option>
+                            <option ng-if="pack.canMonth" value="0">{{'SUBSCRIPTIONS.month_1'|translate}}</option>
+                            <option ng-if="pack.canTrimestral" value="1">{{'SUBSCRIPTIONS.month_2'|translate}}</option>
+                            <option ng-if="pack.canYear" value="2">{{'SUBSCRIPTIONS.month_12'|translate}}</option>
                         </select>
                     </td>
                 </tr>

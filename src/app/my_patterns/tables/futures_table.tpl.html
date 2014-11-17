@@ -7,67 +7,67 @@
             Id
         </th>
         <th class="border-right-table operation-column-my-patterns">
-            Operación
+            {{'MY_PATT.operation'|translate}}
         </th>
-      <!--  <th class="border-right-table expiration-column-my-patterns cursor-help">
-            <span tooltip="Fecha Vencimiento">Vencimto.</span>
-        </th>-->
-        <th class="border-right-table market-column-my-patterns" title="Mercado">
-            <span class="cursor-help" tooltip-html-unsafe="Mercado">Merc.</span>
+        <th class="border-right-table market-column-my-patterns" >
+            <span class="cursor-help" tooltip-html-unsafe="{{'MY_PATT.market_long'|translate}}">{{'MY_PATT.market_short'|translate}}</span>
         </th>
-        <th class="border-right-table years-column-my-patterns" colspan="2" title="Número de Años">
-            <span class="cursor-help" tooltip-html-unsafe="Número de Años">Años</span>
+        <th class="border-right-table years-column-my-patterns" colspan="2" >
+            <span class="cursor-help" tooltip-html-unsafe="{{'MY_PATT.years_long'|translate}}">{{'MY_PATT.years_short'|translate}}</span>
         </th>
         <th class="border-right-table dates-column-my-patterns" colspan="2">
-            Fechas
+            {{'MY_PATT.dates'|translate}}
         </th>
         <th class="border-right-table profit-column-my-patterns" colspan="3">
-            Rentabilidad (%)
+            {{'MY_PATT.performance'|translate}} (%)
         </th>
-        <th class="border-right-table duration-column-my-patterns" title="Duración">
-            <span class="cursor-help" tooltip-html-unsafe="Duración">Dur.</span>
+        <th class="border-right-table duration-column-my-patterns">
+            <span class="cursor-help" tooltip-html-unsafe="{{'MY_PATT.duration_long'|translate}}">{{'MY_PATT.duration_short'|translate}}</span>
         </th>
-        <th class="border-right-table volatility-column-my-patterns" title="Volatilidad">
-            <span class="cursor-help" tooltip-html-unsafe="Volatilidad">Vol.</span>
+        <th class="border-right-table volatility-column-my-patterns" >
+            <span class="cursor-help" tooltip-html-unsafe="{{'MY_PATT.volatility_long'|translate}}">{{'MY_PATT.volatility_short'|translate}}</span>
         </th>
-        <th class="border-right-table favorite-column-my-patterns" title="Favorito">
-            <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="Favorito">Fav.</span>
+        <th class="border-right-table favorite-column-my-patterns">
+            <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="{{'MY_PATT.favorite_long'|translate}}">{{'MY_PATT.favorite_short'|translate}}</span>
         </th>
-        <th class="sub-border-right-table state-column-my-patterns" title="Estado">
-            <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="Estado">Est.</span>
+        <th class="sub-border-right-table state-column-my-patterns" >
+            <span class="cursor-help" tooltip-placement="left" tooltip-html-unsafe="{{'MY_PATT.status_long'|translate}}">{{'MY_PATT.status_short'|translate}}</span>
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
         <th class="border-right-table operation-column-my-patterns">
-            Producto
+            {{'MY_PATT.product'|translate}}
         </th>
 
         <!--<th class="border-right-table expiration-column-my-patterns"></th>-->
 
         <th class="border-right-table market-column-my-patterns"></th>
 
-        <th class="sub-border-right-table years-gain-column-my-patterns" title="Ganancia">
-            <span class="cursor-help" tooltip-html-unsafe="Ganancia">Gan.</span>
+        <th class="sub-border-right-table years-gain-column-my-patterns" >
+            <span class="cursor-help" tooltip-html-unsafe="{{'MY_PATT.gain_long'|translate}}">{{'MY_PATT.gain_short'|translate}}</span>
         </th>
-        <th class="border-right-table years-loss-column-my-patterns" title="Pérdida">
-            <span class="cursor-help" tooltip-html-unsafe="Pérdida">Pér.</span>
+        <th class="border-right-table years-loss-column-my-patterns" >
+            <span class="cursor-help" tooltip-html-unsafe="{{'MY_PATT.lost_long'|translate}}">{{'MY_PATT.lost_short'|translate}}</span>
         </th>
+
         <th class="sub-border-right-table dates-entry-column-my-patterns">
-            Entrada
+            {{'MY_PATT.entry'|translate}}
         </th>
         <th class="border-right-table dates-exit-column-my-patterns">
-            Salida
+            {{'MY_PATT.exit'|translate}}
         </th>
-        <th class="sub-border-right-table profit-accumulated-column-my-patterns" title="Acumulada">
-            <span class="cursor-help" tooltip-html-unsafe="Acumulada">Acum.</span>
+
+        <th class="sub-border-right-table profit-accumulated-column-my-patterns" >
+            <span class="cursor-help" tooltip-html-unsafe="{{'MY_PATT.accumulated_long'|translate}}">{{'MY_PATT.accumulated_short'|translate}}</span>
         </th>
         <th class="sub-border-right-table profit-average-column-my-patterns">
-            Media
+            <span class="cursor-help" tooltip-html-unsafe="{{'MY_PATT.average_long'|translate}}">{{'MY_PATT.average_short'|translate}}</span>
         </th>
         <th class="border-right-table profit-daily-column-my-patterns">
-            Diaria
+            {{'MY_PATT.diary'|translate}}
         </th>
-        <th class="border-right-table duration-column-my-patterns">Días</th>
+
+        <th class="border-right-table duration-column-my-patterns">{{'MY_PATT.days'|translate}}</th>
         <th class="border-right-table volatility-column-my-patterns">
             (%)
         </th>
@@ -79,8 +79,8 @@
             {{data.id}}
         </td>
         <td  class="table-cell-patterns border-right-table operation-column-my-patterns">
-            <span ng-if="data.patTyp == 'BULLISH'">Comprar</span>
-            <span ng-if="data.patTyp == 'BEARISH'">Vender</span><br/>
+            <span ng-if="data.patTyp == 'BULLISH'">{{'MY_PATT.buy'|translate}}</span>
+            <span ng-if="data.patTyp == 'BEARISH'">{{'MY_PATT.sell'|translate}}</span>
             <span class="cursor-help"
                   tooltip-html-unsafe="{{data.name}} {{data.expYear}} ({{data.exchSymbol}})"
                   ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
@@ -125,13 +125,13 @@
             <span ng-show="data.volat>=0"><b> {{data.volat | volatTruncate}}</b></span>
         </td>
         <td class="table-cell-patterns border-right-table favorite-column-my-patterns">
-            <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(data);$event.stopPropagation();"
+            <div class="current-favourite" tooltip-placement="left" tooltip-html-unsafe="{{'MY_PATT.favorite_mark'|translate}}" ng-click="toggleFavorite(data);$event.stopPropagation();"
                  ng-class="{'favourite-added': data.fav == true}"></div>
         </td>
         <td class="table-cell-patterns sub-border-right-table state-column-my-patterns">
-            <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>
-            <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state" ng-show="data.statePattern == 'STARTED'"></div>
-            <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state" ng-show="data.statePattern == 'FINISHED'"></div>
+            <div tooltip="{{'MY_PATT.no_started'|translate}}" tooltip-placement="left" class="state-sphere no-started-state" ng-show="data.statePattern == 'NO_STARTED'"></div>
+            <div tooltip="{{'MY_PATT.started'|translate}}" tooltip-placement="left" class="state-sphere started-state" ng-show="data.statePattern == 'STARTED'"></div>
+            <div tooltip="{{'MY_PATT.finished'|translate}}" tooltip-placement="left" class="state-sphere finished-state" ng-show="data.statePattern == 'FINISHED'"></div>
         </td>
     </tr>
 

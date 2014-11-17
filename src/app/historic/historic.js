@@ -30,7 +30,7 @@ angular.module('ngMo.historic', [
     })
 
     .controller('HistoricCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
-                                          MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService, ExpirationYearFromPatternName,UserApplyFilters) {
+                                          MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService, ExpirationYearFromPatternName,UserApplyFilters,$translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -40,6 +40,8 @@ angular.module('ngMo.historic', [
             }
             IsLogged.isLogged(true);
         });
+
+        $translatePartialLoader.addPart("historic");
 
         //event for keypress in input search name, launch the filters if press enter
         $scope.submitName = function(keyEvent) {
@@ -152,16 +154,16 @@ angular.module('ngMo.historic', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "HISTORIC.buy"},
+                        {"id": 1, "description": "HISTORIC.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "HISTORIC.bullish"},
+                        {"id": 1, "description": "HISTORIC.bearish"}
                     ],
                     comparators: [
-                        {"id": 1, "description": "Mayor que"},
-                        {"id": 0, "description": "Menor que"}
+                        {"id": 1, "description": "HISTORIC.gt"},
+                        {"id": 0, "description": "HISTORIC.lt"}
                     ],
 
                     comparatorsConversor: [1,0]//the comparatos in pos[0] means 1 and viceversa (posterior changes..) so use this conversor for pos/value
@@ -794,9 +796,12 @@ angular.module('ngMo.historic', [
                 indexType = 0;
             }
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'page': page,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -848,12 +853,15 @@ angular.module('ngMo.historic', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'sector': filtering.selectedSector,
                     'industry': filtering.selectedIndustry,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -985,7 +993,9 @@ angular.module('ngMo.historic', [
                     monthList.push({
                         id: i,
                         value: d_act.value,
-                        name: d_act.monthString + " " + d_act.year
+                        name: d_act.monthString + " " + d_act.year,
+                        month: d_act.monthString,
+                        year: d_act.year
                     });
 
                     d = new Date(d.getFullYear(), d.getMonth() + 1, 1);

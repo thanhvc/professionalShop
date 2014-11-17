@@ -3,77 +3,77 @@
         <thead>
         <tr>
             <th colspan="14">
-                <span>{{area.name}}</span>. Índices
+                <span>{{('WEEK.AREAS.'+area.name) | translate}}</span>. {{'INDICES'|translate}}
             </th>
         </tr>
         <tr>
             <th></th>
-            <th colspan="2">Semana<br>{{days[0]}}/{{days[4]}}</th>
+            <th colspan="2">{{'WEEK.week'|translate}}<br>{{days[0]}}/{{days[4]}}</th>
             <th></th>
-            <th colspan="2">Lu<br>{{days[0]}}</th>
-            <th colspan="2">Ma<br>{{days[1]}}</th>
-            <th colspan="2">Mi<br>{{days[2]}}</th>
-            <th colspan="2">Ju<br>{{days[3]}}</th>
-            <th colspan="2">Vi<br>{{days[4]}}</th>
+            <th colspan="2">{{'WEEK.DAYS.mo'|translate}}<br>{{days[0]}}</th>
+            <th colspan="2">{{'WEEK.DAYS.tu'|translate}}<br>{{days[1]}}</th>
+            <th colspan="2">{{'WEEK.DAYS.we'|translate}}<br>{{days[2]}}</th>
+            <th colspan="2">{{'WEEK.DAYS.th'|translate}}<br>{{days[3]}}</th>
+            <th colspan="2">{{'WEEK.DAYS.fr'|translate}}<br>{{days[4]}}</th>
         </tr>
         </thead>
         <tbody ng-repeat="region in area.regions" ng-show="region.initial_show == true || showIndices == region.initial_show">
         <tr>
-            <td colspan="14">{{region.name}}</td>
+            <td colspan="14">{{('WEEK.REGIONS.' +region.name) | translate}}</td>
         </tr>
         <tr ng-repeat-start="indice in region.assets" ng-class="{'ngRow-odd-week': !indice.isGrey,'ngRow-even-week': indice.isGrey}">
             <td rowspan="2" class="index-name">
                 <div class="name-index-container">
                     <span tooltip="{{indice.name}}">{{indice.name}}</span>
             </div></td>
-            <td ng-class="{'positive-percent': indice.global_daily_return >= 0, 'week-negative-percent': indice.global_daily_return < 0}"><span tooltip="Rentabilidad">{{indice.global_daily_return | twoDecimals}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.global_bullish_years | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.global_daily_return >= 0, 'week-negative-percent': indice.global_daily_return < 0}"><span tooltip="{{'WEEK.performance'|translate}}">{{indice.global_daily_return | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="{{'WEEK.bullish_years'|translate}}">{{indice.global_bullish_years | twoDecimals}}</span></td>
             <td rowspan="2" class="graphic-image-cell"><img ng-src="assets/img/graphic-image.png" class="graphic-image" ng-click="showSelectedGraphic($event,indice.name, indice.daily_return_graphic);$event.stopPropagation();"/></td>
-            <td ng-class="{'positive-percent': indice.returns.l >= 0, 'week-negative-percent': indice.returns.l < 0}"><span tooltip="Rentabilidad">{{indice.returns.l | twoDecimals}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.l | twoDecimals}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.m >= 0, 'week-negative-percent': indice.returns.m < 0}"><span tooltip="Rentabilidad">{{indice.returns.m | twoDecimals}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.m | twoDecimals}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.x >= 0, 'week-negative-percent': indice.returns.x < 0}"><span tooltip="Rentabilidad">{{indice.returns.x | twoDecimals}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.x | twoDecimals}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.j >= 0, 'week-negative-percent': indice.returns.j < 0}"><span tooltip="Rentabilidad">{{indice.returns.j | twoDecimals}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.j | twoDecimals}}</span></td>
-            <td ng-class="{'positive-percent': indice.returns.v >= 0, 'week-negative-percent': indice.returns.v < 0}"><span tooltip="Rentabilidad">{{indice.returns.v | twoDecimals}}%</span></td>
-            <td class="bullish-year"><span tooltip="Años alcistas">{{indice.bullish_years.v | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.l >= 0, 'week-negative-percent': indice.returns.l < 0}"><span tooltip="{{'WEEK.performance'|translate}}">{{indice.returns.l | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="{{'WEEK.bullish_years'|translate}}">{{indice.bullish_years.l | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.m >= 0, 'week-negative-percent': indice.returns.m < 0}"><span tooltip="{{'WEEK.performance'|translate}}">{{indice.returns.m | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="{{'WEEK.bullish_years'|translate}}">{{indice.bullish_years.m | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.x >= 0, 'week-negative-percent': indice.returns.x < 0}"><span tooltip="{{'WEEK.performance'|translate}}">{{indice.returns.x | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="{{'WEEK.bullish_years'|translate}}">{{indice.bullish_years.x | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.j >= 0, 'week-negative-percent': indice.returns.j < 0}"><span tooltip="{{'WEEK.performance'|translate}}">{{indice.returns.j | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="{{'WEEK.bullish_years'|translate}}">{{indice.bullish_years.j | twoDecimals}}</span></td>
+            <td ng-class="{'positive-percent': indice.returns.v >= 0, 'week-negative-percent': indice.returns.v < 0}"><span tooltip="{{'WEEK.performance'|translate}}">{{indice.returns.v | twoDecimals}}%</span></td>
+            <td class="bullish-year"><span tooltip="{{'WEEK.bullish_years'|translate}}">{{indice.bullish_years.v | twoDecimals}}</span></td>
         </tr>
         <tr ng-repeat-end ng-class="{'ngRow-odd-week': !indice.isGrey,'ngRow-even-week': indice.isGrey}">
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.global_bearish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.85 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.global_bullish_years/(indice.global_bullish_years+indice.global_bearish_years)) > 0.85 && (indice.global_bullish_years+indice.global_bearish_years) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.global_bearish_years | twoDecimals}}</span></td>
+            <td class="bearish-year"><span tooltip="{{'WEEK.bearish_years'|translate}}">{{indice.global_bearish_years | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.l/(indice.bullish_years.l+indice.bearish_years.l)) > 0.85 && (indice.bullish_years.l+indice.bearish_years.l) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.l/(indice.bullish_years.l+indice.bearish_years.l)) > 0.85 && (indice.bullish_years.l+indice.bearish_years.l) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.l | twoDecimals}}</span></td>
+            <td class="bearish-year"><span tooltip="{{'WEEK.bearish_years'|translate}}">{{indice.bearish_years.l | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.m/(indice.bullish_years.m+indice.bearish_years.m)) > 0.85 && (indice.bullish_years.m+indice.bearish_years.m) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.m/(indice.bullish_years.m+indice.bearish_years.m)) > 0.85 && (indice.bullish_years.m+indice.bearish_years.m) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.m | twoDecimals}}</span></td>
+            <td class="bearish-year"><span tooltip="{{'WEEK.bearish_years'|translate}}">{{indice.bearish_years.m | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.x/(indice.bullish_years.x+indice.bearish_years.x)) > 0.85 && (indice.bullish_years.x+indice.bearish_years.x) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.x/(indice.bullish_years.x+indice.bearish_years.x)) > 0.85 && (indice.bullish_years.x+indice.bearish_years.x) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.x | twoDecimals}}</span></td>
+            <td class="bearish-year"><span tooltip="{{'WEEK.bearish_years'|translate}}">{{indice.bearish_years.x | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.j/(indice.bullish_years.j+indice.bearish_years.j)) > 0.85 && (indice.bullish_years.j+indice.bearish_years.j) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.j/(indice.bullish_years.j+indice.bearish_years.j)) > 0.85 && (indice.bullish_years.j+indice.bearish_years.j) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.j | twoDecimals}}</span></td>
+            <td class="bearish-year"><span tooltip="{{'WEEK.bearish_years'|translate}}">{{indice.bearish_years.j | twoDecimals}}</span></td>
             <td class="predominance-cell">
                 <img ng-src="assets/img/bear.png" ng-show="(indice.bearish_years.v/(indice.bullish_years.v+indice.bearish_years.v)) > 0.85  && (indice.bullish_years.v+indice.bearish_years.v) > 10" class="predominance-image"/>
                 <img ng-src="assets/img/bull.png" ng-show="(indice.bullish_years.v/(indice.bullish_years.v+indice.bearish_years.v)) > 0.85  && (indice.bullish_years.v+indice.bearish_years.v) > 10" class="predominance-image"/>
             </td>
-            <td class="bearish-year"><span tooltip="Años bajistas">{{indice.bearish_years.v | twoDecimals}}</span></td>
+            <td class="bearish-year"><span tooltip="{{'WEEK.bearish_years'|translate}}">{{indice.bearish_years.v | twoDecimals}}</span></td>
         </tr>
         </tbody>
     </table>
-    <div class="toggle-tables-link show-more" ng-click="showIndices=!showIndices" ng-show="(showIndices && area.regions.length > 1)">Mostrar más Índices {{area.name}}</div>
-    <div class="toggle-tables-link show-less" ng-click="showIndices=!showIndices" ng-hide="showIndices">Mostrar menos Índices {{area.name}}</div>
+    <div class="toggle-tables-link show-more" ng-click="showIndices=!showIndices" ng-show="(showIndices && area.regions.length > 1)">{{'WEEK.show_more'|translate}} {{('WEEK.AREAS.'+area.name) | translate}}</div>
+    <div class="toggle-tables-link show-less" ng-click="showIndices=!showIndices" ng-hide="showIndices">{{'WEEK.show_less'|translate}} {{('WEEK.AREAS.'+area.name) | translate}}</div>
 </div>

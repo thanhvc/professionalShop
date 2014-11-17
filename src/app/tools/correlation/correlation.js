@@ -25,7 +25,7 @@ angular.module('ngMo.correlation', [
     })
 
     .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
-                                             ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout,UserApplyFilters, SelectedMonthService) {
+                                             ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout,UserApplyFilters, SelectedMonthService, $translatePartialLoader) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
@@ -34,6 +34,7 @@ angular.module('ngMo.correlation', [
             IsLogged.isLogged(true);
         });
 
+        $translatePartialLoader.addPart("tools");
         $scope.moving = false; //moving between tables
         $scope.startLoading = function() {
 
@@ -129,12 +130,12 @@ angular.module('ngMo.correlation', [
                     ],
 
                     operations: [
-                        {"id": 0, "description": "Comprar"},
-                        {"id": 1, "description": "Vender"}
+                        {"id": 0, "description": "TOOLS.buy"},
+                        {"id": 1, "description": "TOOLS.sell"}
                     ],
                     operationsIndex: [
-                        {"id": 0, "description": "Alcista"},
-                        {"id": 1, "description": "Bajista"}
+                        {"id": 0, "description": "TOOLS.bullish"},
+                        {"id": 1, "description": "TOOLS.bearish"}
                     ],
                     comparators: [
                         {"id": 0, "description": "Menor que"},
@@ -214,6 +215,8 @@ angular.module('ngMo.correlation', [
 
             $scope.clearResults();
             loadCorrelationList();
+
+            loadCorrelationResultList();
         };
 
         $scope.clearResults = function () {
@@ -285,10 +288,54 @@ angular.module('ngMo.correlation', [
 
         };
 
+
+        loadCorrelationResultList = function () {
+            var data = null;
+            switch ($scope.filterOptions.filters.active_tab) {
+                case 0://STOCK
+                    if ((typeof $window.sessionStorage.correlationStocksResult !== "undefined") && ($window.sessionStorage.correlationStocksResult !== "undefined") ) {
+                        data = angular.fromJson($window.sessionStorage.correlationStocksResult);
+
+                    }
+                    break;
+                case 1://PAIRS
+                    if ((typeof $window.sessionStorage.correlationStockPairsResult !== "undefined") && $window.sessionStorage.correlationStockPairsResult !== "undefined") {
+                        data = angular.fromJson($window.sessionStorage.correlationStockPairsResult);
+
+                    }
+                    break;
+                case 2://INDEX
+                    if ($scope.filterOptions.filters.index_type === "0") {//SIMPLE INDEX
+                        if ((typeof $window.sessionStorage.correlationIndicesResult !== "undefined") && ($window.sessionStorage.correlationIndicesResult !== "undefined")) {
+                            data = angular.fromJson($window.sessionStorage.correlationIndicesResult);
+                        }
+                    } else {//PAIR INDEX
+                        if ((typeof $window.sessionStorage.correlationIndicePairsResult !== "undefined") && ($window.sessionStorage.correlationIndicePairsResult !== "undefined"))  {
+                            data = angular.fromJson($window.sessionStorage.correlationIndicePairsResult);
+                        }
+                    }
+                    break;
+                case 3://FUTURES
+                    if ((typeof $window.sessionStorage.correlationFuturesResult !== "undefined") && ($window.sessionStorage.correlationFuturesResult !== "undefined")) {
+                        data = angular.fromJson($window.sessionStorage.correlationFuturesResult);
+                    }
+                    break;
+            }
+            if (data != null) {
+                $scope.correlationData = data.correlationResults;
+                $scope.pairCorrelationData = data.pairCorrelationResults;
+                $scope.lastUpdateDateCorrelation = data.lastUpdateDateCorrelation;
+                $scope.correlationCaption1 = data.caption1;
+                $scope.correlationCaption2 = data.caption2;
+            }
+
+        };
+
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
 
             loadCorrelationList();
+            loadCorrelationResultList();
             //index and futures are not considering regions to filter, and makes some wrong situations, so clear in that case, maybe are set from other tabs
             if ($scope.filterOptions.filters.selectedRegion ==="INDEX" || $scope.filterOptions.filters.selectedRegion  ==="FUTURE" ) {
                 $scope.filterOptions.filters.selectedRegion = "";
@@ -378,6 +425,50 @@ angular.module('ngMo.correlation', [
                     break;
             }
         };
+
+
+        updateCorrelationResultListSessionStorage = function (correlationPatterns){
+            switch ($scope.filterOptions.filters.active_tab) {
+                case 0:
+                    if (typeof $window.sessionStorage.correlationStocksResult === 'undefined'){
+                        $window.sessionStorage.correlationStocksResult = [];
+                        //$scope.pagingOptions.currentPage = 1;
+                    }
+                    $window.sessionStorage.correlationStocksResult = JSON.stringify(correlationPatterns);
+                    break;
+                case 1:
+                    if (typeof $window.sessionStorage.correlationStockPairsResult === 'undefined'){
+                        $window.sessionStorage.correlationStockPairsResult = [];
+                        // $scope.pagingOptions.currentPage = 1;
+                    }
+                    $window.sessionStorage.correlationStockPairsResult = JSON.stringify(correlationPatterns);
+
+                    break;
+                case 2:
+                    if ($scope.filterOptions.filters.index_type === "0"){
+                        if (typeof $window.sessionStorage.correlationIndicesResult === 'undefined'){
+                            $window.sessionStorage.correlationIndicesResult = [];
+                            // $scope.pagingOptions.currentPage = 1;
+                        }
+                        $window.sessionStorage.correlationIndicesResult = JSON.stringify(correlationPatterns);
+                    }else{
+                        if (typeof $window.sessionStorage.correlationIndicePairsResult === 'undefined'){
+                            $window.sessionStorage.correlationIndicePairsResult = [];
+                            // $scope.pagingOptions.currentPage = 1;
+                        }
+                        $window.sessionStorage.correlationIndicePairsResult = JSON.stringify(correlationPatterns);
+                    }
+                    break;
+                case 3:
+                    if (typeof $window.sessionStorage.correlationFuturesResult === 'undefined'){
+                        $window.sessionStorage.correlationFuturesResult = [];
+                        //$scope.pagingOptions.currentPage = 1;
+                    }
+                    $window.sessionStorage.correlationFuturesResult = JSON.stringify(correlationPatterns);
+                    break;
+            }
+        };
+
 
         $scope.addToCorrelationList = function (pattern) {
             //IS IMPORTANT THAT AN ASSET IS THE SLECTED (2 PATTERNS WITH SAME ASSET MUST CANT BE SELECTED AT SAME TIME)
@@ -533,6 +624,8 @@ angular.module('ngMo.correlation', [
                  $scope.lastUpdateDateCorrelation = data.lastUpdateDateCorrelation;
                  $scope.correlationCaption1 = data.caption1;
                  $scope.correlationCaption2 = data.caption2;
+                 updateCorrelationResultListSessionStorage(data); //save data
+
                  });
 
             }
@@ -639,6 +732,7 @@ angular.module('ngMo.correlation', [
             TabsService.changeActiveIndexType($scope.filterOptions.filters.index_type);
             $scope.applyFilters();
             loadCorrelationList();
+            loadCorrelationResultList();
             $scope.clearResults();
             $scope.loadPage();
         };
@@ -911,6 +1005,8 @@ angular.module('ngMo.correlation', [
         }
 
         loadCorrelationList();
+
+        loadCorrelationResultList();
         $scope.loadPage();
 
     })
@@ -954,11 +1050,14 @@ angular.module('ngMo.correlation', [
             //Operation -> Add or delete Pattern to correlationList
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'patternId': patternId,
                     'add_delete': operation,
                     'page': page,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'correlationList': correlationIdsList,
@@ -977,7 +1076,7 @@ angular.module('ngMo.correlation', [
                 callbackFunc(data);
             }).
                 error(function(data) {
-                    callbackFunc(data);
+                   // callbackFunc(data);
                 });
         };
 
@@ -1001,9 +1100,12 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'correlationList': correlationIdsList,
-                    'token': $window.localStorage.token,
+                   // 'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
@@ -1037,10 +1139,13 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType,
                     'month': filtering.month.month,
@@ -1060,9 +1165,12 @@ angular.module('ngMo.correlation', [
             var deferred = $q.defer();
             var data;
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
-                    'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'patternId': patternId
+                    //'token': $window.localStorage.token
                 }
             };
             var result = $http.get($rootScope.urlService+'/favoritepattern', config).then(function (response) {
@@ -1093,9 +1201,12 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'correlationList': correlationIdsList,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }
@@ -1129,9 +1240,12 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
                 params: {
                     'correlationList': correlationIdsList,
-                    'token': $window.localStorage.token,
+                    //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
                     'indexType': indexType
                 }

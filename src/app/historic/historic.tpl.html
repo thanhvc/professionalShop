@@ -18,9 +18,7 @@
                 <li>Evolución gráfica de la cotización en curso superpuesta sobre Patrón.</li>
             </ul>
             <p>La marca de Favorito “Fav” diferencia las estrategias que señaló como preferidas.
-                <!--<a
-                    ng-click="openModalInstance('services/detailed_description/historic')">Más información.</a>-->
-                    </p>
+            </p>
 
             <span ng-click="show=!show" class="toggle-link show-less">Mostrar menos</span>
         </div>
@@ -30,12 +28,11 @@
     <div style="margin-top: 15px;">
 
         <tabset>
-            <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title}}"
+            <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title | translate }}"
                  active="ctab.active" disabled="tab.disabled">
                 <div class="black-head header-month-filter">
                     <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
-                    <div style="float:left; text-transform:uppercase;">{{filterOptions.filters.month.monthString + " " +
-                        filterOptions.filters.month.year}}
+                    <div style="float:left; text-transform:uppercase;">{{filterOptions.filters.month.monthString|translate}}{{ " " + filterOptions.filters.month.year}}
                     </div>
                     <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
 
@@ -43,7 +40,7 @@
                         <select class="border-filters select-filter month-filter"
                                 data-ng-model="filterOptions.filters.selectMonth"
                                 ng-change="goToMonth()"
-                                ng-options="item.name for item in filterOptions.months"
+                                ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months"
                                 >
                         </select>
                     </div>
@@ -55,27 +52,27 @@
                 <div class="loading-div-container">
                     <div ng-include="getTemplateTable()"></div>
                     <div class="loading-div no-patterns-container" ng-show="loading"><img
-                            src="assets/img/ajax-loader.gif"><span>Cargando patrones, por favor espere...</span></div>
-                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">NO
-                        EXISTEN PATRONES CON ESTAS CONDICIONES
+                            src="assets/img/ajax-loader.gif"><span>{{'HISTORIC.loading_patters'|translate}}</span></div>
+                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">
+                        <span>{{'HISTORIC.no_patterns_with_condition'|translate}}</span>
                     </div>
-                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">NO
-                        EXISTEN PATRONES PARA EL MES SELECCIONADO
+                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">
+                        <span>{{'HISTORIC.no_patterns_in_month'|translate}}</span>
                     </div>
 
 
                     <!--footer-->
                     <div class="footer-table-private">
                         <div class="total-patterns">
-                            <span>Número total de patrones:</span>
+                            <span>{{'HISTORIC.total_patterns'|translate}}:</span>
                             <span>{{results}}</span>
                         </div>
-                        <div style="float: left; margin-top: 3px;">
-                            <span>Patrones encontrados:</span>
+                        <div class="found-patterns">
+                            <span>{{'HISTORIC.found_patterns'|translate}}:</span>
                             <span>{{found}}</span>
                         </div>
                         <button style="float:right; position: relative; top: -2px;" class="mo-button"
-                                ng-click="restoreData()">Mostrar todos
+                                ng-click="restoreData()">{{'HISTORIC.show_all'|translate}}
                         </button>
                     </div>
                 </div>

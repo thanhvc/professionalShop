@@ -137,7 +137,7 @@
             <td class="stock-duration-column-catalog"><span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
-            <td class="stock-volatility-column-catalog">{{pattern.asset.volatility | twoDecimals}}</td>
+            <td class="stock-volatility-column-catalog">{{pattern.volatility | twoDecimals}}</td>
             <td class="stock-status-column-catalog">
                <!-- <div tooltip="{{pattern.state}}" class="state-sphere"
                      ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"> </div>-->

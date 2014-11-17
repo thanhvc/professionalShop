@@ -73,10 +73,25 @@
   font-size: 10px;
 }
 
+.div-pay-box{
+  height: 65px;
+  width: 400px;
+  margin-bottom: 50px;
+  position: relative;
+  top: -27px;
+}
+
+.div-terms {
+  clear:both;
+  float: right;
+  font-family: 'fontpo';
+  font-size: 11px;
+  margin-top:30px;
+}
 .summary-subtotal-container {
   clear: both;
   width: 900px;
-  height: 50px;
+  /*height: 50px;*/
   margin-left: 50%;
   position: relative;
   left: -450px;
@@ -290,4 +305,32 @@
   clear: both;
   margin-top: 35px;
   text-align: right;
+}
+
+
+.info-modal-payment {
+  width: 1010px;
+  border: 5px outset gray;
+  background-color: @white;
+  margin: 0 auto;
+
+  .modal-header-payment {
+    border-bottom: 0;
+    padding: 5px;
+    margin-bottom: 15px;
+  }
+
+  .modal-body-payment {
+    width: 965px;
+   /* height: 550px;*/
+    overflow-y: scroll;
+    text-align: justify;
+    margin-left: 26px;
+    padding-top: 0;
+    padding-right:45px;
+    margin-bottom: 40px;
+  }
+  img{
+    width: 80%;
+  }
 }
