@@ -396,7 +396,13 @@ angular.module('ngMo.lookup_diary', [
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
-                });
+                }, function(dataError) {
+                //console.log("error");
+                if (dataError.status === 401) {
+                    IsLogged.unLog();
+                }
+
+            });
         };
 
 

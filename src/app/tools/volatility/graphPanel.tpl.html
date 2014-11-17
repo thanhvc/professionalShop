@@ -12,6 +12,6 @@
         <span ng-class="{'buy-color': selectedGraphic.type == 'BULLISH', 'sell-color': selectedGraphic.type == 'BEARISH'}">{{selectedGraphic.indiceName}}</span>
     </div>
     <br/>
-    <img style='width:700px;height:245px;display:inline-block !important;' class="selected-graphic-image"
-         src="{{selectedGraphic.url}}"/>
+    <img style='width:700px;height:245px;display:inline-block !important;' class="selected-graphic-image" ng-if="selectedGraphic.url != null"
+         ng-src="{{selectedGraphic.url}}"/>
 </div>

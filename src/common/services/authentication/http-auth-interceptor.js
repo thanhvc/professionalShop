@@ -10,7 +10,7 @@
 
     angular.module('http-auth-interceptor', ['http-auth-interceptor-buffer'])
 
-        .factory('authService', ['$rootScope','httpBuffer', function($rootScope, httpBuffer) {
+        .factory('authService', ['$rootScope','httpBuffer','IsLogged', function($rootScope, httpBuffer) {
             return {
                 /**
                  * Call this function to indicate that authentication was successfull and trigger a
@@ -21,7 +21,7 @@
                 loginConfirmed: function(data, configUpdater) {
                     var updater = configUpdater || function(config) {return config;};
                     $rootScope.$broadcast('event:auth-loginConfirmed', data);
-                    httpBuffer.retryAll(updater);
+                    //httpBuffer.retryAll(updater); <--- is necessary keep the buffer to retry all?
                 },
 
                 /**
@@ -44,7 +44,7 @@
      */
         .config(['$httpProvider', function($httpProvider) {
 
-            var interceptor = ['$rootScope', '$q', 'httpBuffer', function($rootScope, $q, httpBuffer) {
+            var interceptor = ['$location','$window','$rootScope', '$q', 'httpBuffer', function($location,$window,$rootScope, $q, httpBuffer) {
                 function success(response) {
                     return response;
                 }
@@ -56,6 +56,31 @@
                         httpBuffer.append(response.config, deferred);
                         $rootScope.$broadcast('event:auth-loginRequired', response);
                         //return deferred.promise;
+                        /**CODE FOR UNLOG**/
+
+                        $rootScope.isLog = false;
+                        $rootScope.$broadcast("removeItemsCart");
+                        $window.localStorage.removeItem('token');
+                        $window.localStorage.removeItem('username');
+                        $window.sessionStorage.removeItem('cart');
+                        $window.sessionStorage.removeItem("correlationStocks");
+                        $window.sessionStorage.removeItem("correlationStockPairs");
+                        $window.sessionStorage.removeItem("correlationIndices");
+                        $window.sessionStorage.removeItem("correlationIndicePairs");
+                        $window.sessionStorage.removeItem("correlationFutures");
+                        $window.sessionStorage.removeItem("portfolioStocks");
+                        $window.sessionStorage.removeItem("portfolioStockPairs");
+                        $window.sessionStorage.removeItem("portfolioIndices");
+                        $window.sessionStorage.removeItem("portfolioIndicePairs");
+                        $window.sessionStorage.removeItem("portfolioIndicePairsResult");
+                        $window.sessionStorage.removeItem("portfolioStocksResult");
+                        $window.sessionStorage.removeItem("portfolioStockPairsResult");
+                        $window.sessionStorage.removeItem("portfolioIndicesResult");
+                        $window.sessionStorage.removeItem("portfolioIndicePairsResult");
+                        //$cookieStore.remove("name");
+                        //$cookieStore.remove("token");
+                        $location.path('/home');
+                        /**END UNLOG**/
                     }
 
                     // otherwise, default behaviour
