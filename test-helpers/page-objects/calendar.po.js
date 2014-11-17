@@ -92,32 +92,39 @@ Calendar.prototype =  Object.create({}, {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.selectMonth"));
     }},
     selectMonthFilter:{value:function(index) {
-        this.selectDropdownbyNum(this.getMonthFilter(),index,3500);
+        this.selectDropdownbyNum(this.getMonthFilter(),index,4000);
+    }},
+    getIndexTypeFilter:{value:function() {
+        return this.getActiveContainerTab().element(by.model("filterOptions.filters.index_type"));
+    }},
+    selectIndexTypeFilter:{value:function(index_type) {
+        var index_type_map = {'index': 0, 'pairs': 1};
+        this.selectDropdownbyNum(this.getIndexTypeFilter(),index_type_map[index_type],4000);
     }},
     getOrderFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.order"));
     }},
     selectOrderFilter:{value:function(filter) {
         var filters_map = { 'entry_date': 0, 'exit_date': 1};
-        this.selectDropdownbyNum(this.getOrderFilter(),filters_map[filter],3000);
+        this.selectDropdownbyNum(this.getOrderFilter(),filters_map[filter],4000);
     }},
     getRegionFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.selectedRegion"));
     }},
     selectRegionFilter:{value:function(index) {
-        this.selectDropdownbyNum(this.getRegionFilter(),index,3500);
+        this.selectDropdownbyNum(this.getRegionFilter(),index,4000);
     }},
     getMarketFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.selectedMarket"));
     }},
     selectMarketFilter:{value:function(index) {
-        this.selectDropdownbyNum(this.getMarketFilter(),index,3500);
+        this.selectDropdownbyNum(this.getMarketFilter(),index,4000);
     }},
     getOperationFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.selectedOperation"));
     }},
     selectOperationFilter:{value:function(index) {
-        this.selectDropdownbyNum(this.getOperationFilter(),index,3000);
+        this.selectDropdownbyNum(this.getOperationFilter(),index,4000);
     }},
     getFavouriteFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.favourite"));
