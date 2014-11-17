@@ -130,7 +130,7 @@ angular.module('singUp', [])
     .run(function run() {
     })
 
-    .controller('SignupCtrl', function ($scope, $state, SignUpService, IsLogged, $rootScope, $window, authService,$http, $translatePartialLoader) {
+    .controller('SignupCtrl', function ($scope, $modal, $state, SignUpService, IsLogged, $rootScope, $window, authService,$http, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
            // IsLogged.isLogged();
         });
@@ -311,6 +311,17 @@ angular.module('singUp', [])
                     var result = SignUpService.secondStep($scope.user, $scope.secondCallback);
                 }
             };
+            $scope.openModalInstanceTerms = function(url) {
+                $modal.open({
+                    templateUrl: 'home/modalPayment.tpl.html',
+                    controller: ModalInstanceTermsCtrl,
+                    resolve: {
+                        infoSelected: function () {
+                            return url+".tpl.html";
+                        }
+                    }
+                });
+            };
         });
     })
 /**
@@ -364,3 +375,20 @@ angular.module('singUp', [])
         return signUpService;
 
     });
+
+var ModalInstanceTermsCtrl = function ($scope, $modalInstance,$timeout, infoSelected) {
+    $scope.infoSelected = infoSelected;
+    $scope.opened = true;
+    $scope.close = function () {
+        if ($scope.opened) {
+            $modalInstance.close();
+            $scope.opened = false;
+        }
+    };
+    $timeout(function() { //the body click event will be in a 1sec timeout, the modal will be shown minimun 1 second
+        $scope.$on("body-click",function(){
+            $scope.close();
+        },1000);
+    });
+
+};
