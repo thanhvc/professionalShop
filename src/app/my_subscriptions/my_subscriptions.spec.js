@@ -71,7 +71,7 @@ describe('My subscriptions controller', function() {
 
     var month = {month: date.getMonth(), year: date.getYear()};
     var m = date.getMonth()+1;
-    if (date.getDate() >= 15) {
+    if (date.getDate() >= 20 ) {
         m++;
     }
     var url = '/mysubscriptions?month=' + m /*+ '&token=1'*/;
