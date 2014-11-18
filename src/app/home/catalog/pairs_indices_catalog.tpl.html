@@ -90,9 +90,8 @@
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span>
             </td>
-            <td class="pair-index-volatility-column-catalog">
-                {{pattern.volatility | twoDecimals}}
-            </td>
+            <td class="pair-index-volatility-column-catalog" ng-if="pattern.volatility>=0">{{pattern.volatility | twoDecimals}}</td>
+            <td class="pair-index-volatility-column-catalog" ng-if="pattern.volatility<0">NA</td>
             <td style="border-right: 1px solid #6f7072 !important;" class="pair-index-status-column-catalog">
                 <!--<div tooltip="{{pattern.state}}"
                 class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
