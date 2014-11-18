@@ -323,7 +323,7 @@ angular.module('singUp', [])
             require: 'ngModel',
             link: function (scope, elem, attrs, ctrl) {
                 scope.$watch(function () {
-                    return $parse(attrs.match)(scope) === ctrl.$modelValue;
+                    return $parse(attrs.matchWith)(scope) === ctrl.$modelValue;
                 }, function (currentValue) {
                     ctrl.$setValidity('mismatch', currentValue);
                 });
