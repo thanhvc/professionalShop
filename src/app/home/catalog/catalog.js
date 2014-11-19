@@ -446,6 +446,9 @@ angular.module('ngMo.catalog', [
                 }
                 if (data.hasOwnProperty("industries")) {
                     $scope.filterOptions.selectors.industries = data.industries;
+                    for (i=0;i<$scope.filterOptions.selectors.industries.length-1;i++) {
+                        $scope.filterOptions.selectors.industries[i].description = $filter('capitalize')( $scope.filterOptions.selectors.industries[i].description);
+                    }
                     //$scope.filterOptions.filters.selectedIndustry = "";
                 }
                 if (data.hasOwnProperty("sectors")) {
@@ -453,6 +456,7 @@ angular.module('ngMo.catalog', [
 
                     for (i=0;i<$scope.filterOptions.selectors.sectors.length;i++) {
                         $scope.filterOptions.selectors.sectors[i].description = $filter('sectorName')($scope.filterOptions.selectors.sectors[i].description);
+                        $scope.filterOptions.selectors.sectors[i].description = $filter('capitalize')( $scope.filterOptions.selectors.sectors[i].description);
                     }
                     //$scope.filterOptions.filters.selectedSector = "";
                 }

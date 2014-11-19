@@ -41,7 +41,7 @@
                 </option>
             </select>-->
 
-            <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Elegir Grupo"
+            <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Grupo"
                    typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
                    typeahead-on-select="selectIndustry()"
                    class="stocks-catalog-input">
