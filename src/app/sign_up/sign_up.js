@@ -141,6 +141,25 @@ angular.module('singUp', [])
             $translatePartialLoader.addPart('sing_up');
 
 
+            //captcha
+            $scope.a = Math.ceil(Math.random() * 10);
+            $scope.b = Math.ceil(Math.random() * 10);
+            $scope.c = $scope.a + $scope.b;
+
+            $scope.validBotBoot =function (){
+                if (document.getElementById('captcha') == null) {
+                    return false;
+                }
+                var d = document.getElementById('captcha').value;
+                if (d == $scope.c)
+                {
+                    return true;
+                } else {
+
+                    return false;
+                }
+
+            };
 
 
             //form navigation
@@ -305,8 +324,12 @@ angular.module('singUp', [])
             };
             $scope.sendSecondStep = function () {
                 $scope.validCaptcha = true;
+
+                //check captcha
+                $scope.validCaptcha = $scope.validBotBoot();
+
                 $scope.formSubmited = true; //set the second form as submited (to check the inputs)
-                if ($scope.formReg.$valid) {
+                if ($scope.formReg.$valid && $scope.validCaptcha) {
                     //if the form is correct, we go to the service
                     var result = SignUpService.secondStep($scope.user, $scope.secondCallback);
                 }

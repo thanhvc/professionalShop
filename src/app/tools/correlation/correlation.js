@@ -30,7 +30,7 @@ angular.module('ngMo.correlation', [
     .run(function run() {
     })
 
-    .controller('CorrelationCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
+    .controller('CorrelationCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
                                              ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout,UserApplyFilters, SelectedMonthService, $translatePartialLoader) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -648,6 +648,9 @@ angular.module('ngMo.correlation', [
                     $scope.filterOptions.selectors.markets = data.markets;
                     if (typeof data.selectedRegion != 'undefined') {
                         $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                    }
+                    for (i=0;i<$scope.filterOptions.selectors.markets.length;i++) {
+                        $scope.filterOptions.selectors.markets[i].description = $filter('capitalize')( $scope.filterOptions.selectors.markets[i].description);
                     }
                     //$scope.filterOptions.filters.selectedMarket = "";
                 }

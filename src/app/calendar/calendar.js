@@ -32,7 +32,7 @@ angular.module('ngMo.calendar', [
     })
 
     .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged,
-                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope, $translatePartialLoader) {//<- use location.search()
+                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope, $translatePartialLoader,$filter) {//<- use location.search()
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -490,6 +490,9 @@ angular.module('ngMo.calendar', [
                     $scope.filterOptions.selectors.markets = data.markets;
                     if (typeof data.selectedRegion != 'undefined') {
                         $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                    }
+                    for (i=0;i<$scope.filterOptions.selectors.markets.length;i++) {
+                        $scope.filterOptions.selectors.markets[i].description = $filter('capitalize')( $scope.filterOptions.selectors.markets[i].description);
                     }
                     //$scope.filterOptions.filters.selectedMarket = "";
                 }

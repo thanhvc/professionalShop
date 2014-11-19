@@ -30,7 +30,7 @@ angular.module('ngMo.portfolio', [
     .run(function run() {
     })
 
-    .controller('PortfolioCtrl', function ($scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
+    .controller('PortfolioCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
                                            ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters, AnchorLinkService, $translatePartialLoader) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -572,6 +572,9 @@ angular.module('ngMo.portfolio', [
                     $scope.filterOptions.selectors.markets = data.markets;
                     if (typeof data.selectedRegion != 'undefined') {
                         $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                    }
+                    for (i=0;i<$scope.filterOptions.selectors.markets.length;i++) {
+                        $scope.filterOptions.selectors.markets[i].description = $filter('capitalize')( $scope.filterOptions.selectors.markets[i].description);
                     }
                     //$scope.filterOptions.filters.selectedMarket = "";
                 }

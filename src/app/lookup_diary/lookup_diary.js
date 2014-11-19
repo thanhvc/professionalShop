@@ -428,6 +428,9 @@ angular.module('ngMo.lookup_diary', [
                 if (typeof data.selectedRegion != 'undefined') {
                     $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
                 }
+                for (i=0;i<$scope.filterOptions.selectors.markets.length;i++) {
+                    $scope.filterOptions.selectors.markets[i].description = $filter('capitalize')( $scope.filterOptions.selectors.markets[i].description);
+                }
                 //$scope.filterOptions.filters.selectedMarket = "";
             }
             if (data.hasOwnProperty("regions")) {
