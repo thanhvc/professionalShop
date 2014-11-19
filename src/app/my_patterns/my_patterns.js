@@ -236,11 +236,12 @@ angular.module('ngMo.my_patterns', [
         };
 
     })
-    .controller('PatternsCtrl', function PatternsCtrl($filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate,$translateCookieStorage) {
+    .controller('PatternsCtrl', function PatternsCtrl($timeout,$window,$q,$filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate,$translateCookieStorage) {
         $scope.dataLoaded = false;
         $scope.loading = true;//loading patterns
         $scope.loadingFilters = false;
 
+        $scope.isDisabled = false;
 
         //event for keypress in input search name, launch the filters if press enter
         $scope.submitName = function(keyEvent) {
@@ -982,6 +983,75 @@ angular.module('ngMo.my_patterns', [
         //Expiration service
         $scope.getYearFromPatternName= function (patternName, expirationDate) {
             return ExpirationYearFromPatternName.getExpirationYearFromPatternName(patternName, expirationDate);
+        };
+
+
+        $scope.generatePdf = function () {
+            $scope.isDisabled=true;
+            $scope.getPatternsPdf().then(function (data) {
+                var filename = "patterns" + /*productType +*/ ".pdf";
+                var element = angular.element('<a/>');
+                element.attr({
+
+                    href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                    target: '_blank',
+                    download: filename
+                });
+                document.body.appendChild(element[0]);
+
+                 $timeout(function() {
+                 element[0].click();
+                 $scope.isDisabled = false;
+                 });
+            });
+        };
+        $scope.getPatternsPdf = function () {
+            var deferred = $q.defer();
+            var filtering = $scope.filterOptions.filters;
+            var data;
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+            config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
+                params: {
+                    //'token': $window.localStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'name': filtering.filterName,
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
+                    'accumulatedReturn': (filtering.selectedRent  ? filtering.selectedRent.id : ""),
+                    'accumulatedInput': filtering.rentInput,
+                    'averageReturn': (filtering.selectedAverage  ? filtering.selectedAverage.id : ""),
+                    'averageInput': filtering.rentAverageInput,
+                    'dailyReturn': (filtering.selectedRentDiary  ? filtering.selectedRentDiary.id : ""),
+                    'dailyInput': filtering.rentDiaryInput,
+                    'volatility':  (filtering.selectedVolatility  ? filtering.selectedVolatility.id : ""),
+                    'volatilityInput': filtering.volatilityInput,
+                    'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
+                    'durationInput': filtering.durationInput,
+                    'favourites': filtering.favourite
+                }
+            };
+
+            var result = $http.get($rootScope.urlService+'/patternspdf', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
     })
     .service("PatternsService", function ($location,$http, $window, $rootScope, $q) {
