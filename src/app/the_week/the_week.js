@@ -17,6 +17,12 @@ angular.module('ngMo.the_week', [
                 selectSubmenu: '',
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
+            },
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                }
             }
         });
     })

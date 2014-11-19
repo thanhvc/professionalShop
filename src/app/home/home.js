@@ -56,24 +56,16 @@ angular.module('ngMo.home', [
 
 
     //carousel functions
-    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, SecondActiveTabService, AnchorLinkService, IsLogged, $state, $stateParams,$translatePartialLoader, $translate) {
+    .controller('HomeCtrl', function HomeController($scope, $templateCache, $rootScope, PacksService, ActiveTabService, SecondActiveTabService, AnchorLinkService, $state, $stateParams,$translatePartialLoader, $translate) {
 
         $scope.changePosCart = function () {
             $scope.positionCart = 'top';
         };
         $translatePartialLoader.addPart("home");
-           //views allowed to no redirect, this views are states that load the homeCtrl for tooltips mainly,but dont need check logged status
-        $scope.allowed_views= ['service_conditions','products_and_exchanges','summary','detailed_description','volatility'];
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
-            if ($scope.allowed_views.indexOf($state.current.name) === -1) {
-                IsLogged.isLogged(true);
-            } else {
-                IsLogged.isLogged(false);
-            }
-
         });
 
         $scope.loading = false;

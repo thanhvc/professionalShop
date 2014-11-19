@@ -1831,6 +1831,7 @@ describe('The app controller', function(){
         _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
         _$httpBackend_.when('GET',$rootScope.urlService + '/actualdate').respond(200,{"data": new Date()});
         _$httpBackend_.when('GET',$rootScope.urlService + '/nextdate').respond(200,{"data": new Date()});
+        _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
         _$httpBackend_.when('POST',$rootScope.urlService + '/remember-password').respond(200,{"status":"ok"});
     }));
 
