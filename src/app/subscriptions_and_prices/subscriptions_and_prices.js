@@ -108,8 +108,7 @@ angular.module('ngMo.subscriptions_and_prices', [
     .run(function run() {
     })
 
-    .controller('Subscriptions_And_PricesCtrl', function Subscriptions_And_PricesCtrl($scope, IsLogged) {
-        IsLogged.isLogged(false);
+    .controller('Subscriptions_And_PricesCtrl', function Subscriptions_And_PricesCtrl($scope) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });

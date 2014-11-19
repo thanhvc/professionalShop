@@ -24,6 +24,12 @@ angular.module('ngMo.my_subscriptions', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu',
                 subPage: 'my-subscriptions'
+            },
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                }
             }
         })
             //substates of my-subscriptions

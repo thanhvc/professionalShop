@@ -13,10 +13,6 @@ angular.module('ngMo.services', [
                     controller: 'DetailedCtrl',
                     templateUrl: 'services/summary/summary.tpl.html'
                 }
-                /*,
-                 'sum-view@summary': {
-                 templateUrl: 'services/summary/sub-summary.tpl.html'
-                 }*/
             },
             data: {
                 pageTitle: 'Resumen',
@@ -27,29 +23,6 @@ angular.module('ngMo.services', [
                 subPage: 'none'
             }
         })
-            //substates of summary
-            /*.state('summary.basic', {
-             url: '/basic',
-             views: {
-             "sum-view": {
-             templateUrl: 'services/summary/basic-info.tpl.html'
-             }
-             },
-             data: {
-             subPage: 'basic'
-             }
-             })
-             .state('summary.diary', {
-             url: '/diary',
-             views: {
-             "sum-view": {
-             templateUrl: 'services/summary/diary.tpl.html'
-             }
-             },
-             data: {
-             subPage: 'diary'
-             }
-             })*/
             .state('products_and_exchanges', {
                 url: '/products_and_exchanges',
                 views: {
@@ -84,122 +57,7 @@ angular.module('ngMo.services', [
                     selectItemSubmenu: 'detailed-description-nav',
                     moMenuType: 'publicMenu'
                 }
-            })/*
-         //subpages of detailed_description
-         .state('detailed_description.basic', {
-         url: '/basic',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/basic.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.phases', {
-         url: '/phases',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/phases.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.monthly', {
-         url: '/monthly',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/monthly.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.buy', {
-         url: '/buy',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/buy.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.patterns', {
-         url: '/patterns',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/patterns.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.diary', {
-         url: '/diary',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/diary.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.historic', {
-         url: '/historic',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/historic.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.drawdown', {
-         url: '/drawdown',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/drawdown.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.correlation', {
-         url: '/correlation',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/portfolio.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.volatility', {
-         url: '/volatility',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/volatility.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.week', {
-         url: '/week',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/week.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.calendar', {
-         url: '/calendar',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/calendar.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.suscriptions', {
-         url: '/suscriptions',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/suscriptions.tpl.html'
-         }
-         }
-         })
-         .state('detailed_description.account', {
-         url: '/account',
-         views: {
-         "subPage": {
-         templateUrl: 'services/detailed_description/account.tpl.html'
-         }
-         }
-         })
-         //end of subpages
-         */
+            })
             .state('fundamentals', {
                 url: '/fundamentals',
                 views: {
@@ -238,8 +96,7 @@ angular.module('ngMo.services', [
     .run(function run() {
     })
 
-    .controller('ServicesCtrl', function ServicesCtrl($scope,PricesService, IsLogged,$templateCache) {
-        IsLogged.isLogged(false);
+    .controller('ServicesCtrl', function ServicesCtrl($scope,PricesService, $templateCache) {
         $scope.tooltipOpinions = $templateCache.get("tooltips/opinion.tpl.html");
         $scope.tooltipReliability = $templateCache.get("tooltips/reliatibility.tpl.html");
         $scope.tooltipPeriods = $templateCache.get("tooltips/period.tpl.html");
