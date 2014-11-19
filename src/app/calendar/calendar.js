@@ -18,7 +18,13 @@ angular.module('ngMo.calendar', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false
+            reloadOnSearch: false,
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                }
+            }
         });
     })
 

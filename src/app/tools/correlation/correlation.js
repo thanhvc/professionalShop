@@ -17,6 +17,12 @@ angular.module('ngMo.correlation', [
                 selectSubmenu: 'submenu1',
                 selectItemSubmenu: 'correlation-nav',
                 moMenuType: 'privateMenu'
+            },
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                }
             }
         });
     })

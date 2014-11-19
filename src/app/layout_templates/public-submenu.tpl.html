@@ -163,14 +163,6 @@
             Precios
         </a>
 
-    <li id="purchase-nav"
-        ng-click="onClickSubmenu()"
-        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','purchase-nav')"
-        ng-mouseleave="onMouseLeaveSubmenu()">
-        <a ui-sref="purchase" ng-class="{'item-nav-hover': selectItemSubmenu == 'purchase-nav'
-            || actualItemSubmenu == 'purchase-nav'}">
-            Acceder Contenidos
-        </a>
     <li id="shopping-guide-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','shopping-guide-nav')"
@@ -179,6 +171,16 @@
             || actualItemSubmenu == 'shopping-guide-nav'}">
             Guía Compras
         </a>
+
+    <li id="purchase-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','purchase-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="purchase" ng-class="{'item-nav-hover': selectItemSubmenu == 'purchase-nav'
+            || actualItemSubmenu == 'purchase-nav'}">
+            Acceder Contenidos
+        </a>
+
     <li id="free-subscription-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('subscriptions-and-prices-nav','submenu4','free-subscription-nav')"
@@ -212,15 +214,7 @@
         ng-mouseleave="onMouseLeaveSubmenu()">
         <a ui-sref="symbols_and_exchanges" ng-class="{'item-nav-hover': selectItemSubmenu == 'symbols-and-exchanges-nav'
             || actualItemSubmenu == 'symbols-and-exchanges-nav'}">
-            Símbolos y Mercados
-        </a>
-    <li id="mo-template-collections-nav"
-        ng-click="onClickSubmenu()"
-        ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','mo-template-collections-nav')"
-        ng-mouseleave="onMouseLeaveSubmenu()">
-        <a ui-sref="mo_template_collections" ng-class="{'item-nav-hover': selectItemSubmenu == 'mo-template-collections-nav'
-            || actualItemSubmenu == 'mo-template-collections-nav'}">
-            Colección Plantillas MO
+            Símbolos y Definiciones
         </a>
 </ul>
 <ul id="submenu6" class="float-right submenu"

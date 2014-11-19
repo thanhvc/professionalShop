@@ -17,6 +17,12 @@ angular.module('ngMo.portfolio', [
                 selectSubmenu: 'submenu1',
                 selectItemSubmenu: 'portfolio-nav',
                 moMenuType: 'privateMenu'
+            },
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                }
             }
         });
     })

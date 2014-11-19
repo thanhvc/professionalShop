@@ -53,22 +53,6 @@ angular.module('ngMo.investor_tools', [
                     selectItemSubmenu: 'symbols-and-exchanges-nav',
                     moMenuType: 'publicMenu'
                 }
-            })
-            .state('mo_template_collections', {
-                url: '/mo_template_collections',
-                views: {
-                    "main": {
-                        controller: 'Investor_ToolsCtrl',
-                        templateUrl: 'investor_tools/mo_template_collections/mo_template_collections.tpl.html'
-                    }
-                },
-                data: {
-                    pageTitle: 'Coleccion Plantillas MO',
-                    selectMenu: 'investor-tools-nav',
-                    selectSubmenu: 'submenu5',
-                    selectItemSubmenu: 'mo-template-collections-nav',
-                    moMenuType: 'publicMenu'
-                }
             });
 
     })
@@ -76,8 +60,7 @@ angular.module('ngMo.investor_tools', [
     .run(function run() {
     })
 
-    .controller('Investor_ToolsCtrl', function Investor_ToolsCtrl($scope, IsLogged) {
-        IsLogged.isLogged(false);
+    .controller('Investor_ToolsCtrl', function Investor_ToolsCtrl($scope) {
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });

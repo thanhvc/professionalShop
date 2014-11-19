@@ -136,7 +136,9 @@
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span>
             </td>
-            <td class="pairs-volatility-column-catalog">{{pattern.volatility | twoDecimals}}</td>
+
+            <td class="pairs-volatility-column-catalog" ng-if="pattern.volatility>=0">{{pattern.volatility | twoDecimals}}</td>
+            <td class="pairs-volatility-column-catalog" ng-if="pattern.volatility<0">NA</td>
             <td class="pairs-status-column-catalog"><!--<div tooltip="{{pattern.state}}"
             class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
                 <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
@@ -161,7 +163,7 @@
 <div class="browser-data-catalog">
     <p class="orange-title">&iquest;Desea informaci&oacute;n sobre los datos Fundamentales de una Compa&ntilde;&iacute;a?</p>
 
-    <p>Introducir Nombre de la Compa&ntilde;&iacute;a (para acciones de Asia tambi&eacute;n C&oacute;digo Num&eacute;rico)</p>
+    <p>Introducir Nombre de Compañía  (O Código Numérico para acciones de Asia)</p>
 
     <div >
         <input placeholder="Nombre" ng-model="searchExternCatalog">

@@ -24,71 +24,13 @@ angular.module('ngMo.my_patterns', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false//,//with this option, the controller will not reload the page when it change
-            //the params on url
-            /*resolve: {
-                MonthSelectorService: "MonthSelectorService",
-                SelectedMonthService: "SelectedMonthService",
-                PatternsService: "PatternsService",
-                TabsService: "TabsService",
+            reloadOnSearch: false,//with this option, the controller will not reload the page when it change
+            resolve: {
                 IsLogged: "IsLogged",
-                filtering : function(TabsService,MonthSelectorService,$location, SelectedMonthService){
-
-                    var params = $location.search();
-                    //just to select a item like a selector for load params
-                    var selectors = [{
-                        id: 0,
-                        "description": "something"
-                    },{
-                        id: 1,
-                        "description": "something"}];
-                    //keep separatly in case of change
-                    var operations =  [{
-                        id: 0,
-                        "description": "something"
-                    },{
-                        id: 1,
-                        "description": "something"}];
-
-                    return {
-                        active_tab: (typeof params.qacttab !== "undefined" ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
-                        month: SelectedMonthService.getSelectedMonth(),
-                        durationInput: (typeof params.qdur !== "undefined" ? params.qdur : "" ),
-                        favourite: (typeof params.qfav !== "undefined" ? params.qfav : "" ),
-                        filterName: (typeof params.qname !== "undefined" ? params.qname : "" ),
-                        index_type: (typeof params.qindex !== "undefined" ? params.qindex : TabsService.getActiveIndexType() ),
-                        rentAverageInput: (typeof params.qaver !== "undefined" ? params.qaver : "" ),
-                        rentDiaryInput: (typeof params.qdiar !== "undefined" ? params.qdiar : "" ),
-                        rentInput: (typeof params.qrent !== "undefined" ? params.qrent : "" ),
-                        selectedAverage: (typeof params.qselaver !== "undefined" ? selectors[parseInt(params.qselaver,10)] : "" ),
-                        selectedDuration: (typeof params.qseldur !== "undefined" ? selectors[parseInt(params.qseldur,10)] : "" ),
-                        selectedIndustry: (typeof params.qindust !== "undefined" ? params.qindust : "" ),
-                        selectedMarket: (typeof params.qmarket !== "undefined" ? params.qmarket : "" ),
-                        selectedOperation: (typeof params.qop !== "undefined" ? operations[parseInt(params.qop,10)] : "" ),
-                        selectedRegion: (typeof params.qregion !== "undefined" ? params.qregion : "" ),
-                        selectedRent:  (typeof params.qselrent !== "undefined" ? selectors[parseInt(params.qselrent,10)] : "" ),
-                        selectedRentDiary:  (typeof params.qseldiar !== "undefined" ? selectors[parseInt(params.qseldiar,10)] : "" ),
-                        selectedSector: (typeof params.qsector !== "undefined" ? $scope.qsector : ""),
-                        selectedVolatility: (typeof params.qselvol !== "undefined" ? selectors[parseInt(params.qselvol ,10)] : "" ),
-                        tab_type: (typeof params.qtab !== "undefined" ? params.qtab : "" ),
-                        volatilityInput: (typeof params.qvol !== "undefined" ? params.qvol : "" ),
-                        page: (typeof params.pag !== "undefined" ? params.pag : "" )
-                    };
-                },
-
-                myPatternsData: function(PatternsService, filtering, IsLogged) {
+                logged: function(IsLogged) {
                     IsLogged.isLogged();
-                    var page =  parseInt(filtering.page,10) || 1;
-                    return PatternsService.getPagedDataAsync(page, filtering).then(function (data){
-                        return {
-                            patterns: data.patterns,
-                            results: data.results,
-                            found: data.found
-                         };
-
-                    });
                 }
-            }*/
+            }
         });
     })
     .service('TabsService', function () {
@@ -236,11 +178,12 @@ angular.module('ngMo.my_patterns', [
         };
 
     })
-    .controller('PatternsCtrl', function PatternsCtrl($filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate,$translateCookieStorage) {
+    .controller('PatternsCtrl', function PatternsCtrl($timeout,$window,$q,$filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate,$translateCookieStorage) {
         $scope.dataLoaded = false;
         $scope.loading = true;//loading patterns
         $scope.loadingFilters = false;
 
+        $scope.isDisabled = false;
 
         //event for keypress in input search name, launch the filters if press enter
         $scope.submitName = function(keyEvent) {
@@ -382,7 +325,7 @@ angular.module('ngMo.my_patterns', [
                 }
             };
             if (!$scope.filterOptions.months) {
-                $scope.filterOptions.months = MonthSelectorService.getListMonths();
+                $scope.filterOptions.months = MonthSelectorService.getMySubscriptionsListMonth();
             }
             //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
             $scope.updateSelectorMonth();
@@ -752,7 +695,7 @@ angular.module('ngMo.my_patterns', [
 
         $scope.canMove = function (direction) {
             if (direction > 0) {
-                return (($scope.filterOptions.months[11].value !== $scope.filterOptions.filters.month.value));
+                return (($scope.filterOptions.months[$scope.filterOptions.months.length-1].value !== $scope.filterOptions.filters.month.value));
             }
             else {
                 return (($scope.filterOptions.months[0].value !== $scope.filterOptions.filters.month.value));
@@ -982,6 +925,75 @@ angular.module('ngMo.my_patterns', [
         //Expiration service
         $scope.getYearFromPatternName= function (patternName, expirationDate) {
             return ExpirationYearFromPatternName.getExpirationYearFromPatternName(patternName, expirationDate);
+        };
+
+
+        $scope.generatePdf = function () {
+            $scope.isDisabled=true;
+            $scope.getPatternsPdf().then(function (data) {
+                var filename = "patterns" + /*productType +*/ ".pdf";
+                var element = angular.element('<a/>');
+                element.attr({
+
+                    href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                    target: '_blank',
+                    download: filename
+                });
+                document.body.appendChild(element[0]);
+
+                 $timeout(function() {
+                 element[0].click();
+                 $scope.isDisabled = false;
+                 });
+            });
+        };
+        $scope.getPatternsPdf = function () {
+            var deferred = $q.defer();
+            var filtering = $scope.filterOptions.filters;
+            var data;
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+            config = {
+                headers: {
+                    'X-Session-Token': $window.localStorage.token
+                },
+                params: {
+                    //'token': $window.localStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'name': filtering.filterName,
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
+                    'accumulatedReturn': (filtering.selectedRent  ? filtering.selectedRent.id : ""),
+                    'accumulatedInput': filtering.rentInput,
+                    'averageReturn': (filtering.selectedAverage  ? filtering.selectedAverage.id : ""),
+                    'averageInput': filtering.rentAverageInput,
+                    'dailyReturn': (filtering.selectedRentDiary  ? filtering.selectedRentDiary.id : ""),
+                    'dailyInput': filtering.rentDiaryInput,
+                    'volatility':  (filtering.selectedVolatility  ? filtering.selectedVolatility.id : ""),
+                    'volatilityInput': filtering.volatilityInput,
+                    'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
+                    'durationInput': filtering.durationInput,
+                    'favourites': filtering.favourite
+                }
+            };
+
+            var result = $http.get($rootScope.urlService+'/patternspdf', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
         };
     })
     .service("PatternsService", function ($location,$http, $window, $rootScope, $q) {

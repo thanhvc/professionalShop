@@ -23,8 +23,13 @@ angular.module('ngMo.lookup_diary', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false//with this option, the controller will not reload the page when it change
-            //the params on url
+            reloadOnSearch: false,
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                }
+            }
         });
     })
 

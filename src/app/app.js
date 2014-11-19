@@ -30,7 +30,8 @@ angular.module('ngMo', [
         'ngMo.payment',
         'ngMo.cancel_pack',
         'ngMo.renew',
-        'tmh.dynamicLocale'
+        'tmh.dynamicLocale',
+        'ngMo.changePassword'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
@@ -127,6 +128,8 @@ angular.module('ngMo', [
             $translate.refresh();
 
         });
+
+
     })
 
     .service('ActiveTabService', function (){
@@ -956,6 +959,9 @@ angular.module('ngMo', [
 
     })
     .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http,$translate,$translatePartialLoader,tmhDynamicLocale) {
+        //Set when is logged
+        IsLogged.checkLogged();
+
         $scope.emailRemember = "";
         $scope.mailSent = false;
         $scope.rememberPassword = function () {
@@ -970,8 +976,6 @@ angular.module('ngMo', [
                     $scope.mailSent = true;
                 });
         };
-
-        
         $scope.$on('$stateChangeStart', function (event, toState){
             $scope.inWeekView = false;
             if (toState.url === '/the-week') {
@@ -1043,7 +1047,7 @@ angular.module('ngMo', [
         };
 
         $scope.changeLanguage = function(lang) {
-            $translate.refresh();
+           // $translate.refresh();
             $translate.use(lang);
             $translate.refresh();
             tmhDynamicLocale.set(lang);

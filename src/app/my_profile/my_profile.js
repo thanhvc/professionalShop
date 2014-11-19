@@ -28,7 +28,13 @@ angular.module('ngMo.my_profile', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu'
             },
-            reloadOnSearch: false
+            reloadOnSearch: false,
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                }
+            }
         })
             //substates of summary
             .state('profile.identification', {

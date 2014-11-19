@@ -67,6 +67,30 @@ angular.module('auth',['http-auth-interceptor'])
                 });
         };
 
+        this.checkLogged = function(){
+            token = $window.localStorage.token;
+            if (typeof token ==="undefined" ) {
+                $rootScope.isLog = false;
+                return;
+            } else {
+                config = {
+                    headers: {
+                        'X-Session-Token': token
+                    }
+                };
+                $rootScope.isLog=false;
+                $http.get($rootScope.urlService+'/islogged', config)
+                    .success(function (params, status, headers, config) {
+                        $rootScope.isLog = true;
+
+                    })
+                    .error(function (params, status, headers, config) {
+                        $rootScope.isLog = false;
+                    });
+            }
+
+        };
+
         /*unlog the user and redirect to home*/
         this.unLog = function () {
             $rootScope.isLog = false;

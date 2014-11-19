@@ -18,7 +18,14 @@ angular.module('ngMo.cancel_pack', [
                 selectItemSubmenu: '',
                 moMenuType: 'privateMenu',
                 subPage: 'cancel-pack'
+            },
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                }
             }
+
         });
     })
 
