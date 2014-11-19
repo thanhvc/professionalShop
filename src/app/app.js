@@ -30,7 +30,8 @@ angular.module('ngMo', [
         'ngMo.payment',
         'ngMo.cancel_pack',
         'ngMo.renew',
-        'tmh.dynamicLocale'
+        'tmh.dynamicLocale',
+        'ngMo.changePassword'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
