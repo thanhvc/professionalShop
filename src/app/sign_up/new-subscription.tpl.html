@@ -1,23 +1,18 @@
 <div class="panel">
 
     <div ng-controller="SignupCtrl" novalidate>
-        <div class="margin-top-header">
-            <div><span class="black-title-bold super-border">ACCESO SERVICIO ONLINE</span>
-            </div>
-            <div class="sign-text default-format-text prices-font12">Lorem ipsum dolor sit amet,
-                consectetur adipisicing
-                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-
-            </div>
-        </div>
+            <p class="text-block-title">Identificación</p>
+            <p>
+                Si nunca se ha registrado en Market Observatory, necesitará un Usuario –un email operativo- y una Contraseña
+                para acceder al servicio. El email se usará exclusivamente para las funciones propias del servicio y en cualquier
+                momento podrá darse de baja.
+                Si es o ha sido cliente utilice sus datos de acceso habituales.
+            </p>
         <div class="prices-font11">
 
             <div class="new-subscription-block">
                 <div class="orange-border" style="font-size:12px; margin-bottom:15px;">
-                    <table width="375">
+                    <table width="400">
                         <tr>
                             <td>
                                 <input type="radio" ng-model="newSubscriptionMode" value="login"> Soy
@@ -67,14 +62,14 @@
                                     <table class="signup-new-subscription-table">
                                         <tbody>
                                         <tr>
-                                            <td><span class="grey-label">Email</span></td>
+                                            <td><span class="grey-label">Usuario (email)</span></td>
                                             <td><input ng-model="user.email" type="email"
                                                        ng-change="clearState()"
                                                        name="uEmail" required="true">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><span class="grey-label">Repetir email</span></td>
+                                            <td><span class="grey-label">Repetir Usuario (email)</span></td>
                                             <td><input type="email" ng-model="user.email2"
                                                        name="username2" required="true"
                                                        matchWith="user.email">

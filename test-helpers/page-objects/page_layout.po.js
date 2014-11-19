@@ -1,19 +1,12 @@
 /**
- * Created by aitor on 22/10/14.
+ * Created by David Verdú on 11/11/14.
  */
 'use strict';
-var Home = function () {
-        browser.get('/');
+var PageLayout = function () {
 
 };
 
-Home.prototype =  Object.create({}, {
-    isCurrentPage : {value: function(){
-                            return browser.getLocationAbsUrl().then(function(url) {
-                              console.log("current url: " + url); 
-                              return (url.indexOf("home") > -1);
-                            });
-                     }},
+PageLayout.prototype =  Object.create({}, {
     showLoginBox : {value: function(){
                             element(by.css(".no-logged-box")).click()
                      }},
@@ -33,11 +26,12 @@ Home.prototype =  Object.create({}, {
     }},
     myAccountLink:{value: function(){
         return element(by.css("a.my-account-link"));
+    }},
+    calendarNavLink:{value: function(){
+        return element(by.css("li#calendar-nav a"));
     }}
-
-
 
 });
 
 
-module.exports = Home;
+module.exports = PageLayout;

@@ -383,7 +383,7 @@ angular.module('ngMo.my_patterns', [
                 }
             };
             if (!$scope.filterOptions.months) {
-                $scope.filterOptions.months = MonthSelectorService.getListMonths();
+                $scope.filterOptions.months = MonthSelectorService.getMySubscriptionsListMonth();
             }
             //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
             $scope.updateSelectorMonth();
@@ -753,7 +753,7 @@ angular.module('ngMo.my_patterns', [
 
         $scope.canMove = function (direction) {
             if (direction > 0) {
-                return (($scope.filterOptions.months[11].value !== $scope.filterOptions.filters.month.value));
+                return (($scope.filterOptions.months[$scope.filterOptions.months.length-1].value !== $scope.filterOptions.filters.month.value));
             }
             else {
                 return (($scope.filterOptions.months[0].value !== $scope.filterOptions.filters.month.value));
