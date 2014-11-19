@@ -36,7 +36,7 @@ angular.module('ngMo.volatility', [
         });
     })
 
-    .controller('VolatilityCtrl', function VolatilityCtrl($scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,  SelectedMonthService, UserApplyFilters, $translatePartialLoader) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($filter,$scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,  SelectedMonthService, UserApplyFilters, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -374,6 +374,9 @@ angular.module('ngMo.volatility', [
                 $scope.filterOptions.selectors.markets = data.markets;
                 if (typeof data.selectedRegion != 'undefined') {
                     $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                }
+                for (i=0;i<$scope.filterOptions.selectors.markets.length;i++) {
+                    $scope.filterOptions.selectors.markets[i].description = $filter('capitalize')( $scope.filterOptions.selectors.markets[i].description);
                 }
                 //$scope.filterOptions.filters.selectedMarket = "";
             }

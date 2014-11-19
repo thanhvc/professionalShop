@@ -496,7 +496,7 @@ angular.module('ngMo.my_patterns', [
                 if (typeof data.selectedRegion != 'undefined') {
                     $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
                 }
-                for (i=0;i<$scope.filterOptions.selectors.markets.length-1;i++) {
+                for (i=0;i<$scope.filterOptions.selectors.markets.length;i++) {
                     $scope.filterOptions.selectors.markets[i].description = $filter('capitalize')( $scope.filterOptions.selectors.markets[i].description);
                 }
                 //$scope.filterOptions.filters.selectedMarket = "";
