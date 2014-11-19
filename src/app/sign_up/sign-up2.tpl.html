@@ -91,8 +91,11 @@
                         <tr>
                             <td class="red-color-form"></td>
                             <td colspan="2">
-                                <div id="bodyCaptcha">
-                                    <img id="captchaImg" src="assets/img/captcha.png/captcha.png" class="captcha-img">
+                                <div id="bodyCaptcha" style="position: relative;">
+                                    <!--<img id="captchaImg" src="assets/img/captcha.png/captcha.png" class="captcha-img">-->
+                                    <!--simple captcha-->
+                                    <div class="captcha-div">{{a}} + {{b}} ?</div>
+                                    <div class="captcha-mask"></div>
                                     <input type="text" name="captcha" style="width:212px;" id="captcha" ng-enter="nextInput('conditions')"
                                            class="signup-input"
                                            ng-model="user.captcha" required="true" ng-pattern="captchaPattern"
