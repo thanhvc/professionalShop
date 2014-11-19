@@ -29,6 +29,9 @@ PageLayout.prototype =  Object.create({}, {
     }},
     calendarNavLink:{value: function(){
         return element(by.css("li#calendar-nav a"));
+    }},
+    the_weekNavLink:{value: function(){
+        return element(by.css("li#the-week-nav a"));
     }}
 
 });

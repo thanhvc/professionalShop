@@ -247,7 +247,8 @@ exports.calendar_fixture = function() {
                 symbol:'CU1',
                 name:'Currency1'
             }
-        },{
+        },
+        {
             type: 'insert',
             table: 'exchange',
             values: {
@@ -257,7 +258,8 @@ exports.calendar_fixture = function() {
                 region_code:'CAN',
                 sector_group: 'sector_group1'
             }
-        },{
+        },
+        {
             type: 'insert',
             table: 'exchange',
             values: {
