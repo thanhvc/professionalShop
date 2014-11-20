@@ -713,7 +713,11 @@ angular.module('ngMo.calendar', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'token': $window.localStorage.token
+                    'token': $window.localStorage.token,
+                    'market': filtering.selectedMarket,
+                    'region': filtering.selectedRegion,
+                    'operation': filtering.selectedOperation,
+                    'fav': filtering.favourite
                 }
             };
 
