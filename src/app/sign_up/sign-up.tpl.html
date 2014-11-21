@@ -11,7 +11,7 @@
             momento podrá darse de baja.
         </p>
         <div  class="prices-font11">
-            <form name="form" method="POST" autocomplete="on">
+            <form name="form" method="POST" autocomplete="on" ng-dirty="dirtyForm">
                 <div class="sign-up-block">
                     <div class="orange-border" style="font-size:12px; margin-bottom:15px;">
                         <table class="signup-table" style="width:95%;">
@@ -24,32 +24,32 @@
                             </tr>
                             <tr>
                                 <td><span class="grey-label">Repetir email</span></td>
-                                <td><input  class="signup-input" type="email" ng-model="user.email2" id="email2"
+                                <td><input  class="signup-input" type="email" ng-model="user.email2" id="email2" ng-change="inputChange()"
                                            name="username2" style="width:200px;" required="true" match-with="user.email" ng-enter="nextInput('password')">
                                 </td>
                             </tr>
                             <tr>
                                 <td><span class="grey-label">Contrase&ntilde;a</span></td>
-                                <td><input  class="signup-input" ng-model="user.password" type="password" id="password"
+                                <td><input  class="signup-input" ng-model="user.password" type="password" id="password" ng-change="passwordCheck();"
                                            name="password1" required="true"
                                            ng-pattern="passwordPatten" ng-trim="false" ng-enter="nextInput('password2')"
                                            style="width:200px;" ng-minlength="8"></td>
                             </tr>
                             <tr>
                                 <td><span class="grey-label">Repetir contrase&ntilde;a</span></td>
-                                <td><input  class="signup-input" ng-model="user.password2" type="password" id="password2"
-                                           name="password2" required="true" match-with="user.password" ng-enter="nextInput('submit1')"
+                                <td><input  class="signup-input" ng-model="user.password2" type="password" id="password2" ng-change="passwordCheck();"
+                                           name="password2" required="true" ng-pattern="passwordPatten" match-with="user.password" ng-enter="nextInput('submit1')"
                                            style="width:200px;">
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                    <button class="mo-button"  name="continue" ng-disabled="form.$invalid" id="submit1" ng-enter="sendFirstStep()"
+                    <button class="mo-button"  name="continue"  id="submit1" ng-enter="sendFirstStep()"
                             ng-click="sendFirstStep()" style="float:right;" type="button">Continuar
                     </button>
-
-                    <div class="red-color-form prices-font12" ng-show="form.password2.$error.mismatch && (form.password2.$dirty &&form.password1.$dirty)">Las
+<!--form.password2.$error.mismatch && -->
+                    <div class="red-color-form prices-font12" ng-show="((form.password2.$dirty || form.password1.$dirty) && (passwordErrorMatch)) && (form.password1.value != '' && !form.password2.value != '')">Las
                         contrase&ntilde;as no coinciden
                     </div>
                     <div ng-show="form.uEmail.$error.email && (form.uEmail.$dirty)"
@@ -73,6 +73,10 @@
                     </div>
                     <div  class="red-color-form prices-font12"
                          ng-show="form.$error.required && form.$dirty">
+                        Faltan campos obligatorios
+                    </div>
+                    <div  class="red-color-form prices-font12"
+                          ng-show="triedFirstStep && !form.$dirty">
                         Faltan campos obligatorios
                     </div>
                 </div>

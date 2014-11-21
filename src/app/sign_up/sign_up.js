@@ -141,6 +141,22 @@ angular.module('singUp', [])
             $translatePartialLoader.addPart('sing_up');
 
 
+            $scope.passwordErrorMatch = false;
+
+            //function to check password
+            $scope.passwordCheck = function() {
+                $scope.passwordErrorMatch = (form.password.value != form.password2.value);
+            };
+
+            $scope.dirtyForm = false;//true if the form is dirty <- by ng-dirty
+            $scope.triedFirstStep = false;
+            $scope.validForm = false;
+            $scope.$watch('form.$valid',function(validity) {
+                $scope.validForm = validity;
+            });
+
+
+
             //captcha
             $scope.a = Math.ceil(Math.random() * 10);
             $scope.b = Math.ceil(Math.random() * 10);
@@ -262,7 +278,13 @@ angular.module('singUp', [])
                 }
             };
             $scope.sendFirstStep = function () {
-                var result = SignUpService.firstStep($scope.user, $scope.firstCallback);
+                $scope.triedFirstStep = true;
+                if ($scope.validForm ) {
+                    var result = SignUpService.firstStep($scope.user, $scope.firstCallback);
+                } else {
+
+                }
+
             };
             $scope.clearState = function(){
                 $scope.result= "";
