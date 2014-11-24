@@ -689,6 +689,9 @@ angular.module('ngMo.my_patterns', [
         };
         //synchronize the selector with the month of the filter
         $scope.updateSelectorMonth = function () {
+            if ($scope.filterOptions.months.filter(function (m) {return m.value == $scope.filterOptions.filters.month.value;}).length === 0){
+                $scope.filterOptions.filters.month = MonthSelectorService.setDate(new Date());
+            }
             for (i = 0; i < $scope.filterOptions.months.length; i++) {
                 if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
                     $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[i];
