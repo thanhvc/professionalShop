@@ -76,7 +76,8 @@ angular.module('ngMo.contact', [
     .run(function run() {
     })
 
-    .controller('ContactCtrl', function ContactCtrl($scope) {
+    .controller('ContactCtrl', function ContactCtrl($scope, IsLogged) {
+        IsLogged.isLogged(false);
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
         });

@@ -31,7 +31,8 @@ angular.module('ngMo', [
         'ngMo.cancel_pack',
         'ngMo.renew',
         'tmh.dynamicLocale',
-        'ngMo.changePassword'
+        'ngMo.changePassword',
+        'ngMo.faq'
     ])
 
  .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
@@ -67,22 +68,6 @@ angular.module('ngMo', [
                 selectItemSubmenu: '',
                 moMenuType: 'publicMenu'
              }
-        })
-        .state('faq', {
-            url: '/faq',
-            views: {
-                "main": {
-                    controller: 'HomeCtrl',
-                    templateUrl: 'faq/faq.tpl.html'
-                }
-            },
-            data: {
-                pageTitle: 'FAQ',
-                selectMenu: '',
-                selectSubmenu: '',
-                selectItemSubmenu: '',
-                moMenuType: 'publicMenu'
-            }
         })
         .state('privacy_policy', {
             url: '/privacy_policy',
@@ -2125,57 +2110,6 @@ angular.module('ngMo', [
                 $scope.$watch('subtotalStock', function(){});
             },
             templateUrl: 'layout_templates/cart.tpl.html'
-        };
-    })
-
-    .directive("scrollFaq", function ($window, PositionAnchorsFaq, AnchorLinkService) {
-        return function(scope, element, attrs) {
-            angular.element($window).bind("scroll", function() {
-                if (this.pageYOffset >= 150) {
-                    scope.positionFix = true;
-                    scope.boolChangeClassDetailed = true;
-                } else {
-                    scope.boolChangeClassDetailed = false;
-                    scope.positionFix = false;
-                }
-                scope.$apply();
-
-                //scrollSpy
-                //Obtain anchors
-                if (typeof anchorsFaq === 'undefined') {
-                    anchorsFaq = PositionAnchorsFaq.getPositionAnchors();
-                }
-                if (typeof anchorsFaq !== 'undefined') {
-                    if (this.pageYOffset < anchorsFaq[0].position) {
-                        scope.selectedOption = anchorsFaq[0].id;
-                    } else if (this.pageYOffset > anchorsFaq[anchorsFaq.length - 1].position) {
-                        scope.selectedOption = anchorsFaq[anchorsFaq.length - 1].id;
-                    } else {
-                        for (var j = 1; j < anchorsFaq.length - 1; j++) {
-                            if (this.pageYOffset >= anchorsFaq[j].position && this.pageYOffset < anchorsFaq[j + 1].position) {
-                                scope.selectedOption = anchorsFaq[j].id;
-                            }
-                        }
-                    }
-                }
-
-            });
-        };
-    })
-
-    .service("PositionAnchorsFaq", function() {
-        this.getPositionAnchors = function() {
-            var anchorsFaq = document.getElementsByClassName("anchor-faq");
-            var positions = [];
-            for (var i = 0; i<anchorsFaq.length;i++){
-                positions.push(
-                    {
-                        "position": (anchorsFaq[i]).offsetTop,
-                        "id": (anchorsFaq[i]).getAttribute('id')
-                    });
-            }
-            return positions;
-
         };
     })
         //directive to add a delay to an action
