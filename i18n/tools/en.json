@@ -28,6 +28,7 @@
         "include_text":"Include between 5 and 20 strategies",
         "index":"Index",
         "indices":"Indices",
+        "issuer":"Issuer",
         "loading_patterns":"Loading patterns, please wait...",
         "lt":"Lower than",
         "market":"Market",
