@@ -36,9 +36,9 @@ angular.module('ngMo.lookup_diary', [
     .run(function run() {
     })
 
-    .controller('LookupDiaryCtrl', function ($filter,$scope, IsLogged, TabsService, ActualDateService, MonthSelectorService,
+    .controller('LookupDiaryCtrl', function ($filter,$scope, IsLogged, TabsService, ActualDateService, MonthSelectorDiaryService,
                                              LookupDiaryService, $http, $state, $stateParams, $location,
-                                             $modal,SelectedMonthService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope, $translatePartialLoader) {
+                                             $modal,SelectedMonthDiaryService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -140,7 +140,7 @@ angular.module('ngMo.lookup_diary', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: SelectedMonthService.getSelectedMonth(),
+                    month: SelectedMonthDiaryService.getSelectedMonth(),
                     favourite: false,
                     alarm: false
                 },
@@ -177,7 +177,7 @@ angular.module('ngMo.lookup_diary', [
                 }
             };
             if (!$scope.filterOptions.months) {
-                $scope.filterOptions.months = MonthSelectorService.getListMonths(true);
+                $scope.filterOptions.months = MonthSelectorDiaryService.getListMonths(true);
             }
             //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
             $scope.updateSelectorMonth();
@@ -705,16 +705,16 @@ angular.module('ngMo.lookup_diary', [
 
         $scope.nextMonth = function () {
             $scope.startLoading();
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
-            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
+            $scope.filterOptions.filters.month = MonthSelectorDiaryService.addMonths(1, $scope.filterOptions.filters.month);
+            SelectedMonthDiaryService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
 
         };
         $scope.previousMonth = function () {
             $scope.startLoading();
-            $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
-            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
+            $scope.filterOptions.filters.month = MonthSelectorDiaryService.addMonths(-1, $scope.filterOptions.filters.month);
+            SelectedMonthDiaryService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -723,8 +723,8 @@ angular.module('ngMo.lookup_diary', [
             $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
-            $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
-            SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
+            $scope.filterOptions.filters.month = MonthSelectorDiaryService.setDate(d);
+            SelectedMonthDiaryService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter();
             $scope.saveUrlParams();
         };
@@ -909,13 +909,13 @@ angular.module('ngMo.lookup_diary', [
                     actual_date = new Date();
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
-                filters.month = MonthSelectorService.setDate(d);
+                filters.month = MonthSelectorDiaryService.setDate(d);
             } else {
                 //if the date is not passed as param, we load the default date
                 var date_restart = new Date();
                 date_restart.setDate(1);
-                date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
-                filters.month = MonthSelectorService.setDate(date_restart);
+                date_restart.setMonth(SelectedMonthDiaryService.getSelectedMonth().month-1);
+                filters.month = MonthSelectorDiaryService.setDate(date_restart);
 
             }
 
@@ -966,6 +966,18 @@ angular.module('ngMo.lookup_diary', [
             $scope.loadPage();
         }
 
+
+    })
+    .service("SelectedMonthDiaryService", function (MonthSelectorDiaryService) {
+        var selectedMonth = MonthSelectorDiaryService.restartDate();
+
+        this.getSelectedMonth = function () {
+            return selectedMonth;
+        };
+
+        this.changeSelectedMonth = function (month) {
+            selectedMonth = month;
+        };
 
     })
     .service("LookupDiaryService", function ($http, $window, $rootScope, $q) {
@@ -1125,6 +1137,173 @@ angular.module('ngMo.lookup_diary', [
                 callback(data);
             });
         };
+    }).factory('MonthSelectorDiaryService', function () {
+        var actualDate = {};
+
+        return {
+
+            getMonthName: function (date) {
+
+                var monthString = "";
+                switch (date.month) {
+                    case 1:
+                        monthString = "JANUARY";
+                        break;
+                    case 2:
+                        monthString = "FEBRUARY";
+                        break;
+                    case 3:
+                        monthString = "MARCH";
+                        break;
+                    case 4:
+                        monthString = "APRIL";
+                        break;
+                    case 5:
+                        monthString = "MAY";
+                        break;
+                    case 6:
+                        monthString = "JUNE";
+                        break;
+                    case 7:
+                        monthString = "JULY";
+                        break;
+                    case 8:
+                        monthString = "AUGUST";
+                        break;
+                    case 9:
+                        monthString = "SEPTEMBER";
+                        break;
+                    case 10:
+                        monthString = "OCTOBER";
+                        break;
+                    case 11:
+                        monthString = "NOVEMBER";
+                        break;
+                    case 12:
+                        monthString = "DECEMBER";
+                        break;
+                    default :
+                        monthString = "notFound";
+                        break;
+
+                }
+                return monthString;
+            },
+            restartDate: function () {
+                var today = new Date();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+                actualDate = {
+                    month: mm,
+                    year: yyyy,
+                    monthString: "",
+                    value: mm + "_" + yyyy
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            setDate: function (date) {
+                var mm = date.getMonth() + 1; //January is 0!
+                var yyyy = date.getFullYear();
+                actualDate = {
+                    month: mm,
+                    year: yyyy,
+                    monthString: "",
+                    value: mm + "_" + yyyy
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            addMonths: function (months, date) { /*add Months accepts months in positive (to add) or negative (to substract)*/
+                var d = new Date(date.year, date.month - 1, 1);
+                d.setMonth(d.getMonth() + months);
+                actualDate = {
+                    month: d.getMonth() + 1,
+                    year: d.getFullYear(),
+                    monthString: "",
+                    value: (d.getMonth() + 1) + "_" + d.getFullYear()
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            getListMonths: function (diaryMode) {
+                var today = new Date();
+                var monthList = [];
+                //the list is 10 last months + actual month + next month if today is <=15, if not
+                //is 11 last months + actual month
+                if (diaryMode){
+                    months = 11;
+                } else {
+                    if (today.getDate() > 14) {
+                        months = 10;
+                    } else {
+                        months = 11;
+                    }
+                }
+
+                var d = new Date(today.getFullYear(), today.getMonth() - months, 1);
+                for (i = 0; i < 12; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year,
+                        month: d_act.monthString,
+                        year: d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
+
+            },
+            getCalendarListMonths: function () {
+                var today = new Date();
+                var monthList = [];
+                var d = new Date(today.getFullYear(), today.getMonth(), 1);
+                //the list is actual month + next month
+                for (i = 0; i < 2; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year,
+                        month: d_act.monthString,
+                        year: d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
+            },
+            getMySubscriptionsListMonth: function () {
+                var today = new Date();
+                var monthList = [];
+                var d = new Date(today.getFullYear(), today.getMonth(), 1);
+                //the list is actual month + next month if day today is greater than 15
+                if (today.getDate() < 15){
+                    numMonths = 1;
+                }else{
+                    numMonths = 2;
+                }
+                for (i = 0; i < numMonths; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year,
+                        month: d_act.monthString,
+                        year: d_act.year
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
+            }
+
+
+        };
+
     })
 
 ;
