@@ -11,7 +11,7 @@ angular.module('ngMo.faq', [
                 views: {
                     "main": {
                         controller: 'FAQCtrl',
-                        template: '<p class="text-block-title">FAQ</p><div ui-view></div>'
+                        template: '<div class="public-zone-text container ng-scope"><p class="text-block-title">FAQ</p><div ui-view></div></div>'
                     },
                     "home":{}
                 },
@@ -24,7 +24,10 @@ angular.module('ngMo.faq', [
                 }
             })
             .state('faq.service-applications-nav', {templateUrl: "faq/service-applications.tpl.html"})
-            .state('faq.home', { templateUrl: "faq/faq.tpl.html" });
+            .state('faq.catalog', { templateUrl: "faq/home.tpl.html" })
+            .state('faq.home', { templateUrl: "faq/home.tpl.html" })
+            .state('faq.nofaq', { templateUrl: "faq/faq.tpl.html" })
+        ;
 
     })
 
@@ -42,11 +45,11 @@ angular.module('ngMo.faq', [
                    } else if (fromState.name !== "faq" && $state.get("faq." + fromState.data.selectMenu)) {
                        $state.transitionTo("faq." + fromState.data.selectMenu);
                    } else {
-                       $state.transitionTo("faq.home");
+                       $state.transitionTo("faq.nofaq");
                    }
                }
            }catch(err){
-               $state.transitionTo("faq.home");
+               $state.transitionTo("faq.nofaq");
            }
 
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
