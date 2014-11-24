@@ -35,7 +35,16 @@ angular.module('singUp', [])
                     captcha: ''
                 }
 
-            }})
+            },
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function (IsLogged) {
+                    IsLogged.isLogged();
+                }
+            }
+
+
+        })
             .state('signup2', {
                 url: '/sign-up-step2',
                 views: {
@@ -63,6 +72,12 @@ angular.module('singUp', [])
                         country: '',
                         conditions: '',
                         captcha: ''
+                    }
+                },
+                resolve: {
+                    IsLogged: "IsLogged",
+                    logged: function (IsLogged) {
+                        IsLogged.isLogged();
                     }
                 }
             })
@@ -94,6 +109,12 @@ angular.module('singUp', [])
                         conditions: '',
                         captcha: ''
                     }
+                },
+                resolve: {
+                    IsLogged: "IsLogged",
+                    logged: function (IsLogged) {
+                        IsLogged.isLogged();
+                    }
                 }
             })
             .state('new-subscription', {
@@ -123,6 +144,12 @@ angular.module('singUp', [])
                         country: '',
                         conditions: '',
                         captcha: ''
+                    },
+                    resolve: {
+                        IsLogged: "IsLogged",
+                        logged: function (IsLogged) {
+                            IsLogged.isLogged();
+                        }
                     }
                 }
             });
@@ -132,13 +159,30 @@ angular.module('singUp', [])
 
     .controller('SignupCtrl', function ($scope, $modal, $state, SignUpService, IsLogged, $rootScope, $window, authService,$http, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
-           // IsLogged.isLogged();
+
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+
             $translatePartialLoader.addPart('sing_up');
+
+
+            $scope.passwordErrorMatch = false;
+
+            //function to check password
+            $scope.passwordCheck = function() {
+                $scope.passwordErrorMatch = (form.password.value != form.password2.value);
+            };
+
+            $scope.dirtyForm = false;//true if the form is dirty <- by ng-dirty
+            $scope.triedFirstStep = false;
+            $scope.validForm = false;
+            $scope.$watch('form.$valid',function(validity) {
+                $scope.validForm = validity;
+            });
+
 
 
             //captcha
@@ -262,7 +306,13 @@ angular.module('singUp', [])
                 }
             };
             $scope.sendFirstStep = function () {
-                var result = SignUpService.firstStep($scope.user, $scope.firstCallback);
+                $scope.triedFirstStep = true;
+                if ($scope.validForm ) {
+                    var result = SignUpService.firstStep($scope.user, $scope.firstCallback);
+                } else {
+
+                }
+
             };
             $scope.clearState = function(){
                 $scope.result= "";

@@ -380,9 +380,10 @@ angular.module('ngMo.calendar', [
             yesterday = new Date();
             tomorrow = new Date();//we compare entryDate and exitDate to yesterday and tomorrow
             //because the compare dates could not work with equals, but works fine with the operators < >
-            today.setDate(dayOfMonth.dayOfMonth);
+
             today.setFullYear(actualDate.year);
             today.setMonth(actualDate.month - 1);
+            today.setDate(dayOfMonth.dayOfMonth);
             today.setSeconds(0);
             today.setHours(0);
             today.setMinutes(0);

@@ -2,7 +2,7 @@
 angular.module('auth',['http-auth-interceptor'])
 
     .config(['$httpProvider', function ($httpProvider) {
-        // ...
+        // ...is
 
         // delete header from client:
         // http://stackoverflow.com/questions/17289195/angularjs-post-data-to-external-rest-api
@@ -34,12 +34,15 @@ angular.module('auth',['http-auth-interceptor'])
             if (typeof token ==="undefined" ) {
                 //doesnt exist a token, so the user is not loged
                 $rootScope.isLog = false;
-                if ($location.path() !== '/new-subscription') {
+                if ($location.path() !== '/new-subscription' && ($location.path() !== '/sign-up' && $location.path() !== 'sign-up-step2')) {
                     $location.path('/home');
                 }
                 return;
             } else {
                 if ($rootScope.isLog) {
+                    if ($location.path() == '/sign-up' || $location.path() == 'sign-up-step2') {
+                        $location.path('/home');
+                    }
                     //if the isLog is true and token exists, the user is logged.
                     //the security (about if this token is really logged for this user or not)
                     //now depends on each request
@@ -55,6 +58,9 @@ angular.module('auth',['http-auth-interceptor'])
             $http.get($rootScope.urlService+'/islogged', config)
                 .success(function (params, status, headers, config) {
                     $rootScope.isLog = true;
+                    if ($location.path() == '/sign-up' || $location.path() == 'sign-up-step2') {
+                        $location.path('/home');
+                    }
 
                 })
                 .error(function (params, status, headers, config) {
