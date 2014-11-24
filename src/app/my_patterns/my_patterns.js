@@ -1226,15 +1226,19 @@ angular.module('ngMo.my_patterns', [
                 actualDate.monthString = this.getMonthName(actualDate);
                 return actualDate;
             },
-            getListMonths: function () {
+            getListMonths: function (diaryMode) {
                 var today = new Date();
                 var monthList = [];
                 //the list is 10 last months + actual month + next month if today is <=15, if not
                 //is 11 last months + actual month
-                if (today.getDate() >14) {
-                    months = 10;
-                } else {
+                if (diaryMode){
                     months = 11;
+                } else {
+                    if (today.getDate() > 14) {
+                        months = 10;
+                    } else {
+                        months = 11;
+                    }
                 }
 
                 var d = new Date(today.getFullYear(), today.getMonth() - months, 1);

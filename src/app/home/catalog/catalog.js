@@ -461,7 +461,12 @@ angular.module('ngMo.catalog', [
                     //$scope.filterOptions.filters.selectedSector = "";
                 }
                 if (typeof data.selectedSector != 'undefined') {
-                    $scope.filterOptions.filters.selectedSector = $filter('sectorName')(data.selectedSector);
+                    for (i =0;i<$scope.filterOptions.selectors.sectors.length;i++) {
+                        if ($scope.filterOptions.selectors.sectors[i].id === data.selectedSector) {
+                            $scope.filterOptions.filters.selectedSector = $scope.filterOptions.selectors.sectors[i];
+                        }
+                    }
+                   // $scope.filterOptions.filters.selectedSector = $filter('sectorName')(data.selectedSector);
 
                 }
             });
