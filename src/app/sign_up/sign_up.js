@@ -35,7 +35,16 @@ angular.module('singUp', [])
                     captcha: ''
                 }
 
-            }})
+            },
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function (IsLogged) {
+                    IsLogged.isLogged();
+                }
+            }
+
+
+        })
             .state('signup2', {
                 url: '/sign-up-step2',
                 views: {
@@ -63,6 +72,12 @@ angular.module('singUp', [])
                         country: '',
                         conditions: '',
                         captcha: ''
+                    }
+                },
+                resolve: {
+                    IsLogged: "IsLogged",
+                    logged: function (IsLogged) {
+                        IsLogged.isLogged();
                     }
                 }
             })
@@ -94,6 +109,12 @@ angular.module('singUp', [])
                         conditions: '',
                         captcha: ''
                     }
+                },
+                resolve: {
+                    IsLogged: "IsLogged",
+                    logged: function (IsLogged) {
+                        IsLogged.isLogged();
+                    }
                 }
             })
             .state('new-subscription', {
@@ -123,6 +144,12 @@ angular.module('singUp', [])
                         country: '',
                         conditions: '',
                         captcha: ''
+                    },
+                    resolve: {
+                        IsLogged: "IsLogged",
+                        logged: function (IsLogged) {
+                            IsLogged.isLogged();
+                        }
                     }
                 }
             });
@@ -132,12 +159,13 @@ angular.module('singUp', [])
 
     .controller('SignupCtrl', function ($scope, $modal, $state, SignUpService, IsLogged, $rootScope, $window, authService,$http, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
-           // IsLogged.isLogged();
+
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
+
             $translatePartialLoader.addPart('sing_up');
 
 
