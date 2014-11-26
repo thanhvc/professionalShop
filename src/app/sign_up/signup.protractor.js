@@ -24,13 +24,14 @@ describe('the Sign Up page', function () {
             loadFixture.executeQueries(fixtures, conString);
             browser.ignoreSynchronization = true;
             home = new Home();
+            ptor.sleep(2000);
             //home.showLoginBox();
             //home.login('john.snow@thewall.north', 'phantom');
         });
 
         afterEach(function () {
             //home.logout(); //TODO
-            ptor.sleep(1000);
+            ptor.sleep(2000);
             var fixtures = fixtureGenerator.remove_signup_fixture();
             loadFixture.executeQueries(fixtures, conString);
         });
@@ -43,15 +44,15 @@ describe('the Sign Up page', function () {
             });
 
             it('signup page link must be present', function() {
-                expect(home.signupLink().isPresent()).toBe(true);
-                expect(home.logoutLink().isPresent()).toBe(false);
-                expect(home.myAccountLink().isPresent()).toBe(false);
+                expect(home.signupLink().isDisplayed()).toBe(true);
+                expect(home.logoutLink().isDisplayed()).toBe(false);
+                expect(home.myAccountLink().isDisplayed()).toBe(false);
             });
 
             it('should go to signup page if I click on signup link', function() {
-                expect(home.signupLink().isPresent()).toBe(true);
+                expect(home.signupLink().isDisplayed()).toBe(true);
                 home.signupLink().click();
-                ptor.sleep(2000);
+                ptor.sleep(4000);
                 expect(signup_page.isCurrentPage()).toBe(true);
             });
         });
@@ -61,23 +62,23 @@ describe('the Sign Up page', function () {
                 ptor.sleep(2000);
                 home.showLoginBox();
                 home.login('registered.user@foo.bar', 'phantom');
-                ptor.sleep(5000);
+                ptor.sleep(8000);
             });
         
             afterEach(function () {
                 home.logout();
-                ptor.sleep(1000);
+                ptor.sleep(2000);
             });
 
             it('signup page link must not be present', function() {
-                expect(home.signupLink().isPresent()).toBe(false);
-                expect(home.logoutLink().isPresent()).toBe(true);
-                expect(home.myAccountLink().isPresent()).toBe(true);
+                expect(home.signupLink().isDisplayed()).toBe(false);
+                expect(home.logoutLink().isDisplayed()).toBe(true);
+                expect(home.myAccountLink().isDisplayed()).toBe(true);
             });
 
             it('should exit from signup page if I enter that url when I am logged in', function() {
                 signup_page = new SignUp(true);
-                ptor.sleep(3000);
+                ptor.sleep(4000);
                 expect(signup_page.isCurrentPage()).toBe(false);
             });
         });
@@ -87,13 +88,13 @@ describe('the Sign Up page', function () {
             beforeEach(function() {
                 ptor.sleep(2000);
                 signup_page = new SignUp();
-                ptor.sleep(2000);
+                ptor.sleep(6000);
             });
 
             it('should show error message when click on continue with no field filled in', function () {
 
                 signup_page.clickContinue();
-                ptor.sleep(1000);
+                ptor.sleep(8000);
                 
                 //I still in this page after click continue
                 expect(signup_page.isCurrentPage()).toBe(true);
@@ -111,7 +112,7 @@ describe('the Sign Up page', function () {
                 signup_page.fillInPasswordConfirmation("MySecretPassword");
                
                 signup_page.clickContinue();
-                ptor.sleep(1000);
+                ptor.sleep(4000);
                 
                 //I still in this page after click continue
                 expect(signup_page.isCurrentPage()).toBe(true);
@@ -129,7 +130,7 @@ describe('the Sign Up page', function () {
                 signup_page.fillInPasswordConfirmation("MySecretPassword");
                
                 signup_page.clickContinue();
-                ptor.sleep(1000);
+                ptor.sleep(6000);
                 
                 //I still in this page after click continue
                 expect(signup_page.isCurrentPage()).toBe(true);
@@ -146,7 +147,7 @@ describe('the Sign Up page', function () {
                 signup_page.fillInPasswordConfirmation("short");
                
                 signup_page.clickContinue();
-                ptor.sleep(3000);
+                ptor.sleep(4000);
                 
                 //I still in this page after click continue
                 expect(signup_page.isCurrentPage()).toBe(true);
@@ -237,7 +238,7 @@ describe('the Sign Up page', function () {
             beforeEach(function() {
                 ptor.sleep(2000);
                 signup_page = new SignUp();
-                ptor.sleep(2000);
+                ptor.sleep(6000);
                 signup_page.fillInEmail("new.user@foo.bar");
                 signup_page.fillInEmailConfirmation("new.user@foo.bar");
                 signup_page.fillInPassword("MySecretPassword");
@@ -282,8 +283,8 @@ describe('the Sign Up page', function () {
                 });
 
                 it('should display captha error when is bad entered', function() {
-                    signup_step2_page.fillInName("John");
-                    signup_step2_page.fillInSurname("Doe");
+                    signup_step2_page.fillInName("John Doe");
+                    //signup_step2_page.fillInSurname("Doe");
                     signup_step2_page.fillInAddress("Mesa y López 16");
                     signup_step2_page.fillInCity("Las Palmas de Gran Canaria");
                     signup_step2_page.fillInPostal("35012");
@@ -314,8 +315,8 @@ describe('the Sign Up page', function () {
                 });
 
                 it('should register user and send email', function() {
-                    signup_step2_page.fillInName("John");
-                    signup_step2_page.fillInSurname("Doe");
+                    signup_step2_page.fillInName("John Doe");
+                    //signup_step2_page.fillInSurname("Doe");
                     signup_step2_page.fillInAddress("Mesa y López 16");
                     signup_step2_page.fillInCity("Las Palmas de Gran Canaria");
                     signup_step2_page.fillInPostal("35012");
@@ -330,8 +331,7 @@ describe('the Sign Up page', function () {
                         var select_fixture = fixtureGenerator.select_user_fixture({email_address: "new.user@foo.bar"});
                         loadFixture.executeQuery(select_fixture, conString, function(result) {
                             expect(result.rowCount).toBe(1);
-                            expect(result.rows[0].name).toBe('John');
-                            expect(result.rows[0].surname).toBe('Doe');
+                            expect(result.rows[0].name).toBe('John Doe');
                             expect(result.rows[0].email_address).toBe('new.user@foo.bar');
                         });
                     }).then(function() {    
