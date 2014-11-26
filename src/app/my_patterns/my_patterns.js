@@ -496,6 +496,9 @@ angular.module('ngMo.my_patterns', [
                 if (typeof data.selectedRegion != 'undefined') {
                     $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
                 }
+                for (i=0;i<$scope.filterOptions.selectors.markets.length;i++) {
+                    $scope.filterOptions.selectors.markets[i].description = $filter('capitalize')( $scope.filterOptions.selectors.markets[i].description);
+                }
                 //$scope.filterOptions.filters.selectedMarket = "";
             }
 
@@ -686,6 +689,9 @@ angular.module('ngMo.my_patterns', [
         };
         //synchronize the selector with the month of the filter
         $scope.updateSelectorMonth = function () {
+            if ($scope.filterOptions.months.filter(function (m) {return m.value == $scope.filterOptions.filters.month.value;}).length === 0){
+                $scope.filterOptions.filters.month = MonthSelectorService.setDate(new Date());
+            }
             for (i = 0; i < $scope.filterOptions.months.length; i++) {
                 if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
                     $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[i];
@@ -1223,15 +1229,19 @@ angular.module('ngMo.my_patterns', [
                 actualDate.monthString = this.getMonthName(actualDate);
                 return actualDate;
             },
-            getListMonths: function () {
+            getListMonths: function (diaryMode) {
                 var today = new Date();
                 var monthList = [];
                 //the list is 10 last months + actual month + next month if today is <=15, if not
                 //is 11 last months + actual month
-                if (today.getDate() >14) {
-                    months = 10;
-                } else {
+                if (diaryMode){
                     months = 11;
+                } else {
+                    if (today.getDate() > 14) {
+                        months = 10;
+                    } else {
+                        months = 11;
+                    }
                 }
 
                 var d = new Date(today.getFullYear(), today.getMonth() - months, 1);

@@ -32,7 +32,7 @@ angular.module('ngMo.calendar', [
     })
 
     .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged,
-                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope, $translatePartialLoader) {//<- use location.search()
+                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope, $translatePartialLoader,$filter) {//<- use location.search()
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -380,9 +380,10 @@ angular.module('ngMo.calendar', [
             yesterday = new Date();
             tomorrow = new Date();//we compare entryDate and exitDate to yesterday and tomorrow
             //because the compare dates could not work with equals, but works fine with the operators < >
-            today.setDate(dayOfMonth.dayOfMonth);
+
             today.setFullYear(actualDate.year);
             today.setMonth(actualDate.month - 1);
+            today.setDate(dayOfMonth.dayOfMonth);
             today.setSeconds(0);
             today.setHours(0);
             today.setMinutes(0);
@@ -490,6 +491,9 @@ angular.module('ngMo.calendar', [
                     $scope.filterOptions.selectors.markets = data.markets;
                     if (typeof data.selectedRegion != 'undefined') {
                         $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                    }
+                    for (i=0;i<$scope.filterOptions.selectors.markets.length;i++) {
+                        $scope.filterOptions.selectors.markets[i].description = $filter('capitalize')( $scope.filterOptions.selectors.markets[i].description);
                     }
                     //$scope.filterOptions.filters.selectedMarket = "";
                 }
@@ -710,7 +714,11 @@ angular.module('ngMo.calendar', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'token': $window.localStorage.token
+                    'token': $window.localStorage.token,
+                    'market': filtering.selectedMarket,
+                    'region': filtering.selectedRegion,
+                    'operation': filtering.selectedOperation,
+                    'fav': filtering.favourite
                 }
             };
 

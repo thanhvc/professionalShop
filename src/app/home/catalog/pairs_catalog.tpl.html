@@ -43,12 +43,12 @@
                     {{item.description}}
                 </option>
             </select>-->
-            <input type="text" ng-model="filterOptions.filters.selectedSector" placeholder="Elegir Sector"
+            <input type="text" ng-model="filterOptions.filters.selectedSector" placeholder="Sector"
                    ng-blur="blurSector();"
                    typeahead="sector as sector.description for sector in filterOptions.selectors.sectors | filter:{description:$viewValue}"
                    typeahead-on-select="selectSector()"
                    class="stocks-catalog-input">
-            <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Elegir Industria"
+            <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Industria"
                    ng-blur="blurIndustry();"
                    typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
                    typeahead-on-select="selectIndustry()"

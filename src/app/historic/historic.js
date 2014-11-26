@@ -36,7 +36,7 @@ angular.module('ngMo.historic', [
     })
 
     .controller('HistoricCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
-                                          MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthService, ExpirationYearFromPatternName,UserApplyFilters,$translatePartialLoader) {
+                                          MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthHistoricService, ExpirationYearFromPatternName,UserApplyFilters,$translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -349,6 +349,9 @@ angular.module('ngMo.historic', [
                 $scope.filterOptions.selectors.markets = data.markets;
                 if (typeof data.selectedRegion != 'undefined') {
                     $scope.filterOptions.filters.selectedRegion = data.selectedRegion;
+                }
+                for (i=0;i<$scope.filterOptions.selectors.markets.length;i++) {
+                    $scope.filterOptions.selectors.markets[i].description = $filter('capitalize')( $scope.filterOptions.selectors.markets[i].description);
                 }
                 //$scope.filterOptions.filters.selectedMarket = "";
             }
@@ -718,7 +721,7 @@ angular.module('ngMo.historic', [
                 //if the date is not passed as param, we load the default date
                /* var date_restart = new Date();
                 date_restart.setDate(1);
-                date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
+                date_restart.setMonth(SelectedMonthHistoricService.getSelectedMonth().month-1);
                 filters.month = MonthSelectorHistoricService.setDate(date_restart);*/
                 filters.month = MonthSelectorHistoricService.getSelectedMonth();
             }
@@ -881,6 +884,18 @@ angular.module('ngMo.historic', [
                 callback(data);
             });
         };
+    })
+    .service("SelectedMonthHistoricService", function (MonthSelectorHistoricService) {
+        var selectedMonth = MonthSelectorHistoricService.restartDate();
+
+        this.getSelectedMonth = function () {
+            return selectedMonth;
+        };
+
+        this.changeSelectedMonth = function (month) {
+            selectedMonth = month;
+        };
+
     })
     .factory('MonthSelectorHistoricService', function () {
         var actualDate = null;

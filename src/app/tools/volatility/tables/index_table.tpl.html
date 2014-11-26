@@ -22,7 +22,7 @@
 
         <tr ng-repeat="data in myData" ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'">
             <td  class="index-name-value">
-                <span  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">{{data.name}}</span>
+                <span  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">{{data.name}} ({{data.exchSymbol}})</span>
             </td>
 
             <td  class="index-date-value" >

@@ -1680,33 +1680,6 @@ describe('The ShoppingCartService', function () {
     });
 });
 
-describe('The position anchors faq service', function(){
-
-    var service;
-    var $scope;
-    var $compile;
-
-    beforeEach(angular.mock.module("ngMo"));
-    beforeEach(module('templates-app'));
-    beforeEach(inject(function (PositionAnchorsFaq, _$rootScope_, _$compile_,_$httpBackend_) {
-        service = PositionAnchorsFaq;
-        $scope = _$rootScope_;
-        $compile = _$compile_;
-        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
-
-    }));
-
-    it('should work', function(){
-        delete $window.sessionStorage.cart;
-
-        $location.path = $scope.urlService + '/faq#top';
-        $scope.$apply();
-        service.getPositionAnchors();
-
-    });
-
-});
-
 describe('The ActiveTab service', function(){
 
     var service;
