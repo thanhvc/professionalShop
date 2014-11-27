@@ -11,23 +11,6 @@
         <tr>
             <td class="red-color-form">*</td>
             <td>
-                Email actual
-            </td>
-            <td>
-                <input type="text" class="signup-input"  style="width:200px;text-indent: 5px"
-                       ng-maxlength="80"
-                       ng-trim="false"
-                       name="email" disabled ng-model="user.emailAddress" required="true"
-                        alt="Email"
-                       ng-class="{'warning-input': (profileForm.name.$error.required)
-                                                  || ((profileForm.name.$error.pattern)
-                                                  || profileForm.name.$error.maxlength)}"
-                        >
-            </td>
-        </tr>
-        <tr>
-            <td class="red-color-form">*</td>
-            <td>
                 Contraseña actual
             </td>
             <td>
@@ -70,7 +53,7 @@
             <td>Repetir Contraseña</td>
             <td>
                 <input class="signup-input" ng-model="repeatPasswordUser" type="password"
-                       name="password2" required="true" matchWith="passwordUser"
+                       name="password2" required="true" match-with="passwordUser"
                        style="width:200px;">
             </td>
             <td>
@@ -93,9 +76,8 @@
             <td colspan="2" style="padding-top:10px;">
                 <button class="mo-button"
                         name="confirmPassword"
-                        ng-click="savePassword()">
-
-                    <!--    ng-disabled="passwordForm.$invalid">-->
+                        ng-click="savePassword()"
+                        ng-disabled="passwordForm.$invalid">
                     Aceptar
                 </button>
 
@@ -104,6 +86,95 @@
                 <div><span ng-show="internalErrorPass" class="red-color-form prices-font11">Se ha producido un error interno, inténtelo luego</span>
                     <span ng-show="(!passwordError && (!internalErrorPass && (passwordSubmited)) && userSaved)"
                           class=" prices-font11">Se ha modificado el password con éxito</span>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+
+    </table>
+</form>
+
+<br/>
+
+<form name="emailForm" method="POST" autocomplete="on">
+    <table class="profile-table" style="height: 145px; margin-top:20px;">
+        <tr>
+            <td colspan="4">
+                <div class="orange-title">
+                    Cambiar Email
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="red-color-form">*</td>
+            <td>
+                Email actual
+            </td>
+            <td>
+                <input type="text" class="signup-input"  style="width:200px;text-indent: 5px"
+                       ng-maxlength="80"
+                       ng-trim="false"
+                       name="email" disabled ng-model="user.emailAddress" required="true"
+                       alt="Email"
+                       ng-class="{'warning-input': (profileForm.name.$error.required)
+                                                  || ((profileForm.name.$error.pattern)
+                                                  || profileForm.name.$error.maxlength)}"
+                        >
+            </td>
+        </tr>
+        <tr>
+            <td class="red-color-form">*</td>
+            <td>Nuevo Email</td>
+            <td>
+                <input class="signup-input" ng-model="emailUser" type="email"
+                       name="email1" required="true"
+                       ng-pattern="emailPattern" ng-trim="false"
+                       style="width:200px;"></td>
+            <td>
+                <div class="red-color-form prices-font12"
+                     ng-show="((emailForm.email1.$error.pattern) && (emailForm.email1.$dirty))">
+                    Direcci&oacute;ón de correo inv&aacute;lida
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="red-color-form">*</td>
+            <td>Repetir Email</td>
+            <td>
+                <input class="signup-input" ng-model="repeatEmailUser" type="email"
+                       name="email2" required="true" match-With="emailUser"
+                       style="width:200px;">
+            </td>
+            <td>
+                <div class="red-color-form prices-font12"
+                     ng-show="((emailForm.email2.$error.mismatch) && (emailForm.email2.$dirty))">
+                    Los emails no coinciden
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="red-color-form prices-font10"
+                style="text-align: left !important; padding-top: 13px;">*
+                Campos obligatorios
+            </td>
+
+        </tr>
+        <tr>
+            <td colspan="2" style="padding-top:10px;">
+                <button class="mo-button"
+                        name="confirmEmail"
+                        ng-click="saveEmail()"
+                        ng-disabled="emailForm.$invalid">
+                    Aceptar
+                </button>
+
+            </td>
+            <td>
+                <div><span ng-show="internalErrorEmail" class="red-color-form prices-font11">Se ha producido un error interno, inténtelo luego</span>
+                    <span ng-show="(!emailError && (!internalErrorEmail && (emailSubmited)) && userSaved)"
+                          class=" prices-font11">Se ha modificado el email con éxito. Consulte su correo para completar el proceso.</span>
                 </div>
             </td>
             <td></td>

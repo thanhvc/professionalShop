@@ -1,0 +1,50 @@
+    <div ng-controller="NewMailCtrl" novalidate>
+        <p class="text-block-title">Cambio de Email</p>
+
+        <p>
+            Introduzca su contraseña para confirmar el cambio de email.
+        </p>
+        <div  class="prices-font11">
+            <form  name="newEmailForm" method="POST" autocomplete="on">
+                <table class="editmail-table">
+                    <tbody>
+                        <tr class="accountRowHeight">
+                            <td class="width-first-td"><span class="grey-label">Email antiguo</span></td>
+                            <td>
+                                <input type="text" class="signup-input" style="width:250px;text-indent: 5px"
+                                       ng-maxlength="100" ng-trim="false" name="email"
+                                       disabled ng-model="emailAddress" required="true" alt="Email">
+                            </td>
+                        </tr>
+                        <tr class="accountRowHeight">
+                            <td class="width-first-td"><span class="grey-label">Email nuevo</span></td>
+                            <td>
+                                <input type="text" class="signup-input"  style="width:250px;text-indent: 5px"
+                                       ng-maxlength="100" ng-trim="false" name="email"
+                                       disabled ng-model="newEmailAddress" required="true" alt="Nuevo Email">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Contraseña</td>
+                            <td>
+                                <input class="signup-input" ng-model="actualPassword" type="password"
+                                       name="passwordAc" required="true" autocomplete="off"
+                                       ng-pattern="passwordPatten" ng-trim="false"
+                                       style="width:250px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 13px;">
+                                <input class="mo-button" name="confirmEdit" ng-click="saveEmail()" value="Aceptar" type="button" ng-disabled="newEmailForm.$invalid">
+                            </td>
+                            <td>
+                                <span ng-show="(emailSubmited) && (emailError)" class="red-color-form prices-font11">El password no es correcto</span>
+                                <span ng-show="internalError" class="red-color-form prices-font11">Se ha producido un error interno, inténtelo luego</span>
+                                <span ng-show="emailSaved" class="prices-font11">Se ha modificado el email correctamente</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
