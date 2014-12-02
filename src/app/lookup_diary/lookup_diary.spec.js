@@ -3,11 +3,11 @@ describe('The Lookup diary controller', function () {
     describe('template', function () {
         var $scope, ctrl, state, $http, $compile,$location, stateParams,expiration,tabsService,actualDateService,diaryData;
 
-        var patternsFilter = '/patternfilters?indexType=0&industry=&market=&month=11&productType=0&region=&sector=&view=&year=2014';
-        var patternsFilterToken = '/patternfilters?indexType=0&industry=&market=&month=11&productType=0&region=&sector=&token=undefined&view=&year=2014';
-        var lookup = '/lookupdiarypatterns?accumulatedInput=&accumulatedReturn=&alarm=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=11&name=&operation=&page=1&productType=0&region=&sector=&volatility=&volatilityInput=&year=2014';
-        var lookup2 = '/patternfilters?indexType=0&industry=&market=&month=11&productType=0&region=&sector=&token=1&view=&year=2014';
-        var lookupToken = '/lookupdiarypatterns?accumulatedInput=&accumulatedReturn=&alarm=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=11&name=&operation=&page=1&productType=0&region=&sector=&token=1&volatility=&volatilityInput=&year=2014';
+        var patternsFilter = '/patternfilters?indexType=0&industry=&market=&month=12&productType=0&region=&sector=&view=&year=2014';
+        var patternsFilterToken = '/patternfilters?indexType=0&industry=&market=&month=12&productType=0&region=&sector=&token=undefined&view=&year=2014';
+        var lookup = '/lookupdiarypatterns?accumulatedInput=&accumulatedReturn=&alarm=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=12&name=&operation=&page=1&productType=0&region=&sector=&volatility=&volatilityInput=&year=2014';
+        var lookup2 = '/patternfilters?indexType=0&industry=&market=&month=12&productType=0&region=&sector=&token=1&view=&year=2014';
+        var lookupToken = '/lookupdiarypatterns?accumulatedInput=&accumulatedReturn=&alarm=&averageInput=&averageReturn=&dailyInput=&dailyReturn=&duration=&durationInput=&favourites=&indexType=0&industry=&market=&month=12&name=&operation=&page=1&productType=0&region=&sector=&token=1&volatility=&volatilityInput=&year=2014';
         beforeEach(angular.mock.module("ngMo"));
         beforeEach(angular.mock.module("ngMo.home"));
         beforeEach(angular.mock.module("ngMo.lookup_diary"));

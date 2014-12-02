@@ -152,6 +152,21 @@ angular.module('singUp', [])
                         }
                     }
                 }
+            })
+            .state('editemail', {
+                url: '/editemail',
+                views: {
+                    "main": {
+                        templateUrl: 'my_profile/newemail.tpl.html'
+                    }
+                },
+                data: {
+                    pageTitle: 'Cambio de email',
+                    selectMenu: '',
+                    selectSubmenu: '',
+                    selectItemSubmenu: '',
+                    moMenuType: 'publicMenu'
+                }
             });
     })
     .run(function run() {
@@ -397,6 +412,73 @@ angular.module('singUp', [])
             };
         });
     })
+    .controller('NewMailCtrl', function($scope, $location, SignUpService, $timeout, $modal) {
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
+        });
+
+        $scope.emailAddress = $location.search().email;
+        $scope.newEmailAddress = $location.search().newmail;
+        $scope.security = $location.search().security;
+        $scope.token = $location.search().token;
+        $scope.actualPassword = "";
+        $scope.passwordPatten = /^[a-zA-Z0-9-_]+$/;
+        $scope.emailSubmited = false;
+        $scope.emailError = false;
+        $scope.internalError = false;
+        $scope.emailSaved = false;
+
+        $scope.saveEmail = function () {
+            data = {
+                password: $scope.actualPassword,
+                email: $scope.emailAddress,
+                newmail: $scope.newEmailAddress,
+                security: $scope.security,
+                token: $scope.token
+            };
+
+            SignUpService.editEmail(data, function (data, status) {
+                $scope.emailSubmited = true;
+                if (status == 200) {
+                    if (data.result == "ok") {
+                        $scope.internalError = false;
+                        $scope.emailError = false;
+                        $scope.emailSaved = true;
+                        $timeout(function () {
+                            $scope.emailSaved = false;
+                        }, 1500);
+                        $scope.modalMessage("Se ha modificado su email con éxito. A partir de ahora debe acceder a la aplicación con "+$scope.newEmailAddress,"success");
+                    } else {
+                        $scope.internalError = false;
+                        $scope.emailError = true;
+                        $scope.modalMessage("Ha ocurrido un error, verifique su password y vuelva a intentarlo ","error");
+                    }
+
+                } else {
+                    $scope.internalError = true;
+                    $scope.modalMessage("Ha ocurrido un error, verifique su password y vuelva a intentarlo ","error");
+                }
+            });
+
+
+        };
+        $scope.modalMessage = function(message,type) {
+            $modal.open({
+                templateUrl: 'layout_templates/generic-modal.tpl.html',
+                controller: GenericModalCtrl,
+                resolve: {
+                    mode: function () {
+                        return type;
+                    },
+                    message: function() {
+                        return message;
+                    }
+                }
+            });
+        };
+    })
 /**
  * Directive Match, used to check that two inputs matches (like repeat password or repeat email).
  * the directive must be used like: < input ng-model="user.repeatEmail" match="user.email"/>
@@ -437,6 +519,21 @@ angular.module('singUp', [])
                 });
 
 
+        };
+        signUpService.editEmail = function (data, callback) {
+            config = {
+                headers: {
+                    'X-Session-Token': data.token
+                },
+                data: data
+            };
+            return $http.put($rootScope.urlService+'/newemail', config)
+                .success(function (data, status) {
+                    callback(data, status);
+                })
+                .error(function (data, status) {
+                    callback(data, status);
+                });
         };
 
         //countries get by json (extract from server)

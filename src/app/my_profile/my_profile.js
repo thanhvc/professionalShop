@@ -73,12 +73,11 @@ angular.module('ngMo.my_profile', [
                     subPage: 'orders',
                     pageTitle: 'Mis órdenes'
                 }
-            });
+            })
+            ;
     })
-
     .run(function run() {
     })
-
     .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged,$modal, ProfileService, SignUpService, $state,$http,$rootScope, $timeout) {
 
         $scope.modalMessage = function(message,type) {
@@ -131,6 +130,7 @@ angular.module('ngMo.my_profile', [
             //only numbers, letters and spaces
             $scope.zipPattern = /[a-z0-9\s]+/ig;
             //only numbers
+            $scope.emailPattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
             $scope.countries = [];
             SignUpService.getCountries(function(data) {
@@ -144,10 +144,15 @@ angular.module('ngMo.my_profile', [
             $scope.repeatPasswordUser = "";
             $scope.internalErrorPass = false;
             $scope.userSaved = false;
+            $scope.emailUser = "";
+            $scope.repeatEmailUser = "";
 
             $scope.passwordSubmited = false;
             $scope.passwordError = false;
 
+            $scope.emailSubmited = false;
+            $scope.emailError = false;
+            $scope.internalErrorEmail = false;
 
             $scope.restartUser = function () {
                 $scope.user =
@@ -233,11 +238,45 @@ angular.module('ngMo.my_profile', [
 
             };
 
+            $scope.saveEmail = function () {
+                data = {
+                    email: $scope.emailUser
+                };
+                ProfileService.editEmail(data, function (data, status) {
+                    $scope.emailSubmited = true;
+                    if (status == 200) {
+                        if (data.result == "ok") {
+                            $scope.internalErrorEmail = false;
+                            $scope.emailError = false;
+                            $scope.userSaved = true;
+                            $timeout(function () {
+                                $scope.userSaved = false;
+                            }, 1500);
+                            $scope.emailUser = "";
+                            $scope.repeatEmailUser = "";
+                            $scope.modalMessage("Se ha modificado su email con éxito. Compruebe su bandeja de entrada para completar el proceso.","success");
+                        }else if(data.result="invalidMail"){
+                            $scope.internalErrorEmail = false;
+                            $scope.emailError = true;
+                            $scope.modalMessage("El mail ya se encuentra registrado en Market Observatory","error");
+                        }else {
+                            $scope.internalErrorEmail = false;
+                            $scope.emailError = true;
+                            $scope.modalMessage("Ha ocurrido un error, verifique su email y vuelva a intentarlo ","error");
+                        }
+
+                    } else {
+                        $scope.internalErrorEmail = true;
+                        $scope.modalMessage("Ha ocurrido un error, verifique su email y vuelva a intentarlo ","error");
+                    }
+                });
+
+
+            };
+
 
             $scope.loadUser();
         }
-
-
     })
     .controller('OrdersCtrl', function ServicesCtrl($scope, IsLogged,$window, ProfileService, SignUpService, $state,$http,$rootScope) {
         $scope.subPage = $state.$current.data.subPage;
@@ -359,7 +398,23 @@ angular.module('ngMo.my_profile', [
                     callback(data, status);
                 });
         };
-
+        profileService.editEmail = function (email, callback) {
+            //data = user;
+            token = $window.localStorage.token;
+            config = {
+                headers: {
+                    'X-Session-Token': token
+                },
+                data: email
+            };
+            return $http.put($rootScope.urlService+'/user', config)
+                .success(function (data, status) {
+                    callback(data, status);
+                })
+                .error(function (data, status) {
+                    callback(data, status);
+                });
+        };
 
         return profileService;
 
