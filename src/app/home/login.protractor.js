@@ -7,6 +7,7 @@ var mailBackendMod = require('../../../test-helpers/mail-backend.js');
 
 describe('The home page', function () {
     var page;
+    var queue = []
     var conString = browser.params.sqlCon;/*'postgres://super:moserverpass@localhost:25432/moserver'*/
     var mailBackend;
     beforeEach(function () {
@@ -21,7 +22,7 @@ describe('The home page', function () {
                 address:'The wall',
                 city:'North',
                 zip_code:'Fr3zz3',
-                email_address:'john.snow@thewall.north',
+                email_address:'john.snow@thewall.com',
                 sha_password: "\\x" + sha512("phantom").toString('hex'),
                 status: 1
             }
@@ -29,47 +30,70 @@ describe('The home page', function () {
         loadFixture.loadFixture(fixture,conString)
         browser.ignoreSynchronization = true;
         page = new Home();
-    //    mailBackend = new mailBackendMod.MailBackend(browser.params.smtp_port)
-        mailBackend = new mailBackendMod.MailBackend(2025)
+        var queue = []
+
+        //    mailBackend = new mailBackendMod.MailBackend(browser.params.smtp_port)
+    //    mailBackend = new mailBackendMod.MailBackend(2025)
     });
     afterEach(function () {
-        fixture = {
+        fixture1 = {
             type: 'remove',
-            table: 'users',
-            condition: {
-                id: 1
-            }
+            table: 'users'
         }
         fixture2 = {
             type: 'remove',
-            table: 'email_log',
+            table: 'email_log'
         }
+        loadFixture.loadFixture(fixture1,conString)
         loadFixture.loadFixture(fixture2,conString)
-        loadFixture.loadFixture(fixture2,conString)
+        expect(queue.length).toEqual(0);
 
 
-    });
-    xit('should allow existing and active user to sign in and show my patterns view', function () {
-        page.showLoginBox();
-        page.login('john.snow@thewall.north','phantom');
-        ptor.sleep(5000);
 
     });
     it('it should remenber password', function () {
+
+        queue.push( { sender: 'market.observatory@edosoftfactory.com',
+            receivers: { 'john.snow@thewall.north': true },
+            subject: 'Recuperar Contrase?a Market Observatory'
+             })
+
+
+        handler = function(addr,id,email) {
+            expect(queue.length).not.toEqual(0);
+            msg = queue.shift();
+            console.log(addr);
+            console.log(id);
+            console.log(email);
+            expect(email.sender).toEqual(msg.sender);
+            expect(email.receivers).toEqual(msg.receivers);
+            expect(email.subject).toEqual(msg.subject);
+            var jsdom = require("jsdom");
+
+            jsdom.env(
+                email.html,
+                ["http://code.jquery.com/jquery.js"],
+                function (errors, window) {
+                    expect(window.$("a").attr('href')).toMatch('\^http:\\/\\/mo\\.devel\\.edosoftfactory.com\\/#\\/change-password\\/');
+                }
+            );
+
+
+        };
+
         browser.get('/#/forgotten-password#top');
         ptor.sleep(2000);
 
         element(by.model('emailRemember')).sendKeys('john.snow@thewall.north');
         ptor.sleep(2000);
+      //  mailBackend.start();
+        var ms = require('smtp-tester').init(2025,{"disableDNSValidation":true});
 
-        element(by.css('.mo-button.float-left')).click();
-        mailBackend.start();
-        ms = require('smtp-tester');
-        //mailServer = ms.init(1025);
-        ptor.sleep(10000);
 
-        mailBackend.stop();
+        ms.bind(handler);
         ptor.sleep(2000);
+        element(by.css('.mo-button.float-left')).click();
+        ptor.sleep(10000);
 
     });
 })

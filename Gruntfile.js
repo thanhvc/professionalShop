@@ -321,6 +321,13 @@ module.exports = function ( grunt ) {
                     port: 9001,
                     base: '<%= build_dir %>'
                 }
+            },
+            server_alive: {
+                options: {
+                    port: 9001,
+                    base: '<%= build_dir %>',
+                    keepalive: true
+                }
             }
         },
 
