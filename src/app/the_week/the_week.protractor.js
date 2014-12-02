@@ -12,7 +12,7 @@ var PageLayout = require('../../../test-helpers/page-objects/page_layout.po.js')
 var TheWeek = require('../../../test-helpers/page-objects/the_week.po.js');
 var Helper = require('../../../test-helpers/helper.js');
 
-describe('The week for non logged in users', function () {
+xdescribe('The week for non logged in users', function () {
         var home;
         var page_layout;
         var the_week_page;
@@ -75,7 +75,7 @@ describe('The week for logged in users', function () {
             ptor.sleep(2000);
         });
  
-        describe('navigation tab',function() {
+        xdescribe('navigation tab',function() {
             it('The Week navigation tab should appear if user is logged in', function() {
                 expect(page_layout.the_weekNavLink().isDisplayed()).toBe(true);
             });
@@ -100,6 +100,27 @@ describe('The week for logged in users', function () {
                 expect(true).toBe(true); 
                 ptor.sleep(9000);
             });
+
+            describe("Common", function() {
+                it('should have the correct week number and date in header',function() {
+                    expect(the_week_page.header().getText()).toContain("Año 2014");
+                    expect(the_week_page.header().getText()).toContain("1 Diciembre / 5 Diciembre");
+                    expect(the_week_page.header().getText()).toContain("Semana 49");
+                    ptor.sleep(9000);
+                });
+            }); 
+
+            describe("Bolsa tab", function() {
+
+            }); 
+
+            describe("Comodities tab", function() {
+
+            }); 
+
+            describe("S&P 500 tab", function() {
+
+            }); 
         });
 
 });
