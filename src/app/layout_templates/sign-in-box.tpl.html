@@ -1,24 +1,23 @@
 <div class="login-panel">
-    <span>Acceso</span>
+    <span>{{'access'|translate}}</span>
 
     <form ng-submit="submit()" name="loginForm" method="POST" autocomplete="on">
-        <label>Email</label><input type="text" class="float-right" ng-model="fields.email" name="username"
+        <label>{{'user'|translate}}</label><input type="text" class="float-right" ng-model="fields.email" name="username"
                                    ng-class="{'warning-input' : errorSignIn}"/>
-        <label>Contrase&ntilde;a</label><input type="password" ng-model="fields.password" class="float-right" name="password"
+        <label>{{'password'|translate}}</label><input type="password" ng-model="fields.password" class="float-right" name="password"
                                                ng-class="{'warning-input' : errorSignIn}"/>
 
         <div>
-            <label>Recordar</label> <input type="checkbox" ng-model="remember"/>
-            <button type="submit" class="mo-button float-right">Entrar</button>
+            <label>{{'rememberme'|translate}}</label> <input type="checkbox" ng-model="remember"/>
+            <button type="submit" class="mo-button float-right">{{'enter'|translate}}</button>
         </div>
     </form>
     <div ng-show="errorSignIn" class="login-bottom-panel">
         <img ng-src="assets/img/warning-icon.png">
-        <span class="warning-login-text">Usuario o contrase&ntilde;a incorrecta.</span>
+        <span class="warning-login-text">{{'badlogin1'|translate}}</span>
+        <span class="warning-login-text">{{'badlogin2'|translate}}</span>
     </div>
     <div class="forget-password">
-        <img ng-src="assets/img/question-mark.png">
-        <a ui-sref="forgotten-password" ng-click="hideSignInForm()">&iquest;Ha olvidado su contrase&ntilde;a?</a>
-
+        <a ui-sref="forgotten-password" ng-click="hideSignInForm()">{{'forgotpass'|translate}}</a>
     </div>
 </div>
