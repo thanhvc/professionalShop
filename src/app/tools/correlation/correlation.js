@@ -1059,9 +1059,6 @@ angular.module('ngMo.correlation', [
             //Operation -> Add or delete Pattern to correlationList
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'patternId': patternId,
                     'add_delete': operation,
@@ -1109,9 +1106,6 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'correlationList': correlationIdsList,
                    // 'token': $window.localStorage.token,
@@ -1148,9 +1142,6 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
@@ -1174,9 +1165,6 @@ angular.module('ngMo.correlation', [
             var deferred = $q.defer();
             var data;
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'patternId': patternId
                     //'token': $window.localStorage.token
@@ -1210,9 +1198,6 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'correlationList': correlationIdsList,
                     //'token': $window.localStorage.token,
@@ -1249,9 +1234,6 @@ angular.module('ngMo.correlation', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'correlationList': correlationIdsList,
                     //'token': $window.localStorage.token,

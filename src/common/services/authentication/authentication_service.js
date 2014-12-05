@@ -8,6 +8,10 @@ angular.module('auth',['http-auth-interceptor'])
         // http://stackoverflow.com/questions/17289195/angularjs-post-data-to-external-rest-api
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        //---
+        //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*'; //'Content-Type, x-xsrf-token';//
+
+
     }])
 
 

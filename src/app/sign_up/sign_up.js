@@ -522,9 +522,6 @@ angular.module('singUp', [])
         };
         signUpService.editEmail = function (data, callback) {
             config = {
-                headers: {
-                    'X-Session-Token': data.token
-                },
                 data: data
             };
             return $http.put($rootScope.urlService+'/newemail', config)

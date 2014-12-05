@@ -37,6 +37,19 @@
             };
         }])
 
+    .factory('authInterceptor-addToken', function ($rootScope, $q, $window) {
+        return { request: function (config) {
+            config.headers = config.headers || {};
+            if ($window.localStorage.token) {
+                config.headers['X-Session-Token'] = $window.localStorage.token;
+
+            }
+            return config;
+        }, response: function (response) {
+            if (response.status === 401) {
+            // handle the case where the user is not authenticated
+            } return response || $q.when(response); } }; })
+
     /**
      * $http interceptor.
      * On 401 response (without 'ignoreAuthModule' option) stores the request
@@ -93,6 +106,7 @@
 
             }];
             $httpProvider.responseInterceptors.push(interceptor);
+            $httpProvider.interceptors.push('authInterceptor-addToken');
         }]);
 
     /**

@@ -68,9 +68,6 @@ angular.module('ngMo.cancel_pack', [
         };
         $scope.loadPack = function(packCode,subCode) {
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'packCode': packCode,
                     'subCode': subCode
@@ -98,10 +95,7 @@ angular.module('ngMo.cancel_pack', [
             $scope.errorLoad = false;
             $scope.cancelOK= false;
             config = {
-
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },params: {
+                params: {
                     'packCode': $scope.pack.codePack,
                     'subCode': $scope.pack.codeSub
                     //'token': $window.localStorage.token

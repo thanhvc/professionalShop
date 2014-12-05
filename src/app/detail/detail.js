@@ -235,10 +235,6 @@ angular.module('ngMo.detail', [
             var data;
 
             config = {
-
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                }
                 /*params: {
                     'token': $window.localStorage.token
                 }*/
