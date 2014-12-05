@@ -805,9 +805,6 @@ angular.module('ngMo.historic', [
                 indexType = 0;
             }
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'page': page,
                     //'token': $window.localStorage.token,
@@ -862,9 +859,6 @@ angular.module('ngMo.historic', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,

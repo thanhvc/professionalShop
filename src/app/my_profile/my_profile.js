@@ -301,13 +301,13 @@ angular.module('ngMo.my_profile', [
                 PAIRS_INDEX: [],
                 FUTURES: []
             };
-            token = $window.localStorage.token;
+            /*token = $window.localStorage.token;
             config = {
                 headers: {
                     'X-Session-Token': token
                 }
-            };
-            $http.get($rootScope.urlService + '/orders', config)
+            };*/
+            $http.get($rootScope.urlService + '/orders'/*, config*/)
                 .success(function (data, status) {
                     $scope.data = [
                         {name: "ACCIÓN",
@@ -348,13 +348,13 @@ angular.module('ngMo.my_profile', [
     .factory('ProfileService', function ($http, $window,$rootScope) {
         var profileService = {};
         profileService.loadUser = function (callback) {
-            token = $window.localStorage.token;
+           /* token = $window.localStorage.token;
             config = {
                 headers: {
                     'X-Session-Token': token
                 }
-            };
-            $http.get($rootScope.urlService+'/user', config)
+            };*/
+            $http.get($rootScope.urlService+'/user'/*, config*/)
                 .success(function (data, status) {
                     callback(data, status);
                 })
@@ -366,9 +366,6 @@ angular.module('ngMo.my_profile', [
             //data = user;
             token = $window.localStorage.token;
             config = {
-                headers: {
-                    'X-Session-Token': token
-                },
                 data: user
             };
             return $http.put($rootScope.urlService+'/user', config)
@@ -385,9 +382,6 @@ angular.module('ngMo.my_profile', [
             //data = user;
             token = $window.localStorage.token;
             config = {
-                headers: {
-                    'X-Session-Token': token
-                },
                 data: passwords
             };
             return $http.put($rootScope.urlService+'/user', config)
@@ -402,9 +396,6 @@ angular.module('ngMo.my_profile', [
             //data = user;
             token = $window.localStorage.token;
             config = {
-                headers: {
-                    'X-Session-Token': token
-                },
                 data: email
             };
             return $http.put($rootScope.urlService+'/user', config)

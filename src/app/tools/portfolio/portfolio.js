@@ -890,9 +890,6 @@ angular.module('ngMo.portfolio', [
             //Operation -> Add or delete Pattern to portfolioList
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'patternId': patternId,
                     'add_delete': operation,
@@ -925,9 +922,6 @@ angular.module('ngMo.portfolio', [
             var deferred = $q.defer();
             var data;
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'patternId': patternId
                     //'token': $window.localStorage.token
@@ -961,9 +955,6 @@ angular.module('ngMo.portfolio', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'patternIdList': portfolioIdsList,
                     //'token': $window.localStorage.token,
@@ -1000,9 +991,6 @@ angular.module('ngMo.portfolio', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,

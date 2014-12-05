@@ -965,9 +965,6 @@ angular.module('ngMo.my_patterns', [
                 indexType = 0;
             }
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     //'token': $window.localStorage.token,
                     'productType': parseInt(filtering.active_tab, 10),
@@ -1027,9 +1024,6 @@ angular.module('ngMo.my_patterns', [
             var deferred = $q.defer();
             var data;
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'patternId': patternId
                     //'token': $window.localStorage.token
@@ -1056,9 +1050,6 @@ angular.module('ngMo.my_patterns', [
                 indexType = 0;
             }
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'page': page,
                     //'token': $window.localStorage.token,
@@ -1114,9 +1105,6 @@ angular.module('ngMo.my_patterns', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,

@@ -236,10 +236,6 @@ angular.module('ngMo', [
                     year: parseInt(item.date.split("/")[2],10)
                 };
                 config = {
-
-                    headers: {
-                        'X-Session-Token': token
-                    },
                     data: newItem
                 };
                 $http.post($rootScope.urlService+"/has-pack", config).success(callback).error(callback);
@@ -2071,9 +2067,6 @@ angular.module('ngMo', [
                         }
 
                         config = {
-                            headers: {
-                                'X-Session-Token': token
-                            },
                             data: dataCart
                         };
                         return $http.post($rootScope.urlService+'/addpacks', config)

@@ -75,9 +75,6 @@ angular.module('ngMo.my_subscriptions', [
                 indexType = 0;
             }
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                    // 'token': $window.localStorage.token,
                     'month': filtering.month.month
@@ -104,9 +101,6 @@ angular.module('ngMo.my_subscriptions', [
                 indexType = 0;
             }*/
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                    // 'token': $window.localStorage.token
                 }
@@ -123,13 +117,14 @@ angular.module('ngMo.my_subscriptions', [
         this.renewPack = function(pack,startDate) {
             var deferred = $q.defer();
             config = {
+//                headers: {
+//                    'X-Session-Token': $window.localStorage.token
+//                }/*,
                 params: {
-                    'token': $window.localStorage.token,
                     'code': pack.code,
                     'startDate': startDate
                 }
             };
-
             var result = $http.post($rootScope.urlService+'/renew-pack',config).then(function (response) {
                 // With the data succesfully returned, call our callback
                 deferred.resolve();
