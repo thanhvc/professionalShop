@@ -46,6 +46,10 @@
   color:#ff8200 !important;
 }
 
+.profile-submenu{
+ margin-left: 20px;
+}
+
 /*orders*/
 .header-orders {
   border-right: 1px solid @black;
@@ -91,27 +95,25 @@
         padding: 4px;
         border-left: 2px solid @greyLabel !important;
         &:first-child {
-          width: 225px;
-          div {
-            float: left;
-            width: 50%;
-            text-align: left;
-          }
+          min-width: 90px;
         }
-        &:nth-child(2),&:nth-child(3),&:nth-child(4) {
-          width: 60px;
+        &:nth-child(2) {
+          width: 100%;
         }
-         &:nth-child(7){
-          width: 65px;
+        &:nth-child(3) , &:nth-child(4) {
+          min-width: 60px;
         }
-        &:nth-child(5) {
-          width: 50px;
+        &:nth-child(6) {
+          min-width: 75px;
         }
-        &:nth-child(8),&:nth-child(9) {
-          width: 90px;
+        &:nth-child(7){
+          min-width: 90px;
         }
-        &:nth-child(10) {
-          width: 50px;
+        &:nth-child(8){
+          min-width: 60px;
+        }
+        &:nth-child(9) {
+          min-width: 60px;
           border-right: 2px solid @greyLabel !important;
         }
       }
@@ -132,10 +134,6 @@
         &:last-child {
           border-right: 2px solid @greyLabel !important;
         }
-
-        div {
-            padding-top: 5px;
-          }
       }
 
       &:nth-child(even) {
