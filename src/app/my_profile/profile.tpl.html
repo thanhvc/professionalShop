@@ -3,36 +3,31 @@
     <table class="table-page-index" style="width: 115px;">
         <tr>
             <td>
-                  <span>
-                     <a class="profile-submenu" ui-sref="profile.identification" ui-sref-active="myclass">
-                    Identificación personal
-                  </a>
-                    </span>
+                 <a ui-sref="profile.identification" ui-sref-active="myclass">{{'MYACCOUNT.personal_data' | translate}}</a>
             </td>
         </tr>
         <tr>
             <td>
-                  <span>
-                      <a class="profile-submenu" ui-sref="profile.edit"  ui-sref-active="myclass" >
-                    Datos de acceso
-                  </a>
-                    </span>
+                 <a ui-sref="profile.edit"  ui-sref-active="myclass" >{{'MYACCOUNT.access_data'|translate}}</a>
             </td>
         </tr>
         <tr>
             <td>
-                <span><a class="profile-submenu" ui-sref="profile.orders"  ui-sref-active="myclass" >
-                    Mis órdenes
+                <span style="cursor: default"> {{'MYACCOUNT.my_orders'|translate}}</span> <br/>
+                <a class="profile-submenu" ui-sref="profile.orders"  ui-sref-active="myclass" >
+                        {{'MYACCOUNT.purchases'|translate}}
                 </a>
-                 </span>
-
+                <a class="profile-submenu" ui-sref="profile.renewals"  ui-sref-active="myclass" >
+                        {{'MYACCOUNT.renewals'|translate}}
+                </a>
+                <a class="profile-submenu" ui-sref="profile.refunds"  ui-sref-active="myclass" >
+                        {{'MYACCOUNT.refunds'|translate}}
+                </a>
             </td>
         </tr>
+
     </table>
     <div ui-view="sub-profile">
-
     </div>
 
 </div>
-
-

@@ -1,0 +1,39 @@
+{
+    "MYACCOUNT":{
+        "personal_data":"Identificación Personal",
+        "access_data":"Datos de acceso",
+        "my_orders":"Mis órdenes",
+        "purchases":"Compras",
+        "renewals":"Renovaciones",
+        "refunds":"Devoluciones",
+        "product":"Grupo",
+        "pack":"Pack",
+        "start":"Inicio",
+        "end":"Fin",
+        "duration":"Duración",
+        "price":"Coste(€)",
+        "buy_date":"Fecha Compra",
+        "payType":"Pago",
+        "status":"Estado",
+        "renewal_date":"Renovación",
+        "refund":"Devolución(€)",
+        "cancel_date":"Cancelación",
+        "CARD":"Tarjeta",
+        "PAYPAL":"Paypal",
+        "DURATION":{
+            "1":"Mensual",
+            "3":"Trimestral",
+            "12":"Anual"
+        },
+        "STATUS":{
+            "ACTIVE":"Vigente",
+            "EXPIRED":"Expirado",
+            "PAID":"Pagado",
+            "CANCELED":"Cancelado",
+            "RENEWED":"Renovado",
+            "REFUNDED":"Devuelto",
+            "PENDING":"Pendiente"
+        },
+        "no_data":"NO EXISTEN ORDENES DEL USUARIO"
+    }
+}

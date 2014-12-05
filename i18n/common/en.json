@@ -40,5 +40,14 @@
         "EUR":"EURO Zone",
         "FUTURE":"Futures",
         "FOREX":"Forex"
-    }
+    },
+
+    "access":"Access",
+    "user":"User",
+    "password":"Password",
+    "rememberme":"Remember me",
+    "enter":"Enter",
+    "badlogin1":"Invalid user or password.",
+    "badlogin2":"Remember that the user must be an email.",
+    "forgotpass":"Forgot your Password?"
 }

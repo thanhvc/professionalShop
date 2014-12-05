@@ -1,0 +1,39 @@
+{
+    "MYACCOUNT":{
+        "personal_data":"Personal Data",
+        "access_data":"Access Data",
+        "my_orders":"My Orders",
+        "purchases":"Purchases",
+        "renewals":"Renewals",
+        "refunds":"Refunds",
+        "product":"Product",
+        "pack":"Pack",
+        "start":"Start",
+        "end":"End",
+        "duration":"Duration",
+        "price":"Price(€)",
+        "buy_date":"Buy date",
+        "payType":"Payment",
+        "status":"Status",
+        "renewal_date":"Renewal",
+        "refund":"Refund(€)",
+        "cancel_date":"Cancel date",
+        "CARD":"Card",
+        "PAYPAL":"Paypal",
+        "DURATION":{
+            "1":"1 Month",
+            "3":"3 Months",
+            "12":"1 Year"
+        },
+        "STATUS":{
+            "ACTIVE":"Active",
+            "EXPIRED":"Expired",
+            "PAID":"Paid",
+            "CANCELED":"Canceled",
+            "RENEWED":"Renewed",
+            "REFUNDED":"Refunded",
+            "PENDING":"Pending"
+        },
+        "no_data":"THERE ARE NOT USER ORDERS"
+    }
+}
