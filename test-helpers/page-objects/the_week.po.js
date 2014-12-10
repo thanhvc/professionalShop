@@ -41,6 +41,10 @@ TheWeek.prototype =  Object.create({}, {
     getRegionAssetColumn: {value: function(stock_area_pos,region_pos,pos,column) {
         return this.getRegionAsset(stock_area_pos,region_pos,pos).all(by.css("td")).get(column);
     }},
+    getRegionAssetImage: {value: function(stock_area_pos,region_pos,pos,column,type) {
+        var type_pos = (type == 'bull' ? 1 : 0);
+        return this.getRegionAssetColumn(stock_area_pos,region_pos,pos,column).all(by.css("img")).get(type_pos);
+    }},
     getRegionAssetGraph: {value: function(stock_area_pos,region_pos,pos) {
         return this.getRegionAsset(stock_area_pos,region_pos,pos).element(by.css("img.graphic-image"));
     }},

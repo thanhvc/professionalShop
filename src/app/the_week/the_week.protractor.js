@@ -16,10 +16,10 @@ var DateServerConfigMod = require('../../../test-helpers/date-server-config.js')
 //set date on server
 var vagrant_id = browser.params.serverVagrantId;
 var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
-dsc.setServerDate("2014-11-05 11:30:00");
+dsc.setServerDate("2014-11-17 11:30:00");
 ptor.sleep(9000);
 
-describe('The week for non logged in users', function () {
+xdescribe('The week for non logged in users', function () {
         var home;
         var page_layout;
         var the_week_page;
@@ -106,64 +106,113 @@ describe('The week for logged in users', function () {
             xdescribe("Common", function() {
                 it('should have the correct week number and date in header',function() {
                     expect(the_week_page.header().getText()).toContain("Año 2014");
-                    expect(the_week_page.header().getText()).toContain("1 Diciembre / 5 Diciembre");
-                    expect(the_week_page.header().getText()).toContain("Semana 49");
-                    ptor.sleep(9000);
+                    expect(the_week_page.header().getText()).toContain("17 Noviembre / 21 Noviembre");
+                    expect(the_week_page.header().getText()).toContain("Semana 47");
                 });
             }); 
 
             describe("Bolsa tab", function() {
-                describe("America Indices",function() {
-                    describe("Canada region",function() {
-                        xit("should have correct title", function() {
-                            expect(the_week_page.getRegionTitle(0,0).getText()).toBe("CANADÁ");
-                            ptor.sleep(9000);
+                xdescribe("America Indices",function() {
+                    describe("EEUU region",function() {
+                        it("should have correct title", function() {
+                            expect(the_week_page.getRegionTitle(0,0).getText()).toBe("ESTADOS UNIDOS");
                         });
-                        it("should have correct asset name asset 3", function() {
-                            expect(the_week_page.getRegionAssetTitle(0,0,0).getText()).toBe("LONG NAME ASSET 3");
+                        it("should have correct asset name asset 1", function() {
+                            expect(the_week_page.getRegionAssetTitle(0,0,0).getText()).toBe("LONG NAME ASSET 1");
                             expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,0,1),'week-negative-percent')).toBe(true);
                             expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,0,2),'bullish-year')).toBe(true);
                             expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,0,4),'positive-percent')).toBe(true);
                             expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,0,12),'week-negative-percent')).toBe(true);
-                            ptor.sleep(9000);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,1,1),'bearish-year')).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(0,0,1,0,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(0,0,1,0,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getRegionAssetImage(0,0,1,2,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(0,0,1,2,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getRegionAssetImage(0,0,1,4,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(0,0,1,4,'bear').isDisplayed()).toBe(false);
                         });
-                        xit("should have correct graph", function() {
+                        it("should have correct graph", function() {
                             the_week_page.getRegionAssetGraph(0,0,0).click();
                             ptor.sleep(3000);
                             expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
                             expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
-                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart3");
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart1");
                         });
-                        xit("should have correct asset name asset 4", function() {
-                            expect(the_week_page.getRegionAssetTitle(0,0,2).getText()).toBe("LONG NAME ASSET 4");
+                        it("should have correct asset name asset 2", function() {
+                            expect(the_week_page.getRegionAssetTitle(0,0,2).getText()).toBe("LONG NAME ASSET 2");
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,2,1),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,2,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,2,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,2,12),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,3,1),'bearish-year')).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(0,0,3,0,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(0,0,3,0,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getRegionAssetImage(0,0,3,2,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getRegionAssetImage(0,0,3,2,'bear').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(0,0,3,4,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(0,0,3,4,'bear').isDisplayed()).toBe(false);
                         });
-                        xit("should have correct graph", function() {
+                        it("should have correct graph", function() {
                             the_week_page.getRegionAssetGraph(0,0,2).click();
                             ptor.sleep(3000);
                             expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
                             expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
-                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart4");
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart2");
                         });
                     });
-                    xdescribe("EEUU region",function() {
+                    describe("CANADA region",function() {
                         it("should have correct title", function() {
-                            expect(the_week_page.getRegionTitle(0,1).getText()).toBe("ESTADOS UNIDOS");
-                            ptor.sleep(9000);
+                            expect(the_week_page.getRegionTitle(0,1).getText()).toBe("CANADÁ");
                         });
                     });
                 });
 
-                xdescribe("Asia - Pacígico Indices",function() {
-                    describe("China region",function() {
+                describe("Asia - Pacígico Indices",function() {
+                    describe("CHINA region",function() {
                         it("should have correct title", function() {
                             expect(the_week_page.getRegionTitle(1,0).getText()).toBe("CHINA");
-                            ptor.sleep(9000);
                         });
                         it("should have correct asset name asset 5", function() {
                             expect(the_week_page.getRegionAssetTitle(1,0,0).getText()).toBe("LONG NAME ASSET 5");
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,0,1),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,0,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,0,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,0,12),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,1,1),'bearish-year')).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(1,0,1,0,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(1,0,1,0,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getRegionAssetImage(1,0,1,2,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(1,0,1,2,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getRegionAssetImage(1,0,1,4,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(1,0,1,4,'bear').isDisplayed()).toBe(false);
+                        });
+                        it("should have correct graph", function() {
+                            the_week_page.getRegionAssetGraph(1,0,0).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart5");
                         });
                         it("should have correct asset name asset 6", function() {
                             expect(the_week_page.getRegionAssetTitle(1,0,2).getText()).toBe("LONG NAME ASSET 6");
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,2,1),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,2,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,2,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,2,12),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(1,0,3,1),'bearish-year')).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(1,0,3,0,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getRegionAssetImage(1,0,3,0,'bear').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(1,0,3,2,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getRegionAssetImage(1,0,3,2,'bear').isDisplayed()).toBe(true);
+                            expect(the_week_page.getRegionAssetImage(1,0,3,4,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getRegionAssetImage(1,0,3,4,'bear').isDisplayed()).toBe(true);
+                        });
+                        it("should have correct graph", function() {
+                            the_week_page.getRegionAssetGraph(1,0,2).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart6");
                         });
                     });
                 });
