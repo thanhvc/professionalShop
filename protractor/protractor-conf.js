@@ -66,6 +66,7 @@ exports.config = {
     }*/
 
     params: {
-        sqlCon : 'postgres://postgres:postgres216c@localhost:5432/moserver_test'
+        sqlCon : 'postgres://postgres:postgres216c@localhost:5432/moserver_test',
+        serverVagrantId : 'c6a4345' //use vagrant global-status to get Id
     }
 };
