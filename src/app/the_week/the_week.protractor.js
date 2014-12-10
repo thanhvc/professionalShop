@@ -11,8 +11,15 @@ var Home = require('../../../test-helpers/page-objects/home.po.js');
 var PageLayout = require('../../../test-helpers/page-objects/page_layout.po.js');
 var TheWeek = require('../../../test-helpers/page-objects/the_week.po.js');
 var Helper = require('../../../test-helpers/helper.js');
+var DateServerConfigMod = require('../../../test-helpers/date-server-config.js');
 
-xdescribe('The week for non logged in users', function () {
+//set date on server
+var vagrant_id = browser.params.serverVagrantId;
+var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
+dsc.setServerDate("2014-11-05 11:30:00");
+ptor.sleep(9000);
+
+describe('The week for non logged in users', function () {
         var home;
         var page_layout;
         var the_week_page;
@@ -94,14 +101,9 @@ describe('The week for logged in users', function () {
                 ptor.sleep(4000);
             });
             
-            it('should contain three tabs', function() { expect(the_week_page.navTabs().count()).toBe(3); });
+            xit('should contain three tabs', function() { expect(the_week_page.navTabs().count()).toBe(3); });
 
-            it('should be true', function() { 
-                expect(true).toBe(true); 
-                ptor.sleep(9000);
-            });
-
-            describe("Common", function() {
+            xdescribe("Common", function() {
                 it('should have the correct week number and date in header',function() {
                     expect(the_week_page.header().getText()).toContain("Año 2014");
                     expect(the_week_page.header().getText()).toContain("1 Diciembre / 5 Diciembre");
@@ -111,6 +113,61 @@ describe('The week for logged in users', function () {
             }); 
 
             describe("Bolsa tab", function() {
+                describe("America Indices",function() {
+                    describe("Canada region",function() {
+                        xit("should have correct title", function() {
+                            expect(the_week_page.getRegionTitle(0,0).getText()).toBe("CANADÁ");
+                            ptor.sleep(9000);
+                        });
+                        it("should have correct asset name asset 3", function() {
+                            expect(the_week_page.getRegionAssetTitle(0,0,0).getText()).toBe("LONG NAME ASSET 3");
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,0,1),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,0,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,0,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getRegionAssetColumn(0,0,0,12),'week-negative-percent')).toBe(true);
+                            ptor.sleep(9000);
+                        });
+                        xit("should have correct graph", function() {
+                            the_week_page.getRegionAssetGraph(0,0,0).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart3");
+                        });
+                        xit("should have correct asset name asset 4", function() {
+                            expect(the_week_page.getRegionAssetTitle(0,0,2).getText()).toBe("LONG NAME ASSET 4");
+                        });
+                        xit("should have correct graph", function() {
+                            the_week_page.getRegionAssetGraph(0,0,2).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart4");
+                        });
+                    });
+                    xdescribe("EEUU region",function() {
+                        it("should have correct title", function() {
+                            expect(the_week_page.getRegionTitle(0,1).getText()).toBe("ESTADOS UNIDOS");
+                            ptor.sleep(9000);
+                        });
+                    });
+                });
+
+                xdescribe("Asia - Pacígico Indices",function() {
+                    describe("China region",function() {
+                        it("should have correct title", function() {
+                            expect(the_week_page.getRegionTitle(1,0).getText()).toBe("CHINA");
+                            ptor.sleep(9000);
+                        });
+                        it("should have correct asset name asset 5", function() {
+                            expect(the_week_page.getRegionAssetTitle(1,0,0).getText()).toBe("LONG NAME ASSET 5");
+                        });
+                        it("should have correct asset name asset 6", function() {
+                            expect(the_week_page.getRegionAssetTitle(1,0,2).getText()).toBe("LONG NAME ASSET 6");
+                        });
+                    });
+                });
+
 
             }); 
 

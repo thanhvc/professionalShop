@@ -24,10 +24,31 @@ TheWeek.prototype =  Object.create({}, {
         return element(by.css("div.tab-content div.tab-pane.active"));
     }},
     getStockArea: {value: function(pos) {
-        return element.all(by.repeater("area in stockAreas")).get(pos);
+        return this.getActiveContainerTab().all(by.repeater("area in stockAreas")).get(pos);
     }},
     getRegion: {value: function(stock_area_pos,region_pos) {
-        return this.getStockArea(stock_area_pos).element.all(by.repeater("region in area.regions")).get(pos);
+        return this.getStockArea(stock_area_pos).all(by.repeater("region in area.regions")).get(region_pos);
+    }},
+    getRegionTitle: {value: function(stock_area_pos,region_pos) {
+        return this.getRegion(stock_area_pos,region_pos).element(by.css("tr:first-child td"));
+    }},
+    getRegionAsset: {value: function(stock_area_pos,region_pos,pos) {
+        return this.getRegion(stock_area_pos,region_pos).all(by.repeater("indice in region.assets")).get(pos);
+    }},
+    getRegionAssetTitle: {value: function(stock_area_pos,region_pos,pos) {
+        return this.getRegionAsset(stock_area_pos,region_pos,pos).element(by.css("td.index-name span"));
+    }},
+    getRegionAssetColumn: {value: function(stock_area_pos,region_pos,pos,column) {
+        return this.getRegionAsset(stock_area_pos,region_pos,pos).all(by.css("td")).get(column);
+    }},
+    getRegionAssetGraph: {value: function(stock_area_pos,region_pos,pos) {
+        return this.getRegionAsset(stock_area_pos,region_pos,pos).element(by.css("img.graphic-image"));
+    }},
+    getGraphicPanel: {value: function() {
+        return element(by.css("div#graphicPanel"));
+    }},
+    getGraphicImage: {value: function() {
+        return element(by.css("div#graphicPanel img.selected-graphic-image"));
     }},
     goToTab:{value:function(tab_name){
         var tabs_map = {
