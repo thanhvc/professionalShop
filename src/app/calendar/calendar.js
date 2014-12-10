@@ -609,9 +609,6 @@ angular.module('ngMo.calendar', [
             }
 
             config = {
-                headers: {
-                'X-Session-Token': $window.localStorage.token
-            },
                 params: {
                     'page': page,
                    // 'token': $window.localStorage.token,
@@ -654,9 +651,6 @@ angular.module('ngMo.calendar', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
@@ -681,9 +675,6 @@ angular.module('ngMo.calendar', [
         this.getLastDayOfMonth = function (month, callbackFunc) {
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'month': month
                   //  'token': $window.localStorage.token

@@ -122,9 +122,6 @@ angular.module('ngMo.payment', [  'ui.router'])
             */
             token = $window.localStorage.token;
             config = {
-                headers: {
-                    'X-Session-Token': token
-                },
                 data: {
                         token: $stateParams.token,
                         payerId: $stateParams.PayerID
@@ -581,9 +578,6 @@ angular.module('ngMo.payment', [  'ui.router'])
             dataCart= [];
             token = $window.localStorage.token;
             config = {
-                headers: {
-                    'X-Session-Token': token
-                },
                 data: {
                     packs: [],//list of packs
                     info: {
@@ -799,9 +793,6 @@ angular.module('ngMo.payment', [  'ui.router'])
 
                 token = $window.localStorage.token;
                 config = {
-                    headers: {
-                        'X-Session-Token': token
-                    },
                     data: packs,
                     active_packs: withActive
                 };

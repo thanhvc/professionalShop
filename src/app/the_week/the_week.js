@@ -100,10 +100,6 @@ angular.module('ngMo.the_week', [
 
         $scope.loadData = function() {
             config = {
-
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                 //    'authToken': $window.localStorage.token
                 }

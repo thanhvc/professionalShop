@@ -898,10 +898,6 @@ angular.module('ngMo.volatility', [
             var deferred = $q.defer();
             var data;
             config = {
-
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'patternId': patternId
                     //'token': $window.localStorage.token
@@ -928,9 +924,6 @@ angular.module('ngMo.volatility', [
                 indexType = 0;
             }
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'page': page,
                    // 'token': $window.localStorage.token,
@@ -986,9 +979,6 @@ angular.module('ngMo.volatility', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,

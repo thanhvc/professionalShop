@@ -236,10 +236,6 @@ angular.module('ngMo', [
                     year: parseInt(item.date.split("/")[2],10)
                 };
                 config = {
-
-                    headers: {
-                        'X-Session-Token': token
-                    },
                     data: newItem
                 };
                 $http.post($rootScope.urlService+"/has-pack", config).success(callback).error(callback);
@@ -943,7 +939,7 @@ angular.module('ngMo', [
 
 
     })
-    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http,$translate,$translatePartialLoader,tmhDynamicLocale) {
+    .controller('AppCtrl', function AppCtrl($scope, $rootScope, ActualDateService, $modal, IsLogged, AnchorLinkService,$http,$translate,$translatePartialLoader,tmhDynamicLocale,$location, $timeout) {
         //Set when is logged
         IsLogged.checkLogged();
 
@@ -971,6 +967,10 @@ angular.module('ngMo', [
                 $scope.inVolatilityView = true;
             }
 
+            if ($location.path() == "/home" && toState.name == "catalog"){
+                $scope.scrollPos = window.scrollY;
+                console.log($scope.scrollPos );
+            }
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
@@ -984,6 +984,15 @@ angular.module('ngMo', [
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
             AnchorLinkService.scrollTo('top');
+
+            if (toState.name == ("home") && fromState.name == "catalog"){
+                $timeout(function() { // wait for DOM, then restore scroll position
+                    window.scroll(0,  $scope.scrollPos ? $scope.scrollPos : 0);
+                }, 1000);
+                console.log($scope.scrollPos );
+            }
+
+
         });
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
@@ -1038,6 +1047,7 @@ angular.module('ngMo', [
             tmhDynamicLocale.set(lang);
         };
 
+        $scope.scrollPos = 0; // scroll position of each view
     })
 
     .directive("scroll", function ($window) {
@@ -2071,9 +2081,6 @@ angular.module('ngMo', [
                         }
 
                         config = {
-                            headers: {
-                                'X-Session-Token': token
-                            },
                             data: dataCart
                         };
                         return $http.post($rootScope.urlService+'/addpacks', config)

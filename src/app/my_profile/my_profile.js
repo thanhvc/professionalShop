@@ -71,6 +71,32 @@ angular.module('ngMo.my_profile', [
                 },
                 data: {
                     subPage: 'orders',
+                    pageTitle: 'Mis órdenes - Compras'
+                }
+            })
+            .state('profile.renewals', {
+                url: '/renewals',
+                views: {
+                    "sub-profile": {
+                        templateUrl: 'my_profile/renewals.tpl.html',
+                        controller: 'OrdersCtrl'
+                    }
+                },
+                data: {
+                    subPage: 'renewals',
+                    pageTitle: 'Mis órdenes - Renovaciones'
+                }
+            })
+            .state('profile.refunds', {
+                url: '/refunds',
+                views: {
+                    "sub-profile": {
+                        templateUrl: 'my_profile/refunds.tpl.html',
+                        controller: 'OrdersCtrl'
+                    }
+                },
+                data: {
+                    subPage: 'refunds',
                     pageTitle: 'Mis órdenes'
                 }
             })
@@ -78,7 +104,7 @@ angular.module('ngMo.my_profile', [
     })
     .run(function run() {
     })
-    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged,$modal, ProfileService, SignUpService, $state,$http,$rootScope, $timeout) {
+    .controller('ProfileCtrl', function ServicesCtrl($scope, IsLogged,$modal, ProfileService, SignUpService, $state,$http,$rootScope, $timeout, $translatePartialLoader) {
 
         $scope.modalMessage = function(message,type) {
             $modal.open({
@@ -98,6 +124,7 @@ angular.module('ngMo.my_profile', [
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
+        $translatePartialLoader.addPart("my_account");
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -278,13 +305,14 @@ angular.module('ngMo.my_profile', [
             $scope.loadUser();
         }
     })
-    .controller('OrdersCtrl', function ServicesCtrl($scope, IsLogged,$window, ProfileService, SignUpService, $state,$http,$rootScope) {
+    .controller('OrdersCtrl', function ServicesCtrl($scope, IsLogged,$window, ProfileService, SignUpService, $state,$http,$rootScope, $translatePartialLoader) {
         $scope.subPage = $state.$current.data.subPage;
         $scope.tog = 2;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
         $scope.notFound= true;
+        $translatePartialLoader.addPart("my_account");
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
@@ -292,55 +320,40 @@ angular.module('ngMo.my_profile', [
             IsLogged.isLogged(true);
         });
 
+        config = {
+         
+        };
         if ($state.current.name === "profile.orders") {
-            ////-- orders
-            $scope.orders = {
-                STOCKS: [],
-                PAIRS: [],
-                INDEX: [],
-                PAIRS_INDEX: [],
-                FUTURES: []
-            };
-            token = $window.localStorage.token;
-            config = {
-                headers: {
-                    'X-Session-Token': token
-                }
-            };
             $http.get($rootScope.urlService + '/orders', config)
                 .success(function (data, status) {
-                    $scope.data = [
-                        {name: "ACCIÓN",
-                        packs: data.STOCKS},
-                        {name: "PAR ACCIONES",
-                            packs: data.PAIRS},
-                        {name: "INDICE",
-                            packs: data.INDEX},
-                        {name: "PAR INDICE",
-                            packs: data.PAIRS_INDEX},
-                        {name: "FUTURO",
-                            packs: data.FUTURES}
-                    ];
-                    if (data.STOCKS.length === 0 && data.PAIRS.length === 0 && data.INDEX.length === 0 && data.PAIRS_INDEX.length ===0 && data.FUTURES.length === 0) {
-                        $scope.notFound = true;
-                    } else {
-                        $scope.notFound = false;
-                    }
+                    $scope.data = data;
+                    $scope.notFound = (data.length === 0 ) ? true : false;
                 })
                 .error(function (data, status) {
-                        $scope.notFound = true;
-                    $scope.data = [
-                        {name: "ACCIÓN",
-                            packs: []},
-                        {name: "PAR ACCIONES",
-                            packs: []},
-                        {name: "INDICE",
-                            packs: []},
-                        {name: "PAR INDICE",
-                            packs: []},
-                        {name: "FUTURO",
-                            packs: []}
-                    ];
+                    $scope.notFound = true;
+                    $scope.data = [];
+                });
+
+        } else if ($state.current.name === "profile.refunds") {
+            $http.get($rootScope.urlService + '/refunds', config)
+                .success(function (data, status) {
+                    $scope.data = data;
+                    $scope.notFound = (data.length === 0 ) ? true : false;
+                })
+                .error(function (data, status) {
+                    $scope.notFound = true;
+                    $scope.data = [];
+                });
+
+        } else if ($state.current.name === "profile.renewals") {
+            $http.get($rootScope.urlService + '/renewals', config)
+                .success(function (data, status) {
+                    $scope.data = data;
+                    $scope.notFound = (data.length === 0 ) ? true : false;
+                })
+                .error(function (data, status) {
+                    $scope.notFound = true;
+                    $scope.data = [];
                 });
 
         }
@@ -348,13 +361,13 @@ angular.module('ngMo.my_profile', [
     .factory('ProfileService', function ($http, $window,$rootScope) {
         var profileService = {};
         profileService.loadUser = function (callback) {
-            token = $window.localStorage.token;
+           /* token = $window.localStorage.token;
             config = {
                 headers: {
                     'X-Session-Token': token
                 }
-            };
-            $http.get($rootScope.urlService+'/user', config)
+            };*/
+            $http.get($rootScope.urlService+'/user'/*, config*/)
                 .success(function (data, status) {
                     callback(data, status);
                 })
@@ -366,9 +379,6 @@ angular.module('ngMo.my_profile', [
             //data = user;
             token = $window.localStorage.token;
             config = {
-                headers: {
-                    'X-Session-Token': token
-                },
                 data: user
             };
             return $http.put($rootScope.urlService+'/user', config)
@@ -385,9 +395,6 @@ angular.module('ngMo.my_profile', [
             //data = user;
             token = $window.localStorage.token;
             config = {
-                headers: {
-                    'X-Session-Token': token
-                },
                 data: passwords
             };
             return $http.put($rootScope.urlService+'/user', config)
@@ -402,9 +409,6 @@ angular.module('ngMo.my_profile', [
             //data = user;
             token = $window.localStorage.token;
             config = {
-                headers: {
-                    'X-Session-Token': token
-                },
                 data: email
             };
             return $http.put($rootScope.urlService+'/user', config)

@@ -1013,9 +1013,6 @@ angular.module('ngMo.lookup_diary', [
             }
 
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'page': page,
                     //'token': $window.localStorage.token,
@@ -1056,9 +1053,6 @@ angular.module('ngMo.lookup_diary', [
             var deferred = $q.defer();
             var data;
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'patternId': patternId,
                     //'token': $window.localStorage.token,
@@ -1078,9 +1072,6 @@ angular.module('ngMo.lookup_diary', [
             var deferred = $q.defer();
             var data;
             config = {
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'patternId': patternId
                    // 'token': $window.localStorage.token
@@ -1114,10 +1105,6 @@ angular.module('ngMo.lookup_diary', [
             }
 
             config = {
-
-                headers: {
-                    'X-Session-Token': $window.localStorage.token
-                },
                 params: {
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
