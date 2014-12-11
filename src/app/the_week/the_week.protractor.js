@@ -111,8 +111,8 @@ describe('The week for logged in users', function () {
                 });
             }); 
 
-            describe("Bolsa tab", function() {
-                xdescribe("America Indices",function() {
+            xdescribe("Bolsa tab", function() {
+                describe("America Indices",function() {
                     describe("EEUU region",function() {
                         it("should have correct title", function() {
                             expect(the_week_page.getRegionTitle(0,0).getText()).toBe("ESTADOS UNIDOS");
@@ -221,6 +221,68 @@ describe('The week for logged in users', function () {
             }); 
 
             describe("Comodities tab", function() {
+                beforeEach(function() {
+                    the_week_page.goToTab('commodities');
+                    ptor.sleep(2000);
+                });
+
+                describe("Materias primas", function() {
+                    describe("Composite", function() {
+                        it("should have correct title", function() {
+                            expect(the_week_page.getCommodityRegionTitle(0,0).getText()).toBe("COMPOSITE");
+                        });
+                        it("should have correct asset name asset 1", function() {
+                            expect(the_week_page.getCommodityRegionAssetTitle(0,0,0).getText()).toBe("LONG NAME ASSET 1");
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,0,1),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,0,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,0,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,0,12),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,1,1),'bearish-year')).toBe(true);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,1,0,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,1,0,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,1,2,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,1,2,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,1,4,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,1,4,'bear').isDisplayed()).toBe(false);
+                        });
+                        it("should have correct graph", function() {
+                            the_week_page.getCommodityRegionAssetGraph(0,0,0).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart1");
+                        });
+                        it("should have correct asset name asset 2", function() {
+                            expect(the_week_page.getCommodityRegionAssetTitle(0,0,2).getText()).toBe("LONG NAME ASSET 2");
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,2,1),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,2,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,2,4),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,2,6),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,2,12),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getCommodityRegionAssetColumn(0,0,3,1),'bearish-year')).toBe(true);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,3,0,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,3,0,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,3,2,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,3,2,'bear').isDisplayed()).toBe(true);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,3,4,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getCommodityRegionAssetImage(0,0,3,4,'bear').isDisplayed()).toBe(false);
+                        });
+                        it("should have correct graph", function() {
+                            the_week_page.getCommodityRegionAssetGraph(0,0,2).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart2");
+                        });
+
+                    });
+
+                    describe("Sectors, components & thematic", function() {
+                        it("should have correct title", function() {
+                            expect(the_week_page.getCommodityRegionTitle(0,1).getText()).toBe("SECTORS, COMPONENTS & THEMATIC");
+                        });
+                    });
+                });
 
             }); 
 

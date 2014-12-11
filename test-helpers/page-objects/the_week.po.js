@@ -23,6 +23,7 @@ TheWeek.prototype =  Object.create({}, {
     getActiveContainerTab: {value: function() {
         return element(by.css("div.tab-content div.tab-pane.active"));
     }},
+    //Stocks tab
     getStockArea: {value: function(pos) {
         return this.getActiveContainerTab().all(by.repeater("area in stockAreas")).get(pos);
     }},
@@ -48,6 +49,33 @@ TheWeek.prototype =  Object.create({}, {
     getRegionAssetGraph: {value: function(stock_area_pos,region_pos,pos) {
         return this.getRegionAsset(stock_area_pos,region_pos,pos).element(by.css("img.graphic-image"));
     }},
+    //Commodities
+    getCommoditiesArea: {value: function(pos) {
+        return this.getActiveContainerTab().all(by.repeater("area in commoditiesAreas")).get(pos);
+    }},
+    getCommodityRegion: {value: function(stock_area_pos,region_pos) {
+        return this.getCommoditiesArea(stock_area_pos).all(by.repeater("region in area.regions")).get(region_pos);
+    }},
+    getCommodityRegionTitle: {value: function(stock_area_pos,region_pos) {
+        return this.getCommodityRegion(stock_area_pos,region_pos).element(by.css("tr:first-child td"));
+    }},
+    getCommodityRegionAsset: {value: function(stock_area_pos,region_pos,pos) {
+        return this.getCommodityRegion(stock_area_pos,region_pos).all(by.repeater("indice in region.assets")).get(pos);
+    }},
+    getCommodityRegionAssetTitle: {value: function(stock_area_pos,region_pos,pos) {
+        return this.getCommodityRegionAsset(stock_area_pos,region_pos,pos).element(by.css("td.index-name span"));
+    }},
+    getCommodityRegionAssetColumn: {value: function(stock_area_pos,region_pos,pos,column) {
+        return this.getCommodityRegionAsset(stock_area_pos,region_pos,pos).all(by.css("td")).get(column);
+    }},
+    getCommodityRegionAssetImage: {value: function(stock_area_pos,region_pos,pos,column,type) {
+        var type_pos = (type == 'bull' ? 1 : 0);
+        return this.getCommodityRegionAssetColumn(stock_area_pos,region_pos,pos,column).all(by.css("img")).get(type_pos);
+    }},
+    getCommodityRegionAssetGraph: {value: function(stock_area_pos,region_pos,pos) {
+        return this.getCommodityRegionAsset(stock_area_pos,region_pos,pos).element(by.css("img.graphic-image"));
+    }},
+    //Common
     getGraphicPanel: {value: function() {
         return element(by.css("div#graphicPanel"));
     }},
@@ -61,7 +89,7 @@ TheWeek.prototype =  Object.create({}, {
             's_n_p': 2
         };
         var pos = tabs_map[tab_name];
-        return element(by.css("ul.nav.nav-tabs li a").row(pos)).click();
+        return element.all(by.css("ul.nav.nav-tabs li a")).get(pos).click();
     }},
     navTabs : {value: function(){
                         return element.all(by.css("ul.nav.nav-tabs li.ng-isolate-scope"));

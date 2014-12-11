@@ -397,6 +397,7 @@ exports.the_week_fixture = function() {
                 friday_return_value: -0.44
             }       
         },
+        //TAB 2
         {
             type: 'insert',
             table: 'week_entry_data',
@@ -404,16 +405,16 @@ exports.the_week_fixture = function() {
                 id: 7,
                 win: 14,
                 loss: 2,
-                return_value: -0.32,
+                return_value: 0.32,
                 return_chart_url: "chart1",
                 asset_symbol: 'ASSET1',
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
                 ordering: 1,
-                week_section: 0,
-                week_area:0, //AMERICA
-                week_tab: 1, //Stocks
+                week_section: 55, //Composite?
+                week_area:4, //Materias primas
+                week_tab: 1, //Commodities
                 monday_win: 12,
                 monday_loss: 2,
                 monday_return_value: 0.58,
@@ -444,13 +445,13 @@ exports.the_week_fixture = function() {
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 1,
-                week_section: 0,
-                week_area:0, //AMERICA
-                week_tab: 1, //Stocks
-                monday_win: 12,
-                monday_loss: 2,
-                monday_return_value: 0.58,
+                ordering: 2,
+                week_section: 55, //Composite?
+                week_area:4, //Materias primas
+                week_tab: 1, //Commodities
+                monday_win: 2,
+                monday_loss: 12,
+                monday_return_value: -0.58,
                 tuesday_win: 13,
                 tuesday_loss: 2,
                 tuesday_return_value: 0.08,
@@ -473,15 +474,15 @@ exports.the_week_fixture = function() {
                 win: 14,
                 loss: 1,
                 return_value: -0.32,
-                return_chart_url: "chart1",
-                asset_symbol: 'ASSET1',
+                return_chart_url: "chart3",
+                asset_symbol: 'ASSET3',
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 1,
-                week_section: 0,
-                week_area:0, //AMERICA
-                week_tab: 1, //Stocks
+                ordering: 3,
+                week_section: 55, //Composite?
+                week_area:4, //Materias primas
+                week_tab: 1, //Commodities
                 monday_win: 12,
                 monday_loss: 2,
                 monday_return_value: 0.58,
@@ -507,15 +508,15 @@ exports.the_week_fixture = function() {
                 win: 13,
                 loss: 2,
                 return_value: -0.32,
-                return_chart_url: "chart2",
-                asset_symbol: 'ASSET2',
+                return_chart_url: "chart4",
+                asset_symbol: 'ASSET4',
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
                 ordering: 1,
-                week_section: 0,
-                week_area:0, //AMERICA
-                week_tab: 1, //Stocks
+                week_section: 56, //Sectors, Components and thematic
+                week_area:4, //Materias primas
+                week_tab: 1, //Commodities
                 monday_win: 12,
                 monday_loss: 2,
                 monday_return_value: 0.58,
@@ -541,15 +542,49 @@ exports.the_week_fixture = function() {
                 win: 13,
                 loss: 2,
                 return_value: -0.32,
-                return_chart_url: "chart3",
-                asset_symbol: 'ASSET3',
+                return_chart_url: "chart5",
+                asset_symbol: 'ASSET5',
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 1,
-                week_section: 0,
-                week_area:0, //AMERICA
-                week_tab: 1, //Stocks
+                ordering: 2,
+                week_section: 56, //Sectors, Components and thematic
+                week_area:4, //Materias primas
+                week_tab: 1, //Commodities
+                monday_win: 12,
+                monday_loss: 2,
+                monday_return_value: 0.58,
+                tuesday_win: 13,
+                tuesday_loss: 2,
+                tuesday_return_value: 0.08,
+                wednesday_win: 9,
+                wednesday_loss: 2,
+                wednesday_return_value: 0.44,
+                thursday_win: 9,
+                thursday_loss: 4,
+                thursday_return_value: 0.44,
+                friday_win: 9,
+                friday_loss: 4,
+                friday_return_value: -0.44
+            }       
+        },
+        {
+            type: 'insert',
+            table: 'week_entry_data',
+            values: {
+                id: 12,
+                win: 13,
+                loss: 2,
+                return_value: -0.32,
+                return_chart_url: "chart6",
+                asset_symbol: 'ASSET6',
+                main_asset_id: null,
+                week_number: 47,
+                year: 2014,
+                ordering: 3,
+                week_section: 56, //Sectors, Components and thematic
+                week_area:4, //Materias primas
+                week_tab: 1, //Commodities
                 monday_win: 12,
                 monday_loss: 2,
                 monday_return_value: 0.58,
@@ -572,7 +607,7 @@ exports.the_week_fixture = function() {
             type: 'insert',
             table: 'week_entry_data',
             values: {
-                id: 12,
+                id: 13,
                 win: 13,
                 loss: 2,
                 return_value: -0.32,
@@ -606,7 +641,7 @@ exports.the_week_fixture = function() {
             type: 'insert',
             table: 'week_entry_data',
             values: {
-                id: 13,
+                id: 14,
                 win: 13,
                 loss: 2,
                 return_value: -0.32,
@@ -640,7 +675,7 @@ exports.the_week_fixture = function() {
             type: 'insert',
             table: 'week_entry_data',
             values: {
-                id: 14,
+                id: 15,
                 win: 13,
                 loss: 2,
                 return_value: -0.32,
@@ -674,7 +709,7 @@ exports.the_week_fixture = function() {
             type: 'insert',
             table: 'week_entry_data',
             values: {
-                id: 15,
+                id: 16,
                 win: 13,
                 loss: 2,
                 return_value: -0.32,
