@@ -63,6 +63,7 @@
 
             <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Industria"
                    ng-blur="blurIndustry();"
+                   ng-disabled="(filterOptions.filters.selectedSector == '' || filterOptions.filters.selectedSector == null)"
                    typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
                    typeahead-on-select="selectIndustry()"
                    class="stocks-catalog-input">
