@@ -2,14 +2,14 @@ var loadFixture = require('../../../test-helpers/load-fixture.js')
 var sha512 = require('sha512')
 var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js')
-var mailBackendMod = require('../../../test-helpers/mail-backend.js');
+//var mailBackendMod = require('../../../test-helpers/mail-backend.js');
 
 
 describe('The home page', function () {
     var page;
     var queue = []
     var conString = browser.params.sqlCon;/*'postgres://super:moserverpass@localhost:25432/moserver'*/
-    var mailBackend;
+    //var mailBackend;
     beforeEach(function () {
         fixture = {
             type: 'insert',

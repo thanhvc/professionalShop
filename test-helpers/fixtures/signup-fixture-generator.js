@@ -62,8 +62,8 @@ exports.signup_fixture = function() {
             table: 'users',
             values: {
                 id: 1,
-                name: 'Pending',
-                surname: 'User',
+                name: 'Pending user',
+                surname: '',
                 creation_date: '10-06-2014',
                 address: 'The wall',
                 city: 'North',
@@ -79,8 +79,8 @@ exports.signup_fixture = function() {
             table: 'users',
             values: {
                 id: 2,
-                name: 'Registered',
-                surname: 'User',
+                name: 'Registered user',
+                surname: '',
                 creation_date: '10-06-2014',
                 address: 'The wall',
                 city: 'North',
@@ -96,8 +96,8 @@ exports.signup_fixture = function() {
             table: 'users',
             values: {
                 id: 3,
-                name: 'Expired',
-                surname: 'User',
+                name: 'Expired user',
+                surname: '',
                 creation_date: '10-06-2014',
                 address: 'The wall',
                 city: 'North',

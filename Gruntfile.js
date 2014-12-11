@@ -636,7 +636,7 @@ module.exports = function ( grunt ) {
      */
     grunt.registerTask( 'default', [ 'build', 'compile' ] );
     grunt.registerTask('e2e',['protractor_webdriver:run','protractor:e2e']);
-    grunt.registerTask('connect_e2e',['connect','protractor:e2e']);
+    grunt.registerTask('connect_e2e',['connect:server','protractor:e2e']);
 
     grunt.registerTask('e2edebug',['protractor_webdriver:run','protractor:e2edebug']);
     grunt.registerTask('e2e_jenkins', ['protractor_webdriver:run', 'protractor:e2e_jenkins']);
