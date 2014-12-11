@@ -168,6 +168,7 @@ angular.module('ngMo.catalog', [
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
         });
+        $scope.isSectorUnSelected=true;
         $scope.initialData = initializedData;
 
         $scope.generateSearchUrl = function (provider, input) {
@@ -306,6 +307,7 @@ angular.module('ngMo.catalog', [
 
 
         $scope.selectSector = function () {
+            $scope.isSectorUnSelected=false;
             $scope.filterOptions.filters.selectedIndustry = "";
             $scope.refreshSector();
             $scope.applyFilters();
@@ -314,12 +316,26 @@ angular.module('ngMo.catalog', [
         $scope.$watch('filterOptions.filters.selectedSector', function(newValue, oldValue) {
 
             if ($scope.filterOptions.filters.selectedSector === "" || $scope.filterOptions.filters.selectedSector === null ) {
+                $scope.isSectorUnSelected=true;
                 $scope.selectSector();
+            } else {
+                if (typeof $scope.filterOptions.filters.selectedSector === "undefined" ) {
+                    $scope.isSectorUnSelected = true;
+                } else {
+                    if (typeof $scope.filterOptions.filters.selectedSector.id === "undefined") {
+                        $scope.isSectorUnSelected = true;
+                    }
+                    else {
+                        $scope.isSectorUnselected = false;
+                    }
+                }
+
             }
         });
         //function that clear the input of sector if is not option selected in a blur event
         $scope.blurSector = function(){
             if (typeof $scope.filterOptions.filters.selectedSector.id === "undefined") {
+                $scope.isSectorUnSelected=true;
                 $scope.filterOptions.filters.selectedSector = "";
             }
         };
@@ -507,6 +523,9 @@ angular.module('ngMo.catalog', [
             $scope.loadFilters();
             $scope.loadPage();
         });
+
+
+
         $scope.restartFilter();
 
     }
