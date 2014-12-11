@@ -1076,6 +1076,22 @@ angular.module('ngMo', [
             });
         };
     })
+/**
+ * this directive triggers a function when the user do clicks in any element but not in this
+ */
+    .directive('clickAnywhereButHere', function($document){
+        return {
+            restrict: 'A',
+            link: function(scope, elem, attr, ctrl) {
+                elem.bind('click', function(e) {
+                    e.stopPropagation();
+                });
+                $document.bind('click', function() {
+                    scope.$apply(attr.clickAnywhereButHere);
+                });
+            }
+        };
+    })
 
 /**
  * Directive for public nav

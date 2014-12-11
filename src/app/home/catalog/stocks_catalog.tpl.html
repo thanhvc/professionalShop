@@ -45,11 +45,13 @@
                     {{item.description}}
                 </option>
             </select>-->
-            <input type="text" ng-model="filterOptions.filters.selectedSector" placeholder="Sector"
-                   ng-blur="blurSector();"
-                   typeahead="sector as sector.description for sector in filterOptions.selectors.sectors | filter:{description:$viewValue}"
-                   typeahead-on-select="selectSector()"
-                   class="stocks-catalog-input">
+            <div click-anywhere-but-here="blurSector();">
+                <input type="text" ng-model="filterOptions.filters.selectedSector" placeholder="Sector"
+
+                       typeahead="sector as sector.description for sector in filterOptions.selectors.sectors | filter:{description:$viewValue}"
+                       typeahead-on-select="selectSector()"
+                       class="stocks-catalog-input">
+            </div>
 
 
             <!--<select ng-model="filterOptions.filters.selectedIndustry" ng-change="selectIndustry();">
@@ -59,16 +61,17 @@
                     {{item.description}}
                 </option>
             </select>-->
+                <div click-anywhere-but-here="blurIndustry();" ng-click="blurSector();">
+                    <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Industria"
+                           ng-focus="blurSector();"
+                           ng-disabled="isSectorUnSelected"
+                           typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
+                           typeahead-on-select="selectIndustry()"
+                           class="stocks-catalog-input">
+                </div>
+            <!--note using the blurIndustry/sector we get that click or tab to next element will check the industry or sector to empty the input-->
 
-
-            <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Industria"
-                   ng-blur="blurIndustry();"
-                   ng-disabled="(filterOptions.filters.selectedSector == '' || filterOptions.filters.selectedSector == null)"
-                   typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
-                   typeahead-on-select="selectIndustry()"
-                   class="stocks-catalog-input">
-
-            <select ng-model="filterOptions.filters.durationInterval" ng-change="search();">
+            <select ng-model="filterOptions.filters.durationInterval" ng-change="search();" ng-focus="blurIndustry();blurSector();">
                 <option selected="selected" value="">- Elegir duraci&oacute;n -</option>
                 <option value="[*/1]">Hasta 1 mes</option>
                 <option value="[1/3]">De 1 a 3 meses</option>
