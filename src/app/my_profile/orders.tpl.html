@@ -1,10 +1,9 @@
 <div>
 
+    <div class="orange-title" style="float: none;margin: 20px;">{{'MYACCOUNT.orders'|translate}}</div>
+
         <table class="orders-body" >
             <tbody>
-            <tr style="height: 45px;">
-                <td><span class="orange-title">{{'MYACCOUNT.my_orders'|translate}}</span></td>
-            </tr>
             <tr>
                 <td>
                     <div class="header-orders"> {{'MYACCOUNT.purchases'|translate}}</div>
@@ -12,11 +11,20 @@
                         <table class="orders-table" ng-show="!notFound">
                             <thead>
                                 <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td colspan="3">{{'MYACCOUNT.subscription'|translate}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td>{{'MYACCOUNT.product'|translate}}</td>
                                     <td>{{'MYACCOUNT.pack'|translate}}</td>
                                     <td>{{'MYACCOUNT.start'|translate}}</td>
                                     <td>{{'MYACCOUNT.end'|translate}}</td>
-                                    <td>{{'MYACCOUNT.duration'|translate}}</td>
+                                    <td>{{'MYACCOUNT.type'|translate}}</td>
                                     <td>{{'MYACCOUNT.price'|translate}}</td>
                                     <td>{{'MYACCOUNT.buy_date'|translate}}</td>
                                     <td>{{'MYACCOUNT.payType'|translate}}</td>
@@ -24,7 +32,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="p in data" >
+                                <tr ng-repeat="p in orders" >
                                     <td>{{p.product | translate}}</td>
                                     <td>{{p.name}}</td>
                                     <td>{{p.startDate | date: 'MMM yyyy'}}</td>
@@ -44,6 +52,65 @@
             </tr>
             </tbody>
         </table>
+
+    <table class="orders-body" style="margin-top: 20px" >
+        <tbody>
+        <tr>
+            <td>
+                <div class="header-orders"> {{'MYACCOUNT.refunds'|translate}}</div>
+                <div>
+                    <table class="orders-table" ng-show="!notFound">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2">{{'MYACCOUNT.subscription'|translate}}</td>
+                            <td></td>
+                            <td></td>
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>{{'MYACCOUNT.product'|translate}}</td>
+                            <td>{{'MYACCOUNT.pack'|translate}}</td>
+                            <td>{{'MYACCOUNT.start'|translate}}</td>
+                            <td>{{'MYACCOUNT.end'|translate}}</td>
+                            <td>{{'MYACCOUNT.price'|translate}}</td>
+                            <td>{{'MYACCOUNT.buy_date'|translate}}</td>
+
+                            <td>{{'MYACCOUNT.cancel_date'|translate}}</td>
+                            <td>{{'MYACCOUNT.refund'|translate}}</td>
+                            <td>{{'MYACCOUNT.refund_date'|translate}}</td>
+                            <td>{{'MYACCOUNT.refund_type'|translate}}</td>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="p in refunds" >
+                            <td>{{p.product | translate}}</td>
+                            <td>{{p.name}}</td>
+                            <td>{{p.startDate | date: 'MMM yyyy'}}</td>
+                            <td>{{p.endDate | date: 'MMM yyyy'}}</td>
+                            <td>{{p.price | number:2}}</td>
+                            <td>{{p.datePay | date: 'dd MMM yyyy'}}</td>
+
+                            <td>{{p.dateCancel | date: 'dd MMM yyyy'}}</td>
+                            <td>{{p.devolution | number:2}}</td>
+                            <td>{{p.dateRefund | date: 'dd MMM yyyy'}}</td>
+                            <td>{{'MYACCOUNT.'+p.refundType | translate}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="no-patterns-container no-orders-body" ng-show="notFound">{{'MYACCOUNT.no_data'|translate}}</div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 
 </div>

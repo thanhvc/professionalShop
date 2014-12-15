@@ -74,32 +74,6 @@ angular.module('ngMo.my_profile', [
                     pageTitle: 'Mis órdenes - Compras'
                 }
             })
-            .state('profile.renewals', {
-                url: '/renewals',
-                views: {
-                    "sub-profile": {
-                        templateUrl: 'my_profile/renewals.tpl.html',
-                        controller: 'OrdersCtrl'
-                    }
-                },
-                data: {
-                    subPage: 'renewals',
-                    pageTitle: 'Mis órdenes - Renovaciones'
-                }
-            })
-            .state('profile.refunds', {
-                url: '/refunds',
-                views: {
-                    "sub-profile": {
-                        templateUrl: 'my_profile/refunds.tpl.html',
-                        controller: 'OrdersCtrl'
-                    }
-                },
-                data: {
-                    subPage: 'refunds',
-                    pageTitle: 'Mis órdenes'
-                }
-            })
             ;
     })
     .run(function run() {
@@ -323,41 +297,27 @@ angular.module('ngMo.my_profile', [
         config = {
          
         };
-        if ($state.current.name === "profile.orders") {
-            $http.get($rootScope.urlService + '/orders', config)
-                .success(function (data, status) {
-                    $scope.data = data;
-                    $scope.notFound = (data.length === 0 ) ? true : false;
-                })
-                .error(function (data, status) {
-                    $scope.notFound = true;
-                    $scope.data = [];
-                });
+        $http.get($rootScope.urlService + '/orders', config)
+            .success(function (data, status) {
+                $scope.orders = data;
+                $scope.notFound = (data.length === 0 ) ? true : false;
+            })
+            .error(function (data, status) {
+                $scope.notFound = true;
+                $scope.orders = [];
+            });
 
-        } else if ($state.current.name === "profile.refunds") {
-            $http.get($rootScope.urlService + '/refunds', config)
-                .success(function (data, status) {
-                    $scope.data = data;
-                    $scope.notFound = (data.length === 0 ) ? true : false;
-                })
-                .error(function (data, status) {
-                    $scope.notFound = true;
-                    $scope.data = [];
-                });
+        $http.get($rootScope.urlService + '/refunds', config)
+            .success(function (data, status) {
+                $scope.refunds = data;
+                $scope.notFound = (data.length === 0 ) ? true : false;
+            })
+            .error(function (data, status) {
+                $scope.refunds = true;
+                $scope.data = [];
+            });
 
-        } else if ($state.current.name === "profile.renewals") {
-            $http.get($rootScope.urlService + '/renewals', config)
-                .success(function (data, status) {
-                    $scope.data = data;
-                    $scope.notFound = (data.length === 0 ) ? true : false;
-                })
-                .error(function (data, status) {
-                    $scope.notFound = true;
-                    $scope.data = [];
-                });
-
-        }
-    })
+        })
     .factory('ProfileService', function ($http, $window,$rootScope) {
         var profileService = {};
         profileService.loadUser = function (callback) {
