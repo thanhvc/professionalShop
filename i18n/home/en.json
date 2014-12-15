@@ -1,4 +1,13 @@
 {
-    "HOME":
-    {}
+    "HOME":{
+        "america":"AMERICA",
+        "asia":"ASIA",
+        "pacific":"PACIFIC",
+        "europe":"EUROPE",
+        "africa":"AFRICA",
+        "middle_east":"MIDDLE EAST",
+        "region":"Region",
+        "markets":"Markets",
+        "n_patterns":"Number of patterns"
+    }
 }
