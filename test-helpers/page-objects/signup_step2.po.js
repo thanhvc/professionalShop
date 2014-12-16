@@ -44,6 +44,18 @@ SignUpStep2.prototype =  Object.create({}, {
                             element(by.model("user.captcha")).clear();
                             element(by.model("user.captcha")).sendKeys(value);
                      }},
+    getCaptchaResult : {value: function(){
+                            return element(by.css("div.captcha-div")).getText().then(function(str) {
+                                var values = str.match(/\d+/g);
+                                return parseInt(values[0]) + parseInt(values[1]);                                
+                            });
+                     }},
+    getCaptchaInvalidResult : {value: function(){
+                            return element(by.css("div.captcha-div")).getText().then(function(str) {
+                                var values = str.match(/\d+/g);
+                                return parseInt(values[0]) + parseInt(values[1]) + 1;
+                            });
+                     }},
     checkAcceptTermConditions : {value: function(){
                             element(by.css("input#conditions")).click();
                      }},

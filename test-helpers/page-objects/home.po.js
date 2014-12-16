@@ -2,9 +2,11 @@
  * Created by aitor on 22/10/14.
  */
 'use strict';
-var Home = function () {
+var Home = function (go_to_page) {
+    var go_to_page = go_to_page || true;
+    if (go_to_page) {
         browser.get('/');
-
+    }
 };
 
 Home.prototype =  Object.create({}, {
@@ -28,11 +30,17 @@ Home.prototype =  Object.create({}, {
     signupLink:{value: function(){
         return element(by.css("div.signin-signup-box a.subscribe-free-link"));
     }},
+    loginLink:{value: function(){
+        return element(by.css(".no-logged-box"));
+    }},
     logoutLink:{value: function(){
         return element(by.css(".log-out-link"));
     }},
     myAccountLink:{value: function(){
         return element(by.css("a.my-account-link"));
+    }},
+    activatedUserMessage:{value: function(){
+        return element(by.css("div.activated-user-message"));
     }}
 
 

@@ -25,6 +25,8 @@ exports.config = {
         //my_subscriptions: '../src/app/my_subscriptions/*protractor.js',
         //my_subscriptions: '../src/app/my_subscriptions/my_subscriptions.protractor.js'
         //sign_up: '../src/app/sign_up/signup.protractor.js'
+        //forgotten_password: '../src/app/forgotten_password/forgotten-password.protractor.js'
+        //activate: '../src/app/activate/activate.protractor.js'
         //the_week: '../src/app/the_week/the_week.protractor.js'
         //calendar: '../src/app/calendar/calendar.protractor.js'
         //login:'../src/app/home/login.protractor.js'
