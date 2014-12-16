@@ -1,7 +1,7 @@
 .profile-table {
   float: right;
   width: 790px;
-  height: 280px;
+//  height: 280px;
   font-size: 12px;
   font-weight: normal;
   td {
@@ -69,20 +69,21 @@
 
 .orders-body {
   float: right;
-  width: 790px;
-  height: 280px;
+  width: 810px;
+  min-height: 180px;
   font-size: 12px;
   font-weight: normal;
 }
 
 .no-orders-body {
   float: right;
-  width: 790px;
+  width: 810px;
   font-size: 12px;
   font-weight: normal;
 }
 
 .orders-table {
+  width: 810px;
   thead {
     tr {
       background-color: @greyBorderColor;
@@ -95,25 +96,19 @@
         padding: 4px;
         border-left: 2px solid @greyLabel !important;
         &:first-child {
-          min-width: 90px;
+          min-width: 80px;
         }
         &:nth-child(2) {
-          width: 100%;
+          width: 30%;
         }
         &:nth-child(3) , &:nth-child(4) {
           min-width: 60px;
         }
-        &:nth-child(6) {
+        &:nth-child(6) , &:nth-child(7) {
           min-width: 75px;
         }
-        &:nth-child(7){
-          min-width: 90px;
-        }
-        &:nth-child(8){
-          min-width: 60px;
-        }
-        &:nth-child(9) {
-          min-width: 60px;
+
+        &:last-child{
           border-right: 2px solid @greyLabel !important;
         }
       }
@@ -129,6 +124,9 @@
         padding: 4px;
         text-align: center;
         &:first-child {
+          text-align: left;
+        }
+        &:nth-child(2) {
           text-align: left;
         }
         &:last-child {

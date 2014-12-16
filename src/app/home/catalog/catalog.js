@@ -158,7 +158,7 @@ angular.module('ngMo.catalog', [
                 }
             };
 
-            var result = $http.get($rootScope.urlService+'/patternfilters', config).success(function (data) {
+            var result = $http.get($rootScope.urlService+'/cachedpatternfilters', config).success(function (data) {
                 // With the data succesfully returned, call our callback
                 callback(data);
             });
@@ -168,6 +168,7 @@ angular.module('ngMo.catalog', [
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
         });
+        $scope.isSectorUnSelected=true;
         $scope.initialData = initializedData;
 
         $scope.generateSearchUrl = function (provider, input) {
@@ -306,19 +307,35 @@ angular.module('ngMo.catalog', [
 
 
         $scope.selectSector = function () {
+            $scope.isSectorUnSelected=false;
             $scope.filterOptions.filters.selectedIndustry = "";
             $scope.refreshSector();
             $scope.applyFilters();
         };
         //the typeAhead directive (autocomplete) doesnt work with empty values, so we use a watch and triggers the search in case of empty sector
         $scope.$watch('filterOptions.filters.selectedSector', function(newValue, oldValue) {
+
             if ($scope.filterOptions.filters.selectedSector === "" || $scope.filterOptions.filters.selectedSector === null ) {
+                $scope.isSectorUnSelected=true;
                 $scope.selectSector();
+            } else {
+                if (typeof $scope.filterOptions.filters.selectedSector === "undefined" ) {
+                    $scope.isSectorUnSelected = true;
+                } else {
+                    if (typeof $scope.filterOptions.filters.selectedSector.id === "undefined") {
+                        $scope.isSectorUnSelected = true;
+                    }
+                    else {
+                        $scope.isSectorUnselected = false;
+                    }
+                }
+
             }
         });
         //function that clear the input of sector if is not option selected in a blur event
         $scope.blurSector = function(){
             if (typeof $scope.filterOptions.filters.selectedSector.id === "undefined") {
+                $scope.isSectorUnSelected=true;
                 $scope.filterOptions.filters.selectedSector = "";
             }
         };
@@ -449,6 +466,20 @@ angular.module('ngMo.catalog', [
                     for (i=0;i<$scope.filterOptions.selectors.industries.length-1;i++) {
                         $scope.filterOptions.selectors.industries[i].description = $filter('capitalize')( $scope.filterOptions.selectors.industries[i].description);
                     }
+                    industries=[];
+                    for (i=0;i<$scope.filterOptions.selectors.industries.length;i++) {
+                        found=false;
+                        for (j=0;j<industries.length;j++) {
+                            if (($scope.filterOptions.selectors.industries[i].description == industries[j].description)) {
+                                found= true;
+                            }
+
+                        }
+                        if (!found) {
+                            industries.push($scope.filterOptions.selectors.industries[i]);
+                        }
+                    }
+                    $scope.filterOptions.selectors.industries= industries;
                     //$scope.filterOptions.filters.selectedIndustry = "";
                 }
                 if (data.hasOwnProperty("sectors")) {
@@ -458,6 +489,22 @@ angular.module('ngMo.catalog', [
                         $scope.filterOptions.selectors.sectors[i].description = $filter('sectorName')($scope.filterOptions.selectors.sectors[i].description);
                         $scope.filterOptions.selectors.sectors[i].description = $filter('capitalize')( $scope.filterOptions.selectors.sectors[i].description);
                     }
+                    //this case could be confusing, but we need filter again to not repeat with same descriptions
+                    sectors=[];
+                    for (i=0;i<$scope.filterOptions.selectors.sectors.length;i++) {
+                        found=false;
+                        for (j=0;j<sectors.length;j++) {
+                            if (($scope.filterOptions.selectors.sectors[i].description == sectors[j].description)) {
+                                found= true;
+                            }
+
+                        }
+                        if (!found) {
+                            sectors.push($scope.filterOptions.selectors.sectors[i]);
+                        }
+                    }
+                    $scope.filterOptions.selectors.sectors= sectors;
+
                     //$scope.filterOptions.filters.selectedSector = "";
                 }
                 if (typeof data.selectedSector != 'undefined') {
@@ -476,7 +523,11 @@ angular.module('ngMo.catalog', [
             $scope.loadFilters();
             $scope.loadPage();
         });
+
+
+
         $scope.restartFilter();
+
     }
 )
 

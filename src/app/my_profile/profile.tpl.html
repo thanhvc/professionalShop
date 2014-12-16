@@ -8,26 +8,19 @@
         </tr>
         <tr>
             <td>
-                 <a ui-sref="profile.edit"  ui-sref-active="myclass" >{{'MYACCOUNT.access_data'|translate}}</a>
+                 <a ui-sref="profile.edit"  ui-sref-active="myclass" >{{'MYACCOUNT.access_data' | translate}}</a>
             </td>
         </tr>
         <tr>
             <td>
-                <span style="cursor: default"> {{'MYACCOUNT.my_orders'|translate}}</span> <br/>
-                <a class="profile-submenu" ui-sref="profile.orders"  ui-sref-active="myclass" >
-                        {{'MYACCOUNT.purchases'|translate}}
-                </a>
-                <a class="profile-submenu" ui-sref="profile.renewals"  ui-sref-active="myclass" >
-                        {{'MYACCOUNT.renewals'|translate}}
-                </a>
-                <a class="profile-submenu" ui-sref="profile.refunds"  ui-sref-active="myclass" >
-                        {{'MYACCOUNT.refunds'|translate}}
-                </a>
+                <a ui-sref="profile.orders"  ui-sref-active="myclass" >{{'MYACCOUNT.orders'|translate}}</a>
             </td>
         </tr>
-
     </table>
     <div ui-view="sub-profile">
+
     </div>
 
 </div>
+
+

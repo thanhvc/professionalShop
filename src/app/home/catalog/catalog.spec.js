@@ -67,10 +67,10 @@ describe('The catalog controller', function() {
     var $scope, ctrl, state, $http,selectedService, service, stateParams,tabsService,initializedData;
 
     var month = {month: 9, year:2014};
-    var patternFilters = '/patternfilters?indexType=0&industry=&productType=0&sector=&view=';
-    var patternFilters2 = '/patternfilters?indexType=0&month=11&year=2014&productType=0&view=';
-    var filters = '/patternfilters?indexType=0&month=%7B%22month%22:8,%22year%22:2014%7D&productType=NaN&view=';
-    var patternFilters3= '/patternfilters?indexType=0&industry=&month=%7B%22month%22:8,%22year%22:2014%7D&productType=NaN&sector=&view=';
+    var patternFilters = '/cachedpatternfilters?indexType=0&industry=&productType=0&sector=&view=';
+    var patternFilters2 = '/cachedpatternfilters?indexType=0&month=11&year=2014&productType=0&view=';
+    var filters = '/cachedpatternfilters?indexType=0&month=%7B%22month%22:8,%22year%22:2014%7D&productType=NaN&view=';
+    var patternFilters3= '/cachedpatternfilters?indexType=0&industry=&month=%7B%22month%22:8,%22year%22:2014%7D&productType=NaN&sector=&view=';
     var patterns = '/patternspack?industry=&month=%7B%22month%22:8,%22year%22:2014%7D&page=1&sector=&year=2014';
 
     var response = {selectedRegion: 'region', markets: ['market'], regions: ['region'], industries: ['industry'], sectors:['sector']};
