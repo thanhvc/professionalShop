@@ -25,7 +25,7 @@ exports.config = {
         //my_subscriptions: '../src/app/my_subscriptions/*protractor.js',
         //my_subscriptions: '../src/app/my_subscriptions/my_subscriptions.protractor.js'
         //sign_up: '../src/app/sign_up/signup.protractor.js'
-        //the_week: '../src/app/the_week/the_week.protractor.js'
+        the_week: '../src/app/the_week/the_week.protractor.js'
         //calendar: '../src/app/calendar/calendar.protractor.js'
         //login:'../src/app/home/login.protractor.js'
     },
@@ -67,8 +67,8 @@ exports.config = {
     }*/
 
     params: {
-        //sqlCon : 'postgres://vagrant:vagrant@localhost:15432/moserver_test',
-        sqlCon : 'postgres://postgres:postgres216c@localhost:5432/moserver_test',
-        serverVagrantId : 'c6a4345' //use vagrant global-status to get Id
+        sqlCon : 'postgres://vagrant:vagrant@localhost:15432/moserver_test',
+        //sqlCon : 'postgres://postgres:postgres216c@localhost:5432/moserver_test',
+        serverVagrantId : '3ad9a5f' //use vagrant global-status to get Id
     }
 };
