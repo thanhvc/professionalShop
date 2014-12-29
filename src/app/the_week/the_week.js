@@ -35,6 +35,8 @@ angular.module('ngMo.the_week', [
             IsLogged.isLogged(true);
         });
 
+        var months = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
             IsLogged.isLogged(true);
@@ -50,8 +52,13 @@ angular.module('ngMo.the_week', [
                 var today = new Date(data.actualDate);
                 var monday = new Date();
                 var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
-                monday.setDate(today.getDate()-dayOfWeek);
+                //monday.setDate(today.getDate()-dayOfWeek);
+                var ms = today.getTime() - (DAY * dayOfWeek);
+                monday = new Date(ms);
+
                 $scope.mondayDay = monday.getDate();
+                $scope.startMonth ="";
+                $scope.endMonth ="";
                 /*
                 var monthsDays = [31,28,31,30,31,30,31,31,30,31,30,31];
                 var m = monday.getMonth();
@@ -64,11 +71,14 @@ angular.module('ngMo.the_week', [
 
                 $scope.nextDay = (day % monthsDays[m]) + 7;*/
                 $scope.days[0]= $scope.mondayDay;
+                $scope.startMonth = months[monday.getMonth()];
                 //calculate all the week
+                var next = new Date(monday.getDate());
                 for (var i = 1; i < 7; i++) {
-                    var next = new Date();
-                    next.setDate(monday.getDate() + i);
+                    ms = monday.getTime() + (DAY * i);
+                    next = new Date(ms);
                     $scope.days[i]=next.getDate();
+                    $scope.endMonth = months[next.getMonth()];
                 }
 
 
@@ -83,7 +93,7 @@ angular.module('ngMo.the_week', [
          */
 
 
-        var months = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+
 
         var data = ActualDateService.actualDateForWeek(function (data) {
             $scope.year = new Date(data.actualDate).getFullYear();

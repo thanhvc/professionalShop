@@ -71,10 +71,15 @@ describe('My subscriptions controller', function() {
 
     var month = {month: date.getMonth(), year: date.getYear()};
     var m = date.getMonth()+1;
+    var y = date.getFullYear();
     if (date.getDate() >= 20 ) {
         m++;
+        if (m >12) {
+            m = 1;
+            y++;
+        }
     }
-    var url = '/mysubscriptions?month=' + m /*+ '&token=1'*/;
+    var url = '/mysubscriptions?month=' + m +'&year=' + y/*+ '&token=1'*/;
 
     var response = {STOCK : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, STOCKPAIR : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, INDICE : {INDEX: 'index'}, INDICEPAIR: {INDEX: 'index'},FUTURE : {FUTURE: 'future'}};
     beforeEach(angular.mock.module("ngMo"));
