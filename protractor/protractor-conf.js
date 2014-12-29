@@ -6,7 +6,7 @@ exports.config = {
     // Options to be passed to Jasmine-node.
     jasmineNodeOpts: {
         showColors: true,
-        defaultTimeoutInterval: 60000,
+        defaultTimeoutInterval: 120000,
         isVerbose: true
     },
     seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -30,6 +30,8 @@ exports.config = {
         //change_password: '../src/app/changePassword/change-password.protractor.js'
         //the_week: '../src/app/the_week/the_week.protractor.js'
         //calendar: '../src/app/calendar/calendar.protractor.js'
+        //expired_packs_mail: '../src/app/automatic_mails/expired_packs_mail.protractor.js'
+        //end_free_pack_mail: '../src/app/automatic_mails/end_free_pack_mail.protractor.js'
         //login:'../src/app/home/login.protractor.js'
     },
     multiCapabilities: [
