@@ -914,7 +914,7 @@ angular.module('ngMo.lookup_diary', [
                 //if the date is not passed as param, we load the default date
                 var date_restart = new Date();
                 date_restart.setDate(1);
-                date_restart.setMonth(SelectedMonthDiaryService.getSelectedMonth().month-1);
+               // date_restart.setMonth(SelectedMonthDiaryService.getSelectedMonth().month-1); --actual month
                 filters.month = MonthSelectorDiaryService.setDate(date_restart);
 
             }
