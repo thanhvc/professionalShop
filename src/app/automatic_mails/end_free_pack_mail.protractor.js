@@ -11,19 +11,25 @@ var Home = require('../../../test-helpers/page-objects/home.po.js');
 var Helper = require('../../../test-helpers/helper.js');
 var DateServerConfigMod = require('../../../test-helpers/date-server-config.js');
 
-//set date on server
-var vagrant_id = browser.params.serverVagrantId;
-var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
-dsc.setServerDateAndRestart("2014-11-17 15:38:30");
-ptor.sleep(18000);
-
 describe('End free pack notification mails', function () {
         var helper = new Helper();
         var conString = browser.params.sqlCon;
         var queue = [];
 
         beforeEach(function () {
-            var fixtures = fixtureGenerator.expired_packs_mail_fixture();
+            //set date on server
+            var vagrant_id = browser.params.serverVagrantId;
+            var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
+            dsc.setServerDateAndRestart("2014-11-17 15:39:30");
+            //dsc.setServerDateAndRestart("2014-11-17 11:59:30");
+            ptor.sleep(18000);
+        });
+
+        beforeEach(function () {
+            //var fixtures = fixtureGenerator.remove_end_free_pack_mail_fixture();
+            //loadFixture.executeQueries(fixtures, conString);
+            //ptor.sleep(4000);
+            var fixtures = fixtureGenerator.end_free_pack_mail_fixture();
             loadFixture.executeQueries(fixtures, conString);
             browser.ignoreSynchronization = true;
             home = new Home();
@@ -35,7 +41,7 @@ describe('End free pack notification mails', function () {
         afterEach(function () {
             //home.logout(); //TODO
             ptor.sleep(2000);
-            var fixtures = fixtureGenerator.remove_expired_packs_mail_fixture();
+            var fixtures = fixtureGenerator.remove_end_free_pack_mail_fixture();
             loadFixture.executeQueries(fixtures, conString);
         });
 
@@ -44,20 +50,22 @@ describe('End free pack notification mails', function () {
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test1.user@foo.bar': true },
+                        receiver_email: 'test1.user@foo.bar',
                         receiver_name : "Test1 user",
-                        packs: [{name: "Estados Unidos Pack I", period: "November 2013 December 2014"},
-                                {name: "Estados Unidos Pack II", period: "September 2014 December 2014"},
-                                {name: "Estados Unidos Pair Pack I", period: "November 2014 December 2014"}
-                        ],                                
                         subject: 'Aviso Fin Subscripcion Market Observatory'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
-                        receivers: { 'test2.user@foo.bar': true },
-                        receiver_name : "Test2 user",
-                        packs: [{name: "Estados Unidos Pair Pack I", period: "November 2013 December 2014"},
-                                {name: "Estados Unidos Pair Pack II", period: "September 2014 December 2014"}
-                        ],                                
+                        receivers: { 'test4.user@foo.bar': true },
+                        receiver_email: 'test4.user@foo.bar',
+                        receiver_name : "Test4 user",
                         subject: 'Aviso Fin Subscripcion Market Observatory'});
+            
+            queue.push( { sender: 'market.observatory@edosoftfactory.com',
+                        receivers: { 'test2.user@foo.bar': true },
+                        receiver_email: 'test2.user@foo.bar',
+                        receiver_name : "Test2 user",
+                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
@@ -74,22 +82,28 @@ describe('End free pack notification mails', function () {
                     email.html,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
-                        expect(window.$("a").attr('href')).toMatch('\^http:\\/\\/mo\\.devel\\.edosoftfactory.com/');
+                        expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
-                        expect(window.$("span").text()).toMatch('John Doe');
-                        for (var i=0;i<msg.packs.length;i++) {
-                            expect(window.$("ul li").text()).toMatch(msg.packs[i].name);
-                            expect(window.$("ul li").text()).toMatch(msg.packs[i].period);
-                        }
+                        expect(window.$("span").text()).toMatch("Su periodo de");
+                        expect(window.$("span").text()).toMatch("Gratuita ha concluido");
                     }
                 );
+                        
+                ptor.sleep(2000);
+                var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email});
+                loadFixture.executeQuery(select_fixture, conString, function(result) {
+                    expect(result.rowCount).toBe(1);
+                    if (result.rowCount == 1) {
+                        expect(result.rows[0].type).toBe(11);
+                    }
+                });
             };
                     
             var ms = require('smtp-tester').init(2025,{"disableDNSValidation":true});
             ms.bind(handler);
             ptor.sleep(9000);
             ptor.sleep(60000);
-            expect(queue.length).toEqual(0); //2 emails should be sent
+            //expect(queue.length).toEqual(0); //3 emails should be sent
         });            
 
 });
