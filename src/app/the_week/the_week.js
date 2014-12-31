@@ -41,7 +41,7 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged, $window,$rootScope, $state, $translatePartialLoader) {
+    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged, $window,$rootScope, $state, $translatePartialLoader,date) {
         $scope.$on('$stateChangeStart', function (event, toState){
             IsLogged.isLogged(true);
         });
