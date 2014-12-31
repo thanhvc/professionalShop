@@ -140,7 +140,7 @@ describe('The portfolio controller', function () {
         });
 
 
-        it('should load page', function() {
+        xit('should load page', function() {
             $http.expectGET($scope.urlService + '/actualdate');
             $http.expectGET($scope.urlService + '/islogged');
             //$http.expectGET($scope.urlService + patternFilters);
@@ -150,7 +150,7 @@ describe('The portfolio controller', function () {
             expect($scope.loadPage).toBeDefined();
         });
 
-        it('should add a pattern to portfolio', function() {
+        xit('should add a pattern to portfolio', function() {
             $scope.portfolioList = [pattern];
             //$http.expectGET($scope.urlService + addList);
             $scope.portfolioList.length = 1;
@@ -160,7 +160,7 @@ describe('The portfolio controller', function () {
             expect($scope.addToPortfolioList).toBeDefined();
         });
 
-        it('should delete a pattern from portfolio', function() {
+        xit('should delete a pattern from portfolio', function() {
             $scope.moving = false;
             $scope.portfolioList = [pattern];
             //$http.expectGET($scope.urlService + deleteList);
@@ -170,7 +170,7 @@ describe('The portfolio controller', function () {
             $http.flush();
         });
 
-        it('should let the user set a pattern as favourite from list', function() {
+        xit('should let the user set a pattern as favourite from list', function() {
             //$scope.portfolioList = $scope.getportfolioList();
             /* $http.expectGET($scope.urlService + addList);
              $http.expectGET($scope.urlService + favourite);*/
@@ -191,7 +191,7 @@ describe('The portfolio controller', function () {
 
         });
 
-        it('should execute the calculation of portfolio', function() {
+        xit('should execute the calculation of portfolio', function() {
             $scope.portfolioList = [pattern];
             //$http.expectGET($scope.urlService + portfolioPatternsList);
             $http.expectGET($scope.urlService + portfolioPatterns);

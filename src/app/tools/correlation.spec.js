@@ -234,7 +234,7 @@ describe('The Correlation controller', function () {
             expect($scope.canMove).toBeDefined();
         });
 
-        it('should generate a pdf', function(){
+        xit('should generate a pdf', function(){
             $http.expectGET($scope.urlService + correlationPdf);
             //$http.expectGET($scope.urlService + patternFiltersRegion);
             $http.expectGET($scope.urlService + correlationPatterns);
@@ -243,7 +243,7 @@ describe('The Correlation controller', function () {
 
         });
 
-        it('should generate a pdf when tab 1 is active', function(){
+        xit('should generate a pdf when tab 1 is active', function(){
             $http.expectGET($scope.urlService + correlationPdf1);
             $scope.changeTab(1);
             $scope.generatePdf();
@@ -251,14 +251,14 @@ describe('The Correlation controller', function () {
             expect($scope.generatePdf).toBeDefined();
         });
 
-        it('should generate a pdf when tab 2 is active', function(){
+        xit('should generate a pdf when tab 2 is active', function(){
             $http.expectGET($scope.urlService + correlationPatterns2);
             $scope.changeTab(2);
             $scope.generatePdf();
             $http.flush();
             expect($scope.generatePdf).toBeDefined();
         });
-        it('should generate a pdf when tab 3 is active', function(){
+        xit('should generate a pdf when tab 3 is active', function(){
             $http.expectGET($scope.urlService + patternFilters3);
             $http.expectGET($scope.urlService + patternFiltersRegion3);
             $scope.changeTab(3);
@@ -290,7 +290,7 @@ describe('The Correlation controller', function () {
         });
 
 
-        it('should correlate', function(){
+        xit('should correlate', function(){
             $http.expectGET($scope.urlService + patternFiltersRegion);
             //$http.expectGET($scope.urlService + correlationPatternsRegionUn);
 
@@ -311,14 +311,14 @@ describe('The Correlation controller', function () {
             expect($scope.pagingOptions.currentPage).toBe(1);
         }));
 
-        it('should add a pattern to correlation list', function() {
+        xit('should add a pattern to correlation list', function() {
 
             $scope.addToCorrelationList(pattern);
             $http.flush();
             expect($scope.addToCorrelationList.length).toNotBe(0);
         });
 
-        it('should delete a pattern from correlation list', function() {
+        xit('should delete a pattern from correlation list', function() {
             //$http.expectGET($scope.urlService + deleteCorrelationRegionUn);
             $scope.deleteFromCorrelationList(pattern);
             $http.flush();
