@@ -94,8 +94,6 @@ angular.module('ngMo.the_week', [
 
         var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
-           soemnh =months[new Date(dta.actualDate).getMonth() ];
-
          $scope.year = new Date(date.actualDate).getFullYear();
          $scope.month = months[new Date(date.actualDate).getMonth() ];
 
