@@ -77,7 +77,8 @@ angular.module('ngMo.my_subscriptions', [
             config = {
                 params: {
                    // 'token': $window.localStorage.token,
-                    'month': filtering.month.month
+                    'month': filtering.month.month,
+                    'year': filtering.month.year
                 }
             };
 
