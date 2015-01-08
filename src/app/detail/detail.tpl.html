@@ -142,9 +142,11 @@
                 <table class="detail-header">
                     <tr>
                         <th rowspan="2" style="padding-left: 10px;">
-                            <span class="buy-color" ng-show="infoPattern.patternType == 'BULLISH'"><b>{{'DETAIL.BUY'|translate}}</b></span>
-                            <span class="sell-color-dark-background" ng-show="infoPattern.patternType == 'BEARISH' && productType != 'FUTURE'"><b>{{'DETAIL.SELL_SHORT'|translate}}</b></span>
+                            <span class="buy-color" ng-show="infoPattern.patternType == 'BULLISH' && productType != 'INDICES'"><b>{{'DETAIL.BUY'|translate}}</b></span>
+                            <span class="buy-color" ng-show="infoPattern.patternType == 'BULLISH' && productType == 'INDICES'"><b>{{'DETAIL.BULLISH'|translate}}</b></span>
+                            <span class="sell-color-dark-background" ng-show="infoPattern.patternType == 'BEARISH' && productType == 'STOCK'"><b>{{'DETAIL.SELL_SHORT'|translate}}</b></span>
                             <span class="sell-color-dark-background" ng-show="infoPattern.patternType == 'BEARISH' && productType == 'FUTURE'"><b>{{'DETAIL.SELL'|translate}}</b></span>
+                            <span class="sell-color-dark-background" ng-show="infoPattern.patternType == 'BEARISH' && productType == 'INDICES'"><b>{{'DETAIL.BEARISH'|translate}}</b></span>
                         </th>
                         <th rowspan="2" ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color-dark-background': infoPattern.patternType == 'BEARISH'}">
                             <div  tooltip-html-unsafe="{{infoPattern.name}}" class="detail-div-tooltip-container cursor-help">

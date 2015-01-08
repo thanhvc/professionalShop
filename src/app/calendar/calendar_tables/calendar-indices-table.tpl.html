@@ -11,11 +11,17 @@
         <option ng-repeat="operation in filterOptions.selectors.indexOperations" value="{{operation.id}}">{{operation.description | translate}}</option>
     </select>
     <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>{{'CALENDAR.favorites'|translate}}</label>
-    <input type="text" placeholder="{{'CALENDAR.day'|translate}}" ng-change="search();" data-ng-model="filterOptions.filters.dayDateInput" ng-delay="3000">
+    <form name="calendarIndex">
+    <input type="text" placeholder="{{'CALENDAR.day'|translate}}" ng-change="search();"
+           data-ng-model="filterOptions.filters.dayDateInput" ng-delay="3000"
+           name="dayInput"
+           ng-class=" {'warning-input':  (calendarIndex.dayInput.$error.pattern && (calendarIndex.dayInput.$dirty))}"
+           ng-pattern="dayPattern" ng-trim="false">
     <select data-ng-model="filterOptions.filters.order" class="select-order filter-calendar" ng-change="search();" ng-delay="3000">
         <option selected value="0">{{'CALENDAR.sort_entry'|translate}}</option>
         <option value="1">{{'CALENDAR.sort_exit'|translate}}</option>
     </select>
+    </form>
 </div>
 <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>{{'CALENDAR.loading_patterns'|translate}}</span></div>
 <div class="no-patterns-container" ng-if="myData.length == 0 && !loading && appliedFilters"><span >{{'CALENDAR.no_patterns_with_condition'|translate}}</span></div>

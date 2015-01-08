@@ -37,6 +37,8 @@
         "monthly_graph":"Gráfico Mensual",
         "legs":"Lados",
         "buyer_leg":"Lado comprador",
-        "seller_leg":"Lado Vendedor"
+        "seller_leg":"Lado Vendedor",
+        "BEARISH":"BAJISTA",
+        "BULLISH":"ALCISTA"
     }
 }
