@@ -441,14 +441,6 @@ exports.remove_expired_packs_mail_fixture = function() {
         },
         {
             type: 'remove',
-            table: 'region'
-        },
-        {
-            type: 'remove',
-            table: 'country'
-        },
-        {
-            type: 'remove',
             table: 'free_subscription'
         },
         {
