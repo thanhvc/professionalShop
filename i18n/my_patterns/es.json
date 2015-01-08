@@ -59,6 +59,7 @@
         "volatility_long":"Volatilidad",
         "volatility_short":"Vol.",
         "years_long":"Número de años",
-        "years_short":"Años"
+        "years_short":"Años",
+        "emisor":"Emisor"
     }
 }
