@@ -8,6 +8,9 @@
         <th class="border-right-table patterns-stocks-column-width">
             {{'HISTORIC.index'|translate}}
         </th>
+        <th class="border-right-table">
+            Emisor
+        </th>
         <th class="border-right-table" colspan="2">
             {{'HISTORIC.entry'|translate}}
             <img src="assets/img/entryArrow.png">
@@ -33,6 +36,9 @@
     <tr class="table-header-bottom-patterns">
         <th class="border-right-table">
             {{'HISTORIC.name'|translate}}
+        </th>
+        <th class="border-right-table">
+
         </th>
         <th class="sub-border-right-table">
             {{'HISTORIC.date'|translate}}
@@ -80,6 +86,9 @@
                 {{data.asset.longName}}
             </span>
             </div>
+        </td>
+        <td class="border-right-table table-cell-patterns ">
+            <span class="cursor-help" tooltip-html-unsafe="{{data.asset.exchange.name}}">{{data.asset.exchange.symbol}}</span>
         </td>
         <td
             class="table-cell-patterns sub-border-right-table index-entryDate-patterns">

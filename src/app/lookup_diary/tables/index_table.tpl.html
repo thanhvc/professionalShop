@@ -5,8 +5,11 @@
         <th class="table-id-header id-column-width" rowspan="2">
             Id
         </th>
-        <th class="border-right-table description-column-width">
+        <th class="border-right-table index-description-column-width">
             {{'FOLLOW.index'|translate}}
+        </th>
+        <th class="border-right-table">
+            Emisor
         </th>
         <th class="border-right-table entry-column-width" colspan="2">
             {{'FOLLOW.entry'|translate}}
@@ -36,8 +39,10 @@
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table description-column-width">
+        <th class="border-right-table index-description-column-width">
             {{'FOLLOW.name'|translate}}
+        </th>
+        <th class="border-right-table">
         </th>
 
         <th class="sub-border-right-table entry-date-column-width">
@@ -88,7 +93,7 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table description-column-width">
+        <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table index-description-column-width">
             <span ng-show="data.patTyp == 'BULLISH'">{{'FOLLOW.bullish'|translate}}</span>
             <span ng-show="data.patTyp == 'BEARISH'">{{'FOLLOW.bearish'|translate}}</span>
             <br/>
@@ -99,6 +104,9 @@
                 {{data.name}}
             </span>
             </div>
+        </td>
+        <td class="border-right-table table-cell-patterns ">
+            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName}}">{{data.exchSymbol}}</span>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table entry-date-column-width" >
