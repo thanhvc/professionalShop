@@ -13,7 +13,8 @@
             </td>
             <td>
                 <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
-                        ng-options="item.description|translate for item in filterOptions.selectors.operations"
+                        ng-options="item.description|translate for item in filterOptions.selectors.operationsIndex"
+                        ng-show="filterOptions.filters.index_type == '0'"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- {{'HISTORIC.operation'|translate}} -</option>
                 </select>
