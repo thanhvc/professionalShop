@@ -42,6 +42,7 @@ angular.module('ngMo.calendar', [
             }
             IsLogged.isLogged(true);
         });
+        $scope.dayPattern = /^\d+$/;
         $translatePartialLoader.addPart("calendar");
         $scope.loading= true;
         $scope.loadingFilters = false;
