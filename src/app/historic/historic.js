@@ -524,16 +524,40 @@ angular.module('ngMo.historic', [
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
             $scope.startLoading();
+            var fixedDate = false;
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var month = date[0];
             var year = date[1];
             //Check if month and year are not greater than the actual ones
             var currentMonth = new Date().getMonth();
             var currentYear = new Date().getFullYear();
+            //check if the month is in range |actualMonth-3, actualMonth|
+            //care for change of year
 
-            if (month > currentMonth || month < currentMonth -3){ date[0] = currentMonth.toString();}
-            if (year > currentYear){ date[1] = currentYear.toString();}
-            var d = new Date(date[1], date[0] - 1, 1);
+
+            if ((month > (currentMonth+1) && (year == currentYear)) || (year>currentYear)){
+                //check if month is > actualMonth or year
+                fixedDate = true;
+
+            } else {
+                //check actualMonth - 3
+                var now = new Date();
+                var limitRange = new Date(now.getFullYear(), now.getMonth(), 1);
+                limitRange.setMonth(limitRange.getMonth()-2);
+                //now we have the down limit, check if in the range the given date
+                var dateToCheck = new Date(year, month - 1, 1);
+                if (dateToCheck < limitRange) {
+                  fixedDate = true;
+                }
+
+            }
+            var d = null;
+            if (fixedDate) {
+                d = new Date( currentYear.toString(), currentMonth.toString(), 1);
+            } else {
+                d = new Date(date[1], date[0] - 1, 1);
+            }
+
 
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.setDate(d);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);

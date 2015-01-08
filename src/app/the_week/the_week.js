@@ -20,8 +20,15 @@ angular.module('ngMo.the_week', [
             },
             resolve: {
                 IsLogged: "IsLogged",
-                logged: function(IsLogged) {
+                logged: function (IsLogged) {
                     IsLogged.isLogged();
+                },
+                weekDate: function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdateweek'});
+
+                },
+                weekNumber: function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/numweek'});
                 }
             }
         });
@@ -30,60 +37,64 @@ angular.module('ngMo.the_week', [
     .run(function run() {
     })
 
-    .controller('TheWeekCtrl', function ($scope,$http, ActualDateService, IsLogged, $window,$rootScope, $state, $translatePartialLoader) {
-        $scope.$on('$stateChangeStart', function (event, toState){
+    .controller('TheWeekCtrl', function ($scope, $http, ActualDateService, IsLogged, $window, $rootScope, $state, $translatePartialLoader, weekDate, weekNumber) {
+
+        console.log(weekDate);
+
+        $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
 
-        var months = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+        var months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
+            }
             IsLogged.isLogged(true);
         });
 
         $translatePartialLoader.addPart("week");
-        $scope.loading= true;
+        $scope.loading = true;
         $scope.empty = false;
-        $scope.days= [];
+        $scope.days = [];
         $scope.obtainDateMondaythisWeek = function () {
-            var firstDay = ActualDateService.actualDateForWeek(function (data) {
-                var DAY = 86400000;//day in millisecs
-                var today = new Date(data.actualDate);
-                var monday = new Date();
-                var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
-                //monday.setDate(today.getDate()-dayOfWeek);
-                var ms = today.getTime() - (DAY * dayOfWeek);
-                monday = new Date(ms);
 
-                $scope.mondayDay = monday.getDate();
-                $scope.startMonth ="";
-                $scope.endMonth ="";
-                /*
-                var monthsDays = [31,28,31,30,31,30,31,31,30,31,30,31];
-                var m = monday.getMonth();
-                var day = monday.getDate();
-                var year = monday.getYear();
+            console.log(weekDate.data.actualDate);
+            var DAY = 86400000;//day in millisecs
+            var today = new Date(weekDate.data.actualDate);
+            var monday = new Date();
+            var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
+            //monday.setDate(today.getDate()-dayOfWeek);
+            var ms = today.getTime() - (DAY * dayOfWeek);
+            monday = new Date(ms);
 
-                if(year % 4 === 0 && year % 100 !== 0 || year% 400 === 0) {
-                    monthsDays[1] = 29;
-                }
+            $scope.mondayDay = monday.getDate();
+            $scope.startMonth = "";
+            $scope.endMonth = "";
+            /*
+             var monthsDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+             var m = monday.getMonth();
+             var day = monday.getDate();
+             var year = monday.getYear();
 
-                $scope.nextDay = (day % monthsDays[m]) + 7;*/
-                $scope.days[0]= $scope.mondayDay;
-                $scope.startMonth = months[monday.getMonth()];
-                //calculate all the week
-                var next = new Date(monday.getDate());
-                for (var i = 1; i < 7; i++) {
-                    ms = monday.getTime() + (DAY * i);
-                    next = new Date(ms);
-                    $scope.days[i]=next.getDate();
-                    $scope.endMonth = months[next.getMonth()];
-                }
+             if(year % 4 === 0 && year % 100 !== 0 || year% 400 === 0) {
+             monthsDays[1] = 29;
+             }
+
+             $scope.nextDay = (day % monthsDays[m]) + 7;*/
+            $scope.days[0] = $scope.mondayDay;
+            $scope.startMonth = months[monday.getMonth()];
+            //calculate all the week
+            var next = new Date(monday.getDate());
+            for (var i = 1; i < 7; i++) {
+                ms = monday.getTime() + (DAY * i);
+                next = new Date(ms);
+                $scope.days[i] = next.getDate();
+                $scope.endMonth = months[next.getMonth()];
+            }
 
 
-
-            });
         };
 
 
@@ -95,31 +106,24 @@ angular.module('ngMo.the_week', [
 
 
 
-        var data = ActualDateService.actualDateForWeek(function (data) {
-            $scope.year = new Date(data.actualDate).getFullYear();
-            $scope.month = months[new Date(data.actualDate).getMonth() ];
 
-        });
-
-        var data2 = ActualDateService.actualWeek(function (data) {
-            $scope.weekOfYear = data.numWeek;
-        });
-
+        $scope.year = new Date(weekDate.data.actualDate).getFullYear();
+        $scope.month = months[new Date(weekDate.data.actualDate).getMonth() ];
+        $scope.weekOfYear = weekNumber.data.numWeek;
         $scope.obtainDateMondaythisWeek();
-
-
-        $scope.loadData = function() {
+        $scope.loadData = function () {
             config = {
                 params: {
-                //    'authToken': $window.localStorage.token
+                    //    'authToken': $window.localStorage.token
                 }
             };
 
             //Get current year to set the res service
             var currentYear = new Date().getFullYear();
-            $scope.loading= true;
-            $http.get($rootScope.urlService+"/weekData/"+currentYear, config).success(function(data){
-                $scope.loading= false;
+            $scope.loading = true;
+            //TODO: FIX this urgently
+            $http.get($rootScope.urlService + "/weekData/2015", config).success(function (data) {
+                $scope.loading = false;
 
                 stockAreas = data[0];
                 $scope.stockAreas = data.STOCKS;
@@ -129,20 +133,20 @@ angular.module('ngMo.the_week', [
                 //note: the logic to see which stocks are displayed and which are hidden is now here,
                 //in stocks only are going to be displayed:
                 /* - EEUU, CANADA,BRAZIL,MEXICO
-                   - JAPAN, AUSTRALIA, HONG KONG, CHINA, INDIA, SOUTH KOREA
-                   - GERMANY, UNITED KINGDOM, FRANCE, ITALY, SPAIN, SWITZERLAND,SWEDEN, RUSSIA
-                   - GLOBAL
+                 - JAPAN, AUSTRALIA, HONG KONG, CHINA, INDIA, SOUTH KOREA
+                 - GERMANY, UNITED KINGDOM, FRANCE, ITALY, SPAIN, SWITZERLAND,SWEDEN, RUSSIA
+                 - GLOBAL
 
-                   the stocks are given ordered, so this means that the display field must be true in the
-                   4 first sections of the first area, the 6 sections of the second area and 8 sections of the third area.
-                   The last area only has a section (with display true)
+                 the stocks are given ordered, so this means that the display field must be true in the
+                 4 first sections of the first area, the 6 sections of the second area and 8 sections of the third area.
+                 The last area only has a section (with display true)
                  */
-                var sectionsToDisplay= [4,6,8,1];
+                var sectionsToDisplay = [4, 6, 8, 1];
 
                 //we are going to loop all the sections to set which is displayed and which no,
                 //in the same loop we are going to set which asset is grey and which is white (in the TR)
                 //that's because cant be set by CSS,
-                var isGrey=false;
+                var isGrey = false;
                 if (typeof $scope.stockAreas === "undefined") {
                     $scope.stockAreas = [];
                     $scope.commoditiesAreas = [];
@@ -152,16 +156,16 @@ angular.module('ngMo.the_week', [
                 } else {
                     $scope.empty = false;
                 }
-                for (i= 0; i<$scope.stockAreas.length; i++) {
+                for (i = 0; i < $scope.stockAreas.length; i++) {
                     //areas loop
-                    isGrey=false;
-                    for (j=0; j<$scope.stockAreas[i].regions.length;j++) {
-                        if (j<sectionsToDisplay[i]) {
-                            $scope.stockAreas[i].regions[j].initial_show= true;
+                    isGrey = false;
+                    for (j = 0; j < $scope.stockAreas[i].regions.length; j++) {
+                        if (j < sectionsToDisplay[i]) {
+                            $scope.stockAreas[i].regions[j].initial_show = true;
                         }
-                        for (k=0; k<$scope.stockAreas[i].regions[j].assets.length;k++) {
+                        for (k = 0; k < $scope.stockAreas[i].regions[j].assets.length; k++) {
                             //loop setting each css
-                            $scope.stockAreas[i].regions[j].assets[k].isGrey= isGrey;
+                            $scope.stockAreas[i].regions[j].assets[k].isGrey = isGrey;
                             isGrey = !isGrey;
                         }
                     }
@@ -169,26 +173,26 @@ angular.module('ngMo.the_week', [
 
                 //for others tabs just is even/odd in each sect
 
-                for (i= 0; i<$scope.commoditiesAreas.length; i++) {
+                for (i = 0; i < $scope.commoditiesAreas.length; i++) {
                     //areas loop
 
-                    for (j=0; j<$scope.commoditiesAreas[i].regions.length;j++) {
-                        isGrey=false;
-                        for (k=0; k<$scope.commoditiesAreas[i].regions[j].assets.length;k++) {
+                    for (j = 0; j < $scope.commoditiesAreas[i].regions.length; j++) {
+                        isGrey = false;
+                        for (k = 0; k < $scope.commoditiesAreas[i].regions[j].assets.length; k++) {
                             //loop setting each css
-                            $scope.commoditiesAreas[i].regions[j].assets[k].isGrey= isGrey;
+                            $scope.commoditiesAreas[i].regions[j].assets[k].isGrey = isGrey;
                             isGrey = !isGrey;
                         }
                     }
                 }
-                for (i= 0; i<$scope.sypSectors.length; i++) {
+                for (i = 0; i < $scope.sypSectors.length; i++) {
                     //areas loop
 
-                    for (j=0; j<$scope.sypSectors[i].regions.length;j++) {
-                        isGrey=false;
-                        for (k=0; k<$scope.sypSectors[i].regions[j].assets.length;k++) {
+                    for (j = 0; j < $scope.sypSectors[i].regions.length; j++) {
+                        isGrey = false;
+                        for (k = 0; k < $scope.sypSectors[i].regions[j].assets.length; k++) {
                             //loop setting each css
-                            $scope.sypSectors[i].regions[j].assets[k].isGrey= isGrey;
+                            $scope.sypSectors[i].regions[j].assets[k].isGrey = isGrey;
                             isGrey = !isGrey;
                         }
                     }
@@ -196,7 +200,7 @@ angular.module('ngMo.the_week', [
 
 
             })
-            .error(function(data){
+                .error(function (data) {
                     console.log("error");
                 });
         };
@@ -206,7 +210,7 @@ angular.module('ngMo.the_week', [
 
         //Tabs the-week tables
         $scope.the_week_tables =
-             [
+            [
                 {
                     title: 'WEEK.stocks',
                     value: 0,
@@ -235,13 +239,13 @@ angular.module('ngMo.the_week', [
 
     .directive('selectedGraphicPanel', function () {
         return {
-            controller: function ($scope, $timeout, $state){
+            controller: function ($scope, $timeout, $state) {
                 $scope.openGraph = false;
 
-                $scope.getOffset = function(el){
+                $scope.getOffset = function (el) {
                     var _x = 0;
                     var _y = 0;
-                    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+                    while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
                         _x += el.offsetLeft - el.scrollLeft;
                         _y += el.offsetTop - el.scrollTop;
                         el = el.offsetParent;
@@ -251,24 +255,24 @@ angular.module('ngMo.the_week', [
 
                 $scope.showSelectedGraphic = function (e, name, url) {
 
-                    if ($scope.openGraph === true){
+                    if ($scope.openGraph === true) {
                         //$scope.hideSelectedGraphic();
-                        $timeout( function(){
+                        $timeout(function () {
                             $scope.openGraph = true;
-                        },800);
-                    }else{
+                        }, 800);
+                    } else {
                         $scope.openGraph = true;
                     }
 
                     $scope.selectedGraphic = {
-                        indiceName:  name,
-                        url:  (typeof url !== "undefined" ? url : "")
+                        indiceName: name,
+                        url: (typeof url !== "undefined" ? url : "")
                     };
 
-                    if(typeof e !== 'undefined') {
+                    if (typeof e !== 'undefined') {
                         if (typeof InstallTrigger !== 'undefined') {
                             //firefox special case
-                            $scope.myTop = $scope.getOffset(e.target).top + e.target.height  + 'px';
+                            $scope.myTop = $scope.getOffset(e.target).top + e.target.height + 'px';
                             $scope.myLeft = $scope.getOffset(e.target).left + (e.target.width + 7) + 'px';
                         } else {
                             $scope.myTop = e.target.y + e.target.height + 'px';
@@ -280,7 +284,7 @@ angular.module('ngMo.the_week', [
 
                 $scope.hideSelectedGraphic = function () {
                     $scope.selectedGraphic = {
-                        indiceName:  '',
+                        indiceName: '',
                         url: ''
                     };
                     if ($scope.openGraph === true) {
@@ -288,18 +292,19 @@ angular.module('ngMo.the_week', [
                     }
                 };
             },
-            link: function($scope) {
-                $scope.$watch('openGraph', function(){});
+            link: function ($scope) {
+                $scope.$watch('openGraph', function () {
+                });
             },
 
-            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph }\"  ng-style=\"{'top': myTop, 'left': myLeft}\" ng-click=\"$event.stopPropagation();\">"+
-                "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>"+
-                "<br/>"+
-                "<span>{{selectedGraphic.indiceName}}</span>"+
-                "<br/>"+
-                "<span>Rentabilidad Diaria Acumulada (%)</span>"+
-                "<br/>"+
-                "<img class=\"selected-graphic-image\" ng-src=\"{{selectedGraphic.url}}\"/>"+
+            template: "<div id=\"graphicPanel\" class=\"graphic-panel\" ng-class=\"{'open-graphic-panel' : openGraph , 'close-graphic-panel' : !openGraph }\"  ng-style=\"{'top': myTop, 'left': myLeft}\" ng-click=\"$event.stopPropagation();\">" +
+                "<button class=\"btn-close graphic-image-close\" ng-click=\"hideSelectedGraphic();\"></button>" +
+                "<br/>" +
+                "<span>{{selectedGraphic.indiceName}}</span>" +
+                "<br/>" +
+                "<span>Rentabilidad Diaria Acumulada (%)</span>" +
+                "<br/>" +
+                "<img class=\"selected-graphic-image\" ng-src=\"{{selectedGraphic.url}}\"/>" +
                 "</div>"
         };
     })

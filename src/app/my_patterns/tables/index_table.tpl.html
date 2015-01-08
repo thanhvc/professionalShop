@@ -6,8 +6,11 @@
         <th class="table-id-header id-column-my-patterns" rowspan="2">
             Id
         </th>
-        <th class="border-right-table stocks-column-my-patterns">
+        <th class="border-right-table index-column-my-patterns">
             {{'MY_PATT.index'|translate}}
+        </th>
+        <th class="border-right-table">
+            Emisor
         </th>
 
         <th class="border-right-table years-column-my-patterns" colspan="2" >
@@ -35,6 +38,9 @@
     <tr class="table-header-bottom-patterns">
         <th class="border-right-table name-column-my-patterns">
             {{'MY_PATT.name'|translate}}
+        </th>
+        <th class="border-right-table">
+
         </th>
 
         <th class="sub-border-right-table years-gain-column-my-patterns" >
@@ -71,7 +77,7 @@
         <td width="30" class="table-id-orange id-column-my-patterns">
             {{data.id}}
         </td>
-        <td  class="table-cell-patterns border-right-table stocks-column-my-patterns">
+        <td  class="table-cell-patterns border-right-table index-column-my-patterns">
             <span ng-if="data.patTyp == 'BULLISH'">{{'MY_PATT.bullish'|translate}}</span>
             <span ng-if="data.patTyp == 'BEARISH'">{{'MY_PATT.bearish'|translate}}</span>
             <br/>
@@ -82,6 +88,9 @@
                     {{data.name}} ({{data.exchSymbol}})
                 </span>
             </div>
+        </td>
+        <td class="border-right-table table-cell-patterns">
+            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName}}">{{data.exchSymbol}}</span>
         </td>
         <td class="table-cell-patterns sub-border-right-table years-gain-column-my-patterns">
             <b>{{data.win | twoDecimals}}</b>

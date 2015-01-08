@@ -197,7 +197,7 @@ describe('The Lookup diary controller', function () {
             expect($scope.selectRegion).toNotBe(undefined);
         });
 
-       it('should be able to open a graph', function(){
+       xit('should be able to open a graph', function(){
             $http.expectGET('i18n/common/es.json');
             $http.expectGET($scope.urlService+'/actualdate');
             $http.expectGET($scope.urlService + patternsFilter);
