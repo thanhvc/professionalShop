@@ -198,7 +198,8 @@ exports.calendar_fixture = function() {
                 letter_from: 'aaa',
                 letter_until: 'zzz'
             }
-        },{
+        },
+        {
             type: 'insert',
             table: 'published_packs',
             values: {
@@ -239,7 +240,8 @@ exports.calendar_fixture = function() {
                 end_date: '2015-09-01',
                 status: 0
             }
-        },{
+        },
+        {
             type: 'insert',
             table: 'currency',
             values: {

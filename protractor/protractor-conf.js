@@ -6,7 +6,7 @@ exports.config = {
     // Options to be passed to Jasmine-node.
     jasmineNodeOpts: {
         showColors: true,
-        defaultTimeoutInterval: 60000,
+        defaultTimeoutInterval: 120000,
         isVerbose: true
     },
     seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -27,8 +27,15 @@ exports.config = {
         //sign_up: '../src/app/sign_up/signup.protractor.js'
         //forgotten_password: '../src/app/forgotten_password/forgotten-password.protractor.js'
         //activate: '../src/app/activate/activate.protractor.js'
+        //change_password: '../src/app/changePassword/change-password.protractor.js'
         //the_week: '../src/app/the_week/the_week.protractor.js'
         //calendar: '../src/app/calendar/calendar.protractor.js'
+        //expired_packs_mail: '../src/app/automatic_mails/expired_packs_mail.protractor.js'
+        //end_free_pack_mail: '../src/app/automatic_mails/end_free_pack_mail.protractor.js'
+        //publication_and_renew_mail: '../src/app/automatic_mails/publication_and_renew_mail.protractor.js'
+        //alerts_mail: '../src/app/automatic_mails/alerts_mail.protractor.js'
+        //expiration_last_month: '../src/app/automatic_mails/expiration_last_month_mail.protractor.js'
+        //expiration_last_month_2: '../src/app/automatic_mails/expiration_last_month_mail_2.protractor.js'
         //login:'../src/app/home/login.protractor.js'
     },
     multiCapabilities: [
