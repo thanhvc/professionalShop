@@ -78,7 +78,8 @@
                 <table class="detail-header">
                     <tr>
                         <th style="padding-left: 20px;">
-                            <span class="buy-color"><b>{{'DETAIL.BUY'|translate}}</b></span>
+                            <span class="buy-color" ng-if="productType != 'INDEX_PAIRS'"><b>{{'DETAIL.BUY'|translate}}</b></span>
+                            <span class="buy-color" ng-if="productType == 'INDEX_PAIRS'"><b>{{'DETAIL.BULLISH'|translate}}</b></span>
                         </th>
 
                         <th class="buy-color">
@@ -101,7 +102,8 @@
                     </tr>
                     <tr>
                         <th style="padding-left: 20px;">
-                            <span class="sell-color-dark-background"><b>{{'DETAIL.SELL'|translate}}</b></span>
+                            <span class="sell-color-dark-background" ng-if="productType != 'INDEX_PAIRS'"><b>{{'DETAIL.SELL'|translate}}</b></span>
+                            <span class="sell-color-dark-background" ng-if="productType == 'INDEX_PAIRS'"><b>{{'DETAIL.BEARISH'|translate}}</b></span>
                         </th>
 
                         <th class="sell-color-dark-background">
