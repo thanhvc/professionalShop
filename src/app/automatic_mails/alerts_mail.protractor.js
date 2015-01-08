@@ -15,6 +15,7 @@ describe('Alert notification mails', function () {
         var helper = new Helper();
         var conString = browser.params.sqlCon;
         var queue = [];
+        var mutex = 0;
 
         beforeEach(function () {
             //var fixtures = fixtureGenerator.remove_alerts_mail_fixture();
@@ -39,18 +40,6 @@ describe('Alert notification mails', function () {
 
         afterEach(function () {
             expect(queue.length).toEqual(0); //3 emails should be sent
-                var select_fixture = fixtureGenerator.select_email_log_fixture();
-                loadFixture.executeQuery(select_fixture, conString, function(result) {
-                    expect(result.rowCount).not.toBe(0); //sometimes fails
-                    if (result.rowCount > 0) {
-                        expect(result.rows[0].type).toBe(5);
-                    }
-                    if (result.rowCount > 1) {
-                        expect(result.rows[1].type).toBe(5);
-                    }
-                });
-
-            ptor.sleep(8000);
         });
 
         afterEach(function () {
@@ -96,7 +85,20 @@ describe('Alert notification mails', function () {
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
-                msg = queue.shift();
+                var msg;
+                var succeed = false;
+                while(!succeed){
+                    while(mutex>0){ ptor.sleep(100); }
+                    var m=mutex++;   //"Simultaneously" read and increment
+                    if(m>0)mutex--;
+                    else{
+                        //Critical section =============
+                        msg = queue.shift();
+                        //Critical section =============
+                        succeed=true;
+                        mutex--;
+                    }
+                }
                 console.log(addr);
                 console.log(id);
                 console.log(email);
@@ -122,7 +124,19 @@ describe('Alert notification mails', function () {
                     }
                 );
                         
-                ptor.sleep(2000);
+                ptor.sleep(10000);
+
+                var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email} );
+                loadFixture.executeQuery(select_fixture, conString, function(result) {
+                    expect(result.rowCount).not.toBe(0); //sometimes fails
+                    if (result.rowCount > 0) {
+                        expect(result.rows[0].type).toBe(5);
+                    }
+                    if (result.rowCount > 1) {
+                        expect(result.rows[1].type).toBe(5);
+                    }
+                });
+
             };
                     
             var ms = require('smtp-tester').init(2025,{"disableDNSValidation":true});

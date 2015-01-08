@@ -20,6 +20,7 @@ describe('Expired pack notification mails', function () {
         var helper = new Helper();
         var conString = browser.params.sqlCon;
         var queue = [];
+        var mutex = 0;
 
         beforeEach(function () {
             var fixtures = fixtureGenerator.expired_packs_mail_fixture();
@@ -29,6 +30,10 @@ describe('Expired pack notification mails', function () {
             ptor.sleep(2000);
             //home.showLoginBox();
             //home.login('john.snow@thewall.north', 'phantom');
+        });
+
+        afterEach(function () {
+            expect(queue.length).toEqual(0); //2 emails should be sent
         });
 
         afterEach(function () {
@@ -43,6 +48,7 @@ describe('Expired pack notification mails', function () {
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test1.user@foo.bar': true },
+                        receiver_email : "test1.user@foo.bar",
                         receiver_name : "Test1 user",
                         packs: [{name: "Estados Unidos Pack I", period: "November 2013 December 2014"},
                                 {name: "Estados Unidos Pack II", period: "September 2014 December 2014"},
@@ -52,6 +58,7 @@ describe('Expired pack notification mails', function () {
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
+                        receiver_email : "test2.user@foo.bar",
                         receiver_name : "Test2 user",
                         packs: [{name: "Estados Unidos Pair Pack I", period: "November 2013 December 2014"},
                                 {name: "Estados Unidos Pair Pack II", period: "September 2014 December 2014"}
@@ -60,7 +67,20 @@ describe('Expired pack notification mails', function () {
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
-                msg = queue.shift();
+                var msg;
+                var succeed = false;
+                while(!succeed){
+                    while(mutex>0){ ptor.sleep(100); }
+                    var m=mutex++;   //"Simultaneously" read and increment
+                    if(m>0)mutex--;
+                    else{
+                        //Critical section =============
+                        msg = queue.shift();
+                        //Critical section =============
+                        succeed=true;
+                        mutex--;
+                    }
+                }
                 console.log(addr);
                 console.log(id);
                 console.log(email);
@@ -73,22 +93,33 @@ describe('Expired pack notification mails', function () {
                     email.html,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
-                        expect(window.$("a").attr('href')).toMatch('\^http:\\/\\/mo\\.devel\\.edosoftfactory.com/');
+                        expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
-                        expect(window.$("span").text()).toMatch('John Doe');
                         for (var i=0;i<msg.packs.length;i++) {
                             expect(window.$("ul li").text()).toMatch(msg.packs[i].name);
                             expect(window.$("ul li").text()).toMatch(msg.packs[i].period);
                         }
                     }
                 );
+                        
+                ptor.sleep(10000);
+
+                var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email} );
+                loadFixture.executeQuery(select_fixture, conString, function(result) {
+                    expect(result.rowCount).not.toBe(0); //sometimes fails
+                    if (result.rowCount > 0) {
+                        expect(result.rows[0].type).toBe(7);
+                    }
+                    if (result.rowCount > 1) {
+                        expect(result.rows[1].type).toBe(7);
+                    }
+                });
             };
                     
             var ms = require('smtp-tester').init(2025,{"disableDNSValidation":true});
             ms.bind(handler);
             ptor.sleep(9000);
             ptor.sleep(60000);
-            expect(queue.length).toEqual(0); //2 emails should be sent
         });            
 
 });

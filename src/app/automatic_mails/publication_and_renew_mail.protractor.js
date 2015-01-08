@@ -15,6 +15,7 @@ describe('Pack publication notification mails', function () {
         var helper = new Helper();
         var conString = browser.params.sqlCon;
         var queue = [];
+        var mutex = 0;
 
         beforeEach(function () {
             //set date on server
@@ -72,7 +73,20 @@ describe('Pack publication notification mails', function () {
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
-                msg = queue.shift();
+                var msg;
+                var succeed = false;
+                while(!succeed){
+                    while(mutex>0){ ptor.sleep(100); }
+                    var m=mutex++;   //"Simultaneously" read and increment
+                    if(m>0)mutex--;
+                    else{
+                        //Critical section =============
+                        msg = queue.shift();
+                        //Critical section =============
+                        succeed=true;
+                        mutex--;
+                    }
+                }
                 console.log(addr);
                 console.log(id);
                 console.log(email);
@@ -91,7 +105,7 @@ describe('Pack publication notification mails', function () {
                     }
                 );
                         
-                ptor.sleep(2000);
+                ptor.sleep(10000);
                 var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email});
                 loadFixture.executeQuery(select_fixture, conString, function(result) {
                     expect(result.rowCount).toBe(1); //sometimes fails
@@ -114,14 +128,7 @@ describe('Pack renewal notification mails', function () {
         var helper = new Helper();
         var conString = browser.params.sqlCon;
         var queue = [];
-
-        beforeEach(function () {
-            //set date on server
-            var vagrant_id = browser.params.serverVagrantId;
-            var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
-            dsc.setServerDateAndRestart("2014-11-15 12:59:20");
-            ptor.sleep(18000);
-        });
+        var mutex = 0;
 
         beforeEach(function () {
             //var fixtures = fixtureGenerator.remove_publication_and_renew_mail_fixture();
@@ -134,6 +141,14 @@ describe('Pack renewal notification mails', function () {
             ptor.sleep(2000);
             //home.showLoginBox();
             //home.login('john.snow@thewall.north', 'phantom');
+        });
+
+        beforeEach(function () {
+            //set date on server
+            var vagrant_id = browser.params.serverVagrantId;
+            var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
+            dsc.setServerDateAndRestart("2014-11-15 12:59:20");
+            ptor.sleep(18000);
         });
 
         afterEach(function () {
@@ -159,7 +174,20 @@ describe('Pack renewal notification mails', function () {
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
-                msg = queue.shift();
+                var msg;
+                var succeed = false;
+                while(!succeed){
+                    while(mutex>0){ ptor.sleep(100); }
+                    var m=mutex++;   //"Simultaneously" read and increment
+                    if(m>0)mutex--;
+                    else{
+                        //Critical section =============
+                        msg = queue.shift();
+                        //Critical section =============
+                        succeed=true;
+                        mutex--;
+                    }
+                }
                 console.log(addr);
                 console.log(id);
                 console.log(email);
@@ -178,7 +206,7 @@ describe('Pack renewal notification mails', function () {
                     }
                 );
                         
-                ptor.sleep(2000);
+                ptor.sleep(8000);
                 var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email});
                 loadFixture.executeQuery(select_fixture, conString, function(result) {
                     expect(result.rowCount).toBe(1);
@@ -186,6 +214,8 @@ describe('Pack renewal notification mails', function () {
                         expect(result.rows[0].type).toBe(6);
                     }
                 });
+
+                ptor.sleep(2000);
 
                 var select_fixture = fixtureGenerator.select_renewal_fixture();
                 loadFixture.executeQuery(select_fixture, conString, function(result) {

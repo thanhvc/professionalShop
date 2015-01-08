@@ -15,6 +15,7 @@ describe('End free pack notification mails', function () {
         var helper = new Helper();
         var conString = browser.params.sqlCon;
         var queue = [];
+        var mutex = 0;
 
         beforeEach(function () {
             //set date on server
@@ -36,6 +37,10 @@ describe('End free pack notification mails', function () {
             ptor.sleep(2000);
             //home.showLoginBox();
             //home.login('john.snow@thewall.north', 'phantom');
+        });
+
+        afterEach(function () {
+            expect(queue.length).toEqual(0); //3 emails should be sent
         });
 
         afterEach(function () {
@@ -69,7 +74,20 @@ describe('End free pack notification mails', function () {
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
-                msg = queue.shift();
+                var msg;
+                var succeed = false;
+                while(!succeed){
+                    while(mutex>0){ ptor.sleep(100); }
+                    var m=mutex++;   //"Simultaneously" read and increment
+                    if(m>0)mutex--;
+                    else{
+                        //Critical section =============
+                        msg = queue.shift();
+                        //Critical section =============
+                        succeed=true;
+                        mutex--;
+                    }
+                }
                 console.log(addr);
                 console.log(id);
                 console.log(email);
@@ -89,7 +107,7 @@ describe('End free pack notification mails', function () {
                     }
                 );
                         
-                ptor.sleep(2000);
+                ptor.sleep(10000);
                 var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email});
                 loadFixture.executeQuery(select_fixture, conString, function(result) {
                     expect(result.rowCount).toBe(1);
@@ -103,7 +121,6 @@ describe('End free pack notification mails', function () {
             ms.bind(handler);
             ptor.sleep(9000);
             ptor.sleep(60000);
-            //expect(queue.length).toEqual(0); //3 emails should be sent
         });            
 
 });
