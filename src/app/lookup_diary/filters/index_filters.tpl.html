@@ -14,7 +14,8 @@
 
             <td>
                 <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
-                        ng-options="item.description|translate for item in filterOptions.selectors.operations"
+                        ng-show="filterOptions.filters.index_type == '0'"
+                        ng-options="item.description|translate for item in filterOptions.selectors.operationsIndex"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- {{'FOLLOW.operation'|translate}} -</option>
                 </select>
