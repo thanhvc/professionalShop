@@ -22,6 +22,7 @@
             <td>
                 <select ng-change="search()" style="width: 100px;" class="border-filters select-filter-correlation"
                         ng-options="item.description | translate for item in filterOptions.selectors.operationsIndex"
+                        ng-show="filterOptions.filters.index_type == '0'"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- {{'TOOLS.operation'|translate}} -</option>
                 </select>
