@@ -124,7 +124,7 @@ describe('Pack publication notification mails', function () {
 
 });
 
-describe('Pack renewal notification mails', function () {
+xdescribe('Pack renewal notification mails', function () {
         var helper = new Helper();
         var conString = browser.params.sqlCon;
         var queue = [];
