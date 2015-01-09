@@ -166,7 +166,7 @@ angular.module('ngMo.calendar', [
                 urlParamsSend.qmarket = urlParams.selectedMarket;
             }
             if (urlParams.selectedOperation) {
-                urlParamsSend.qop = urlParams.selectedOperation;
+                urlParamsSend.qop = urlParams.selectedOperation.id;
             }
             if (urlParams.index_type) {
                 urlParamsSend.qindex = urlParams.index_type;
@@ -227,17 +227,15 @@ angular.module('ngMo.calendar', [
             };
             //special case for index
             if ((filters.active_tab === 2)) {//case of index
-
-                $scope.selectedTypeIndice = parseInt(filters.index_type, 10);
                 //only for index, not pair index
-                if ((filters.index_type === 0) || (filters.index_type === "0")) {
-                    filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop, 10)].id : "" );
+                if ((filters.index_type ===0) || (filters.index_type ==="0")) {
+                    filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop,10)] : "" );
                 } else {
-                    filters.selectedOperation = "";
+                    filters.selectedOperation="";
                 }
 
             } else {
-                filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operations[parseInt(params.qop, 10)].id : "" );
+                filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" );
             }
 
 
@@ -621,7 +619,7 @@ angular.module('ngMo.calendar', [
                     'year': filtering.month.year,
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
-                    'operation': filtering.selectedOperation,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
                     'favourites': filtering.favourite
                 }
             };
