@@ -107,7 +107,8 @@ angular.module('ngMo.lookup_diary', [
         };
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
-        $scope.restartFilter = function () {
+        //restartRegion says if is obligatory restart the region selector
+        $scope.restartFilter = function (restartRegion) {
             var restartMonth = true;
             var restartMonthList = true;
             if ($scope.filterOptions.filters) {
@@ -121,7 +122,7 @@ angular.module('ngMo.lookup_diary', [
             $scope.filterOptions = {
                 filters: {
                     filterName: "",
-                    selectedRegion: "",
+                    selectedRegion: (restartRegion ? "" : $scope.filterOptions.filters.selectedRegion),
                     selectedMarket: "",
                     selectedSector: "",
                     selectedIndustry: "",
@@ -309,7 +310,7 @@ angular.module('ngMo.lookup_diary', [
             $scope.startLoading();
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
-            $scope.restartFilter();
+            $scope.restartFilter(true);
             $scope.applyFilters();
         };
 
@@ -377,7 +378,7 @@ angular.module('ngMo.lookup_diary', [
                 $scope.myData= [];
                 $scope.loading = true;
                 $scope.dataLoaded = false; //Not showming data until they have been loaded
-                $scope.restartFilter();
+                $scope.restartFilter(true);
                 $scope.applyFilters();
             }
 
@@ -422,6 +423,10 @@ angular.module('ngMo.lookup_diary', [
         };
 
         $scope.callBackRefreshSelectors =  function (data) {
+            //check if the server says to clear the selectedRegion filter
+            if (data.clearRegion) {
+                $scope.filterOptions.filters.selectedRegion = "";
+            }
             //checks the data received, when a selector is refreshed, the value selected is also cleaned
             if (data.hasOwnProperty("markets")) {
                 $scope.filterOptions.selectors.markets = data.markets;
@@ -707,7 +712,7 @@ angular.module('ngMo.lookup_diary', [
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorDiaryService.addMonths(1, $scope.filterOptions.filters.month);
             SelectedMonthDiaryService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
 
         };
@@ -715,7 +720,7 @@ angular.module('ngMo.lookup_diary', [
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorDiaryService.addMonths(-1, $scope.filterOptions.filters.month);
             SelectedMonthDiaryService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
@@ -725,7 +730,7 @@ angular.module('ngMo.lookup_diary', [
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorDiaryService.setDate(d);
             SelectedMonthDiaryService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
         };
         //synchronize the selector with the month of the filter
@@ -947,7 +952,7 @@ angular.module('ngMo.lookup_diary', [
             $scope.loadPage();
         });
         /*First load on page ready*/
-        $scope.restartFilter();
+        $scope.restartFilter(true);
 
         $scope.$on('body-click',function() {
             $scope.closeGraph();

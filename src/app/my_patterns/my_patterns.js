@@ -256,7 +256,7 @@ angular.module('ngMo.my_patterns', [
         };
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
-        $scope.restartFilter = function () {
+        $scope.restartFilter = function (restartRegion) {
             var restartMonth = true;
             var restartMonthList = true;
             if ($scope.filterOptions.filters) {
@@ -270,7 +270,7 @@ angular.module('ngMo.my_patterns', [
             $scope.filterOptions = {
                 filters: {
                     filterName: "",
-                    selectedRegion: "",
+                    selectedRegion: (restartRegion ? "" : $scope.filterOptions.filters.selectedRegion),
                     selectedMarket: "",
                     selectedSector: "",
                     selectedIndustry: "",
@@ -377,7 +377,7 @@ angular.module('ngMo.my_patterns', [
             $scope.dataLoaded = false; //Not showming data until they have been loaded
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
-            $scope.restartFilter();
+            $scope.restartFilter(true);
             $scope.applyFilters();
         };
 
@@ -388,7 +388,7 @@ angular.module('ngMo.my_patterns', [
                 $scope.myData= [];
                 $scope.loading = true;
                 $scope.dataLoaded = false; //Not showming data until they have been loaded
-                $scope.restartFilter();
+                $scope.restartFilter(true);
                 $scope.applyFilters();
             }
 
@@ -485,6 +485,10 @@ angular.module('ngMo.my_patterns', [
         };
 
         $scope.callBackRefreshSelectors =  function (data) {
+            //check if the server says to clear the selectedRegion filter
+            if (data.clearRegion) {
+                $scope.filterOptions.filters.selectedRegion = "";
+            }
             //checks the data received, when a selector is refreshed, the value selected is also cleaned
             if (data.hasOwnProperty("regions")) {
                 $scope.filterOptions.selectors.regions = data.regions;
@@ -666,7 +670,7 @@ angular.module('ngMo.my_patterns', [
            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
 
         };
@@ -674,7 +678,7 @@ angular.module('ngMo.my_patterns', [
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
@@ -684,7 +688,7 @@ angular.module('ngMo.my_patterns', [
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
         };
         //synchronize the selector with the month of the filter
@@ -914,7 +918,7 @@ angular.module('ngMo.my_patterns', [
             $scope.loadPage();
         });
         /*First load on page ready*/
-        $scope.restartFilter();
+        $scope.restartFilter(true);
         //in case of refresh..
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
