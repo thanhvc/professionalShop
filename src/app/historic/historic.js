@@ -109,7 +109,7 @@ angular.module('ngMo.historic', [
 
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
-        $scope.restartFilter = function () {
+        $scope.restartFilter = function (restartRegion) {
             var restartMonth = true;
             var restartMonthList = true;
             if ($scope.filterOptions.filters) {
@@ -123,7 +123,7 @@ angular.module('ngMo.historic', [
             $scope.filterOptions = {
                 filters: {
                     filterName: "",
-                    selectedRegion: "",
+                    selectedRegion: (restartRegion ? "" : $scope.filterOptions.filters.selectedRegion),
                     selectedMarket: "",
                     selectedSector: "",
                     selectedIndustry: "",
@@ -235,7 +235,7 @@ angular.module('ngMo.historic', [
             }
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
-            $scope.restartFilter();
+            $scope.restartFilter(true);
             $scope.applyFilters();
         };
 
@@ -246,7 +246,7 @@ angular.module('ngMo.historic', [
                 $scope.myData= [];
                 $scope.loading = true;
                 $scope.dataLoaded = false; //Not showming data until they have been loaded
-                $scope.restartFilter();
+                $scope.restartFilter(true);
                 $scope.applyFilters();
             }
 
@@ -339,6 +339,10 @@ angular.module('ngMo.historic', [
 
 
         $scope.callBackRefreshSelectors = function (data) {
+            //check if the server says to clear the selectedRegion filter
+            if (data.clearRegion) {
+                $scope.filterOptions.filters.selectedRegion = "";
+            }
             //checks the data received, when a selector is refreshed, the value selected is also cleaned
             if (data.hasOwnProperty("regions")) {
                 $scope.filterOptions.selectors.regions = data.regions;
@@ -510,7 +514,7 @@ angular.module('ngMo.historic', [
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
 
         };
@@ -518,7 +522,7 @@ angular.module('ngMo.historic', [
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(-1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
@@ -561,7 +565,7 @@ angular.module('ngMo.historic', [
 
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.setDate(d);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
         };
         //synchronize the selector with the month of the filter
@@ -782,7 +786,7 @@ angular.module('ngMo.historic', [
             $scope.loadPage();
         });
         /*First load on page ready*/
-        $scope.restartFilter();
+        $scope.restartFilter(true);
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
