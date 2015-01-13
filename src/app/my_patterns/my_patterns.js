@@ -256,7 +256,7 @@ angular.module('ngMo.my_patterns', [
         };
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
-        $scope.restartFilter = function (restartRegion) {
+        $scope.restartFilter = function (callServer,restartRegion) {
             var restartMonth = true;
             var restartMonthList = true;
             if ($scope.filterOptions.filters) {
@@ -267,10 +267,16 @@ angular.module('ngMo.my_patterns', [
                     restartMonthList = false;
                 }
             }
+            selectedRegion = "";
+            if (typeof $scope.filterOptions.filters !== "undefined") {
+                if (typeof $scope.filterOptions.filters.selectedRegion !== "undefined") {
+                 selectedRegion = $scope.filterOptions.filters.selectedRegion;
+                }
+            }
             $scope.filterOptions = {
                 filters: {
                     filterName: "",
-                    selectedRegion: (restartRegion ? "" : $scope.filterOptions.filters.selectedRegion),
+                    selectedRegion: (restartRegion ? "" : selectedRegion),
                     selectedMarket: "",
                     selectedSector: "",
                     selectedIndustry: "",
@@ -331,18 +337,20 @@ angular.module('ngMo.my_patterns', [
             $scope.updateSelectorMonth();
 
             //refresh all the selectors
-            switch (TabsService.getActiveTab()) {
-                case 0:     //stocks
-                    $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
-                    break;
-                case 1:     //pairs
-                    $scope.refreshSelectors(['regions', 'industries', 'sectors'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
-                    break;
-                case 2:     //index (pair and index)
-                    break;
-                case 3:     //futures
-                    $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
-                    break;
+            if (callServer) {
+                switch (TabsService.getActiveTab()) {
+                    case 0:     //stocks
+                        $scope.refreshSelectors(['regions', 'markets', 'industries', 'sectors'], $scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+                        break;
+                    case 1:     //pairs
+                        $scope.refreshSelectors(['regions', 'industries', 'sectors'], $scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+                        break;
+                    case 2:     //index (pair and index)
+                        break;
+                    case 3:     //futures
+                        $scope.refreshSelectors(['markets'], $scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+                        break;
+                }
             }
 
         };
@@ -377,7 +385,7 @@ angular.module('ngMo.my_patterns', [
             $scope.dataLoaded = false; //Not showming data until they have been loaded
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
-            $scope.restartFilter(true);
+            $scope.restartFilter(true,true);
             $scope.applyFilters();
         };
 
@@ -388,7 +396,7 @@ angular.module('ngMo.my_patterns', [
                 $scope.myData= [];
                 $scope.loading = true;
                 $scope.dataLoaded = false; //Not showming data until they have been loaded
-                $scope.restartFilter(true);
+                $scope.restartFilter(true,true);
                 $scope.applyFilters();
             }
 
@@ -670,7 +678,7 @@ angular.module('ngMo.my_patterns', [
            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter(false);
+            $scope.restartFilter(true,false);
             $scope.saveUrlParams();
 
         };
@@ -678,7 +686,7 @@ angular.module('ngMo.my_patterns', [
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter(false);
+            $scope.restartFilter(true,false);
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
@@ -688,7 +696,7 @@ angular.module('ngMo.my_patterns', [
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter(false);
+            $scope.restartFilter(true,false);
             $scope.saveUrlParams();
         };
         //synchronize the selector with the month of the filter
@@ -918,7 +926,7 @@ angular.module('ngMo.my_patterns', [
             $scope.loadPage();
         });
         /*First load on page ready*/
-        $scope.restartFilter(true);
+        $scope.restartFilter(false,false);
         //in case of refresh..
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
