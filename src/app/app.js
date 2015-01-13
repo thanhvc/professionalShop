@@ -185,6 +185,68 @@ angular.module('ngMo', [
 
         };
     })
+    .filter('sectorNameFromId', function($filter){ //TRANSFORM A SECTOR NAME WITHOUT THE SECTOR WORD
+        return function(n){
+            if (typeof n !== "undefined" && n != null) {
+                if (n === "SIN CLASIFICAR") {
+                    return n;// special case
+                }
+                x= n.replace(" Sector","");
+                x = x.replace(" SECTOR","");
+                //now capitalize all except country code (last word if have 2 letters)
+                nameArray = x.split(" ");
+                if (nameArray.length>1) {
+                    finalName ="";
+                    for (i=0;i<nameArray.length-1;i++) {
+                        finalName += $filter("capitalize")(nameArray[i])+ " ";
+                    }
+                    //now check the last word, if is 2 digits (country code)
+                    if (nameArray[nameArray.length-1].length === 2) {
+                        //country code case
+                        finalName +=  nameArray[nameArray.length-1];
+                    } else {
+                        finalName += $filter("capitalize")(nameArray[nameArray.length-1]);
+                    }
+                    return finalName;
+                } else {
+                    return $filter('capitalize')(x);
+                }
+            } else {
+                return n;
+            }
+
+        };
+    })
+    .filter('industryNameFromId', function($filter){ //TRANSFORM A SECTOR NAME WITHOUT THE SECTOR WORD
+        return function(n){
+            if (typeof n !== "undefined" && n != null) {
+                if (n === "SIN CLASIFICAR") {
+                    return n;// special case
+                }
+                //now capitalize all except country code (last word if have 2 letters)
+                nameArray = n.split(" ");
+                if (nameArray.length>1) {
+                    finalName ="";
+                    for (i=0;i<nameArray.length-1;i++) {
+                        finalName += $filter("capitalize")(nameArray[i])+ " ";
+                    }
+                    //now check the last word, if is 2 digits (country code)
+                    if (nameArray[nameArray.length-1].length === 2) {
+                        //country code case
+                        finalName +=  nameArray[nameArray.length-1];
+                    } else {
+                        finalName += $filter("capitalize")(nameArray[nameArray.length-1]);
+                    }
+                    return finalName;
+                } else {
+                    return $filter('capitalize')(n);
+                }
+            } else {
+                return n;
+            }
+
+        };
+    })
     .filter('volatTruncate',function(){
         return function(input) {
 
