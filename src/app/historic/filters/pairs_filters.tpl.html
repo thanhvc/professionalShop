@@ -23,7 +23,7 @@
                     <option value="">- {{'HISTORIC.sector'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
-                        {{item.id | sectorName |translate}}
+                        {{item.id | sectorNameFromId |translate}}
                     </option>
                 </select>
             </td>
@@ -34,7 +34,7 @@
                     <option value="">- {{'HISTORIC.industry'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.industries | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}" ><!---->
-                        {{item.id |translate}}
+                        {{item.id | industryNameFromId |translate}}
                     </option>
                 </select>
             </td>
