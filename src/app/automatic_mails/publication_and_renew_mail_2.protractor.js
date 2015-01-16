@@ -1,4 +1,5 @@
 
+
 /**
  * Created by David Verdú on 30/12/14.
  */
@@ -11,19 +12,11 @@ var Home = require('../../../test-helpers/page-objects/home.po.js');
 var Helper = require('../../../test-helpers/helper.js');
 var DateServerConfigMod = require('../../../test-helpers/date-server-config.js');
 
-describe('Pack publication notification mails', function () {
+describe('Pack renewal notification mails', function () {
         var helper = new Helper();
         var conString = browser.params.sqlCon;
         var queue = [];
         var mutex = 0;
-
-        beforeEach(function () {
-            //set date on server
-            var vagrant_id = browser.params.serverVagrantId;
-            var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
-            dsc.setServerDateAndRestart("2014-11-15 11:59:20");
-            ptor.sleep(18000);
-        });
 
         beforeEach(function () {
             //var fixtures = fixtureGenerator.remove_publication_and_renew_mail_fixture();
@@ -38,8 +31,31 @@ describe('Pack publication notification mails', function () {
             //home.login('john.snow@thewall.north', 'phantom');
         });
 
+        beforeEach(function () {
+            //set date on server
+            var vagrant_id = browser.params.serverVagrantId;
+            var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
+            dsc.setServerDateAndRestart("2014-11-15 12:59:20");
+            ptor.sleep(18000);
+        });
+
         afterEach(function () {
-            expect(queue.length).toEqual(0); //3 emails should be sent
+            expect(queue.length).toEqual(0); //1 email should be sent
+        });
+
+        afterEach(function () {
+
+
+                var select_fixture = fixtureGenerator.select_renewal_fixture();
+                loadFixture.executeQuery(select_fixture, conString, function(result) {
+                    expect(result.rowCount).toBe(2);
+                    if (result.rowCount > 0) {
+                        expect(result.rows[0].status).toBe(1);
+                    }
+                });
+
+
+
         });
 
         afterEach(function () {
@@ -53,22 +69,12 @@ describe('Pack publication notification mails', function () {
             expect(true).toBe(true);
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
-                        receivers: { 'test1.user@foo.bar': true },
-                        receiver_email: 'test1.user@foo.bar',
-                        receiver_name : "Test1 user",
-                        subject: 'diciembre-2014 Estrategias Market Observatory Disponibles'});
-
-            queue.push( { sender: 'market.observatory@edosoftfactory.com',
-                        receivers: { 'test2.user@foo.bar': true },
-                        receiver_email: 'test2.user@foo.bar',
-                        receiver_name : "Test2 user",
-                        subject: 'diciembre-2014 Estrategias Market Observatory Disponibles'});
-            
-            queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test3.user@foo.bar': true },
                         receiver_email: 'test3.user@foo.bar',
                         receiver_name : "Test3 user",
-                        subject: 'diciembre-2014 Estrategias Market Observatory Disponibles'});
+                        packs : [ {name: "Estados Unidos Pack I", code: "USA-S-1"},
+                                  {name: "Estados Unidos Pack II", code: "USA-S-2"}],
+                        subject: 'Renovación Pack Market Observatory'});
 
 
             handler = function(addr,id,email) {
@@ -92,27 +98,32 @@ describe('Pack publication notification mails', function () {
                 console.log(email);
                 expect(email.sender).toEqual(msg.sender);
                 expect(email.receivers).toEqual(msg.receivers);
-                expect(email.subject).toEqual(msg.subject);
+                //expect(email.subject).toEqual(msg.subject);
                 var jsdom = require("jsdom");
             
                 jsdom.env(
                     email.html,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
-                        expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
-                        expect(window.$("span").text()).toMatch("Ya están disponibles los Patrones de diciembre-2014");
+                        expect(window.$("span").text()).toMatch("Uno o varios packs que");
+                        expect(window.$("span").text()).toMatch("pendiente de renovar");
+                        for (var i=0;i<msg.packs.length;i++) {
+                            expect(window.$("ul li").text()).toMatch("Renovar " + msg.packs[i].name);
+                            expect(window.$("ul li:nth-child(" + (i+1) +") a").attr("href")).toMatch("renew-pack/" + msg.packs[i].code);
+                        }
                     }
                 );
                         
                 ptor.sleep(10000);
                 var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email});
                 loadFixture.executeQuery(select_fixture, conString, function(result) {
-                    expect(result.rowCount).toBe(1); //sometimes fails
+                    expect(result.rowCount).toBe(1);
                     if (result.rowCount == 1) {
-                        expect(result.rows[0].type).toBe(8);
+                        expect(result.rows[0].type).toBe(6);
                     }
                 });
+
             };
                     
             var ms = require('smtp-tester').init(2025,{"disableDNSValidation":true});
@@ -123,4 +134,3 @@ describe('Pack publication notification mails', function () {
         });            
 
 });
-

@@ -224,7 +224,7 @@ exports.publication_and_renew_mail_fixture = function() {
                 name: 'Estados Unidos Pack II',
                 product_type: 0,
                 publication_date: '2014-11-04',
-                scope_text: 'Estados Unidos Pack II text',
+                scope_text: 'Estados Unidos Pack I text',
                 pattern_type: 0,
                 subname: ' '
             }

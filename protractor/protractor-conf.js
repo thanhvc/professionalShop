@@ -33,6 +33,7 @@ exports.config = {
         //expired_packs_mail: '../src/app/automatic_mails/expired_packs_mail.protractor.js'
         //end_free_pack_mail: '../src/app/automatic_mails/end_free_pack_mail.protractor.js'
         publication_and_renew_mail: '../src/app/automatic_mails/publication_and_renew_mail.protractor.js'
+        //publication_and_renew_mail_2: '../src/app/automatic_mails/publication_and_renew_mail_2.protractor.js'
         //alerts_mail: '../src/app/automatic_mails/alerts_mail.protractor.js'
         //expiration_last_month: '../src/app/automatic_mails/expiration_last_month_mail.protractor.js'
         //expiration_last_month_2: '../src/app/automatic_mails/expiration_last_month_mail_2.protractor.js'

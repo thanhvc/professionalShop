@@ -947,6 +947,9 @@ angular.module('ngMo.my_patterns', [
 
 
         $scope.generatePdf = function () {
+            if ($scope.isDisabled) {
+                return;
+            }
             $scope.isDisabled=true;
             $scope.getPatternsPdf().then(function (data) {
                 var filename = "patterns" + /*productType +*/ ".pdf";
