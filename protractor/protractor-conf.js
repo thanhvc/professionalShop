@@ -32,7 +32,7 @@ exports.config = {
         //calendar: '../src/app/calendar/calendar.protractor.js'
         //expired_packs_mail: '../src/app/automatic_mails/expired_packs_mail.protractor.js'
         //end_free_pack_mail: '../src/app/automatic_mails/end_free_pack_mail.protractor.js'
-        //publication_and_renew_mail: '../src/app/automatic_mails/publication_and_renew_mail.protractor.js'
+        publication_and_renew_mail: '../src/app/automatic_mails/publication_and_renew_mail.protractor.js'
         //alerts_mail: '../src/app/automatic_mails/alerts_mail.protractor.js'
         //expiration_last_month: '../src/app/automatic_mails/expiration_last_month_mail.protractor.js'
         //expiration_last_month_2: '../src/app/automatic_mails/expiration_last_month_mail_2.protractor.js'
@@ -78,6 +78,6 @@ exports.config = {
     params: {
         sqlCon : 'postgres://vagrant:vagrant@localhost:15432/moserver_test',
         //sqlCon : 'postgres://postgres:postgres216c@localhost:5432/moserver_test',
-        serverVagrantId : '3ad9a5f' //use vagrant global-status to get Id
+        serverVagrantId : '1fd9857' //use vagrant global-status to get Id
     }
 };
