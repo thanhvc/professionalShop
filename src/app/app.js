@@ -106,8 +106,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope,$translate,$translateCookieStorage) {
-       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       $rootScope.urlService = 'http://localhost:19000';
+        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+        //$rootScope.urlService = 'http://localhost:9000';
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
             $translate.use($translateCookieStorage.get('lang'));
             $translate.refresh();
