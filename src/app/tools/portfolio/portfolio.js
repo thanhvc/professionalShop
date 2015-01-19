@@ -532,7 +532,6 @@ angular.module('ngMo.portfolio', [
                     break;
             }
 
-            updatePortfolioResultSessionStorage([]);
             $scope.portfolioData = [];
             $scope.loadPage(false);
         };

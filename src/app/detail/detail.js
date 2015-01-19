@@ -225,6 +225,12 @@ angular.module('ngMo.detail', [
 
         $scope.myData = detailData.myData;
         $scope.infoPattern = detailData.infoPattern;
+        $scope.graphYear = $scope.patternYear;
+        //graphYear will be the range of years of the graph, loaded from myData
+        if ($scope.myData.length>0) {
+           $scope.graphYear = $scope.myData[0].year;
+        }
+
     })
 
     .service("DetailService", function ($http, $window, $rootScope, $q) {
