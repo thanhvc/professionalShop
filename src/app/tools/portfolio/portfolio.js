@@ -481,7 +481,7 @@ angular.module('ngMo.portfolio', [
                 if (index > -1) {
                     $scope.portfolioList.splice(index, 1);
                 }
-                updatePortfolioListSessionStorage($scope.correlationList);
+                updatePortfolioListSessionStorage($scope.portfolioList);
                 $scope.checkPortfolioPatterns();
                 $scope.endMoving();
             }
@@ -501,6 +501,8 @@ angular.module('ngMo.portfolio', [
                         $scope.portfolioData[i].favorite = !$scope.portfolioData[i].favorite;
                     }
                 }
+                updatePortfolioResultSessionStorage($scope.portfolioData);
+
                     $scope.loadPage(false);
 
             });
