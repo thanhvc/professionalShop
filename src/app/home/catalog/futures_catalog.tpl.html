@@ -110,7 +110,7 @@
                 <span ng-show="(pattern.duration >92)">Más de 3</span>
             </td>
 
-            <td class="futures-volatility-column-catalog" ng-if="pattern.volatility>=0">{{pattern.volatility | twoDecimals}}</td>
+            <td class="futures-volatility-column-catalog" ng-if="pattern.volatility>=0">{{pattern.volatility | volatTruncate}}</td>
             <td class="futures-volatility-column-catalog" ng-if="pattern.volatility<0">NA</td>
 
             <td class="futures-status-column-catalog">
