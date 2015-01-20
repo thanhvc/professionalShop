@@ -137,7 +137,7 @@ angular.module('auth',['http-auth-interceptor'])
         return {
             restrict: "E",
 
-            controller: function ($scope, $rootScope, SignInFormState, $http, $window, authService, $state, ShoppingCartService, $cookies,$cookieStore,PaymentService) {
+            controller: function ($scope, $rootScope, SignInFormState, $http,$modal, $window, authService, $state, ShoppingCartService, $cookies,$cookieStore,PaymentService) {
 
                 $scope.remember = false;
 
@@ -194,6 +194,12 @@ angular.module('auth',['http-auth-interceptor'])
                             }
                             $window.localStorage.token = data.authToken;
                             $window.localStorage.username = data.name;
+                            $window.localStorage.expiredUser = false;
+                            if (typeof data.expiredUser !== "undefined") { //check if the user is expired (but can login)
+                                if (data.expiredUser) {
+                                    $window.localStorage.expiredUser = true;
+                                }
+                            }
                             authService.loginConfirmed();
                             clearAllCorrelationLists();
                             clearAllPortfolioLists();
@@ -204,101 +210,29 @@ angular.module('auth',['http-auth-interceptor'])
                             //check if the user have packs subscribed in his cart, to pass the prices to 0
                             $rootScope.isLog = true;
                             PaymentService.checkCart();
-                            /*PaymentService.getPayments(true,function (data) {
 
-                                //this detect if some pack is with price=0, -> already subscribed pack
-                                var subscribedPacks = [];
-                                $scope.allBought = true;
-                                $scope.amountOfPacks = 0;
-                                $scope.stocks = data.stocks;
-                                if (typeof $scope.stocks !== 'undefined') {
-                                    for (i = 0; i < $scope.stocks.length; i++) {
-                                        $scope.amountOfPacks++;
-                                        if ($scope.stocks[i].price === 0) {
-                                            $scope.someBought = true;
-
-                                        } else {
-                                            $scope.allBought = false;
-                                        }
-                                        if ($scope.stocks[i].collition === "error" || $scope.stocks[i].monthError ==="error" || $scope.stocks[i].trimestralError ==="error" ||$scope.stocks[i].yearError ==="error") {
-                                            subscribedPacks.push($scope.stocks[i]);
-                                        }
-                                    }
-                                }
-                                $scope.totalStocks = data.total_stocks;
-                                $scope.pairs = data.pairs;
-                                if (typeof $scope.pairs !== 'undefined') {
-                                    for (i = 0; i < $scope.pairs.length; i++) {
-                                        $scope.amountOfPacks++;
-                                        if ($scope.pairs[i].price === 0) {
-                                            $scope.someBought = true;
-                                        } else {
-                                            $scope.allBought = false;
-                                        }
-                                        if ($scope.pairs[i].collition === "error" || $scope.pairs[i].monthError ==="error" || $scope.pairs[i].trimestralError ==="error" ||$scope.pairs[i].yearError ==="error") {
-                                            subscribedPacks.push($scope.pairs[i]);
-                                        }
-                                    }
-                                }
-                                $scope.totalPairs = data.total_pairs;
-                                $scope.index= data.index;
-                                if (typeof $scope.index !== 'undefined') {
-                                    for (i = 0; i < $scope.index.length; i++) {
-                                        $scope.amountOfPacks++;
-                                        if ($scope.index[i].price === 0) {
-                                            $scope.someBought = true;
-                                        } else {
-                                            $scope.allBought = false;
-                                        }
-                                        if ($scope.index[i].collition === "error" || $scope.index[i].monthError ==="error" || $scope.index[i].trimestralError ==="error" ||$scope.index[i].yearError ==="error") {
-                                            subscribedPacks.push($scope.index[i]);
-                                        }
-                                    }
-                                }
-                                $scope.totalIndex= data.total_index;
-                                $scope.pairIndex= data.pairIndex;
-                                if (typeof $scope.pairIndex !== 'undefined') {
-                                    for (i = 0; i < $scope.pairIndex.length; i++) {
-                                        $scope.amountOfPacks++;
-                                        if ($scope.pairIndex[i].price === 0) {
-                                            $scope.someBought = true;
-                                        } else {
-                                            $scope.allBought = false;
-                                        }
-                                        if ($scope.pairIndex[i].collition === "error" || $scope.pairIndex[i].monthError ==="error" || $scope.pairIndex[i].trimestralError ==="error" ||$scope.pairIndex[i].yearError ==="error") {
-                                            subscribedPacks.push($scope.pairIndex[i]);
-                                        }
-                                    }
-                                }
-                                $scope.totalpairIndex= data.total_pairIndex;
-                                $scope.futures=data.futures;
-                                if (typeof $scope.futures !== 'undefined') {
-                                    for (i = 0; i < $scope.futures.length; i++) {
-                                        $scope.amountOfPacks++;
-                                        if ($scope.futures[i].price === 0) {
-                                            $scope.someBought = true;
-                                        } else {
-                                            $scope.allBought = false;
-                                        }
-                                        if ($scope.futures[i].collition === "error" || $scope.futures[i].monthError ==="error" || $scope.futures[i].trimestralError ==="error" ||$scope.futures[i].yearError ==="error") {
-                                            subscribedPacks.push($scope.futures[i]);
-                                        }
-                                    }
-                                }
-                                $scope.totalFutures=data.total_futures;
-                                $scope.total=data.total;
-                                if (subscribedPacks.length > 0) {
-                                    //there are packs that have price 0, so we need check it in the cart. Launch an event to ask to the cart
-                                    $rootScope.$broadcast('updateSubscribedPacks',subscribedPacks);
-                                }
-
-                            });*/
                         })
                         .error(function (data, status, headers, config) {
                                 $scope.errorSignIn = true;
                             if (data.reason == "not-activated") {
                                 //the user is not activated, we send him to resend mail status
                                 $state.go("reactivate");
+                            } else {
+                                if (data.reason == "expired") {
+                                        $window.localStorage.expiredUser = true;
+                                    $modal.open({
+                                        templateUrl: 'layout_templates/expiredModal.tpl.html',
+                                        controller: GenericModalCtrl,
+                                        resolve: {
+                                            mode: function () {
+                                                return "error";
+                                            },
+                                            message: function() {
+                                                return "";
+                                            }
+                                        }
+                                    });
+                                }
                             }
                         });
                 };
@@ -317,6 +251,7 @@ angular.module('auth',['http-auth-interceptor'])
                             $state.go('home');
                             $window.localStorage.removeItem('token');
                             $window.localStorage.removeItem('username');
+                            $window.localStorage.removeItem('expiredUser');
                             $window.sessionStorage.removeItem('cart');
                             clearAllCorrelationLists();
                             clearAllPortfolioLists();
