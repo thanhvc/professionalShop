@@ -1005,6 +1005,10 @@ angular.module('ngMo', [
         //Set when is logged
         IsLogged.checkLogged();
 
+        $scope.scrollToHomeTable = function() {
+            AnchorLinkService.scrollTo("tabsHome");
+        };
+
         $scope.emailRemember = "";
         $scope.mailSent = false;
         $scope.rememberPassword = function () {
@@ -1158,7 +1162,7 @@ angular.module('ngMo', [
 /**
  * Directive for public nav
  */
-    .directive('publicMenu',function ($compile, $rootScope){
+    .directive('publicMenu',function ($compile, $rootScope,$window){
         return {
             controller: function($scope, $state){
                 /**
@@ -1182,26 +1186,37 @@ angular.module('ngMo', [
                $scope.$watch('actualSubmenu', function(){});
                $scope.$watch('selectSubmenu', function(){});
                var isPresent = false;
+                $scope.checkStatus = function() {
+                    if ($rootScope.isLog && !isPresent) {
+
+                        if ($window.localStorage.expiredUser !== "true") {
+                            //if not is a expiredUser, allow enter to my patterns (because is a normal user)
+                            var itemPublicMenu = angular.element("<ul id=\"new-item-menu\" class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
+                                "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
+                                "ng-mouseleave=\"onMouseLeaveMenu()\"" +
+                                "ng-class=\"{'item-nav-hover':actualMenu == 'my-patterns-nav'}\">" +
+                                "<a ui-sref=\"my-patterns\">" +
+                                "Mis Patrones" +
+                                "</a></ul>");
+                            element.append(itemPublicMenu);
+                            isPresent = true;
+                        }
+                        $compile(element.contents())($scope);
+                    }else if(!$rootScope.isLog && isPresent){
+                        isPresent = false;
+                        var itemmenu = angular.element(document.querySelector("#new-item-menu"));
+                        itemmenu.remove();
+                        //element.remove(itemmenu);
+                        $compile(element.contents())($scope);
+                    }
+                };
+
                $scope.$watch('isLog', function(){
-                   if ($rootScope.isLog && !isPresent) {
-                       isPresent = true;
-                       var itemPublicMenu = angular.element("<ul id=\"new-item-menu\" class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
-                           "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
-                           "ng-mouseleave=\"onMouseLeaveMenu()\"" +
-                           "ng-class=\"{'item-nav-hover':actualMenu == 'my-patterns-nav'}\">" +
-                           "<a ui-sref=\"my-patterns\">" +
-                           "Mis Patrones" +
-                           "</a></ul>");
-                       element.append(itemPublicMenu);
-                       $compile(element.contents())($scope);
-                   }else if(!$rootScope.isLog && isPresent){
-                       isPresent = false;
-                       var itemmenu = angular.element(document.querySelector("#new-item-menu"));
-                       itemmenu.remove();
-                       //element.remove(itemmenu);
-                       $compile(element.contents())($scope);
-                   }
+                   $scope.checkStatus();
                });
+                $scope.$on('userStatusChanged',function(){
+                    $scope.checkStatus();
+                });
             },
             templateUrl:'layout_templates/public-menu.tpl.html'
         };
@@ -1238,7 +1253,7 @@ angular.module('ngMo', [
 
     .directive('privateMenu',function (){
         return {
-            controller: function($scope, $state){
+            controller: function($scope, $state,$window){
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
                     $scope.actualMenu = idMenu;
                     $scope.actualSubmenu = idSubmenu;
@@ -1253,6 +1268,21 @@ angular.module('ngMo', [
                     $scope.actualSubmenu = '';
                     $scope.actualItemSubmenu = '';
                 };
+
+
+                $scope.checkStatus = function() {
+                    $scope.expiredUser  =false;
+                    if (typeof $window.localStorage.expiredUser !== "undefined") {
+                        if ($window.localStorage.expiredUser === "true") {
+                            $scope.expiredUser = true;
+                        }
+                    }
+                };
+                $scope.checkStatus();
+                $scope.$on('userStatusChanged',function(event){
+                    $scope.checkStatus();
+                });
+
             },
             link: function($scope) {
             },

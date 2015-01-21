@@ -1,5 +1,5 @@
 <!-- Menú que se muestra en la parte privada cuando el usuario está logueado (zona restringida) -->
-<ul>
+<ul ng-show="!expiredUser">
     <li id="my-patterns-nav" class="first-item-menu"
         ng-class="{'item-nav-hover': selectMenu == 'my-patterns-nav' || actualMenu == 'my-patterns-nav'}"
         ng-click="onClickMenu()"
