@@ -222,7 +222,7 @@ angular.module('auth',['http-auth-interceptor'])
                                         $window.localStorage.expiredUser = true;
                                     $modal.open({
                                         templateUrl: 'layout_templates/expiredModal.tpl.html',
-                                        controller: GenericModalCtrl,
+                                        controller: ExpiredModalCtrl,
                                         resolve: {
                                             mode: function () {
                                                 return "error";

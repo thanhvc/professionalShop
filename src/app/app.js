@@ -2360,3 +2360,27 @@ var GenericModalCtrl = function ($scope, $modalInstance, $timeout,$sce,mode,mess
         $scope.close();
     }, 3000);
 };
+
+var ExpiredModalCtrl = function ($scope, $modalInstance, $timeout,$sce,mode,message,AnchorLinkService) {
+    $scope.message = $sce.trustAsHtml(message);//service to encode to HTml if necessary
+    $scope.mode = mode;
+    $scope.opened = true;
+    $scope.scrollToTabs = function(){
+        AnchorLinkService.scrollTo("tabsHome");
+    };
+
+    $scope.close = function () {
+        if ($scope.opened) {
+            $modalInstance.close();
+            $scope.opened= false;
+        }
+    };
+    $timeout(function() { //the body click event will be in a 1sec timeout, the modal will be shown minimun 1 second
+        $scope.$on("body-click",function(){
+            $scope.close();
+        },1000);
+    });
+     $timeout(function () {
+        $scope.close();
+    }, 5000);
+};
