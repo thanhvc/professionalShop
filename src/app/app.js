@@ -1186,7 +1186,7 @@ angular.module('ngMo', [
                $scope.$watch('actualSubmenu', function(){});
                $scope.$watch('selectSubmenu', function(){});
                var isPresent = false;
-                $scope.checkStatus = function() {
+                $scope.checkPublicStatus = function() {
                     if ($rootScope.isLog && !isPresent) {
 
                         if ($window.localStorage.expiredUser !== "true") {
@@ -1212,10 +1212,10 @@ angular.module('ngMo', [
                 };
 
                $scope.$watch('isLog', function(){
-                   $scope.checkStatus();
+                   $scope.checkPublicStatus();
                });
                 $scope.$on('userStatusChanged',function(){
-                    $scope.checkStatus();
+                    $scope.checkPublicStatus();
                 });
             },
             templateUrl:'layout_templates/public-menu.tpl.html'
@@ -1270,7 +1270,7 @@ angular.module('ngMo', [
                 };
 
 
-                $scope.checkStatus = function() {
+                $scope.checkPrivateStatus = function() {
                     $scope.expiredUser  =false;
                     if (typeof $window.localStorage.expiredUser !== "undefined") {
                         if ($window.localStorage.expiredUser === "true") {
@@ -1278,9 +1278,9 @@ angular.module('ngMo', [
                         }
                     }
                 };
-                $scope.checkStatus();
+                $scope.checkPrivateStatus();
                 $scope.$on('userStatusChanged',function(event){
-                    $scope.checkStatus();
+                    $scope.checkPrivateStatus();
                 });
 
             },

@@ -200,6 +200,8 @@ angular.module('auth',['http-auth-interceptor'])
                                     $window.localStorage.expiredUser = true;
                                 }
                             }
+
+                            $rootScope.$broadcast("userStatusChanged");
                             authService.loginConfirmed();
                             clearAllCorrelationLists();
                             clearAllPortfolioLists();

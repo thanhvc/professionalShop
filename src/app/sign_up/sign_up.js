@@ -263,6 +263,7 @@ angular.module('singUp', [])
                                 $window.localStorage.expiredUser = true;
                             }
                         }
+                        $rootScope.$broadcast("userStatusChanged");
 
                         authService.loginConfirmed();
                         $scope.errorSignIn = false;
