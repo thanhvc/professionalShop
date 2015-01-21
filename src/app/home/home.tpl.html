@@ -24,14 +24,14 @@
     <!-- tabs product's type -->
     <div class="loading-div-container">
     <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>Cargando tablas, por favor espere...</span></div>
-    <tabset>
+    <tabset id="tabsHome">
         <tab ng-click="onClickTab(homeTablePack.value)" ng-repeat="homeTablePack in homeTablePacks" heading="{{homeTablePack.title|translate}}" active="homeTablePack.active" disabled="tab.disabled">
                 <div ng-include="homeTablePack.url"></div>
         </tab>
     </tabset>
 
     <!-- tabs product's type -->
-    <tabset>
+    <tabset >
         <tab ng-click="onClickSecondTab(homeTablePack2.value)" ng-repeat="homeTablePack2 in homeTablePacks2" heading="{{homeTablePack2.title|translate}}" active="homeTablePack2.active" disabled="tab.disabled">
             <div ng-include="homeTablePack2.url"></div>
         </tab>

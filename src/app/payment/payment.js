@@ -133,6 +133,10 @@ angular.module('ngMo.payment', [  'ui.router'])
                 if (data.status === "OK") {
                     $scope.status = "OK";
                     $rootScope.$broadcast('removeItemsCart');
+                    //the payment is active, and ready, the user is not expired anymore
+                    $window.localStorage.expiredUser = false;
+                    $rootScope.$broadcast('userStatusChanged');//propagate a change in the status
+                    $rootScope.$broadcast('isLog');//event to create the public menu if user active
                     $timeout($scope.goToPatterns,3000);
                 } else {
                     $scope.status = "ERROR";
@@ -664,6 +668,9 @@ angular.module('ngMo.payment', [  'ui.router'])
                 if (data.status === "OK") {
                     $scope.status = "OK";
                     $rootScope.$broadcast('removeItemsCart');
+                    $window.localStorage.expiredUser = false; //user is not expired anymore
+                    $rootScope.$broadcast('userStatusChanged');//propagate a change in the status, change the privateMenu
+                    $rootScope.$broadcast('isLog');//event to create the public menu if user active
                     $state.go('confirm-pay-card');
                 } else {
                     $scope.status = "ERROR";
