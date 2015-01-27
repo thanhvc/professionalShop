@@ -137,7 +137,7 @@
                 {{pattern.win | twoDecimals}}
             </td>
             <td class="stock-year-number-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
-            <td class="stock-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td class="stock-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | number:0}}</td>
             <td class="stock-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
             <td class="stock-duration-column-catalog"><span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>

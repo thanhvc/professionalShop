@@ -102,7 +102,7 @@
             </td>
             <td class="futures-number-of-years-gain-column-catalog">{{pattern.win | twoDecimals}}</td>
             <td class="futures-number-of-years-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
-            <td class="futures-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td class="futures-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | number:0}}</td>
             <td class="futures-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
             <td class="futures-duration-column-catalog">
                 <span ng-show="(pattern.duration <31)">Hasta 1</span>
@@ -111,7 +111,7 @@
             </td>
 
             <td class="futures-volatility-column-catalog" ng-if="pattern.volatility>=0">{{pattern.volatility | volatTruncate}}</td>
-            <td class="futures-volatility-column-catalog" ng-if="pattern.volatility<0">n.a.</td>
+            <td class="futures-volatility-column-catalog" ng-if="pattern.volatility<0">n</td>
 
             <td class="futures-status-column-catalog">
                 <!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->

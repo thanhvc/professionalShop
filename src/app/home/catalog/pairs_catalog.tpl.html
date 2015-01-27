@@ -142,7 +142,7 @@
             </td>
             <td class="pairs-number-of-years-gain-column-catalog">{{pattern.win | twoDecimals}}</td>
             <td class="pairs-number-of-years-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
-            <td class="pairs-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
+            <td class="pairs-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | number:0}}</td>
             <td class="pairs-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
             <td class="pairs-duration-column-catalog">
                 <span ng-show="(pattern.duration <31)">Hasta 1</span>
