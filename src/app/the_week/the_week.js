@@ -87,7 +87,7 @@ angular.module('ngMo.the_week', [
             $scope.startMonth = months[monday.getMonth()];
             //calculate all the week
             var next = new Date(monday.getDate());
-            for (var i = 1; i < 7; i++) {
+            for (var i = 1; i < 6; i++) {
                 ms = monday.getTime() + (DAY * i);
                 next = new Date(ms);
                 $scope.days[i] = next.getDate();
