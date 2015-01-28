@@ -35,6 +35,7 @@ angular.module('auth',['http-auth-interceptor'])
         //redirect param seys to the function if the service must redirect to home if the user is not logged
         this.isLogged = function(redirect){
             token = $window.localStorage.token;
+            email = $window.localStorage.email;
             if (typeof token ==="undefined" ) {
                 //doesnt exist a token, so the user is not loged
                 $rootScope.isLog = false;
@@ -55,7 +56,8 @@ angular.module('auth',['http-auth-interceptor'])
             }
             config = {
                 headers: {
-                    'X-Session-Token': token
+                    'X-Session-Token': token,
+                    'X-Username': email
                 }
             };
             $rootScope.isLog=false;
@@ -79,13 +81,15 @@ angular.module('auth',['http-auth-interceptor'])
 
         this.checkLogged = function(){
             token = $window.localStorage.token;
+            email = $window.localStorage.email;
             if (typeof token ==="undefined" ) {
                 $rootScope.isLog = false;
                 return;
             } else {
                 config = {
                     headers: {
-                        'X-Session-Token': token
+                        'X-Session-Token': token,
+                        'X-Username': email
                     }
                 };
                 $rootScope.isLog=false;
@@ -107,6 +111,7 @@ angular.module('auth',['http-auth-interceptor'])
             $rootScope.$broadcast("removeItemsCart");
             $window.localStorage.removeItem('token');
             $window.localStorage.removeItem('username');
+            $window.localStorage.removeItem('email');
             $window.sessionStorage.removeItem('cart');
             $window.sessionStorage.removeItem("correlationStocks");
             $window.sessionStorage.removeItem("correlationStockPairs");
@@ -152,6 +157,7 @@ angular.module('auth',['http-auth-interceptor'])
                     $scope.currentUser = params.name;
                     $window.localStorage.username = params.name;
                     $window.localStorage.token = params.token;
+                    $window.localStorage.email = params.email;
                 });
 
 
@@ -191,10 +197,12 @@ angular.module('auth',['http-auth-interceptor'])
                                 //the user is seting remember the token in a cookie
                                 $cookieStore.put("token",data.authToken);
                                 $cookieStore.put("name",data.name);
+                                $cookieStore.put("email",data.username);
                             }
                             $window.localStorage.token = data.authToken;
                             $window.localStorage.username = data.name;
                             $window.localStorage.expiredUser = false;
+                            $window.localStorage.email= data.username;
                             if (typeof data.expiredUser !== "undefined") { //check if the user is expired (but can login)
                                 if (data.expiredUser) {
                                     $window.localStorage.expiredUser = true;
@@ -241,9 +249,11 @@ angular.module('auth',['http-auth-interceptor'])
 
                 $scope.logout = function() {
                     token = $window.localStorage.token;
+                    email = $window.localStorage.email;
                     config = {
                         headers: {
-                            'X-Session-Token': token
+                            'X-Session-Token': token,
+                            'X-Username': email
                         }
                     };
                     $http.get($rootScope.urlService+'/logout', config)
@@ -254,11 +264,13 @@ angular.module('auth',['http-auth-interceptor'])
                             $window.localStorage.removeItem('token');
                             $window.localStorage.removeItem('username');
                             $window.localStorage.removeItem('expiredUser');
+                            $window.localStorage.removeItem('email');
                             $window.sessionStorage.removeItem('cart');
                             clearAllCorrelationLists();
                             clearAllPortfolioLists();
                             $cookieStore.remove("name");
                             $cookieStore.remove("token");
+                            $cookieStore.remove("email");
                         });
                 };
 
@@ -293,6 +305,7 @@ angular.module('auth',['http-auth-interceptor'])
                 if (typeof $cookieStore.get("token") !== "undefined") {
                     $window.localStorage.token = $cookieStore.get("token");
                     $window.localStorage.username =$cookieStore.get("name");
+                    $window.localStorage.email =$cookieStore.get("email");
                     authService.loginConfirmed();
                     clearAllCorrelationLists();
                     clearAllPortfolioLists();
