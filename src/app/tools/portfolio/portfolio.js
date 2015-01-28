@@ -509,6 +509,8 @@ angular.module('ngMo.portfolio', [
         };
 
 
+
+
         //set favorite/or delete favorite in the DB, is used from the result table
         $scope.toggleFavorite = function (patternId){
             var data = PortfolioService.setFavorite(patternId).then(function (data) {
@@ -536,6 +538,11 @@ angular.module('ngMo.portfolio', [
 
             $scope.portfolioData = [];
             $scope.loadPage(false);
+        };
+
+        $scope.clearAll = function() {
+            updatePortfolioResultSessionStorage([]);
+            $scope.clearPortfolioList();
         };
 
         $scope.goToTop = function () {
