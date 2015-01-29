@@ -190,8 +190,9 @@
             Suscripción Gratis 15 días
         </a>
 </ul>
-<ul id="submenu5" class="float-right submenu" style="margin-right: 100px;"
-    ng-class="{'display-block': actualSubmenu == 'submenu5' || selectSubmenu == 'submenu5', 'display-none': actualSubmenu != 'submenu5' || selectSubmenu!= 'submenu5'}">
+<ul id="submenu5" class="float-right submenu"
+    ng-class="{'display-block': actualSubmenu == 'submenu5' || selectSubmenu == 'submenu5', 'display-none': actualSubmenu != 'submenu5' || selectSubmenu!= 'submenu5', 'submenu-float-toolsInvestment-public': !isLog
+    , 'submenu-float-toolsInvestment-private': isLog}">
     <li id="resources-nav"
         ng-click="onClickSubmenu()"
         ng-mouseenter="onMouseEnterSubmenu('investor-tools-nav','submenu5','resources-nav')"
