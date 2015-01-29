@@ -52,7 +52,7 @@ angular.module('ngMo.Activate', [  'ui.router',
                 //authService.loginConfirmed();
                 $scope.errorSignIn = false;
                // $scope.currentUser = data.name;
-                $rootScope.$broadcast('userLogged',{name:data.name,token:data.authToken});
+                $rootScope.$broadcast('userLogged',{name:data.name,token:data.authToken,email:data.username});
                 $state.go('home',{activated: true});
             } else {
                 $state.go('home');

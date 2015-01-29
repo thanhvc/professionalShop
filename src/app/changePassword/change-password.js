@@ -46,7 +46,8 @@ angular.module('ngMo.changePassword', [  'ui.router',
         $scope.callbackChangePassword = function(data) {
             if (data != null && data.status == "ok"){
                 $window.localStorage.token = data.authToken;
-                $rootScope.$broadcast('userLogged',{name:data.name,token:data.authToken});
+                $window.localStorage.email = data.username;
+                $rootScope.$broadcast('userLogged',{name:data.name,token:data.authToken,email:data.username});
                 $scope.changed=true;
                 IsLogged.isLogged(true);
                 $scope.error = false;
