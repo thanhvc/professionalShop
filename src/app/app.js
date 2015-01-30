@@ -27,7 +27,8 @@ angular.module('ngMo', [
         'auth',
         'ngMo.Activate',
         'ngMo.detail',
-        'ngMo.payment',
+       // 'ngMo.payment',
+        'ngMo.paymentClosed', //fake payment
         'ngMo.cancel_pack',
         'ngMo.renew',
         'tmh.dynamicLocale',

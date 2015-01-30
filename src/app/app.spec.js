@@ -200,8 +200,8 @@ describe('The cart directive', function () {
             $scope.$broadcast('removeItemsCart');
             expect( $scope.numItemsCart).toEqual(0);
         }));
-
-        it('should submitCart when payment is EXPRESSCHECKOUT ', inject(function(){
+        //COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+        xit('should submitCart when payment is EXPRESSCHECKOUT ', inject(function(){
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
 
@@ -210,8 +210,8 @@ describe('The cart directive', function () {
             $scope.$apply();
             $scope.$broadcast('submitCart',"EXPRESSCHECKOUT");
         }));
-
-        it('should submitCart when payment type is DIRECTPAYMENT', inject(function(){
+        //COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+        xit('should submitCart when payment type is DIRECTPAYMENT', inject(function(){
             delete $window.sessionStorage.cart;
             var template = $compile("<div cart></div>")($scope);
             $scope.$apply();
