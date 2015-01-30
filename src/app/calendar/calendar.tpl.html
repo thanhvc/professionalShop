@@ -1,27 +1,17 @@
 <div class="super-border private-black-title">Calendario</div>
 <div class="private-container-text">
 <p>
-    Muestra la organización cronológica de las estrategias como soporte para realización de operaciones:
+    Muestra la organización cronológica de las estrategias como agenda de las operaciones. Se usa “L” para posiciones “Largas” o Compradas y “S” para posiciones “Cortas” o Vendidas.<br>
+   </p>
+    <p>
+    Recuerde el “<span class="font-verdana-bold">convenio de fechas</span>” establecido por Market Observatory:
 
     <ul class="public-list-first-level">
-        <li>“L” para posiciones “Largas” o Compra.</li>
-        <li>“S” para posiciones “Cortas” o Venta a Corto.</li>
+        <li>Las Entradas y Salidas están referenciadas a la <span class="underline-text">hora de cierre</span> de la sesión regular del mercado.</li>
+        <li>Fecha de Entrada (o apertura operación): Si coincide en Fin de Semana o Festivo la operación se trasladará al <span class="underline-text">día siguiente</span> con sesión de mercado.</li>
+        <li>Fecha de Salida (o cierre operación): Si coincide en Fin de Semana o Festivo la operación se hará el <span class="underline-text">día previo</span> con sesión.</li>
     </ul>
-    Recuerde el “convenio de fechas” establecido por Market Observatory:
-
-    <ul class="public-list-first-level">
-        <li>Las Entradas y Salidas están referenciadas a la hora de “Cierre” de la sesión regular del mercado.</li>
-        <li>Fecha de Entrada (o apertura operación): Si el día coincide en Fin de Semana o Festivo la operación se hará:
-            <ul class="public-list-second-level">
-                <li>El día “Siguiente” con sesión de mercado.</li>
-            </ul>
-        <li>Fecha de Salida (o cierre operación): Si el día coincide en Fin de Semana o Festivo la operación se hará:</li>
-            <ul class="public-list-second-level">
-                <li>El día “Previo” con sesión de mercado.</li>
-            </ul>
-    </ul>
-
-    <a ng-click="openModalInstance('services/detailed_description/calendar')">Más información</a>
+    Mas información <a ng-click="openModalInstance('services/detailed_description/calendar')">calendario</a>
 </p>
 </div>
 
