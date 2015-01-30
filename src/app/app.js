@@ -1035,7 +1035,6 @@ angular.module('ngMo', [
 
             if ($location.path() == "/home" && toState.name == "catalog"){
                 $scope.scrollPos = window.scrollY;
-                console.log($scope.scrollPos );
             }
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -1055,7 +1054,6 @@ angular.module('ngMo', [
                 $timeout(function() { // wait for DOM, then restore scroll position
                     window.scroll(0,  $scope.scrollPos ? $scope.scrollPos : 0);
                 }, 1000);
-                console.log($scope.scrollPos );
             }
 
 

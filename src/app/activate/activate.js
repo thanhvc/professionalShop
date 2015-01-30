@@ -44,7 +44,7 @@ angular.module('ngMo.Activate', [  'ui.router',
     .run(function run() {
     })
     //activation of user Controller
-    .controller('ActivateCtrl', function ($scope, $state, $stateParams, $http,$rootScope,authService,$window) {
+    .controller('ActivateCtrl', function ($scope, $state, $stateParams, $http,$rootScope,authService,$window,IsLogged) {
         //callback function to redirect to home with user activated or not
         $scope.callback = function(data) {
             if (data != null && data.status == "ok"){
@@ -52,7 +52,9 @@ angular.module('ngMo.Activate', [  'ui.router',
                 //authService.loginConfirmed();
                 $scope.errorSignIn = false;
                // $scope.currentUser = data.name;
+                IsLogged.isLogged(true);
                 $rootScope.$broadcast('userLogged',{name:data.name,token:data.authToken,email:data.username});
+
                 $state.go('home',{activated: true});
             } else {
                 $state.go('home');
