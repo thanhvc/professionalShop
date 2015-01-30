@@ -106,32 +106,32 @@ describe('The signInForm directive', function () {
                 templateUrl: 'layout_templates/sign-in-box.tpl.html'
             });
         }));
-
-        it('should toggle when the user sends the signin form', inject(function () {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+        xit('should toggle when the user sends the signin form', inject(function () {
             $scope.toggleSignInForm();
             expect($scope.stateSignInForm).toNotBe(undefined);
         }));
-
-        it('should hide the signin form when asked for', inject(function () {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+        xit('should hide the signin form when asked for', inject(function () {
             $scope.hideSignInForm();
             expect($scope.stateSignInForm).toNotBe(undefined);
         }));
-
-        it('should success when the user logs in', inject(function () {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+        xit('should success when the user logs in', inject(function () {
             var params = {'name':'userName', 'token': 'userToken'};
             $scope.$broadcast('userLogged',['', params]);
         }));
-
-        it('should clear all correlation lists', inject(function () {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+        xit('should clear all correlation lists', inject(function () {
             clearAllCorrelationLists();
             expect(clearAllCorrelationLists).toNotBe(undefined);
         }));
-
-        it('should clear all portfolio lists', inject(function () {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+        xit('should clear all portfolio lists', inject(function () {
             clearAllPortfolioLists();
             expect(clearAllPortfolioLists).toNotBe(undefined);
         }));
-
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
         it('should produce 2 input fields and a checkbox', function(){
             expect(template.find('input').length).toEqual(3);
         });
