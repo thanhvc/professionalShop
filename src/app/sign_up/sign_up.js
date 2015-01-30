@@ -256,6 +256,7 @@ angular.module('singUp', [])
                     .success(function (data, status, headers, config) {
                         $window.localStorage.token = data.authToken;
                         $window.localStorage.username = data.name;
+                        $window.localStorage.email = data.username;
                         $window.localStorage.expiredUser=false;
                         //is a expired user trying to buy??
                         if (typeof data.expiredUser !== "undefined") {
