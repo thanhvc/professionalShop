@@ -429,7 +429,7 @@ angular.module('ngMo.portfolio', [
                     });*/
                 $scope.portfolioList.push(pattern);
                 updatePortfolioListSessionStorage($scope.portfolioList);
-                $scope.checkPortfolioPatterns();
+                $scope.checkPortfolioPatterns(); //- in portfolio the patterns dont disable others
                 $scope.endMoving();
             }
         };
@@ -444,17 +444,9 @@ angular.module('ngMo.portfolio', [
             for (i = 0 ; i< $scope.myData.length; i++) {
                 $scope.myData[i].toUse = true;//can be selected
                 for (j = 0; j< $scope.portfolioList.length; j++) {
-                    if ($scope.myData[i].symbol === $scope.portfolioList[j].symbol) {
-
-                        if ($scope.myData[i].symbol2 != null) {
-                            //is Pair
-                            if ($scope.myData[i].symbol2 === $scope.portfolioList[j].symbol2) {
-                                $scope.myData[i].toUse = false; //symbol 1 and symbol2 in same order selected
-                            }
-                        } else {
+                    if ($scope.myData[i].id === $scope.portfolioList[j].id) {
                             //symbol1 is found, and is simple pattern
                             $scope.myData[i].toUse = false;
-                        }
                     }
                 }
             }
