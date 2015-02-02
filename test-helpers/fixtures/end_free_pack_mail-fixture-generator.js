@@ -247,7 +247,7 @@ exports.end_free_pack_mail_fixture = function() {
                 user_id: 2, //Test2 user
                 subscription_date: '2014-11-08',
                 start_date: '2014-11-08 14:00',
-                end_date: '2014-11-23 14:00'
+                end_date: '2014-11-22 14:00'
             }
         },
         {
