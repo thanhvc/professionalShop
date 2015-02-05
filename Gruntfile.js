@@ -22,6 +22,7 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks('grunt-protractor-runner');
     grunt.loadNpmTasks('grunt-protractor-webdriver');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-ng-annotate');
     /**
      * Load in our build configuration file.
      */
@@ -32,6 +33,24 @@ module.exports = function ( grunt ) {
      * instructions.
      */
     var taskConfig = {
+
+        ngAnnotate: {
+            options: {
+                singleQuotes: true
+            },
+            app1: {
+                files: [
+                    {
+                        '<%= concat.compile_js.dest %>': '<%= concat.compile_js.dest %>'
+                       // expand: true,
+                        //src: ['src/**/*.js'],
+                        //ext: '.annotated.js', // Dest filepaths will have this extension.
+
+                        //extDot: 'last'       // Extensions in filenames begin after the last dot
+                    }
+                ]
+            }
+        },
         /**
          * We read in our `package.json` file so we can access the package name and
          * version. It's already there, so we don't repeat ourselves here.
@@ -152,6 +171,26 @@ module.exports = function ( grunt ) {
                     }
                 ]
             },
+            compile_vendorjs: {
+                files: [
+                    {
+                        src: [ '<%= vendor_files.js %>' ],
+                        dest: '<%= compile_dir %>/',
+                        cwd: '.',
+                        expand: true
+                    }
+                ]
+            },
+            compile_i18njs: {
+                files: [
+                    {
+                        src: [ '<%= app_files.i18n %>' ],
+                        dest: '<%= compile_dir %>',
+                        cwd: '.',
+                        expand: true
+                    }
+                ]
+            },
             compile_assets: {
                 files: [
                     {
@@ -188,7 +227,7 @@ module.exports = function ( grunt ) {
                     banner: '<%= meta.banner %>'
                 },
                 src: [
-                    '<%= vendor_files.js %>',
+                   /* '<%= vendor_files.js %>',*/
                     'module.prefix',
                     '<%= build_dir %>/src/**/*.js',
                     '<%= html2js.app.dest %>',
@@ -466,8 +505,10 @@ module.exports = function ( grunt ) {
             compile: {
                 dir: '<%= compile_dir %>',
                 src: [
+                    '<%= vendor_files.js %>',
                     '<%= concat.compile_js.dest %>',
                     '<%= vendor_files.css %>',
+
                     '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
                 ]
             }
@@ -631,6 +672,9 @@ module.exports = function ( grunt ) {
     grunt.renameTask( 'watch', 'delta' );
     grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
 
+    //ngAnnotate
+    grunt.registerTask('ng-Annotate',['ngAnnotate']);
+
     /**
      * The default task is to build and compile.
      */
@@ -657,7 +701,7 @@ module.exports = function ( grunt ) {
      * minifying your code.
      */
     grunt.registerTask( 'compile', [
-        'less:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile'
+        'less:compile', 'copy:compile_assets', 'concat:compile_js','copy:compile_vendorjs','copy:compile_i18njs','ngAnnotate', 'uglify', 'index:compile'
     ]);
 
     /**

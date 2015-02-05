@@ -1,5 +1,5 @@
 
-var url = 'http://mo.devel.edosoftfactory.com/';
+var url = 'http://marketobservatory.com/';
 
  /** LoginPage.js */
  var LoginPage = function() {
