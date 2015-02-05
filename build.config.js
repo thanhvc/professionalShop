@@ -66,6 +66,7 @@ module.exports = {
     vendor_files: {
         js: [
             'vendor/angular/angular.min.js',
+            'vendor/angular/angular.min.js.map',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'vendor/angular-ui-router/release/angular-ui-router.min.js',
             'vendor/angular-ui-utils/modules/route/route.js',
