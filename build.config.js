@@ -65,19 +65,19 @@ module.exports = {
      */
     vendor_files: {
         js: [
-            'vendor/angular/angular.js',
+            'vendor/angular/angular.min.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            'vendor/angular-ui-router/release/angular-ui-router.js',
+            'vendor/angular-ui-router/release/angular-ui-router.min.js',
             'vendor/angular-ui-utils/modules/route/route.js',
             'vendor/angular-cookies/angular-cookies.min.js',
-            'vendor/angular-bindonce/bindonce.js',
+            'vendor/angular-bindonce/bindonce.min.js',
             'vendor/angular-cookies/angular-cookies.min.js.map',
             'vendor/autofill-event/src/autofill-event.js',
             'vendor/angular-translate/angular-translate.min.js',
             'vendor/angular-translate-loader-partial/angular-translate-loader-partial.min.js',
             'vendor/angular-dynamic-locale/tmhDynamicLocale.min.js',
             'vendor/angular-dynamic-locale/tmhDynamicLocale.min.js.map',
-            'vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.js'
+            'vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js'
 
         ],
         css: [
