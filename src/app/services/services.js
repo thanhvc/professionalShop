@@ -131,9 +131,9 @@ angular.module('ngMo.services', [
                 var element = document.getElementById(link);
                 if (element != null) {
                     element.click();
-                }/* else {
-                    document.getElementById("descriptionLink").click();
-                }*/
+                } else {
+                    AnchorLinkService.scrollTop();
+                }
 
             },100);
             //$scope.$apply();
