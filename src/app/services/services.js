@@ -119,11 +119,9 @@ angular.module('ngMo.services', [
      return function(scope, element, attrs) {*/
     .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService,$timeout){
         $scope.scrollTo = function(id) {
-            console.log("scrolling");
             AnchorLinkService.scrollTo(id);
         };
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
-          console.log("change");
             var url = $stateParams;
             url = url.split("#");
             var link = url[url.length-1]+"Link";
