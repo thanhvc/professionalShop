@@ -5,50 +5,64 @@
            ng-class="{'menu-position' : boolChangeClassDetailed, 'menu-bottom-position' : !boolChangeClassDetailed && positionFix , 'menu-fix' : positionFix}">
         <tr>
             <td>
-                <a ng-click="scrollTo('description'); selectedOption = 'description';"
+                <div ng-click="scrollTo('description'); selectedOption = 'description';" id ="descriptionLink">
+                <a
                    ng-class="{'orange-text': selectedOption =='description'}">Descripci&oacute;n</a>
+                </div>
             </td>
         </tr>
         <tr>
             <td>
-                <a ng-click="scrollTo('basic'); selectedOption = 'basic';"
+                <div id="basicLink" ng-click="scrollTo('basic'); selectedOption = 'basic';">
+                <a
                    ng-class="{'orange-text': selectedOption =='basic'}">Informaci&oacute;n B&aacute;sica de un Patr&oacute;n</a>
+                </div>
             </td>
         </tr>
         <tr>
-            <td>
-                <a ng-click="scrollTo('phases'); selectedOption = 'phases';"
+            <td><div ng-click="scrollTo('phases'); selectedOption = 'phases';" id="phasesLink">
+                <a
                    ng-class="{'orange-text': selectedOption =='phases'}">Fases Principales del Servicio</a>
+                </div>
             </td>
         </tr>
         <tr>
             <td>
-                <a ng-click="scrollTo('monthly'); selectedOption = 'monthly';"
+                <div id="monthlyLink" ng-click="scrollTo('monthly'); selectedOption = 'monthly';">
+                <a
                    ng-class="{'orange-text': selectedOption =='monthly'}">Publicaci&oacute;n Mensual</a>
+                </div>
             </td>
         </tr>
         <tr>
-            <td>
-                <a ng-click="scrollTo('buy'); selectedOption = 'buy';"
+            <td><div id="buyLink" ng-click="scrollTo('buy'); selectedOption = 'buy';">
+                <a
                    ng-class="{'orange-text': selectedOption =='buy'}">Comprar Suscripci&oacute;n</a>
+            </div>
             </td>
         </tr>
         <tr>
             <td>
-                <a ng-click="scrollTo('patterns'); selectedOption = 'patterns';"
+                <div ng-click="scrollTo('patterns'); selectedOption = 'patterns';" id="patternsLink">
+                <a
                    ng-class="{'orange-text': selectedOption =='patterns'}">Mis Patrones</a>
+                </div>
+
             </td>
         </tr>
         <tr>
-            <td>
-                <a ng-click="scrollTo('diary'); selectedOption = 'diary';"
+            <td><div id="diaryLink" ng-click="scrollTo('diary'); selectedOption = 'diary';">
+                <a
                    ng-class="{'orange-text': selectedOption =='diary'}">Seguimiento Diario</a>
+            </div>
             </td>
         </tr>
         <tr>
             <td>
-                <a ng-click="scrollTo('historic'); selectedOption = 'historic';"
+                <div ng-click="scrollTo('historic'); selectedOption = 'historic';" id="historicLink">
+                <a
                    ng-class="{'orange-text': selectedOption =='historic'}">Hist&oacute;ricos</a>
+                </div>
             </td>
         </tr>
         <tr>
@@ -58,44 +72,58 @@
         </tr>
         <tr>
             <td class="parent-item-menu">
-                <a ng-click="scrollTo('drawdown'); selectedOption = 'drawdown';"
+                <div id="drawdownLink" ng-click="scrollTo('drawdown'); selectedOption = 'drawdown';">
+                <a
                    ng-class="{'orange-text': selectedOption =='drawdown'}">Cartera</a>
+                </div>
             </td>
         </tr>
         <tr>
             <td class="parent-item-menu">
-                <a ng-click="scrollTo('correlation'); selectedOption = 'correlation';"
+                <div id="correlationLink" ng-click="scrollTo('correlation'); selectedOption = 'correlation';">
+                <a
                    ng-class="{'orange-text': selectedOption =='correlation'}">Correlaci&oacute;n</a>
+                </div>
             </td>
         </tr>
         <tr>
             <td class="parent-item-menu">
-                <a ng-click="scrollTo('volatility'); selectedOption = 'volatility';"
+                <div id="volatilityLink" ng-click="scrollTo('volatility'); selectedOption = 'volatility';">
+                <a
                    ng-class="{'orange-text': selectedOption =='volatility'}">Volatilidad</a>
+                </div>
             </td>
         </tr>
         <tr>
             <td>
-                <a ng-click="scrollTo('week'); selectedOption = 'week';"
+                <div id="weekLink" ng-click="scrollTo('week'); selectedOption = 'week';">
+                <a
                    ng-class="{'orange-text': selectedOption =='week'}">La Semana, Estad&iacute;sticas</a>
+                </div>
             </td>
         </tr>
         <tr>
             <td>
-                <a ng-click="scrollTo('calendar');selectedOption = 'calendar';"
+                <div id="calendarLink" ng-click="scrollTo('calendar');selectedOption = 'calendar';">
+                <a
                    ng-class="{'orange-text': selectedOption =='calendar'}">Calendario</a>
+                </div>
             </td>
         </tr>
         <tr>
             <td>
-                <a ng-click="scrollTo('suscriptions');selectedOption = 'suscriptions';"
+                <div id="subscriptionsLink" ng-click="scrollTo('suscriptions');selectedOption = 'suscriptions';">
+                <a
                    ng-class="{'orange-text': selectedOption =='suscriptions'}">Mis Suscripciones</a>
+                </div>
             </td>
         </tr>
         <tr>
             <td>
-                <a ng-click="scrollTo('account'); selectedOption = 'account';"
+                <div id="accountLink" ng-click="scrollTo('account'); selectedOption = 'account';">
+                <a
                    ng-class="{'orange-text': selectedOption =='account'}">Mi Cuenta</a>
+                </div>
             </td>
         </tr>
     </table>

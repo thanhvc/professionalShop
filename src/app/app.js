@@ -139,10 +139,13 @@ angular.module('ngMo', [
             return activeTab;
         };
     })
-    .service('AnchorLinkService', function ($location, $anchorScroll){
+    .service('AnchorLinkService', function ($location, $anchorScroll,$window){
         this.scrollTo = function(id){
             $location.hash(id);
             $anchorScroll();
+        };
+        this.scrollTop = function(){
+            $window.scrollTo(0,0);
         };
     })
     .service('ArrayContainItemService', function () {
@@ -1049,7 +1052,8 @@ angular.module('ngMo', [
             $scope.errorSignIn = false;
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
-            AnchorLinkService.scrollTo('top');
+            //AnchorLinkService.scrollTo('top');
+            AnchorLinkService.scrollTop();
 
             if (toState.name == ("home") && fromState.name == "catalog"){
                 $timeout(function() { // wait for DOM, then restore scroll position

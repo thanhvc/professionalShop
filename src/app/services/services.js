@@ -117,8 +117,28 @@ angular.module('ngMo.services', [
 
     /*.directive("scrollDetailed", function ($window, PositionAnchorsDetailed) {
      return function(scope, element, attrs) {*/
-    .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService){
-        $scope.scrollTo = AnchorLinkService.scrollTo;
+    .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService,$timeout){
+        $scope.scrollTo = function(id) {
+            console.log("scrolling");
+            AnchorLinkService.scrollTo(id);
+        };
+        $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
+          console.log("change");
+            var url = $stateParams;
+            url = url.split("#");
+            var link = url[url.length-1]+"Link";
+            $timeout(function(){
+                var element = document.getElementById(link);
+                if (element != null) {
+                    element.click();
+                }/* else {
+                    document.getElementById("descriptionLink").click();
+                }*/
+
+            },100);
+            //$scope.$apply();
+        });
+
         $scope.anchors = null;
         $scope.location = $location;
         angular.element($window).bind("scroll", function(scope, element, attrs) {
