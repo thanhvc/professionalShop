@@ -1,7 +1,7 @@
 /**
  * Created by laia on 25/06/14.
  */
-var url = 'http://mo.devel.edosoftfactory.com';
+var url = 'http://marketobservatory.com';
 var App = function(){
 
     this.open = function(){

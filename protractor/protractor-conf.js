@@ -38,6 +38,7 @@ exports.config = {
         //expiration_last_month: '../src/app/automatic_mails/expiration_last_month_mail.protractor.js'
         //expiration_last_month_2: '../src/app/automatic_mails/expiration_last_month_mail_2.protractor.js'
         //login:'../src/app/home/login.protractor.js'
+        // expired_users:'../src/common/services/authentication/authentication_service.protractor.js'
     },
     multiCapabilities: [
         {

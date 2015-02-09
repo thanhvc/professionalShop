@@ -2,7 +2,7 @@
  * Created by Aitor on 23/09/14.
  */
 /*
-base_url = 'http://mo.devel.edosoftfactory.com/';
+base_url = 'http://marketobservatory.com/';
 url_suffix = '#/lookup-diary';
 var ptor = protractor.getInstance();
 var LookupWorstLoss = function () {
