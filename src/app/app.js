@@ -29,7 +29,8 @@ angular.module('ngMo', [
         'ngMo.detail',
        // 'ngMo.payment',
         'ngMo.paymentClosed', //fake payment
-        'ngMo.cancel_pack',
+        //'ngMo.cancel_pack',
+        'ngMo.fakeCancel_pack',
         'ngMo.renew',
         'tmh.dynamicLocale',
         'ngMo.changePassword',
