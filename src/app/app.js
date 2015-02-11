@@ -29,15 +29,16 @@ angular.module('ngMo', [
         'ngMo.detail',
        // 'ngMo.payment',
         'ngMo.paymentClosed', //fake payment
-        'ngMo.cancel_pack',
+        //'ngMo.cancel_pack',
+        'ngMo.fakeCancel_pack',
         'ngMo.renew',
         'tmh.dynamicLocale',
         'ngMo.changePassword',
         'ngMo.faq'
     ])
 
- .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
-
+ .config(function config($locationProvider, $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
+        $locationProvider.html5Mode(true);
         $stateProvider.state('home', {
             url: '/home?activated',
             views: {
