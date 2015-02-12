@@ -42,6 +42,7 @@
             config.headers = config.headers || {};
             if ($window.localStorage.token) {
                 config.headers['X-Session-Token'] = $window.localStorage.token;
+                config.headers['X-Username'] = $window.localStorage.email;
 
             }
             return config;

@@ -117,13 +117,31 @@ angular.module('ngMo.services', [
 
     /*.directive("scrollDetailed", function ($window, PositionAnchorsDetailed) {
      return function(scope, element, attrs) {*/
-    .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService){
-        $scope.scrollTo = AnchorLinkService.scrollTo;
+    .controller("DetailedCtrl", function($scope,$window,$location, PositionAnchorsDetailed,AnchorLinkService,$timeout){
+        $scope.scrollTo = function(id) {
+            AnchorLinkService.scrollTo(id);
+        };
+        $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
+            var url = $stateParams;
+            url = url.split("#");
+            var link = url[url.length-1]+"Link";
+            $timeout(function(){
+                var element = document.getElementById(link);
+                if (element != null) {
+                    element.click();
+                } else {
+                    AnchorLinkService.scrollTop();
+                }
+
+            },100);
+            //$scope.$apply();
+        });
+
         $scope.anchors = null;
         $scope.location = $location;
         angular.element($window).bind("scroll", function(scope, element, attrs) {
 
-            if ((location.hash.indexOf("#/detailed_description") == -1)  && ((location.hash.indexOf("#/summary") == -1) && (location.hash.indexOf("#/resources") == -1))) {
+            if ((location.pathname.indexOf("detailed_description") == -1) /* && ((location.pathname.indexOf("/summary") == -1)*/ && (location.pathname.indexOf("/resources") == -1)) {
                 return; //only in detailed description url
             }
             //menu position
@@ -178,14 +196,14 @@ angular.module('ngMo.services', [
 
         //try when 1 page
         angular.element(document).ready(function () {
-            subRoute =location.hash.split("#/detailed_description#");
+            subRoute =location.pathname.split("/detailed_description#");
             if (subRoute.length == 1) {
                 //if detailed_description is not the actual page, the length is 1... so we must check if is summary page or resources page
-                subRoute =location.hash.split("#/summary#");
-                if (subRoute.length == 1) {
+               // subRoute =location.pathname.split("/summary#");
+                //if (subRoute.length == 1) {
                     //if detailed_description is not the actual page, the length is 1... so we must check if is summary page
-                    subRoute = location.hash.split("#/resources#");
-                }
+                    subRoute = location.pathname.split("/resources#");
+                //}
             }
             if (subRoute.length == 2) {
                 subRoute = subRoute[1];

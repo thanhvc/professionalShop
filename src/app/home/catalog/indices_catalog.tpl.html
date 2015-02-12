@@ -22,7 +22,7 @@
     </div>
     <div class="region-catalog-container">{{selectedPack.region.name | uppercase}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate,'Anual'); $event.stopPropagation();" class="mo-button purchase-button">Al carro</button>
-    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (CET)</span>
+    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (GMT)</span>
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
@@ -82,13 +82,13 @@
                 <span class="cursor-help" tooltip-html-unsafe="{{pattern.exchName}}">{{pattern.exchSymbol }}</span></td>
             <td class="index-number-of-years-gain-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.win | twoDecimals}}</td>
             <td class="index-number-of-years-loss-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.loss | twoDecimals}}</td>
-            <td class="index-profit-accumulated-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.accumulatedReturn | twoDecimals}}</td>
-            <td class="index-profit-average-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.averageReturn | twoDecimals}}</td>
+            <td class="index-profit-accumulated-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.accumulatedReturn | number:0}}</td>
+            <td class="index-profit-average-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.averageReturn | oneDecimal}}</td>
             <td style="font-family: 'fontpo'"  class="index-duration-column-catalog border-right-thick-catalog prices-font10">
                 <span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
-            <td class="index-volatility-column-catalog prices-font10-bold" ng-if="pattern.volatility>=0">{{pattern.volatility | twoDecimals}}</td>
+            <td class="index-volatility-column-catalog prices-font10-bold" ng-if="pattern.volatility>=0">{{pattern.volatility | volatTruncate}}</td>
             <td class="index-volatility-column-catalog prices-font10-bold" ng-if="pattern.volatility<0">NA</td>
 
             <td style="border-right: 1px solid #6f7072 !important;"  class="index-status-column-catalog"><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->

@@ -619,6 +619,19 @@ angular.module('ngMo.correlation', [
             $scope.loadPage();
         };
 
+        $scope.clearAll = function() {
+
+            $scope.clearCorrelationList();
+            var emptyData = {};
+            emptyData.correlationResults=[];
+            emptyData.pairCorrelationResults=[];
+            emptyData.lastUpdateDateCorrelation=[];
+            emptyData.caption1=[];
+            emptyData.caption2=[];
+            updateCorrelationResultListSessionStorage(emptyData);
+            $scope.clearResults();
+        };
+
         $scope.correlate = function () {
 
             if ($scope.correlationList.length > 0) {

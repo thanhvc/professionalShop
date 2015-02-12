@@ -4,7 +4,7 @@
 
 /* The signup menu is correct*/
 
-var url = 'http://mo.devel.edosoftfactory.com/';
+var url = 'http://marketobservatory.com/';
 var SigunMenu = function() {
 
     // All relevant elements

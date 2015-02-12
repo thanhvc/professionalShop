@@ -3,21 +3,21 @@
     <table class="table-page-index" style="width:150px; margin-top: 0px; margin-right: 15px;" ng-class="{'menu-position' : true,   'menu-fix' : positionFix}">
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('brokers'); selectedOption = 'brokers';"
+                <div id="brokersLink" class="page-index-resource" ng-click="scrollTo('brokers'); selectedOption = 'brokers';"
                      ng-class="{'orange-text': selectedOption =='brokers'}">
                         Brokers
                 </div>
             </td>
         </tr>
         <td>
-            <div class="page-index-resource" ng-click="scrollTo('financial-services'); selectedOption = 'financial-services';"
+            <div id="financial-servicesLink" class="page-index-resource" ng-click="scrollTo('financial-services'); selectedOption = 'financial-services';"
                  ng-class="{'orange-text': selectedOption =='financial-services'}" >
                         Financial Services
             </div>
         </td>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('training'); selectedOption = 'training';"
+                <div id="trainingLink" class="page-index-resource" ng-click="scrollTo('training'); selectedOption = 'training';"
                      ng-class="{'orange-text': selectedOption =='training'}"  >
 
                         Training
@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('providers'); selectedOption = 'providers';"
+                <div id="providersLink" class="page-index-resource" ng-click="scrollTo('providers'); selectedOption = 'providers';"
                      ng-class="{'orange-text': selectedOption =='providers'}"   >
 
                     Data Provider
@@ -36,7 +36,7 @@
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('software'); selectedOption = 'software';"
+                <div id="softwareLink" class="page-index-resource" ng-click="scrollTo('software'); selectedOption = 'software';"
                      ng-class="{'orange-text': selectedOption =='software'}" >
                     Software
                 </div>
@@ -44,7 +44,7 @@
         </tr>
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('books'); selectedOption = 'books';"
+                <div id="booksLink" class="page-index-resource" ng-click="scrollTo('books'); selectedOption = 'books';"
                      ng-class="{'orange-text': selectedOption =='books'}" >
                     Books, Journals, Magazines
                 </div>
@@ -54,7 +54,7 @@
 
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('conferences'); selectedOption = 'conferences';"
+                <div id="conferencesLink" class="page-index-resource" ng-click="scrollTo('conferences'); selectedOption = 'conferences';"
                      ng-class="{'orange-text': selectedOption =='conferences'}"  >
 
                         Conferences, Meetings
@@ -66,8 +66,8 @@
 
         <tr>
             <td>
-                <div class="page-index-resource" ng-click="scrollTo('books2'); selectedOption = 'books2';"
-                     ng-class="{'orange-text': selectedOption =='books2'}"  >
+                <div id="companiesLink" class="page-index-resource" ng-click="scrollTo('companies'); selectedOption = 'companies';"
+                     ng-class="{'orange-text': selectedOption =='companies'}"  >
                     Finance spec. IT Companies
                 </div>
             </td>
@@ -198,11 +198,12 @@
                     <td class="dark-grey-row" style="width: 200px;">
                         <div   class="text-align-center">Description</div>
                     </td>
-                    <td class="dark-grey-row" style="width: 400px;">
-                        <div   class="text-align-center">Content</div>
-                    </td>
+
                     <td class="dark-grey-row" style="width: 180px;">
                         <div   class="text-align-center">Venue, dates &amp; contact</div>
+                    </td>
+                    <td class="dark-grey-row" style="width: 400px;">
+                        <div   class="text-align-center">Content</div>
                     </td>
                     <td class="dark-grey-row" style="width: 53px;">
                         <div  class="text-align-center">Price (EUR)</div>
@@ -216,22 +217,70 @@
                 </tr>
                 <tr class="grey-row">
                     <td>
-                        <div  class="resource-text">Precious Metals: Commercial &amp; Investment Operations</div>
+                        <div  class="resource-text">El "Trust" de Trigo y su uso para pequeños y medianos agricultores.</div>
                     </td>
                     <td>
-                        <div  class="resource-text">Patterns Identificaction. Preciosus Metals (PM) Fundamentals and Commercial Operations. PM World Indexes. Investable Instruments linked to PM Indexes. PM Futures Contracts Spec. World Stocks related PM. PM Stocks Patterns. PM Commodities Patterns.</div>
+                        <div  class="resource-text">Valladolid, Albacete.<br>  (Cámara de Comercio).  </div>
                     </td>
                     <td>
-                        <div   class="resource-text">Las Palmas. PO office, 5 a 7 may.   +3492654239</div>
+                        <div   class="resource-text">El trust agrícola. El mercado de Trigo cash en los principales
+                            productores Alemania y Francia y el mercado de cobertura Euronext/París. Cómo usar coberturas
+                            a Futuro vs Cash en Euronext en las diferentes fases siembra, crecimiento, maduración, recolección
+                            y comercialización. Las 3 fechas clave de avances de Producción en Alemania/Francia.</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text text-align-center"> </div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Planificado</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Español</div>
+                    </td>
+                </tr>
+                <tr class="white-row">
+                    <td>
+                        <div   class="resource-text">El "Trust" de Maíz y su uso para pequeños y medianos agricultores.</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">León. (Cámara de Comercio)</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">El trust agrícola. El mercado de Maíz cash en el principal productor Francia
+                            y el mercado de cobertura Euronext/París. Cómo usar coberturas a Futuro vs Cash en Euronext en las
+                            diferentes fases siembra, crecimiento, polinización, recolección y comercialización. Las fechas clave
+                            de avances de Producción en Francia.</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text text-align-center"> </div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Planificado</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Español</div>
+                    </td>
+                </tr>
+                <tr class="grey-row">
+                    <td>
+                        <div   class="resource-text">Precious Metals: Commercial & Investment Operations</div>
+                    </td>
+                    <td>
+                        <div   class="resource-text">Las Palmas. PO office, 5 a 7 may.</div>
+                    </td>
+                    <td>
+                        <div  class="resource-text">Patterns Identificaction. Preciosus Metals (PM) Fundamentals and Commercial Operations.
+                            PM World Indexes. Investable Instruments linked to PM Indexes. PM Futures Contracts Spec. World Stocks related
+                            PM. PM Stocks Patterns. PM Commodities Patterns. </div>
                     </td>
                     <td>
                         <div   class="resource-text text-align-center">800</div>
                     </td>
                     <td>
-                        <div   class="resource-text">Completed</div>
+                        <div  class="resource-text">Closed</div>
                     </td>
                     <td>
-                        <div  class="resource-text">English</div>
+                        <div  class="resource-text">Inglés</div>
                     </td>
                 </tr>
                 <tr class="white-row">
@@ -239,39 +288,46 @@
                         <div   class="resource-text">Summer AgroIndustry Outlook</div>
                     </td>
                     <td>
-                        <div   class="resource-text">Patterns Identificaction. AgroIndustry (AI) Fundamentals and Commercial Hedging. AI World Indexes. Instruments to Invest in AI. AI Futures Contracts Specification. World Stocks related AI. AI Stocks Patterns. June / July  Crops. Barley, Wheat, Oat.</div>
+                        <div   class="resource-text">Las Palmas. PO office, 8 a 11 jun. </div>
                     </td>
                     <td>
-                        <div  class="resource-text">Las Palmas. PO office, 8 a 11 jun.   +3492654239</div>
+                        <div   class="resource-text">Patterns Identificaction. AgroIndustry (AI) Fundamentals and Commercial
+                            Hedging. AI World Indexes. Instruments to Invest in AI. AI Futures Contracts Specification.
+                            World Stocks related AI. AI Stocks Patterns. June / July  Crops. Barley, Wheat, Oat.</div>
                     </td>
                     <td>
-                        <div   class="resource-text text-align-center">800</div>
+                        <div  class="resource-text text-align-center">800</div>
                     </td>
                     <td>
-                        <div   class="resource-text">Completed</div>
+                        <div  class="resource-text">Closed</div>
                     </td>
                     <td>
-                        <div   class="resource-text">English</div>
+                        <div   class="resource-text">Inglés</div>
                     </td>
                 </tr>
                 <tr class="grey-row">
                     <td>
-                        <div   class="resource-text">Oil &amp; Gas Industry Radiography</div>
+                        <div   class="resource-text">Oil & Gas Industry Radiography</div>
                     </td>
                     <td>
-                        <div   class="resource-text">Oil &amp; Gas (O&amp;G) Sectors &amp; Subsectors. O&amp;G Fundamentals and Commercial Hedging. World Energy Indexes. O&amp;G Emerging markets, O&amp;G Europe and O&amp;G NorthAmerica. O&amp;G Subsectors performance : Drilling, Equip. &amp; Services, Explorat. &amp; Product., Refining &amp; Marketing, Storage &amp; Transport., Holders. Investing in O or in G?. Instruments to Invest in O&amp;G. Futures Contracts Specification. Trading Crack 3-2-1, Crack 2-1-1 and Spreads through Patterns. World O&amp;G Subsector stocks Patterns.</div>
+                        <div   class="resource-text">Las Palmas. PO office, 22 a 26 jun.</div>
                     </td>
                     <td>
-                        <div  class="resource-text">Las Palmas. PO office, 8 a 11 jun.   +3492654239</div>
+                        <div   class="resource-text">Oil & Gas (O&G) Sectors & Subsectors. O&G Fundamentals and Commercial
+                            Hedging. World Energy Indexes. O&G Emerging markets, O&G Europe and O&G NorthAmerica. O&G
+                            Subsectors performance : Drilling, Equip. & Services, Explorat. & Product., Refining & Marketing,
+                            Storage & Transport., Holders. Investing in O or in G?. Instruments to Invest in O&G.
+                            Futures Contracts Specification. Trading Crack 3-2-1, Crack 2-1-1 and Spreads through
+                            Patterns. World O&G Subsector stocks Patterns.</div>
                     </td>
                     <td>
                         <div   class="resource-text text-align-center">900</div>
                     </td>
                     <td>
-                        <div  class="resource-text">Completed</div>
+                        <div  class="resource-text">Closed</div>
                     </td>
                     <td>
-                        <div  class="resource-text">English</div>
+                        <div  class="resource-text">Inglés</div>
                     </td>
                 </tr>
                 <tr class="white-row">
@@ -279,19 +335,21 @@
                         <div   class="resource-text">Soybean Patterns for Commercial Purposes</div>
                     </td>
                     <td>
-                        <div   class="resource-text">Soybean, Soy Oil and Soy Meal patterns. The crop. Fundamentals of Soybean, supply &amp; demand. Crushing ratio.  Speculation &amp; Hedging. Commercial operations roles: Patterns for Producers, Elevators, Terminal Warehouses, Transportation, Proccesors and Food manufacturers.</div>
+                        <div  class="resource-text">Las Palmas. PO office, 12 a 15 jul.</div>
                     </td>
                     <td>
-                        <div   class="resource-text">Las Palmas. PO office, 12 a 15 jul.   +3492654239</div>
+                        <div  class="resource-text">Soybean, Soy Oil and Soy Meal patterns. The crop. Fundamentals of Soybean,
+                            supply & demand. Crushing ratio.  Speculation & Hedging. Commercial operations roles: Patterns for Producers,
+                            Elevators, Terminal Warehouses, Transportation, Proccesors and Food manufacturers.</div>
                     </td>
                     <td>
                         <div  class="resource-text text-align-center">900</div>
                     </td>
                     <td>
-                        <div  class="resource-text">Completed</div>
+                        <div   class="resource-text">Completed</div>
                     </td>
                     <td>
-                        <div   class="resource-text">English</div>
+                        <div   class="resource-text">Inglés</div>
                     </td>
                 </tr>
                 <tr class="grey-row">
@@ -299,39 +357,44 @@
                         <div   class="resource-text">Asian Emerging Markets</div>
                     </td>
                     <td>
-                        <div   class="resource-text">Countries. Best Sectors and Local industries. Emerging Pan Asian Indexes. When to invest. Instruments to use. Top 30 performance stocks. Best periods to trade. World Industrial / emerging performance comparative.</div>
+                        <div   class="resource-text">Las Palmas. PO office, 4 a 6 sep.</div>
                     </td>
                     <td>
-                        <div   class="resource-text">Las Palmas. PO office, 4 a 6 sep. +3492654239</div>
+                        <div   class="resource-text">Countries. Best Sectors and Local industries.
+                            Emerging Pan Asian Indexes. When to invest. Instruments to use. Top 30
+                            performance stocks. Best periods to trade. World Industrial / emerging
+                            performance comparative. </div>
                     </td>
                     <td>
                         <div   class="resource-text text-align-center">800</div>
                     </td>
                     <td>
-                        <div  class="resource-text">Completed</div>
+                        <div  class="resource-text">Closed</div>
                     </td>
                     <td>
-                        <div  class="resource-text">English</div>
+                        <div  class="resource-text">Inglés</div>
                     </td>
                 </tr>
                 <tr class="white-row">
                     <td>
-                        <div   class="resource-text">Wheat for Whealth. Low Risk Strategies with Wheat Arbitrage and Spread Futures</div>
+                        <div   class="resource-text">Wheat for Whealth. Low Risk Strategies with Wheat Arbitrage and Spread Futures.</div>
                     </td>
                     <td>
-                        <div  class="resource-text">Chicago, Kansas, London &amp; Paris Wheat Futures: Product Spec. Crop cycle fundamentals difference. Arbitrage &amp; Spread Patterns. When and How, contract ratio &amp; deliverable months. Performance and expected drawdowns.</div>
+                        <div  class="resource-text">Las Palmas. PO office, 14 a 17 oct.</div>
                     </td>
                     <td>
-                        <div  class="resource-text">Las Palmas. PO office, 14 a 17 oct. +3492654239</div>
+                        <div  class="resource-text">Chicago, Kansas, London & Paris Wheat Futures: Product Spec.
+                            Crop cycle fundamentals difference. Arbitrage & Spread Patterns. When and How,
+                            contract ratio & deliverable months. Performance and expected drawdowns.   </div>
                     </td>
                     <td>
                         <div  class="resource-text text-align-center">1900</div>
                     </td>
                     <td>
-                        <div   class="resource-text">Completed</div>
+                        <div   class="resource-text">Closed</div>
                     </td>
                     <td>
-                        <div   class="resource-text">English</div>
+                        <div   class="resource-text">Inglés</div>
                     </td>
                 </tr>
                 </tbody>
@@ -453,7 +516,7 @@
             </table><br>
 
 
-            <table class="resources-table anchor-detailed" id="books2" name="books2" border="0">
+            <table class="resources-table anchor-detailed" id="companies" name="companies" border="0">
                 <tbody>
                 <tr>
                     <td class="header-orange-background" style="width: 200px;" colspan="3">
@@ -472,8 +535,25 @@
                     </td>
                 </tr>
                 <tr class="grey-row">
-                    <td colspan="3">
-                        <div   class="resource-text">&nbsp;</div>
+                    <td  >
+                        <div   class="resource-text">Apara</div>
+                    </td>
+                    <td  >
+                        <div   class="resource-text">Intelligence & data mining</div>
+                    </td>
+                    <td  >
+                        <div   class="resource-text"><a href="http://www.aparasw.com/">www.aparasw.com</a></div>
+                    </td>
+                </tr>
+                <tr class="white-row">
+                    <td  >
+                        <div   class="resource-text">Quality Objects</div>
+                    </td>
+                    <td  >
+                        <div   class="resource-text">Innovation in business technologies</div>
+                    </td>
+                    <td  >
+                        <div   class="resource-text"><a href="http://www.qualityobjects.com/">www.qualityobjects.com</a></div>
                     </td>
                 </tr>
                 </tbody>

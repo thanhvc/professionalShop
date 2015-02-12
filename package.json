@@ -1,7 +1,7 @@
 {
-  "author": "Aitor Carrera",
+  "author": "Edosoft Factory",
   "name": "mo-shopclient",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "homepage": "none",
   "licenses": {
     "type": "none",
@@ -31,6 +31,7 @@
     "grunt-html2js": "^0.1.9",
     "grunt-karma": "^0.8.2",
     "grunt-lesslint": "*",
+    "grunt-ng-annotate": "^0.9.2",
     "grunt-ngmin": "*",
     "grunt-protractor-runner": "*",
     "grunt-protractor-webdriver": "*",

@@ -6,9 +6,12 @@
         <option value="0">{{'INDICES'|translate}}</option>
         <option value="1">{{'INDEX_PAIRS'|translate}}</option>
     </select>
-    <select data-ng-model="filterOptions.filters.selectedOperation" class="filter-calendar"  ng-change="search();">
+    <select data-ng-model="filterOptions.filters.selectedOperation" class="filter-calendar"
+            ng-options="item.description|translate for item in filterOptions.selectors.indexOperations"
+            ng-change="search();">
         <option selected value="">- {{'CALENDAR.operation'|translate}} -</option>
-        <option ng-repeat="operation in filterOptions.selectors.indexOperations" value="{{operation.id}}">{{operation.description | translate}}</option>
+       <!-- <option ng-repeat="operation in filterOptions.selectors.indexOperations"
+                value="{{operation.id}}">{{operation.description | translate}}</option>-->
     </select>
     <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>{{'CALENDAR.favorites'|translate}}</label>
     <form name="calendarIndex">
@@ -17,7 +20,7 @@
            name="dayInput"
            ng-class=" {'warning-input':  (calendarIndex.dayInput.$error.pattern && (calendarIndex.dayInput.$dirty))}"
            ng-pattern="dayPattern" ng-trim="false">
-    <select data-ng-model="filterOptions.filters.order" class="select-order filter-calendar" ng-change="search();" ng-delay="3000">
+    <select data-ng-model="filterOptions.filters.order" class="select-order filter-calendar" ng-change="orderSearch();" ng-delay="3000">
         <option selected value="0">{{'CALENDAR.sort_entry'|translate}}</option>
         <option value="1">{{'CALENDAR.sort_exit'|translate}}</option>
     </select>

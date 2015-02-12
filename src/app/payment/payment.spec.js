@@ -19,13 +19,13 @@ describe('Payment controller', function()  {
         $controller('ConfirmPaymentCtrl',  {'$rootScope': $rootScope, '$http': _$http_, '$scope': $scope, 'isLogged': IsLogged});
 
     }));
-
-    it("should success when state start changes", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should success when state start changes", function ()  {
         $scope.$broadcast('$stateChangeStart');
         expect($scope.goToPatterns).toNotBe(undefined);
     });
-
-    it("should success when state changes", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should success when state changes", function ()  {
         $scope.$broadcast('$stateChangeSuccess',$state,{},{},{});
     });
 
@@ -52,13 +52,13 @@ describe('ConfirmPaymentCardCtrl controller', function()  {
         $controller('ConfirmPaymentCardCtrl',  {'$rootScope': $rootScope, '$http': _$http_, '$scope': $scope, 'isLogged': IsLogged});
 
     }));
-
-    it("should success when state start changes", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should success when state start changes", function ()  {
         $scope.$broadcast('$stateChangeStart');
 
     });
-
-    it("should success when state changes", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should success when state changes", function ()  {
         $scope.$broadcast('$stateChangeSuccess',$state,{},{},{});
     });
 
@@ -90,34 +90,34 @@ describe('SummaryPay controller', function()  {
 
 
     }));
-
-    it("should success when state start changes", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should success when state start changes", function ()  {
         $scope.$broadcast('$stateChangeStart');
     });
-
-    it("should success when state changes", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should success when state changes", function ()  {
         $scope.$broadcast('$stateChangeSuccess',$state,{},{},{});
     });
-
-    it("should notify when PayPal gives an error", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should notify when PayPal gives an error", function ()  {
         $scope.$broadcast('errorPaypal');
     });
-
-    it("should return the short name of a given month", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should return the short name of a given month", function ()  {
         $scope.getMonthShortName(new Date());
     });
-
-    it("should translate duration", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should translate duration", function ()  {
         var res = $scope.translateDuration(1);
         expect(res).toBeDefined();
     });
-
-    it("should load payment", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should load payment", function ()  {
         $scope.loadPayment();
         expect($scope.loadPayment).toBeDefined();
     });
-
-    it("should let the user pay", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should let the user pay", function ()  {
         $scope.conditions = true;
         $scope.doPayment();
         expect($scope.errorConditions).toBe(false);
@@ -158,38 +158,39 @@ describe('CreditPayCtrl controller', function()  {
         $http.when('GET', $rootScope.urlService + '/user').respond(200);
 
     }));
-
-    it("should success when state start changes", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should success when state start changes", function ()  {
         $scope.$broadcast('$stateChangeStart');
     });
-
-    it('should success when changing state', function(){
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit('should success when changing state', function(){
         $state.data = {pageTitle : "Market Observatory"};
         $scope.$broadcast('$stateChangeSuccess',$state,{},{},{});
     });
-
-    it('', function(){
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit('', function(){
         $scope.maestro();
     });
-
-    it('should load summary', function(){
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit('should load summary', function(){
 
         $scope.loadSummary();
     });
-
-    it('should be able to load a user', function(){
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit('should be able to load a user', function(){
         $scope.loadUser();
         expect($scope.loadUser).toBeDefined();
     });
-
-    it('should let the user pay with credit cart', function(){
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit('should let the user pay with credit cart', function(){
         $scope.payForm= { $valid: false};
         $scope.editData = true;
         $scope.payWithCard();
         expect($scope.status).toBe("NONE");
     });
+    //COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
     //same test as above but must enter another branch
-    it('should let the user pay with credit cart', function(){
+    xit('should let the user pay with credit cart', function(){
         $scope.stockItems = ['item1'];
         $scope.pairsItems = ['item1'];
         $scope.indicesItems = ['item1'];
@@ -221,8 +222,8 @@ describe('Payment Service', function()  {
 
 
     }));
-
-    it("should be able to get the payments", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should be able to get the payments", function ()  {
         var item = {
             "productType" : 'STOCK',
             "patternType" : "SIMPLE",
@@ -233,9 +234,9 @@ describe('Payment Service', function()  {
         service.getPayments('', 'callback');
         expect(service.getPayments).toBeDefined();
     });
-
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
     //another branch of the test above
-    it("should be able to get the payments", function ()  {
+    xit("should be able to get the payments", function ()  {
         var item = {
             "productType" : 'STOCK',
             "patternType" : "SIMPLE",
@@ -246,8 +247,9 @@ describe('Payment Service', function()  {
         service.getPayments('', 'callback');
         expect(service.getPayments).toBeDefined();
     });
+    //COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
       //another branch of the test above
-    it("should be able to get the payments", function ()  {
+    xit("should be able to get the payments", function ()  {
         var item = {
             "productType" : 'STOCK',
             "patternType" : "SIMPLE",
@@ -260,8 +262,8 @@ describe('Payment Service', function()  {
     });
 
 
-
-    it("should be able to get the duration of a pack by a given id", function ()  {
+//COMMENTED TEST FOR DISABLE PURCHASES, THIS TEST MUST WORK WHEN THE PAYMENT METHOD IS ACTIVE AGAIN
+    xit("should be able to get the duration of a pack by a given id", function ()  {
         service.getDurationFromId(1);
         expect(service.getDurationFromId).toBeDefined();
     });

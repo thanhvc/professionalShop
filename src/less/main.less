@@ -32,6 +32,10 @@
 input[type="text"], input[type="password"], input[type="email"]{
   border-radius: 0;
 }
+img{
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode:bicubic;
+}
 
 :focus{
   outline: -webkit-focus-ring-color auto 0px;
@@ -1958,10 +1962,21 @@ select{
     }
   }
 
+  .detailed_description_img {
+    img {
+    }
+  }
 
   /**
   * Public zone
   */
+.submenu-float-toolsInvestment-public {
+  margin-right: 100px;
+}
+
+.submenu-float-toolsInvestment-private {
+  margin-right: 177px;
+}
 
 .remember-final-text {
   font-family: fontpo-bold;
@@ -2223,6 +2238,12 @@ tooltip-placement=" top ultra-left-tooltip" **/
   margin-left: -200px;
   padding: 0 5px;
 }
+.tooltip.top-left-currency {
+  margin-left:-70px;
+  padding: 0 10px;
+  float:right !important;
+}
+
 .tooltip.medium-right {
   margin-left: 200px;
   padding: 0 5px;

@@ -27,16 +27,18 @@ angular.module('ngMo', [
         'auth',
         'ngMo.Activate',
         'ngMo.detail',
-        'ngMo.payment',
-        'ngMo.cancel_pack',
+       // 'ngMo.payment',
+        'ngMo.paymentClosed', //fake payment
+        //'ngMo.cancel_pack',
+        'ngMo.fakeCancel_pack',
         'ngMo.renew',
         'tmh.dynamicLocale',
         'ngMo.changePassword',
         'ngMo.faq'
-    ])
+])
 
- .config(function config( $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
-
+ .config(function config($locationProvider, $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
+        $locationProvider.html5Mode(true);
         $stateProvider.state('home', {
             url: '/home?activated',
             views: {
@@ -138,10 +140,13 @@ angular.module('ngMo', [
             return activeTab;
         };
     })
-    .service('AnchorLinkService', function ($location, $anchorScroll){
+    .service('AnchorLinkService', function ($location, $anchorScroll,$window){
         this.scrollTo = function(id){
             $location.hash(id);
             $anchorScroll();
+        };
+        this.scrollTop = function(){
+            $window.scrollTo(0,0);
         };
     })
     .service('ArrayContainItemService', function () {
@@ -161,6 +166,30 @@ angular.module('ngMo', [
             }
         };
     })
+    .service('MetaInformation', function() {
+        var metaDescription = '';
+        var metaKeywords = '';
+        return {
+            metaDescription: function() { return metaDescription; },
+            metaKeywords: function() { return metaKeywords; },
+            reset: function() {
+                metaDescription = '';
+                metaKeywords = '';
+            },
+            setMetaDescription: function(newMetaDescription) {
+                metaDescription = newMetaDescription;
+            },
+            appendMetaKeywords: function(newKeywords) {
+                for (var key in newKeywords) {
+                    if (metaKeywords === '') {
+                        metaKeywords += newKeywords[key].name;
+                    } else {
+                        metaKeywords += ', ' + newKeywords[key].name;
+                    }
+                }
+            }
+        };
+    })
     .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
         return function(n){
             //return a string with 2 decimal if exists..
@@ -174,11 +203,86 @@ angular.module('ngMo', [
             return roundedValue.toString();
         };
     })
+    .filter('oneDecimal', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
+        return function(n){
+            //return a string with 2 decimal if exists..
+            //xx.xxxx -> xx.xx
+            //xx.x -> xx.x
+            //xx -> xx
+            roundedValue = 0.0;
+            if (n != null && !isNaN(n)) {
+                roundedValue = Math.round(n * 10) / 10;
+            }
+            return roundedValue.toString();
+        };
+    })
     .filter('sectorName', function(){ //TRANSFORM A SECTOR NAME WITHOUT THE SECTOR WORD
         return function(n){
             if (typeof n !== "undefined" && n != null) {
                 x= n.replace(" Sector","");
                 return x.replace(" SECTOR","");
+            } else {
+                return n;
+            }
+
+        };
+    })
+    .filter('sectorNameFromId', function($filter){ //TRANSFORM A SECTOR NAME WITHOUT THE SECTOR WORD
+        return function(n){
+            if (typeof n !== "undefined" && n != null) {
+                if (n === "SIN CLASIFICAR") {
+                    return n;// special case
+                }
+                x= n.replace(" Sector","");
+                x = x.replace(" SECTOR","");
+                //now capitalize all except country code (last word if have 2 letters)
+                nameArray = x.split(" ");
+                if (nameArray.length>1) {
+                    finalName ="";
+                    for (i=0;i<nameArray.length-1;i++) {
+                        finalName += $filter("capitalize")(nameArray[i])+ " ";
+                    }
+                    //now check the last word, if is 2 digits (country code)
+                    if (nameArray[nameArray.length-1].length === 2) {
+                        //country code case
+                        finalName +=  nameArray[nameArray.length-1];
+                    } else {
+                        finalName += $filter("capitalize")(nameArray[nameArray.length-1]);
+                    }
+                    return finalName;
+                } else {
+                    return $filter('capitalize')(x);
+                }
+            } else {
+                return n;
+            }
+
+        };
+    })
+    .filter('industryNameFromId', function($filter){ //TRANSFORM A SECTOR NAME WITHOUT THE SECTOR WORD
+        return function(n){
+            if (typeof n !== "undefined" && n != null) {
+                if (n === "SIN CLASIFICAR") {
+                    return n;// special case
+                }
+                //now capitalize all except country code (last word if have 2 letters)
+                nameArray = n.split(" ");
+                if (nameArray.length>1) {
+                    finalName ="";
+                    for (i=0;i<nameArray.length-1;i++) {
+                        finalName += $filter("capitalize")(nameArray[i])+ " ";
+                    }
+                    //now check the last word, if is 2 digits (country code)
+                    if (nameArray[nameArray.length-1].length === 2) {
+                        //country code case
+                        finalName +=  nameArray[nameArray.length-1];
+                    } else {
+                        finalName += $filter("capitalize")(nameArray[nameArray.length-1]);
+                    }
+                    return finalName;
+                } else {
+                    return $filter('capitalize')(n);
+                }
             } else {
                 return n;
             }
@@ -943,6 +1047,10 @@ angular.module('ngMo', [
         //Set when is logged
         IsLogged.checkLogged();
 
+        $scope.scrollToHomeTable = function() {
+            AnchorLinkService.scrollTo("tabsHome");
+        };
+
         $scope.emailRemember = "";
         $scope.mailSent = false;
         $scope.rememberPassword = function () {
@@ -969,7 +1077,6 @@ angular.module('ngMo', [
 
             if ($location.path() == "/home" && toState.name == "catalog"){
                 $scope.scrollPos = window.scrollY;
-                console.log($scope.scrollPos );
             }
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -983,13 +1090,13 @@ angular.module('ngMo', [
             $scope.errorSignIn = false;
             $scope.$watch('actualSubmenu', function(){});
             $scope.$watch('selectSubmenu', function(){});
-            AnchorLinkService.scrollTo('top');
+            //AnchorLinkService.scrollTo('top');
+            AnchorLinkService.scrollTop();
 
             if (toState.name == ("home") && fromState.name == "catalog"){
                 $timeout(function() { // wait for DOM, then restore scroll position
                     window.scroll(0,  $scope.scrollPos ? $scope.scrollPos : 0);
                 }, 1000);
-                console.log($scope.scrollPos );
             }
 
 
@@ -1096,7 +1203,7 @@ angular.module('ngMo', [
 /**
  * Directive for public nav
  */
-    .directive('publicMenu',function ($compile, $rootScope){
+    .directive('publicMenu',function ($compile, $rootScope,$window){
         return {
             controller: function($scope, $state){
                 /**
@@ -1120,26 +1227,37 @@ angular.module('ngMo', [
                $scope.$watch('actualSubmenu', function(){});
                $scope.$watch('selectSubmenu', function(){});
                var isPresent = false;
+                $scope.checkPublicStatus = function() {
+                    if ($rootScope.isLog && !isPresent) {
+
+                        if ($window.localStorage.expiredUser !== "true") {
+                            //if not is a expiredUser, allow enter to my patterns (because is a normal user)
+                            var itemPublicMenu = angular.element("<ul id=\"new-item-menu\" class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
+                                "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
+                                "ng-mouseleave=\"onMouseLeaveMenu()\"" +
+                                "ng-class=\"{'item-nav-hover':actualMenu == 'my-patterns-nav'}\">" +
+                                "<a ui-sref=\"my-patterns\">" +
+                                "Mis Patrones" +
+                                "</a></ul>");
+                            element.append(itemPublicMenu);
+                            isPresent = true;
+                        }
+                        $compile(element.contents())($scope);
+                    }else if(!$rootScope.isLog && isPresent){
+                        isPresent = false;
+                        var itemmenu = angular.element(document.querySelector("#new-item-menu"));
+                        itemmenu.remove();
+                        //element.remove(itemmenu);
+                        $compile(element.contents())($scope);
+                    }
+                };
+
                $scope.$watch('isLog', function(){
-                   if ($rootScope.isLog && !isPresent) {
-                       isPresent = true;
-                       var itemPublicMenu = angular.element("<ul id=\"new-item-menu\" class=\"public-menu-logged\"><li id=\"my-patterns-nav\" class=\"nav-li seventh-item-menu\"" +
-                           "ng-mouseenter=\"onMouseEnterMenu('my-patterns-nav','')\"" +
-                           "ng-mouseleave=\"onMouseLeaveMenu()\"" +
-                           "ng-class=\"{'item-nav-hover':actualMenu == 'my-patterns-nav'}\">" +
-                           "<a ui-sref=\"my-patterns\">" +
-                           "Mis Patrones" +
-                           "</a></ul>");
-                       element.append(itemPublicMenu);
-                       $compile(element.contents())($scope);
-                   }else if(!$rootScope.isLog && isPresent){
-                       isPresent = false;
-                       var itemmenu = angular.element(document.querySelector("#new-item-menu"));
-                       itemmenu.remove();
-                       //element.remove(itemmenu);
-                       $compile(element.contents())($scope);
-                   }
+                   $scope.checkPublicStatus();
                });
+                $scope.$on('userStatusChanged',function(){
+                    $scope.checkPublicStatus();
+                });
             },
             templateUrl:'layout_templates/public-menu.tpl.html'
         };
@@ -1176,7 +1294,7 @@ angular.module('ngMo', [
 
     .directive('privateMenu',function (){
         return {
-            controller: function($scope, $state){
+            controller: function($scope, $state,$window){
                 $scope.onMouseEnterMenu = function(idMenu, idSubmenu) {
                     $scope.actualMenu = idMenu;
                     $scope.actualSubmenu = idSubmenu;
@@ -1191,6 +1309,21 @@ angular.module('ngMo', [
                     $scope.actualSubmenu = '';
                     $scope.actualItemSubmenu = '';
                 };
+
+
+                $scope.checkPrivateStatus = function() {
+                    $scope.expiredUser  =false;
+                    if (typeof $window.localStorage.expiredUser !== "undefined") {
+                        if ($window.localStorage.expiredUser === "true") {
+                            $scope.expiredUser = true;
+                        }
+                    }
+                };
+                $scope.checkPrivateStatus();
+                $scope.$on('userStatusChanged',function(event){
+                    $scope.checkPrivateStatus();
+                });
+
             },
             link: function($scope) {
             },
@@ -2267,4 +2400,28 @@ var GenericModalCtrl = function ($scope, $modalInstance, $timeout,$sce,mode,mess
     $timeout(function () {
         $scope.close();
     }, 3000);
+};
+
+var ExpiredModalCtrl = function ($scope, $modalInstance, $timeout,$sce,mode,message,AnchorLinkService) {
+    $scope.message = $sce.trustAsHtml(message);//service to encode to HTml if necessary
+    $scope.mode = mode;
+    $scope.opened = true;
+    $scope.scrollToTabs = function(){
+        AnchorLinkService.scrollTo("tabsHome");
+    };
+
+    $scope.close = function () {
+        if ($scope.opened) {
+            $modalInstance.close();
+            $scope.opened= false;
+        }
+    };
+    $timeout(function() { //the body click event will be in a 1sec timeout, the modal will be shown minimun 1 second
+        $scope.$on("body-click",function(){
+            $scope.close();
+        },1000);
+    });
+     $timeout(function () {
+        $scope.close();
+    }, 5000);
 };

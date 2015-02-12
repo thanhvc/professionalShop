@@ -161,7 +161,7 @@
                         <th class="label-date-header-detail"><img src='assets/img/entry_orange_arrow.png'>{{'DETAIL.entry_date'|translate}}</th>
                         <th>{{ infoPattern.entryDate | date: 'dd MMM'}}</th>
                         <th class="currency-detail" rowspan="2">
-                            <div  tooltip-html-unsafe="{{infoPattern.currencyName}}" class="detail-div-tooltip-container cursor-help">
+                            <div  tooltip-html-unsafe="{{infoPattern.currencyName}}" class="detail-div-tooltip-container cursor-help" tooltip-placement="top-left-currency">
                                 <div class="detail-separator"><img src='assets/img/currency-detail.png'>{{infoPattern.currency}}</div>
                             </div>
                         </th>
@@ -294,7 +294,7 @@
     <div class="float-left">
         <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color-dark-background': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
         <br>
-        {{'DETAIL.close_price'|translate}} / {{'DETAIL.stational_pattern'|translate}} ({{patternYear - 14}}-{{patternYear}})
+        {{'DETAIL.close_price'|translate}} / {{'DETAIL.stational_pattern'|translate}} ({{graphYear - 14}}-{{graphYear}})
     </div>
     <div class="float-right" style="margin-top: 15px;">
         <div class="year-caption"></div>{{'DETAIL.pattern_15'|translate}} <div class="price-caption"></div> {{'DETAIL.price'|translate}}
@@ -307,7 +307,7 @@
     <div class="float-left">
         <span ng-class="{'buy-color': infoPattern.patternType == 'BULLISH', 'sell-color-dark-background': infoPattern.patternType == 'BEARISH'}">{{infoPattern.name}}</span>
         <br>
-        {{'DETAIL.stational_pattern'|translate}} ({{patternYear - 14}}-{{patternYear}}) / {{'DETAIL.stational_pattern_6'|translate}} ({{patternYear - 5}}-{{patternYear}})
+        {{'DETAIL.stational_pattern'|translate}} ({{graphYear - 14}}-{{graphYear}}) / {{'DETAIL.stational_pattern_6'|translate}} ({{graphYear - 5}}-{{graphYear}})
     </div>
     <div class="float-right" style="margin-top: 15px;">
         <div class="year-caption"></div>{{'DETAIL.pattern_15'|translate}} <div class="six-year-caption"></div> {{'DETAIL.pattern_6'|translate}}

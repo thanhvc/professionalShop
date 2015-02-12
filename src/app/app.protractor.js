@@ -2,7 +2,7 @@
  * Created by laia on 2/06/14.
 *
  * Created by Aitor on 28/05/14.*/
-var url = 'http://mo.devel.edosoftfactory.com/#/home';
+var url = 'http://marketobservatory.com/#/home';
 //Check if login box fades in
 var App = function(){
 

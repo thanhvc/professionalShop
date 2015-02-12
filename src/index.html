@@ -2,7 +2,11 @@
 <html ng-app="ngMo" ng-controller="AppCtrl">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="fragment" content="!">
+    <meta name="description" content="{{ MetaInformation.metaDescription() }}">
+    <meta name="keywords" content="{{ MetaInformation.metaKeywords() }}">
     <link rel="shortcut icon" type="image/png" href="assets/img/favicon_mo_16.ico"/>
+    <base href="/">
     <title ng-bind="pageTitle"></title>
 
     <!-- TODO:social media tags -->
@@ -18,7 +22,8 @@
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-48367748-2', 'auto');
+      //  ga('create', 'UA-48367748-2', 'auto');
+        ga('create', 'ga_code_tag', 'auto');
         ga('send', 'pageview');
 
     </script>
@@ -113,7 +118,6 @@
                     <span class="footer-title-text">Herramientas del Inversor</span><br>
                     <a href="#/resources">Recursos</a><br>
                     <a href="#/articles">Art&iacute;culos</a><br>
-                    <a href="#/symbols_and_exchanges">S&iacute;mbolos y Definiciones</a><br>
                 </div>
                 <div class="url-footer-container sixth-footer-container">
                     <span class="footer-title-text">Contacto</span><br>
@@ -130,7 +134,7 @@
             <footer class="container">
                 <span class="footerBottomText">&copy; Market Observatory | {{actualDate | date: 'yyyy'}} | </span>
                     <a ui-sref="privacy_policy">Pol&iacute;tica de privacidad</a>
-                <span class="footer-bottom-text">0.3.14 build 4</span>
+                <span class="footer-bottom-text">0.3.14 build 14</span>
                 <span class="footer-bottom-text">Version</span>
             </footer>
         </div>

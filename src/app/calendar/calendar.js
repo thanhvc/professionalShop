@@ -23,6 +23,9 @@ angular.module('ngMo.calendar', [
                 IsLogged: "IsLogged",
                 logged: function(IsLogged) {
                     IsLogged.isLogged();
+                },
+                weekDate: function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdateweek'});
                 }
             }
         });
@@ -32,7 +35,7 @@ angular.module('ngMo.calendar', [
     })
 
     .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged,
-                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope, $translatePartialLoader,$filter) {//<- use location.search()
+                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope, $translatePartialLoader,$filter,weekDate) {//<- use location.search()
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -42,6 +45,10 @@ angular.module('ngMo.calendar', [
             }
             IsLogged.isLogged(true);
         });
+        //this is to say to the day filters that is the first time entering in the page, each time the user enters in the calendar page, will load the
+        //filters conditionated by this var
+        $scope.firstLoad = true;
+        $scope.changingOrder = false;//changing order set to true to reload filters
         $scope.dayPattern = /^\d+$/;
         $translatePartialLoader.addPart("calendar");
         $scope.loading= true;
@@ -75,6 +82,28 @@ angular.module('ngMo.calendar', [
             $scope.saveUrlParams();
         };
 
+        $scope.getDefaultDay = function() {
+
+            var DAY = 86400000;//day in millisecs
+            var today = new Date(weekDate.data.actualDate);
+            var todayDay = today.getDate();
+            var monday = new Date();
+            var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
+            //monday.setDate(today.getDate()-dayOfWeek);
+            var ms = today.getTime() - (DAY * dayOfWeek);
+            monday = new Date(ms);
+
+            var mondayDay = monday.getDate();//take monday
+            var lastFriday = new Date(monday.getTime() - (DAY * 2));
+            //substract 2 days to go to last friday
+            var fridayDay = lastFriday.getDate();
+            if (fridayDay > todayDay) { //if the last friday is > monday, is the past month
+                //so send 1, first day of month
+             return 1;
+            } else {
+                return fridayDay;
+            }
+        };
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
         $scope.restartFilter = function () {
@@ -93,8 +122,8 @@ angular.module('ngMo.calendar', [
                     selectedRegion: "",
                     selectedMarket: "",
                     selectedOperation: "",
-                    dayDateInput: "",
-                    order: 0,
+                    dayDateInput: $scope.getDefaultDay()+"",
+                    order: 1,
                     index_type: TabsService.getActiveIndexType(),
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
@@ -119,6 +148,11 @@ angular.module('ngMo.calendar', [
                     ]
                 }
             };
+            if ($scope.firstLoad && $scope.filterOptions.filters.dayDateInput == null) {
+                $scope.filterOptions.filters.dayDateInput = $scope.getDefaultDay() + ""; //get first day of month
+                //or past friday
+            }
+            //$scope.firstLoad = false;
             if (!$scope.filterOptions.months) {
                 $scope.filterOptions.months = MonthSelectorService.getCalendarListMonths();
             }
@@ -166,7 +200,7 @@ angular.module('ngMo.calendar', [
                 urlParamsSend.qmarket = urlParams.selectedMarket;
             }
             if (urlParams.selectedOperation) {
-                urlParamsSend.qop = urlParams.selectedOperation;
+                urlParamsSend.qop = urlParams.selectedOperation.id;
             }
             if (urlParams.index_type) {
                 urlParamsSend.qindex = urlParams.index_type;
@@ -219,25 +253,28 @@ angular.module('ngMo.calendar', [
                 tab_type: (params.qtab ? params.qtab : "" ),
                 active_tab: (params.qacttab ? parseInt(params.qacttab, 10) : TabsService.getActiveTab() ),
                 favourite: (params.qfav ? params.qfav : "" ),
-                order: (params.qorder ? params.qorder : 0),
+                order: (params.qorder ? params.qorder : 1),
                 selectedMarket: (params.qmarket ? params.qmarket : ""),
                 selectedRegion: (params.qregion ? params.qregion : ""),
                 dayDateInput: (params.qday ? params.qday : null)
 
             };
+            /*if ($scope.firstLoad && filters.dayDateInput == null) {
+                filters.dayDateInput = $scope.getDefaultDay() + ""; //get first day of month
+                //or past friday
+            }*/
+            $scope.firstLoad = false;
             //special case for index
             if ((filters.active_tab === 2)) {//case of index
-
-                $scope.selectedTypeIndice = parseInt(filters.index_type, 10);
                 //only for index, not pair index
-                if ((filters.index_type === 0) || (filters.index_type === "0")) {
-                    filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop, 10)].id : "" );
+                if ((filters.index_type ===0) || (filters.index_type ==="0")) {
+                    filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operationsIndex[parseInt(params.qop,10)] : "" );
                 } else {
-                    filters.selectedOperation = "";
+                    filters.selectedOperation="";
                 }
 
             } else {
-                filters.selectedOperation = (typeof params.qop !== "undefined" ? $scope.filterOptions.selectors.operations[parseInt(params.qop, 10)].id : "" );
+                filters.selectedOperation= (typeof params.qop !== "undefined" ?  $scope.filterOptions.selectors.operations[parseInt(params.qop,10)] : "" );
             }
 
 
@@ -412,13 +449,28 @@ angular.module('ngMo.calendar', [
 
         $scope.search = function () {
             $scope.startLoading();
+            if ($scope.changingOrder) { //if is changing Order reload filters
+                switch (TabsService.getActiveTab()) {
+                    case 0:     //stocks
+                        $scope.refreshSelectors(['regions', 'markets']);
+                        break;
+                    case 1:     //pairs
+                        $scope.refreshSelectors(['regions']);
+                        break;
+                    case 2:     //index (pair and index)
+                        break;
+                    case 3:     //futures
+                        $scope.refreshSelectors(['markets']);
+                        break;
+                }
+                $scope.changingOrder=false;
+            }
             $scope.applyFilters();
         };
         //order Search is the same but with a wait of 5 seconds, is used in the order selector
         $scope.orderSearch = function () {
-            $timeout(function () {
-                $scope.applyFilters();
-            }, 2000);
+            $scope.changingOrder=true;
+            $scope.search();
         };
 
         /*apply filters to search, restarting the page*/
@@ -526,19 +578,35 @@ angular.module('ngMo.calendar', [
             $scope.lastDateMonth();
             $scope.obtainDays();
         });
-
+        $scope.isEmpty = function(o) {
+            for ( var p in o ) {
+                if ( o.hasOwnProperty( p ) ) { return false; }
+            }
+            return true;
+        };
         $scope.restartFilter();
         $scope.startLoading();
         if ($location.search()) {
-            $scope.loadUrlParams();
+            var params = $location.search();
+            if ($scope.isEmpty(params)) {
+                $scope.saveUrlParams();
+               // $scope.lastDateMonth();
+               // $scope.obtainDays();
+            } else {
+                $rootScope.$broadcast("$locationChangeSuccess");
+            }
+
+            /*$scope.loadUrlParams();
             $scope.lastDateMonth();
-            $scope.obtainDays();
+            $scope.obtainDays();*/
         }
 
         $scope.lastDateMonth();
-        $scope.obtainDays();
+        //$scope.obtainDays();
 
         $scope.urlSelected = templateTables[$scope.transformTab($scope.selectedTab, $scope.selectedTypeIndice)];
+
+
 
         $scope.obtainCalendarPdf = function () {
             $scope.isDisabled = true;
@@ -621,7 +689,7 @@ angular.module('ngMo.calendar', [
                     'year': filtering.month.year,
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
-                    'operation': filtering.selectedOperation,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
                     'favourites': filtering.favourite
                 }
             };
@@ -662,7 +730,8 @@ angular.module('ngMo.calendar', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'view': location.hash.replace("/#","")
+                    'view': "calendar",
+                    'order': parseInt(filtering.order, 10)
                 }
             };
 

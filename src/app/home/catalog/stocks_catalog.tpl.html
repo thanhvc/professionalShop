@@ -31,7 +31,7 @@
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate,'Anual'); $event.stopPropagation();"
             class="mo-button purchase-button">Al carro
     </button>
-    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (CET)</span>
+    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (GMT)</span>
 
     <div class="header-catalog-table">
         <div class="catalog-filter">
@@ -137,13 +137,13 @@
                 {{pattern.win | twoDecimals}}
             </td>
             <td class="stock-year-number-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
-            <td class="stock-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | twoDecimals}}</td>
-            <td class="stock-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
+            <td class="stock-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | number:0}}</td>
+            <td class="stock-profit-average-column-catalog">{{pattern.averageReturn | oneDecimal}}</td>
             <td class="stock-duration-column-catalog"><span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
                 <span ng-show="(pattern.duration >92)">Más de 3</span></td>
-            <td class="stock-volatility-column-catalog" ng-if="pattern.volatility>=0">{{pattern.volatility | twoDecimals}}</td>
-            <td class="stock-volatility-column-catalog" ng-if="pattern.volatility<0">NA</td>
+            <td class="stock-volatility-column-catalog" ng-if="pattern.volatility>=0">{{pattern.volatility | volatTruncate}}</td>
+            <td class="stock-volatility-column-catalog" ng-if="pattern.volatility<0">n.a.</td>
             <td class="stock-status-column-catalog">
                <!-- <div tooltip="{{pattern.state}}" class="state-sphere"
                      ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"> </div>-->

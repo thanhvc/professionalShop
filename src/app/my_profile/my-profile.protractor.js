@@ -2,7 +2,7 @@
  * Created by laia on 11/08/14.
  */
 
-var url = "http://mo.devel.edosoftfactory.com";
+var url = "http://marketobservatory.com";
 
  var Profile = function() {
 

@@ -250,10 +250,22 @@ angular.module('singUp', [])
 
             $scope.submit = function() {
                 data = $scope.login;
+                //special login from catalog page, set a special parameter
+                data.buyLogin = true;
                 $http.post($rootScope.urlService+'/login', data)
                     .success(function (data, status, headers, config) {
                         $window.localStorage.token = data.authToken;
                         $window.localStorage.username = data.name;
+                        $window.localStorage.email = data.username;
+                        $window.localStorage.expiredUser=false;
+                        //is a expired user trying to buy??
+                        if (typeof data.expiredUser !== "undefined") {
+                            if (data.expiredUser) {
+                                $window.localStorage.expiredUser = true;
+                            }
+                        }
+                        $rootScope.$broadcast("userStatusChanged");
+
                         authService.loginConfirmed();
                         $scope.errorSignIn = false;
                         // $state.go('my-patterns');

@@ -46,84 +46,23 @@ angular.module('ngMo.historic', [
             }
             IsLogged.isLogged(true);
         });
-
-        $translatePartialLoader.addPart("historic");
-
-        //event for keypress in input search name, launch the filters if press enter
-        $scope.submitName = function(keyEvent) {
-            if (keyEvent.which === 13) {
-                $scope.search();
-            }
-
-        };
-
-        $scope.loading = true;//loading patterns
-        $scope.loadingFilters = false;
-        //tabs and variables
-        //pattern number for rents
-        $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
-        $scope.daysPattern = /^\d+$/;
-        /**private models*/
-        $scope.selectedTab = TabsService.getActiveTab();
-        var data = ActualDateService.actualDate(function (data) {
-            $scope.actualDate = data.actualDate;
-        });
         $scope.tabs = TabsService.getTabs();
-        $scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
-        $scope.totalServerItems = 0;
-        /*paging options*/
-        $scope.pagingOptions = {
-            pageSize: 10,
-            currentPage: 1
-        };
-        /** templates of filters/tables for each tab**/
-        var templateTables = [
-            {"table": 'historic/tables/stocks_table.tpl.html',
-                "filter": 'historic/filters/stocks_filters.tpl.html'},
+        //strucutre filters
 
-            {"table": 'historic/tables/pairs_table.tpl.html',
-                "filter": 'historic/filters/pairs_filters.tpl.html'},
+        $scope.filterStructure = function(restartRegion) {
+            selectedRegion = "";
 
-            [
-                {"table": 'historic/tables/index_table.tpl.html',
-                    "filter": 'historic/filters/index_filters.tpl.html'},
-                {"table": 'historic/tables/pairs_index_table.tpl.html',
-                    "filter": 'historic/filters/index_filters.tpl.html'}
-            ],
-
-            {"table": 'historic/tables/futures_table.tpl.html',
-                "filter": 'historic/filters/futures_filters.tpl.html'}
-        ];
-
-
-        $scope.setPage = function (page) {
-            $scope.pagingOptions.currentPage = page;
-            $scope.saveUrlParams();
-        };
-
-        $scope.toggleFavorite = function (patternId){
-            var data = PatternsService.setFavorite(patternId).then(function (data) {
-                $scope.loadPage();
-            });
-        };
-
-
-        /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
-        $scope.restartFilter = function () {
-            var restartMonth = true;
-            var restartMonthList = true;
-            if ($scope.filterOptions.filters) {
-                if ($scope.filterOptions.filters.month) {
-                    restartMonth = false;
-                }
-                if ($scope.filterOptions.selectors.months) {
-                    restartMonthList = false;
+            if ($scope.filterOptions) {
+                if (typeof $scope.filterOptions.filters !== "undefined") {
+                    if (typeof $scope.filterOptions.filters.selectedRegion !== "undefined") {
+                        selectedRegion = $scope.filterOptions.filters.selectedRegion;
+                    }
                 }
             }
             $scope.filterOptions = {
                 filters: {
                     filterName: "",
-                    selectedRegion: "",
+                    selectedRegion: (restartRegion ? "" : selectedRegion),
                     selectedMarket: "",
                     selectedSector: "",
                     selectedIndustry: "",
@@ -180,6 +119,83 @@ angular.module('ngMo.historic', [
             if (!$scope.filterOptions.months) {
                 $scope.filterOptions.months = MonthSelectorHistoricService.getHistoricsListMonths();
             }
+        };
+        $scope.filterStructure(false);
+        $translatePartialLoader.addPart("historic");
+
+        //event for keypress in input search name, launch the filters if press enter
+        $scope.submitName = function(keyEvent) {
+            if (keyEvent.which === 13) {
+                $scope.search();
+            }
+
+        };
+
+        $scope.loading = true;//loading patterns
+        $scope.loadingFilters = false;
+        //tabs and variables
+        //pattern number for rents
+        $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
+        $scope.daysPattern = /^\d+$/;
+        /**private models*/
+        $scope.selectedTab = TabsService.getActiveTab();
+        var data = ActualDateService.actualDate(function (data) {
+            $scope.actualDate = data.actualDate;
+        });
+
+        //$scope.filterOptions = "";//initialization to empty, this object is filled with "restartFilters"
+        $scope.totalServerItems = 0;
+        /*paging options*/
+        $scope.pagingOptions = {
+            pageSize: 10,
+            currentPage: 1
+        };
+        /** templates of filters/tables for each tab**/
+        var templateTables = [
+            {"table": 'historic/tables/stocks_table.tpl.html',
+                "filter": 'historic/filters/stocks_filters.tpl.html'},
+
+            {"table": 'historic/tables/pairs_table.tpl.html',
+                "filter": 'historic/filters/pairs_filters.tpl.html'},
+
+            [
+                {"table": 'historic/tables/index_table.tpl.html',
+                    "filter": 'historic/filters/index_filters.tpl.html'},
+                {"table": 'historic/tables/pairs_index_table.tpl.html',
+                    "filter": 'historic/filters/index_filters.tpl.html'}
+            ],
+
+            {"table": 'historic/tables/futures_table.tpl.html',
+                "filter": 'historic/filters/futures_filters.tpl.html'}
+        ];
+
+
+        $scope.setPage = function (page) {
+            $scope.pagingOptions.currentPage = page;
+            $scope.saveUrlParams();
+        };
+
+        $scope.toggleFavorite = function (patternId){
+            var data = PatternsService.setFavorite(patternId).then(function (data) {
+                $scope.loadPage();
+            });
+        };
+
+
+        /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
+        $scope.restartFilter = function (callServer, restartRegion) {
+            var restartMonth = true;
+            var restartMonthList = true;
+            if ($scope.filterOptions.filters) {
+                if ($scope.filterOptions.filters.month) {
+                    restartMonth = false;
+                }
+                if ($scope.filterOptions.selectors.months) {
+                    restartMonthList = false;
+                }
+            }
+
+            $scope.filterStructure(restartRegion);//create structure of filters;
             //the filter selectMonth keeps the selector right selected, we keep the month and the selector synchronized
             $scope.updateSelectorMonth();
 
@@ -235,7 +251,7 @@ angular.module('ngMo.historic', [
             }
             //we change the page to 1, to load the new tab
             TabsService.changeActiveTab(idTab);
-            $scope.restartFilter();
+            $scope.restartFilter(true,true);
             $scope.applyFilters();
         };
 
@@ -246,7 +262,7 @@ angular.module('ngMo.historic', [
                 $scope.myData= [];
                 $scope.loading = true;
                 $scope.dataLoaded = false; //Not showming data until they have been loaded
-                $scope.restartFilter();
+                $scope.restartFilter(true,true);
                 $scope.applyFilters();
             }
 
@@ -339,6 +355,10 @@ angular.module('ngMo.historic', [
 
 
         $scope.callBackRefreshSelectors = function (data) {
+            //check if the server says to clear the selectedRegion filter
+            if (data.clearRegion) {
+                $scope.filterOptions.filters.selectedRegion = "";
+            }
             //checks the data received, when a selector is refreshed, the value selected is also cleaned
             if (data.hasOwnProperty("regions")) {
                 $scope.filterOptions.selectors.regions = data.regions;
@@ -510,7 +530,7 @@ angular.module('ngMo.historic', [
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(true,false);
             $scope.saveUrlParams();
 
         };
@@ -518,7 +538,7 @@ angular.module('ngMo.historic', [
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(-1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(true,false);
             $scope.saveUrlParams();
         };
         //this function update the Month object in the filter from the value
@@ -561,7 +581,7 @@ angular.module('ngMo.historic', [
 
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.setDate(d);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
-            $scope.restartFilter();
+            $scope.restartFilter(false);
             $scope.saveUrlParams();
         };
         //synchronize the selector with the month of the filter
@@ -782,7 +802,7 @@ angular.module('ngMo.historic', [
             $scope.loadPage();
         });
         /*First load on page ready*/
-        $scope.restartFilter();
+        //$scope.restartFilter(false,false);
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
