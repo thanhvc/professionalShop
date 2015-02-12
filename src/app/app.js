@@ -203,6 +203,19 @@ angular.module('ngMo', [
             return roundedValue.toString();
         };
     })
+    .filter('oneDecimal', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
+        return function(n){
+            //return a string with 2 decimal if exists..
+            //xx.xxxx -> xx.xx
+            //xx.x -> xx.x
+            //xx -> xx
+            roundedValue = 0.0;
+            if (n != null && !isNaN(n)) {
+                roundedValue = Math.round(n * 10) / 10;
+            }
+            return roundedValue.toString();
+        };
+    })
     .filter('sectorName', function(){ //TRANSFORM A SECTOR NAME WITHOUT THE SECTOR WORD
         return function(n){
             if (typeof n !== "undefined" && n != null) {

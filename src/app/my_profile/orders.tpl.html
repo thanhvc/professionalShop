@@ -33,7 +33,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="p in orders" >
-                                    <td>{{p.product | translate}}</td>
+                                    <td>{{'MYACCOUNT.'+p.product | translate}}</td>
                                     <td>{{p.name}}</td>
                                     <td>{{p.startDate | date: 'MMM yyyy'}}</td>
                                     <td>{{p.endDate | date: 'MMM yyyy'}}</td>
