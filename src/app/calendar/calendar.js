@@ -48,7 +48,7 @@ angular.module('ngMo.calendar', [
         //this is to say to the day filters that is the first time entering in the page, each time the user enters in the calendar page, will load the
         //filters conditionated by this var
         $scope.firstLoad = true;
-
+        $scope.changingOrder = false;//changing order set to true to reload filters
         $scope.dayPattern = /^\d+$/;
         $translatePartialLoader.addPart("calendar");
         $scope.loading= true;
@@ -449,13 +449,28 @@ angular.module('ngMo.calendar', [
 
         $scope.search = function () {
             $scope.startLoading();
+            if ($scope.changingOrder) { //if is changing Order reload filters
+                switch (TabsService.getActiveTab()) {
+                    case 0:     //stocks
+                        $scope.refreshSelectors(['regions', 'markets']);
+                        break;
+                    case 1:     //pairs
+                        $scope.refreshSelectors(['regions']);
+                        break;
+                    case 2:     //index (pair and index)
+                        break;
+                    case 3:     //futures
+                        $scope.refreshSelectors(['markets']);
+                        break;
+                }
+                $scope.changingOrder=false;
+            }
             $scope.applyFilters();
         };
         //order Search is the same but with a wait of 5 seconds, is used in the order selector
         $scope.orderSearch = function () {
-            $timeout(function () {
-                $scope.applyFilters();
-            }, 2000);
+            $scope.changingOrder=true;
+            $scope.search();
         };
 
         /*apply filters to search, restarting the page*/
@@ -715,7 +730,8 @@ angular.module('ngMo.calendar', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'view': location.hash.replace("/#","")
+                    'view': "calendar",
+                    'order': parseInt(filtering.order, 10)
                 }
             };
 

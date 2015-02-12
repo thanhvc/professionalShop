@@ -108,7 +108,7 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope,$translate,$translateCookieStorage) {
-       $rootScope.urlService = 'https://api.marketobservatory.com';
+       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
        //$rootScope.urlService = 'http://localhost:9000';
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
             $translate.use($translateCookieStorage.get('lang'));
@@ -199,6 +199,19 @@ angular.module('ngMo', [
             roundedValue = 0.0;
             if (n != null && !isNaN(n)) {
                 roundedValue = Math.round(n * 100) / 100;
+            }
+            return roundedValue.toString();
+        };
+    })
+    .filter('oneDecimal', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
+        return function(n){
+            //return a string with 2 decimal if exists..
+            //xx.xxxx -> xx.xx
+            //xx.x -> xx.x
+            //xx -> xx
+            roundedValue = 0.0;
+            if (n != null && !isNaN(n)) {
+                roundedValue = Math.round(n * 10) / 10;
             }
             return roundedValue.toString();
         };

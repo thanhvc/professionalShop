@@ -83,7 +83,7 @@
             <td class="index-number-of-years-gain-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.win | twoDecimals}}</td>
             <td class="index-number-of-years-loss-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.loss | twoDecimals}}</td>
             <td class="index-profit-accumulated-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.accumulatedReturn | number:0}}</td>
-            <td class="index-profit-average-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.averageReturn | twoDecimals}}</td>
+            <td class="index-profit-average-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.averageReturn | oneDecimal}}</td>
             <td style="font-family: 'fontpo'"  class="index-duration-column-catalog border-right-thick-catalog prices-font10">
                 <span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>

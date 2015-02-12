@@ -103,7 +103,7 @@
             <td class="futures-number-of-years-gain-column-catalog">{{pattern.win | twoDecimals}}</td>
             <td class="futures-number-of-years-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
             <td class="futures-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | number:0}}</td>
-            <td class="futures-profit-average-column-catalog">{{pattern.averageReturn | twoDecimals}}</td>
+            <td class="futures-profit-average-column-catalog">{{pattern.averageReturn | oneDecimal}}</td>
             <td class="futures-duration-column-catalog">
                 <span ng-show="(pattern.duration <31)">Hasta 1</span>
                 <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
