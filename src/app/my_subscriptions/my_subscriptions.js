@@ -173,7 +173,7 @@ angular.module('ngMo.my_subscriptions', [
                         url: 'my_subscriptions/tables_my_packs/stock_table.tpl.html'
                     },
                     {
-                        title: 'STOCKS_PAIRS',
+                        title: 'PAIRS',
                         active: ActiveTabService.activeTab() === 1,
                         value: 1,
                         content: data.STOCKPAIR,
@@ -284,7 +284,7 @@ angular.module('ngMo.my_subscriptions', [
                 url: 'my_subscriptions/tables_packs/stock_table.tpl.html'
             },
             {
-                title: 'STOCKS_PAIRS',
+                title: 'PAIRS',
                 active: ActiveTabService.activeTab() === 1,
                 value: 1,
                 americaPairContent: [],

@@ -56,7 +56,7 @@
             <a ng-if="data.volat2 >=0" ng-click="showSelectedGraphic($event,data.name2,'BEARISH',null,false,data.volatChartURL2);$event.stopPropagation();">{{data.volat2 | volatTruncate}}</a>
             <span ng-if="data.volat2 <0">N/A</span>
         </td>
-        <td class="black-font-pairs" >
+        <td class="black-font-pairs" style="text-align:center;text-indent:0px;" >
             <span ng-if="data.lastDate2 <data.lastDate">{{data.lastDate2 | date: 'dd MMM yyyy'}}</span>
             <span ng-if="data.lastDate2 >=data.lastDate">{{data.lastDate | date: 'dd MMM yyyy'}}</span>
 
