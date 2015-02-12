@@ -32,6 +32,10 @@
 input[type="text"], input[type="password"], input[type="email"]{
   border-radius: 0;
 }
+img{
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode:bicubic;
+}
 
 :focus{
   outline: -webkit-focus-ring-color auto 0px;
@@ -1960,7 +1964,6 @@ select{
 
   .detailed_description_img {
     img {
-      width:100%;
     }
   }
 
