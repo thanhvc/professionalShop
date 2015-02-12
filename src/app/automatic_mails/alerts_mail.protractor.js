@@ -43,6 +43,22 @@ describe('Alert notification mails', function () {
         });
 
         afterEach(function () {
+
+                var select_fixture = fixtureGenerator.select_email_log_fixture();
+                loadFixture.executeQuery(select_fixture, conString, function(result) {
+                    expect(result.rowCount).not.toBe(0); //sometimes fails
+                    if (result.rowCount > 0) {
+                        expect(result.rows[0].type).toBe(5);
+                    }
+                    if (result.rowCount > 1) {
+                        expect(result.rows[1].type).toBe(5);
+                    }
+                });
+
+
+        });
+
+        afterEach(function () {
             //home.logout(); //TODO
             ptor.sleep(2000);
             var fixtures = fixtureGenerator.remove_alerts_mail_fixture();
@@ -124,18 +140,8 @@ describe('Alert notification mails', function () {
                     }
                 );
                         
-                ptor.sleep(10000);
+                //ptor.sleep(12000);
 
-                var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email} );
-                loadFixture.executeQuery(select_fixture, conString, function(result) {
-                    expect(result.rowCount).not.toBe(0); //sometimes fails
-                    if (result.rowCount > 0) {
-                        expect(result.rows[0].type).toBe(5);
-                    }
-                    if (result.rowCount > 1) {
-                        expect(result.rows[1].type).toBe(5);
-                    }
-                });
 
             };
                     
@@ -143,7 +149,6 @@ describe('Alert notification mails', function () {
             ms.bind(handler);
             ptor.sleep(9000);
             ptor.sleep(60000);
-            //expect(queue.length).toEqual(0); //3 emails should be sent
         });            
 
 });
