@@ -21,7 +21,7 @@ describe('End free pack notification mails', function () {
             //set date on server
             var vagrant_id = browser.params.serverVagrantId;
             var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
-            dsc.setServerDateAndRestart("2014-11-17 15:39:30");
+            dsc.setServerDateAndRestart("2014-11-17 15:39:20");
             //dsc.setServerDateAndRestart("2014-11-17 11:59:30");
             ptor.sleep(18000);
         });
@@ -57,19 +57,25 @@ describe('End free pack notification mails', function () {
                         receivers: { 'test1.user@foo.bar': true },
                         receiver_email: 'test1.user@foo.bar',
                         receiver_name : "Test1 user",
-                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+                        email_log_type: 11,
+                        content_sentences: ["Su periodo de","Gratuita ha concluido"],
+                        subject: 'Aviso Fin Subscripcion Gratuita Market Observatory'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test4.user@foo.bar': true },
                         receiver_email: 'test4.user@foo.bar',
                         receiver_name : "Test4 user",
-                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+                        email_log_type: 11,
+                        content_sentences: ["Su periodo de","Gratuita ha concluido"],
+                        subject: 'Aviso Fin Subscripcion Gratuita Market Observatory'});
             
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
                         receiver_email: 'test2.user@foo.bar',
                         receiver_name : "Test2 user",
-                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+                        email_log_type: 12,
+                        content_sentences: ["Recuerde que el acceso online a los contenidos","22 de Noviembre de 2014"],
+                        subject: 'Acceso a contenidos de Market Observatory'});
 
 
             handler = function(addr,id,email) {
@@ -100,10 +106,11 @@ describe('End free pack notification mails', function () {
                     email.html,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
-                        expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
+                        expect(window.$("a").attr('href')).toMatch('mo\\.devel\\.edosoftfactory.com');
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
-                        expect(window.$("span").text()).toMatch("Su periodo de");
-                        expect(window.$("span").text()).toMatch("Gratuita ha concluido");
+                        for (var i=0;i<msg.content_sentences.length;i++) {
+                            expect(window.$("span").text()).toMatch(msg.content_sentences[i]);
+                        }
                     }
                 );
                         
@@ -112,7 +119,7 @@ describe('End free pack notification mails', function () {
                 loadFixture.executeQuery(select_fixture, conString, function(result) {
                     expect(result.rowCount).toBe(1);
                     if (result.rowCount == 1) {
-                        expect(result.rows[0].type).toBe(11);
+                        expect(result.rows[0].type).toBe(msg.email_log_type);
                     }
                 });
             };
