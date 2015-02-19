@@ -158,3 +158,10 @@
 
 
 </table>
+        <!--preload img-->
+        <div class="invisible-div">
+            <div data-ng-repeat="data in myData">
+                <img src="{{data.priceChartURL}}">
+                <img src="{{data.volatilityChartURL}}">
+            </div>
+        </div>
