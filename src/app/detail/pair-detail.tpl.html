@@ -321,3 +321,10 @@
         Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
     </div>
 </div>
+
+<!--preload img-->
+<div class="invisible-div">
+    <div data-ng-repeat="row in myData">
+        <img src="{{row.yearChartURL}}">
+    </div>
+</div>

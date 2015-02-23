@@ -36,7 +36,7 @@ angular.module('ngMo.lookup_diary', [
     .run(function run() {
     })
 
-    .controller('LookupDiaryCtrl', function ($filter,$scope, IsLogged, TabsService, ActualDateService, MonthSelectorDiaryService,
+    .controller('LookupDiaryCtrl', function ($filter,$scope, IsLogged, TabsService, ActualDateService, MonthSelectorDiaryService,$timeout,
                                              LookupDiaryService, $http, $state, $stateParams, $location,
                                              $modal,SelectedMonthDiaryService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope, $translatePartialLoader) {
         $scope.$on('$stateChangeStart', function (event, toState) {
@@ -592,7 +592,11 @@ angular.module('ngMo.lookup_diary', [
         };
         //open a graph and sve it to $scope.graph
         $scope.loadGraphic = function (inputEvent,name1,type,name2,pair,url) {
-
+            //preload img
+            preloadImg = document.getElementsByClassName("preloadImg");
+            if (preloadImg != null) {
+                preloadImg.src = url;
+            }
             if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
                 $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
                 $scope.graph = null;
@@ -620,6 +624,9 @@ angular.module('ngMo.lookup_diary', [
 
             elemTitle.innerHTML = name1;
             var img = document.createElement('img');
+            if (url !== null) {
+                img.src = url;
+            }
             var containerTitle = document.createElement("div");
             if (pair) {
 
@@ -643,9 +650,9 @@ angular.module('ngMo.lookup_diary', [
                 }
                 containerTitle.appendChild(elemTitle);
             }
-            if (url !== null) {
+            /*if (url !== null) {
                 img.src = url;
-            }
+            }*/
             img.className ="graphic-image-div-lookup-diary";
             elemDiv.className = 'div-graph-lookup-diary';
             elemDiv.style.cssText += 'height:' + h + 'px;';
@@ -662,17 +669,19 @@ angular.module('ngMo.lookup_diary', [
             elemDiv.appendChild(containerTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
-            if (typeof inputEvent.srcElement !== "undefined") {
-                inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
-            } else if (typeof inputEvent.target !== "undefined") {
-                inputEvent.target.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
-            }
+            $timeout(function(){
+                if (typeof inputEvent.srcElement !== "undefined") {
+                    inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
+                } else if (typeof inputEvent.target !== "undefined") {
+                    inputEvent.target.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
+                }
 
-            setTimeout(function(){
-                elemDiv.className+=' move';
+                $timeout(function(){
+                    elemDiv.className+=' move';
 
-            },0);
-            $scope.graph = elemDiv;
+                },0);
+                $scope.graph = elemDiv;
+            },50);
             return 0;
 
         };

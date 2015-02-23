@@ -1081,6 +1081,24 @@ angular.module('ngMo', [
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+            if (angular.isDefined(toParams.packCode)){
+                if (toParams.packCode.search(/.*FUTURE.*/) != -1){
+
+                    $scope.description=toState.name + "_future_desc";
+
+                }
+                else if (toParams.packCode.search(/.*INDEX.:*/)!=-1){
+                    $scope.description=toState.name + "_index_desc";
+                }
+                else if (toParams.packCode.search(/.*-P-.*/)!=-1){
+                    $scope.description=toState.name + "_pair_desc";
+                }
+                else {
+                    $scope.description=toState.name + "_stock_desc";
+                }
+            }else{
+                $scope.description=toState.name + "_desc";
+            }
             $scope.selectMenu = toState.data.selectMenu;
             $scope.selectSubmenu = toState.data.selectSubmenu;
             $scope.selectItemSubmenu = toState.data.selectItemSubmenu;
