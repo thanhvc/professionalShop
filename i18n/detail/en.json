@@ -39,6 +39,8 @@
         "buyer_leg":"Buyer Leg",
         "seller_leg":"Seller Leg",
         "BEARISH":"BEARISH",
-        "BULLISH":"BULLISH"
+        "BULLISH":"BULLISH",
+        "FUTURE":"Futuro",
+        "INDEX":"Indice"
     }
 }

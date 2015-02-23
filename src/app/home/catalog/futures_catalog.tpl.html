@@ -24,7 +24,7 @@
     <div bindonce="startDate" class="start-date-catalog-container">
         <span bo-text="startDate | date: 'MMMM yyyy'"></span>
     </div>
-    <div class="region-catalog-container">{{selectedPack.region.name | uppercase}}</div>
+    <div class="region-catalog-container">{{selectedPack.name}}</div>
     <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate,'Anual'); $event.stopPropagation();"
             class="mo-button purchase-button">Al carro
     </button>
