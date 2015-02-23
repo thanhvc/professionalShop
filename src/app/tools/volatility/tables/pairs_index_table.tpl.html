@@ -60,3 +60,11 @@
         </tbody>
     </table>
 </div>
+<!--preload img-->
+<div class="invisible-div">
+    <div data-ng-repeat="data in myData">
+        <img src="{{data.volatPairChartURL}}">
+        <img src="{{data.volatChartURL}}">
+        <img src="{{data.volatChartURL2}}">
+    </div>
+</div>

@@ -55,6 +55,8 @@ angular.module('ngMo.catalog', [
                         };
 
 
+                    },function(error) {
+                        $state.go("home");
                     });
                 }
             }
