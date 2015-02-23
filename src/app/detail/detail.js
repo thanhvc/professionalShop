@@ -226,7 +226,9 @@ angular.module('ngMo.detail', [
         $scope.myData = detailData.myData;
         $scope.infoPattern = detailData.infoPattern;
         //translate tooltip
-        $scope.infoPattern.currencyName =  $filter('translate')("DETAIL."+$scope.infoPattern.currencyName);
+        if ($scope.infoPattern.currencyName == "INDEX" || $scope.infoPattern.currencyName == "FUTURE") {
+            $scope.infoPattern.currencyName = $filter('translate')("DETAIL." + $scope.infoPattern.currencyName);
+        }
         $scope.graphYear = $scope.patternYear;
         //graphYear will be the range of years of the graph, loaded from myData
         if ($scope.myData.length>0) {
