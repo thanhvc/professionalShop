@@ -55,7 +55,7 @@ angular.module('ngMo.Activate', [  'ui.router',
                 IsLogged.isLogged(true);
                 $rootScope.$broadcast('userLogged',{name:data.name,token:data.authToken,email:data.username});
 
-                $state.go('home',{activated: true});
+                $state.go('my-patterns',{activated: true});
             } else {
                 $state.go('home');
             }
