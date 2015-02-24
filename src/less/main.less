@@ -2503,6 +2503,7 @@ tooltip-placement=" top ultra-left-tooltip" **/
 /*-Alerts modals -*/
 
 .generic-modal-window {
+  background-color: @white;
   width: 511px;
   /* height: 145px; */
   padding-bottom: 20px;
@@ -2511,6 +2512,11 @@ tooltip-placement=" top ultra-left-tooltip" **/
   left: -260px;
   margin-top: 120px;
   border: 2px outset gray;
+  .modal-header{
+    border-bottom: 0;
+    padding: 5px;
+    margin-bottom: 15px;
+  }
   .generic-body {
     text-align: center;
     padding-top: 0;

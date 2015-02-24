@@ -1,8 +1,10 @@
-<div class="generic-modal-window"  ng-class="{'modal-red': mode=='error', 'modal-yellow': mode=='alert', 'modal-green': mode=='success'}">
-
+<div class="generic-modal-window" ><!-- ng-class="{'modal-red': mode=='error', 'modal-yellow': mode=='alert', 'modal-green': mode=='success'}"-->
+    <div class="modal-header">
+        <button class="btn-close" ng-click="close()"></button>
+    </div>
     <div class="generic-body">
         <div>
-            Su suscripción gratuita finalizó el día , para suscribirse al servicio acceda al catálogo a través de esta <span class="link" ng-click='scrollToTabs();'>tablas</span>
+            Su suscripción ha finalizado, para suscribirse al servicio accedar al catálogo a través de este <span class="link" ng-click='scrollToTabs();'>enlace</span>
         </div>
     </div>
 </div>

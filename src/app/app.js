@@ -2390,6 +2390,7 @@ var ModalFlagInstanceCtrl = function ($scope, $modalInstance, $timeout,infoSelec
             $scope.opened= false;
         }
     };
+    $scope.$on("body-click",function(){$scope.close();});
    // $scope.$on("body-click",function(){$scope.close();});
     $timeout(function () {
         $scope.close();
