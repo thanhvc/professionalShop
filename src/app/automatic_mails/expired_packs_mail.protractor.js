@@ -50,9 +50,13 @@ describe('Expired pack notification mails', function () {
                         receivers: { 'test1.user@foo.bar': true },
                         receiver_email : "test1.user@foo.bar",
                         receiver_name : "Test1 user",
-                        packs: [{name: "Estados Unidos Pack I", period: "November 2013 December 2014"},
-                                {name: "Estados Unidos Pack II", period: "September 2014 December 2014"},
-                                {name: "Estados Unidos Pair Pack I", period: "November 2014 December 2014"}
+                        //packs: [{name: "Estados Unidos Pack I", period: "noviembre 2013 diciembre 2014"},
+                        //        {name: "Estados Unidos Pack II", period: "Septiembre 2014 diciembre 2014"},
+                        //        {name: "Estados Unidos Pair Pack I", period: "noviembre 2014 diciembre 2014"}
+                        //],                                
+                        packs: [{name: "Estados Unidos Pack I", period: "noviembre 2013 noviembre 2014"},
+                                {name: "Estados Unidos Pack II", period: "septiembre 2014 noviembre 2014"},
+                                {name: "Estados Unidos Pair Pack I", period: "noviembre 2014 noviembre 2014"}
                         ],                                
                         subject: 'Aviso Fin Subscripcion Market Observatory'});
 
@@ -60,8 +64,11 @@ describe('Expired pack notification mails', function () {
                         receivers: { 'test2.user@foo.bar': true },
                         receiver_email : "test2.user@foo.bar",
                         receiver_name : "Test2 user",
-                        packs: [{name: "Estados Unidos Pair Pack I", period: "November 2013 December 2014"},
-                                {name: "Estados Unidos Pair Pack II", period: "September 2014 December 2014"}
+                        //packs: [{name: "Estados Unidos Pair Pack I", period: "noviembre 2013 diciembre 2014"},
+                        //        {name: "Estados Unidos Pair Pack II", period: "Septiembre 2014 diciembre 2014"}
+                        //],                                
+                        packs: [{name: "Estados Unidos Pair Pack I", period: "noviembre 2013 noviembre 2014"},
+                                {name: "Estados Unidos Pair Pack II", period: "septiembre 2014 noviembre 2014"}
                         ],                                
                         subject: 'Aviso Fin Subscripcion Market Observatory'});
 
@@ -93,7 +100,7 @@ describe('Expired pack notification mails', function () {
                     email.html,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
-                        expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
+                        expect(window.$("a").attr('href')).toMatch('marketobservatory.com');
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
                         for (var i=0;i<msg.packs.length;i++) {
                             expect(window.$("ul li").text()).toMatch(msg.packs[i].name);
@@ -108,10 +115,10 @@ describe('Expired pack notification mails', function () {
                 loadFixture.executeQuery(select_fixture, conString, function(result) {
                     expect(result.rowCount).not.toBe(0); //sometimes fails
                     if (result.rowCount > 0) {
-                        expect(result.rows[0].type).toBe(7);
+                        expect(result.rows[0].type).toBe(9);
                     }
                     if (result.rowCount > 1) {
-                        expect(result.rows[1].type).toBe(7);
+                        expect(result.rows[1].type).toBe(9);
                     }
                 });
             };
