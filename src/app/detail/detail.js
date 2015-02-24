@@ -58,7 +58,7 @@ angular.module('ngMo.detail', [
             }
         });
     })
-    .controller('DetailCtrl', function DetailCtrl($scope, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $timeout, $rootScope, $translatePartialLoader,$translate) {
+    .controller('DetailCtrl', function DetailCtrl($scope, $filter, $http, $state, $stateParams, $location, TabsService, ActualDateService,IsLogged, DetailService, detailData, $timeout, $rootScope, $translatePartialLoader,$translate) {
         $scope.$on('$stateChangeStart', function () {
             IsLogged.isLogged(true);
         });
@@ -225,6 +225,10 @@ angular.module('ngMo.detail', [
 
         $scope.myData = detailData.myData;
         $scope.infoPattern = detailData.infoPattern;
+        //translate tooltip
+        if ($scope.infoPattern.currencyName == "INDEX" || $scope.infoPattern.currencyName == "FUTURE") {
+            $scope.infoPattern.currencyName = $filter('translate')("DETAIL." + $scope.infoPattern.currencyName);
+        }
         $scope.graphYear = $scope.patternYear;
         //graphYear will be the range of years of the graph, loaded from myData
         if ($scope.myData.length>0) {

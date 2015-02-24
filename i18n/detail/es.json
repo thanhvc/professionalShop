@@ -39,6 +39,8 @@
         "buyer_leg":"Lado comprador",
         "seller_leg":"Lado Vendedor",
         "BEARISH":"BAJISTA",
-        "BULLISH":"ALCISTA"
+        "BULLISH":"ALCISTA",
+        "FUTURE":"Futuro",
+        "INDEX":"Índice"
     }
 }
