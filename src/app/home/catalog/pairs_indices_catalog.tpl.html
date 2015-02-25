@@ -59,6 +59,7 @@
     <table class="patterns-table-pair-index-catalog" ng-show="patterns.length > 0">
         <tr>
             <th class="pair-index-name-column-catalog">Par &Iacute;ndices</th>
+            <th class="border-right-thick-catalog emisor-td-width">Emisor</th>
             <th colspan="2" class="pair-index-number-of-year-column-catalog">N&uacute;mero de A&ntilde;os</th>
             <th colspan="2" class="pair-index-profit-column-catalog">Rentabilidad (%)</th>
             <th class="pair-index-duration-column-catalog">Duraci&oacute;n</th>
@@ -67,6 +68,7 @@
         </tr>
         <tr>
             <th  >Nombre &Iacute;ndice del Par</th>
+            <th class="border-right-thick-catalog emisor-td-width"> </th>
             <th  >Ganancia</th>
             <th  >Pérdida</th>
             <th  >Acumulada</th>
@@ -84,6 +86,8 @@
                 <span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishName}}" ng-if="pattern.name.split(' ')[0].length <= pattern.bearishName.split(' ')[0].length">{{pattern.bearishName | limitTo: 40}}</span>
                 <span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishName}}" ng-if="pattern.name.split(' ')[0].length > pattern.bearishName.split(' ')[0].length">{{pattern.name | limitTo: 40}}</span>
             </td>
+            <td>
+            <span class="cursor-help" tooltip-html-unsafe="{{pattern.exchBearishName}}">{{pattern.exchBearishSymbol }}</span></td>
             <td  >{{pattern.win | twoDecimals}}</td>
             <td  >{{pattern.loss | twoDecimals}}</td>
             <td  >{{pattern.accumulatedReturn | number:0}}</td>

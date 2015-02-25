@@ -1,5 +1,7 @@
 {
     "CALENDAR":{
+        "buyCaption": "Long or buy",
+        "sellCaption": "Short or sell",
         "accept":"Accept",
         "bearish":"Bearish",
         "bullish":"Bullish",
@@ -14,7 +16,7 @@
         "name":"Name",
         "names":"Names",
         "no_patterns_in_month":"THERE IS NOT PATTERNS IN SELECTED MONTH",
-        "no_patterns_with_condition":"THERE IS NOT PATTERNS WITH THIS CONDITIONS",
+        "no_patterns_with_condition":"Choose Criteria Organization Calendar",
         "operation":"Transaction",
         "product":"Product",
         "region":"Region",
