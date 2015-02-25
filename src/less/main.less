@@ -1264,7 +1264,7 @@ table{
   margin-bottom:30px;
   td {
     text-align: left;
-    padding: 10px 10px 10px 5px;
+    padding: 10px 5px 10px 5px;
     border: 1px solid #C0C0C0;
   }
 
@@ -1403,7 +1403,7 @@ table{
 /******** end Tabs Classes ****/
 .home-text-container {
   width: 960px;
-  height: 350px;
+  height: 370px;
   overflow: hidden;
 }
 
@@ -2043,10 +2043,20 @@ select{
   color: @darkRed;
   font-size: 11px;
   font-family: fontpo, verdana;
+  margin-top:5px;
 }
 
 .warning-input{
   background-color: @pinkWarning;
+}
+
+.sign-up-warning-must {
+  font-size: 10px !important;
+  color: #cc3300;
+  margin-top: 5px;
+  text-align: right !important;
+  padding-top: 0px !important;
+  margin-bottom: 10px;
 }
 
 .forget-password-container{
@@ -2503,6 +2513,7 @@ tooltip-placement=" top ultra-left-tooltip" **/
 /*-Alerts modals -*/
 
 .generic-modal-window {
+  background-color: @white;
   width: 511px;
   /* height: 145px; */
   padding-bottom: 20px;
@@ -2511,6 +2522,11 @@ tooltip-placement=" top ultra-left-tooltip" **/
   left: -260px;
   margin-top: 120px;
   border: 2px outset gray;
+  .modal-header{
+    border-bottom: 0;
+    padding: 5px;
+    margin-bottom: 15px;
+  }
   .generic-body {
     text-align: center;
     padding-top: 0;

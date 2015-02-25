@@ -109,7 +109,7 @@ angular.module('ngMo', [
 
     .run(function run($rootScope,$translate,$translateCookieStorage) {
        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       //$rootScope.urlService = 'http://localhost:19000';
+       //$rootScope.urlService = 'http://localhost:9000';
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
             $translate.use($translateCookieStorage.get('lang'));
             $translate.refresh();
@@ -2374,9 +2374,9 @@ var ModalCartInstanceCtrl = function ($scope, $modalInstance, $timeout,totalColl
         }
     };
     $scope.$on("body-click",function(){$scope.close();});
-    $timeout(function () {
+   /* $timeout(function () {
         $scope.close();
-    }, 3000);
+    }, 3000);*/
 };
 
 //for flags
@@ -2390,10 +2390,11 @@ var ModalFlagInstanceCtrl = function ($scope, $modalInstance, $timeout,infoSelec
             $scope.opened= false;
         }
     };
+    $scope.$on("body-click",function(){$scope.close();});
    // $scope.$on("body-click",function(){$scope.close();});
-    $timeout(function () {
+    /*$timeout(function () {
         $scope.close();
-    }, 3000);
+    }, 3000);*/
 };
 
 
@@ -2415,9 +2416,9 @@ var GenericModalCtrl = function ($scope, $modalInstance, $timeout,$sce,mode,mess
             $scope.close();
         },1000);
     });
-    $timeout(function () {
+    /*$timeout(function () {
         $scope.close();
-    }, 3000);
+    }, 3000);*/
 };
 
 var ExpiredModalCtrl = function ($scope, $modalInstance, $timeout,$sce,mode,message,AnchorLinkService) {
@@ -2439,7 +2440,7 @@ var ExpiredModalCtrl = function ($scope, $modalInstance, $timeout,$sce,mode,mess
             $scope.close();
         },1000);
     });
-     $timeout(function () {
+    /* $timeout(function () {
         $scope.close();
-    }, 5000);
+    }, 5000);*/
 };
