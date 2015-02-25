@@ -31,7 +31,7 @@
     </tabset>
 
     <!-- tabs product's type -->
-    <tabset >
+    <tabset id="tabsHome2" >
         <tab ng-click="onClickSecondTab(homeTablePack2.value)" ng-repeat="homeTablePack2 in homeTablePacks2" heading="{{homeTablePack2.title|translate}}" active="homeTablePack2.active" disabled="tab.disabled">
             <div ng-include="homeTablePack2.url"></div>
         </tab>
