@@ -159,13 +159,15 @@
                 <button style="width: 120px;float:right;" class="mo-button" ng-click="clearCorrelationList();">
                     Aceptar
                 </button>-->
-                <div class="excel-correlation-icon" ng-click="isDisabled || generateCorrelationExcel()"></div>
+                <!--<div class="excel-correlation-icon" ng-click="isDisabled || generateCorrelationExcel()"></div>-->
                 <div class="pdf-correlation-icon" ng-click="isDisabled || generatePdf();"></div>
                 <button style="width: 75px;float:right;margin-bottom: 10px; margin-right: 20px;" class="mo-button" ng-click="clearAll();goToTop();">
                     {{'TOOLS.accept'|translate}}
                 </button>
+                <div style="clear:both;">
                 <div class="copyright">
                     Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+                </div>
                 </div>
 
             </div>

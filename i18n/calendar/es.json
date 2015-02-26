@@ -2,6 +2,8 @@
     "CALENDAR": {
         "buyCaption": "Posición Larga o Comprada",
         "sellCaption": "Posición Corta o Vendida",
+        "bearishCaption": "Posición Corta o Bajista",
+        "bullishCaption": "Posición Larga o Alcista",
         "accept":"Aceptar",
         "bearish":"Bajista",
         "bullish":"Alcista",
