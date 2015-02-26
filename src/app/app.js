@@ -1172,8 +1172,8 @@ angular.module('ngMo', [
             $translate.refresh();
             tmhDynamicLocale.set(lang);
         };
-       
-        //maps each page to FAQ section. No mapping means no FAQ 
+
+        //maps each page to FAQ section. No mapping means no FAQ
         $scope.faqMap = {
             "/home"            : "home",
             "/stocks"          : "service_application",
