@@ -140,7 +140,8 @@ angular.module('ngMo.services', [
         $scope.anchors = null;
         $scope.location = $location;
         angular.element($window).bind("scroll", function(scope, element, attrs) {
-
+            //POSITION TO TOUCH WITH FOOTER
+            maxPosition = 29858;
             if ((location.pathname.indexOf("detailed_description") == -1) /* && ((location.pathname.indexOf("/summary") == -1)*/ && (location.pathname.indexOf("/resources") == -1)) {
                 return; //only in detailed description url
             }
@@ -190,6 +191,22 @@ angular.module('ngMo.services', [
                     }
                 }
             }
+            if (window.pageYOffset > maxPosition) {
+                //touching the element
+                offset = window.pageYOffset - maxPosition;
+                menu=document.getElementsByClassName('table-page-index-detailed')[0];
+                menu.style.top = '-'+offset+'px !important';
+                menu.setAttribute("style","top: -"+offset+"px !important");
+
+            } else {
+                //touching the element
+                offset = window.pageYOffset - maxPosition;
+                menu=document.getElementsByClassName('table-page-index-detailed')[0];
+                menu.setAttribute("style","");
+            }
+
+            //check the offset for not touch the footer
+
 
         });
 

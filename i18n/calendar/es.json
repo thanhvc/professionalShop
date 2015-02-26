@@ -1,5 +1,9 @@
 {
     "CALENDAR": {
+        "buyCaption": "Posición Larga o Comprada",
+        "sellCaption": "Posición Corta o Vendida",
+        "bearishCaption": "Posición Corta o Bajista",
+        "bullishCaption": "Posición Larga o Alcista",
         "accept":"Aceptar",
         "bearish":"Bajista",
         "bullish":"Alcista",
@@ -14,7 +18,7 @@
         "name":"Nombre",
         "names":"Nombres",
         "no_patterns_in_month":"NO EXISTEN PATRONES PARA EL MES SELECCIONADO",
-        "no_patterns_with_condition":"NO EXISTEN PATRONES CON ESTAS CONDICIONES",
+        "no_patterns_with_condition":"Elegir los Criterios de Organización del Calendario",
         "operation":"Operación",
         "product":"Producto",
         "region":"Región",

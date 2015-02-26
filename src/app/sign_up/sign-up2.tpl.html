@@ -119,11 +119,11 @@
 
                         </tr>
 
-                        <tr>
-                            <td colspan="3" class="signup-form-warning" style="text-align: left;">
-                                * Campos obligatorios
+                       <!-- <tr>
+                            <td colspan="3" class="" style="text-align: left;">
+
                             </td>
-                        </tr>
+                        </tr>-->
                         <tr>
                             <td colspan="3" style="height: 60px; padding-right: 105px;">
                                 <div  class="text-warning-form"
@@ -148,13 +148,16 @@
                                 </div>
                                 <div  class="text-warning-form"
                                         ><span ng-show="!validCaptcha && formSubmited">
-                                    captcha incorrecto
+                                    Captcha incorrecto
                                     </span>
                                 </div>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class=" sign-up-warning-must"  >
+                    * Campos obligatorios
                 </div>
                 <input class="mo-button" ng-enter="sendSecondStep()"
                        name="button-submit" id="submit2"

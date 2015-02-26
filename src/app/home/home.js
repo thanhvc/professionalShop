@@ -341,13 +341,17 @@ angular.module('ngMo.home', [
     })
 
 ;
-var ModalInstanceCtrl = function ($scope, $modalInstance, infoSelected) {
+var ModalInstanceCtrl = function ($scope, $modalInstance, infoSelected,$timeout) {
     $scope.infoSelected = infoSelected;
 
     $scope.close = function () {
         $modalInstance.close();
     };
-
+    $timeout(function() { //the body click event will be in a 1sec timeout, the modal will be shown minimun 1 second
+        $scope.$on("body-click",function(){
+            $scope.close();
+        },1000);
+    });
     $scope.openNewWindow = function (url) {
         window.open("#/"+url, "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, width=1000, height=700, top=120, left=500");
     };

@@ -1,5 +1,7 @@
-<div class="generic-modal-window"  ng-class="{'modal-red': mode=='error', 'modal-yellow': mode=='alert', 'modal-green': mode=='success'}">
-
+<div class="generic-modal-window"  > <!--ng-class="{'modal-red': mode=='error', 'modal-yellow': mode=='alert', 'modal-green': mode=='success'}"-->
+    <div class="modal-header">
+        <button class="btn-close" ng-click="close()"></button>
+    </div>
     <div class="generic-body">
         <div ng-bind-html="message">
         </div>
