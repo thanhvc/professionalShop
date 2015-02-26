@@ -1173,6 +1173,29 @@ angular.module('ngMo', [
             tmhDynamicLocale.set(lang);
         };
 
+        //maps each page to FAQ section. No mapping means no FAQ
+        $scope.faqMap = {
+             "/home"            : "home",
+            "/stocks"          : "service_application",
+            "/funds"           : "service_application",
+            "/etf_cfd"         : "service_application",
+            "/futures"         : "service_application",
+            "/pairs"           : "service_application",
+            "/advanced"        : "service_application",
+            "/diversification" : "service_application"
+        };
+
+       $scope.goToFAQ = function() {
+                var fromPath = $location.path().split("#")[0];
+                 var faqSection = $scope.faqMap[fromPath];
+                 if (faqSection === null || faqSection === undefined) {
+                         $location.path("/no_faq"); //go to no_faq page when no FAQ section defined
+                     } else {
+                         $location.path("/faq");
+                         $location.hash(faqSection);
+                     }
+            };
+
         $scope.scrollPos = 0; // scroll position of each view
     })
 
