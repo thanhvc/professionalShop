@@ -1,1 +1,222 @@
-<p>No questions</p>
+
+<div class="public-zone-text container" id="top" style="margin-bottom: 150px;">
+
+    <div class="lat-menu-detailed-nav">
+        <table class="table-page-index-detailed" ng-style="{left: menuLeft}"
+               ng-class="{'menu-position' : boolChangeClassDetailed, 'menu-bottom-position' : !boolChangeClassDetailed && positionFix , 'menu-fix' : positionFix}">
+            <tr>
+                <td>
+                    <div ng-click="scrollTo('home'); selectedOption = 'home';" id="homeLink">
+                    <a
+                       ng-class="{'orange-text': selectedOption =='home'}">Página de Home</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="service_applicationLink" ng-click="scrollTo('service_application'); selectedOption = 'service_application';">
+                    <a
+                       ng-class="{'orange-text': selectedOption =='service_application'}">Aplicación del Servicio</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="content-detailed"><!-- TODO change ng-controller -->
+    
+    <p class="text-block-title">FAQ</p>
+
+    <div class="anchor-detailed" id="home">
+        <div>
+            <p class="text-block-title">Página de Home</p>
+       
+            <p class="faq-title" ><!-- TODO maybe change to orange-title class -->
+                Quiero vender las acciones de una compañía –Caterpillar- que cotiza en Estados Unidos. En el mes de febrero
+                consulto la web de Market Observatory pero no localizo esta compañía. ¿Qué debo hacer?
+            </p>
+            <p>
+                Lo que sucede es que Caterpillar durante el mes de febrero no tiene estrategias estadísticamente significativas ni
+                de compra ni de venta. Es el motivo por el que no aparece publicada esta compañía durante el mes y año indicado.
+            </p>
+            <p>
+                Lo que debería hacer es consultar la web en los próximos meses para ver si se publican patrones sobre Caterpillar
+                y cuando esto ocurra comprar una suscripción al Pack que le mostrará las fechas óptimas de compra y venta.
+            </p>
+            <p>
+                Y recuerde que si en el futuro utiliza los servicios de Market Observatory siempre sabrá cuándo debe comprar y
+                vender acciones de cualquier compañía.
+            </p>
+            <br/>
+            
+            <p class="faq-title" >
+                Tengo una suscripción anual, en el mes de febrero tengo el patrón de la compañía -Basf- y en marzo no. ¿Por qué?
+            </p>
+            <p>
+                Cada mes se publican las mejores estrategias de compra y de venta. Si durante el mes de febrero se publicó un
+                patrón de Basf es porque durante este mes hubo oportunidad de compra o de venta. Si durante marzo no aparece
+                Basf es porque no hay datos históricos que confirmen las ventajas de operar sobre Basf durante el mes y año
+                indicado.
+            </p>
+            <p>
+                Sin embargo usted no debería preocuparse, pues en el patrón de febrero se le indicaba las fechas de inicio y cierre
+                de la operación sobre Basf. Hasta que no se alcance la fecha de cierre podrá hacer diariamente un control y
+                seguimiento con gráficos y alarmas de la posición abierta.
+            </p>
+            <br/>
+            
+            <p class="faq-title" >
+                Mi intermediario financiero –bróker- no me permite invertir con Ventas a corto ¿Puedo elegir una suscripción con
+                tan solo Patrones Alcistas?
+            </p>
+            <p>
+                El contenido de un Pack no diferencia entre patrones Alcistas y Bajistas. Esta decisión tiene dos objetivos:
+                <ol class="ordered-list-first-level" style="padding-left: 0px !important;">
+                    <li>
+                        Incluso para un ahorrador que solo toma posiciones al Alza –largas-, si su compañía favorita tiene durante
+                        un periodo del año un Patrón Bajista, la información es muy útil porque le está sugiriendo retrasar sus
+                        compras o vender las acciones si las tiene en Cartera.
+                    </li>
+                    <li>
+                        Evitar sesgos inducidos por el usuario. Por ejemplo si durante una época claramente Bajista solo elige
+                        Patrones Alcistas, la cartera de estrategias estará sesgada por las “expectativas o deseos de compra” del
+                        usuario.
+                    </li>
+                </ol>
+            </p>
+            <p>
+                Recuerde que actualmente hay buenos brókers que le permiten realizar la operación de Vender a corto
+                exactamente con la misma rapidez y facilidad que una Compra.
+            </p>
+            <br/>
+            
+            <p class="faq-title" >
+                Al observar el nombre de las compañías que se publican durante un mes, a veces se repite el nombre de la
+                compañía ¿esto es posible o es un error?
+            </p>
+            <p>
+                No es un error, indica es que una compañía puede tener más de un Patrón por mes. Hay varios casos:
+                <ol class="ordered-list-first-level" style="padding-left: 0px !important;">
+                    <li>
+                        Dos Patrones con igual tendencia. Por ejemplo, uno de ellos puede indicar una compra a “corto plazo” que
+                        dura 40 días y otro una compra a “largo plazo” superior a 6 meses.
+                    </li>
+                    <li>
+                        Dos Patrones con diferentes tendencias. Suelen ocurrir en formaciones en “V” y meses con cambios de
+                        tendencia. Por ejemplo puede darse una Venta a corto –Patrón bajista- que comienza a principio de mes y
+                        termina a final del mismo mes, y una vez cerrado la posición corta, puede iniciarse un Patrón alcista.
+                    </li>
+                </ol>
+            </p>
+            <br/>
+         </div>
+    </div>
+
+    <div class="anchor-detailed" id="service_application">
+        <div>
+            <p class="text-block-title">
+                Aplicación del Servicio
+            </p>
+    
+            <p class="faq-title" >
+                ¿Puedo usar los Patrones de Market Observatory conjuntamente con el Análisis Técnico?
+            </p>
+            <p>
+                En esencia un Patrón de Market Observatory indica el mejor periodo promedio para hacer una inversión con fechas
+                de apertura y cierre, pero las fechas son “aproximadas” en el sentido de que no todos los años, los suelos y techos
+                del mercado ocurren exactamente el mismo día.
+            </p>
+            <p>
+                Semanas o días antes de las fechas señaladas, puede activar indicadores de Análisis Técnico que se alineen con la
+                tendencia de los Patrones de Market Observatory para buscar el día preciso o “timing” de apertura y cierre de
+                posiciones. De esta manera puede adelantar –y retrasar- operaciones en días o semanas e intentar maximizar la
+                rentabilidad.
+            </p>
+            <p>
+                Si el Patrón pronostica una “continuación” de tendencia, debería usar indicadores de Análisis Técnico de
+                seguimiento de tendencia. Si el patrón pronostica una “vuelta” o cambio de tendencia, debería usar indicadores de
+                Análisis Técnico de antitendencia.
+            </p>
+            <p>
+                La recomendación es usar Resistencias y Soportes sobre ambos gráficos del Patrón 15 años y de Precios y algún
+                indicador técnico. Recuerde usar muy pocos indicadores para evitar el problema de la “sobreoptimización” (*).
+            </p>
+            <p>
+                (*) El fallo de la sobreoptimización se produce cuando a un sistema de inversión se le añaden gradualmente más
+                reglas, parámetros e indicadores con el objeto de maximizar los beneficios durante las pruebas con datos
+                históricos -back testing-. A medida que se incluyan nuevos indicadores –nuevas dependencias según el lenguaje
+                matemático-  se estará disminuyendo el poder predictivo.
+            </p>
+            <br/>
+            
+            <p class="faq-title" >
+                ¿Es práctico usar los Soportes y Resistencias de los gráficos del Patrón de 15 años para establecer los Stop Loss?
+            </p>
+            <p>
+                Puede ser una aproximación pero antes habría que comprobar que es beneficiosa.
+            </p>
+            <p>
+                El stop loss habitual es un instrumento basado en el Precio que se ideó para cerrar una operación con pérdidas
+                muy difundida por los brókers que son los que realmente ganan con esta orden, sin embargo no está demostrado
+                que los usuarios obtengan beneficios.
+            </p>
+            <p>
+                Otra forma de cerrar una operación con pérdidas sería un stop loss basado en el Tiempo o periodo favorable, es
+                decir, alcanzada la fecha de salida publicada por Market Observatory se cierra la operación.
+            </p>
+            <br/>
+            
+            <p class="faq-title" >
+                ¿Es práctico usar las Fechas de Entrada y Salida directamente como se especifica en el Patrón?
+            </p>
+            <p>
+                Los Patrones publicados por Market Observatory establecen unas fechas promedio de entrada y salida pero que
+                pueden ser ajustadas. Si la acción y el mercado están fuertes, puede adelantar las Compras y retrasar las Ventas,
+                y si están ambos muy débiles puede adelantar las Ventas y retrasar las Compras.
+            </p>
+            <p>
+                En compañías <strong>poco liquidas</strong> es importante dimensionar el tamaño de la orden y el timing, pues una concentración
+                de órdenes en el mismo sentido y durante la misma sesión puede alterar sensiblemente el precio.
+            </p>
+            <p>
+                En compañías líquidas puede usar perfectamente las fechas de entrada y salida publicadas.
+            </p>
+            <br/>
+            
+            <p class="faq-title" >
+                En la identificación de Patrones no se han considerado las Comisiones ¿No puede invalidar este hecho la
+                rentabilidad de muchos de ellos?
+            </p>
+            <p>
+                Hay muy pocos casos publicados de estrategias de muy baja rentabilidad. Si para ponerlas en práctica usted utiliza
+                un intermediario financiero de costes muy elevados –los hay-, pues el resultado podría reducirse de forma
+                significativa. Si es su caso, debe inmediatamente buscar otros intermediarios financieros pues los hay muy buenos
+                a precios muy competitivos.
+            </p>
+            <p>
+                El efecto de las comisiones es más importante cuanto mayor sea la frecuencia de operaciones. Si invierte a corto
+                plazo es imprescindible que opere con brókers con bajas comisiones.
+            </p>
+            <br/>
+            
+            <p class="faq-title" >
+                Hay Índices que no tienen instrumentos negociables. ¿Cómo se puede aprovechar la información de los Patrones
+                en estos casos?
+            </p>
+            <p>
+                Efectivamente, aunque el desarrollo de ETF’s está acelerándose –hay miles-, existen Índices que todavía no tiene
+                instrumentos que se puedan negociar directamente. Una aproximación indirecta de aprovechamiento es identificar
+                las compañías que lo componen -Constituents- y negociar acciones de algunas de ellas.
+            </p>
+            <p>
+                Por ejemplo Market Observatory puede publicar un patrón para el índice FTSE Gold Mines Africa. Si no encuentra
+                ETF’s o Fondos sobre este índice, en la web <a href="http://www.ftse.com ">www.ftse.com</a> puede consultar las Compañías de Africa que
+                constituyen el Índice Gold Mines Africa, que son 4 compañías. Una aproximación sería repartir su inversión en
+                acciones de estas compañías.
+            </p>
+            <br/>
+    
+        </div>
+    
+    </div>
+</div>
