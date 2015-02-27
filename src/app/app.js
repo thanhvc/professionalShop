@@ -38,7 +38,7 @@ angular.module('ngMo', [
 ])
 
  .config(function config($locationProvider, $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
-        $locationProvider.html5Mode(true);
+   //     $locationProvider.html5Mode(true);
         $stateProvider.state('home', {
             url: '/home?activated',
             views: {
@@ -48,7 +48,7 @@ angular.module('ngMo', [
                 }
             },
             data: {
-                pageTitle: 'Home',
+                pageTitle: 'HOME.page_title',
                 selectMenu: '',
                 selectSubmenu: '',
                 selectItemSubmenu: '',
@@ -1081,7 +1081,11 @@ angular.module('ngMo', [
             }
         });
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            if (angular.isDefined(toState.data.pageTitle)) {$scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';}
+            if (angular.isDefined(toState.data.pageTitle)) {
+                $translate(toState.data.pageTitle).then(function(title){
+                $scope.pageTitle = 'Market Observatory | ' + title;
+                });
+            }
             if (angular.isDefined(toParams.packCode)){
                 if (toParams.packCode.search(/.*FUTURE.*/) != -1){
 
