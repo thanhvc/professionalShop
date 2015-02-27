@@ -6,9 +6,17 @@
                ng-class="{'menu-position' : boolChangeClassDetailed, 'menu-bottom-position' : !boolChangeClassDetailed && positionFix , 'menu-fix' : positionFix}">
             <tr>
                 <td>
-                    <div ng-click="scrollTo('home'); selectedOption = 'home';" id="homeLink">
+                    <div ng-click="scrollTo('contents'); selectedOption = 'contents';" id="contentsLink">
                     <a
-                       ng-class="{'orange-text': selectedOption =='home'}">Página de Home</a>
+                       ng-class="{'orange-text': selectedOption =='contents'}">Contenidos</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="servicesLink" ng-click="scrollTo('services'); selectedOption = 'services';">
+                    <a
+                       ng-class="{'orange-text': selectedOption =='services'}">Servicios</a>
                     </div>
                 </td>
             </tr>
@@ -20,18 +28,42 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <div id="contents_and_pricesLink" ng-click="scrollTo('contents_and_prices'); selectedOption = 'contents_and_prices';">
+                    <a
+                       ng-class="{'orange-text': selectedOption =='contents_and_prices'}">Contenidos y Precios</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="investor_toolsLink" ng-click="scrollTo('investor_tools'); selectedOption = 'investor_tools';">
+                    <a
+                       ng-class="{'orange-text': selectedOption =='investor_tools'}">Herramientas del Inversor</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="contactLink" ng-click="scrollTo('contact'); selectedOption = 'contact';">
+                    <a
+                       ng-class="{'orange-text': selectedOption =='contact'}">Contacto</a>
+                    </div>
+                </td>
+            </tr>
         </table>
     </div>
     
-    <div class="content-detailed"><!-- TODO change ng-controller -->
+    <div class="content-detailed">
     
     <p class="text-block-title">FAQ</p>
 
-    <div class="anchor-detailed" id="home">
+    <div class="anchor-detailed" id="contents">
         <div>
-            <p class="text-block-title">Página de Home</p>
-       
-            <p class="faq-title" ><!-- TODO maybe change to orange-title class -->
+            <p class="text-block-title">Contenidos</p>
+   
+            <p class="faq-title" >
                 Quiero vender las acciones de una compañía –Caterpillar- que cotiza en Estados Unidos. En el mes de febrero
                 consulto la web de Market Observatory pero no localizo esta compañía. ¿Qué debo hacer?
             </p>
@@ -48,7 +80,7 @@
                 vender acciones de cualquier compañía.
             </p>
             <br/>
-            
+        
             <p class="faq-title" >
                 Tengo una suscripción anual, en el mes de febrero tengo el patrón de la compañía -Basf- y en marzo no. ¿Por qué?
             </p>
@@ -64,7 +96,7 @@
                 seguimiento con gráficos y alarmas de la posición abierta.
             </p>
             <br/>
-            
+        
             <p class="faq-title" >
                 Mi intermediario financiero –bróker- no me permite invertir con Ventas a corto ¿Puedo elegir una suscripción con
                 tan solo Patrones Alcistas?
@@ -89,7 +121,7 @@
                 exactamente con la misma rapidez y facilidad que una Compra.
             </p>
             <br/>
-            
+        
             <p class="faq-title" >
                 Al observar el nombre de las compañías que se publican durante un mes, a veces se repite el nombre de la
                 compañía ¿esto es posible o es un error?
@@ -110,6 +142,18 @@
             </p>
             <br/>
          </div>
+    </div>
+
+    <div class="anchor-detailed" id="services">
+        <div>
+            <p class="text-block-title">
+                Servicios
+            </p>
+
+            <p>No hay preguntas</p>
+            <br/>
+
+        </div>
     </div>
 
     <div class="anchor-detailed" id="service_application">
@@ -148,7 +192,7 @@
                 matemático-  se estará disminuyendo el poder predictivo.
             </p>
             <br/>
-            
+        
             <p class="faq-title" >
                 ¿Es práctico usar los Soportes y Resistencias de los gráficos del Patrón de 15 años para establecer los Stop Loss?
             </p>
@@ -165,7 +209,7 @@
                 decir, alcanzada la fecha de salida publicada por Market Observatory se cierra la operación.
             </p>
             <br/>
-            
+        
             <p class="faq-title" >
                 ¿Es práctico usar las Fechas de Entrada y Salida directamente como se especifica en el Patrón?
             </p>
@@ -182,7 +226,7 @@
                 En compañías líquidas puede usar perfectamente las fechas de entrada y salida publicadas.
             </p>
             <br/>
-            
+        
             <p class="faq-title" >
                 En la identificación de Patrones no se han considerado las Comisiones ¿No puede invalidar este hecho la
                 rentabilidad de muchos de ellos?
@@ -215,8 +259,43 @@
                 acciones de estas compañías.
             </p>
             <br/>
-    
+
         </div>
+    </div>
+
+    <div class="anchor-detailed" id="contents_and_prices">
+        <div>
+            <p class="text-block-title">
+                Contenidos y Precios
+            </p>
     
+            <p>No hay preguntas</p>
+            <br/>
+
+        </div>
+    </div>
+
+    <div class="anchor-detailed" id="investor_tools">
+        <div>
+            <p class="text-block-title">
+                Herramientas del Inversor
+            </p>
+    
+            <p>No hay preguntas</p>
+            <br/>
+
+        </div>
+    </div>
+
+    <div class="anchor-detailed" id="contact">
+        <div>
+            <p class="text-block-title">
+                Contacto
+            </p>
+    
+            <p>No hay preguntas</p>
+            <br/>
+
+        </div>
     </div>
 </div>

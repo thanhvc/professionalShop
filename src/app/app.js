@@ -1175,14 +1175,31 @@ angular.module('ngMo', [
 
         //maps each page to a FAQ section. No mapping means going to the begining of the FAQ page
         $scope.faqMap = {
-            "/home"            : "home",
-            "/stocks"          : "service_application",
-            "/funds"           : "service_application",
-            "/etf_cfd"         : "service_application",
-            "/futures"         : "service_application",
-            "/pairs"           : "service_application",
-            "/advanced"        : "service_application",
-            "/diversification" : "service_application"
+            "/home"                   : "contents",
+            "/summary"                : "services",
+            "/products_and_exchanges" : "services",
+            "/detailed_description"   : "services",
+            "/fundamentals"           : "services",
+            "/professionals"          : "services",
+            "/stocks"                 : "service_application",
+            "/funds"                  : "service_application",
+            "/etf_cfd"                : "service_application",
+            "/futures"                : "service_application",
+            "/pairs"                  : "service_application",
+            "/advanced"               : "service_application",
+            "/diversification"        : "service_application",
+            "/products"               : "contents_and_prices",
+            "/subscription_types"     : "contents_and_prices",
+            "/prices"                 : "contents_and_prices",
+            "/shopping_guide"         : "contents_and_prices",
+            "/purchase"               : "contents_and_prices",
+            "/free_subscription"      : "contents_and_prices",
+            "/resources"              : "investor_tools",
+            "/articles"               : "investor_tools",
+            "/support"                : "contact",
+            "/business"               : "contact",
+            "/job"                    : "contact",
+            "/localization"           : "contact"
         };
 
         $scope.goToFAQ = function() {
