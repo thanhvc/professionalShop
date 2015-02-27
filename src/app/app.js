@@ -38,7 +38,7 @@ angular.module('ngMo', [
 ])
 
  .config(function config($locationProvider, $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
-   //     $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true);
         $stateProvider.state('home', {
             url: '/home?activated',
             views: {
@@ -108,9 +108,9 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope,$translate,$translateCookieStorage) {
-       //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+       $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
        //$rootScope.urlService = 'http://localhost:19000';
-       $rootScope.urlService = 'http://localhost:9000';
+       //$rootScope.urlService = 'http://localhost:9000';
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
             $translate.use($translateCookieStorage.get('lang'));
             $translate.refresh();
