@@ -38,7 +38,7 @@ angular.module('ngMo', [
 ])
 
  .config(function config($locationProvider, $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
-   //     $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true);
         $stateProvider.state('home', {
             url: '/home?activated',
             views: {
