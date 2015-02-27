@@ -1173,7 +1173,7 @@ angular.module('ngMo', [
             tmhDynamicLocale.set(lang);
         };
 
-        //maps each page to FAQ section. No mapping means no FAQ
+        //maps each page to a FAQ section. No mapping means going to the begining of the FAQ page
         $scope.faqMap = {
             "/home"            : "home",
             "/stocks"          : "service_application",
@@ -1188,10 +1188,8 @@ angular.module('ngMo', [
         $scope.goToFAQ = function() {
              var fromPath = $location.path().split("#")[0];
              var faqSection = $scope.faqMap[fromPath];
-             if (faqSection === null || faqSection === undefined) {
-                 $location.path("/no_faq"); //go to no_faq page when no FAQ section defined
-             } else {
-                 $location.path("/faq");
+             $location.path("/faq");
+             if (!(faqSection === null || faqSection === undefined)) {
                  $location.hash(faqSection);
              }
         };
