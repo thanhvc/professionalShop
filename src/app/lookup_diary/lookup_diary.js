@@ -1335,6 +1335,7 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
     $scope.patternType = patternType;
     $scope.showAlertMessage = false;
     $scope.rentPattern = /^[-+]?\d+(\.\d{0,2})?$/;
+    $scope.focusPrice = true;
 
     $scope.data = {
         price: (typeof actualPrice !== 'undefined' ? actualPrice : 0),
@@ -1380,7 +1381,6 @@ var ModalAlertInstanceCtrl = function ($scope, $modalInstance, patternId, setAle
         $scope.deleteAlert($scope.patternId);
         $modalInstance.dismiss('cancel');
     };
-
 
 };
 
