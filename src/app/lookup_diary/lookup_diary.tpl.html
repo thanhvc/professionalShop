@@ -132,6 +132,8 @@
                             <option value="1">Menor que</option>
                         </select>
                         <input type="text" data-ng-model="data.price" name="priceInput"
+                               ng-enter="ok()"
+                               focus-me="focusPrice"
                                ng-class=" {'warning-input':  (alertForm.priceInput.$error.pattern && (alertForm.priceInput.$dirty))}"
                                ng-pattern="rentPattern">
                         <br>

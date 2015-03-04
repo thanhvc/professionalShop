@@ -1177,25 +1177,40 @@ angular.module('ngMo', [
             tmhDynamicLocale.set(lang);
         };
 
-        //maps each page to FAQ section. No mapping means no FAQ
+        //maps each page to a FAQ section. No mapping means going to the begining of the FAQ page
         $scope.faqMap = {
-            "/home"            : "home",
-            "/stocks"          : "service_application",
-            "/funds"           : "service_application",
-            "/etf_cfd"         : "service_application",
-            "/futures"         : "service_application",
-            "/pairs"           : "service_application",
-            "/advanced"        : "service_application",
-            "/diversification" : "service_application"
+            "/home"                   : "contents",
+            "/summary"                : "services",
+            "/products_and_exchanges" : "services",
+            "/detailed_description"   : "services",
+            "/fundamentals"           : "services",
+            "/professionals"          : "services",
+            "/stocks"                 : "service_application",
+            "/funds"                  : "service_application",
+            "/etf_cfd"                : "service_application",
+            "/futures"                : "service_application",
+            "/pairs"                  : "service_application",
+            "/advanced"               : "service_application",
+            "/diversification"        : "service_application",
+            "/products"               : "contents_and_prices",
+            "/subscription_types"     : "contents_and_prices",
+            "/prices"                 : "contents_and_prices",
+            "/shopping_guide"         : "contents_and_prices",
+            "/purchase"               : "contents_and_prices",
+            "/free_subscription"      : "contents_and_prices",
+            "/resources"              : "investor_tools",
+            "/articles"               : "investor_tools",
+            "/support"                : "contact",
+            "/business"               : "contact",
+            "/job"                    : "contact",
+            "/localization"           : "contact"
         };
 
         $scope.goToFAQ = function() {
              var fromPath = $location.path().split("#")[0];
              var faqSection = $scope.faqMap[fromPath];
-             if (faqSection === null || faqSection === undefined) {
-                 $location.path("/no_faq"); //go to no_faq page when no FAQ section defined
-             } else {
-                 $location.path("/faq");
+             $location.path("/faq");
+             if (!(faqSection === null || faqSection === undefined)) {
                  $location.hash(faqSection);
              }
         };
@@ -1215,6 +1230,29 @@ angular.module('ngMo', [
                 scope.$apply();
             });
         };
+    })
+
+    .directive('focusMe', function($timeout, $parse) {
+      return {
+        //scope: true,   // optionally create a child scope
+        link: function(scope, element, attrs) {
+          var model = $parse(attrs.focusMe);
+          scope.$watch(model, function(value) {
+            //console.log('value=',value);
+            if(value === true) {
+              $timeout(function() {
+                element[0].focus();
+              });
+            }
+          });
+          // to address @blesh's comment, set attribute value to 'false'
+          // on blur event:
+          element.bind('blur', function() {
+             //console.log('blur');
+             scope.$apply(model.assign(scope, false));
+          });
+        }
+      };
     })
 
     .directive('ngEnter', function() { //ng-enter='myFunction()' in a input for example will fire the myFunction when the user press enter..
