@@ -18,6 +18,8 @@ var FixtureGenerator = function () {
 
 };
 
+//Assumes that today is 17/11/2014 
+
 exports.the_week_fixture = function() {
     return [
         {
@@ -72,6 +74,35 @@ exports.the_week_fixture = function() {
                 currency_code: 'CU1',
                 region_code:'CAN',
                 sector_group: 'sector_group1'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'pack',
+            values: {
+                code: 'CAN-S-1',
+                region_code: 'CAN',
+                name: 'Canada Simple 1',
+                product_type: 0,
+                publication_date: '2014-11-01',
+                scope_text: 'Simple Pack 1 text',
+                pattern_type: 0,
+                subname: ' '
+            }
+        },
+        {
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 1,
+                pack_code: 'CAN-S-1',
+                user_id: 1,
+                subscription_date: '2014-11-01',
+                start_date: '2014-11-01',
+                subscription_duration: 2,
+                end_date: '2015-11-01',
+                status: 0
             }
         },
         {
@@ -751,6 +782,14 @@ exports.remove_the_week_fixture = function(){
         },
         {
             type: 'remove',
+            table: 'subscription'
+        },
+        {
+            type: 'remove',
+            table: 'pack'
+        },
+        {
+            type: 'remove',
             table: 'asset'
         },
         {
@@ -768,10 +807,6 @@ exports.remove_the_week_fixture = function(){
         {
             type: 'remove',
             table: 'region'
-        },
-        {
-            type: 'remove',
-            table: 'sector'
         },
         {
             type: 'remove',
