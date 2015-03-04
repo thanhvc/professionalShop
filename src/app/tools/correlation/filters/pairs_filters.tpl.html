@@ -14,13 +14,16 @@
                 </select>
             </td>
             <td>
-                <select ng-disabled="correlationList.length > 0 || filterOptions.selectors.regions.length <= 0" ng-change="selectRegion()" class="border-filters select-filter-correlation"
+                <select ng-if="!loadingFilters" ng-disabled="correlationList.length > 0 || filterOptions.selectors.regions.length <= 0" ng-change="selectRegion()" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedRegion">
                     <option value="">{{'TOOLS.region'|translate}}</option>
                     <option ng-repeat="item in filterOptions.selectors.regions | orderBy:['description']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedRegion}}">
                         {{('REGIONS.' + item.id) | translate}}
                     </option>
+                </select>
+                <select class="border-filters select-filter-correlation" ng-if="loadingFilters" >
+                    <option value="">- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
             <td style="text-align: center;">

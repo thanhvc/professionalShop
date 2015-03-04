@@ -14,13 +14,16 @@
                 </select>
             </td>
             <td>
-                <select ng-change="selectMarket()" class="border-filters select-filter-correlation"
+                <select ng-if="!loadingFilters" ng-change="selectMarket()" class="border-filters select-filter-correlation"
                         data-ng-model="filterOptions.filters.selectedMarket" ng-disabled="filterOptions.selectors.markets.length <= 0">
                     <option value="">- {{'TOOLS.market'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.markets | orderBy:['description']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
                         {{item.description}}
                     </option>
+                </select>
+                <select class="border-filters select-filter-correlation" ng-if="loadingFilters" >
+                    <option value="">- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
             <td>

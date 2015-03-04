@@ -2,11 +2,14 @@
     <select data-ng-model="filterOptions.filters.selectMonth" class="filter-calendar"  ng-change="goToMonth()"
             ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months">
     </select>
-    <select data-ng-model="filterOptions.filters.selectedRegion" class="filter-calendar"  ng-change="selectRegion();" ng-disabled="filterOptions.selectors.regions.length <= 0">
+    <select ng-if="!loadingFilters" data-ng-model="filterOptions.filters.selectedRegion" class="filter-calendar"  ng-change="selectRegion();" ng-disabled="filterOptions.selectors.regions.length <= 0">
         <option selected value="">- {{'CALENDAR.region'|translate}} -</option>
         <option ng-repeat="region in filterOptions.selectors.regions | orderBy:['description']" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">
             {{('REGIONS.' + region.id) | translate}}
         </option>
+    </select>
+    <select class="filter-calendar" ng-if="loadingFilters" >
+        <option value="">- {{ 'LOADING'|translate}} -</option>
     </select>
     <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search()"><label>{{'CALENDAR.favorites'|translate}}</label>
     <form name="calendarPair">
