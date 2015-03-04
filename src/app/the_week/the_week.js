@@ -121,7 +121,7 @@ angular.module('ngMo.the_week', [
             //Get current year to set the res service
             var currentYear = new Date().getFullYear();
             $scope.loading = true;
-            //TODO: FIX this urgently
+
             $http.get($rootScope.urlService + "/weekData/" + $scope.year, config).success(function (data) {
                 $scope.loading = false;
 
