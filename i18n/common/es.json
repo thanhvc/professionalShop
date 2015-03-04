@@ -19,6 +19,8 @@
     "NOVEMBER": "Noviembre",
     "DECEMBER": "Diciembre",
     "SIN CLASIFICAR": "SIN CLASIFICAR",
+    "NOT_CLASSIFIED": "SIN CLASIFICAR",
+    "Not_classified": "SIN CLASIFICAR",
     "REGIONS": {
         "OCEANIA": "Australia + Nueva Zelanda",
         "CEE": "Suiza + Europa del Este + Rusia",
