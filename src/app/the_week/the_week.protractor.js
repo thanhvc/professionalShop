@@ -103,7 +103,7 @@ describe('The week for logged in users', function () {
             
             xit('should contain three tabs', function() { expect(the_week_page.navTabs().count()).toBe(3); });
 
-            xdescribe("Common", function() {
+            describe("Common", function() {
                 it('should have the correct week number and date in header',function() {
                     expect(the_week_page.header().getText()).toContain("Año 2014");
                     expect(the_week_page.header().getText()).toContain("17 Noviembre / 21 Noviembre");
@@ -111,7 +111,7 @@ describe('The week for logged in users', function () {
                 });
             }); 
 
-            xdescribe("Bolsa tab", function() {
+            describe("Bolsa tab", function() {
                 describe("America Indices",function() {
                     describe("EEUU region",function() {
                         it("should have correct title", function() {
