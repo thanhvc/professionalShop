@@ -15,7 +15,7 @@
                         {{'REGIONS.' + item.id | translate}}
                     </option>
                 </select>
-                <select ng-if="loadingFilters" class="border-filters select-filter">
+                <select ng-if="loadingFilters" class="border-filters select-filter" disabled="true">
                     <option value=""   >- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
@@ -29,7 +29,7 @@
                         {{item.description}}
                     </option>
                 </select>
-                <select class="border-filters select-filter" ng-if="loadingFilters" >
+                <select class="border-filters select-filter" ng-if="loadingFilters" disabled="true">
                     <option value="">- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
@@ -42,7 +42,7 @@
                         {{item.id | sectorNameFromId |translate}}
                     </option>
                 </select>
-                <select  class="border-filters select-filter" ng-if="loadingFilters"
+                <select  class="border-filters select-filter" ng-if="loadingFilters" disabled="true"
                         >
                     <option value="">- {{ 'LOADING'|translate}} -</option>
                 </select>
@@ -56,20 +56,16 @@
                         {{item.id | industryNameFromId |translate}}
                     </option>
                 </select>
-                <select  class="border-filters select-filter" ng-if="loadingFilters"
+                <select  class="border-filters select-filter" ng-if="loadingFilters" disabled="true"
                         >
                     <option value="">- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
             <td>
-                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter" ng-if="!loadingFilters"
+                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
                         ng-options="item.description|translate for item in filterOptions.selectors.operations"
                         data-ng-model="filterOptions.filters.selectedOperation">
                     <option value="">- {{'MY_PATT.operation'|translate}} -</option>
-                </select>
-                <select  class="border-filters select-filter" ng-if="loadingFilters"
-                        >
-                    <option value="">- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
         </tr>
