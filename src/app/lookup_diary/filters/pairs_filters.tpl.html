@@ -6,7 +6,7 @@
                        ng-model="filterOptions.filters.filterName">
             </td>
             <td>
-                <select ng-change="selectRegion()" class="border-filters select-filter"
+                <select ng-change="selectRegion()" class="border-filters select-filter" ng-if="!loadingFilters"
                         data-ng-model="filterOptions.filters.selectedRegion"
                         ng-disabled="filterOptions.selectors.regions.length <= 0">
                     <option value="">-  {{'FOLLOW.region'|translate}} -</option>
@@ -15,10 +15,13 @@
                         {{'REGIONS.'+ item.id | translate}}
                     </option>
                 </select>
+                <select ng-if="loadingFilters" class="border-filters select-filter">
+                    <option value=""   >- {{ 'LOADING'|translate}} -</option>
+                </select>
             </td>
 
             <td style="width: 150px;">
-                <select ng-disabled="filterOptions.selectors.sectors.length <= 0" ng-change="selectSector()" class="border-filters select-filter"
+                <select ng-disabled="filterOptions.selectors.sectors.length <= 0" ng-if="!loadingFilters" ng-change="selectSector()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedSector">
                     <option value="">- {{'FOLLOW.sector'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.sectors | orderBy:['ordering']" value="{{item.id}}"
@@ -26,15 +29,21 @@
                         {{item.id | sectorNameFromId |translate}}
                     </option>
                 </select>
+                <select ng-if="loadingFilters" class="border-filters select-filter">
+                    <option value=""   >- {{ 'LOADING'|translate}} -</option>
+                </select>
             </td>
             <td>
-                <select ng-disabled="filterOptions.selectors.industries.length <= 0" ng-change="selectIndustry()" class="border-filters select-filter"
+                <select ng-disabled="filterOptions.selectors.industries.length <= 0" ng-if="!loadingFilters" ng-change="selectIndustry()" class="border-filters select-filter"
                         data-ng-model="filterOptions.filters.selectedIndustry">
                     <option value="">- {{'FOLLOW.industry'|translate}} -</option>
                     <option ng-repeat="item in filterOptions.selectors.industries | orderBy:['ordering']" value="{{item.id}}"
                             ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}">
                         {{item.id| industryNameFromId |translate}}
                     </option>
+                </select>
+                <select ng-if="loadingFilters" class="border-filters select-filter">
+                    <option value=""   >- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
             <td>

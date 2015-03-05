@@ -41,7 +41,8 @@
         "JPN": "Japón",
         "EUR": "EURO Zona",
         "FUTURE": "Futuros",
-        "FOREX": "Forex"
+        "FOREX": "Forex",
+        "REGION": "- Región -"
     },
     "access": "Acceso",
     "user": "Usuario",
@@ -86,6 +87,7 @@
     "free_subscription_desc": "La suscripción gratis permite acceder al servicio de alto valor para sus inversiones en mercados financieros internacionales, acciones, forex, commodties, futuros, índices",
     "shopping_guide_desc": "Los distintos Pack de contenidos de estrategias se ponen en práctica con diferentes instrumentos acciones, bonos, ETF, CFD, Fondos de Inversión, Pensiones o Futuros",
     "job_desc":"Trabaja con nosotros",
-    "business_desc":"Todos los Patrones optimizados en rentabilidad y recurrencia datos objetivos de activos y bolsas del mundo, outrights, pairs, spreads para profesionales, fondos, hedge funds, mercados de capitales"
+    "business_desc":"Todos los Patrones optimizados en rentabilidad y recurrencia datos objetivos de activos y bolsas del mundo, outrights, pairs, spreads para profesionales, fondos, hedge funds, mercados de capitales",
+    "LOADING":"Cargando"
     
 }
