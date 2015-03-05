@@ -23,7 +23,7 @@
                         {{('REGIONS.' + item.id) | translate}}
                     </option>
                 </select>
-                <select class="border-filters select-filter-portfolio" ng-if="loadingFilters" >
+                <select class="border-filters select-filter-portfolio" ng-if="loadingFilters" disabled="true">
                     <option value="">- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
@@ -37,7 +37,7 @@
                         {{item.description}}
                     </option>
                 </select>
-                <select class="border-filters select-filter-portfolio" ng-if="loadingFilters" >
+                <select class="border-filters select-filter-portfolio" ng-if="loadingFilters" disabled="true">
                     <option value="">- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>

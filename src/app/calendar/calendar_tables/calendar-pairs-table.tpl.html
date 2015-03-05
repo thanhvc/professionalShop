@@ -8,7 +8,7 @@
             {{('REGIONS.' + region.id) | translate}}
         </option>
     </select>
-    <select class="filter-calendar" ng-if="loadingFilters" >
+    <select class="filter-calendar" ng-if="loadingFilters"  disabled="true">
         <option value="">- {{ 'LOADING'|translate}} -</option>
     </select>
     <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search()"><label>{{'CALENDAR.favorites'|translate}}</label>

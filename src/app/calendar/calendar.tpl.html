@@ -19,7 +19,7 @@
     <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title | translate}}" active="ctab.active" disabled="tab.disabled">
         <div class="pdf-icon-calendar" ng-click="isDisabled || obtainCalendarPdf();"></div>
         <div class="loading-div-container">
-            <fieldset ng-disabled="loading || loadingFilters">
+            <fieldset > <!--ng-disabled="loading || loadingFilters"-->
                 <div ng-include="urlSelected"></div>
             </fieldset>
         </div>

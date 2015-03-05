@@ -22,7 +22,7 @@
                         {{('REGIONS.' + item.id) | translate}}
                     </option>
                 </select>
-                <select class="border-filters select-filter-correlation" ng-if="loadingFilters" >
+                <select class="border-filters select-filter-correlation" ng-if="loadingFilters" disabled="true">
                     <option value="">- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>

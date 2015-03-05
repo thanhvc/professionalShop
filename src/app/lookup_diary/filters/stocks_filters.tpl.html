@@ -15,7 +15,7 @@
                         {{'REGIONS.'+ item.id | translate}}
                     </option>
                 </select>
-                <select ng-if="loadingFilters" class="border-filters select-filter">
+                <select ng-if="loadingFilters" class="border-filters select-filter" disabled="true">
                     <option value=""   >- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
@@ -29,7 +29,7 @@
                         {{item.description}}
                     </option>
                 </select>
-                <select ng-if="loadingFilters" class="border-filters select-filter">
+                <select ng-if="loadingFilters" class="border-filters select-filter" disabled="true">
                     <option value=""   >- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
@@ -42,7 +42,7 @@
                         {{item.id | sectorNameFromId |translate}}
                     </option>
                 </select>
-                <select ng-if="loadingFilters" class="border-filters select-filter">
+                <select ng-if="loadingFilters" class="border-filters select-filter" disabled="true">
                     <option value=""   >- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
@@ -55,7 +55,7 @@
                         {{item.id | industryNameFromId |translate}}
                     </option>
                 </select>
-                <select ng-if="loadingFilters" class="border-filters select-filter">
+                <select ng-if="loadingFilters" class="border-filters select-filter" disabled="true">
                     <option value=""   >- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>

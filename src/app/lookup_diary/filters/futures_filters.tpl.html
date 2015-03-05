@@ -15,7 +15,7 @@
                         {{item.description}}
                     </option>
                 </select>
-                <select ng-if="loadingFilters" class="border-filters select-filter">
+                <select ng-if="loadingFilters" class="border-filters select-filter" disabled="true">
                     <option value=""   >- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
