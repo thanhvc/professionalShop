@@ -28,7 +28,7 @@
     <tabset>
         <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title|translate}}"
              active="ctab.active" disabled="tab.disabled">
-            <fieldset ng-disabled="loading || loadingFilters">
+            <fieldset  >
             <div class="portfolio-filter-container">
 
 
@@ -121,6 +121,11 @@
             <button style="width: 75px;float:right;margin-bottom: 10px; margin-right: 20px;" class="mo-button" ng-click="clearAll();goToTop();">
                 {{'TOOLS.accept'|translate}}
             </button>
+            <div style="clear:both;">
+                <div class="copyright">
+                    Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+                </div>
+            </div>
         </div>
     </div>
 </div>

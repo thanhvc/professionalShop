@@ -21,7 +21,7 @@
         <tabset>
             <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title | translate}}"
                  active="ctab.active" disabled="tab.disabled">
-                <fieldset ng-disabled="loading || loadingFilters">
+                <fieldset  >
                 <div class="filter-container-volatility"  >
                     <!--filters-->
                     <div ng-include="getTemplateFilter()"></div>
@@ -39,9 +39,6 @@
                 </fieldset>
             </tab>
         </tabset>
-        <div class="copyright">
-            Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
-        </div>
     </div>
     </div>
 
@@ -51,6 +48,9 @@
                     page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
                     next-text="&gt;"
                     first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+    </div>
+    <div class="copyright">
+        Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
     </div>
 
 

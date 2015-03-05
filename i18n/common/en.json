@@ -39,7 +39,8 @@
         "JPN":"Japan",
         "EUR":"EURO Zone",
         "FUTURE":"Futures",
-        "FOREX":"Forex"
+        "FOREX":"Forex",
+        "REGION": "- Region -"
     },
 
     "access":"Access",
@@ -49,5 +50,6 @@
     "enter":"Enter",
     "badlogin1":"Invalid user or password.",
     "badlogin2":"Remember that the user must be an email.",
-    "forgotpass":"Forgot your Password?"
+    "forgotpass":"Forgot your Password?",
+    "LOADING":"Loading"
 }

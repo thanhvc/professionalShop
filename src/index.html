@@ -7,7 +7,7 @@
     <meta name="keywords" content="{{ MetaInformation.metaKeywords() }}">
     <link rel="shortcut icon" type="image/png" href="assets/img/favicon_mo_16.ico"/>
     <base href="/">
-    <title ng-bind="pageTitle"></title>
+    <title translate ng-bind="pageTitle"></title>
 
     <!-- TODO:social media tags -->
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
@@ -134,7 +134,7 @@
             <footer class="container">
                 <span class="footerBottomText">&copy; Market Observatory | {{actualDate | date: 'yyyy'}} </span>
                     <!--<a ui-sref="privacy_policy">Pol&iacute;tica de privacidad</a>-->
-                <span class="footer-bottom-text">0.3.14 build 14</span>
+                <span class="footer-bottom-text"><%= version %> build 14</span>
                 <span class="footer-bottom-text">Version</span>
             </footer>
         </div>
