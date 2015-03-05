@@ -481,6 +481,9 @@ angular.module('ngMo.lookup_diary', [
             if (typeof data.selectedSector != 'undefined') {
                 $scope.filterOptions.filters.selectedSector = data.selectedSector;
             }
+            if (typeof data.selectedIndustry != 'undefined') {
+                $scope.filterOptions.filters.selectedIndustry = data.selectedIndustry;
+            }
             $scope.loadingFilters = false;
         };
 
