@@ -398,6 +398,9 @@ angular.module('ngMo.historic', [
             if (typeof data.selectedSector != 'undefined') {
                 $scope.filterOptions.filters.selectedSector = data.selectedSector;
             }
+            if (typeof data.selectedIndustry != 'undefined') {
+                $scope.filterOptions.filters.selectedIndustry = data.selectedIndustry;
+            }
             $scope.loadingFilters = false;
         };
 
