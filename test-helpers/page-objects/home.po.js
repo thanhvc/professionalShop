@@ -38,10 +38,10 @@ Home.prototype =  Object.create({}, {
     }},
     myAccountLink:{value: function(){
         return element(by.css("a.my-account-link"));
-    }},
-    activatedUserMessage:{value: function(){
-        return element(by.css("div.activated-user-message"));
-    }}
+    }}//,
+    //activatedUserMessage:{value: function(){
+    //    return element(by.css("div.activated-user-message"));
+    //}}
 
 
 
