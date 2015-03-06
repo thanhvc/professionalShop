@@ -47,6 +47,10 @@ describe('forgot password page', function () {
         });
 
         describe("registered user email", function() {
+            afterEach(function () {
+                expect(queue.length).toEqual(0); //1 email should be sent
+            });
+
             it("should send change password link by email", function() {
                 queue.push( { sender: 'market.observatory@edosoftfactory.com',
                     receivers: { 'registered.user@foo.bar': true },
@@ -68,7 +72,7 @@ describe('forgot password page', function () {
                         email.html,
                         ["http://code.jquery.com/jquery.js"],
                         function (errors, window) {
-                            expect(window.$("a").attr('href')).toMatch('\^http:\\/\\/mo\\.devel\\.edosoftfactory.com\\/#\\/change-password\\/');
+                            expect(window.$("a").attr('href')).toMatch('marketobservatory.com\\/#\\/change-password\\/');
                             //expect(window.$("span").text()).toMatch('John Doe');
                         }
                     );
@@ -96,6 +100,10 @@ describe('forgot password page', function () {
         });
 
         describe("pending user email", function() {
+            afterEach(function () {
+                expect(queue.length).toEqual(1); //no email should be sent
+            });
+
             it("should not send change password link by email because is not activated", function() {
                 queue.push( { sender: 'market.observatory@edosoftfactory.com',
                     receivers: { 'pending.user@foo.bar': true },
@@ -125,7 +133,8 @@ describe('forgot password page', function () {
                         expect(result.rows[0].email_address).toBe('pending.user@foo.bar');
                         expect(result.rows[0].status).toBe(0);
                         expect(String(result.rows[0].change_password_date)).not.toContain("Nov 17 2014");
-                        expect(result.rows[0].sign_up_token.length).not.toBe(20);
+                        expect(result.rows[0].sign_up_token.length).toBe(20);
+                        expect(result.rows[0].sign_up_token).toBe('LLLLLLLLLLLLLLLLLLLL');
                     });
                 });
             });
@@ -133,7 +142,11 @@ describe('forgot password page', function () {
         });
 
         describe("expired user email", function() {
-            it("should not send change password link by email because is an expired user", function() {
+            afterEach(function () {
+                expect(queue.length).toEqual(0); //1 email should be sent
+            });
+
+            it("should send change password link by email even if it is an expired user", function() {
                 queue.push( { sender: 'market.observatory@edosoftfactory.com',
                     receivers: { 'expired.user@foo.bar': true },
                     subject: 'Recuperar Contraseña Market Observatory'
@@ -161,8 +174,9 @@ describe('forgot password page', function () {
                         expect(result.rowCount).toBe(1);
                         expect(result.rows[0].email_address).toBe('expired.user@foo.bar');
                         expect(result.rows[0].status).toBe(2);
-                        expect(String(result.rows[0].change_password_date)).not.toContain("Nov 17 2014");
-                        expect(result.rows[0].sign_up_token.length).not.toBe(20);
+                        expect(String(result.rows[0].change_password_date)).toContain("Nov 17 2014");
+                        expect(result.rows[0].sign_up_token.length).toBe(20);
+                        expect(result.rows[0].sign_up_token).toBe('EEEEEEEEEEEEEEEEEEEE');
                     });
                 });
             });
