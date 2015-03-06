@@ -9,6 +9,7 @@ var sha512 = require('sha512');
 var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js');
 var Activate = require('../../../test-helpers/page-objects/activate.po.js');
+var Reactivate = require('../../../test-helpers/page-objects/reactivate.po.js');
 var MyPatterns = require('../../../test-helpers/page-objects/mypatterns.po.js');
 var Helper = require('../../../test-helpers/helper.js');
 var DateServerConfigMod = require('../../../test-helpers/date-server-config.js');
@@ -21,6 +22,7 @@ ptor.sleep(9000);
 
 describe('activation page', function () {
         var activate_page;
+        var reactivate_page;
         var my_patterns_page;
         var helper = new Helper();
         var conString = browser.params.sqlCon;
@@ -74,13 +76,13 @@ describe('activation page', function () {
 
         describe("incorrect validation code", function() {
             beforeEach(function () {
+                reactivate_page = new Reactivate();
                 activate_page = new Activate('FOO');
                 ptor.sleep(2000);
             });
              
             it("should not activate the user", function() {
                 expect(home.isCurrentPage()).toBe(true);
-                //expect(home.activatedUserMessage().isDisplayed()).toBe(true);
 
                 var select_fixture = fixtureGenerator.select_user_fixture({email_address: "new.user@foo.bar"});
                 loadFixture.executeQuery(select_fixture, conString, function(result) {
@@ -95,6 +97,8 @@ describe('activation page', function () {
                 home.login('new.user@foo.bar', 'phantom');
                 ptor.sleep(2000);
                 expect(home.loginLink().isDisplayed()).toBe(true);
+                expect(home.isCurrentPage()).toBe(false);
+                expect(reactivate_page.isCurrentPage()).toBe(true);
             });
         });
 });
