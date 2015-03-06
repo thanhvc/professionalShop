@@ -183,6 +183,9 @@ angular.module('ngMo.my_patterns', [
         $scope.dataLoaded = false;
         $scope.loading = true;//loading patterns
         $scope.loadingFilters = false;
+        $scope.waitForFilters = false;//say if is necessary wait for the selectors to load the patterns (only true when change month and a region is selected)
+        $scope.changingMonth = false;//says if the user is changing month
+        //
         //function to create the filter object
         $scope.filterStructure = function(restartRegion) {
             selectedRegion = "";
@@ -495,6 +498,7 @@ angular.module('ngMo.my_patterns', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors,filters,callback) {
+            $scope.loadingFilters = true;
             viewName = $state.$current.self.name;
             $scope.loadingFilters = true;
             PatternsService.getSelectors(filters, selectors,callback,viewName);
@@ -550,6 +554,12 @@ angular.module('ngMo.my_patterns', [
                 $scope.filterOptions.filters.selectedIndustry = data.selectedIndustry;
             }
             $scope.loadingFilters = false;
+            if ($scope.waitForFilters) {
+                $scope.waitForFilters = false;
+
+                //the page is waiting for patterns to load
+                $scope.loadPage();
+            }
 
         };
 
@@ -686,7 +696,8 @@ angular.module('ngMo.my_patterns', [
 
 
         $scope.nextMonth = function () {
-           $scope.startLoading();
+            $scope.changingMonth= true;
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter(true,false);
@@ -694,6 +705,7 @@ angular.module('ngMo.my_patterns', [
 
         };
         $scope.previousMonth = function () {
+            $scope.changingMonth= true;
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -702,6 +714,7 @@ angular.module('ngMo.my_patterns', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.changingMonth= true;
             $scope.loading= true;
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
@@ -812,7 +825,9 @@ angular.module('ngMo.my_patterns', [
             //we launch loadPage
             url = $location.search();
             if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
-                $scope.loadPage();
+                if (!$scope.waitForFilters) {
+                    $scope.loadPage();
+                }
             } else {
                 $location.path('/patterns').search(urlParamsSend);
             }
@@ -885,7 +900,15 @@ angular.module('ngMo.my_patterns', [
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorService.setDate(d);
-
+                //month specified ? and region specified? then waitForFilters
+                if (($scope.filterOptions.filters.month != null && $scope.filterOptions.filters.month.value !== params.month) && (filters.selectedRegion !== "")) {
+                    $scope.waitForFilters = true;
+                }
+                //or may be changingMonth =true and selectedRegion
+                if (($scope.changingMonth && filters.selectedRegion !=="")) {
+                    $scope.waitForFilters = true;
+                    $scope.changingMonth = false;
+                }
 
             } else {
                 //if the date is not passed as param, we load the default date
@@ -934,7 +957,9 @@ angular.module('ngMo.my_patterns', [
 
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                $scope.loadPage();
+            }
         });
         /*First load on page ready*/
         //$scope.restartFilter(false,false);
@@ -942,7 +967,9 @@ angular.module('ngMo.my_patterns', [
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                $scope.loadPage();
+            }
         }
 
         //$scope.loadPage();

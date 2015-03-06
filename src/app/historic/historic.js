@@ -48,6 +48,9 @@ angular.module('ngMo.historic', [
         });
         $scope.tabs = TabsService.getTabs();
         //strucutre filters
+        $scope.waitForFilters = false;//say if is necessary wait for the selectors to load the patterns (only true when change month and a region is selected)
+        $scope.changingMonth = false;//says if the user is changing month
+
 
         $scope.filterStructure = function(restartRegion) {
             selectedRegion = "";
@@ -348,6 +351,7 @@ angular.module('ngMo.historic', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors,filters,callback) {
+            $scope.loadingFilters = true;
             viewName = $state.$current.self.name;
             $scope.loadingFilters = true;
             HistoricsService.getSelectors(filters, selectors,callback,viewName);
@@ -402,6 +406,14 @@ angular.module('ngMo.historic', [
                 $scope.filterOptions.filters.selectedIndustry = data.selectedIndustry;
             }
             $scope.loadingFilters = false;
+            $scope.loadingFilters = false;
+            if ($scope.waitForFilters) {
+                $scope.waitForFilters = false;
+
+                //the page is waiting for patterns to load
+                $scope.loadPage();
+            }
+
         };
 
         /**
@@ -530,6 +542,7 @@ angular.module('ngMo.historic', [
 
 
         $scope.nextMonth = function () {
+            $scope.changingMonth =true;
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -538,6 +551,7 @@ angular.module('ngMo.historic', [
 
         };
         $scope.previousMonth = function () {
+            $scope.changingMonth =true;
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(-1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -546,6 +560,7 @@ angular.module('ngMo.historic', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.changingMonth =true;
             $scope.startLoading();
             var fixedDate = false;
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
@@ -692,7 +707,9 @@ angular.module('ngMo.historic', [
             //we launch loadPage
             url = $location.search();
             if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
-                $scope.loadPage();
+                if (!$scope.waitForFilters) {
+                    $scope.loadPage();
+                }
             } else {
                 $location.path('/historic').search(urlParamsSend);
             }
@@ -763,6 +780,14 @@ angular.module('ngMo.historic', [
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorHistoricService.setDate(d);
+                if (($scope.filterOptions.filters.month != null && $scope.filterOptions.filters.month.value !== params.month) && (filters.selectedRegion !== "")) {
+                    $scope.waitForFilters = true;
+                }
+                //or may be changingMonth =true and selectedRegion
+                if (($scope.changingMonth && filters.selectedRegion !=="")) {
+                    $scope.waitForFilters = true;
+                    $scope.changingMonth = false;
+                }
 
             } else {
                 //if the date is not passed as param, we load the default date
@@ -802,14 +827,18 @@ angular.module('ngMo.historic', [
 
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                $scope.loadPage();
+            }
         });
         /*First load on page ready*/
         //$scope.restartFilter(false,false);
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                $scope.loadPage();
+            }
         }
 
 
