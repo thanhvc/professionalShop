@@ -13,6 +13,14 @@ var Helper = require('../../../test-helpers/helper.js');
 var PaymentPage = require('../../../test-helpers/page-objects/payment.po.js');
 var Paypal = require('../../../test-helpers/page-objects/paypal.po.js');
 var MyPatterns = require('../../../test-helpers/page-objects/mypatterns.po.js');
+var DateServerConfigMod = require('../../../test-helpers/date-server-config.js');
+
+//set date on server
+var vagrant_id = browser.params.serverVagrantId;
+var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
+dsc.setServerDate("2014-11-17 11:30:00");
+ptor.sleep(9000);
+
 
 
 describe('the My Subscriptions page', function () {
@@ -43,7 +51,7 @@ describe('the My Subscriptions page', function () {
             ptor.sleep(2000);
             page = new MySubscriptions();
             // page.open();
-            ptor.sleep(2000);
+            ptor.sleep(4000);
             canadaPurchased = page.getPurchased(0);
             expect(canadaPurchased.getAttribute("disabled")).toBe(null); //is not purchased
             //page.selectMonth(1);
