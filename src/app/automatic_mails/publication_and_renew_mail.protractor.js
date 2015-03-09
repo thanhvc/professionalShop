@@ -56,18 +56,24 @@ describe('Pack publication notification mails', function () {
                         receivers: { 'test1.user@foo.bar': true },
                         receiver_email: 'test1.user@foo.bar',
                         receiver_name : "Test1 user",
+                        pack : {code: "USA-S-1", name: "Estados Unidos Pack I"},
+                        content_sentences: ["Acciones","Patrones de diciembre-2014"],
                         subject: 'diciembre-2014 Estrategias Market Observatory Disponibles'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
                         receiver_email: 'test2.user@foo.bar',
                         receiver_name : "Test2 user",
+                        pack : {code: "USA-S-1", name: "Estados Unidos Pack I"},
+                        content_sentences: ["Acciones","Patrones de diciembre-2014"],
                         subject: 'diciembre-2014 Estrategias Market Observatory Disponibles'});
             
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test3.user@foo.bar': true },
                         receiver_email: 'test3.user@foo.bar',
                         receiver_name : "Test3 user",
+                        pack : {code: "USA-P-1", name: "Estados Unidos Pack I"},
+                        content_sentences: ["Pares","Patrones de diciembre-2014"],
                         subject: 'diciembre-2014 Estrategias Market Observatory Disponibles'});
 
 
@@ -99,9 +105,13 @@ describe('Pack publication notification mails', function () {
                     email.html,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
-                        expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
+                        expect(window.$("a").attr('href')).toMatch('marketobservatory.com/catalog/'+msg.pack.code);
+                        expect(window.$("a").text()).toMatch(msg.pack.name);
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
                         expect(window.$("span").text()).toMatch("Ya están disponibles los Patrones de diciembre-2014");
+                        for (var i=0;i<msg.content_sentences.length;i++) {
+                            expect(window.$("span").text()).toMatch(msg.content_sentences[i]);
+                        }
                     }
                 );
                         
