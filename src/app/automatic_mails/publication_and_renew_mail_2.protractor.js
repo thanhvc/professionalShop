@@ -110,7 +110,7 @@ describe('Pack renewal notification mails', function () {
                         expect(window.$("span").text()).toMatch("pendiente de renovar");
                         for (var i=0;i<msg.packs.length;i++) {
                             expect(window.$("ul li").text()).toMatch("Renovar " + msg.packs[i].name);
-                            expect(window.$("ul li:nth-child(" + (i+1) +") a").attr("href")).toMatch("renew-pack/" + msg.packs[i].code);
+                            expect(window.$("ul li:nth-child(" + (i+1) +") a").attr("href")).toMatch("marketobservatory.com/renew-pack/" + msg.packs[i].code);
                         }
                     }
                 );

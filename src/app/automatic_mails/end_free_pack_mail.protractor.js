@@ -58,7 +58,7 @@ describe('End free pack notification mails', function () {
                         receiver_email: 'test1.user@foo.bar',
                         receiver_name : "Test1 user",
                         email_log_type: 11,
-                        email_method: 'body',
+                        email_method: 'html',
                         content_sentences: ["Su periodo de","Suscripción Gratuita ha concluido"],
                         subject: 'Aviso Fin Subscripción Gratuita Market Observatory'});
 
@@ -67,7 +67,7 @@ describe('End free pack notification mails', function () {
                         receiver_email: 'test4.user@foo.bar',
                         receiver_name : "Test4 user",
                         email_log_type: 11,
-                        email_method: 'body',
+                        email_method: 'html',
                         content_sentences: ["Su periodo de","Suscripción Gratuita ha concluido"],
                         subject: 'Aviso Fin Subscripción Gratuita Market Observatory'});
             
