@@ -6,7 +6,7 @@
             </td>
 
             <td>
-                <select  ng-change="selectMarket()" class="border-filters select-filter"
+                <select  ng-change="selectMarket()" class="border-filters select-filter" ng-if="!loadingFilters"
                         data-ng-model="filterOptions.filters.selectedMarket"
                         ng-disabled="filterOptions.selectors.markets.length <= 0">
                     <option value="">- {{'FOLLOW.market'|translate}} -</option>
@@ -14,6 +14,9 @@
                             ng-selected="{{item.id == filterOptions.filters.selectedMarket}}">
                         {{item.description}}
                     </option>
+                </select>
+                <select ng-if="loadingFilters" class="border-filters select-filter" disabled="true">
+                    <option value=""   >- {{ 'LOADING'|translate}} -</option>
                 </select>
             </td>
 

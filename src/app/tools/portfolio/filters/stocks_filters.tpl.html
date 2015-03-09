@@ -14,7 +14,7 @@
                 </select>
             </td>
             <td>
-                <select ng-change="selectRegion()" class="border-filters select-filter-portfolio"
+                <select ng-if="!loadingFilters" ng-change="selectRegion()" class="border-filters select-filter-portfolio"
                         data-ng-model="filterOptions.filters.selectedRegion"
                         ng-disabled="filterOptions.selectors.regions.length <= 0">
                     <option value="">{{'TOOLS.region'|translate}}</option>
@@ -23,9 +23,12 @@
                         {{('REGIONS.' + item.id) | translate}}
                     </option>
                 </select>
+                <select class="border-filters select-filter-portfolio" ng-if="loadingFilters" disabled="true">
+                    <option value="">- {{ 'LOADING'|translate}} -</option>
+                </select>
             </td>
             <td>
-                <select ng-change="selectMarket()" class="border-filters select-filter-portfolio"
+                <select ng-if="!loadingFilters" ng-change="selectMarket()" class="border-filters select-filter-portfolio"
                         data-ng-model="filterOptions.filters.selectedMarket"
                         ng-disabled="filterOptions.selectors.markets.length <= 0">
                     <option value="">- {{'TOOLS.market'|translate}} -</option>
@@ -34,9 +37,12 @@
                         {{item.description}}
                     </option>
                 </select>
+                <select class="border-filters select-filter-portfolio" ng-if="loadingFilters" disabled="true">
+                    <option value="">- {{ 'LOADING'|translate}} -</option>
+                </select>
             </td>
             <td>
-                <select ng-model="filterOptions.filters.durationInterval" class="select-filter-portfolio-duration" ng-change="search();">
+                <select ng-if="!loadingFilters" ng-model="filterOptions.filters.durationInterval" class="select-filter-portfolio-duration" ng-change="search();">
                     <option selected="selected" value="">- {{'TOOLS.choose_duration'|translate}} -</option>
                     <option value="[*/1]">{{'TOOLS.duration_short'|translate}}</option>
                     <option value="[1/3]">{{'TOOLS.duration_medium'|translate}}</option>

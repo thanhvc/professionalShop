@@ -21,7 +21,7 @@
         <tabset>
             <tab ng-click="changeTab(ctab.value)" ng-repeat="ctab in tabs" heading="{{ctab.title | translate}}"
                  active="ctab.active" disabled="tab.disabled">
-                <fieldset ng-disabled="loading || loadingFilters">
+                <fieldset  >
                 <div class="filter-container-volatility"  >
                     <!--filters-->
                     <div ng-include="getTemplateFilter()"></div>

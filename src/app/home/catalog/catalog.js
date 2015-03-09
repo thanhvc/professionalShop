@@ -465,7 +465,8 @@ angular.module('ngMo.catalog', [
                 }
                 if (data.hasOwnProperty("industries")) {
                     $scope.filterOptions.selectors.industries = data.industries;
-                    for (i=0;i<$scope.filterOptions.selectors.industries.length-1;i++) {
+                    for (i=0;i<$scope.filterOptions.selectors.industries.length;i++) {
+                        $scope.filterOptions.selectors.industries[i].description = $filter('translate')($scope.filterOptions.selectors.industries[i].description);
                         $scope.filterOptions.selectors.industries[i].description = $filter('capitalize')( $scope.filterOptions.selectors.industries[i].description);
                     }
                     industries=[];
@@ -488,6 +489,7 @@ angular.module('ngMo.catalog', [
                     $scope.filterOptions.selectors.sectors = data.sectors;
 
                     for (i=0;i<$scope.filterOptions.selectors.sectors.length;i++) {
+                        $scope.filterOptions.selectors.sectors[i].description = $filter('translate')($scope.filterOptions.selectors.sectors[i].description);
                         $scope.filterOptions.selectors.sectors[i].description = $filter('sectorName')($scope.filterOptions.selectors.sectors[i].description);
                         $scope.filterOptions.selectors.sectors[i].description = $filter('capitalize')( $scope.filterOptions.selectors.sectors[i].description);
                     }

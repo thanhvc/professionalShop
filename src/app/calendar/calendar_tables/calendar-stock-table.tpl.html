@@ -3,15 +3,21 @@
     <select data-ng-model="filterOptions.filters.selectMonth" class="filter-calendar"  ng-change="goToMonth()"
             ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months">
     </select>
-    <select data-ng-model="filterOptions.filters.selectedRegion" class="filter-calendar" ng-change="selectRegion();" ng-disabled="filterOptions.selectors.regions.length <= 0">
+    <select ng-if="!loadingFilters" data-ng-model="filterOptions.filters.selectedRegion" class="filter-calendar" ng-change="selectRegion();" ng-disabled="filterOptions.selectors.regions.length <= 0">
         <option selected value="">- {{'CALENDAR.region'|translate}} -</option>
         <option ng-repeat="region in filterOptions.selectors.regions | orderBy:['description']" ng-selected="{{region.id == filterOptions.filters.selectedRegion}}" value="{{region.id}}">
             {{('REGIONS.' + region.id) | translate}}
         </option>
     </select>
-    <select data-ng-model="filterOptions.filters.selectedMarket" class="filter-calendar"  ng-change="selectMarket();" ng-disabled="filterOptions.selectors.markets.length <= 0">
+    <select class="filter-calendar" ng-if="loadingFilters"  disabled="true">
+        <option value="">- {{ 'LOADING'|translate}} -</option>
+    </select>
+    <select ng-if="!loadingFilters" data-ng-model="filterOptions.filters.selectedMarket" class="filter-calendar"  ng-change="selectMarket();" ng-disabled="filterOptions.selectors.markets.length <= 0">
         <option selected value="">- {{'CALENDAR.market'|translate}} -</option>
         <option ng-repeat="market in filterOptions.selectors.markets | orderBy:['description']" ng-selected="{{market.id == filterOptions.filters.selectedMarket}}" value="{{market.id}}">{{market.description}}</option>
+    </select>
+    <select class="filter-calendar"ng-if="loadingFilters" disabled="true" >
+        <option value="">- {{ 'LOADING'|translate}} -</option>
     </select>
     <select data-ng-model="filterOptions.filters.selectedOperation" class="filter-calendar"
             ng-options="item.description|translate for item in filterOptions.selectors.operations"

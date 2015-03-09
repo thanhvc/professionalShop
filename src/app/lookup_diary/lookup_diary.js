@@ -51,7 +51,9 @@ angular.module('ngMo.lookup_diary', [
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
-
+        $scope.waitForFilters = false;//say if is necessary wait for the selectors to load the patterns (only true when change month and a region is selected)
+        $scope.changingMonth = false;//says if the user is changing month
+        //
         $translatePartialLoader.addPart("followup");
 
         //event for keypress in input search name, launch the filters if press enter
@@ -481,7 +483,16 @@ angular.module('ngMo.lookup_diary', [
             if (typeof data.selectedSector != 'undefined') {
                 $scope.filterOptions.filters.selectedSector = data.selectedSector;
             }
+            if (typeof data.selectedIndustry != 'undefined') {
+                $scope.filterOptions.filters.selectedIndustry = data.selectedIndustry;
+            }
             $scope.loadingFilters = false;
+            if ($scope.waitForFilters) {
+                $scope.waitForFilters = false;
+
+                //the page is waiting for patterns to load
+                $scope.loadPage();
+            }
         };
 
         /**
@@ -735,6 +746,7 @@ angular.module('ngMo.lookup_diary', [
 
 
         $scope.nextMonth = function () {
+            $scope.changingMonth= true;
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorDiaryService.addMonths(1, $scope.filterOptions.filters.month);
             SelectedMonthDiaryService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -743,6 +755,7 @@ angular.module('ngMo.lookup_diary', [
 
         };
         $scope.previousMonth = function () {
+            $scope.changingMonth= true;
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorDiaryService.addMonths(-1, $scope.filterOptions.filters.month);
             SelectedMonthDiaryService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -751,6 +764,7 @@ angular.module('ngMo.lookup_diary', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.changingMonth= true;
             $scope.startLoading();
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
@@ -869,7 +883,9 @@ angular.module('ngMo.lookup_diary', [
             //we launch loadPage
             url = $location.search();
             if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
-                $scope.loadPage();
+                if (!$scope.waitForFilters) {
+                    $scope.loadPage();
+                }
             } else {
                 $location.path('/lookup-diary').search(urlParamsSend);
             }
@@ -941,6 +957,15 @@ angular.module('ngMo.lookup_diary', [
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorDiaryService.setDate(d);
+                //month specified ? and region specified? then waitForFilters
+                if (($scope.filterOptions.filters.month != null && $scope.filterOptions.filters.month.value !== params.month) && (filters.selectedRegion !== "")) {
+                    $scope.waitForFilters = true;
+                }
+                //or may be changingMonth =true and selectedRegion
+                if (($scope.changingMonth && filters.selectedRegion !=="")) {
+                    $scope.waitForFilters = true;
+                    $scope.changingMonth = false;
+                }
             } else {
                 //if the date is not passed as param, we load the default date
                 var date_restart = new Date();
@@ -975,7 +1000,10 @@ angular.module('ngMo.lookup_diary', [
 
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                //if wait for filters, then not load, the callbacks fitlers will load the page
+                $scope.loadPage();
+            }
         });
         /*First load on page ready*/
         //$scope.restartFilter(false,false);
@@ -994,7 +1022,9 @@ angular.module('ngMo.lookup_diary', [
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                $scope.loadPage();
+            }
         }
 
 
