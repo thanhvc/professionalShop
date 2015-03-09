@@ -19,7 +19,7 @@ var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
 dsc.setServerDate("2014-11-17 11:30:00");
 ptor.sleep(9000);
 
-xdescribe('The week for non logged in users', function () {
+describe('The week for non logged in users', function () {
         var home;
         var page_layout;
         var the_week_page;
@@ -82,7 +82,7 @@ describe('The week for logged in users', function () {
             ptor.sleep(2000);
         });
  
-        xdescribe('navigation tab',function() {
+        describe('navigation tab',function() {
             it('The Week navigation tab should appear if user is logged in', function() {
                 expect(page_layout.the_weekNavLink().isDisplayed()).toBe(true);
             });
@@ -101,7 +101,7 @@ describe('The week for logged in users', function () {
                 ptor.sleep(4000);
             });
             
-            xit('should contain three tabs', function() { expect(the_week_page.navTabs().count()).toBe(3); });
+            it('should contain three tabs', function() { expect(the_week_page.navTabs().count()).toBe(3); });
 
             describe("Common", function() {
                 it('should have the correct week number and date in header',function() {
@@ -287,6 +287,163 @@ describe('The week for logged in users', function () {
             }); 
 
             describe("S&P 500 tab", function() {
+                beforeEach(function() {
+                    the_week_page.goToTab('s_n_p');
+                    ptor.sleep(2000);
+                });
+
+                describe("Radiografía. Índices", function() {
+                    describe("ENERGY", function() {
+                        it("should have correct index group", function() {
+                            expect(the_week_page.getSPSectorMainIndexTitle(0,0).getText()).toBe("S&P 500 ENERGY");
+                            expect(helper.hasClass(the_week_page.getSPSectorMainIndexColumn(0,0,0,1),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorMainIndexColumn(0,0,0,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorMainIndexColumn(0,0,0,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorMainIndexColumn(0,0,0,12),'week-negative-percent')).toBe(true);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,0,1,0,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,0,1,0,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,0,1,2,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,0,1,2,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,0,1,4,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,0,1,4,'bear').isDisplayed()).toBe(false);
+                        });
+
+                        it("should have correct graph in index group", function() {
+                            the_week_page.getSPSectorMainIndexGraph(0,0,0).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart_1");
+                        });
+
+                        it("should display its child indexes on click", function() {
+                            the_week_page.getSPSectorMoreLink(0,0).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getSPSectorChildIndexCount(0,0)).toBe(2*2);
+                            //1st child
+                            expect(the_week_page.getSPSectorChildIndexTitle(0,0,0).getText()).toBe("S&P 500 ENERGY EQUIPMENT & SERVICES");
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,0,0,1),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,0,0,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,0,0,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,0,0,12),'week-negative-percent')).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,1,0,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,1,0,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,1,2,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,1,2,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,1,4,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,1,4,'bear').isDisplayed()).toBe(false);
+                            //2nd child
+                            expect(the_week_page.getSPSectorChildIndexTitle(0,0,2).getText()).toBe("S&P 500 OIL, GAS & CONSUMABLE FUELS");
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,0,2,1),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,0,2,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,0,2,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,0,2,12),'week-negative-percent')).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,3,0,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,3,0,'bear').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,3,2,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,3,2,'bear').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,3,4,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,0,3,4,'bear').isDisplayed()).toBe(true);
+                        });
+
+                        it("should have correct graph in group first child", function() {
+                            the_week_page.getSPSectorMoreLink(0,0).click();
+                            ptor.sleep(3000);
+                            the_week_page.getSPSectorChildIndexGraph(0,0,0).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart_1_1");
+                        });
+
+                        it("should have correct graph in group second child", function() {
+                            the_week_page.getSPSectorMoreLink(0,0).click();
+                            ptor.sleep(3000);
+                            the_week_page.getSPSectorChildIndexGraph(0,0,2).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart_1_2");
+                        });
+
+                    });
+
+                    describe("MATERIALS", function() {
+                        it("should have correct index group", function() {
+                            expect(the_week_page.getSPSectorMainIndexTitle(0,1).getText()).toBe("S&P 500 MATERIALS");
+                            expect(helper.hasClass(the_week_page.getSPSectorMainIndexColumn(0,1,0,1),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorMainIndexColumn(0,1,0,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorMainIndexColumn(0,1,0,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorMainIndexColumn(0,1,0,12),'week-negative-percent')).toBe(true);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,1,1,0,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,1,1,0,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,1,1,2,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,1,1,2,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,1,1,4,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorMainIndexImage(0,1,1,4,'bear').isDisplayed()).toBe(false);
+                        });
+
+                        it("should have correct graph in index group", function() {
+                            the_week_page.getSPSectorMainIndexGraph(0,1,0).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart_2");
+                        });
+
+                        it("should display its child indexes on click", function() {
+                            the_week_page.getSPSectorMoreLink(0,1).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getSPSectorChildIndexCount(0,1)).toBe(2*2);
+                            //1st child
+                            expect(the_week_page.getSPSectorChildIndexTitle(0,1,0).getText()).toBe("S&P 500 CHEMICALS (INDUSTRY)");
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,1,0,1),'week-negative-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,1,0,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,1,0,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,1,0,12),'week-negative-percent')).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,1,0,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,1,0,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,1,2,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,1,2,'bear').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,1,4,'bull').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,1,4,'bear').isDisplayed()).toBe(false);
+                            //2nd child
+                            expect(the_week_page.getSPSectorChildIndexTitle(0,1,2).getText()).toBe("S&P 500 METALS & MINING");
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,1,2,1),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,1,2,2),'bullish-year')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,1,2,4),'positive-percent')).toBe(true);
+                            expect(helper.hasClass(the_week_page.getSPSectorChildIndexColumn(0,1,2,12),'week-negative-percent')).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,3,0,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,3,0,'bear').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,3,2,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,3,2,'bear').isDisplayed()).toBe(true);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,3,4,'bull').isDisplayed()).toBe(false);
+                            expect(the_week_page.getSPSectorChildIndexImage(0,1,3,4,'bear').isDisplayed()).toBe(true);
+                        });
+
+                        it("should have correct graph in group first child", function() {
+                            the_week_page.getSPSectorMoreLink(0,1).click();
+                            ptor.sleep(3000);
+                            the_week_page.getSPSectorChildIndexGraph(0,1,0).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart_2_1");
+                        });
+
+                        it("should have correct graph in group second child", function() {
+                            the_week_page.getSPSectorMoreLink(0,1).click();
+                            ptor.sleep(3000);
+                            the_week_page.getSPSectorChildIndexGraph(0,1,2).click();
+                            ptor.sleep(3000);
+                            expect(the_week_page.getGraphicPanel().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().isDisplayed()).toBe(true);
+                            expect(the_week_page.getGraphicImage().getAttribute('src')).toContain("chart_2_2");
+                        });
+
+                    });
+
+                });
 
             }); 
         });

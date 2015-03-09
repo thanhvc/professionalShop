@@ -10,6 +10,13 @@ var Home = require('../../../test-helpers/page-objects/home.po.js');
 var PageLayout = require('../../../test-helpers/page-objects/page_layout.po.js');
 var Calendar = require('../../../test-helpers/page-objects/calendar.po.js');
 var Helper = require('../../../test-helpers/helper.js');
+var DateServerConfigMod = require('../../../test-helpers/date-server-config.js');
+
+//set date on server
+var vagrant_id = browser.params.serverVagrantId;
+var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
+dsc.setServerDate("2014-11-17 11:30:00");
+ptor.sleep(9000);
 
 describe('Calendar for non logged in users', function () {
         var home;

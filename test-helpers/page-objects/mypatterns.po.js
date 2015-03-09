@@ -9,6 +9,13 @@ var MyPatterns = function () {
 };
 
 MyPatterns.prototype =  Object.create({}, {
+    isCurrentPage : {value: function(){
+                            return browser.getLocationAbsUrl().then(function(url) {
+                              console.log("current url: " + url); 
+                              return (url.indexOf("patterns") > -1);
+                            });
+    }},
+
     getContainerTab: {value: function(tab) {
         return element.all(by.css(".tab-pane")).get(tab);
     }},

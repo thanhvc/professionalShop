@@ -71,6 +71,7 @@ exports.forgotten_password_fixture = function() {
                 email_address: 'pending.user@foo.bar',
                 sha_password: "\\x" + sha512("phantom").toString('hex'),
                 status: 0,
+                sign_up_token: 'LLLLLLLLLLLLLLLLLLLL',
                 country_code: 'ES'
             }
         },
@@ -105,6 +106,7 @@ exports.forgotten_password_fixture = function() {
                 email_address: 'expired.user@foo.bar',
                 sha_password: "\\x" + sha512("phantom").toString('hex'),
                 status: 2,
+                sign_up_token: 'EEEEEEEEEEEEEEEEEEEE',
                 country_code: 'ES'
             }
         },
@@ -135,7 +137,19 @@ exports.forgotten_password_fixture = function() {
                 subscription_date: '2014-11-17',
                 start_date: '2014-11-17',
                 end_date: '2014-12-05',
-                user_id: 4
+                user_id: 4 //new user
+            }
+        },
+        {
+            type: 'insert',
+            table: 'free_subscription',
+            values: {
+                id: 2,
+                free_pack_code: '11',
+                subscription_date: '2014-11-17',
+                start_date: '2014-11-17',
+                end_date: '2014-12-05',
+                user_id: 1 //Pending user
             }
         }
     ];

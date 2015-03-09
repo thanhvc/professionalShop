@@ -27,6 +27,7 @@ exports.config = {
         //sign_up: '../src/app/sign_up/signup.protractor.js'
         //forgotten_password: '../src/app/forgotten_password/forgotten-password.protractor.js'
         //activate: '../src/app/activate/activate.protractor.js'
+        //reactivate: TODO
         //change_password: '../src/app/changePassword/change-password.protractor.js'
         //the_week: '../src/app/the_week/the_week.protractor.js'
         //calendar: '../src/app/calendar/calendar.protractor.js'
