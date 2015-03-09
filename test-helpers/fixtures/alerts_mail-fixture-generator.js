@@ -591,6 +591,97 @@ exports.alerts_mail_fixture = function() {
                 bearish_average_loss:2
             }
         },
+        //subscriptions
+        {
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 1,
+                pack_code: 'USA-S-1',
+                user_id: 1,
+                subscription_date: '2013-11-01',
+                start_date: '2013-11-01',
+                subscription_duration: 2,
+                end_date: '2014-12-01',
+                status: 0
+            }
+        },
+        {
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 2,
+                pack_code: 'USA-P-1',
+                user_id: 1,
+                subscription_date: '2013-11-01',
+                start_date: '2013-11-01',
+                subscription_duration: 2,
+                end_date: '2014-12-01',
+                status: 0
+            }
+        },
+        {
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 3,
+                pack_code: 'USA-S-1',
+                user_id: 2,
+                subscription_date: '2013-11-01',
+                start_date: '2013-11-01',
+                subscription_duration: 2,
+                end_date: '2014-12-01',
+                status: 0
+            }
+        },
+        {
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 4,
+                pack_code: 'USA-P-1',
+                user_id: 2,
+                subscription_date: '2013-11-01',
+                start_date: '2013-11-01',
+                subscription_duration: 2,
+                end_date: '2014-12-01',
+                status: 0
+            }
+        },
+        {
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 5,
+                pack_code: 'USA-S-1',
+                user_id: 3,
+                subscription_date: '2013-11-01',
+                start_date: '2013-11-01',
+                subscription_duration: 2,
+                end_date: '2014-12-01',
+                status: 0
+            }
+        },
+        {
+            type: 'insert',
+            table: 'subscription',
+            values: {
+                subscription_disc: 1,
+                id: 6,
+                pack_code: 'USA-P-1',
+                user_id: 3,
+                subscription_date: '2013-11-01',
+                start_date: '2013-11-01',
+                subscription_duration: 2,
+                end_date: '2014-12-01',
+                status: 0
+            }
+        },
     /**
      * Alerts
      */

@@ -129,7 +129,7 @@ describe('Alert notification mails', function () {
                     email.html,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
-                        expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
+                        expect(window.$("a").attr('href')).toMatch('marketobservatory.com');
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
                         //expect(window.$("span").text()).toMatch("John Doe");
                         expect(window.$("span").text()).toMatch(msg.pattern_name);
