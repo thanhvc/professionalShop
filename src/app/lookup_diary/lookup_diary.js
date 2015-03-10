@@ -100,7 +100,7 @@ angular.module('ngMo.lookup_diary', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: SelectedMonthDiaryService.getSelectedMonth(now),
+                    month: SelectedMonthDiaryService.setSelectedMonth(now),
                     favourite: false,
                     alarm: false
                 },
@@ -780,6 +780,9 @@ angular.module('ngMo.lookup_diary', [
         };
         //synchronize the selector with the month of the filter
         $scope.updateSelectorMonth = function () {
+            if ($scope.filterOptions.filters.month == null) {
+                $scope.filterOptions.filters.month = SelectedMonthDiaryService.setSelectedMonth(now);
+            }
             for (i = 0; i < $scope.filterOptions.months.length; i++) {
                 if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
                     $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[i];
@@ -1039,6 +1042,7 @@ angular.module('ngMo.lookup_diary', [
 
         this.setSelectedMonth = function(now){
             selectedMonth = MonthSelectorDiaryService.restartDate(now);
+            return selectedMonth;
         };
 
         this.getSelectedMonth = function () {
