@@ -34,7 +34,7 @@ describe('Test1 last month notification mails', function () {
             //set date on server
             var vagrant_id = browser.params.serverVagrantId;
             var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
-            dsc.setServerDateAndRestart("2014-11-01 15:39:20");
+            dsc.setServerDateAndRestart("2014-11-01 15:39:30");
             ptor.sleep(18000);
         });
 
