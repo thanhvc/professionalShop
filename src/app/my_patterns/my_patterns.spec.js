@@ -17,6 +17,8 @@ describe('The tabs Service', function () {
             $compile = _$compile_;
             $http = _$httpBackend_;
 
+            $http.when('GET', $rootScope.urlService + '/actualdate').respond(200,{data: new Date()});
+
         }));
 
         it('should initialize tabs correctly', function(){

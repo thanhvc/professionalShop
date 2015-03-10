@@ -22,6 +22,11 @@ angular.module('ngMo.correlation', [
                 IsLogged: "IsLogged",
                 logged: function(IsLogged) {
                     IsLogged.isLogged();
+                },
+                now:function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                        return new Date(result.data.actualDate);
+                    });
                 }
             }
         });
@@ -31,7 +36,7 @@ angular.module('ngMo.correlation', [
     })
 
     .controller('CorrelationCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
-                                             ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout,UserApplyFilters, SelectedMonthService, $translatePartialLoader) {
+                                             ActualDateService, MonthSelectorService, IsLogged, CorrelationService, $window, PatternsService, $timeout,UserApplyFilters, SelectedMonthService, $translatePartialLoader,now) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
@@ -126,7 +131,7 @@ angular.module('ngMo.correlation', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    month: (restartMonth ? MonthSelectorService.restartDate(now) : $scope.filterOptions.filters.month),
                     favourite: false},
                 selectors: {
                     regions: [
@@ -905,7 +910,7 @@ angular.module('ngMo.correlation', [
                 if ($scope.isCorrectDate(params.month)) {
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
-                    actual_date = new Date();
+                    actual_date = now;//new Date();
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorService.setDate(d);
@@ -913,8 +918,8 @@ angular.module('ngMo.correlation', [
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = new Date();
-                filters.month = MonthSelectorService.restartDate();
+                var date_restart = now;//new Date();
+                filters.month = MonthSelectorService.restartDate(now);
             }
 
             $scope.filterOptions.filters = filters;

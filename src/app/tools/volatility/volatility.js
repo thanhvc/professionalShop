@@ -30,13 +30,19 @@ angular.module('ngMo.volatility', [
                 IsLogged: "IsLogged",
                 logged: function(IsLogged) {
                     IsLogged.isLogged();
+                },
+                now:function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                        return new Date(result.data.actualDate);
+                    });
                 }
             }
 
         });
     })
 
-    .controller('VolatilityCtrl', function VolatilityCtrl($filter,$scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,  SelectedMonthService, UserApplyFilters, $translatePartialLoader) {
+    .controller('VolatilityCtrl', function VolatilityCtrl($filter,$scope,$rootScope, $http, $state, $stateParams, $location, TabsService,PatternsService, ActualDateService, VolatilityService, MonthSelectorService, IsLogged,
+                                                          SelectedMonthService, UserApplyFilters, $translatePartialLoader,now) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -241,7 +247,7 @@ angular.module('ngMo.volatility', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    month: (restartMonth ? MonthSelectorService.restartDate(now) : $scope.filterOptions.filters.month),
                     favourite: false},
                 selectors: {
                     regions: [
@@ -725,7 +731,7 @@ angular.module('ngMo.volatility', [
                 if ($scope.isCorrectDate(params.month)) {
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
-                    actual_date = new Date();
+                    actual_date = now;//new Date();
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorService.setDate(d);
@@ -734,8 +740,8 @@ angular.module('ngMo.volatility', [
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = new Date();
-                filters.month = MonthSelectorService.restartDate();
+                var date_restart = now;//new Date();
+                filters.month = MonthSelectorService.restartDate(now);
             }
 
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)

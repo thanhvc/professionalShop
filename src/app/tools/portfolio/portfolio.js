@@ -22,6 +22,11 @@ angular.module('ngMo.portfolio', [
                 IsLogged: "IsLogged",
                 logged: function(IsLogged) {
                     IsLogged.isLogged();
+                },
+                now:function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                        return new Date(result.data.actualDate);
+                    });
                 }
             }
         });
@@ -31,7 +36,7 @@ angular.module('ngMo.portfolio', [
     })
 
     .controller('PortfolioCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService,
-                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters, AnchorLinkService, $translatePartialLoader) {
+                                           ActualDateService, MonthSelectorService, IsLogged, PortfolioService, $window, PatternsService,$modal,UserApplyFilters, AnchorLinkService, $translatePartialLoader,now) {
 
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (angular.isDefined(toState.data.pageTitle)) {
@@ -139,7 +144,7 @@ angular.module('ngMo.portfolio', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    month: (restartMonth ? MonthSelectorService.restartDate(now) : $scope.filterOptions.filters.month),
                     favourite: false},
                 selectors: {
                     regions: [
@@ -784,8 +789,8 @@ angular.module('ngMo.portfolio', [
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = new Date();
-                filters.month = MonthSelectorService.restartDate();
+                var date_restart = now;//new Date();
+                filters.month = MonthSelectorService.restartDate(now);
             }
 
             //if the tab changed, all the selectors must be reloaded (the markets could be diferents in pari and stocks for example)

@@ -78,6 +78,13 @@ angular.module('ngMo.payment', [  'ui.router'])
                     selectItemSubmenu: '',
                     moMenuType: 'publicMenu'
 
+                },
+                resolve: {
+                    now:function ($http, $rootScope) {
+                        return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                            return new Date(result.data.actualDate);
+                        });
+                    }
                 }});
     })
     .run(function run() {
@@ -369,7 +376,7 @@ angular.module('ngMo.payment', [  'ui.router'])
 
 
     })
-    .controller('CreditPayCtrl',function($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService, ProfileService,SignUpService){
+    .controller('CreditPayCtrl',function($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService, ProfileService,SignUpService,now){
         $scope.formSubmited = false;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -483,7 +490,7 @@ angular.module('ngMo.payment', [  'ui.router'])
         $scope.nextYears = [];
         $scope.previousYears = [];//for maestro card
             //fill 20 years in the selector
-        var date = new Date();
+        var date = now;//new Date();
         var nextYear = date.getFullYear();
         var previousYear = date.getFullYear();
         for (var i = 0; i<20; i++) {
