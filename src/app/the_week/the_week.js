@@ -63,11 +63,11 @@ angular.module('ngMo.the_week', [
             console.log(weekDate.data.actualDate);
             var DAY = 86400000;//day in millisecs
             var today = new Date(weekDate.data.actualDate);
-            var monday = new Date();
+            //var monday = new Date();
             var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
             //monday.setDate(today.getDate()-dayOfWeek);
             var ms = today.getTime() - (DAY * dayOfWeek);
-            monday = new Date(ms);
+            var monday = new Date(ms);
 
             $scope.mondayDay = monday.getDate();
             $scope.startMonth = "";

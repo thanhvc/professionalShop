@@ -26,6 +26,12 @@ angular.module('ngMo.calendar', [
                 },
                 weekDate: function ($http, $rootScope) {
                     return $http({method: 'GET', url: $rootScope.urlService + '/actualdateweek'});
+
+                },
+                now:function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                        return new Date(result.data.actualDate);
+                    });
                 }
             }
         });
@@ -35,7 +41,7 @@ angular.module('ngMo.calendar', [
     })
 
     .controller('CalendarCtrl', function ($scope,$timeout, TabsService, $location, IsLogged,
-                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope, $translatePartialLoader,$filter,weekDate) {//<- use location.search()
+                                          CalendarService, MonthSelectorService, $modal,UserApplyFilters, $state, $rootScope, $translatePartialLoader,$filter,now,weekDate) {//<- use location.search()
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -87,11 +93,11 @@ angular.module('ngMo.calendar', [
             var DAY = 86400000;//day in millisecs
             var today = new Date(weekDate.data.actualDate);
             var todayDay = today.getDate();
-            var monday = new Date();
+            //var monday = new Date();
             var dayOfWeek = (today.getDay() === 0 ? 7 : today.getDay() - 1);
             //monday.setDate(today.getDate()-dayOfWeek);
             var ms = today.getTime() - (DAY * dayOfWeek);
-            monday = new Date(ms);
+            var monday = new Date(ms);
 
             var mondayDay = monday.getDate();//take monday
             var lastFriday = new Date(monday.getTime() - (DAY * 2));
@@ -128,7 +134,7 @@ angular.module('ngMo.calendar', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month),
+                    month: (restartMonth ? MonthSelectorService.restartDate(now) : $scope.filterOptions.filters.month),
                     favourite: false},
                 selectors: {
                     regions: [
@@ -307,7 +313,8 @@ angular.module('ngMo.calendar', [
                 if ($scope.isCorrectDate(params.month)) {
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
-                    actual_date = new Date();
+                    //actual_date = new Date();
+                    actual_date = now;
                     d = new Date(actual_date.getFullYear(), actual_date.getMonth(), 1);
                 }
                 filters.month = MonthSelectorService.setDate(d);
@@ -320,7 +327,7 @@ angular.module('ngMo.calendar', [
                 //var date_restart = new Date();
                 //date_restart.setDate(1);
                 //date_restart.setMonth(MonthSelectorService.getSelectedMonth().month-1);
-                filters.month = MonthSelectorService.restartDate();
+                filters.month = MonthSelectorService.restartDate(now);
             }
 
             $scope.filterOptions.filters = filters;
@@ -415,6 +422,7 @@ angular.module('ngMo.calendar', [
             afterStart = false;
             beforeEnd = false;
             today = new Date();
+            //today = now;
             yesterday = new Date();
             tomorrow = new Date();//we compare entryDate and exitDate to yesterday and tomorrow
             //because the compare dates could not work with equals, but works fine with the operators < >

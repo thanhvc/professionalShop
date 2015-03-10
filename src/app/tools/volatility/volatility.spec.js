@@ -23,9 +23,9 @@ describe('Volatility controller', function()  {
         myPatternsData = { data: 'data'
         };
 
+        var now = new Date();
 
-
-        $controller('VolatilityCtrl',  {'$rootScope': $rootScope, '$http': _$http_, '$scope': $scope, 'myPatternsData': myPatternsData });
+        $controller('VolatilityCtrl',  {'$rootScope': $rootScope, '$http': _$http_, '$scope': $scope, 'myPatternsData': myPatternsData, 'now': now });
 
     }));
 

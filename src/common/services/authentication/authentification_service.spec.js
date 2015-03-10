@@ -18,6 +18,8 @@ describe('The SignInFormState Service ', function () {
             $compile = _$compile_;
             $http = _$httpBackend_;
 
+            $http.when('GET', $scope.urlService + '/actualdate').respond(200,{data: new Date()});
+
         }));
 
         it('should toggle sign in state', function(){
@@ -137,7 +139,8 @@ describe('The signInForm directive', function () {
         });
 
         it('should success when submitting form', function(){
-
+            httpMock.when('GET', $scope.urlService + '/actualdate').respond(200,{actualDate: new Date()});
+            httpMock.when('POST', $scope.urlService + '/summary-pay').respond(200,{actualDate: new Date()});
             httpMock.when('POST', $scope.urlService + '/login').respond(200,{login: 'ok', patterns :['pattern1', 'pattern2']});
             httpMock.when('POST', $scope.urlService + '/summary-pay').respond(200,{
             stocks: [],
@@ -162,6 +165,8 @@ describe('The signInForm directive', function () {
             };
             $window.localStorage.token = '1';
             $scope.submit();
+
+            $http.expectGET($scope.urlService + '/actualdate');
             httpMock.flush();
         });
 
