@@ -66,7 +66,9 @@ describe('The Correlation controller', function () {
             isLogged = IsLogged;
             patternsService = PatternsService;
             UserApplyFilters = UserApplyFilters;
-            $controller('CorrelationCtrl',  {'$rootScope': $rootScope,'$scope': $scope,'$modal':$modal, '$http': _$httpBackend_, 'TabsService': TabsService, 'ActualDateService' : ActualDateService , 'MonthSelectorService': MonthSelectorService, 'IsLogged': IsLogged, 'PatternsService': PatternsService, 'UserApplyFilters': UserApplyFilters});
+            var now = new Date();
+            $controller('CorrelationCtrl',  {'$rootScope': $rootScope,'$scope': $scope,'$modal':$modal, '$http': _$httpBackend_,
+                'TabsService': TabsService, 'ActualDateService' : ActualDateService , 'MonthSelectorService': MonthSelectorService, 'IsLogged': IsLogged, 'PatternsService': PatternsService, 'UserApplyFilters': UserApplyFilters, 'now': now});
             _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
             $http.when('GET', $rootScope.urlService + correlationPdf).respond(200,patterns);
             $http.when('GET', $rootScope.urlService + correlationPdf1).respond(200,patterns);

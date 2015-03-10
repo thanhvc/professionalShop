@@ -29,6 +29,11 @@ angular.module('ngMo.my_subscriptions', [
                 IsLogged: "IsLogged",
                 logged: function(IsLogged) {
                     IsLogged.isLogged();
+                },
+                now:function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                        return new Date(result.data.actualDate);
+                    });
                 }
             }
         })
@@ -271,7 +276,7 @@ angular.module('ngMo.my_subscriptions', [
         $scope.loadPage();
     })
 
-    .controller('MySubsCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter) {
+    .controller('MySubsCtrl', function ($scope,$rootScope, MonthSelectorService,TabsService,ActiveTabService, MySubscriptionPacksService, IsLogged, MyPacksService,$modal,ShoppingCartService,$filter,now) {
 
         $scope.mySubscriptionsTablePacks = [
             {
@@ -340,7 +345,7 @@ angular.module('ngMo.my_subscriptions', [
                     index_type: TabsService.getActiveIndexType(),
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: (restartMonth ? MonthSelectorService.restartDate() : $scope.filterOptions.filters.month)
+                    month: (restartMonth ? MonthSelectorService.restartDate(now) : $scope.filterOptions.filters.month)
                 }
 
             };
@@ -376,7 +381,7 @@ angular.module('ngMo.my_subscriptions', [
         };
         //synchronize the selector with the month of the filter
         $scope.updateSelectorMonth = function () {
-            var today = new Date();
+            var today = now;//new Date();
             for (i = 0; i < $scope.filterOptions.months.length; i++) {
                 if (today.getDate() >=20){
                     $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[$scope.filterOptions.months.length-1];

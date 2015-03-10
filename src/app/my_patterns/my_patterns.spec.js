@@ -10,12 +10,14 @@ describe('The tabs Service', function () {
         var $compile;
         var $http;
 
-        beforeEach(inject(function (_TabsService_, _$rootScope_, _$compile_, _$httpBackend_) {
+        beforeEach(inject(function (_TabsService_, $rootScope, _$compile_, _$httpBackend_) {
 
             service = _TabsService_;
-            $scope = _$rootScope_;
+            $scope = $rootScope.$new();
             $compile = _$compile_;
             $http = _$httpBackend_;
+
+            $http.when('GET', $rootScope.urlService + '/actualdate').respond(200,{data: new Date()});
 
         }));
 
@@ -215,7 +217,7 @@ describe('The MonthSelector Service', function () {
 
         it('should restart the date', function(){
 
-            var res = service.restartDate();
+            var res = service.restartDate(new Date());
             expect(res).toNotBe(undefined);
         });
 
@@ -226,13 +228,13 @@ describe('The MonthSelector Service', function () {
         });
 
         it('should return the list of months', function(){
-
+            service.restartDate(new Date());
             var res = service.getListMonths();
             expect(res).toNotBe('undefined ');
         });
 
         it('should return the list of months of the actual calendar', function(){
-
+            service.restartDate(new Date());
             var res = service.getCalendarListMonths();
             expect(res).toNotBe('undefined ');
 
@@ -266,7 +268,8 @@ describe('The patterns controller', function() {
         state = $state;
         expiration = ExpirationYearFromPatternName;
         myPatternsData = {patterns: [{id: 7937, pack: Object, freePackList: Array[0], patternType: "BEARISH", win: 15}], results: 293, found: 293};
-        $controller('PatternsCtrl', {'$scope': $rootScope, 'state': $state, 'myPatternsData': myPatternsData });
+        now= new Date();
+        $controller('PatternsCtrl', {'$scope': $rootScope, 'state': $state, 'myPatternsData': myPatternsData, 'now':now });
 
     }));
 

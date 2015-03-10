@@ -98,12 +98,12 @@ describe('My subscriptions controller', function() {
         $state = _$state_;
         tabsService = TabsService;
         _$state_.data = {pageTitle: 'title'};
-
+        _$httpBackend_.when('GET',$rootScope.urlService + '/actualdate').respond(200,{actualDate: new Date()});
         _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
         _$httpBackend_.when('GET', $rootScope.urlService + url).respond(200,response);
         _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200,response);
-
-        $controller('MySubsCtrl', {'$rootScope' : $rootScope, '$scope': $scope, '$state': $state, 'ShoppingCartService' : _ShoppingCartService_});
+        var now = new Date();
+        $controller('MySubsCtrl', {'$rootScope' : $rootScope, '$scope': $scope, '$state': $state, 'ShoppingCartService' : ShoppingCartService, 'now': now});
 
     }));
 
@@ -212,10 +212,10 @@ describe('My subscriptions controller', function() {
         ShoppingCartService.addItemCart(item2);
         ShoppingCartService.addItemCart(item3);
         ShoppingCartService.addItemCart(item4);
-
-        $http.expectGET('i18n/common/es.json');
+        $http.expectGET($scope.urlService+'/actualdate');
+       /* $http.expectGET('i18n/common/es.json');
         $http.expectGET($scope.urlService + url);
-        $http.expectGET($scope.urlService + '/islogged');
+        $http.expectGET($scope.urlService + '/islogged');*/
         $scope.loadPage();
         $http.flush();
         expect($scope.loading).toBe(false);
@@ -237,11 +237,13 @@ describe('My packs controller service', function() {
         $http = _$httpBackend_;
         $state = _$state_;
 
-        _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
+        $http.when('GET','i18n/common/es.json').respond(200);
+        $http.when('GET','i18n/common/es.json').respond(200);
 
 
-        _$httpBackend_.when('GET', $rootScope.urlService + '/packs').respond(200,{pack: 'pack'});
-        _$httpBackend_.when('GET', $rootScope.urlService + '/islogged').respond(200);
+        $http.when('GET', $rootScope.urlService + '/actualdate').respond(200,{actualdate: new Date()});
+        $http.when('GET', $rootScope.urlService + '/packs').respond(200,{pack: 'pack'});
+        $http.when('GET', $rootScope.urlService + '/islogged').respond(200);
 
         $controller('MyPacksCtrl', {'$rootScope' : $rootScope, '$scope': $scope, '$state': $state});
 
@@ -253,9 +255,10 @@ describe('My packs controller service', function() {
     });
 
     it("should be able to load the page", function () {
-        $http.expectGET('i18n/common/es.json');
-        $http.expectGET($scope.urlService + '/packs');
-        $http.expectGET($scope.urlService + '/islogged');
+        //$http.expectGET('i18n/common/es.json');
+        $http.expectGET($scope.urlService+'/actualdate');
+        //$http.expectGET($scope.urlService + '/packs');
+        //$http.expectGET($scope.urlService + '/islogged');
         $scope.loadPage();
         $http.flush();
         expect($scope.loading).toBe(false);

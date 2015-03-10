@@ -26,14 +26,15 @@ describe('The Lookup diary controller', function () {
             stateParams = $stateParams;
             $http = _$httpBackend_;
             _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
-            $http.when('GET', $rootScope.urlService + '/actualdate').respond(200);
+            $http.when('GET', $rootScope.urlService + '/actualdate').respond(200,{actualDate: new Date()});
             $http.when('GET', $rootScope.urlService + '/islogged').respond(200);
             $http.when('GET', $rootScope.urlService + patternsFilter).respond(200);
             $http.when('GET', $rootScope.urlService + patternsFilterToken).respond(200);
             $http.when('GET', $rootScope.urlService + lookup).respond(200);
             $http.when('GET', $rootScope.urlService + lookup2).respond(200);
             $http.when('GET', $rootScope.urlService + lookupToken).respond(200);
-            $controller('LookupDiaryCtrl', {'$scope': $rootScope, 'state': $state ,  'diaryData': diaryData});
+            var now = new Date();
+            $controller('LookupDiaryCtrl', {'$scope': $rootScope, 'state': $state ,  'diaryData': diaryData, 'now': now});
         }));
 
         it("should respond to key events", function(){
@@ -62,7 +63,7 @@ describe('The Lookup diary controller', function () {
         it("should restart filter", function(){
 
             $scope.filterOptions.selectors = {'months': ['Enero', 'Febrero']};
-            $scope.filterOptions.filters = {'month': 'agosto', rentAverageInput: 12, 'favourite': '', 'filterName': '', 'durationInput': ''};
+            $scope.filterOptions.filters = {'month': {month: 2, year: 2015, monthString: "FEBRUARY", value: "2_2015"}, rentAverageInput: 12, 'favourite': '', 'filterName': '', 'durationInput': ''};
             $scope.restartFilter();
 
             tabsService.changeActiveTab(1);

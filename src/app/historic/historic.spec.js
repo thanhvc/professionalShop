@@ -21,8 +21,8 @@ describe('The historic controller', function () {
             }};
             stateParams = $stateParams;
             $http = _$httpBackend_;
-
-            $controller('HistoricCtrl', {'$scope': $rootScope, 'state': $state , 'historicDataData': historicDataData});
+            now = new Date();
+            $controller('HistoricCtrl', {'$scope': $rootScope, 'state': $state , 'historicDataData': historicDataData,'now':now});
         }));
 
         it("should set the page", function(){
@@ -345,7 +345,7 @@ describe('The Month Selector Historic Service ', function () {
         });
 
         it('should restart the date', function(){
-            var res = service.restartDate();
+            var res = service.restartDate(new Date());
             expect(res).toNotBe(undefined);
         });
 
@@ -356,7 +356,7 @@ describe('The Month Selector Historic Service ', function () {
         });
 
         it('should return the list of months', function(){
-
+            service.restartDate(new Date());
             var res = service.getListMonths();
             expect(res).toNotBe('undefined ');
         });
