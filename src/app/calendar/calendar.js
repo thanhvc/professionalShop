@@ -538,6 +538,7 @@ angular.module('ngMo.calendar', [
             var d = new Date(date[1], date[0] - 1, 1);
             $scope.filterOptions.filters.month = MonthSelectorService.setDate(d);
             $scope.restartFilter();
+            $scope.filterOptions.filters.dayDateInput = "";//empty the day when select month
             $scope.saveUrlParams();
         };
 
