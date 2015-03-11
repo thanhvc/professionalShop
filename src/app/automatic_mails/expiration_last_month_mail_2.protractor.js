@@ -59,16 +59,16 @@ describe('Test2 last month notification mails', function () {
                         receiver_name : "Test1 user",
                         packs: [{name: "Estados Unidos Pack I"}, {name: "Estados Unidos Pack II"},
                                 {name: "Estados Unidos Pair Pack I"}],
-                        end_date: "November 2014",
-                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+                        end_date: "noviembre 2014",
+                        subject: 'Aviso Fin Subscripción Market Observatory'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
                         receiver_email: 'test2.user@foo.bar',
                         receiver_name : "Test2 user",
                         packs: [{name: "Estados Unidos Pair Pack I"}, {name: "Estados Unidos Pair Pack II"}],                                
-                        end_date: "November 2014",
-                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+                        end_date: "noviembre 2014",
+                        subject: 'Aviso Fin Subscripción Market Observatory'});
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
@@ -103,7 +103,8 @@ describe('Test2 last month notification mails', function () {
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
                         //expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
-                        expect(window.$("a").attr('href')).toMatch('\^mailto:operations@MarketObservatory\\.com');
+                        expect(window.$("a").attr('href')).toMatch('marketobservatory\\.com/my-subscriptions/my-subscriptions');
+                        //expect(window.$("a").attr('href')).toMatch('\^mailto:operations@MarketObservatory\\.com'); //should also be tested
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
                         expect(window.$("span").text()).toMatch(msg.end_date);
                         expect(window.$("span").text()).toMatch("Recuerde que el acceso online a los contenidos de los Packs");
