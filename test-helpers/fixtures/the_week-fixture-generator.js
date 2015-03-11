@@ -394,7 +394,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 3,
+                ordering: 2,
                 week_section: 0,//EEUU
                 week_area:0, //AMERICA
                 week_tab: 0, //Stocks
@@ -428,7 +428,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 1,
+                ordering: 3,
                 week_section: 1, //CANADA
                 week_area:0, //AMERICA
                 week_tab: 0, //Stocks
@@ -496,7 +496,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 1,
+                ordering: 5,
                 week_section: 12, //CHINA
                 week_area:1, //ASIA
                 week_tab: 0, //Stocks
@@ -530,7 +530,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 2,
+                ordering: 6,
                 week_section: 12, //CHINA
                 week_area:1, //ASIA
                 week_tab: 0, //Stocks
@@ -667,7 +667,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 1,
+                ordering: 4,
                 week_section: 56, //Sectors, Components and thematic
                 week_area:4, //Materias primas
                 week_tab: 1, //Commodities
@@ -701,7 +701,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 2,
+                ordering: 5,
                 week_section: 56, //Sectors, Components and thematic
                 week_area:4, //Materias primas
                 week_tab: 1, //Commodities
@@ -735,7 +735,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: null,
                 week_number: 47,
                 year: 2014,
-                ordering: 3,
+                ordering: 6,
                 week_section: 56, //Sectors, Components and thematic
                 week_area:4, //Materias primas
                 week_tab: 1, //Commodities
@@ -978,7 +978,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: 1,
                 week_number: 46,
                 year: 2014,
-                ordering: 6,
+                ordering: 1,
                 week_section: 0, //EEUU
                 week_area:0, //AMERICA
                 week_tab: 0, //Stocks
@@ -1012,7 +1012,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: 1,
                 week_number: 46,
                 year: 2014,
-                ordering: 6,
+                ordering: 2,
                 week_section: 55, //Composite?
                 week_area:4, //Materias primas
                 week_tab: 1, //Commodities
@@ -1045,7 +1045,7 @@ exports.the_week_fixture = function() {
                 asset_symbol: 'SP500_1', //S&P 500 METALS & MINING
                 week_number: 46,
                 year: 2014,
-                ordering: 6,
+                ordering: 3,
                 week_section: 57,
                 week_area:5, //
                 week_tab: 2, //S&P 500
@@ -1079,7 +1079,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: 1,
                 week_number: 48,
                 year: 2014,
-                ordering: 6,
+                ordering: 4,
                 week_section: 0, //EEUU
                 week_area:0, //AMERICA
                 week_tab: 0, //Stocks
@@ -1113,7 +1113,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: 1,
                 week_number: 48,
                 year: 2014,
-                ordering: 6,
+                ordering: 5,
                 week_section: 55, //Composite?
                 week_area:4, //Materias primas
                 week_tab: 1, //Commodities
@@ -1180,7 +1180,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: 1,
                 week_number: 47,
                 year: 2013,
-                ordering: 6,
+                ordering: 7,
                 week_section: 0, //EEUU
                 week_area:0, //AMERICA
                 week_tab: 0, //Stocks
@@ -1214,7 +1214,7 @@ exports.the_week_fixture = function() {
                 main_asset_id: 1,
                 week_number: 47,
                 year: 2013,
-                ordering: 6,
+                ordering: 8,
                 week_section: 55, //Composite?
                 week_area:4, //Materias primas
                 week_tab: 1, //Commodities
@@ -1247,7 +1247,7 @@ exports.the_week_fixture = function() {
                 asset_symbol: 'SP500_1', //S&P 500 METALS & MINING
                 week_number: 47,
                 year: 2013,
-                ordering: 6,
+                ordering: 9,
                 week_section: 57,
                 week_area:5, //
                 week_tab: 2, //S&P 500

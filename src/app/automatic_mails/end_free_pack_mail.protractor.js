@@ -58,22 +58,25 @@ describe('End free pack notification mails', function () {
                         receiver_email: 'test1.user@foo.bar',
                         receiver_name : "Test1 user",
                         email_log_type: 11,
-                        content_sentences: ["Su periodo de","Gratuita ha concluido"],
-                        subject: 'Aviso Fin Subscripcion Gratuíta Market Observatory'});
+                        email_method: 'html',
+                        content_sentences: ["Su periodo de","Suscripción Gratuita ha concluido"],
+                        subject: 'Aviso Fin Subscripción Gratuita Market Observatory'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test4.user@foo.bar': true },
                         receiver_email: 'test4.user@foo.bar',
                         receiver_name : "Test4 user",
                         email_log_type: 11,
-                        content_sentences: ["Su periodo de","Gratuíta ha concluido"],
-                        subject: 'Aviso Fin Subscripcion Gratuíta Market Observatory'});
+                        email_method: 'html',
+                        content_sentences: ["Su periodo de","Suscripción Gratuita ha concluido"],
+                        subject: 'Aviso Fin Subscripción Gratuita Market Observatory'});
             
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
                         receiver_email: 'test2.user@foo.bar',
                         receiver_name : "Test2 user",
                         email_log_type: 12,
+                        email_method: 'html',
                         content_sentences: ["Recuerde que el acceso online a los contenidos","22 de noviembre de 2014"],
                         subject: 'Acceso a contenidos de Market Observatory'});
 
@@ -101,9 +104,12 @@ describe('End free pack notification mails', function () {
                 expect(email.receivers).toEqual(msg.receivers);
                 expect(email.subject).toEqual(msg.subject);
                 var jsdom = require("jsdom");
-            
+           
+                var email_method = msg.email_method || 'html';
+                var content = (email_method === 'html' ? email.html : email.body); 
+
                 jsdom.env(
-                    email.html,
+                    content,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
                         expect(window.$("a").attr('href')).toMatch('marketobservatory.com');
@@ -117,7 +123,7 @@ describe('End free pack notification mails', function () {
                 ptor.sleep(10000);
                 var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email});
                 loadFixture.executeQuery(select_fixture, conString, function(result) {
-                    expect(result.rowCount).toBe(1);
+                    expect(result.rowCount).toBe(1); //sometimes it fails unexpectly
                     if (result.rowCount == 1) {
                         expect(result.rows[0].type).toBe(msg.email_log_type);
                     }

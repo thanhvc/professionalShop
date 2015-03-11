@@ -13,7 +13,8 @@ var DateServerConfigMod = require('../../../test-helpers/date-server-config.js')
 //set date on server
 var vagrant_id = browser.params.serverVagrantId;
 var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
-dsc.setServerDateAndRestart("2014-12-01 11:59:30");
+//dsc.setServerDateAndRestart("2014-12-01 11:59:30");
+dsc.setServerDateAndRestart("2014-12-01 00:04:30");
 ptor.sleep(18000);
 
 describe('Expired pack notification mails', function () {
@@ -58,7 +59,7 @@ describe('Expired pack notification mails', function () {
                                 {name: "Estados Unidos Pack II", period: "septiembre 2014 noviembre 2014"},
                                 {name: "Estados Unidos Pair Pack I", period: "noviembre 2014 noviembre 2014"}
                         ],                                
-                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+                        subject: 'Aviso Fin Subscripción Market Observatory'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
@@ -70,7 +71,7 @@ describe('Expired pack notification mails', function () {
                         packs: [{name: "Estados Unidos Pair Pack I", period: "noviembre 2013 noviembre 2014"},
                                 {name: "Estados Unidos Pair Pack II", period: "septiembre 2014 noviembre 2014"}
                         ],                                
-                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+                        subject: 'Aviso Fin Subscripción Market Observatory'});
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
@@ -109,7 +110,7 @@ describe('Expired pack notification mails', function () {
                     }
                 );
                         
-                ptor.sleep(10000);
+                ptor.sleep(11000);
 
                 var select_fixture = fixtureGenerator.select_email_log_fixture({destiny_address: msg.receiver_email} );
                 loadFixture.executeQuery(select_fixture, conString, function(result) {
