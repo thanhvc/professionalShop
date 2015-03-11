@@ -105,7 +105,7 @@ describe('Pack publication notification mails', function () {
                     email.html,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
-                        expect(window.$("a").attr('href')).toMatch('marketobservatory.com/catalog/'+msg.pack.code);
+                        expect(window.$("a").attr('href')).toMatch('marketobservatory.com/home#tabsHome2');
                         expect(window.$("a").text()).toMatch(msg.pack.name);
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
                         expect(window.$("span").text()).toMatch("Ya están disponibles los Patrones de diciembre-2014");
