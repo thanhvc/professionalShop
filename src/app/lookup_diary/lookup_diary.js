@@ -48,7 +48,7 @@ angular.module('ngMo.lookup_diary', [
             IsLogged.isLogged(true);
         });
         MonthSelectorDiaryService.setDefaultDate(now);
-
+        SelectedMonthDiaryService.setSelectedMonth(now);
         $scope.tabs = TabsService.getTabs();
         $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             IsLogged.isLogged(true);
@@ -100,7 +100,7 @@ angular.module('ngMo.lookup_diary', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: SelectedMonthDiaryService.setSelectedMonth(now),
+                    month: SelectedMonthDiaryService.getSelectedMonth(),
                     favourite: false,
                     alarm: false
                 },
