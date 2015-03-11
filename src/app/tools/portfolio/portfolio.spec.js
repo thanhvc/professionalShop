@@ -52,7 +52,9 @@ describe('The portfolio controller', function () {
             isLogged = IsLogged;
             patternsService = PatternsService;
             UserApplyFilters = UserApplyFilters;
-            $controller('PortfolioCtrl',  {'$rootScope': $rootScope,'$scope': $scope,'$modal':$modal, '$http': _$httpBackend_, 'TabsService': TabsService, 'ActualDateService' : ActualDateService , 'MonthSelectorService': MonthSelectorService, 'IsLogged': IsLogged, 'PatternsService': PatternsService, 'UserApplyFilters': UserApplyFilters});
+            var now = new Date();
+            $controller('PortfolioCtrl',  {'$rootScope': $rootScope,'$scope': $scope,'$modal':$modal, '$http': _$httpBackend_, 'TabsService': TabsService, 'ActualDateService' : ActualDateService ,
+                'MonthSelectorService': MonthSelectorService, 'IsLogged': IsLogged, 'PatternsService': PatternsService, 'UserApplyFilters': UserApplyFilters, 'now': now});
             _$httpBackend_.when('GET','i18n/common/es.json').respond(200);
             $http.when('GET', $rootScope.urlService + '/actualdate').respond(200,{data: new Date()});
             $http.when('GET', $rootScope.urlService + '/islogged').respond(200);

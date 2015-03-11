@@ -75,6 +75,51 @@ TheWeek.prototype =  Object.create({}, {
     getCommodityRegionAssetGraph: {value: function(stock_area_pos,region_pos,pos) {
         return this.getCommodityRegionAsset(stock_area_pos,region_pos,pos).element(by.css("img.graphic-image"));
     }},
+    //S&P 500 tab
+    getSPArea: {value: function(pos) {
+        return this.getActiveContainerTab().all(by.repeater("area in sypSectors")).get(pos);
+    }},
+    getSPSector: {value: function(area_pos,sector_pos) {
+        return this.getSPArea(area_pos).all(by.repeater("sector in area.regions")).get(sector_pos);
+    }},
+    getSPSectorMainIndex: {value: function(area_pos,sector_pos,index_row) {
+        return this.getSPSector(area_pos,sector_pos).all(by.css("tr")).get(index_row);
+    }},
+    getSPSectorMainIndexTitle: {value: function(area_pos,sector_pos) {
+        return this.getSPSectorMainIndex(area_pos,sector_pos,0).all(by.css("td span")).get(0);
+    }},
+    getSPSectorMainIndexColumn: {value: function(area_pos,sector_pos,row,column) {
+        return this.getSPSectorMainIndex(area_pos,sector_pos,row).all(by.css("td")).get(column);
+    }},
+    getSPSectorMainIndexImage: {value: function(area_pos,sector_pos,row,column,type) {
+        var type_pos = (type == 'bull' ? 1 : 0);
+        return this.getSPSectorMainIndexColumn(area_pos,sector_pos,row,column).all(by.css("img")).get(type_pos);
+    }},
+    getSPSectorMainIndexGraph: {value: function(area_pos,sector_pos,index_row) {
+        return this.getSPSectorMainIndex(area_pos,sector_pos,index_row).element(by.css("img.graphic-image"));
+    }},
+    getSPSectorMoreLink: {value: function(area_pos,sector_pos) {
+        return this.getSPSector(area_pos,sector_pos).element(by.css("div.show-more"));
+    }},
+    getSPSectorChildIndex: {value: function(area_pos,sector_pos,index_row) {
+        return this.getSPSector(area_pos,sector_pos).all(by.repeater("indice in sector.assets")).get(index_row);
+    }},
+    getSPSectorChildIndexCount: {value: function(area_pos,sector_pos) {
+        return this.getSPSector(area_pos,sector_pos).all(by.repeater("indice in sector.assets")).count();
+    }},
+    getSPSectorChildIndexTitle: {value: function(area_pos,sector_pos,index_row) {
+        return this.getSPSectorChildIndex(area_pos,sector_pos,index_row).all(by.css("td span")).get(0);
+    }},
+    getSPSectorChildIndexColumn: {value: function(area_pos,sector_pos,index_row,column) {
+        return this.getSPSectorChildIndex(area_pos,sector_pos,index_row).all(by.css("td")).get(column);
+    }},
+    getSPSectorChildIndexImage: {value: function(area_pos,sector_pos,index_row,column,type) {
+        var type_pos = (type == 'bull' ? 1 : 0);
+        return this.getSPSectorChildIndexColumn(area_pos,sector_pos,index_row,column).all(by.css("img")).get(type_pos);
+    }},
+    getSPSectorChildIndexGraph: {value: function(area_pos,sector_pos,index_row) {
+        return this.getSPSectorChildIndex(area_pos,sector_pos,index_row).element(by.css("img.graphic-image"));
+    }},
     //Common
     getGraphicPanel: {value: function() {
         return element(by.css("div#graphicPanel"));

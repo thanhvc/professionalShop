@@ -324,6 +324,10 @@ describe('the Sign Up page', function () {
                     ptor.sleep(2000);
                 });
 
+                afterEach(function () {
+                    expect(queue.length).toEqual(0); //1 email should be sent
+                });
+
                 it('should register user and send email', function() {
 
                     queue.push( { sender: 'market.observatory@edosoftfactory.com',
@@ -346,7 +350,7 @@ describe('the Sign Up page', function () {
                             email.html,
                             ["http://code.jquery.com/jquery.js"],
                             function (errors, window) {
-                                expect(window.$("a").attr('href')).toMatch('\^http:\\/\\/mo\\.devel\\.edosoftfactory.com\\/#\\/activate\\/');
+                                expect(window.$("a").attr('href')).toMatch('marketobservatory.com\\/#\\/activate\\/');
                                 expect(window.$("span").text()).toMatch('John Doe');
                             }
                         );
@@ -386,7 +390,7 @@ describe('the Sign Up page', function () {
                     }).then(function() { ptor.sleep(2000); }).then(function() {    
                         var select_fixture = fixtureGenerator.select_free_subscription_fixture();
                         loadFixture.executeQuery(select_fixture, conString, function(result) {
-                            expect(result.rowCount).toBe(1);
+                            expect(result.rowCount).toBe(2);
                             expect(result.rows[0].free_pack_code).toBe('11');
                         });
 

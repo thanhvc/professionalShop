@@ -107,6 +107,8 @@ exports.change_password_fixture = function() {
                 zip_code: 'Fr3zz3',
                 email_address: 'expired.user@foo.bar',
                 sha_password: "\\x" + sha512("phantom").toString('hex'),
+                sign_up_token: 'EEEEEEEEEEEEEEEEEEEE',
+                change_password_date: '2014-11-17 09:30',
                 status: 2,
                 country_code: 'ES'
             }
@@ -159,6 +161,18 @@ exports.change_password_fixture = function() {
                 start_date: '2014-11-17',
                 end_date: '2014-12-05',
                 user_id: 4
+            }
+        },
+        {
+            type: 'insert',
+            table: 'free_subscription',
+            values: {
+                id: 2,
+                free_pack_code: '11',
+                subscription_date: '2014-11-17',
+                start_date: '2014-11-17',
+                end_date: '2014-12-05',
+                user_id: 5
             }
         }
     ];

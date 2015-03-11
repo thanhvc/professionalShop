@@ -34,7 +34,7 @@ describe('Test1 last month notification mails', function () {
             //set date on server
             var vagrant_id = browser.params.serverVagrantId;
             var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
-            dsc.setServerDateAndRestart("2014-11-01 15:39:20");
+            dsc.setServerDateAndRestart("2014-11-01 15:39:30");
             ptor.sleep(18000);
         });
 
@@ -57,16 +57,16 @@ describe('Test1 last month notification mails', function () {
                         receiver_email: 'test1.user@foo.bar',
                         receiver_name : "Test1 user",
                         packs: [{name: "Estados Unidos Pack I"}, {name: "Estados Unidos Pack II"}],                                
-                        end_date: "November 2014",
-                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+                        end_date: "noviembre 2014",
+                        subject: 'Aviso Fin Subscripción Market Observatory'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
                         receiver_email: 'test2.user@foo.bar',
                         receiver_name : "Test2 user",
                         packs: [{name: "Estados Unidos Pair Pack I"}, {name: "Estados Unidos Pair Pack II"}],                                
-                        end_date: "November 2014",
-                        subject: 'Aviso Fin Subscripcion Market Observatory'});
+                        end_date: "noviembre 2014",
+                        subject: 'Aviso Fin Subscripción Market Observatory'});
 
 
             handler = function(addr,id,email) {
@@ -102,7 +102,8 @@ describe('Test1 last month notification mails', function () {
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
                         //expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
-                        expect(window.$("a").attr('href')).toMatch('\^mailto:operations@MarketObservatory\\.com');
+                        expect(window.$("a").attr('href')).toMatch('marketobservatory\\.com/my-subscriptions/my-subscriptions');
+                        //expect(window.$("a").attr('href')).toMatch('\^mailto:operations@MarketObservatory\\.com'); //should also be tested
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
                         expect(window.$("span").text()).toMatch(msg.end_date);
                         expect(window.$("span").text()).toMatch("Recuerde que el acceso online a los contenidos de los Packs");

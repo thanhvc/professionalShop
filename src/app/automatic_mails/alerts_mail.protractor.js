@@ -39,23 +39,27 @@ describe('Alert notification mails', function () {
         });
 
         afterEach(function () {
-            expect(queue.length).toEqual(0); //3 emails should be sent
+            expect(queue.length).toEqual(0); //4 emails should be sent
         });
 
         afterEach(function () {
+            var select_fixture = fixtureGenerator.select_alert_fixture({});
+            loadFixture.executeQuery(select_fixture, conString, function(result) {
+                expect(result.rowCount).toBe(3); //.It must be 3 alerts left in database. 
+            });
+        });
 
-                var select_fixture = fixtureGenerator.select_email_log_fixture();
-                loadFixture.executeQuery(select_fixture, conString, function(result) {
-                    expect(result.rowCount).not.toBe(0); //sometimes fails
-                    if (result.rowCount > 0) {
-                        expect(result.rows[0].type).toBe(5);
-                    }
-                    if (result.rowCount > 1) {
-                        expect(result.rows[1].type).toBe(5);
-                    }
-                });
-
-
+        afterEach(function () {
+            var select_fixture = fixtureGenerator.select_email_log_fixture();
+            loadFixture.executeQuery(select_fixture, conString, function(result) {
+                expect(result.rowCount).not.toBe(0); //sometimes fails
+                if (result.rowCount > 0) {
+                    expect(result.rows[0].type).toBe(5);
+                }
+                if (result.rowCount > 1) {
+                    expect(result.rows[1].type).toBe(5);
+                }
+            });
         });
 
         afterEach(function () {
@@ -98,6 +102,16 @@ describe('Alert notification mails', function () {
                         close_date: "Fecha de Cierre: 30 octubre 2014",
                         subject: 'Alarma Market Observatory'});
 
+            queue.push( { sender: 'market.observatory@edosoftfactory.com',
+                        receivers: { 'test4.user@foo.bar': true },
+                        receiver_email: 'test4.user@foo.bar',
+                        receiver_name : "Test4 user",
+                        pattern_name : "LONG NAME ASSET PAIR 2 1",
+                        condition: "Mayor que 20.0",
+                        last_quote: "Relativa: 30.0",
+                        close_date: "Fecha de Cierre: 30 octubre 2014",
+                        subject: 'Alarma Market Observatory'});
+
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
@@ -129,7 +143,7 @@ describe('Alert notification mails', function () {
                     email.html,
                     ["http://code.jquery.com/jquery.js"],
                     function (errors, window) {
-                        expect(window.$("a").attr('href')).toMatch('\^mo\\.devel\\.edosoftfactory.com');
+                        expect(window.$("a").attr('href')).toMatch('marketobservatory.com');
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
                         //expect(window.$("span").text()).toMatch("John Doe");
                         expect(window.$("span").text()).toMatch(msg.pattern_name);
@@ -148,7 +162,7 @@ describe('Alert notification mails', function () {
             var ms = require('smtp-tester').init(2025,{"disableDNSValidation":true});
             ms.bind(handler);
             ptor.sleep(9000);
-            ptor.sleep(60000);
+            ptor.sleep(61000);
         });            
 
 });

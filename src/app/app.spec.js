@@ -1363,7 +1363,7 @@ describe('The scroll directive', function () {
             delete $window.sessionStorage.cart;
             var template = $compile("<div scroll></div>")($scope);
             $scope.$apply();
-            $window.scrollTo(10000);
+            $window.scrollTo(10000,0);
         });
     });
 

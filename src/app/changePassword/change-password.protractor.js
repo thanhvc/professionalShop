@@ -102,7 +102,7 @@ describe('change password page', function () {
                 
                 it("should not change user password because it is too short", function() {
                     expect(change_password_page.isCurrentPage()).toBe(true);
-                    expect(change_password_page.getValidationMessage('password_invalid').isDisplayed()).toBe(true);
+                    expect(change_password_page.getValidationMessage('password_invalid').isDisplayed()).toBe(true); //TODO this test should not fail
                     expect(change_password_page.getValidationMessage('password_mismatch').isDisplayed()).toBe(false); //TODO this test should not fail
                     expect(change_password_page.getValidationMessage('password_correctly_modified').isDisplayed()).toBe(false);
                     var select_fixture = fixtureGenerator.select_user_fixture({email_address: "ontime.user@foo.bar"});
@@ -255,6 +255,48 @@ describe('change password page', function () {
                     expect(home.myAccountLink().isDisplayed()).toBe(true);
                     ptor.sleep(3000);
                     home.logout();
+                });
+
+            });
+        });
+
+        describe("correct token on time but expired", function() {
+            beforeEach(function () {
+                change_password_page = new ChangePassword('EEEEEEEEEEEEEEEEEEEE');
+                ptor.sleep(2000);
+            });
+             
+            it("should be on change password page with incorrect token message", function() {
+                expect(change_password_page.isCurrentPage()).toBe(true);
+                expect(change_password_page.getValidationMessage('password_correctly_modified').isDisplayed()).toBe(false);
+                expect(change_password_page.getValidationMessage('incorrect_token').isDisplayed()).toBe(false);
+            });
+
+            describe("new password with correct pattern and length", function() {
+                beforeEach(function() {
+                    change_password_page.fillInPassword("Phantom_2_ghost");
+                    change_password_page.fillInPasswordConfirmation("Phantom_2_ghost");
+                    change_password_page.clickChangePassword();
+                    ptor.sleep(3000);
+                });
+                
+                it("should change user password", function() {
+                    expect(change_password_page.isCurrentPage()).toBe(true);
+                    expect(change_password_page.getValidationMessage('password_correctly_modified').isDisplayed()).toBe(true);
+                    var select_fixture = fixtureGenerator.select_user_fixture({email_address: "expired.user@foo.bar"});
+                    loadFixture.executeQuery(select_fixture, conString, function(result) {
+                        expect(result.rowCount).toBe(1);
+                        expect(result.rows[0].email_address).toBe('expired.user@foo.bar');
+                        expect(result.rows[0].status).toBe(2);
+                        expect(String(result.rows[0].change_password_date)).not.toContain("Nov 17 2014");
+                        expect(String(result.rows[0].sign_up_token).length).not.toBe(20);
+                        expect(String(result.rows[0].auth_token).length).toBe(36);
+                    });
+                });
+
+                it("should not automatically login because is still an expired user", function() {
+                    expect(change_password_page.isCurrentPage()).toBe(true);
+                    expect(home.loginLink().isDisplayed()).toBe(true); //TODO this should not fail
                 });
 
             });

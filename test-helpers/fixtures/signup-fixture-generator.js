@@ -57,6 +57,7 @@ exports.signup_fixture = function() {
                 publication_date: '10-11-2014'
             }
         },
+        //existing users
         {
             type: 'insert',
             table: 'users',
@@ -106,6 +107,18 @@ exports.signup_fixture = function() {
                 sha_password: "\\x" + sha512("phantom").toString('hex'),
                 status: 2,
                 country_code: 'ES'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'free_subscription',
+            values: {
+                id: 1,
+                free_pack_code: '11',
+                user_id: 2, //Registered user
+                subscription_date: '2014-11-10',
+                start_date: '2014-11-10',
+                end_date: '2015-11-25'
             }
         }
     ];

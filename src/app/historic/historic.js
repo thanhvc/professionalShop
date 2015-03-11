@@ -26,7 +26,13 @@ angular.module('ngMo.historic', [
                 IsLogged: "IsLogged",
                 logged: function(IsLogged) {
                     IsLogged.isLogged();
+                },
+                now:function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                        return new Date(result.data.actualDate);
+                    });
                 }
+
             }
 
         });
@@ -36,7 +42,7 @@ angular.module('ngMo.historic', [
     })
 
     .controller('HistoricCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
-                                          MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthHistoricService, ExpirationYearFromPatternName,UserApplyFilters,$translatePartialLoader) {
+                                          MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthHistoricService, ExpirationYearFromPatternName,UserApplyFilters,$translatePartialLoader,now) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -46,8 +52,12 @@ angular.module('ngMo.historic', [
             }
             IsLogged.isLogged(true);
         });
+        SelectedMonthHistoricService.setSelectedMonth(now);
         $scope.tabs = TabsService.getTabs();
         //strucutre filters
+        $scope.waitForFilters = false;//say if is necessary wait for the selectors to load the patterns (only true when change month and a region is selected)
+        $scope.changingMonth = false;//says if the user is changing month
+
 
         $scope.filterStructure = function(restartRegion) {
             selectedRegion = "";
@@ -81,7 +91,7 @@ angular.module('ngMo.historic', [
                     tab_type: $scope.tabs[TabsService.getActiveTab()].title,
                     active_tab: TabsService.getActiveTab(),
                     //if month is set, we keep the value
-                    month: MonthSelectorHistoricService.getSelectedMonth(),
+                    month: MonthSelectorHistoricService.getSelectedMonth(now),//the now is only if the actualDate is null
                     favourite: false
                 },
                 selectors: {
@@ -348,6 +358,7 @@ angular.module('ngMo.historic', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors,filters,callback) {
+            $scope.loadingFilters = true;
             viewName = $state.$current.self.name;
             $scope.loadingFilters = true;
             HistoricsService.getSelectors(filters, selectors,callback,viewName);
@@ -402,6 +413,14 @@ angular.module('ngMo.historic', [
                 $scope.filterOptions.filters.selectedIndustry = data.selectedIndustry;
             }
             $scope.loadingFilters = false;
+            $scope.loadingFilters = false;
+            if ($scope.waitForFilters) {
+                $scope.waitForFilters = false;
+
+                //the page is waiting for patterns to load
+                $scope.loadPage();
+            }
+
         };
 
         /**
@@ -530,6 +549,7 @@ angular.module('ngMo.historic', [
 
 
         $scope.nextMonth = function () {
+            $scope.changingMonth =true;
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -538,6 +558,7 @@ angular.module('ngMo.historic', [
 
         };
         $scope.previousMonth = function () {
+            $scope.changingMonth =true;
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorHistoricService.addMonths(-1, $scope.filterOptions.filters.month);
             MonthSelectorHistoricService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -546,14 +567,15 @@ angular.module('ngMo.historic', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.changingMonth =true;
             $scope.startLoading();
             var fixedDate = false;
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var month = date[0];
             var year = date[1];
             //Check if month and year are not greater than the actual ones
-            var currentMonth = new Date().getMonth();
-            var currentYear = new Date().getFullYear();
+            var currentMonth = now.getMonth();//new Date().getMonth();
+            var currentYear = now.getFullYear();//new Date().getFullYear();
             //check if the month is in range |actualMonth-3, actualMonth|
             //care for change of year
 
@@ -564,7 +586,7 @@ angular.module('ngMo.historic', [
 
             } else {
                 //check actualMonth - 3
-                var now = new Date();
+                //var now = new Date();
                 var limitRange = new Date(now.getFullYear(), now.getMonth(), 1);
                 limitRange.setMonth(limitRange.getMonth()-2);
                 //now we have the down limit, check if in the range the given date
@@ -692,7 +714,9 @@ angular.module('ngMo.historic', [
             //we launch loadPage
             url = $location.search();
             if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
-                $scope.loadPage();
+                if (!$scope.waitForFilters) {
+                    $scope.loadPage();
+                }
             } else {
                 $location.path('/historic').search(urlParamsSend);
             }
@@ -759,10 +783,18 @@ angular.module('ngMo.historic', [
                 if ($scope.isCorrectDate(params.month)) {
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
-                    actual_date = new Date();
+                    actual_date = now;//new Date();
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorHistoricService.setDate(d);
+                if (($scope.filterOptions.filters.month != null && $scope.filterOptions.filters.month.value !== params.month) && (filters.selectedRegion !== "")) {
+                    $scope.waitForFilters = true;
+                }
+                //or may be changingMonth =true and selectedRegion
+                if (($scope.changingMonth && filters.selectedRegion !=="")) {
+                    $scope.waitForFilters = true;
+                    $scope.changingMonth = false;
+                }
 
             } else {
                 //if the date is not passed as param, we load the default date
@@ -802,14 +834,18 @@ angular.module('ngMo.historic', [
 
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                $scope.loadPage();
+            }
         });
         /*First load on page ready*/
         //$scope.restartFilter(false,false);
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                $scope.loadPage();
+            }
         }
 
 
@@ -927,7 +963,11 @@ angular.module('ngMo.historic', [
         };
     })
     .service("SelectedMonthHistoricService", function (MonthSelectorHistoricService) {
-        var selectedMonth = MonthSelectorHistoricService.restartDate();
+        var selectedMonth = null;
+
+        this.setSelectedMonth = function(now){
+            selectedMonth = MonthSelectorHistoricService.restartDate(now);
+        };
 
         this.getSelectedMonth = function () {
             return selectedMonth;
@@ -940,6 +980,7 @@ angular.module('ngMo.historic', [
     })
     .factory('MonthSelectorHistoricService', function () {
         var actualDate = null;
+        var savedDate = null;
         return {
 
             getMonthName: function (date) {
@@ -989,8 +1030,9 @@ angular.module('ngMo.historic', [
                 }
                 return monthString;
             },
-            restartDate: function () {
-                var today = new Date();
+            restartDate: function (now) {
+                var today = now;
+                savedDate = now;
                 var mm = today.getMonth()+1; //January is 0, so really we are going 1 month before always!
                 var yyyy = today.getFullYear();
                 actualDate = {
@@ -1027,7 +1069,8 @@ angular.module('ngMo.historic', [
                 return actualDate;
             },
             getListMonths: function () {
-                var today = new Date();
+                //var today = new Date();
+                var today = savedDate; //check if exist
                 var monthList = [];
                 //the list is 10 last months + actual month + next month
                 var d = new Date(today.getFullYear(), today.getMonth() - 10, 1);
@@ -1045,7 +1088,8 @@ angular.module('ngMo.historic', [
 
             },
             getHistoricsListMonths: function () {
-                var today = new Date();
+                //var today = new Date();
+                var today = savedDate;
                 var monthList = [];
                 temp_date = actualDate;
                 //the list is 10 last months + actual month + next month
@@ -1071,9 +1115,9 @@ angular.module('ngMo.historic', [
             },
 
 
-            getSelectedMonth: function () {
+            getSelectedMonth: function (now) {
                 if (actualDate == null) {
-                    actualDate = this.restartDate();
+                    actualDate = this.restartDate(now);
                 }
                 return actualDate;
             },

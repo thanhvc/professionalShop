@@ -29,6 +29,11 @@ angular.module('ngMo.my_patterns', [
                 IsLogged: "IsLogged",
                 logged: function(IsLogged) {
                     IsLogged.isLogged();
+                },
+                now:function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                        return new Date(result.data.actualDate);
+                    });
                 }
             }
         });
@@ -178,11 +183,16 @@ angular.module('ngMo.my_patterns', [
         };
 
     })
-    .controller('PatternsCtrl', function PatternsCtrl($timeout,$window,$q,$filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate,$translateCookieStorage) {
+    .controller('PatternsCtrl', function PatternsCtrl(now,$timeout,$window,$q,$filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate,$translateCookieStorage) {
         $scope.tabs = TabsService.getTabs();
         $scope.dataLoaded = false;
         $scope.loading = true;//loading patterns
         $scope.loadingFilters = false;
+        $scope.waitForFilters = false;//say if is necessary wait for the selectors to load the patterns (only true when change month and a region is selected)
+        $scope.changingMonth = false;//says if the user is changing month
+        SelectedMonthService.setSelectedMonth(now);//start month selector
+        MonthSelectorService.restartDate(now);
+        //
         //function to create the filter object
         $scope.filterStructure = function(restartRegion) {
             selectedRegion = "";
@@ -193,6 +203,7 @@ angular.module('ngMo.my_patterns', [
                     }
                 }
             }
+
             $scope.filterOptions = {
                 filters: {
                     filterName: "",
@@ -495,6 +506,7 @@ angular.module('ngMo.my_patterns', [
          *      make a petition of selectors, the selectors is an array of the selectors required from server
          */
         $scope.refreshSelectors = function (selectors,filters,callback) {
+            $scope.loadingFilters = true;
             viewName = $state.$current.self.name;
             $scope.loadingFilters = true;
             PatternsService.getSelectors(filters, selectors,callback,viewName);
@@ -550,6 +562,12 @@ angular.module('ngMo.my_patterns', [
                 $scope.filterOptions.filters.selectedIndustry = data.selectedIndustry;
             }
             $scope.loadingFilters = false;
+            if ($scope.waitForFilters) {
+                $scope.waitForFilters = false;
+
+                //the page is waiting for patterns to load
+                $scope.loadPage();
+            }
 
         };
 
@@ -686,7 +704,8 @@ angular.module('ngMo.my_patterns', [
 
 
         $scope.nextMonth = function () {
-           $scope.startLoading();
+            $scope.changingMonth= true;
+            $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
             $scope.restartFilter(true,false);
@@ -694,6 +713,7 @@ angular.module('ngMo.my_patterns', [
 
         };
         $scope.previousMonth = function () {
+            $scope.changingMonth= true;
             $scope.startLoading();
             $scope.filterOptions.filters.month = MonthSelectorService.addMonths(-1, $scope.filterOptions.filters.month);
             SelectedMonthService.changeSelectedMonth($scope.filterOptions.filters.month);
@@ -702,6 +722,7 @@ angular.module('ngMo.my_patterns', [
         };
         //this function update the Month object in the filter from the value
         $scope.goToMonth = function () {
+            $scope.changingMonth= true;
             $scope.loading= true;
             var date = $scope.filterOptions.filters.selectMonth.value.split("_");
             var d = new Date(date[1], date[0] - 1, 1);
@@ -812,7 +833,9 @@ angular.module('ngMo.my_patterns', [
             //we launch loadPage
             url = $location.search();
             if (JSON.stringify(url) === JSON.stringify(urlParamsSend) ) {
-                $scope.loadPage();
+                if (!$scope.waitForFilters) {
+                    $scope.loadPage();
+                }
             } else {
                 $location.path('/patterns').search(urlParamsSend);
             }
@@ -881,17 +904,25 @@ angular.module('ngMo.my_patterns', [
                 if ($scope.isCorrectDate(params.month)) {
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
-                    actual_date = new Date();
+                    actual_date = now;//new Date();
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorService.setDate(d);
-
+                //month specified ? and region specified? then waitForFilters
+                if (($scope.filterOptions.filters.month != null && $scope.filterOptions.filters.month.value !== params.month) && (filters.selectedRegion !== "")) {
+                    $scope.waitForFilters = true;
+                }
+                //or may be changingMonth =true and selectedRegion
+                if (($scope.changingMonth && filters.selectedRegion !=="")) {
+                    $scope.waitForFilters = true;
+                    $scope.changingMonth = false;
+                }
 
             } else {
                 //if the date is not passed as param, we load the default date
                 //var date_restart = new Date();
                 //filters.month = MonthSelectorService.restartDate();
-                var date_restart = new Date();
+                var date_restart = now;//new Date();
                 date_restart.setDate(1);
                 date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
                 filters.month = MonthSelectorService.setDate(date_restart);
@@ -934,7 +965,9 @@ angular.module('ngMo.my_patterns', [
 
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                $scope.loadPage();
+            }
         });
         /*First load on page ready*/
         //$scope.restartFilter(false,false);
@@ -942,7 +975,9 @@ angular.module('ngMo.my_patterns', [
         if ($location.search()) {
             //if the paramsUrl are  passed, we load the page with the filters
             $scope.loadUrlParams();
-            $scope.loadPage();
+            if (!$scope.waitForFilters) {
+                $scope.loadPage();
+            }
         }
 
         //$scope.loadPage();
@@ -1154,11 +1189,14 @@ angular.module('ngMo.my_patterns', [
 
 
 
-    .factory('MonthSelectorService', function () {
+    .factory('MonthSelectorService', function ($http,$rootScope,$q) {
         var actualDate = {};
+        var savedNow = null;
+        $http.get($rootScope.urlService+'/actualdate').success(function(data){
+            now = new Date(data);
+        });
 
         return {
-
             getMonthName: function (date) {
 
                 var monthString = "";
@@ -1206,8 +1244,20 @@ angular.module('ngMo.my_patterns', [
                 }
                 return monthString;
             },
-            restartDate: function () {
-                var today = new Date();
+            getActualData: function() {
+                var deferred = $q.defer();
+                $http.get($rootScope.urlService+"/actualdate").then(function(result) {
+                    deferred.resolve(result);
+                });
+                $rootScope.$apply();
+                return deferred.promise;
+            },
+            restartDate: function (now) {
+
+                //var today = new Date();
+                //var savedNow = this.getActualData();
+                savedNow = now;
+                var today = savedNow;
                 var mm = today.getMonth() + 1; //January is 0!
                 var yyyy = today.getFullYear();
                 actualDate = {
@@ -1219,7 +1269,9 @@ angular.module('ngMo.my_patterns', [
                 actualDate.monthString = this.getMonthName(actualDate);
                 return actualDate;
             },
+
             setDate: function (date) {
+                //savedNow = date;
                 var mm = date.getMonth() + 1; //January is 0!
                 var yyyy = date.getFullYear();
                 actualDate = {
@@ -1244,7 +1296,7 @@ angular.module('ngMo.my_patterns', [
                 return actualDate;
             },
             getListMonths: function (diaryMode) {
-                var today = new Date();
+                var today = savedNow;//new Date();
                 var monthList = [];
                 //the list is 10 last months + actual month + next month if today is <=15, if not
                 //is 11 last months + actual month
@@ -1275,7 +1327,7 @@ angular.module('ngMo.my_patterns', [
 
             },
             getCalendarListMonths: function () {
-                var today = new Date();
+                var today = savedNow;//new Date();
                 var monthList = [];
                 var d = new Date(today.getFullYear(), today.getMonth(), 1);
                 //the list is actual month + next month
@@ -1294,7 +1346,7 @@ angular.module('ngMo.my_patterns', [
                 return monthList;
             },
             getMySubscriptionsListMonth: function () {
-                var today = new Date();
+                var today = savedNow;//new Date();
                 var monthList = [];
                 var d = new Date(today.getFullYear(), today.getMonth(), 1);
                 //the list is actual month + next month if day today is greater than 15
@@ -1324,7 +1376,11 @@ angular.module('ngMo.my_patterns', [
     })
 
     .service("SelectedMonthService", function (MonthSelectorService) {
-        var selectedMonth = MonthSelectorService.restartDate();
+        var selectedMonth = null;
+
+        this.setSelectedMonth = function(now) {
+            selectedMonth = MonthSelectorService.restartDate(now);
+        };
 
         this.getSelectedMonth = function () {
             return selectedMonth;
