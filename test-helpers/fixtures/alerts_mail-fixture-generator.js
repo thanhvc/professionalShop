@@ -1127,3 +1127,14 @@ exports.select_renewal_fixture = function(conditions) {
             condition: conditions
         };
 };
+
+exports.select_alert_fixture = function(conditions) {
+    var conditions = conditions || {};
+    return {
+            type: 'select',
+            table: 'alert',
+            //fields: ['id','name','surname','address','city','email_address'],
+            condition: conditions
+        };
+};
+

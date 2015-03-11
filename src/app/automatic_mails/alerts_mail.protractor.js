@@ -43,19 +43,23 @@ describe('Alert notification mails', function () {
         });
 
         afterEach(function () {
+            var select_fixture = fixtureGenerator.select_alert_fixture({});
+            loadFixture.executeQuery(select_fixture, conString, function(result) {
+                expect(result.rowCount).toBe(3); //.It must be 3 alerts left in database. 
+            });
+        });
 
-                var select_fixture = fixtureGenerator.select_email_log_fixture();
-                loadFixture.executeQuery(select_fixture, conString, function(result) {
-                    expect(result.rowCount).not.toBe(0); //sometimes fails
-                    if (result.rowCount > 0) {
-                        expect(result.rows[0].type).toBe(5);
-                    }
-                    if (result.rowCount > 1) {
-                        expect(result.rows[1].type).toBe(5);
-                    }
-                });
-
-
+        afterEach(function () {
+            var select_fixture = fixtureGenerator.select_email_log_fixture();
+            loadFixture.executeQuery(select_fixture, conString, function(result) {
+                expect(result.rowCount).not.toBe(0); //sometimes fails
+                if (result.rowCount > 0) {
+                    expect(result.rows[0].type).toBe(5);
+                }
+                if (result.rowCount > 1) {
+                    expect(result.rows[1].type).toBe(5);
+                }
+            });
         });
 
         afterEach(function () {
