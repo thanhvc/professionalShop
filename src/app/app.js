@@ -2457,7 +2457,11 @@ var ModalFlagInstanceCtrl = function ($scope, $modalInstance, $timeout,infoSelec
             $scope.opened= false;
         }
     };
-    $scope.$on("body-click",function(){$scope.close();});
+    $timeout(function() {
+        $scope.$on("body-click", function () {
+            $scope.close();
+        });
+    },1000);
    // $scope.$on("body-click",function(){$scope.close();});
     /*$timeout(function () {
         $scope.close();
