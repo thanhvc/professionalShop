@@ -104,7 +104,7 @@ describe('Alert notification mails', function () {
                         receiver_name : "Test4 user",
                         pattern_name : "LONG NAME ASSET PAIR 2 1",
                         condition: "Mayor que 20.0",
-                        last_quote: "ltimo: 30.0",
+                        last_quote: "Relativa: 30.0",
                         close_date: "Fecha de Cierre: 30 octubre 2014",
                         subject: 'Alarma Market Observatory'});
 

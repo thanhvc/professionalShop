@@ -817,7 +817,7 @@ exports.alerts_mail_fixture = function() {
                 bearish_exit_value:22,
                 daily_pair_return: 12.13,
                 pair_volatility:23,
-                last_performance_date: '2014-10-19',
+                last_performance_date: '2014-10-30',
                 drawdown: -27.31,
                 winning_years_mean_rent: 220.41,
                 losing_years_mean_rent:-8.08,
