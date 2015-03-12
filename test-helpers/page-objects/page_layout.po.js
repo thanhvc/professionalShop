@@ -24,6 +24,9 @@ PageLayout.prototype =  Object.create({}, {
     logoutLink:{value: function(){
         return element(by.css(".log-out-link"));
     }},
+    loginValidationErrorsPanel:{value: function(){
+        return element(by.css("div.login-panel div.login-bottom-panel"));
+    }},
     myAccountLink:{value: function(){
         return element(by.css("a.my-account-link"));
     }},
@@ -32,6 +35,9 @@ PageLayout.prototype =  Object.create({}, {
     }},
     the_weekNavLink:{value: function(){
         return element(by.css("li#the-week-nav a"));
+    }},
+    expiredModalWindow:{value: function(){
+        return element(by.css("div.generic-modal-window.ng-scope"));
     }}
 
 });
