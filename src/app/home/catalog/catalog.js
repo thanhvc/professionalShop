@@ -166,7 +166,8 @@ angular.module('ngMo.catalog', [
             });
         };
     })
-    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService, initializedData, $stateParams, TabsService,ActiveTabService, SelectedPackService, $location,$filter) {
+    .controller('CatalogCtrl', function CatalogController($scope, ActualDateService, initializedData, $stateParams, TabsService,ActiveTabService, SelectedPackService, $location,$filter,$translatePartialLoader) {
+        $translatePartialLoader.addPart("catalog");
         var data = ActualDateService.actualDate(function (data) {
             $scope.actualDate = data.actualDate;
         });
