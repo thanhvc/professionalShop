@@ -1368,6 +1368,9 @@ angular.module('ngMo', [
                     $scope.actualSubmenu = '';
                     $scope.actualItemSubmenu = '';
                 };
+                $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                    $scope.actualItemSubmenu = '';
+                });
             },
             link: function($scope) {
                 $scope.$watch('actualSubmenu', function(){});
