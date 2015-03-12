@@ -92,9 +92,9 @@
             <td class="index-volatility-column-catalog prices-font10-bold" ng-if="pattern.volatility<0">NA</td>
 
             <td style="border-right: 1px solid #6f7072 !important;"  class="index-status-column-catalog"><!--<div tooltip="{{pattern.state}}" class ="state-sphere" ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"></div>-->
-                <div tooltip="Sin Comenzar" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
-                <div tooltip="Comenzado" tooltip-placement="left" class="state-sphere started-state cursor-help" ng-show="pattern.statePattern == 'STARTED'"></div>
-                <div tooltip="Finalizado" tooltip-placement="left" class="state-sphere finished-state cursor-help" ng-show="pattern.statePattern == 'FINISHED'"></div>
+                <div tooltip="{{'CATALOG.no_started'|translate}}" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
+                <div tooltip="{{'CATALOG.started'|translate}}" tooltip-placement="left" class="state-sphere started-state cursor-help" ng-show="pattern.statePattern == 'STARTED'"></div>
+                <div tooltip="{{'CATALOG.finished'|translate}}" tooltip-placement="left" class="state-sphere finished-state cursor-help" ng-show="pattern.statePattern == 'FINISHED'"></div>
             </td>
         </tr>
     </table>
