@@ -1368,6 +1368,9 @@ angular.module('ngMo', [
                     $scope.actualSubmenu = '';
                     $scope.actualItemSubmenu = '';
                 };
+                $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                    $scope.actualItemSubmenu = '';
+                });
             },
             link: function($scope) {
                 $scope.$watch('actualSubmenu', function(){});
@@ -2457,7 +2460,11 @@ var ModalFlagInstanceCtrl = function ($scope, $modalInstance, $timeout,infoSelec
             $scope.opened= false;
         }
     };
-    $scope.$on("body-click",function(){$scope.close();});
+    $timeout(function() {
+        $scope.$on("body-click", function () {
+            $scope.close();
+        });
+    },1000);
    // $scope.$on("body-click",function(){$scope.close();});
     /*$timeout(function () {
         $scope.close();
