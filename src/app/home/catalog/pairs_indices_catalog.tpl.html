@@ -80,11 +80,13 @@
         </tr>
         <tr ng-repeat="pattern in patterns">
             <td  >
-                <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}" ng-if="pattern.name.split(' ')[0].length <= pattern.bearishName.split(' ')[0].length">{{pattern.name | limitTo: 40}}</span>
-                <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}" ng-if="pattern.name.split(' ')[0].length > pattern.bearishName.split(' ')[0].length">{{pattern.bearishName | limitTo: 40}}</span>
+               <!-- <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}" ng-if="pattern.name.split(' ')[0].length <= pattern.bearishName.split(' ')[0].length">{{pattern.name | limitTo: 40}}</span>
+                <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}" ng-if="pattern.name.split(' ')[0].length > pattern.bearishName.split(' ')[0].length">{{pattern.bearishName | limitTo: 40}}</span>-->
+                <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}" >{{pattern.name | limitTo: 40}}</span>
                 <br/>
-                <span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishName}}" ng-if="pattern.name.split(' ')[0].length <= pattern.bearishName.split(' ')[0].length">{{pattern.bearishName | limitTo: 40}}</span>
-                <span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishName}}" ng-if="pattern.name.split(' ')[0].length > pattern.bearishName.split(' ')[0].length">{{pattern.name | limitTo: 40}}</span>
+                <!--<span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishName}}" ng-if="pattern.name.split(' ')[0].length <= pattern.bearishName.split(' ')[0].length">{{pattern.bearishName | limitTo: 40}}</span>
+                <span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishName}}" ng-if="pattern.name.split(' ')[0].length > pattern.bearishName.split(' ')[0].length">{{pattern.name | limitTo: 40}}</span>-->
+                <span class="cursor-help grey-text-pair"  tooltip-html-unsafe="{{pattern.bearishName}}" >{{pattern.bearishName | limitTo: 40}}</span>
             </td>
             <td>
                 <span class="cursor-help" tooltip-html-unsafe="{{pattern.exchName}}">{{pattern.exchSymbol }}</span><br>
