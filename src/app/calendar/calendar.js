@@ -314,7 +314,7 @@ angular.module('ngMo.calendar', [
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
                     //actual_date = new Date();
-                    actual_date = now;
+                    actual_date = new Date(now.getTime());
                     d = new Date(actual_date.getFullYear(), actual_date.getMonth(), 1);
                 }
                 filters.month = MonthSelectorService.setDate(d);

@@ -789,7 +789,7 @@ angular.module('ngMo.portfolio', [
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = now;//new Date();
+                var date_restart = new Date(now.getTime());//new Date();
                 filters.month = MonthSelectorService.restartDate(now);
             }
 

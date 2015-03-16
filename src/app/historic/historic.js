@@ -783,7 +783,7 @@ angular.module('ngMo.historic', [
                 if ($scope.isCorrectDate(params.month)) {
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
-                    actual_date = now;//new Date();
+                    actual_date = new Date(now.getTime());//new Date();
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorHistoricService.setDate(d);
@@ -1031,8 +1031,8 @@ angular.module('ngMo.historic', [
                 return monthString;
             },
             restartDate: function (now) {
-                var today = now;
-                savedDate = now;
+                var today = new Date(now.getTime());
+                savedDate = new Date(now.getTime());
                 var mm = today.getMonth()+1; //January is 0, so really we are going 1 month before always!
                 var yyyy = today.getFullYear();
                 actualDate = {
@@ -1070,7 +1070,7 @@ angular.module('ngMo.historic', [
             },
             getListMonths: function () {
                 //var today = new Date();
-                var today = savedDate; //check if exist
+                var today = new Date(savedDate.getTime()); //check if exist
                 var monthList = [];
                 //the list is 10 last months + actual month + next month
                 var d = new Date(today.getFullYear(), today.getMonth() - 10, 1);
@@ -1089,7 +1089,7 @@ angular.module('ngMo.historic', [
             },
             getHistoricsListMonths: function () {
                 //var today = new Date();
-                var today = savedDate;
+                var today = new Date(savedDate.getTime());
                 var monthList = [];
                 temp_date = actualDate;
                 //the list is 10 last months + actual month + next month
