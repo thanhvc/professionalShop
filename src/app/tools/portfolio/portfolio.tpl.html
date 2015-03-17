@@ -112,8 +112,8 @@
                         <td>{{row.portfolioPercentage | twoDecimals}}</td>
                         <td>{{row.portfolioRatio | twoDecimals}}</td>
                         <td>
-                            <div class="current-favourite" tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(row.patternId);$event.stopPropagation();"
-                                 ng-class="{'favourite-added': row.favorite == true}"></div>
+                            <div class="current-favourite" tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavoriteFromList(row.patternId,row.favorite);$event.stopPropagation();"
+                                 ng-class="{'favourite-added': row.favorite == true}"></div> <!--toggleFavorite-->
                         </td>
                     </tr>
                 </tbody>

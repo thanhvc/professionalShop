@@ -67,7 +67,7 @@
                     <span  class="cursor-help" tooltip="{{'TOOLS.sell'|translate}}" ng-if="pattern.patTyp == 'BEARISH'">{{'TOOLS.sell_short'|translate}}</span>
                 </td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">
-                    <div class="current-favourite cursor-pointer" tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavoriteFromList(pattern.id);"
+                    <div class="current-favourite cursor-pointer" tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavoriteFromList(pattern.id,pattern.fav);"
                          ng-class="{'favourite-added': pattern.fav == true}"></div>
 
                 </td>

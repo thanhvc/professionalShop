@@ -580,7 +580,7 @@ angular.module('ngMo.correlation', [
 
         $scope.toggleFavorite = function (patternId){
             var data = CorrelationService.setFavorite(patternId).then(function (data) {
-                $scope.loadPage();
+                //$scope.loadPage();
                 //the favorite is to PATTERN (not asset), so if the petition is ok, search the pattern and change the fav status
                 for (i = 0 ; i< $scope.correlationList.length; i++) {
                     if ($scope.correlationList[i].id === patternId) {
