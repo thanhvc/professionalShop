@@ -2106,12 +2106,14 @@ angular.module('ngMo', [
                             //we need to check if the user is subscribed to the actual item
                         if (typeof $window.localStorage.token !== "undefined"){
                             ShoppingCartService.hasSubscribedToThisPack(item,function(result){
+                                var toAdd = true;
                                  if (result !== "") {
                                     if (result.status === "pack_active") {
                                         item.prices = [0,0,0];
                                         item.price = 0;
                                         item.active = true;
                                         $scope.openModalCartAdvice(true);
+                                        toAdd=false;
                                     } else {
                                         prices = [$scope.prices[0], $scope.prices[1], $scope.prices[2]];
                                         month1Error = false;
@@ -2182,6 +2184,7 @@ angular.module('ngMo', [
                                         }
                                     }
                                  }
+                                if (toAdd) {
                                     $rootScope.$broadcast("itemAddedToCart");
 
                                     //if not active pack with that user, add
@@ -2203,6 +2206,7 @@ angular.module('ngMo', [
 
                                     //save the cart into session
                                     ShoppingCartService.saveSessionCart();
+                                }
 
 
                             });
