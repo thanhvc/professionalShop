@@ -54,7 +54,7 @@
                 <span ng-if="data.volatPair < 0">{{data.volatPair | twoDecimals}}</span>
             </td>
             <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
-                <div tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(data.id);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.fav == true}"></div>
+                <div tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(data.id,data.name,data.name2,data.fav);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.fav == true}"></div>
             </td>
         </tr>
         </tbody>
