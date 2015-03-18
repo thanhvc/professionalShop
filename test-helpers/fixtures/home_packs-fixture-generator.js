@@ -1048,6 +1048,7 @@ FUTURE    | Futuros                         |
         { code: 'USA-S-10', region_code: 'USA', name: 'Estados Unidos Pack X',
           scope_text: 'AMEX, NASDAQ, NYSE, Bulletin Board' },
         { code: 'LATAM-S-1', region_code: 'LATAM', name: 'Latino América Pack I',
+          num_patterns: 30,
           scope_text: 'Argentina, Brasil, Chile, México, Perú, Venezuela' },
         { code: 'CAN-S-1', region_code: 'CAN', name: 'Canadá Pack I',
           scope_text: 'Toronto Stock Exchange, Totonto Venture Stock Exchange, CTQS' },

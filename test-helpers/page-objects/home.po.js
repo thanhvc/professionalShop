@@ -38,6 +38,39 @@ Home.prototype =  Object.create({}, {
     }},
     myAccountLink:{value: function(){
         return element(by.css("a.my-account-link"));
+    }},
+    getCurrentMonthTableCurrentTabContent:{value: function(){
+        return element(by.css("div#tabsHome div.tab-pane.active"));
+    }},
+    getCurrentMonthTableCurrentTabHeader:{value: function(){
+        return this.getCurrentMonthTableCurrentTabContent().all(by.css("tr.header-table-pack > td")).get(0);
+    }},
+    getCurrentMonthTableAmericaPack:{value: function(row){
+        return this.getCurrentMonthTableCurrentTabContent().all(by.repeater("pack in homeTablePack.americaContent track by $index")).get(row);
+    }},
+    getCurrentMonthTableAmericaPackName:{value: function(row){
+        return this.getCurrentMonthTableAmericaPack(row).all(by.css("td")).get(0);
+    }},
+    getCurrentMonthTableAmericaPackNumPatterns:{value: function(row){
+        return this.getCurrentMonthTableAmericaPack(row).all(by.css("td")).get(2);
+    }},
+    getCurrentMonthTableAsiaPack:{value: function(row){
+        return this.getCurrentMonthTableCurrentTabContent().all(by.repeater("pack in homeTablePack.asiaContent track by $index")).get(row);
+    }},
+    getCurrentMonthTableAsiaPackName:{value: function(row){
+        return this.getCurrentMonthTableAsiaPack(row).all(by.css("td")).get(0);
+    }},
+    getCurrentMonthTableAsiaPackNumPatterns:{value: function(row){
+        return this.getCurrentMonthTableAsiaPack(row).all(by.css("td")).get(2);
+    }},
+    getCurrentMonthTableEuropePack:{value: function(row){
+        return this.getCurrentMonthTableCurrentTabContent().all(by.repeater("pack in homeTablePack.europeContent track by $index")).get(row);
+    }},
+    getCurrentMonthTableEuropePackName:{value: function(row){
+        return this.getCurrentMonthTableEuropePack(row).all(by.css("td")).get(0);
+    }},
+    getCurrentMonthTableEuropePackNumPatterns:{value: function(row){
+        return this.getCurrentMonthTableEuropePack(row).all(by.css("td")).get(2);
     }}
 
 });
