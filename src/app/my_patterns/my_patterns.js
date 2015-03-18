@@ -733,9 +733,9 @@ angular.module('ngMo.my_patterns', [
         };
         //synchronize the selector with the month of the filter
         $scope.updateSelectorMonth = function () {
-            if ($scope.filterOptions.months.filter(function (m) {return m.value == $scope.filterOptions.filters.month.value;}).length === 0){
-                $scope.filterOptions.filters.month = MonthSelectorService.setDate(new Date());
-            }
+           /* if ($scope.filterOptions.months.filter(function (m) {return m.value == $scope.filterOptions.filters.month.value;}).length === 0){
+                $scope.filterOptions.filters.month = MonthSelectorService.setDate(now);//new Date());
+            }*/
             for (i = 0; i < $scope.filterOptions.months.length; i++) {
                 if ($scope.filterOptions.months[i].value === $scope.filterOptions.filters.month.value) {
                     $scope.filterOptions.filters.selectMonth = $scope.filterOptions.months[i];
@@ -904,7 +904,7 @@ angular.module('ngMo.my_patterns', [
                 if ($scope.isCorrectDate(params.month)) {
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
-                    actual_date = now;//new Date();
+                    actual_date = new Date(now.getTime());//new Date();
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorService.setDate(d);
@@ -922,7 +922,7 @@ angular.module('ngMo.my_patterns', [
                 //if the date is not passed as param, we load the default date
                 //var date_restart = new Date();
                 //filters.month = MonthSelectorService.restartDate();
-                var date_restart = now;//new Date();
+                var date_restart = new Date(now.getTime());
                 date_restart.setDate(1);
                 date_restart.setMonth(SelectedMonthService.getSelectedMonth().month-1);
                 filters.month = MonthSelectorService.setDate(date_restart);
@@ -1256,8 +1256,8 @@ angular.module('ngMo.my_patterns', [
 
                 //var today = new Date();
                 //var savedNow = this.getActualData();
-                savedNow = now;
-                var today = savedNow;
+                savedNow = new Date(now.getTime());
+                var today = new Date(savedNow.getTime());
                 var mm = today.getMonth() + 1; //January is 0!
                 var yyyy = today.getFullYear();
                 actualDate = {
@@ -1296,7 +1296,7 @@ angular.module('ngMo.my_patterns', [
                 return actualDate;
             },
             getListMonths: function (diaryMode) {
-                var today = savedNow;//new Date();
+                var today = new Date(savedNow.getTime());//new Date();
                 var monthList = [];
                 //the list is 10 last months + actual month + next month if today is <=15, if not
                 //is 11 last months + actual month
@@ -1327,7 +1327,7 @@ angular.module('ngMo.my_patterns', [
 
             },
             getCalendarListMonths: function () {
-                var today = savedNow;//new Date();
+                var today = new Date(savedNow.getTime());//new Date();
                 var monthList = [];
                 var d = new Date(today.getFullYear(), today.getMonth(), 1);
                 //the list is actual month + next month
@@ -1346,7 +1346,7 @@ angular.module('ngMo.my_patterns', [
                 return monthList;
             },
             getMySubscriptionsListMonth: function () {
-                var today = savedNow;//new Date();
+                var today = new Date(savedNow.getTime());//new Date();
                 var monthList = [];
                 var d = new Date(today.getFullYear(), today.getMonth(), 1);
                 //the list is actual month + next month if day today is greater than 15

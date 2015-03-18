@@ -207,10 +207,42 @@ angular.module('ngMo.volatility', [
             $scope.saveUrlParams();
         };
 
-        $scope.toggleFavorite = function (patternId){
-            var data = VolatilityService.setFavorite(patternId).then(function (data) {
-                $scope.loadPage();
+        $scope.toggleFavorite = function (patternId,asset1,asset2,toFav){
+            var isPair= false;
+            if ($scope.filterOptions.filters.active_tab === 1 || ($scope.filterOptions.filters.active_tab ===2 && $scope.filterOptions.filters.index_type ==="1")) {
+                isPair = true;
+            }
+            var data = VolatilityService.setFavorite(patternId,isPair).then(function (data) {
+                //$scope.loadPage();
+                $scope.toggleFavIcon(asset1,asset2,!toFav);
             });
+        };
+
+
+
+        //mark as favorite (or quit fav) in the actual page by the asset name
+        $scope.toggleFavIcon = function(asset1,asset2,addToFav) {
+            //assetName to search, and addToFav is add or delete
+            for (i=0 ; i< $scope.myData.length;i++) {
+                if ($scope.myData[i].name === asset1) {
+                    var check = false;
+                    if (asset2 !=null) {
+                        if ($scope.myData[i].name2 === asset2) {
+                            check = true;
+                        }
+                    } else {
+                        check = true;
+                    }
+                    if (check) {
+                        if (addToFav && !$scope.myData[i].fav) {
+                            $scope.myData[i].fav = true;
+                        } else if (!addToFav && $scope.myData[i].fav) {
+                            $scope.myData[i].fav = false;
+                        }
+                    }
+                }
+            }
+
         };
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
@@ -731,7 +763,7 @@ angular.module('ngMo.volatility', [
                 if ($scope.isCorrectDate(params.month)) {
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
-                    actual_date = now;//new Date();
+                    actual_date = new Date(now.getTime());//new Date();
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorService.setDate(d);
@@ -740,7 +772,7 @@ angular.module('ngMo.volatility', [
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = now;//new Date();
+                var date_restart = new Date(now.getTime());//new Date();
                 filters.month = MonthSelectorService.restartDate(now);
             }
 
@@ -900,12 +932,14 @@ angular.module('ngMo.volatility', [
             return urlParams;
         };
 
-        this.setFavorite = function (patternId) {
+        this.setFavorite = function (patternId,isPair) {
             var deferred = $q.defer();
             var data;
+
             config = {
                 params: {
-                    'patternId': patternId
+                    'patternId': patternId,
+                    'isPair':isPair
                     //'token': $window.localStorage.token
                 }
             };

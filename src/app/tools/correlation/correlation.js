@@ -580,7 +580,7 @@ angular.module('ngMo.correlation', [
 
         $scope.toggleFavorite = function (patternId){
             var data = CorrelationService.setFavorite(patternId).then(function (data) {
-                $scope.loadPage();
+                //$scope.loadPage();
                 //the favorite is to PATTERN (not asset), so if the petition is ok, search the pattern and change the fav status
                 for (i = 0 ; i< $scope.correlationList.length; i++) {
                     if ($scope.correlationList[i].id === patternId) {
@@ -910,7 +910,7 @@ angular.module('ngMo.correlation', [
                 if ($scope.isCorrectDate(params.month)) {
                     d = new Date(date[1], date[0] - 1, 1);
                 } else {
-                    actual_date = now;//new Date();
+                    actual_date = new Date(now.getTime());//new Date();
                     d = new Date(actual_date.getFullYear(),actual_date.getMonth(),1);
                 }
                 filters.month = MonthSelectorService.setDate(d);
@@ -918,7 +918,7 @@ angular.module('ngMo.correlation', [
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = now;//new Date();
+                var date_restart = new Date(now.getTime());//new Date();
                 filters.month = MonthSelectorService.restartDate(now);
             }
 

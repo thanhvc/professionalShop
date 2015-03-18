@@ -485,22 +485,23 @@ angular.module('ngMo.portfolio', [
         };
 
 
-        $scope.toggleFavoriteFromList =  function (patternId){
+        $scope.toggleFavoriteFromList =  function (patternId,toFav){
+            toFav = !toFav; //toFav is the actualState, invert to create the desired state
             var data = PortfolioService.setFavorite(patternId).then(function (data) {
                 //if returned, we set favorite true on the result table (if exists) and the pattern
                 for (i = 0; i<$scope.portfolioList.length;i++) {
                     if ($scope.portfolioList[i].id === patternId) {
-                        $scope.portfolioList[i].favorite = !$scope.portfolioList[i].favorite;
+                        $scope.portfolioList[i].fav = toFav;//!$scope.portfolioList[i].favorite;
                     }
                 }
                 for (i = 0; i<$scope.portfolioData.length;i++) {
                     if ($scope.portfolioData[i].patternId === patternId) {
-                        $scope.portfolioData[i].favorite = !$scope.portfolioData[i].favorite;
+                        $scope.portfolioData[i].favorite = toFav;//!$scope.portfolioData[i].favorite;
                     }
                 }
                 updatePortfolioResultSessionStorage($scope.portfolioData);
 
-                    $scope.loadPage(false);
+                   // $scope.loadPage(false);
 
             });
         };
@@ -789,7 +790,7 @@ angular.module('ngMo.portfolio', [
 
             } else {
                 //if the date is not passed as param, we load the default date
-                var date_restart = now;//new Date();
+                var date_restart = new Date(now.getTime());//new Date();
                 filters.month = MonthSelectorService.restartDate(now);
             }
 
