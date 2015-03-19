@@ -2106,80 +2106,85 @@ angular.module('ngMo', [
                             //we need to check if the user is subscribed to the actual item
                         if (typeof $window.localStorage.token !== "undefined"){
                             ShoppingCartService.hasSubscribedToThisPack(item,function(result){
-                                if (result.status === "pack_active") {
-                                    item.prices = [0,0,0];
-                                    item.price = 0;
-                                    item.active = true;
-                                    $scope.openModalCartAdvice(true);
-                                } else {
-                                    prices = [$scope.prices[0],$scope.prices[1],$scope.prices[2]];
-                                    month1Error = false;
-                                    month3Error = false;
-                                    month12Error = false;
-                                   if (result.month !== "ok") {
-                                       prices[0] = 0;
-                                       month1Error = true;
-                                   }
-                                    if (result.trimestral !== "ok") {
-                                        prices[1] = 0;
-                                        month3Error = true;
-                                    }
-                                    if (result.year !== "ok") {
-                                        prices[2] = 0;
-                                        month12Error = true;
-                                    }
-                                    /*
-                                    * We need check each duration, for auto-select a valid option in case of collition in the
-                                    * subscriptions
-                                    * */
-                                    if (month1Error || month3Error || month12Error) {
-                                        $scope.openModalCartAdvice(false);
-                                        item.prices = prices;
-                                        switch (item.duration) {
-                                            case "Mensual":
-                                                //if the mensual duration of the item, check if is possible that duration,
-                                                //if not, check the next shorter duration, else the last option..
-                                                if (month1Error) {
-                                                    if (!month3Error) {
-                                                        item.duration = "Trimestral";
-                                                        item.price = item.prices[1];
-                                                    } else {
-                                                        item.duration = "Anual";
-                                                        item.price = item.prices[2];
+                                var toAdd = true;
+                                 if (result !== "") {
+                                    if (result.status === "pack_active") {
+                                        item.prices = [0,0,0];
+                                        item.price = 0;
+                                        item.active = true;
+                                        $scope.openModalCartAdvice(true);
+                                        toAdd=false;
+                                    } else {
+                                        prices = [$scope.prices[0], $scope.prices[1], $scope.prices[2]];
+                                        month1Error = false;
+                                        month3Error = false;
+                                        month12Error = false;
+                                        if (result.month !== "ok") {
+                                            prices[0] = 0;
+                                            month1Error = true;
+                                        }
+                                        if (result.trimestral !== "ok") {
+                                            prices[1] = 0;
+                                            month3Error = true;
+                                        }
+                                        if (result.year !== "ok") {
+                                            prices[2] = 0;
+                                            month12Error = true;
+                                        }
+                                        /*
+                                         * We need check each duration, for auto-select a valid option in case of collition in the
+                                         * subscriptions
+                                         * */
+                                        if (month1Error || month3Error || month12Error) {
+                                            $scope.openModalCartAdvice(false);
+                                            item.prices = prices;
+                                            switch (item.duration) {
+                                                case "Mensual":
+                                                    //if the mensual duration of the item, check if is possible that duration,
+                                                    //if not, check the next shorter duration, else the last option..
+                                                    if (month1Error) {
+                                                        if (!month3Error) {
+                                                            item.duration = "Trimestral";
+                                                            item.price = item.prices[1];
+                                                        } else {
+                                                            item.duration = "Anual";
+                                                            item.price = item.prices[2];
+                                                        }
                                                     }
-                                                }
-                                                item.price = item.prices[0];
-                                                break;
-                                            case "Trimestral":
-                                                if (month3Error) {
-                                                    if (!month1Error) {
-                                                        item.duration = "Mensual";
-                                                        item.price = item.prices[0];
+                                                    item.price = item.prices[0];
+                                                    break;
+                                                case "Trimestral":
+                                                    if (month3Error) {
+                                                        if (!month1Error) {
+                                                            item.duration = "Mensual";
+                                                            item.price = item.prices[0];
 
-                                                    } else {
-                                                        item.duration = "Anual";
-                                                        item.price = item.prices[2];
+                                                        } else {
+                                                            item.duration = "Anual";
+                                                            item.price = item.prices[2];
 
-                                                    }
-
-                                                }
-                                                break;
-                                            case "Anual":
-                                                if (month12Error) {
-                                                    if (!month1Error) {
-                                                        item.duration = "Mensual";
-                                                        item.price = item.prices[0];
-
-                                                    } else {
-                                                        item.duration = "Trimestral";
-                                                        item.price = item.prices[1];
+                                                        }
 
                                                     }
-                                                }
-                                                break;
+                                                    break;
+                                                case "Anual":
+                                                    if (month12Error) {
+                                                        if (!month1Error) {
+                                                            item.duration = "Mensual";
+                                                            item.price = item.prices[0];
+
+                                                        } else {
+                                                            item.duration = "Trimestral";
+                                                            item.price = item.prices[1];
+
+                                                        }
+                                                    }
+                                                    break;
+                                            }
                                         }
                                     }
-
+                                 }
+                                if (toAdd) {
                                     $rootScope.$broadcast("itemAddedToCart");
 
                                     //if not active pack with that user, add
@@ -2202,6 +2207,7 @@ angular.module('ngMo', [
                                     //save the cart into session
                                     ShoppingCartService.saveSessionCart();
                                 }
+
 
                             });
 
