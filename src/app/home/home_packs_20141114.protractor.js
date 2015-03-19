@@ -14,6 +14,8 @@ var DateServerConfigMod = require('../../../test-helpers/date-server-config.js')
 //set date on server
 var vagrant_id = browser.params.serverVagrantId;
 var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
+dsc.setServerDate("2014-11-14 11:30:00");
+ptor.sleep(9000);
 
 describe('Home page', function () {
         var home;
@@ -25,6 +27,7 @@ describe('Home page', function () {
             var fixtures = fixtureGenerator.home_packs_fixture();
             loadFixture.executeQueries(fixtures, conString);
             browser.ignoreSynchronization = true;
+            ptor.sleep(3000); //wait for fixtures to load
         });
 
         afterEach(function () {
@@ -36,13 +39,11 @@ describe('Home page', function () {
         
         describe("packs to subscribe in November 14th", function() {
             beforeEach(function() {
-                dsc.setServerDate("2014-11-14 11:30:00");
-                ptor.sleep(9000);
                 home = new Home(); //go to home page
             });
 
-            xdescribe("Current month packs", function() {
-                describe("stocks tab", function() {
+            describe("Current month packs", function() {
+                xdescribe("stocks tab", function() {
                     beforeEach(function() {
                         ptor.sleep(3000); //wait for stocks tab to load
                     });
@@ -166,13 +167,87 @@ describe('Home page', function () {
 
                     describe("go to Canadá Pack I catalog", function() {
                         beforeEach(function() {
+                            ptor.sleep(2000);
                             home.getCurrentMonthTableAmericaPackName(0).click();
                             ptor.sleep(2000);
                         });
 
                         it("should be true", function() {
                             expect(true).toBe(true);
-                            ptor.sleep(10000);
+                            //ptor.sleep(10000);
+                        });
+
+                    });
+
+                });
+
+                describe("pairs tab", function() {
+                    beforeEach(function() {
+                        ptor.sleep(3000); //wait for tables to load
+                        home.goToCurrentMonthTab('pairs');
+                        ptor.sleep(3000); //wait for pairs tab to load
+                    });
+         
+                    it("should have the correct month and year", function() {
+                        expect(home.getCurrentMonthTableCurrentTabHeader().getText()).toBe("NOVIEMBRE 2014");
+                        ptor.sleep(9000); //wait for pairs tab to load
+                    });
+
+                    it("should have the correct packs in América", function() {
+                        expect(home.getCurrentMonthTableAmericaPackName(0).getText()).toBe("Estados Unidos Pack I");
+                        expect(home.getCurrentMonthTableAmericaPackName(1).getText()).toBe("Estados Unidos Pack II");
+                        expect(home.getCurrentMonthTableAmericaPackName(2).getText()).toBe("Estados Unidos Pack III");
+                        expect(home.getCurrentMonthTableAmericaPackName(3).getText()).toBe("Estados Unidos Pack IV");
+                        expect(home.getCurrentMonthTableAmericaPackName(4).getText()).toBe("Estados Unidos Pack V");
+                        expect(home.getCurrentMonthTableAmericaPackName(5).getText()).toBe("Estados Unidos Pack VI");
+                        expect(home.getCurrentMonthTableAmericaPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAmericaPackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAmericaPackNumPatterns(2).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAmericaPackNumPatterns(3).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAmericaPackNumPatterns(4).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAmericaPackNumPatterns(5).getText()).toBe("50");
+                    });
+
+                    it("should have the correct packs in Asia", function() {
+                        expect(home.getCurrentMonthTableAsiaPackName(0).getText()).toBe("Japón Pack I");
+                        expect(home.getCurrentMonthTableAsiaPackName(1).getText()).toBe("Japón Pack II");
+                        expect(home.getCurrentMonthTableAsiaPackName(2).getText()).toBe("Japón Pack III");
+                        expect(home.getCurrentMonthTableAsiaPackName(3).getText()).toBe("Japón Pack IV");
+                        expect(home.getCurrentMonthTableAsiaPackName(4).getText()).toBe("Japón Pack V");
+                        expect(home.getCurrentMonthTableAsiaPackName(5).getText()).toBe("Japón Pack VI");
+                        expect(home.getCurrentMonthTableAsiaPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAsiaPackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAsiaPackNumPatterns(2).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAsiaPackNumPatterns(3).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAsiaPackNumPatterns(4).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableAsiaPackNumPatterns(5).getText()).toBe("50");
+                    });
+
+                    it("should have the correct packs in Europe", function() {
+                        expect(home.getCurrentMonthTableEuropePackName(0).getText()).toBe("Zona Euro Pack I");
+                        expect(home.getCurrentMonthTableEuropePackName(1).getText()).toBe("Zona Euro Pack II");
+                        expect(home.getCurrentMonthTableEuropePackName(2).getText()).toBe("Zona Euro Pack III");
+                        expect(home.getCurrentMonthTableEuropePackName(3).getText()).toBe("Zona Euro Pack IV");
+                        expect(home.getCurrentMonthTableEuropePackName(4).getText()).toBe("Zona Euro Pack V");
+                        expect(home.getCurrentMonthTableEuropePackName(5).getText()).toBe("Zona Euro Pack VI");
+                        expect(home.getCurrentMonthTableEuropePackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableEuropePackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableEuropePackNumPatterns(2).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableEuropePackNumPatterns(3).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableEuropePackNumPatterns(4).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableEuropePackNumPatterns(5).getText()).toBe("50");
+                    });
+
+                    describe("go to Estados Unidos Pack I catalog", function() {
+                        beforeEach(function() {
+                            ptor.sleep(2000);
+                            home.getCurrentMonthTableAmericaPackName(0).click();
+                            ptor.sleep(2000);
+                        });
+
+                        it("should be true", function() {
+                            expect(true).toBe(true);
+                            //ptor.sleep(10000);
                         });
 
                     });

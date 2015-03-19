@@ -40,6 +40,16 @@ Home.prototype =  Object.create({}, {
         return element(by.css("a.my-account-link"));
     }},
     //Current month packs table
+    goToCurrentMonthTab:{value:function(tab_name){
+        var tabs_map = {
+            'stocks': 0,
+            'pairs': 1,
+            'indices': 2,
+            'futures': 3
+        };
+        var pos = tabs_map[tab_name];
+        return element.all(by.css("div#tabsHome ul.nav.nav-tabs li a")).get(pos).click();
+    }},
     getCurrentMonthTableCurrentTabContent:{value: function(){
         return element(by.css("div#tabsHome div.tab-pane.active"));
     }},
