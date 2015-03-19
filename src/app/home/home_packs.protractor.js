@@ -41,7 +41,7 @@ describe('Home page', function () {
                 home = new Home(); //go to home page
             });
 
-            describe("Current month packs", function() {
+            xdescribe("Current month packs", function() {
                 describe("stocks tab", function() {
                     beforeEach(function() {
                         ptor.sleep(3000); //wait for stocks tab to load
@@ -163,13 +163,26 @@ describe('Home page', function () {
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(14).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(15).getText()).toBe("50");
                     });
+
+                    describe("go to Canadá Pack I catalog", function() {
+                        beforeEach(function() {
+                            home.getCurrentMonthTableAmericaPackName(0).click();
+                            ptor.sleep(2000);
+                        });
+
+                        it("should be true", function() {
+                            expect(true).toBe(true);
+                            ptor.sleep(10000);
+                        });
+
+                    });
+
                 });
             });
 
-            xdescribe("Next month packs", function() {
-                it("should no be displayed", function() {
-                    //TODO test table should not be displayed
-                    expect(true).toBe(true);
+            describe("Next month packs", function() {
+                it("table should no be present", function() {
+                    expect(home.getNextMonthTableCurrentTabContent().isPresent()).toBe(false);
                 });
             });
 
@@ -243,4 +256,45 @@ describe('Home page', function () {
             });
 
         });
+
+        xdescribe("packs to subscribe in December 15th", function() {
+            beforeEach(function() {
+                dsc.setServerDate("2014-12-15 11:30:00");
+                ptor.sleep(9000);
+                home = new Home(); //go to home page
+            });
+
+            describe("Current month packs", function() {
+                describe("stocks tab", function() {
+                    beforeEach(function() {
+                        ptor.sleep(3000); //wait for stocks tab to load
+                    });
+         
+                    it("should have the correct packs in América", function() {
+                        expect(true).toBe(true);
+                        //ptor.sleep(30000); 
+                    });
+                });
+            });
+
+            describe("Next month packs", function() {
+                it("should be displayed", function() {
+                    //TODO test table should not be displayed
+                    expect(true).toBe(true);
+                });
+
+                describe("stocks tab", function() {
+                    beforeEach(function() {
+                        ptor.sleep(3000); //wait for stocks tab to load
+                    });
+         
+                    it("should have the correct packs in América", function() {
+                        expect(true).toBe(true);
+                        ptor.sleep(30000); 
+                    });
+                });
+            });
+
+        });
+
 });

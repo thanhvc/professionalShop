@@ -20,8 +20,8 @@ var FixtureGenerator = function () {
 function generate_pack_fixtures(info,options) {
     var info = info || [];
     var options = options || {};
-    var product_type_map = { 'stocks': 0 }; //TODO complete all types
-    var pattern_type_map = { 'stocks': 0 }; //TODO complete all types
+    var product_type_map = { 'stocks': 0, 'pairs': 0 }; //TODO complete all types
+    var pattern_type_map = { 'stocks': 0, 'pairs': 1 }; //TODO complete all types
     var published_packs_months = options.published_packs_months || [];
     var fixtures = [];
     
@@ -394,6 +394,20 @@ FUTURE    | Futuros                         |
         },
 
 /*
+        {
+            type: 'insert',
+            table: 'pack',
+            values: {
+                code: 'CAN-P-1',
+                region_code: 'CAN',
+                name: 'Canada Simple 1',
+                product_type: 0,
+                publication_date: '2014-07-04',
+                scope_text: 'Simple Pack 1 text',
+                pattern_type: 1,
+                subname: ' '
+            }
+        },
         {
             type: 'insert',
             table: 'asset',
@@ -1142,6 +1156,55 @@ FUTURE    | Futuros                         |
     };
     var stocks_fixtures = generate_pack_fixtures(stocks_fixture_data,stocks_fixture_options);
     fixtures = fixtures.concat(stocks_fixtures);
+
+    var pairs_fixture_data = [
+        // ==== América pair packs
+        { code: 'USA-P-1', region_code: 'USA', name: 'Estados Unidos Pack I',
+          scope_text: 'AMEX, NASDAQ, NYSE, Bulletin Board' },
+        { code: 'USA-P-2', region_code: 'USA', name: 'Estados Unidos Pack II',
+          scope_text: 'AMEX, NASDAQ, NYSE, Bulletin Board' },
+        { code: 'USA-P-3', region_code: 'USA', name: 'Estados Unidos Pack III',
+          scope_text: 'AMEX, NASDAQ, NYSE, Bulletin Board' },
+        { code: 'USA-P-4', region_code: 'USA', name: 'Estados Unidos Pack IV',
+          scope_text: 'AMEX, NASDAQ, NYSE, Bulletin Board' },
+        { code: 'USA-P-5', region_code: 'USA', name: 'Estados Unidos Pack V',
+          scope_text: 'AMEX, NASDAQ, NYSE, Bulletin Board' },
+        { code: 'USA-P-6', region_code: 'USA', name: 'Estados Unidos Pack VI',
+          scope_text: 'AMEX, NASDAQ, NYSE, Bulletin Board' },
+        // ==== Asia pair packs
+        { code: 'JPN-P-1', region_code: 'JPN', name: 'Japón Pack I',
+          scope_text: 'Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE' },
+        { code: 'JPN-P-2', region_code: 'JPN', name: 'Japón Pack II',
+          scope_text: 'Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE' },
+        { code: 'JPN-P-3', region_code: 'JPN', name: 'Japón Pack III',
+          scope_text: 'Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE' },
+        { code: 'JPN-P-4', region_code: 'JPN', name: 'Japón Pack IV',
+          scope_text: 'Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE' },
+        { code: 'JPN-P-5', region_code: 'JPN', name: 'Japón Pack V',
+          scope_text: 'Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE' },
+        { code: 'JPN-P-6', region_code: 'JPN', name: 'Japón Pack VI',
+          scope_text: 'Fukuoka SE, Nagoya SE, Sapporo SE, Tokyo SE' },
+        // ==== Europa pair packs
+        { code: 'EUR-P-1', region_code: 'EUR', name: 'Zona Euro Pack I',
+          scope_text: 'Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal' },
+        { code: 'EUR-P-2', region_code: 'EUR', name: 'Zona Euro Pack II',
+          scope_text: 'Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal' },
+        { code: 'EUR-P-3', region_code: 'EUR', name: 'Zona Euro Pack III',
+          scope_text: 'Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal' },
+        { code: 'EUR-P-4', region_code: 'EUR', name: 'Zona Euro Pack IV',
+          scope_text: 'Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal' },
+        { code: 'EUR-P-5', region_code: 'EUR', name: 'Zona Euro Pack V',
+          scope_text: 'Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal' },
+        { code: 'EUR-P-6', region_code: 'EUR', name: 'Zona Euro Pack VI',
+          scope_text: 'Alemania, Austria, Bélgica, España, Finlandia, Francia, Grecia, Irlanda, Italia, Luxemburgo, Países Bajos, Portugal' }
+    ];
+    var pairs_fixture_options = { 
+        default_pack_type: 'pairs', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 50,
+        published_packs_months : [201410,201411,201412,201501] 
+    };
+    var pairs_fixtures = generate_pack_fixtures(pairs_fixture_data,pairs_fixture_options);
+    fixtures = fixtures.concat(pairs_fixtures);
 
     return fixtures;
 };

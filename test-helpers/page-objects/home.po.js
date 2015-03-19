@@ -39,6 +39,7 @@ Home.prototype =  Object.create({}, {
     myAccountLink:{value: function(){
         return element(by.css("a.my-account-link"));
     }},
+    //Current month packs table
     getCurrentMonthTableCurrentTabContent:{value: function(){
         return element(by.css("div#tabsHome div.tab-pane.active"));
     }},
@@ -71,7 +72,11 @@ Home.prototype =  Object.create({}, {
     }},
     getCurrentMonthTableEuropePackNumPatterns:{value: function(row){
         return this.getCurrentMonthTableEuropePack(row).all(by.css("td")).get(2);
-    }}
+    }},
+    //Next month packs table
+    getNextMonthTableCurrentTabContent:{value: function(){
+        return element(by.css("div#tabsHome2 div.tab-pane.active"));
+    }},
 
 });
 
