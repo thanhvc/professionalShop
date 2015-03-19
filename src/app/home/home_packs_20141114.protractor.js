@@ -181,7 +181,7 @@ describe('Home page', function () {
 
                 });
 
-                describe("pairs tab", function() {
+                xdescribe("pairs tab", function() {
                     beforeEach(function() {
                         ptor.sleep(3000); //wait for tables to load
                         home.goToCurrentMonthTab('pairs');
@@ -190,7 +190,6 @@ describe('Home page', function () {
          
                     it("should have the correct month and year", function() {
                         expect(home.getCurrentMonthTableCurrentTabHeader().getText()).toBe("NOVIEMBRE 2014");
-                        ptor.sleep(9000); //wait for pairs tab to load
                     });
 
                     it("should have the correct packs in América", function() {
@@ -252,7 +251,78 @@ describe('Home page', function () {
 
                     });
 
-                });
+                }); //end pairs tab
+
+                xdescribe("indices tab", function() {
+                    beforeEach(function() {
+                        ptor.sleep(3000); //wait for tables to load
+                        home.goToCurrentMonthTab('indices');
+                        ptor.sleep(3000); //wait for indices tab to load
+                    });
+         
+                    it("should have the correct month and year", function() {
+                        expect(home.getCurrentMonthTableCurrentTabHeader().getText()).toBe("NOVIEMBRE 2014");
+                    });
+
+                    it("should have the correct packs in Indices", function() {
+                        expect(home.getCurrentMonthTableIndicesPackName(0).getText()).toBe("INDEX Pack I");
+                        expect(home.getCurrentMonthTableIndicesPackName(1).getText()).toBe("INDEX Pack II");
+                        expect(home.getCurrentMonthTableIndicesPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableIndicesPackNumPatterns(1).getText()).toBe("50");
+                    });
+
+                    it("should have the correct packs in Pair Indices", function() {
+                        expect(home.getCurrentMonthTablePairIndicesPackName(0).getText()).toBe("INDEX Pair Pack I");
+                        expect(home.getCurrentMonthTablePairIndicesPackNumPatterns(0).getText()).toBe("50");
+                    });
+
+                    describe("go to INDEX Pack I catalog", function() {
+                        beforeEach(function() {
+                            ptor.sleep(2000);
+                            home.getCurrentMonthTableIndicesPackName(0).click();
+                            ptor.sleep(2000);
+                        });
+
+                        it("should be true", function() {
+                            expect(true).toBe(true);
+                            //ptor.sleep(10000);
+                        });
+
+                    });
+
+                }); //end indices tab
+
+                describe("futures tab", function() {
+                    beforeEach(function() {
+                        ptor.sleep(3000); //wait for tables to load
+                        home.goToCurrentMonthTab('futures');
+                        ptor.sleep(3000); //wait for futures tab to load
+                    });
+         
+                    it("should have the correct month and year", function() {
+                        expect(home.getCurrentMonthTableCurrentTabHeader().getText()).toBe("NOVIEMBRE 2014");
+                    });
+
+                    it("should have the correct packs in Futures", function() {
+                        expect(home.getCurrentMonthTableFuturesPackName(0).getText()).toBe("Energía, Metales, Agrícolas, Carnes, Softs, Divisas, Tipos de Interés, Índices Bursátiles");
+                        expect(home.getCurrentMonthTableFuturesPackNumPatterns(0).getText()).toBe("50");
+                    });
+
+                    describe("go to FUTURES Pack I catalog", function() {
+                        beforeEach(function() {
+                            ptor.sleep(2000);
+                            home.getCurrentMonthTableFuturesPackName(0).click();
+                            ptor.sleep(2000);
+                        });
+
+                        it("should be true", function() {
+                            expect(true).toBe(true);
+                            //ptor.sleep(10000);
+                        });
+
+                    });
+
+                }); //end indices tab
             });
 
             describe("Next month packs", function() {

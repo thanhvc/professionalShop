@@ -20,8 +20,8 @@ var FixtureGenerator = function () {
 function generate_pack_fixtures(info,options) {
     var info = info || [];
     var options = options || {};
-    var product_type_map = { 'stocks': 0, 'pairs': 0 }; //TODO complete all types
-    var pattern_type_map = { 'stocks': 0, 'pairs': 1 }; //TODO complete all types
+    var product_type_map = { 'stocks': 0, 'pairs': 0, 'indices': 1, 'indices_pairs': 1, 'futures': 2 };
+    var pattern_type_map = { 'stocks': 0, 'pairs': 1, 'indices': 0, 'indices_pairs': 1, 'futures': 0 };
     var published_packs_months = options.published_packs_months || [];
     var fixtures = [];
     
@@ -1205,6 +1205,48 @@ FUTURE    | Futuros                         |
     };
     var pairs_fixtures = generate_pack_fixtures(pairs_fixture_data,pairs_fixture_options);
     fixtures = fixtures.concat(pairs_fixtures);
+
+    //indices packs and published packs
+    var indices_fixture_data = [
+        { code: 'INDEX-S-1', region_code: 'INDEX', name: 'INDEX Pack I',
+          scope_text: 'Bolsa, Financieros y Materias Primas' },
+        { code: 'INDEX-S-2', region_code: 'INDEX', name: 'INDEX Pack II',
+          scope_text: 'Bolsa, Financieros y Materias Primas' }
+    ];
+    var indices_fixture_options = { 
+        default_pack_type: 'indices', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 50,
+        published_packs_months : [201410,201411,201412,201501] 
+    };
+    var indices_fixtures = generate_pack_fixtures(indices_fixture_data,indices_fixture_options);
+    fixtures = fixtures.concat(indices_fixtures);
+
+    //indices pairs packs and published packs
+    var indices_pairs_fixture_data = [
+        { code: 'INDEX-P-1', region_code: 'INDEX', name: 'INDEX Pair Pack I',
+          scope_text: 'Bolsa, Financieros y Materias Primas' }
+    ];
+    var indices_pairs_fixture_options = { 
+        default_pack_type: 'indices_pairs', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 50,
+        published_packs_months : [201410,201411,201412,201501] 
+    };
+    var indices_pairs_fixtures = generate_pack_fixtures(indices_pairs_fixture_data,indices_pairs_fixture_options);
+    fixtures = fixtures.concat(indices_pairs_fixtures);
+
+    //futures packs and published packs
+    var futures_fixture_data = [
+        { code: 'FUTURE-S-1', region_code: 'FUTURE', name: 'FUTURES Pack I',
+          scope_text: 'Chicago Board of Trade Futures, Chicago Mercantile Exchange Futures, EUREX, Euronext Commodities Futures, Hong Kong Futures Exchanges, ICE Canada, ICE Europe, ICE Liffe, ICE US, Kansas City Board of Trade Futures, Minneapolis Grain Exchange Futures, Montreal Options Exchange, New York Mercantile Exchange Futures, NYSE Euronext, Singapore Monetary Exchange, Sydney Futures Exchange, Tokyo Commodity Exchange',
+          subname: 'Energía, Metales, Agrícolas, Carnes, Softs, Divisas, Tipos de Interés, Índices Bursátiles' }
+    ];
+    var futures_fixture_options = { 
+        default_pack_type: 'futures', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 50,
+        published_packs_months : [201410,201411,201412,201501] 
+    };
+    var futures_fixtures = generate_pack_fixtures(futures_fixture_data,futures_fixture_options);
+    fixtures = fixtures.concat(futures_fixtures);
 
     return fixtures;
 };

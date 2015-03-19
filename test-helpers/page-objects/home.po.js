@@ -39,7 +39,7 @@ Home.prototype =  Object.create({}, {
     myAccountLink:{value: function(){
         return element(by.css("a.my-account-link"));
     }},
-    //Current month packs table
+    //Current month packs table ==========================================================================
     goToCurrentMonthTab:{value:function(tab_name){
         var tabs_map = {
             'stocks': 0,
@@ -56,6 +56,7 @@ Home.prototype =  Object.create({}, {
     getCurrentMonthTableCurrentTabHeader:{value: function(){
         return this.getCurrentMonthTableCurrentTabContent().all(by.css("tr.header-table-pack > td")).get(0);
     }},
+    //   america in stocks and pairs
     getCurrentMonthTableAmericaPack:{value: function(row){
         return this.getCurrentMonthTableCurrentTabContent().all(by.repeater("pack in homeTablePack.americaContent track by $index")).get(row);
     }},
@@ -65,6 +66,7 @@ Home.prototype =  Object.create({}, {
     getCurrentMonthTableAmericaPackNumPatterns:{value: function(row){
         return this.getCurrentMonthTableAmericaPack(row).all(by.css("td")).get(2);
     }},
+    //   asia in stocks and pairs
     getCurrentMonthTableAsiaPack:{value: function(row){
         return this.getCurrentMonthTableCurrentTabContent().all(by.repeater("pack in homeTablePack.asiaContent track by $index")).get(row);
     }},
@@ -74,6 +76,7 @@ Home.prototype =  Object.create({}, {
     getCurrentMonthTableAsiaPackNumPatterns:{value: function(row){
         return this.getCurrentMonthTableAsiaPack(row).all(by.css("td")).get(2);
     }},
+    //   europe in stocks and pairs
     getCurrentMonthTableEuropePack:{value: function(row){
         return this.getCurrentMonthTableCurrentTabContent().all(by.repeater("pack in homeTablePack.europeContent track by $index")).get(row);
     }},
@@ -83,7 +86,37 @@ Home.prototype =  Object.create({}, {
     getCurrentMonthTableEuropePackNumPatterns:{value: function(row){
         return this.getCurrentMonthTableEuropePack(row).all(by.css("td")).get(2);
     }},
-    //Next month packs table
+    //   indices
+    getCurrentMonthTableIndicesPack:{value: function(row){
+        return this.getCurrentMonthTableCurrentTabContent().all(by.repeater("pack in homeTablePack.indicesContent track by $index")).get(row);
+    }},
+    getCurrentMonthTableIndicesPackName:{value: function(row){
+        return this.getCurrentMonthTableIndicesPack(row).all(by.css("td")).get(0);
+    }},
+    getCurrentMonthTableIndicesPackNumPatterns:{value: function(row){
+        return this.getCurrentMonthTableIndicesPack(row).all(by.css("td")).get(2);
+    }},
+    //   pair indices
+    getCurrentMonthTablePairIndicesPack:{value: function(row){
+        return this.getCurrentMonthTableCurrentTabContent().all(by.repeater("pack in homeTablePack.pairsIndicesContent track by $index")).get(row);
+    }},
+    getCurrentMonthTablePairIndicesPackName:{value: function(row){
+        return this.getCurrentMonthTablePairIndicesPack(row).all(by.css("td")).get(0);
+    }},
+    getCurrentMonthTablePairIndicesPackNumPatterns:{value: function(row){
+        return this.getCurrentMonthTablePairIndicesPack(row).all(by.css("td")).get(2);
+    }},
+    //   futures
+    getCurrentMonthTableFuturesPack:{value: function(row){
+        return this.getCurrentMonthTableCurrentTabContent().all(by.repeater("pack in homeTablePack.futuresContent track by $index")).get(row);
+    }},
+    getCurrentMonthTableFuturesPackName:{value: function(row){
+        return this.getCurrentMonthTableFuturesPack(row).all(by.css("td")).get(0);
+    }},
+    getCurrentMonthTableFuturesPackNumPatterns:{value: function(row){
+        return this.getCurrentMonthTableFuturesPack(row).all(by.css("td")).get(2);
+    }},
+    //Next month packs table ================================================================================================================
     getNextMonthTableCurrentTabContent:{value: function(){
         return element(by.css("div#tabsHome2 div.tab-pane.active"));
     }},
