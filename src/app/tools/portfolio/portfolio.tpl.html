@@ -81,7 +81,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="row in portfolioData" class="cursor-pointer" ui-sref="detail({patternId:row.patternId})"> <!--track by $index-->
+                    <tr ng-repeat="row in portfolioData" class="cursor-pointer" ui-sref="pairDetail({patternId:row.patternId})"> <!--track by $index-->
                         <td>{{row.patternId}}</td>
                         <td ng-if="row.patternType != null">
                             <!--span ng-show="row.patternType == 'BULLISH'">{{'TOOLS.buy'|translate}}</span>
