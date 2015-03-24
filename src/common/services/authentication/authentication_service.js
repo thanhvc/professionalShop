@@ -223,12 +223,11 @@ angular.module('auth',['http-auth-interceptor'])
 
                         })
                         .error(function (data, status, headers, config) {
-                                $scope.errorSignIn = true;
+
                             if (data.reason == "not-activated") {
                                 //the user is not activated, we send him to resend mail status
                                 $state.go("reactivate");
-                            } else {
-                                if (data.reason == "expired") {
+                            } else if (data.reason == "expired") {
                                         $window.localStorage.expiredUser = true;
                                     $modal.open({
                                         templateUrl: 'layout_templates/expiredModal.tpl.html',
@@ -242,7 +241,8 @@ angular.module('auth',['http-auth-interceptor'])
                                             }
                                         }
                                     });
-                                }
+                            } else {
+                                $scope.errorSignIn = true;
                             }
                         });
                 };
