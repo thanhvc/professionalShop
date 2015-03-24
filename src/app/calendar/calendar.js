@@ -458,6 +458,7 @@ angular.module('ngMo.calendar', [
         $scope.search = function () {
             $scope.startLoading();
             if ($scope.changingOrder) { //if is changing Order reload filters
+                $scope.filterOptions.filters.selectedRegion = "";
                 switch (TabsService.getActiveTab()) {
                     case 0:     //stocks
                         $scope.refreshSelectors(['regions', 'markets']);
@@ -562,6 +563,9 @@ angular.module('ngMo.calendar', [
                 if (data.hasOwnProperty("regions")) {
                     $scope.filterOptions.selectors.regions = data.regions;
                     //$scope.filterOptions.filters.selectedRegion = "";
+                }
+                if (data.clearRegion) {
+                    $scope.filterOptions.filters.selectedRegion = "";
                 }
                 $scope.loadingFilters = false;
             });

@@ -1826,7 +1826,14 @@ describe('The app controller', function(){
         http.expectGET('i18n/common/es.json');
         http.expectGET($scope.urlService + '/actualdate');
         http.expectGET($scope.urlService + '/nextdate');
-        $scope.hideElements();
+        var event = {
+            target: {
+                element: {
+                    className: "className"
+                }
+            }
+        };
+        $scope.hideElements(event);
         expect($scope.hideElements).toNotBe(undefined);
     });
 
