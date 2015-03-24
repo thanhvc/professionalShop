@@ -507,6 +507,19 @@ angular.module('ngMo.portfolio', [
         };
 
 
+        $scope.linkToDetail = function(id) {
+            switch ($scope.filterOptions.filters.active_tab) {
+                case 0: //simple
+                   return "detail({patternId:"+id+"})";
+                case 1: //pair
+                    return "pairDetail({patternId:"+id+"})";
+                case 2://index
+                    return "detail({patternId:"+id+"})";
+                case 3://index Pair
+                    return "pairDetail({patternId:"+id+"})";
+            }
+            return "";
+        };
 
 
         //set favorite/or delete favorite in the DB, is used from the result table
