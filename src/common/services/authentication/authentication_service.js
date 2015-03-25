@@ -178,9 +178,11 @@ angular.module('auth',['http-auth-interceptor'])
                 };
 
                 $scope.submit = function() {
+                    $scope.errorSignIn = false;
                     if ((typeof $scope.fields === "undefined") ||
                         ((typeof $scope.fields !== "undefined") && ((typeof $scope.fields.email ==="undefined" || typeof $scope.fields.password === "undefined")))) {
                         //if the fields are undefined, the user is probably trying to login with autocompleted inputs
+
                         $scope.fields = {
                             email : loginForm.username.value,
                             password: loginForm.password.value
