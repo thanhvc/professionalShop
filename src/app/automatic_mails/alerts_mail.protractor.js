@@ -32,10 +32,10 @@ describe('Alert notification mails', function () {
 
         beforeEach(function () {
             //set date on server
-            var vagrant_id = browser.params.serverVagrantId;
-            var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
-            dsc.setServerDateAndRestart("2014-11-10 11:59:20");
-            ptor.sleep(18000);
+            //var vagrant_id = browser.params.serverVagrantId;
+            //var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
+            //dsc.setServerDateAndRestart("2014-11-10 11:59:20");
+            //ptor.sleep(18000);
         });
 
         afterEach(function () {
@@ -161,8 +161,13 @@ describe('Alert notification mails', function () {
                     
             var ms = require('smtp-tester').init(2025,{"disableDNSValidation":true});
             ms.bind(handler);
-            ptor.sleep(9000);
-            ptor.sleep(61000);
+            
+            //set date on the server 
+            var vagrant_id = browser.params.serverVagrantId;
+            var dsc = new DateServerConfigMod.DateServerConfig(vagrant_id);
+            dsc.setServerDateAndRestart("2014-11-10 11:59:20");
+
+            ptor.sleep(60000);
         });            
 
 });

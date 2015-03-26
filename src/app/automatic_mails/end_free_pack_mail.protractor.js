@@ -44,7 +44,6 @@ describe('End free pack notification mails', function () {
         });
 
         afterEach(function () {
-            //home.logout(); //TODO
             ptor.sleep(2000);
             var fixtures = fixtureGenerator.remove_end_free_pack_mail_fixture();
             loadFixture.executeQueries(fixtures, conString);
@@ -59,8 +58,8 @@ describe('End free pack notification mails', function () {
                         receiver_name : "Test1 user",
                         email_log_type: 11,
                         email_method: 'html',
-                        content_sentences: ["Su periodo de","Suscripción Gratuita ha concluido"],
-                        subject: 'Aviso Fin Subscripción Gratuita Market Observatory'});
+                        content_sentences: ["Ha concluido el acceso a los contenidos de la"],
+                        subject: 'Fin de Suscripción Gratis 15 días'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test4.user@foo.bar': true },
@@ -68,8 +67,8 @@ describe('End free pack notification mails', function () {
                         receiver_name : "Test4 user",
                         email_log_type: 11,
                         email_method: 'html',
-                        content_sentences: ["Su periodo de","Suscripción Gratuita ha concluido"],
-                        subject: 'Aviso Fin Subscripción Gratuita Market Observatory'});
+                        content_sentences: ["Ha concluido el acceso a los contenidos de la"],
+                        subject: 'Fin de Suscripción Gratis 15 días'});
             
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
@@ -78,7 +77,7 @@ describe('End free pack notification mails', function () {
                         email_log_type: 12,
                         email_method: 'html',
                         content_sentences: ["Recuerde que el acceso online a los contenidos","22 de noviembre de 2014"],
-                        subject: 'Acceso a contenidos de Market Observatory'});
+                        subject: 'Acceso a contenidos de MarketObservatory'});
 
 
             handler = function(addr,id,email) {
