@@ -178,9 +178,11 @@ angular.module('auth',['http-auth-interceptor'])
                 };
 
                 $scope.submit = function() {
+                    $scope.errorSignIn = false;
                     if ((typeof $scope.fields === "undefined") ||
                         ((typeof $scope.fields !== "undefined") && ((typeof $scope.fields.email ==="undefined" || typeof $scope.fields.password === "undefined")))) {
                         //if the fields are undefined, the user is probably trying to login with autocompleted inputs
+
                         $scope.fields = {
                             email : loginForm.username.value,
                             password: loginForm.password.value
@@ -223,12 +225,11 @@ angular.module('auth',['http-auth-interceptor'])
 
                         })
                         .error(function (data, status, headers, config) {
-                                $scope.errorSignIn = true;
+
                             if (data.reason == "not-activated") {
                                 //the user is not activated, we send him to resend mail status
                                 $state.go("reactivate");
-                            } else {
-                                if (data.reason == "expired") {
+                            } else if (data.reason == "expired") {
                                         $window.localStorage.expiredUser = true;
                                     $modal.open({
                                         templateUrl: 'layout_templates/expiredModal.tpl.html',
@@ -242,7 +243,8 @@ angular.module('auth',['http-auth-interceptor'])
                                             }
                                         }
                                     });
-                                }
+                            } else {
+                                $scope.errorSignIn = true;
                             }
                         });
                 };

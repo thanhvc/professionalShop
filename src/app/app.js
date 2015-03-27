@@ -27,7 +27,7 @@ angular.module('ngMo', [
         'auth',
         'ngMo.Activate',
         'ngMo.detail',
-       // 'ngMo.payment',
+        //'ngMo.payment',
         'ngMo.paymentClosed', //fake payment
         //'ngMo.cancel_pack',
         'ngMo.fakeCancel_pack',
@@ -1160,13 +1160,13 @@ angular.module('ngMo', [
 
 
         //function trigger other functions when click into body
-        $scope.hideElements = function () {
+        $scope.hideElements = function (obj) {
             $scope.hideSignInForm();
             $scope.closeCart();
             if (typeof $scope.hideSelectedGraphic !== 'undefined') {
                 $scope.hideSelectedGraphic();
             }
-            $rootScope.$broadcast("body-click");//added event of body click to trigger all
+            $rootScope.$broadcast("body-click",{element:obj.target});//added event of body click to trigger all
             //the lsiteners about body clicks.. like hide graphs in lookup_diary
         };
 

@@ -348,9 +348,8 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, infoSelected,$timeout)
         $modalInstance.close();
     };
     $timeout(function() { //the body click event will be in a 1sec timeout, the modal will be shown minimun 1 second
-        $scope.$on("body-click",function(){
-            var e = window.event;
-            if (e.target.className.indexOf("stop-body-click") == -1) {
+        $scope.$on("body-click",function(elem,params){
+            if (params.element.className.indexOf("stop-body-click") == -1) {
                 $scope.close();
             }
         },1000);
