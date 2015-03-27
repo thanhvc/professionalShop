@@ -7,6 +7,7 @@ var fixtureGenerator = require('../../../test-helpers/fixtures/home_packs-fixtur
 var sha512 = require('sha512');
 var ptor = protractor.getInstance();
 var Home = require('../../../test-helpers/page-objects/home.po.js');
+var Catalog = require('../../../test-helpers/page-objects/catalog.po.js');
 var PageLayout = require('../../../test-helpers/page-objects/page_layout.po.js');
 var Helper = require('../../../test-helpers/helper.js');
 var DateServerConfigMod = require('../../../test-helpers/date-server-config.js');
@@ -20,6 +21,7 @@ ptor.sleep(9000);
 describe('Home page', function () {
         var home;
         var page_layout;
+        var catalog_page;
         var helper = new Helper();
         var conString = browser.params.sqlCon;
 
@@ -39,6 +41,7 @@ describe('Home page', function () {
         
         describe("packs to subscribe in November 14th", function() {
             beforeEach(function() {
+                catalog_page = new Catalog();
                 home = new Home(); //go to home page
             });
 
@@ -172,7 +175,8 @@ describe('Home page', function () {
                             ptor.sleep(2000);
                         });
 
-                        it("should be true", function() {
+                        it("should be on catalog page", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(true).toBe(true);
                             //ptor.sleep(10000);
                         });
@@ -244,11 +248,11 @@ describe('Home page', function () {
                             ptor.sleep(2000);
                         });
 
-                        it("should be true", function() {
+                        it("should be on catalog page", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(true).toBe(true);
                             //ptor.sleep(10000);
                         });
-
                     });
 
                 }); //end pairs tab
@@ -283,7 +287,8 @@ describe('Home page', function () {
                             ptor.sleep(2000);
                         });
 
-                        it("should be true", function() {
+                        it("should be on catalog page", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(true).toBe(true);
                             //ptor.sleep(10000);
                         });
@@ -315,7 +320,8 @@ describe('Home page', function () {
                             ptor.sleep(2000);
                         });
 
-                        it("should be true", function() {
+                        it("should be on catalog page", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(true).toBe(true);
                             //ptor.sleep(10000);
                         });

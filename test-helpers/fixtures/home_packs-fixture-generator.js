@@ -17,6 +17,58 @@ var FixtureGenerator = function () {
 
 };
 
+function generate_asset_fixture(info) {
+    var id = (info.id || '1') + '';
+    var symbol = "ASSET" + id;
+    var short_name = 'Asset ' + id.split("_").join(" ");
+    var long_name = 'Long name Asset ' + id.split("_").join(" ");
+    var last_quote = info.last_quote || 10;
+    var last_quote_date = info.last_quote_date || '2014-10-30';
+    var volatility = info.volatility || 19.20;
+    var exchange_symbol = info.exchange_symbol || 'EX1';
+    var sector = info.sector || 'sector1 SECTOR CD';
+    var industry = info.industry || 'industry1 CD';
+    var expiration_year = info.expiration_year || null;
+    var expiration_month = info.expiration_month || null;
+    var fixture = {
+        type: 'insert',
+        table: 'asset',
+        values: {
+            asset_disc: 1,
+            symbol: symbol,
+            short_name: short_name,
+            long_name: long_name,
+            last_quote: last_quote,
+            last_quote_date: last_quote_date,
+            price_chart_url: 'www.urlPriceChart.com',
+            volatility: volatility,
+            exchange_symbol: exchange_symbol,
+            sector: sector,
+            industry: industry,
+            expiration_year: expiration_year,
+            expiration_month: expiration_month,
+            volatility_chart_url: 'www.urlVolatChart.com'
+        }
+    };
+    return fixture;
+}
+
+function generate_pattern_fixtures(info,options) {
+    var info = info || [];
+    var options = options || {};
+    //var product_type_map = { 'stocks': 0, 'pairs': 0, 'indices': 1, 'indices_pairs': 1, 'futures': 2 };
+    //var pattern_type_map = { 'stocks': 0, 'pairs': 1, 'indices': 0, 'indices_pairs': 1, 'futures': 0 };
+    var pattern_dates = published_packs_months = options.published_packs_months || [];
+    var fixtures = [];
+    
+    for (var i=0; i<info.length; i++) {
+        var item = info[i];
+
+        var type = item.type || options.default_pattern_type || 'stocks';
+        //generate asset fixture
+    }
+}
+
 function generate_pack_fixtures(info,options) {
     var info = info || [];
     var options = options || {};
@@ -352,6 +404,57 @@ FUTURE    | Futuros                         |
                 code: 'CU1',
                 symbol:'CU1',
                 name:'Currency1'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'currency',
+            values: {
+                code: 'CAD',
+                symbol:'CAD',
+                name:'Canadian Dollar'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'currency',
+            values: {
+                code: 'USD',
+                symbol:'USD',
+                name:'US Dollar'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EX1',
+                name: 'exchangeUSA1',
+                currency_code: 'CU1',
+                region_code:'USA',
+                sector_group: 'sector_group1'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EX2',
+                name: 'exchangeCAN1',
+                currency_code: 'CU1',
+                region_code:'CAN',
+                sector_group: 'sector_group1'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EX3',
+                name: 'exchangeUSA2',
+                currency_code: 'CU1',
+                region_code:'USA',
+                sector_group: 'sector_group1'
             }
         },
         {
