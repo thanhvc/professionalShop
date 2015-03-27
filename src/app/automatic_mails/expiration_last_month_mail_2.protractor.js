@@ -107,7 +107,7 @@ describe('Test2 last month notification mails', function () {
                         //expect(window.$("a").attr('href')).toMatch('\^mailto:operations@MarketObservatory\\.com'); //should also be tested
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
                         expect(window.$("span").text()).toMatch(msg.end_date);
-                        expect(window.$("span").text()).toMatch("Recuerde que el acceso online a los contenidos de los Packs");
+                        expect(window.$("span").text()).toMatch("Recuerde que el acceso online a los contenidos de los siguientes Packs finalizará");
                         for (var i=0;i<msg.packs.length;i++) {
                             expect(window.$("ul li").text()).toMatch(msg.packs[i].name);
                         }

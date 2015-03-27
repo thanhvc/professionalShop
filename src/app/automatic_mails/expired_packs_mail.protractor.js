@@ -59,7 +59,7 @@ describe('Expired pack notification mails', function () {
                                 {name: "Estados Unidos Pack II", period: "septiembre 2014 noviembre 2014"},
                                 {name: "Estados Unidos Pair Pack I", period: "noviembre 2014 noviembre 2014"}
                         ],                                
-                        subject: 'Aviso Fin Subscripción Market Observatory'});
+                        subject: 'Fin Suscripción a Contenidos'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
@@ -71,7 +71,7 @@ describe('Expired pack notification mails', function () {
                         packs: [{name: "Estados Unidos Pair Pack I", period: "noviembre 2013 noviembre 2014"},
                                 {name: "Estados Unidos Pair Pack II", period: "septiembre 2014 noviembre 2014"}
                         ],                                
-                        subject: 'Aviso Fin Subscripción Market Observatory'});
+                        subject: 'Fin Suscripción a Contenidos'});
 
             handler = function(addr,id,email) {
                 expect(queue.length).not.toEqual(0);
