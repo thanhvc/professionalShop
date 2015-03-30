@@ -110,10 +110,10 @@
                 <span tooltip="{{data.sector | sectorName | capitalize}} / {{data.industry | capitalize}}" ng-show="{{(data.industry != null && data.industry != '')}}" class="cursor-help">{{data.industry | capitalize}}</span>
             </div>
             <div tooltip="{{data.sector2 | capitalize}} / {{data.industry2 | capitalize}}" class="max-length-pairs-sector text-limitator sell-color"
-                 ng-show="{{(data.sector2.length > 0 && data.industry2.length > 0)}}">
-                <span class="cursor-help" tooltip-html-unsafe="{{data.sector2 | sectorName | capitalize}}">{{data.sector2 | sectorName | capitalize}}</span>
-                <span> / </span>
-                <span class="cursor-help" tooltip="{{data.industry2 | capitalize}}">{{data.industry2 | capitalize}}</span>
+                 >
+                <span class="cursor-help" ng-show="{{(data.sector2 != null && data.sector2 != '')}}" tooltip-html-unsafe="{{data.sector2 | sectorName | capitalize}}">{{data.sector2 | sectorName | capitalize}}</span>
+                <span ng-show="{{(data.sector2 != null && data.sector2 != '' ) && (data.industry2 != null && data.industry2 != '')}}"> / </span>
+                <span class="cursor-help" ng-show="{{(data.industry2 != null && data.industry2 != '')}}" tooltip="{{data.industry2 | capitalize}}">{{data.industry2 | capitalize}}</span>
             </div>
         </td>
 
