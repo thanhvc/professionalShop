@@ -58,7 +58,7 @@ describe('Test1 last month notification mails', function () {
                         receiver_name : "Test1 user",
                         packs: [{name: "Estados Unidos Pack I"}, {name: "Estados Unidos Pack II"}],                                
                         end_date: "noviembre 2014",
-                        subject: 'Aviso Fin Subscripción Market Observatory'});
+                        subject: 'Acceso a contenidos de MarketObservatory'});
 
             queue.push( { sender: 'market.observatory@edosoftfactory.com',
                         receivers: { 'test2.user@foo.bar': true },
@@ -66,7 +66,7 @@ describe('Test1 last month notification mails', function () {
                         receiver_name : "Test2 user",
                         packs: [{name: "Estados Unidos Pair Pack I"}, {name: "Estados Unidos Pair Pack II"}],                                
                         end_date: "noviembre 2014",
-                        subject: 'Aviso Fin Subscripción Market Observatory'});
+                        subject: 'Acceso a contenidos de MarketObservatory'});
 
 
             handler = function(addr,id,email) {
@@ -106,7 +106,7 @@ describe('Test1 last month notification mails', function () {
                         //expect(window.$("a").attr('href')).toMatch('\^mailto:operations@MarketObservatory\\.com'); //should also be tested
                         expect(window.$("span").text()).toMatch(msg.receiver_name);
                         expect(window.$("span").text()).toMatch(msg.end_date);
-                        expect(window.$("span").text()).toMatch("Recuerde que el acceso online a los contenidos de los Packs");
+                        expect(window.$("span").text()).toMatch("Recuerde que el acceso online a los contenidos de los siguientes Packs finalizará");
                         for (var i=0;i<msg.packs.length;i++) {
                             expect(window.$("ul li").text()).toMatch(msg.packs[i].name);
                         }

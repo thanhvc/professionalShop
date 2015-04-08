@@ -129,6 +129,10 @@ Calendar.prototype =  Object.create({}, {
     getFavouriteFilter:{value:function() {
         return this.getActiveContainerTab().element(by.model("filterOptions.filters.favourite"));
     }},
+    getInDayDateInputFilter:{value:function(value) {
+        //return this.getActiveContainerTab().element(by.model("filterOptions.filters.dayDateInput"));
+        return this.getActiveContainerTab().element(by.input("dayInput"));
+    }},
     fillInDayDateInputFilter:{value:function(value) {
         this.getActiveContainerTab().element(by.model("filterOptions.filters.dayDateInput")).clear();
         this.getActiveContainerTab().element(by.model("filterOptions.filters.dayDateInput")).sendKeys(value);
