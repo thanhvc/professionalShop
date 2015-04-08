@@ -41,7 +41,7 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($timeout,$q,$filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
+    .controller('HistoricCtrl', function ($modal,$timeout,$q,$filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
                                           MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthHistoricService, ExpirationYearFromPatternName,UserApplyFilters,$translatePartialLoader,now) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -829,7 +829,21 @@ angular.module('ngMo.historic', [
 
         };
 
+        $scope.openNotes = function (pattern) {
 
+            var modalNotesInstance = $modal.open({
+                templateUrl: 'notesHistoricContent.html',
+                controller: ModalNotesHistoricInstanceCtrl,
+                resolve: {
+                    pattern: function () {
+                        return pattern;
+                    },
+                    month: function () {
+                        return $scope.filterOptions.filters.month.month;
+                    }
+                }
+            });
+        };
         /**PDF GENERATION**/
 
         $scope.getHistoricsPdf = function () {
@@ -1201,3 +1215,18 @@ angular.module('ngMo.historic', [
     })
 
 ;
+
+var ModalNotesHistoricInstanceCtrl = function ($scope, $modalInstance, pattern) {
+
+    $scope.data = {
+        assetName: (typeof pattern.name !== 'undefined' ? pattern.name : ''),
+        notes: (typeof pattern.notes !== 'undefined' ? pattern.notes : ''),
+        bearishAssetName: (typeof pattern.name2 !== 'undefined' ? pattern.name2 : ''),
+        bearishNotes: (typeof pattern.notes2 !== 'undefined' ? pattern.notes2 : ''),
+        month: (typeof month !== 'undefined' ? month : '')
+    };
+
+    $scope.close = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};

@@ -45,6 +45,7 @@
         "total_patterns":"Number of Patterns",
         "volatility_long":"Volatility",
         "volatility_short":"Vol.",
-        "worst_rent":"Worst Loss"
+        "worst_rent":"Worst Loss",
+        "emisor":"Emisor"
     }
 }

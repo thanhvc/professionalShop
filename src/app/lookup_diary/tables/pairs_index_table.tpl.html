@@ -5,19 +5,22 @@
         <th class="table-id-header id-column-width" rowspan="2">
             Id
         </th>
-        <th class="border-right-table description-column-width">
+        <th class="border-right-table description-column-width-pair-index">
             {{'FOLLOW.indices'|translate}}
+        </th>
+        <th class="border-right-table">
+            {{'FOLLOW.emisor'|translate}}
         </th>
         <th class="border-right-table entry-column-width" colspan="2">
             {{'FOLLOW.entry'|translate}}
             <img src="assets/img/entryArrow.png">
         </th>
-        <th class="border-right-table exit-column-width exit-column-width">
+        <th class="border-right-table exit-column-width-index">
             <img src="assets/img/exitArrow.png">
-            {{'FOLLOW.exit'|translate}}>
+            {{'FOLLOW.exit'|translate}}
         </th>
         <th class="border-right-table last-column-width" colspan="3">
-            <{{'FOLLOW.last'|translate}}
+            {{'FOLLOW.last'|translate}}
         </th>
         <th class="border-right-table volatility-column-width">
             <span class="cursor-help" tooltip-html-unsafe="{{'FOLLOW.volatility_long'|translate}}">{{'FOLLOW.volatility_short'|translate}}</span>
@@ -36,11 +39,13 @@
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table description-column-width">
+        <th class="border-right-table description-column-width-pair-index">
             {{'FOLLOW.names'|translate}}
         </th>
+        <th class="border-right-table">
 
-        <th class="sub-border-right-table entry-date-column-width">
+        </th>
+        <th class="sub-border-right-table entry-date-column-width-index">
             {{'FOLLOW.date'|translate}}
         </th>
         <th class="border-right-table entry-price-column-width">
@@ -89,7 +94,7 @@
             {{data.id}}
         </td>
 
-        <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table description-column-width">
+        <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table description-column-width-pair-index">
             <div class="text-limitator">
             <span>{{'FOLLOW.bullish'|translate}}</span>
             <span class="cursor-help buy-color"
@@ -105,8 +110,11 @@
                 </span>
             </div>
         </td>
-
-        <td class="table-cell-patterns sub-border-right-table entry-date-column-width">
+        <td class="border-right-table table-cell-patterns ">
+            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName}}">{{data.exchSymbol}}</span><br>
+            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName2}}">{{data.exchSymbol2}}</span>
+        </td>
+        <td class="table-cell-patterns sub-border-right-table entry-date-column-width-index">
             {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
         <td class="table-cell-patterns border-right-table entry-price-column-width">
@@ -150,7 +158,7 @@
         </td>
 
         <td class="table-cell-patterns border-right-table notes-column-width">
-            <div class="notes-pattern-icon" ng-if="data.asset.notes.length > 0" ng-click="openNotes(data.asset);$event.stopPropagation();"></div>
+            <div class="notes-pattern-icon" ng-if="(data.notes.length > 0 || data.notes2.length>0)" ng-click="openNotes(data);$event.stopPropagation();"></div>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table ng-binding alarm-column-width">

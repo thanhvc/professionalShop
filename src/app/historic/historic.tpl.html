@@ -91,4 +91,25 @@
             </tab>
         </tabset>
     </div>
+
+    <script type="text/ng-template" id="notesHistoricContent.html">
+        <div class="modal-alert">
+            <div class="modal-header">
+                <div class="header">Notas
+                    <button class="btn-close btn-close-alert" ng-click="close()"></button>
+                </div>
+            </div>
+            <div class="modal-body" style="height: auto !important;">
+                <div style="margin:0 auto;text-align: center;font-weight: bold;">{{data.assetName}}</div>
+                <span style="display: block;" ng-repeat="note in data.notes">{{note.date | date: 'dd/MM/yyyy'}} - {{note.content}}</span>
+                <br>
+
+                <div ng-if="data.bearishNotes.length > 0"
+                     style="margin:0 auto;text-align: center;font-weight: bold;">{{data.bearishAssetName}}
+                </div>
+                <span ng-repeat="note in data.bearishNotes"><span>{{note.date | date: 'dd/MM/yyyy'}} - {{note.content}}</span></span>
+                <br>
+            </div>
+        </div>
+    </script>
 </fieldset>

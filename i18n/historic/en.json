@@ -38,6 +38,7 @@
         "stock":"Stock",
         "stock_pair":"Stock Pair",
         "total_patterns":"Number of Patterns",
-        "worst_rent":"Worst Loss"
+        "worst_rent":"Worst Loss",
+        "emisor":"Emisor"
     }
 }

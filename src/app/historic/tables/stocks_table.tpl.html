@@ -74,19 +74,19 @@
             {{data.id}}
         </td>
         <td style="text-align: left;" class="table-cell-patterns border-right-table">
-            <span ng-show="data.patternType == 'BULLISH'">{{'HISTORIC.buy'|translate}}</span>
-            <span ng-show="data.patternType == 'BEARISH'">{{'HISTORIC.sell'|translate}}</span>
+            <span ng-show="data.patTyp == 'BULLISH'">{{'HISTORIC.buy'|translate}}</span>
+            <span ng-show="data.patTyp == 'BEARISH'">{{'HISTORIC.sell'|translate}}</span>
             <br/>
             <div class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})"
-                  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
-                {{data.asset.longName}}
+                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
+                {{data.name}}
             </span>
             </div>
         </td>
         <td class="border-right-table table-cell-patterns" style="text-align: center;">
-            <span class="cursor-help" tooltip="{{data.asset.exchange.name}}">{{data.asset.exchange.symbol}}</span>
+            <span class="cursor-help" tooltip="{{data.exchName}}">{{data.exchSymbol}}</span>
         </td>
         <td class="table-cell-patterns sub-border-right-table">
                 {{data.entryDate | date: 'dd/MMM/yy'}}
@@ -116,7 +116,7 @@
             <b ng-show="data.worstLoss <= -0.01" ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns sub-border-right-table">
-
+            <div class="notes-pattern-icon" ng-if="data.notes.length > 0" ng-click="openNotes(data);$event.stopPropagation();"></div>
         </td>
     </tr>
 
