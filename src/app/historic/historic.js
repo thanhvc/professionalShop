@@ -41,7 +41,7 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
+    .controller('HistoricCtrl', function ($timeout,$q,$filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
                                           MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthHistoricService, ExpirationYearFromPatternName,UserApplyFilters,$translatePartialLoader,now) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -830,7 +830,75 @@ angular.module('ngMo.historic', [
         };
 
 
-        //};
+        /**PDF GENERATION**/
+
+        $scope.getHistoricsPdf = function () {
+            var deferred = $q.defer();
+            var filtering = $scope.filterOptions.filters;
+            var data;
+            var indexType = null;
+
+            if (typeof filtering.index_type !== "undefined") {
+                indexType = parseInt(filtering.index_type, 10);
+            } else {
+                indexType = 0;
+            }
+            config = {
+                params: {
+                    //'token': $window.localStorage.token,
+                    'productType': parseInt(filtering.active_tab, 10),
+                    'indexType': indexType,
+                    'month': filtering.month.month,
+                    'year': filtering.month.year,
+                    'name': filtering.filterName,
+                    'region': filtering.selectedRegion,
+                    'market': filtering.selectedMarket,
+                    'sector': filtering.selectedSector,
+                    'industry': filtering.selectedIndustry,
+                    'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
+                    'accumulatedReturn': (filtering.selectedRent  ? filtering.selectedRent.id : ""),
+                    'accumulatedInput': filtering.rentInput,
+                    'averageReturn': (filtering.selectedAverage  ? filtering.selectedAverage.id : ""),
+                    'averageInput': filtering.rentAverageInput,
+                    'dailyReturn': (filtering.selectedRentDiary  ? filtering.selectedRentDiary.id : ""),
+                    'dailyInput': filtering.rentDiaryInput,
+                    'volatility':  (filtering.selectedVolatility  ? filtering.selectedVolatility.id : ""),
+                    'volatilityInput': filtering.volatilityInput,
+                    'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
+                    'durationInput': filtering.durationInput,
+                    'favourites': filtering.favourite
+                }
+            };
+
+            var result = $http.get($rootScope.urlService+'/historicspdf', config).then(function (response) {
+                // With the data succesfully returned, call our callback
+                deferred.resolve();
+                return response.data;
+            });
+            return result;
+        };
+        $scope.generatePdf = function () {
+            if ($scope.isDisabled) {
+                return;
+            }
+            $scope.isDisabled=true;
+            $scope.getHistoricsPdf().then(function (data) {
+                var filename = "historics" + /*productType +*/ ".pdf";
+                var element = angular.element('<a/>');
+                element.attr({
+
+                    href: 'data:attachment/pdf;base64,' + encodeURI(data),
+                    target: '_blank',
+                    download: filename
+                });
+                document.body.appendChild(element[0]);
+
+                $timeout(function() {
+                    element[0].click();
+                    $scope.isDisabled = false;
+                });
+            });
+        };
 
         $scope.$on('$locationChangeSuccess', function (event, $stateParams) {
             $scope.loadUrlParams();
@@ -921,6 +989,9 @@ angular.module('ngMo.historic', [
             });
             return result;
         };
+
+
+
 
         /**
          *
