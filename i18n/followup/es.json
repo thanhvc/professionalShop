@@ -45,6 +45,7 @@
         "total_patterns":"Número total de patrones",
         "volatility_long":"Volatilidad",
         "volatility_short":"Vol.",
-        "worst_rent":"Peor Pérdida"
+        "worst_rent":"Peor Pérdida",
+        "emisor":"Emisor"
     }
 }

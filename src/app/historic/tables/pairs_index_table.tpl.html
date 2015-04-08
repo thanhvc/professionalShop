@@ -8,6 +8,9 @@
         <th class="border-right-table" style="width: 360px">
             {{'HISTORIC.indices'|translate}}
         </th>
+        <th class="border-right-table">
+            {{'HISTORIC.emisor'|translate}}
+        </th>
         <th class="border-right-table" colspan="2">
             {{'HISTORIC.entry'|translate}}
             <img src="assets/img/entryArrow.png">
@@ -33,6 +36,9 @@
     <tr class="table-header-bottom-patterns">
         <th class="border-right-table" style="width: 340px;">
             {{'HISTORIC.name'|translate}}
+        </th>
+        <th class="border-right-table">
+
         </th>
         <th class="sub-border-right-table">
             {{'HISTORIC.date'|translate}}
@@ -72,17 +78,21 @@
         <td style="text-align: left; width: 230px;" class="table-cell-patterns border-right-table">
             <span>{{'HISTORIC.bullish'|translate}}</span>
             <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
-                 {{data.asset.longName}}
+                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
+                 {{data.name}}
             </span>
             <br/>
             <div class="text-limitator">
                 <span>{{'HISTORIC.bearish'|translate}}</span>
             <span class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.bearishAsset.longName}} ({{data.bearishAsset.exchange.symbol}})">
-                {{data.bearishAsset.longName}}
+                  tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
+                {{data.name2}}
             </span>
             </div>
+        </td>
+        <td class="border-right-table table-cell-patterns ">
+            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName}}">{{data.exchSymbol}}</span><br>
+            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName2}}">{{data.exchSymbol2}}</span>
         </td>
         <td class="table-cell-patterns sub-border-right-table">
             {{data.entryDate | date: 'dd/MMM/yy'}}
@@ -114,7 +124,7 @@
             <b ng-show="data.worstLoss <= -0.01" ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss |  twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns sub-border-right-table">
-
+            <div class="notes-pattern-icon" ng-if="(data.notes.length > 0 || data.notes2.length>0)" ng-click="openNotes(data);$event.stopPropagation();"></div>
         </td>
     </tr>
 

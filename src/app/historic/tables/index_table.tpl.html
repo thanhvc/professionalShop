@@ -1,4 +1,3 @@
-
 <table style="width: 955px;" class="table-pattern"  ng-show="myData.length>0">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
@@ -9,7 +8,7 @@
             {{'HISTORIC.index'|translate}}
         </th>
         <th class="border-right-table">
-            {{'MY_PATT.emisor'|translate}}
+            {{'HISTORIC.emisor'|translate}}
         </th>
         <th class="border-right-table" colspan="2">
             {{'HISTORIC.entry'|translate}}
@@ -76,19 +75,19 @@
             {{data.id}}
         </td>
         <td  class="table-cell-patterns border-right-table index-market-historic">
-            <span ng-show="data.patternType == 'BULLISH'">{{'HISTORIC.bullish'|translate}}</span>
-            <span ng-show="data.patternType == 'BEARISH'">{{'HISTORIC.bearish'|translate}}</span>
+            <span ng-show="data.patTyp == 'BULLISH'">{{'HISTORIC.bullish'|translate}}</span>
+            <span ng-show="data.patTyp == 'BEARISH'">{{'HISTORIC.bearish'|translate}}</span>
             <br/>
             <div class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})"
-                  ng-class="{'buy-color': data.patternType == 'BULLISH', 'sell-color': data.patternType == 'BEARISH'}">
-                {{data.asset.longName}}
+                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
+                {{data.name}}
             </span>
             </div>
         </td>
         <td class="border-right-table table-cell-patterns ">
-            <span class="cursor-help" tooltip-html-unsafe="{{data.asset.exchange.name}}">{{data.asset.exchange.symbol}}</span>
+            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName}}">{{data.exchSymbol}}</span>
         </td>
         <td
             class="table-cell-patterns sub-border-right-table index-entryDate-patterns">
@@ -119,6 +118,7 @@
             <b ng-show="data.worstLoss <= -0.01" ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss | twoDecimals}}</b>
         </td>
         <td class="table-cell-patterns sub-border-right-table index-notes-patterns">
+            <div class="notes-pattern-icon" ng-if="data.notes.length > 0" ng-click="openNotes(data);$event.stopPropagation();"></div>
         </td>
     </tr>
 </table>

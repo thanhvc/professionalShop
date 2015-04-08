@@ -76,21 +76,21 @@
         <td style="text-align: left;" class="table-cell-patterns border-right-table">
             <span>{{'HISTORIC.buy'|translate}}</span>
             <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.asset.longName}} ({{data.asset.exchange.symbol}})">
-                 {{data.asset.longName}}
+                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
+                 {{data.name}}
             </span>
             <br/>
             <div class="text-limitator">
             <span>{{'HISTORIC.sell'|translate}}</span>
             <span class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.bearishAsset.longName}} ({{data.bearishAsset.exchange.symbol}})">
-                {{data.bearishAsset.longName}}
+                  tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
+                {{data.name2}}
             </span>
             </div>
         </td>
         <td class="border-right-table table-cell-patterns">
-            <span tooltip="{{data.asset.exchange.name}}">{{data.asset.exchange.symbol}}</span>
-            <span tooltip="{{data.bearishAsset.exchange.name}}">{{data.bearishAsset.exchange.symbol}}</span>
+            <span tooltip="{{data.asset.exchange.name}}">{{data.exchSymbol}}</span>
+            <span tooltip="{{data.bearishAsset.exchange.name}}">{{data.exchSymbol2}}</span>
         </td>
         <td style="padding: 5px; width: 70px;"
             class="table-cell-patterns sub-border-right-table">
@@ -124,7 +124,7 @@
             <b ng-show="data.worstLoss <= -0.01" ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss |  twoDecimals}}</b>
         </td>
         <td style="width: 30px;" class="table-cell-patterns sub-border-right-table">
-
+            <div class="notes-pattern-icon" ng-if="(data.notes.length > 0 || data.notes2.length >0)" ng-click="openNotes(data);$event.stopPropagation();"></div>
         </td>
     </tr>
 
