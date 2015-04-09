@@ -1053,6 +1053,7 @@ FUTURE    | Futuros                         |
 */
     ];
 
+    // STOCKS =======================================================================================
     var stocks_fixture_data = [
         // ==== América simple packs
         { code: 'USA-S-1', region_code: 'USA', name: 'Estados Unidos Pack I',
