@@ -1,0 +1,73 @@
+<table class="tables-my-subscriptions">
+    <thead>
+    <tr class="header-my-subscriptions-table">
+        <td colspan="6">
+            <select data-ng-model="filterOptions.filters.selectMonth" ng-options="(month.month | translate | uppercase ) +' '+month.year for month in filterOptions.months" ng-change="goToMonth()">
+            </select>
+        </td>
+    </tr>
+    <tr class="subheader-my-subscriptions-table">
+        <td></td>
+        <td>{{'SUBSCRIPTIONS.class'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.types'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.select'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.start'|translate}}</td>
+        <td>{{'SUBSCRIPTIONS.type'|translate}}</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="area-cell">{{'INDICES'|translate}}</td>
+        <td colspan="5">
+            <table class="my-subscriptions-table">
+                <tbody>
+                <tr ng-repeat="pack in mySubscriptionsTablePack.indicesContent track by $index" >
+                    <td><span tooltip="{{pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})">{{pack.name}}</span></td>
+                    <td>{{pack.scopeText}}</td>
+                    <td><input ng-show="pack.selected" type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ng-change="togglePack(pack);">
+                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"  ng-click="$event.stopPropagation();"></td>
+                    <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
+                    <td>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-click="$event.stopPropagation();"
+                                ng-change="changeDuration(pack)">
+                            <option ng-if="pack.canMonth" value="0">{{'SUBSCRIPTIONS.month_1'|translate}}</option>
+                            <option ng-if="pack.canTrimestral" value="1">{{'SUBSCRIPTIONS.month_3'|translate}}</option>
+                            <option ng-if="pack.canYear" value="2">{{'SUBSCRIPTIONS.month_12'|translate}}</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="separator"></td>
+    </tr>
+    <tr>
+        <td class="area-cell">{{'INDEX_PAIRS'|translate}}</td>
+        <td colspan="5">
+            <table class="my-subscriptions-table">
+                <tbody>
+                <tr ng-repeat="pack in mySubscriptionsTablePack.pairsIndicesContent track by $index" >
+                    <td>{{pack.name}}</td>
+                    <td>{{pack.scopeText}}</td>
+                    <td><input ng-show="pack.selected" type="checkbox" ng-model="pack.selected" ng-disabled="pack.selected" ng-change="togglePack(pack);">
+                        <input ng-show="!pack.selected" type="checkbox" ng-model="pack.toBuy" ng-change="togglePack(pack);"  ng-click="$event.stopPropagation();"></td>
+                    <td>{{pack.startDate | date: 'MMMM yyyy'}}</td>
+                    <td>
+                        <select ng-disabled="pack.selected" ng-model="pack.duration"
+                                ng-click="$event.stopPropagation();"
+                                ng-change="changeDuration(pack)">
+                            <option ng-if="pack.canMonth" value="0">{{'SUBSCRIPTIONS.month_1'|translate}}</option>
+                            <option ng-if="pack.canTrimestral" value="1">{{'SUBSCRIPTIONS.month_2'|translate}}</option>
+                            <option ng-if="pack.canYear" value="2">{{'SUBSCRIPTIONS.month_12'|translate}}</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
