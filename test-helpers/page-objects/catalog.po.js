@@ -71,6 +71,29 @@ Catalog.prototype =  Object.create({}, {
     }},
     getSectorFilterDropdownOption:{value: function(row){
         return element.all(by.repeater("match in matches")).get(row);
+    }},
+    getIndustryFilter:{value: function(){
+        return element(by.model("filterOptions.filters.selectedIndustry"));
+    }},
+    getIndustryFilterDropdownOption:{value: function(row){
+        return element.all(by.repeater("match in matches")).get(row);
+    }},
+    selectDropdownbyNum: { value: function ( element, optionNum ) {
+            var options = element.all(by.tagName('option'))
+                .then(function(options){
+                    console.log("selecting option:"+optionNum+" in Select");
+                    if (typeof options[optionNum] ==="undefined") {
+                        console.log("selecting option "+optionNum+" is not defined!");
+                    } else {
+                        options[optionNum].click();
+                    }
+                });
+    }},
+    selectDurationFilter: {value: function(opt) {
+        return this.selectDropdownbyNum(element(by.model("filterOptions.filters.durationInterval")),opt);
+    }},
+    selectVolatilityFilter: {value: function(opt) {
+        return this.selectDropdownbyNum(element(by.model("filterOptions.filters.volatilityInterval")),opt);
     }}
 
 });
