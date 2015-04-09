@@ -180,7 +180,9 @@ angular.module('ngMo.lookup_diary', [
             ],
 
             {"table": 'lookup_diary/tables/futures_table.tpl.html',
-                "filter": 'lookup_diary/filters/futures_filters.tpl.html'}
+                "filter": 'lookup_diary/filters/futures_filters.tpl.html'},
+            {"table": 'lookup_diary/tables/forex_table.tpl.html',
+                "filter": 'lookup_diary/filters/forex_filters.tpl.html'}
         ];
 
 
@@ -219,6 +221,8 @@ angular.module('ngMo.lookup_diary', [
                     break;
                 case 3:     //futures
                     $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+                    break;
+                case 4: //forex
                     break;
             }
 
@@ -1001,6 +1005,8 @@ angular.module('ngMo.lookup_diary', [
                         break;
                     case 3:     //futures
                         $scope.refreshSelectors(['markets'],filters, $scope.callBackRefreshSelectors);
+                        break;
+                    case 4: //forex
                         break;
                 }
             }

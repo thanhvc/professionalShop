@@ -61,6 +61,11 @@ angular.module('ngMo.my_patterns', [
                 title: 'FUTURES',
                 active: activeTab === 3,
                 value: 3
+            },
+            {
+                title: 'FOREX',
+                active: activeTab ===4,
+                value: 4
             }
         ];
 
@@ -85,6 +90,11 @@ angular.module('ngMo.my_patterns', [
                 title: 'INDEX_PAIRS',
                 active: activeTab === 3,
                 value: 3
+            },
+            {
+                title: 'FOREX',
+                active: activeTab ===4,
+                value: 4
             }
         ];
         var indexTypes = [
@@ -322,7 +332,9 @@ angular.module('ngMo.my_patterns', [
             ],
 
             {"table": 'my_patterns/tables/futures_table.tpl.html',
-                "filter": 'my_patterns/filters/futures_filters.tpl.html'}
+                "filter": 'my_patterns/filters/futures_filters.tpl.html'},
+            {"table": 'my_patterns/tables/forex_table.tpl.html',
+                "filter": 'my_patterns/filters/forex_filters.tpl.html'}
         ];
 
 
@@ -368,6 +380,8 @@ angular.module('ngMo.my_patterns', [
                         break;
                     case 3:     //futures
                         $scope.refreshSelectors(['markets'], $scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+                        break;
+                    case 4: //forex
                         break;
                 }
             }
