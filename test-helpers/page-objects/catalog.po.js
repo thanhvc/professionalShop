@@ -61,6 +61,16 @@ Catalog.prototype =  Object.create({}, {
             'finished': 'div.state-sphere.finished-state'
         };
         return this.getPattern(row).all(by.css("td")).get(9).element(by.css(type_map[type]));
+    }},
+    //filters
+    getNameFilter:{value: function(){
+        return element(by.model("filterOptions.filters.filterName"));
+    }},
+    getSectorFilter:{value: function(){
+        return element(by.model("filterOptions.filters.selectedSector"));
+    }},
+    getSectorFilterDropdownOption:{value: function(row){
+        return element.all(by.repeater("match in matches")).get(row);
     }}
 
 });
