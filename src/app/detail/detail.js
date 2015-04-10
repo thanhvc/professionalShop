@@ -183,9 +183,11 @@ angular.module('ngMo.detail', [
 
         //open a graph and sve it to $scope.graph
         $scope.loadGraphic = function (inputEvent,url) {
+            var previousGraph = false;
             if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
                 $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
                 $scope.graph = null;
+                previousGraph = true;
             }
 
             var elemDiv = document.createElement('div');
@@ -217,10 +219,12 @@ angular.module('ngMo.detail', [
             elemDiv.appendChild(img);
             inputEvent.target.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
             elemDiv.style.left = "75px";
-            $timeout(function(){
-                elemDiv.className+=' move-detail';
+            if (!previousGraph) {
+                $timeout(function () {
+                    elemDiv.className += ' move-detail';
 
-            },0);
+                }, 0);
+            }
             $scope.graph = elemDiv;
             return 0;
 
