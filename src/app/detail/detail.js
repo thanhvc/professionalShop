@@ -99,7 +99,7 @@ angular.module('ngMo.detail', [
 
         $scope.closeGraph = function() {
             if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
-                setTimeout(function(){
+                /*$timeout(function(){
                     //event.srcElement.parentElement.className ='graphic-div';
                     $scope.graph.className='div-graph-detail move-to-the-right';
                     $scope.graph.addEventListener('transitionend', function(event2) {
@@ -110,7 +110,15 @@ angular.module('ngMo.detail', [
                         }
 
                     });
-                },0);
+                },0);*/
+                $scope.graph.className ="div-graph-detail move-right-detail";
+                $timeout(function(){
+                    if ($scope.graph != null) {
+                        $scope.graph.style.cssText = 'display:none';
+                        $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
+                        $scope.graph = null;
+                    }
+                },1000);
             }
         };
 
@@ -208,9 +216,9 @@ angular.module('ngMo.detail', [
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
             inputEvent.target.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv,null);
-
-            setTimeout(function(){
-                elemDiv.className+=' move';
+            elemDiv.style.left = "75px";
+            $timeout(function(){
+                elemDiv.className+=' move-detail';
 
             },0);
             $scope.graph = elemDiv;
