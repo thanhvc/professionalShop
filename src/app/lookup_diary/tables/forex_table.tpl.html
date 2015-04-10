@@ -5,8 +5,8 @@
         <th class="table-id-header id-column-width" rowspan="2">
             Id
         </th>
-        <th class="border-right-table index-description-column-width">
-            {{'FOLLOW.index'|translate}}
+        <th class="border-right-table description-column-width-pair-index">
+            {{'FOLLOW.indices'|translate}}
         </th>
         <th class="border-right-table">
             {{'FOLLOW.emisor'|translate}}
@@ -28,7 +28,7 @@
         <th class="border-right-table best-gain-column-width" colspan="2">
             {{'FOLLOW.best_rent'|translate}}
         </th>
-        <th class="border-right-table worst-loss-column-width"  colspan="2">
+        <th class="border-right-table worst-loss-column-width" colspan="2">
             {{'FOLLOW.worst_rent'|translate}}
         </th>
         <th class="border-right-table notes-column-width">
@@ -39,12 +39,12 @@
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table index-description-column-width">
-            {{'FOLLOW.name'|translate}}
+        <th class="border-right-table description-column-width-pair-index">
+            {{'FOLLOW.names'|translate}}
         </th>
         <th class="border-right-table">
-        </th>
 
+        </th>
         <th class="sub-border-right-table entry-date-column-width-index">
             {{'FOLLOW.date'|translate}}
         </th>
@@ -52,7 +52,7 @@
             {{'FOLLOW.price'|translate}}
         </th>
 
-        <th class="border-right-table exit-column-width-index">
+        <th class="border-right-table exit-column-width">
             {{'FOLLOW.date'|translate}}
         </th>
 
@@ -89,73 +89,80 @@
         <th class="sub-border-right-table alarm-column-width"></th>
 
     </tr>
-    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'" ng-click="goToDetail(data.id)" > <!--ui-sref="detail({patternId:data.id})"-->
+    <tr ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'"  ng-click="goToPairDetail(data.id)" > <!--ui-sref="pairDetail({patternId:data.id})"-->
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table index-description-column-width">
-            <span ng-show="data.patTyp == 'BULLISH'">{{'FOLLOW.bullish'|translate}}</span>
-            <span ng-show="data.patTyp == 'BEARISH'">{{'FOLLOW.bearish'|translate}}</span>
-            <br/>
+
+        <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table description-column-width-pair-index">
             <div class="text-limitator">
-            <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
-                  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
-                {{data.name}}
+                <span>{{'FOLLOW.bullish'|translate}}</span>
+            <span class="cursor-help buy-color"
+                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
+                 {{data.name}}
             </span>
+            </div>
+            <div class="text-limitator">
+                <span>{{'FOLLOW.bearish'|translate}}</span>
+                <span class="cursor-help sell-color"
+                      tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
+                {{data.name2}}
+                </span>
             </div>
         </td>
         <td class="border-right-table table-cell-patterns ">
-            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName}}">{{data.exchSymbol}}</span>
+            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName}}">{{data.exchSymbol}}</span><br>
+            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName2}}">{{data.exchSymbol2}}</span>
         </td>
-
-        <td class="table-cell-patterns sub-border-right-table entry-date-column-width-index" >
+        <td class="table-cell-patterns sub-border-right-table entry-date-column-width-index">
             {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
-        <td class="table-cell-patterns border-right-table entry-price-column-width" ng-class="{'negative-percent': data.entryValue <= -0.01 }">
-            <b ng-show="data.entryValue != 0">{{data.entryValue | twoDecimals}}</b>
+        <td class="table-cell-patterns border-right-table entry-price-column-width">
+            <div class="buy-color"><b>{{data.entryValue | twoDecimals}}</b></div>
+            <div class="sell-color"><b>{{data.bearishEntryValue | twoDecimals}}</b></div>
         </td>
 
-        <td class="table-cell-patterns border-right-table exit-column-width-index">
+        <td class="table-cell-patterns border-right-table exit-column-width">
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
 
-        <td class="table-cell-patterns sub-border-right-table last-date-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+        <td class="table-cell-patterns sub-border-right-table last-date-column-width">
             {{data.lastQuoteDate | date: 'dd/MMM/yy'}}
         </td>
-        <td class="table-cell-patterns sub-border-right-table last-price-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
-            <a class="link" ng-click="loadGraphic($event,data.name,data.patTyp,null,false,data.priceChartURL);$event.stopPropagation();"><b>{{data.lastQuote | twoDecimals}}</b></a>
+        <td class="table-cell-patterns sub-border-right-table last-price-column-width">
+            <div class="link" ng-click="loadGraphic($event,data.name,'BULLISH',null,false,data.priceChartURL);$event.stopPropagation();"><b>{{data.lastQuote | twoDecimals}}</b></div>
+            <div class="link" ng-click="loadGraphic($event,data.name2,'BEARISH',null,false,data.priceChartURL2);$event.stopPropagation();"><b>{{data.lastQuote2 | twoDecimals}}</b></div>
         </td>
-        <td class="table-cell-patterns border-right-table last-percentage-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+        <td class="table-cell-patterns border-right-table last-percentage-column-width">
             <b>{{data.lastPerformance | twoDecimals}}</b>
         </td>
 
         <td class="table-cell-patterns border-right-table volatility-column-width">
-            <a class="link" ng-click="loadGraphic($event,data.name,data.patTyp,null,false,data.volatilityChartURL);$event.stopPropagation();">
-                <span ng-show="data.volatility>=0"><b>{{data.volatility | volatTruncate}}</b></span>
+            <a class="link" ng-click="loadGraphic($event,data.name,data..patTyp,data.name2,true,data.pairVolatilityChartURL);$event.stopPropagation();">
+                <span ng-show="data.pairVolatility>=0"><b>{{data.pairVolatility | volatTruncate}}</b></span>
             </a>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table best-gain-date-column-width">
-            <div  ng-show="data.bestGain >= 0.01" >{{data.bestGainDate | date: 'dd/MMM/yy'}}</div>
+            <div  ng-show="data.bestGain >= 0.01" >{{data.bestGainDate | date: 'dd/MM/yy'}}</div>
         </td>
         <td class="table-cell-patterns border-right-table best-gain-percentage-column-width">
             <b ng-show="data.bestGain >= 0.01">{{data.bestGain | twoDecimals}}</b>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table worst-loss-date-column-width">
-            <div  ng-show="data.worstLoss <= -0.01">{{data.worstLossDate | date: 'dd/MMM/yy'}}</div>
+            <div  ng-show="data.worstLoss <= -0.01">{{data.worstLossDate | date: 'dd/MM/yy'}}</div>
         </td>
         <td class="table-cell-patterns border-right-table worst-loss-percentage-column-width">
             <b ng-class="{'negative-percent': data.worstLoss <= -0.01}" ng-show="data.worstLoss <= -0.01">{{data.worstLoss | twoDecimals}}</b>
         </td>
 
         <td class="table-cell-patterns border-right-table notes-column-width">
-            <div class="notes-pattern-icon" ng-if="data.notes.length > 0" ng-click="openNotes(data.asset);$event.stopPropagation();"></div>
+            <div class="notes-pattern-icon" ng-if="(data.notes.length > 0 || data.notes2.length>0)" ng-click="openNotes(data);$event.stopPropagation();"></div>
         </td>
 
         <td class="table-cell-patterns sub-border-right-table ng-binding alarm-column-width">
-            <div ng-click="open(data.id, data.name, '', data.patTyp, data.priceAlert, data.conditionAlert, data.lastQuote); $event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
+            <div ng-click="open(data.id, data.name, data.name2, null, data.priceAlert, data.conditionAlert, data.lastPerformance);$event.stopPropagation();" class="blue-text" ng-class="{'alarm-icon': data.priceAlert == null ,'has-alarm-icon' : data.priceAlert != null}">
                 <div style="margin-top: 10px;">
                     <span ng-show="data.conditionAlert == 'GREATER_THAN' &&  data.priceAlert != null">{{'FOLLOW.gt'|translate}}</span>
                     <span ng-show="data.conditionAlert == 'LESS_THAN' &&  data.priceAlert != null">{{'FOLLOW.lt'|translate}}</span>
@@ -163,7 +170,6 @@
                 </div>
             </div>
         </td>
-
     </tr>
 
 
@@ -173,6 +179,7 @@
 <div class="invisible-div">
     <div data-ng-repeat="data in myData">
         <img src="{{data.priceChartURL}}">
-        <img src="{{data.volatilityChartURL}}">
+        <img src="{{data.priceChartURL2}}">
+        <img src="{{data.pairVolatilityChartURL}}">
     </div>
 </div>

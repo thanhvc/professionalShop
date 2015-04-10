@@ -186,6 +186,13 @@ angular.module('ngMo.home', [
                         value: 3,
                         futuresContent: $scope.myData.firstTable.FUTURE.FUTURE,
                         url: 'home/tables_packs/futures_table.tpl.html'
+                    },
+                    {
+                        title: 'FOREX',
+                        active: ActiveTabService.activeTab() === 4,
+                        value: 4,
+                        futuresContent: $scope.myData.firstTable.FOREX.FOREX,
+                        url: 'home/tables_packs/forex_table.tpl.html'
                     }
                 ];
 
@@ -225,6 +232,13 @@ angular.module('ngMo.home', [
                             value: 3,
                             futuresContent: $scope.myData.secondTable.FUTURE.FUTURE,
                             url: 'home/tables_packs/second_futures_table.tpl.html'
+                        },
+                        {
+                            title: 'FOREX',
+                            active: SecondActiveTabService.activeTab() === 4,
+                            value: 4,
+                            futuresContent: $scope.myData.firstTable.FOREX.FOREX,
+                            url: 'home/tables_packs/second_forex_table.tpl.html'
                         }
                     ];
                 }
@@ -310,7 +324,8 @@ angular.module('ngMo.home', [
             {url: 'home/home_texts/stock_text.tpl.html'},
             {url: 'home/home_texts/pairs_text.tpl.html'},
             {url: 'home/home_texts/indices_text.tpl.html'},
-            {url: 'home/home_texts/futures_text.tpl.html'}
+            {url: 'home/home_texts/futures_text.tpl.html'},
+            {url: 'home/home_texts/forex_text.tpl.html'}
         ];
         selectedTab = ActiveTabService.activeTab();
 

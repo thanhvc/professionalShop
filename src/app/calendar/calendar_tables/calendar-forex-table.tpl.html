@@ -1,0 +1,66 @@
+<div class="calendar-filters-container">
+    <select data-ng-model="filterOptions.filters.selectMonth" class="filter-calendar"  ng-change="goToMonth()"
+            ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months">
+    </select>
+    <!--<select data-ng-model="filterOptions.filters.index_type" class="filter-calendar index-select-orange"  ng-change="selectIndexType()">
+        <option value="0">{{'INDICES'|translate}}</option>
+        <option value="1">{{'INDEX_PAIRS'|translate}}</option>
+    </select>-->
+    <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>{{'CALENDAR.favorites'|translate}}</label>
+    <form name="calendarPairIndex">
+        <input type="text" placeholder="{{'CALENDAR.day'|translate}}" ng-change="search();"
+               data-ng-model="filterOptions.filters.dayDateInput" ng-delay="3000"
+               name="dayInput"
+               ng-class=" {'warning-input':  (calendarPairIndex.dayInput.$error.pattern && (calendarPairIndex.dayInput.$dirty))}"
+               ng-pattern="dayPattern" ng-trim="false">
+        <select data-ng-model="filterOptions.filters.order" class="select-order filter-calendar" ng-change="orderSearch();" ng-delay="3000">
+            <option selected value="0">{{'CALENDAR.sort_entry'|translate}}</option>
+            <option value="1">{{'CALENDAR.sort_exit'|translate}}</option>
+        </select>
+    </form>
+</div>
+<div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>{{'CALENDAR.loading_patterns'|translate}}</span></div>
+<div class="no-patterns-container" ng-if="myData.length == 0 && !loading && appliedFilters"><span >{{'CALENDAR.no_patterns_with_condition'|translate}}</span></div>
+<div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">{{'CALENDAR.no_patterns_in_month'|translate}}</div>
+<div ng-show="myData.length >0">
+    <table class="calendar-table">
+        <thead>
+        <tr>
+            <th>Par</th>
+            <th ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">{{('CALENDAR.DAYS.'+day.dayOfWeek)|translate}}<br/>{{day.dayOfMonth}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pattern in myData">
+            <td class="pair-pattern" ui-sref="pairDetail({patternId:pattern.id})">
+                <div class="text-limitator-calendar">
+                    <span class="buy-color" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName}}</span>
+                </div>
+                <div class="text-limitator-calendar">
+                    <span class="sell-color" tooltip="{{pattern.bearishAsset.longName}} ({{pattern.bearishAsset.exchange.name}})">{{pattern.bearishAsset.longName}}</span>
+                </div>
+            </td>
+            <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
+                <!--  <span ng-show="day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="pairs-letter calendar-letter">P</span>
+                  <span ng-show="day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="pairs-letter calendar-letter">P</span> -->
+
+                <span ng-show="mustPaint(day,pattern)" class="pairs-letter calendar-letter">P</span>
+            </td>
+        </tr>
+
+        </tbody>
+
+
+    </table>
+</div>
+<div class="copyright">
+    Copyright © {{actualDate | date: 'yyyy'}} Market Observatory
+</div>
+<!--pagination-->
+<div class="pagination-container" style="margin-top:72px; clear:both; margin-bottom:20px;" ng-show="results > 15">
+    <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                next-text="&gt;"
+                first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+</div>

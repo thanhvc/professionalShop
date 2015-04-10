@@ -14,16 +14,10 @@
                             ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months">
                     </select></td>
                 <td>
-                    <select ng-change="selectIndexType()" ng-model="filterOptions.filters.index_type" class="input-op-volat index-select-orange">
+                    <select ng-change="selectIndexType()" ng-model="filterOptions.filters.index_type" class="index-select-orange">
                         <option value="0">{{'INDICES'|translate}}</option>
                         <option value="1">{{'INDEX_PAIRS'|translate}}</option>
                     </select>
-                </td>
-                <td><select ng-change="search()" class="border-filters select-filter input-op-volat"
-                            ng-options="item.description | translate for item in filterOptions.selectors.operationsIndex"
-                            data-ng-model="filterOptions.filters.selectedOperation">
-                    <option value="">- {{'TOOLS.operation'|translate}} -</option>
-                </select>
                 </td>
                 <td class="td-volatility-filter" style="width:145px;">  <form name="rentForm">
                     <select class="border-filters select-filter select-filter input-op-volat"
@@ -34,7 +28,7 @@
                     </select>
                     <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
-                           style="margin-left: 2px;"  ng-delay="2000"
+                           style="margin-left: 2px;" ng-delay="2000"
                            ng-change="searchVolat();"
                            ng-class=" {'warning-input':  (rentForm.volatilityInput.$error.pattern && (rentForm.volatilityInput.$dirty))}"
                            data-ng-model="filterOptions.filters.volatilityInput">
@@ -54,3 +48,4 @@
 </div>
 </div>
 
+app
