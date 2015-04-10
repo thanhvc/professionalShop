@@ -160,13 +160,13 @@
 }
 
 @keyframes move-panel{
-  from {left: 1500px; }
-  to {left: 0px;}
+  from {left: 90px; opacity:0;}
+  to {left: 0px; opacity:1;}
 }
 
 @-webkit-keyframes move-panel{
-  from {left: 1500px; }
-  to {left: 0px; }
+  from {left: 90px;opacity:0; }
+  to {left: 0px; opacity: 1;}
 }
 
 .move-right{
@@ -178,29 +178,86 @@
 }
 
 @keyframes hide-move-panel{
-  from {left: 0px;}
-  to {left: 1500px;}
+  from {left: 0px; opacity: 1;}
+  to {left: 90px; opacity: 0;}
 }
 
 @-webkit-keyframes hide-move-panel{
-  from {left: 0px; }
-  to {left: 1500px;}
+  from {left: 0px; opacity: 1;}
+  to {left: 90px; opacity: 0;}
+}
+
+.move-right-detail{
+  //left: 1500px;
+  animation: hide-move-panel-detail 1s;
+  -webkit-animation: hide-move-panel-detail 1s;
+  -moz-animation: hide-move-panel-detail 1s;
+  -o-animation: hide-move-panel-detail 1s;
+}
+
+.move {
+  /*-webkit-transition:all 1s;
+  -webkit-transform: translateX(-90px);
+  -moz-transition:all 1s;
+  -moz-transform: translateX(-90px);*/
+  animation: move-panel 1s;
+  -webkit-animation: move-panel 1s;
+  -moz-animation: move-panel 1s;
+  -o-animation: move-panel 1s;
+
 }
 
 
-.move {
-  -webkit-transition:all 1s;
-  -webkit-transform: translateX(-350px);
-  -moz-transition:all 1s;
-  -moz-transform: translateX(-350px);
 
+.move-detail {
+  animation: move-panel-detail 1s;
+  -webkit-animation: move-panel-detail 1s;
+  -moz-animation: move-panel-detail 1s;
+  -o-animation: move-panel-detail 1s;
+
+}
+
+
+@keyframes move-panel-detail{
+  from {left: 180px; opacity:0;}
+  to {left: 75px; opacity:1;}
+}
+
+@-webkit-keyframes move-panel-detail{
+  from {left: 180px;opacity:0; }
+  to {left: 75px; opacity: 1;}
+}
+
+
+@keyframes hide-move-panel{
+  from {left: 0px; opacity: 1;}
+  to {left: 90px; opacity: 0;}
+}
+
+@-webkit-keyframes hide-move-panel{
+  from {left: 0px; opacity: 1;}
+  to {left: 90px; opacity: 0;}
+}
+
+@keyframes hide-move-panel-detail{
+  from {left: 75px; opacity: 1;}
+  to {left: 180px; opacity: 0;}
+}
+
+@-webkit-keyframes hide-move-panel-detail{
+  from {left: 75px; opacity: 1;}
+  to {left: 180px; opacity: 0;}
 }
 
 .move-to-the-right {
-  -webkit-transition: all 1s;
-  -webkit-transform: translateX(650px);
+  /*-webkit-transition: all 1s;
+  -webkit-transform: translateX(90px);
   -moz-transition: all 1s;
-  -moz-transform: translateX(650px);
+  -moz-transform: translateX(90px);*/
+  animation: hide-move-panel 1s;
+  -webkit-animation: hide-move-panel 1s;
+  -moz-animation: hide-move-panel 1s;
+  -o-animation: hide-move-panel 1s;
 }
 
 .diary-tabla-mail-text {

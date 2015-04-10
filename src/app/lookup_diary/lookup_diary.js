@@ -592,18 +592,17 @@ angular.module('ngMo.lookup_diary', [
 
         $scope.closeGraph = function() {
             if (typeof $scope.graph !== "undefined" && $scope.graph != null) {
-                setTimeout(function(){
+
                     //event.srcElement.parentElement.className ='graphic-div';
                     $scope.graph.className='div-graph-lookup-diary move-to-the-right';
-                    $scope.graph.addEventListener('transitionend', function(event2) {
+                    $timeout(function() {
                         if ($scope.graph != null) {
                             $scope.graph.style.cssText = 'display:none';
                             $scope.graph.parentNode.removeChild($scope.graph);//remove the htmlDom object
                             $scope.graph = null;
                         }
 
-                    });
-                },0);
+                    },1000);
             }
         };
         //open a graph and sve it to $scope.graph
@@ -685,19 +684,17 @@ angular.module('ngMo.lookup_diary', [
             elemDiv.appendChild(containerTitle);
             elemDiv.appendChild(closeButton);
             elemDiv.appendChild(img);
-            $timeout(function(){
+            elemDiv.className+=' move';
+            //$timeout(function(){
                 if (typeof inputEvent.srcElement !== "undefined") {
-                    inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
+                    inputEvent.srcElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
                 } else if (typeof inputEvent.target !== "undefined") {
                     inputEvent.target.parentElement.parentElement.parentElement.parentElement.insertBefore(elemDiv, null);
                 }
 
-                $timeout(function(){
-                    elemDiv.className+=' move';
 
-                },0);
                 $scope.graph = elemDiv;
-            },50);
+            //},50);
             return 0;
 
         };
