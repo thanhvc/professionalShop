@@ -94,7 +94,9 @@ angular.module('ngMo.portfolio', [
                     "filter": 'tools/portfolio/filters/index_filters.tpl.html'},
 
             {"table": 'tools/portfolio/tables/pairs_index_table.tpl.html',
-                    "filter": 'tools/portfolio/filters/pairs_index_filters.tpl.html'}
+                    "filter": 'tools/portfolio/filters/pairs_index_filters.tpl.html'},
+            {"table": 'tools/portfolio/tables/forex_table.tpl.html',
+                "filter": 'tools/portfolio/filters/forex_filters.tpl.html'}
 
         ];
 
@@ -189,6 +191,8 @@ angular.module('ngMo.portfolio', [
                     break;
                 case 3:     //futures
                     $scope.refreshSelectors(['markets']);
+                    break;
+                case 4:     //forex
                     break;
             }
 
@@ -820,6 +824,8 @@ angular.module('ngMo.portfolio', [
                         break;
                     case 3:     //futures
                         $scope.refreshSelectors(['markets']);
+                        break;
+                    case 4:         //forex
                         break;
                 }
             }

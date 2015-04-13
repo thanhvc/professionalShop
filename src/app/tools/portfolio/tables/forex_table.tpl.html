@@ -1,0 +1,71 @@
+<div class="portfolio-tools-container" style="height: 660px;">
+    <table style="width: 450px;float:left;" class="table-portfolio">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>{{'TOOLS.name'|translate}}</td>
+            <td>{{'TOOLS.month'|translate}}</td>
+            <td>{{'TOOLS.remove'|translate}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pattern in myData"  ng-class="{'disabled-asset': !pattern.toUse}">
+            <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
+            <td class="pair-index-lenght-table">
+                <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
+                        >{{pattern.name | limitTo: 22}}</span>
+                <br>
+                <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
+                        >{{pattern.name2 | limitTo: 22}}</span>
+            </td>
+            <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
+            <td class="portfolio-button"><span ng-class="{'disable-arrow': portfolioList.length >= 20|| (!pattern.toUse)}" ng-click="addToPortfolioList(pattern);">>></span></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <div style="padding-top: 20px;">
+                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>{{'TOOLS.loading_patterns'|translate}}</span></div>
+                    <span ng-if="myData.length == 0 && !loading && appliedFilters">{{'TOOLS.no_patterns_with_condition'|translate}}</span>
+                    <span ng-show="myData.length==0 && !loading && !appliedFilters">{{'TOOLS.no_patterns_in_month'|translate}}</span>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <div style="float:right;">
+        <table style="width: 450px;" class="table-portfolio">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>{{'TOOLS.name'|translate}}</td>
+                <td>{{'TOOLS.month'|translate}}</td>
+                <td><span tooltip="{{'TOOLS.favorite_long'|translate}}" class="cursor-help">{{'TOOLS.favorite_short'|translate}}</span></td>
+                <td>{{'TOOLS.remove'|translate}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pattern in portfolioList">
+                <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
+                <td class="pair-index-lenght-table">
+                    <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
+                            >{{pattern.name | limitTo: 22}}</span>
+                    <br>
+                    <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
+                            >{{pattern.name2 | limitTo: 22}}</span>
+                </td>
+                <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
+                <td style="width: 32px;" class="table-cell-patterns border-right-table">
+                    <div class="current-favourite cursor-pointer" tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavoriteFromList(pattern.id,pattern.fav);"
+                         ng-class="{'favourite-added': pattern.fav == true}"></div>
+                </td>
+                <td class="portfolio-button" style="width:80px;"><span ng-click="deleteFromPortfolioList(pattern);"><<</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="width: 450px;float:right;">
+            <span class="portfolio-note">{{'TOOLS.include_text'|translate}}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div >
+    <table  class="pairs-table-vol volat-table" cellpadding="0" cellspacing="0">
+        <colgroup span="5"></colgroup>
+        <thead >
+        <tr  class="pairs-index-header">
+            <th >
+                <span class="pairs-index-company" >{{'TOOLS.indices'|translate}}</span>
+            </th>
+            <th >
+                <span style="padding-left:5px;">{{'TOOLS.volatility'|translate}} (%)</span>
+            </th>
+            <th >
+                <span class="pairs-index-date">{{'TOOLS.vol_date'|translate}}</span>
+            </th>
+            <th >
+                <span class="pairs-index-vol">{{'TOOLS.vol_pair'|translate}} (%)</span>
+            </th>
+            <th  >
+                <span class="pairs-index-fav" tooltip-html-unsafe="{{'TOOLS.favorite_long'|translate}}">{{'TOOLS.favorite_short'|translate}}</span>
+            </th>
+        </tr>
+        </thead>
+        <tbody class="pairs-tbody">
+        <tr ng-repeat="data in myData" ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style="font-size:10px;">
+            <td  class="pairs-market-value">
+                <div class="text-limitator">
+            <span class="cursor-help buy-color"
+                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
+                {{data.name}} ({{data.exchSymbol}})
+            </span>
+                </div>
+                <div class="text-limitator">
+            <span class="cursor-help sell-color"
+                  tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
+                {{data.name2}} ({{data.exchSymbol2}})
+            </span>
+                </div>
+            </td>
+
+            <td  class="pairs-vol-value">
+                <a ng-if="data.volat >= 0" ng-click="loadGraphic($event,data.name,'BULLISH',null,false,data.volatChartURL);$event.stopPropagation();" >{{data.volat | volatTruncate}}</a>
+                <span ng-if="data.volat < 0">N/A</span><br/>
+                <a ng-if="data.volat2 >= 0" ng-click="loadGraphic($event,data.name2,'BEARISH',null,false,data.volatChartURL2);$event.stopPropagation();">{{data.volat2 | volatTruncate}}</a>
+                <span ng-if="data.volat2 < 0">N/A</span>
+            </td>
+            <td class="black-font-pairs" >
+                <span ng-if="data.lastDate2 < data.lastDate">{{data.lastDate2 | date: 'dd MMM yyyy'}}</span>
+                <span ng-if="data.lastDate2 >= data.lastDate">{{data.lastDate | date: 'dd MMM yyyy'}}</span>
+
+
+            </td>
+            <td class="pairs-index-vol-value">
+                <a ng-if="data.volatPair >= 0" ng-click="showSelectedGraphic($event,data.name,data.patTyp,data.name2,true,data.volatPairChartURL);$event.stopPropagation();" >{{data.volatPair | volatTruncate}}</a>
+                <span ng-if="data.volatPair < 0">{{data.volatPair | twoDecimals}}</span>
+            </td>
+            <td  class="pairs-fav-value" class="table-cell-patterns border-right-table">
+                <div tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(data.id,data.name,data.name2,data.fav);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.fav == true}"></div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--preload img-->
+<div class="invisible-div">
+    <div data-ng-repeat="data in myData">
+        <img src="{{data.volatPairChartURL}}">
+        <img src="{{data.volatChartURL}}">
+        <img src="{{data.volatChartURL2}}">
+    </div>
+</div>

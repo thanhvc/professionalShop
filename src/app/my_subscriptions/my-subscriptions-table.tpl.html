@@ -1,6 +1,6 @@
 
 <tabset>
-    <tab ng-click="onClickTab(mySubscriptionsTablePack.value)" ng-repeat="mySubscriptionsTablePack in mySubscriptionsTablePacks" heading="{{mySubscriptionsTablePack.title | translate}}" active="mySubscriptionsTablePack.active" disabled="tab.disabled">
+    <tab class="tab-size-subscription" ng-click="onClickTab(mySubscriptionsTablePack.value)" ng-repeat="mySubscriptionsTablePack in mySubscriptionsTablePacks" heading="{{mySubscriptionsTablePack.title | translate}}" active="mySubscriptionsTablePack.active" disabled="tab.disabled">
         <!--<div ng-show="loading">
             <div class="loading-div no-patterns-container loading-subs"   ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>Cargando calendario, por favor espere...</span></div>
         </div>-->
@@ -10,5 +10,5 @@
     </tab>
 </tabset>
 <div ng-show="loading">
-    <div class="loading-div no-patterns-container loading-subs "   ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>{{'SUBSCRIPTIONS.subscription_loading' | translate}}</span></div>
+    <div class="loading-div no-patterns-container loading-subs " style="width:810px;"   ng-show="loading"><img src="assets/img/ajax-loader.gif" class="loading-gif"><span>{{'SUBSCRIPTIONS.subscription_loading' | translate}}</span></div>
 </div>

@@ -100,7 +100,9 @@ angular.module('ngMo.correlation', [
             ],
 
             {"table": 'tools/correlation/tables/futures_table.tpl.html',
-                "filter": 'tools/correlation/filters/futures_filters.tpl.html'}
+                "filter": 'tools/correlation/filters/futures_filters.tpl.html'},
+            {"table": 'tools/correlation/tables/forex_table.tpl.html',
+                "filter": 'tools/correlation/filters/forex_filters.tpl.html'}
         ];
 
 
@@ -185,6 +187,9 @@ angular.module('ngMo.correlation', [
                 case 3:     //futures
                     $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
+                case 4: //forex
+                    break;
+
             }
 
         };
@@ -939,6 +944,8 @@ angular.module('ngMo.correlation', [
                     case 3:     //futures
                         $scope.refreshSelectors(['markets']);
                         break;
+                    case 4:  //forex
+                        break;
                 }
             }
         };
@@ -962,6 +969,9 @@ angular.module('ngMo.correlation', [
                         break;
                     case 3:     //futures
                         productType = "Futuros";
+                        break;
+                    case 4:
+                        productType ="Forex";
                         break;
                 }
                 var filename = "correlation-" + productType + ".pdf";
@@ -1001,6 +1011,9 @@ angular.module('ngMo.correlation', [
                         break;
                     case 3:     //futures
                         productType = "Futuros";
+                        break;
+                    case 4:
+                        productType= "Forex";
                         break;
                 }
                 var filename = "correlation-" + productType + ".xls";

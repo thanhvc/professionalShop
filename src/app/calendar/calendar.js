@@ -75,7 +75,8 @@ angular.module('ngMo.calendar', [
             'calendar/calendar_tables/calendar-pairs-table.tpl.html',
             'calendar/calendar_tables/calendar-indices-table.tpl.html',
             'calendar/calendar_tables/calendar-futures-table.tpl.html',
-            'calendar/calendar_tables/calendar-pairs-indices-table.tpl.html'
+            'calendar/calendar_tables/calendar-pairs-indices-table.tpl.html',
+            'calendar/calendar_tables/calendar-forex-table.tpl.html'
         ];
 
         $scope.pagingOptions = {
@@ -178,6 +179,10 @@ angular.module('ngMo.calendar', [
                 case 3:     //futures
                     $scope.refreshSelectors(['markets']);
                     break;
+                case 4:     //forex
+                    break;
+
+
             }
         };
         //synchronize the selector with the month of the filter
@@ -348,6 +353,8 @@ angular.module('ngMo.calendar', [
                     case 3:     //futures
                         $scope.refreshSelectors(['markets']);
                         break;
+                    case 4: //forex
+                        break;
                 }
             }
         };
@@ -471,6 +478,8 @@ angular.module('ngMo.calendar', [
                     case 3:     //futures
                         $scope.refreshSelectors(['markets']);
                         break;
+                    case 4: //forex
+                        break;
                 }
                 $scope.changingOrder=false;
             }
@@ -582,6 +591,9 @@ angular.module('ngMo.calendar', [
                 }
 
             } else {
+                if (parseInt(idTab, 10) === 4) {
+                    return 5; //special case Forex
+                }
                 return idTab;
             }
         };
