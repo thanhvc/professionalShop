@@ -27,6 +27,7 @@ Catalog.prototype =  Object.create({}, {
     getPattern:{value: function(row){
         return element.all(by.repeater("pattern in patterns")).get(row);
     }},
+    //stocks and pairs methods
     getPatternName:{value: function(row){
         return this.getPattern(row).all(by.css("td")).get(0);
     }},
@@ -62,6 +63,7 @@ Catalog.prototype =  Object.create({}, {
         };
         return this.getPattern(row).all(by.css("td")).get(9).element(by.css(type_map[type]));
     }},
+    //pairs methods
     getPairPatternName:{value: function(row,index){
         return this.getPatternName(row).all(by.css("span")).get(index);
     }},
@@ -70,6 +72,39 @@ Catalog.prototype =  Object.create({}, {
     }},
     getPairPatternSectorIndustry:{value: function(row,index){
         return this.getPatternSectorIndustry(row).all(by.css("div.sector-industry-pair-breaker")).get(index);
+    }},
+    //Indices methods
+    getIndexPatternIssuer:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(1);
+    }},
+    getIndexPairPatternIssuer:{value: function(row,index){
+        return this.getPattern(row).all(by.css("td")).get(1).all(by.css("span")).get(index);
+    }},
+    getIndexPatternWin:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(2);
+    }},
+    getIndexPatternLoss:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(3);
+    }},
+    getIndexPatternAccumulatedReturn:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(4);
+    }},
+    getIndexPatternAverageReturn:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(5);
+    }},
+    getIndexPatternDuration:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(6);
+    }},
+    getIndexPatternVolatility:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(7);
+    }},
+    getIndexPatternStatus:{value: function(row,type){
+        var type_map = {
+            'not_started': 'div.state-sphere.no-started-state',
+            'started': 'div.state-sphere.started-state',
+            'finished': 'div.state-sphere.finished-state'
+        };
+        return this.getPattern(row).all(by.css("td")).get(8).element(by.css(type_map[type]));
     }},
     //filters
     getNameFilter:{value: function(){

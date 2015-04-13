@@ -1473,6 +1473,46 @@ FUTURE    | Futuros                         |
     var indices_fixtures = fixture_helper.generate_pack_fixtures(indices_fixture_data,indices_fixture_options);
     fixtures = fixtures.concat(indices_fixtures);
 
+    //create indices patterns for INDEX Pack I in November 2014
+    var indices_patterns_fixture_data = { 
+        pack_code: 'INDEX-S-1', type: 'indices', quantity: 50, first_id: 401,
+        entry_dates: ['2014-11-01','2014-11-05','2014-11-14','2014-11-15','2014-11-30'],
+        exit_dates: ['2014-11-13','2014-11-20','2014-12-05','2014-12-15','2015-01-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EX1','EX2','EX3']
+    };
+    var indices_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(indices_patterns_fixture_data);
+    fixtures = fixtures.concat(indices_patterns_fixtures);
+
+    //create indices patterns for INDEX Pack I in December 2014
+    var indices_patterns_fixture_data = { 
+        pack_code: 'INDEX-S-1', type: 'indices', quantity: 50, first_id: 451,
+        entry_dates: ['2014-12-01','2014-12-05','2014-12-14','2014-12-15','2014-12-31'],
+        exit_dates: ['2014-12-13','2014-12-20','2015-01-05','2015-01-15','2015-02-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EX1','EX2','EX3']
+    };
+    var indices_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(indices_patterns_fixture_data);
+    fixtures = fixtures.concat(indices_patterns_fixtures);
+
+    //create indices patterns for INDEX Pack I in January 2015
+    var indices_patterns_fixture_data = { 
+        pack_code: 'INDEX-S-1', type: 'indices', quantity: 50, first_id: 501, 
+        entry_dates: ['2015-01-01','2015-01-05','2015-01-14','2015-01-15','2015-01-31'],
+        exit_dates: ['2015-01-13','2015-01-20','2015-02-05','2015-02-15','2015-03-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EX1','EX2','EX3']
+    };
+    var indices_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(indices_patterns_fixture_data);
+    fixtures = fixtures.concat(indices_patterns_fixtures);
+
+
     //indices pairs packs and published packs
     var indices_pairs_fixture_data = [
         { code: 'INDEX-P-1', region_code: 'INDEX', name: 'INDEX Pair Pack I',
@@ -1485,6 +1525,47 @@ FUTURE    | Futuros                         |
     };
     var indices_pairs_fixtures = fixture_helper.generate_pack_fixtures(indices_pairs_fixture_data,indices_pairs_fixture_options);
     fixtures = fixtures.concat(indices_pairs_fixtures);
+
+    //create indices pairs patterns for INDEX Pair Pack I in November 2014
+    var indices_patterns_fixture_data = { 
+        pack_code: 'INDEX-P-1', type: 'indices_pairs', quantity: 50, first_id: 551, reverse_pair_assets: 1,
+        entry_dates: ['2014-11-01','2014-11-05','2014-11-14','2014-11-15','2014-11-30'],
+        exit_dates: ['2014-11-13','2014-11-20','2014-12-05','2014-12-15','2015-01-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EX1','EX2','EX3']
+    };
+    var indices_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(indices_patterns_fixture_data);
+    fixtures = fixtures.concat(indices_patterns_fixtures);
+
+    //create indices pairs patterns for INDEX Pair Pack I in December 2014
+    var indices_patterns_fixture_data = { 
+        pack_code: 'INDEX-P-1', type: 'indices_pairs', quantity: 50, first_id: 601, reverse_pair_assets: 1,
+        entry_dates: ['2014-12-01','2014-12-05','2014-12-14','2014-12-15','2014-12-31'],
+        exit_dates: ['2014-12-13','2014-12-20','2015-01-05','2015-01-15','2015-02-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EX1','EX2','EX3']
+    };
+    var indices_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(indices_patterns_fixture_data);
+    fixtures = fixtures.concat(indices_patterns_fixtures);
+
+    //create indices pairs patterns for INDEX Pair Pack I in January 2015
+    var indices_patterns_fixture_data = { 
+        pack_code: 'INDEX-P-1', type: 'indices_pairs', quantity: 50, first_id: 651, 
+        entry_dates: ['2015-01-01','2015-01-05','2015-01-14','2015-01-15','2015-01-31'],
+        exit_dates: ['2015-01-13','2015-01-20','2015-02-05','2015-02-15','2015-03-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EX1','EX2','EX3']
+    };
+    var indices_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(indices_patterns_fixture_data);
+    fixtures = fixtures.concat(indices_patterns_fixtures);
+
+    // FUTURES ========================================================================================
 
     //futures packs and published packs
     var futures_fixture_data = [
