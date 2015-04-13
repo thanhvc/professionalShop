@@ -126,6 +126,12 @@ FixtureHelper.prototype.generate_pattern_and_its_assets_fixtures = function(info
         asset_id += '_1';
     }
     var asset_symbol = 'ASSET' + asset_id;
+    var reverse_pair_assets = info.reverse_pair_assets || 0;
+    if (include_pair && reverse_pair_assets) {
+       var tmp = asset_symbol;
+       asset_symbol = bearish_asset_symbol;
+       bearish_asset_symbol = tmp;
+    }
     var volatility = info.volatility || 19.20;
     var exchange_symbol = info.exchange_symbol || 'EX1';
     var sector = info.sector || 'sector1';
@@ -159,7 +165,7 @@ FixtureHelper.prototype.generate_pattern_and_its_assets_fixtures = function(info
     var bearish_entry_value = (include_pair ? (info.bearish_entry_value || 11) : null);
     var bearish_exit_value = (include_pair ? (info.bearish_exit_value || 22) : null);
     var daily_pair_return = (include_pair ? (info.daily_pair_return || 12.13) : null);
-    var pair_volatility = (include_pair ? (info.pair_volatility || 23) : null);
+    var pair_volatility = (include_pair ? (info.pair_volatility || info.volatility || 23) : null);
     var last_performance_date = (include_pair ? (info.last_performance_date || '2014-11-19') : null);
     var bullish_average_win = (include_pair ? (info.bullish_average_win || 14) : null);
     var bullish_average_loss = (include_pair ? (info.bullish_average_loss || 1) : null);
@@ -257,10 +263,12 @@ FixtureHelper.prototype.generate_patterns_and_assets_fixtures = function(info,op
     var exchange_symbols = info.exchange_symbols || ['EX1'];
     var sectors = info.sectors || ['sector1'];
     var industries = info.industries || ['industry1'];
+    var reverse_pair_assets = info.reverse_pair_assets || false;
 
     for (var i = 0; i < quantity; i++) {
         var params = { id: first_id + i, 
                        asset_id: first_asset_id + i,
+                       reverse_pair_assets: reverse_pair_assets,
                        pack_code: pack_code,
                        type: type
         };

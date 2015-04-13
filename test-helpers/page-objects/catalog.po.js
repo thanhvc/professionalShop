@@ -62,6 +62,15 @@ Catalog.prototype =  Object.create({}, {
         };
         return this.getPattern(row).all(by.css("td")).get(9).element(by.css(type_map[type]));
     }},
+    getPairPatternName:{value: function(row,index){
+        return this.getPatternName(row).all(by.css("span")).get(index);
+    }},
+    getPairPatternMarket:{value: function(row,index){
+        return this.getPatternMarket(row).all(by.css("span")).get(index);
+    }},
+    getPairPatternSectorIndustry:{value: function(row,index){
+        return this.getPatternSectorIndustry(row).all(by.css("div.sector-industry-pair-breaker")).get(index);
+    }},
     //filters
     getNameFilter:{value: function(){
         return element(by.model("filterOptions.filters.filterName"));
