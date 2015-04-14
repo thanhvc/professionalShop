@@ -1763,7 +1763,6 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 675 2");
                             expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 687 1");
                             expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 687 2");
-                            ptor.sleep(10000);
                         });
 
                     });//end INDEX pair Pack I
@@ -1976,7 +1975,6 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 813");
                             expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 834");
                             expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 837");
-                            ptor.sleep(10000);
                         });
                     });
 
