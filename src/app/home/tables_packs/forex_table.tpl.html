@@ -13,20 +13,21 @@
     </tr>
     </thead>
     <tbody>
-
     <tr>
-        <td class="area-cell" rowspan="{{homeTablePack.pairsIndicesContent.length + 1}}">PAR &Iacute;NDICES</td>
-        </tr>
+        <td class="area-cell" style="border-top: none;" rowspan="{{homeTablePack.forexContent.length + 1}}">{{'FOREX'|translate}}</td>
         <!-- <td colspan="3">
              <table class="table-pack">
                  <tbody>-->
-    <tr ng-repeat="pack in homeTablePack.pairsIndicesContent track by $index" ui-sref="catalog({packCode: pack.code, month: 0})"
+    <tr ng-repeat="pack in homeTablePack.forexContent track by $index"ui-sref="catalog({packCode: pack.code, month: 0})"
         ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
-        <td>{{pack.name}}</td>
+        <td><span tooltip="{{pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})">{{pack.name}}</span></td>
         <td>{{pack.scopeText}}</td>
         <td>{{pack.numPatterns}}</td>
     </tr>
-    <!-- </tbody>
+    <!--- </tbody>
  </table>-->
+    </td>
+    </tr>
+
     </tbody>
 </table>
