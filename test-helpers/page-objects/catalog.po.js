@@ -106,6 +106,36 @@ Catalog.prototype =  Object.create({}, {
         };
         return this.getPattern(row).all(by.css("td")).get(8).element(by.css(type_map[type]));
     }},
+    //Futures methods
+    getFuturePatternIssuer:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(1);
+    }},
+    getFuturePatternWin:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(2);
+    }},
+    getFuturePatternLoss:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(3);
+    }},
+    getFuturePatternAccumulatedReturn:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(4);
+    }},
+    getFuturePatternAverageReturn:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(5);
+    }},
+    getFuturePatternDuration:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(6);
+    }},
+    getFuturePatternVolatility:{value: function(row){
+        return this.getPattern(row).all(by.css("td")).get(7);
+    }},
+    getFuturePatternStatus:{value: function(row,type){
+        var type_map = {
+            'not_started': 'div.state-sphere.no-started-state',
+            'started': 'div.state-sphere.started-state',
+            'finished': 'div.state-sphere.finished-state'
+        };
+        return this.getPattern(row).all(by.css("td")).get(8).element(by.css(type_map[type]));
+    }},
     //filters
     getNameFilter:{value: function(){
         return element(by.model("filterOptions.filters.filterName"));
