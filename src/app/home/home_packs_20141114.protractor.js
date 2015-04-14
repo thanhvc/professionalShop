@@ -1462,7 +1462,7 @@ describe('Home page', function () {
                             ptor.sleep(2000);
                         });
 
-                        it("should be on catalog page", function() {
+                        it("should be on catalog page and have the correct patterns", function() {
                             expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Noviembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("FUTURES Pack I");
@@ -1470,7 +1470,7 @@ describe('Home page', function () {
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 701");
-                            expect(catalog_page.getFuturePatternIssuer(0).getText()).toBe("EX1");
+                            expect(catalog_page.getFuturePatternIssuer(0).getText()).toBe("EF1");
                             expect(catalog_page.getFuturePatternWin(0).getText()).toBe("14");
                             expect(catalog_page.getFuturePatternLoss(0).getText()).toBe("1");
                             expect(catalog_page.getFuturePatternAccumulatedReturn(0).getText()).toBe("212");
@@ -1482,7 +1482,7 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternStatus(0,'finished').isDisplayed()).toBe(true);
                             //second pattern
                             expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 702");
-                            expect(catalog_page.getFuturePatternIssuer(1).getText()).toBe("EX2");
+                            expect(catalog_page.getFuturePatternIssuer(1).getText()).toBe("EF2");
                             expect(catalog_page.getFuturePatternWin(1).getText()).toBe("12");
                             expect(catalog_page.getFuturePatternLoss(1).getText()).toBe("3");
                             expect(catalog_page.getFuturePatternAccumulatedReturn(1).getText()).toBe("101");
@@ -1494,7 +1494,7 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternStatus(1,'finished').isDisplayed()).toBe(false);
                             //third pattern
                             expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 703");
-                            expect(catalog_page.getFuturePatternIssuer(2).getText()).toBe("EX3");
+                            expect(catalog_page.getFuturePatternIssuer(2).getText()).toBe("EF3");
                             expect(catalog_page.getFuturePatternWin(2).getText()).toBe("10");
                             expect(catalog_page.getFuturePatternLoss(2).getText()).toBe("5");
                             expect(catalog_page.getFuturePatternAccumulatedReturn(2).getText()).toBe("500");
@@ -1506,7 +1506,7 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternStatus(2,'finished').isDisplayed()).toBe(false);
                             //fourth pattern
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 704");
-                            expect(catalog_page.getFuturePatternIssuer(3).getText()).toBe("EX1");
+                            expect(catalog_page.getFuturePatternIssuer(3).getText()).toBe("EF1");
                             expect(catalog_page.getFuturePatternWin(3).getText()).toBe("14");
                             expect(catalog_page.getFuturePatternLoss(3).getText()).toBe("1");
                             expect(catalog_page.getFuturePatternAccumulatedReturn(3).getText()).toBe("212");
@@ -1531,7 +1531,24 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternName(5).getText()).toBe("Long name Asset 750");
                         });
 
-                        //TODO filter by Group
+                        it("should filter catalog by group", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getIndustryFilter().sendKeys("FUT");
+                            expect(catalog_page.getIndustryFilterDropdownOption(0).getText()).toBe("Exchangefut1");
+                            expect(catalog_page.getIndustryFilterDropdownOption(1).getText()).toBe("Exchangefut2");
+                            expect(catalog_page.getIndustryFilterDropdownOption(2).getText()).toBe("Exchangefut3");
+                            catalog_page.getIndustryFilterDropdownOption(1).click();
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 702");
+                            expect(catalog_page.getFuturePatternIssuer(0).getText()).toBe("EF2");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 705");
+                            expect(catalog_page.getFuturePatternIssuer(1).getText()).toBe("EF2");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 708");
+                            expect(catalog_page.getFuturePatternIssuer(2).getText()).toBe("EF2");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 711");
+                            expect(catalog_page.getFuturePatternIssuer(3).getText()).toBe("EF2");
+                        });
 
                         it("should filter catalog by duration", function() {
                             expect(catalog_page.isCurrentPage()).toBe(true);
@@ -1610,7 +1627,25 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("104");
                         });
                         
-                        //TODO filter by all at the same time
+                        it("should filter catalog by all filters at the same time", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getIndustryFilter().sendKeys("FUT");
+                            expect(catalog_page.getIndustryFilterDropdownOption(0).getText()).toBe("Exchangefut1");
+                            expect(catalog_page.getIndustryFilterDropdownOption(1).getText()).toBe("Exchangefut2");
+                            expect(catalog_page.getIndustryFilterDropdownOption(2).getText()).toBe("Exchangefut3");
+                            catalog_page.getIndustryFilterDropdownOption(0).click();
+                            ptor.sleep(3000);
+                            catalog_page.getNameFilter().sendKeys("3");
+                            ptor.sleep(2000);
+                            catalog_page.selectDurationFilter(1); //Hasta 1 mes
+                            ptor.sleep(2000);
+                            catalog_page.selectVolatilityFilter(1); //Menos de 25%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 3");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 713");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 734");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 737");
+                        });
                     });
 
                 }); //end futures tab
@@ -1619,6 +1654,7 @@ describe('Home page', function () {
 
             describe("Next month packs", function() {
                 it("table should no be present", function() {
+                    ptor.sleep(3000);
                     expect(home.getNextMonthTableCurrentTabContent().isPresent()).toBe(false);
                 });
             });
