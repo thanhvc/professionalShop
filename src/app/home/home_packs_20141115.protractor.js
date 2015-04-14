@@ -185,7 +185,7 @@ describe('Home page', function () {
                             expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Noviembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("Canadá Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 14 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 1");
@@ -435,7 +435,7 @@ describe('Home page', function () {
                             expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Noviembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("Estados Unidos Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 14 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 151");
@@ -486,8 +486,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternAverageReturn(3).getText()).toBe("14.2");
                             expect(catalog_page.getPatternDuration(3).getText()).toBe("Hasta 1");
                             expect(catalog_page.getPatternVolatility(3).getText()).toBe("104");
-                            expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(3,'finished').isDisplayed()).toBe(false);
                         });
 
@@ -609,7 +609,7 @@ describe('Home page', function () {
                             expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Noviembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("Estados Unidos Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 14 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 201 1");
@@ -672,8 +672,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternAverageReturn(3).getText()).toBe("14.2");
                             expect(catalog_page.getPatternDuration(3).getText()).toBe("Hasta 1");
                             expect(catalog_page.getPatternVolatility(3).getText()).toBe("104");
-                            expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(3,'finished').isDisplayed()).toBe(false);
                         });
 
@@ -910,7 +910,7 @@ describe('Home page', function () {
                             expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Noviembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("Japón Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 14 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 351 1");
@@ -973,8 +973,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternAverageReturn(3).getText()).toBe("14.2");
                             expect(catalog_page.getPatternDuration(3).getText()).toBe("Hasta 1");
                             expect(catalog_page.getPatternVolatility(3).getText()).toBe("104");
-                            expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(3,'finished').isDisplayed()).toBe(false);
                         });
 
@@ -1068,7 +1068,7 @@ describe('Home page', function () {
                             expect(true).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Noviembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("INDEX Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 14 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 401");
@@ -1115,8 +1115,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternAverageReturn(3).getText()).toBe("14.2");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("Hasta 1");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("104");
-                            expect(catalog_page.getIndexPatternStatus(3,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getIndexPatternStatus(3,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getIndexPatternStatus(3,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getIndexPatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getIndexPatternStatus(3,'finished').isDisplayed()).toBe(false);
                         });
 
@@ -1238,7 +1238,7 @@ describe('Home page', function () {
                             expect(true).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Noviembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("INDEX Pair Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 14 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 551 1");
@@ -1293,8 +1293,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternAverageReturn(3).getText()).toBe("14.2");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("Hasta 1");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("104");
-                            expect(catalog_page.getIndexPatternStatus(3,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getIndexPatternStatus(3,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getIndexPatternStatus(3,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getIndexPatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getIndexPatternStatus(3,'finished').isDisplayed()).toBe(false);
                         });
 
@@ -1462,15 +1462,15 @@ describe('Home page', function () {
                             ptor.sleep(2000);
                         });
 
-                        it("should be on catalog page", function() {
+                        it("should be on catalog page and have the correct patterns", function() {
                             expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Noviembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("FUTURES Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 14 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 701");
-                            expect(catalog_page.getFuturePatternIssuer(0).getText()).toBe("EX1");
+                            expect(catalog_page.getFuturePatternIssuer(0).getText()).toBe("EF1");
                             expect(catalog_page.getFuturePatternWin(0).getText()).toBe("14");
                             expect(catalog_page.getFuturePatternLoss(0).getText()).toBe("1");
                             expect(catalog_page.getFuturePatternAccumulatedReturn(0).getText()).toBe("212");
@@ -1482,7 +1482,7 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternStatus(0,'finished').isDisplayed()).toBe(true);
                             //second pattern
                             expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 702");
-                            expect(catalog_page.getFuturePatternIssuer(1).getText()).toBe("EX2");
+                            expect(catalog_page.getFuturePatternIssuer(1).getText()).toBe("EF2");
                             expect(catalog_page.getFuturePatternWin(1).getText()).toBe("12");
                             expect(catalog_page.getFuturePatternLoss(1).getText()).toBe("3");
                             expect(catalog_page.getFuturePatternAccumulatedReturn(1).getText()).toBe("101");
@@ -1494,7 +1494,7 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternStatus(1,'finished').isDisplayed()).toBe(false);
                             //third pattern
                             expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 703");
-                            expect(catalog_page.getFuturePatternIssuer(2).getText()).toBe("EX3");
+                            expect(catalog_page.getFuturePatternIssuer(2).getText()).toBe("EF3");
                             expect(catalog_page.getFuturePatternWin(2).getText()).toBe("10");
                             expect(catalog_page.getFuturePatternLoss(2).getText()).toBe("5");
                             expect(catalog_page.getFuturePatternAccumulatedReturn(2).getText()).toBe("500");
@@ -1506,15 +1506,15 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternStatus(2,'finished').isDisplayed()).toBe(false);
                             //fourth pattern
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 704");
-                            expect(catalog_page.getFuturePatternIssuer(3).getText()).toBe("EX1");
+                            expect(catalog_page.getFuturePatternIssuer(3).getText()).toBe("EF1");
                             expect(catalog_page.getFuturePatternWin(3).getText()).toBe("14");
                             expect(catalog_page.getFuturePatternLoss(3).getText()).toBe("1");
                             expect(catalog_page.getFuturePatternAccumulatedReturn(3).getText()).toBe("212");
                             expect(catalog_page.getFuturePatternAverageReturn(3).getText()).toBe("14.2");
                             expect(catalog_page.getFuturePatternDuration(3).getText()).toBe("Hasta 1");
                             expect(catalog_page.getFuturePatternVolatility(3).getText()).toBe("104");
-                            expect(catalog_page.getFuturePatternStatus(3,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getFuturePatternStatus(3,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getFuturePatternStatus(3,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getFuturePatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getFuturePatternStatus(3,'finished').isDisplayed()).toBe(false);
                         });
 
@@ -1531,7 +1531,24 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternName(5).getText()).toBe("Long name Asset 750");
                         });
 
-                        //TODO filter by Group
+                        it("should filter catalog by group", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getIndustryFilter().sendKeys("FUT");
+                            expect(catalog_page.getIndustryFilterDropdownOption(0).getText()).toBe("Exchangefut1");
+                            expect(catalog_page.getIndustryFilterDropdownOption(1).getText()).toBe("Exchangefut2");
+                            expect(catalog_page.getIndustryFilterDropdownOption(2).getText()).toBe("Exchangefut3");
+                            catalog_page.getIndustryFilterDropdownOption(1).click();
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 702");
+                            expect(catalog_page.getFuturePatternIssuer(0).getText()).toBe("EF2");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 705");
+                            expect(catalog_page.getFuturePatternIssuer(1).getText()).toBe("EF2");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 708");
+                            expect(catalog_page.getFuturePatternIssuer(2).getText()).toBe("EF2");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 711");
+                            expect(catalog_page.getFuturePatternIssuer(3).getText()).toBe("EF2");
+                        });
 
                         it("should filter catalog by duration", function() {
                             expect(catalog_page.isCurrentPage()).toBe(true);
@@ -1610,7 +1627,25 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("104");
                         });
                         
-                        //TODO filter by all at the same time
+                        it("should filter catalog by all filters at the same time", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getIndustryFilter().sendKeys("FUT");
+                            expect(catalog_page.getIndustryFilterDropdownOption(0).getText()).toBe("Exchangefut1");
+                            expect(catalog_page.getIndustryFilterDropdownOption(1).getText()).toBe("Exchangefut2");
+                            expect(catalog_page.getIndustryFilterDropdownOption(2).getText()).toBe("Exchangefut3");
+                            catalog_page.getIndustryFilterDropdownOption(0).click();
+                            ptor.sleep(3000);
+                            catalog_page.getNameFilter().sendKeys("3");
+                            ptor.sleep(2000);
+                            catalog_page.selectDurationFilter(1); //Hasta 1 mes
+                            ptor.sleep(2000);
+                            catalog_page.selectVolatilityFilter(1); //Menos de 25%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 3");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 713");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 734");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 737");
+                        });
                     });
 
                 }); //end futures tab
@@ -1619,8 +1654,728 @@ describe('Home page', function () {
 
             describe("Next month packs", function() {
                 it("table should be present", function() {
+                    ptor.sleep(3000);
                     expect(home.getNextMonthTableCurrentTabContent().isPresent()).toBe(true);
                 });
+
+                describe("stocks tab", function() {
+                    beforeEach(function() {
+                        ptor.sleep(3000); //wait for stocks tab to load
+                    });
+         
+                    it("should have the correct month and year", function() {
+                        expect(home.getNextMonthTableCurrentTabHeader().getText()).toBe("DICIEMBRE 2014");
+                    });
+
+                    it("should have the correct packs in América", function() {
+                        expect(home.getNextMonthTableAmericaPackName(0).getText()).toBe("Canadá Pack I");
+                        expect(home.getNextMonthTableAmericaPackName(1).getText()).toBe("Canadá Pack II");
+                        expect(home.getNextMonthTableAmericaPackName(2).getText()).toBe("Estados Unidos Pack I");
+                        expect(home.getNextMonthTableAmericaPackName(3).getText()).toBe("Estados Unidos Pack II");
+                        expect(home.getNextMonthTableAmericaPackName(4).getText()).toBe("Estados Unidos Pack III");
+                        expect(home.getNextMonthTableAmericaPackName(5).getText()).toBe("Estados Unidos Pack IV");
+                        expect(home.getNextMonthTableAmericaPackName(6).getText()).toBe("Estados Unidos Pack V");
+                        expect(home.getNextMonthTableAmericaPackName(7).getText()).toBe("Estados Unidos Pack VI");
+                        expect(home.getNextMonthTableAmericaPackName(8).getText()).toBe("Estados Unidos Pack VII");
+                        expect(home.getNextMonthTableAmericaPackName(9).getText()).toBe("Estados Unidos Pack VIII");
+                        expect(home.getNextMonthTableAmericaPackName(10).getText()).toBe("Estados Unidos Pack IX");
+                        expect(home.getNextMonthTableAmericaPackName(11).getText()).toBe("Estados Unidos Pack X");
+                        expect(home.getNextMonthTableAmericaPackName(12).getText()).toBe("Latino América Pack I");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(2).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(3).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(4).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(5).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(6).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(7).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(8).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(9).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(10).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(11).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(12).getText()).toBe("30"); //odd pack with 30 patterns
+                    });
+
+                    it("should have the correct packs in Asia", function() {
+                        expect(home.getNextMonthTableAsiaPackName(0).getText()).toBe("Australia + Nueva Zelanda Pack I");
+                        expect(home.getNextMonthTableAsiaPackName(1).getText()).toBe("Australia + Nueva Zelanda Pack II");
+                        expect(home.getNextMonthTableAsiaPackName(2).getText()).toBe("China Pack I");
+                        expect(home.getNextMonthTableAsiaPackName(3).getText()).toBe("China Pack II");
+                        expect(home.getNextMonthTableAsiaPackName(4).getText()).toBe("Corea Pack I");
+                        expect(home.getNextMonthTableAsiaPackName(5).getText()).toBe("Corea Pack II");
+                        expect(home.getNextMonthTableAsiaPackName(6).getText()).toBe("India + Pakistán + Sri Lanka Pack I");
+                        expect(home.getNextMonthTableAsiaPackName(7).getText()).toBe("India + Pakistán + Sri Lanka Pack II");
+                        expect(home.getNextMonthTableAsiaPackName(8).getText()).toBe("India + Pakistán + Sri Lanka Pack III");
+                        expect(home.getNextMonthTableAsiaPackName(9).getText()).toBe("Japón Pack I");
+                        expect(home.getNextMonthTableAsiaPackName(10).getText()).toBe("Japón Pack II");
+                        expect(home.getNextMonthTableAsiaPackName(11).getText()).toBe("Japón Pack III");
+                        expect(home.getNextMonthTableAsiaPackName(12).getText()).toBe("Japón Pack IV");
+                        expect(home.getNextMonthTableAsiaPackName(13).getText()).toBe("Japón Pack V");
+                        expect(home.getNextMonthTableAsiaPackName(14).getText()).toBe("Japón Pack VI");
+                        expect(home.getNextMonthTableAsiaPackName(15).getText()).toBe("Japón Pack VII");
+                        expect(home.getNextMonthTableAsiaPackName(16).getText()).toBe("Japón Pack VIII");
+                        expect(home.getNextMonthTableAsiaPackName(17).getText()).toBe("Japón Pack IX");
+                        expect(home.getNextMonthTableAsiaPackName(18).getText()).toBe("Japón Pack X");
+                        expect(home.getNextMonthTableAsiaPackName(19).getText()).toBe("Sudeste Asiático Pack I");
+                        expect(home.getNextMonthTableAsiaPackName(20).getText()).toBe("Sudeste Asiático Pack II");
+                        expect(home.getNextMonthTableAsiaPackName(21).getText()).toBe("Taiwán Pack I");
+                        expect(home.getNextMonthTableAsiaPackName(22).getText()).toBe("Taiwán Pack II");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(2).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(3).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(4).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(5).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(6).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(7).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(8).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(9).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(10).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(11).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(12).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(13).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(14).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(15).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(16).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(17).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(18).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(19).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(20).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(21).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(22).getText()).toBe("50");
+                    });
+
+                    it("should have the correct packs in Europe", function() {
+                        expect(home.getNextMonthTableEuropePackName(0).getText()).toBe("Oriente Medio + Magreb Pack I");
+                        expect(home.getNextMonthTableEuropePackName(1).getText()).toBe("Países Nórdicos Pack I");
+                        expect(home.getNextMonthTableEuropePackName(2).getText()).toBe("Países Nórdicos Pack II");
+                        expect(home.getNextMonthTableEuropePackName(3).getText()).toBe("Reino Unido Pack I");
+                        expect(home.getNextMonthTableEuropePackName(4).getText()).toBe("Reino Unido Pack II");
+                        expect(home.getNextMonthTableEuropePackName(5).getText()).toBe("Reino Unido Pack III");
+                        expect(home.getNextMonthTableEuropePackName(6).getText()).toBe("Sudáfrica Pack I");
+                        expect(home.getNextMonthTableEuropePackName(7).getText()).toBe("Suiza + Europa del Este + Rusia Pack I");
+                        expect(home.getNextMonthTableEuropePackName(8).getText()).toBe("Zona Euro Pack I");
+                        expect(home.getNextMonthTableEuropePackName(9).getText()).toBe("Zona Euro Pack II");
+                        expect(home.getNextMonthTableEuropePackName(10).getText()).toBe("Zona Euro Pack III");
+                        expect(home.getNextMonthTableEuropePackName(11).getText()).toBe("Zona Euro Pack IV");
+                        expect(home.getNextMonthTableEuropePackName(12).getText()).toBe("Zona Euro Pack V");
+                        expect(home.getNextMonthTableEuropePackName(13).getText()).toBe("Zona Euro Pack VI");
+                        expect(home.getNextMonthTableEuropePackName(14).getText()).toBe("Zona Euro Pack VII");
+                        expect(home.getNextMonthTableEuropePackName(15).getText()).toBe("Zona Euro Pack VIII");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(2).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(3).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(4).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(5).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(6).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(7).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(8).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(9).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(10).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(11).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(12).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(13).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(14).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(15).getText()).toBe("50");
+                    });
+
+                    describe("go to Canadá Pack I catalog", function() {
+                        beforeEach(function() {
+                            ptor.sleep(2000);
+                            home.getNextMonthTableAmericaPackName(0).click();
+                            ptor.sleep(2000);
+                        });
+
+                        it("should be on catalog page and have the correct patterns", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            expect(catalog_page.getStartDateLabel().getText()).toBe("Diciembre 2014");
+                            expect(catalog_page.getPackNameLabel().getText()).toBe("Canadá Pack I");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
+                            //first pattern
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 051");
+                            expect(catalog_page.getPatternMarket(0).getText()).toBe("EC1");
+                            expect(catalog_page.getPatternSectorIndustry(0).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPatternWin(0).getText()).toBe("14");
+                            expect(catalog_page.getPatternLoss(0).getText()).toBe("1");
+                            expect(catalog_page.getPatternAccumulatedReturn(0).getText()).toBe("212");
+                            expect(catalog_page.getPatternAverageReturn(0).getText()).toBe("14.2");
+                            expect(catalog_page.getPatternDuration(0).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPatternVolatility(0).getText()).toBe("19");
+                            expect(catalog_page.getPatternStatus(0,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(0,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(0,'finished').isDisplayed()).toBe(false);
+                            //second pattern
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 052");
+                            expect(catalog_page.getPatternMarket(1).getText()).toBe("EC2");
+                            expect(catalog_page.getPatternSectorIndustry(1).getText()).toBe("Sector4 / Industry4_1");
+                            expect(catalog_page.getPatternWin(1).getText()).toBe("12");
+                            expect(catalog_page.getPatternLoss(1).getText()).toBe("3");
+                            expect(catalog_page.getPatternAccumulatedReturn(1).getText()).toBe("101");
+                            expect(catalog_page.getPatternAverageReturn(1).getText()).toBe("9.7");
+                            expect(catalog_page.getPatternDuration(1).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPatternVolatility(1).getText()).toBe("5");
+                            expect(catalog_page.getPatternStatus(1,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(1,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(1,'finished').isDisplayed()).toBe(false);
+                            //third pattern
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 053");
+                            expect(catalog_page.getPatternMarket(2).getText()).toBe("EC3");
+                            expect(catalog_page.getPatternSectorIndustry(2).getText()).toBe("Sector3 / Industry3_2");
+                            expect(catalog_page.getPatternWin(2).getText()).toBe("10");
+                            expect(catalog_page.getPatternLoss(2).getText()).toBe("5");
+                            expect(catalog_page.getPatternAccumulatedReturn(2).getText()).toBe("500");
+                            expect(catalog_page.getPatternAverageReturn(2).getText()).toBe("27.5");
+                            expect(catalog_page.getPatternDuration(2).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPatternVolatility(2).getText()).toBe("57"); //truncated
+                            expect(catalog_page.getPatternStatus(2,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(2,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(2,'finished').isDisplayed()).toBe(false);
+                            //fourth pattern
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 054");
+                            expect(catalog_page.getPatternMarket(3).getText()).toBe("EC1");
+                            expect(catalog_page.getPatternSectorIndustry(3).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPatternWin(3).getText()).toBe("14");
+                            expect(catalog_page.getPatternLoss(3).getText()).toBe("1");
+                            expect(catalog_page.getPatternAccumulatedReturn(3).getText()).toBe("212");
+                            expect(catalog_page.getPatternAverageReturn(3).getText()).toBe("14.2");
+                            expect(catalog_page.getPatternDuration(3).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPatternVolatility(3).getText()).toBe("104");
+                            expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                        });
+
+                        it("should filter catalog by asset name", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getNameFilter().sendKeys("4");
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 5");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 054");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 064");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 074");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 084");
+                            expect(catalog_page.getPatternName(4).getText()).toBe("Long name Asset 094");
+                        });
+
+                        it("should filter catalog by sector", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getSectorFilter().sendKeys("sector");
+                            ptor.sleep(1000);
+                            expect(catalog_page.getSectorFilterDropdownOption(0).getText()).toBe("Sector3");
+                            expect(catalog_page.getSectorFilterDropdownOption(1).getText()).toBe("Sector4");
+                            catalog_page.getSectorFilterDropdownOption(0).click();
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 25");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 051");
+                            expect(catalog_page.getPatternSectorIndustry(0).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 053");
+                            expect(catalog_page.getPatternSectorIndustry(1).getText()).toBe("Sector3 / Industry3_2");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 055");
+                            expect(catalog_page.getPatternSectorIndustry(2).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 057");
+                            expect(catalog_page.getPatternSectorIndustry(3).getText()).toBe("Sector3 / Industry3_2");
+                        });
+
+                        it("should filter catalog by sector and industry", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getSectorFilter().sendKeys("sector");
+                            ptor.sleep(1000);
+                            expect(catalog_page.getSectorFilterDropdownOption(0).getText()).toBe("Sector3");
+                            expect(catalog_page.getSectorFilterDropdownOption(1).getText()).toBe("Sector4");
+                            catalog_page.getSectorFilterDropdownOption(1).click();
+                            ptor.sleep(3000);
+                            catalog_page.getIndustryFilter().sendKeys("industry");
+                            expect(catalog_page.getIndustryFilterDropdownOption(0).getText()).toBe("Industry4_1");
+                            expect(catalog_page.getIndustryFilterDropdownOption(1).getText()).toBe("Industry4_2");
+                            catalog_page.getIndustryFilterDropdownOption(1).click();
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 054");
+                            expect(catalog_page.getPatternSectorIndustry(0).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 058");
+                            expect(catalog_page.getPatternSectorIndustry(1).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 062");
+                            expect(catalog_page.getPatternSectorIndustry(2).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 066");
+                            expect(catalog_page.getPatternSectorIndustry(3).getText()).toBe("Sector4 / Industry4_2");
+                        });
+
+                        it("should filter catalog by duration", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.selectDurationFilter(1); //Hasta 1 mes
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 051");
+                            expect(catalog_page.getPatternDuration(0).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 054");
+                            expect(catalog_page.getPatternDuration(1).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 057");
+                            expect(catalog_page.getPatternDuration(2).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 060");
+                            expect(catalog_page.getPatternDuration(3).getText()).toBe("Hasta 1");
+                            catalog_page.selectDurationFilter(2); //de 1 a 3 meses
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 052");
+                            expect(catalog_page.getPatternDuration(0).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 055");
+                            expect(catalog_page.getPatternDuration(1).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 058");
+                            expect(catalog_page.getPatternDuration(2).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 061");
+                            expect(catalog_page.getPatternDuration(3).getText()).toBe("De 1 a 3");
+                            catalog_page.selectDurationFilter(3); //Más de 3 meses
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 16");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 053");
+                            expect(catalog_page.getPatternDuration(0).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 056");
+                            expect(catalog_page.getPatternDuration(1).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 059");
+                            expect(catalog_page.getPatternDuration(2).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 062");
+                            expect(catalog_page.getPatternDuration(3).getText()).toBe("Más de 3");
+                        });
+
+                        it("should filter catalog by volatility", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.selectVolatilityFilter(1); //Menos de 25%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 26");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 051");
+                            expect(catalog_page.getPatternVolatility(0).getText()).toBe("19");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 052");
+                            expect(catalog_page.getPatternVolatility(1).getText()).toBe("5");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 055");
+                            expect(catalog_page.getPatternVolatility(2).getText()).toBe("19");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 056");
+                            expect(catalog_page.getPatternVolatility(3).getText()).toBe("5");
+                            catalog_page.selectVolatilityFilter(2); //Entre 25% y 50%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 0");
+                            catalog_page.selectVolatilityFilter(3); //Entre 50% y 75%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 053");
+                            expect(catalog_page.getPatternVolatility(0).getText()).toBe("57");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 057");
+                            expect(catalog_page.getPatternVolatility(1).getText()).toBe("57");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 061");
+                            expect(catalog_page.getPatternVolatility(2).getText()).toBe("57");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 065");
+                            expect(catalog_page.getPatternVolatility(3).getText()).toBe("57");
+                            catalog_page.selectVolatilityFilter(4); //Más de 75%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 054");
+                            expect(catalog_page.getPatternVolatility(0).getText()).toBe("104");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 058");
+                            expect(catalog_page.getPatternVolatility(1).getText()).toBe("104");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 062");
+                            expect(catalog_page.getPatternVolatility(2).getText()).toBe("104");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 066");
+                            expect(catalog_page.getPatternVolatility(3).getText()).toBe("104");
+                        });
+
+                        it("should filter catalog by all filters at the same time", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getSectorFilter().sendKeys("sector");
+                            ptor.sleep(1000);
+                            expect(catalog_page.getSectorFilterDropdownOption(0).getText()).toBe("Sector3");
+                            expect(catalog_page.getSectorFilterDropdownOption(1).getText()).toBe("Sector4");
+                            catalog_page.getSectorFilterDropdownOption(0).click();
+                            ptor.sleep(3000);
+                            catalog_page.getIndustryFilter().sendKeys("industry");
+                            expect(catalog_page.getIndustryFilterDropdownOption(0).getText()).toBe("Industry3_1");
+                            expect(catalog_page.getIndustryFilterDropdownOption(1).getText()).toBe("Industry3_2");
+                            catalog_page.getIndustryFilterDropdownOption(0).click();
+                            ptor.sleep(3000);
+                            catalog_page.getNameFilter().sendKeys("7");
+                            ptor.sleep(2000);
+                            catalog_page.selectDurationFilter(1); //Hasta 1 mes
+                            ptor.sleep(2000);
+                            catalog_page.selectVolatilityFilter(1); //Menos de 25%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 2");
+                            //first pattern
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 075");
+                            expect(catalog_page.getPatternMarket(0).getText()).toBe("EC1");
+                            expect(catalog_page.getPatternSectorIndustry(0).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPatternWin(0).getText()).toBe("14");
+                            expect(catalog_page.getPatternLoss(0).getText()).toBe("1");
+                            expect(catalog_page.getPatternAccumulatedReturn(0).getText()).toBe("212");
+                            expect(catalog_page.getPatternAverageReturn(0).getText()).toBe("14.2");
+                            expect(catalog_page.getPatternDuration(0).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPatternVolatility(0).getText()).toBe("19");
+                            expect(catalog_page.getPatternStatus(0,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(0,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(0,'finished').isDisplayed()).toBe(false);
+                            //second pattern
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 087");
+                            expect(catalog_page.getPatternMarket(1).getText()).toBe("EC1");
+                            expect(catalog_page.getPatternSectorIndustry(1).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPatternWin(1).getText()).toBe("14");
+                            expect(catalog_page.getPatternLoss(1).getText()).toBe("1");
+                            expect(catalog_page.getPatternAccumulatedReturn(1).getText()).toBe("212");
+                            expect(catalog_page.getPatternAverageReturn(1).getText()).toBe("14.2");
+                            expect(catalog_page.getPatternDuration(1).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPatternVolatility(1).getText()).toBe("19");
+                            expect(catalog_page.getPatternStatus(1,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(1,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(1,'finished').isDisplayed()).toBe(false);
+                        });
+
+                    }); //end go to Canadá Pack I catalog
+
+                }); //end stocks tab
+
+                describe("pairs tab", function() {
+                    beforeEach(function() {
+                        ptor.sleep(3000); //wait for tables to load
+                        home.goToNextMonthTab('pairs');
+                        ptor.sleep(3000); //wait for pairs tab to load
+                    });
+         
+                    it("should have the correct month and year", function() {
+                        expect(home.getNextMonthTableCurrentTabHeader().getText()).toBe("DICIEMBRE 2014");
+                    });
+
+                    it("should have the correct packs in América", function() {
+                        expect(home.getNextMonthTableAmericaPackName(0).getText()).toBe("Estados Unidos Pack I");
+                        expect(home.getNextMonthTableAmericaPackName(1).getText()).toBe("Estados Unidos Pack II");
+                        expect(home.getNextMonthTableAmericaPackName(2).getText()).toBe("Estados Unidos Pack III");
+                        expect(home.getNextMonthTableAmericaPackName(3).getText()).toBe("Estados Unidos Pack IV");
+                        expect(home.getNextMonthTableAmericaPackName(4).getText()).toBe("Estados Unidos Pack V");
+                        expect(home.getNextMonthTableAmericaPackName(5).getText()).toBe("Estados Unidos Pack VI");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(2).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(3).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(4).getText()).toBe("50");
+                        expect(home.getNextMonthTableAmericaPackNumPatterns(5).getText()).toBe("50");
+                    });
+
+                    it("should have the correct packs in Asia", function() {
+                        expect(home.getNextMonthTableAsiaPackName(0).getText()).toBe("Japón Pack I");
+                        expect(home.getNextMonthTableAsiaPackName(1).getText()).toBe("Japón Pack II");
+                        expect(home.getNextMonthTableAsiaPackName(2).getText()).toBe("Japón Pack III");
+                        expect(home.getNextMonthTableAsiaPackName(3).getText()).toBe("Japón Pack IV");
+                        expect(home.getNextMonthTableAsiaPackName(4).getText()).toBe("Japón Pack V");
+                        expect(home.getNextMonthTableAsiaPackName(5).getText()).toBe("Japón Pack VI");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(2).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(3).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(4).getText()).toBe("50");
+                        expect(home.getNextMonthTableAsiaPackNumPatterns(5).getText()).toBe("50");
+                    });
+
+                    it("should have the correct packs in Europe", function() {
+                        expect(home.getNextMonthTableEuropePackName(0).getText()).toBe("Zona Euro Pack I");
+                        expect(home.getNextMonthTableEuropePackName(1).getText()).toBe("Zona Euro Pack II");
+                        expect(home.getNextMonthTableEuropePackName(2).getText()).toBe("Zona Euro Pack III");
+                        expect(home.getNextMonthTableEuropePackName(3).getText()).toBe("Zona Euro Pack IV");
+                        expect(home.getNextMonthTableEuropePackName(4).getText()).toBe("Zona Euro Pack V");
+                        expect(home.getNextMonthTableEuropePackName(5).getText()).toBe("Zona Euro Pack VI");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(2).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(3).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(4).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(5).getText()).toBe("50");
+                    });
+
+                    describe("go to Estados Unidos Pack I catalog", function() {
+                        beforeEach(function() {
+                            ptor.sleep(2000);
+                            home.getNextMonthTableAmericaPackName(0).click();
+                            ptor.sleep(2000);
+                        });
+
+                        it("should be on catalog page and have the correct patterns", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            expect(catalog_page.getStartDateLabel().getText()).toBe("Diciembre 2014");
+                            expect(catalog_page.getPackNameLabel().getText()).toBe("Estados Unidos Pack I");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
+                            //first pattern
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 251 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 251 2");
+                            expect(catalog_page.getPairPatternMarket(0,0).getText()).toBe("EX1");
+                            expect(catalog_page.getPairPatternMarket(0,1).getText()).toBe("EX1");
+                            expect(catalog_page.getPairPatternSectorIndustry(0,0).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPairPatternSectorIndustry(0,1).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPatternWin(0).getText()).toBe("14");
+                            expect(catalog_page.getPatternLoss(0).getText()).toBe("1");
+                            expect(catalog_page.getPatternAccumulatedReturn(0).getText()).toBe("212");
+                            expect(catalog_page.getPatternAverageReturn(0).getText()).toBe("14.2");
+                            expect(catalog_page.getPatternDuration(0).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPatternVolatility(0).getText()).toBe("19");
+                            expect(catalog_page.getPatternStatus(0,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(0,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(0,'finished').isDisplayed()).toBe(false);
+                            //second pattern
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 252 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 252 2");
+                            expect(catalog_page.getPairPatternMarket(1,0).getText()).toBe("EX2");
+                            expect(catalog_page.getPairPatternMarket(1,1).getText()).toBe("EX2");
+                            expect(catalog_page.getPairPatternSectorIndustry(1,0).getText()).toBe("Sector4 / Industry4_1");
+                            expect(catalog_page.getPairPatternSectorIndustry(1,1).getText()).toBe("Sector4 / Industry4_1");
+                            expect(catalog_page.getPatternWin(1).getText()).toBe("12");
+                            expect(catalog_page.getPatternLoss(1).getText()).toBe("3");
+                            expect(catalog_page.getPatternAccumulatedReturn(1).getText()).toBe("101");
+                            expect(catalog_page.getPatternAverageReturn(1).getText()).toBe("9.7");
+                            expect(catalog_page.getPatternDuration(1).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPatternVolatility(1).getText()).toBe("5");
+                            expect(catalog_page.getPatternStatus(1,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(1,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(1,'finished').isDisplayed()).toBe(false);
+                            //third pattern
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 253 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 253 2");
+                            expect(catalog_page.getPairPatternMarket(2,0).getText()).toBe("EX3");
+                            expect(catalog_page.getPairPatternMarket(2,1).getText()).toBe("EX3");
+                            expect(catalog_page.getPairPatternSectorIndustry(2,0).getText()).toBe("Sector3 / Industry3_2");
+                            expect(catalog_page.getPairPatternSectorIndustry(2,1).getText()).toBe("Sector3 / Industry3_2");
+                            expect(catalog_page.getPatternWin(2).getText()).toBe("10");
+                            expect(catalog_page.getPatternLoss(2).getText()).toBe("5");
+                            expect(catalog_page.getPatternAccumulatedReturn(2).getText()).toBe("500");
+                            expect(catalog_page.getPatternAverageReturn(2).getText()).toBe("27.5");
+                            expect(catalog_page.getPatternDuration(2).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPatternVolatility(2).getText()).toBe("57"); //truncated
+                            expect(catalog_page.getPatternStatus(2,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(2,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(2,'finished').isDisplayed()).toBe(false);
+                            //fourth pattern
+                            expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 254 1");
+                            expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 254 2");
+                            expect(catalog_page.getPairPatternMarket(3,0).getText()).toBe("EX1");
+                            expect(catalog_page.getPairPatternMarket(3,1).getText()).toBe("EX1");
+                            expect(catalog_page.getPairPatternSectorIndustry(3,0).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPairPatternSectorIndustry(3,1).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPatternWin(3).getText()).toBe("14");
+                            expect(catalog_page.getPatternLoss(3).getText()).toBe("1");
+                            expect(catalog_page.getPatternAccumulatedReturn(3).getText()).toBe("212");
+                            expect(catalog_page.getPatternAverageReturn(3).getText()).toBe("14.2");
+                            expect(catalog_page.getPatternDuration(3).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPatternVolatility(3).getText()).toBe("104");
+                            expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(true);
+                            expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                        });
+
+                        it("should filter catalog by asset name", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getNameFilter().click();
+                            catalog_page.getNameFilter().sendKeys("7");
+                            catalog_page.getStartDateLabel().click(); //click outside filter
+                            ptor.sleep(4000);
+                            //TODO sometimes it fails due to angular quirks
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 14");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 257 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 257 2");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 267 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 267 2");
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 270 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 270 2");
+                        });
+
+                        it("should filter catalog by sector", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getSectorFilter().sendKeys("sector");
+                            ptor.sleep(1000);
+                            expect(catalog_page.getSectorFilterDropdownOption(0).getText()).toBe("Sector3");
+                            expect(catalog_page.getSectorFilterDropdownOption(1).getText()).toBe("Sector4");
+                            catalog_page.getSectorFilterDropdownOption(0).click();
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 25");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 251 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 251 2");
+                            expect(catalog_page.getPairPatternSectorIndustry(0,0).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPairPatternSectorIndustry(0,1).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 253 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 253 2");
+                            expect(catalog_page.getPairPatternSectorIndustry(1,0).getText()).toBe("Sector3 / Industry3_2");
+                            expect(catalog_page.getPairPatternSectorIndustry(1,1).getText()).toBe("Sector3 / Industry3_2");
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 255 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 255 2");
+                            expect(catalog_page.getPairPatternSectorIndustry(2,0).getText()).toBe("Sector3 / Industry3_1");
+                            expect(catalog_page.getPairPatternSectorIndustry(2,1).getText()).toBe("Sector3 / Industry3_1");
+                        });
+
+                        it("should filter catalog by sector and industry", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.getSectorFilter().sendKeys("sector");
+                            ptor.sleep(1000);
+                            expect(catalog_page.getSectorFilterDropdownOption(0).getText()).toBe("Sector3");
+                            expect(catalog_page.getSectorFilterDropdownOption(1).getText()).toBe("Sector4");
+                            catalog_page.getSectorFilterDropdownOption(1).click();
+                            ptor.sleep(3000);
+                            catalog_page.getIndustryFilter().sendKeys("industry");
+                            expect(catalog_page.getIndustryFilterDropdownOption(0).getText()).toBe("Industry4_1");
+                            expect(catalog_page.getIndustryFilterDropdownOption(1).getText()).toBe("Industry4_2");
+                            catalog_page.getIndustryFilterDropdownOption(1).click();
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 254 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 254 2");
+                            expect(catalog_page.getPairPatternSectorIndustry(0,0).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPairPatternSectorIndustry(0,1).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 258 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 258 2");
+                            expect(catalog_page.getPairPatternSectorIndustry(1,0).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPairPatternSectorIndustry(1,1).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 262 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 262 2");
+                            expect(catalog_page.getPairPatternSectorIndustry(2,0).getText()).toBe("Sector4 / Industry4_2");
+                            expect(catalog_page.getPairPatternSectorIndustry(2,1).getText()).toBe("Sector4 / Industry4_2");
+                        });
+
+                        it("should filter catalog by duration", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.selectDurationFilter(1); //Hasta 1 mes
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 251 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 251 2");
+                            expect(catalog_page.getPatternDuration(0).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 254 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 254 2");
+                            expect(catalog_page.getPatternDuration(1).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 257 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 257 2");
+                            expect(catalog_page.getPatternDuration(2).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 260 1");
+                            expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 260 2");
+                            expect(catalog_page.getPatternDuration(3).getText()).toBe("Hasta 1");
+                            catalog_page.selectDurationFilter(2); //de 1 a 3 meses
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 252 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 252 2");
+                            expect(catalog_page.getPatternDuration(0).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 255 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 255 2");
+                            expect(catalog_page.getPatternDuration(1).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 258 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 258 2");
+                            expect(catalog_page.getPatternDuration(2).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 261 1");
+                            expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 261 2");
+                            expect(catalog_page.getPatternDuration(3).getText()).toBe("De 1 a 3");
+                            catalog_page.selectDurationFilter(3); //Más de 3 meses
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 16");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 253 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 253 2");
+                            expect(catalog_page.getPatternDuration(0).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 256 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 256 2");
+                            expect(catalog_page.getPatternDuration(1).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 259 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 259 2");
+                            expect(catalog_page.getPatternDuration(2).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 262 1");
+                            expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 262 2");
+                            expect(catalog_page.getPatternDuration(3).getText()).toBe("Más de 3");
+                        });
+
+                        it("should filter catalog by volatility", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            catalog_page.selectVolatilityFilter(1); //Menos de 25%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 26");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 251 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 251 2");
+                            expect(catalog_page.getPatternVolatility(0).getText()).toBe("19");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 252 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 252 2");
+                            expect(catalog_page.getPatternVolatility(1).getText()).toBe("5");
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 255 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 255 2");
+                            expect(catalog_page.getPatternVolatility(2).getText()).toBe("19");
+                            expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 256 1");
+                            expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 256 2");
+                            expect(catalog_page.getPatternVolatility(3).getText()).toBe("5");
+                            catalog_page.selectVolatilityFilter(2); //Entre 25% y 50%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 0");
+                            catalog_page.selectVolatilityFilter(3); //Entre 50% y 75%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 253 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 253 2");
+                            expect(catalog_page.getPatternVolatility(0).getText()).toBe("57");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 257 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 257 2");
+                            expect(catalog_page.getPatternVolatility(1).getText()).toBe("57");
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 261 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 261 2");
+                            expect(catalog_page.getPatternVolatility(2).getText()).toBe("57");
+                            expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 265 1");
+                            expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 265 2");
+                            expect(catalog_page.getPatternVolatility(3).getText()).toBe("57");
+                            catalog_page.selectVolatilityFilter(4); //Más de 75%
+                            ptor.sleep(2000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 254 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 254 2");
+                            expect(catalog_page.getPatternVolatility(0).getText()).toBe("104");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 258 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 258 2");
+                            expect(catalog_page.getPatternVolatility(1).getText()).toBe("104");
+                            expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 262 1");
+                            expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 262 2");
+                            expect(catalog_page.getPatternVolatility(2).getText()).toBe("104");
+                            expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 266 1");
+                            expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 266 2");
+                            expect(catalog_page.getPatternVolatility(3).getText()).toBe("104");
+                        });
+
+                        it("should filter catalog by all filters at the same time", function() {
+                            expect(catalog_page.isCurrentPage()).toBe(true);
+                            //filter by sector
+                            catalog_page.getSectorFilter().sendKeys("sector");
+                            ptor.sleep(1000);
+                            expect(catalog_page.getSectorFilterDropdownOption(0).getText()).toBe("Sector3");
+                            expect(catalog_page.getSectorFilterDropdownOption(1).getText()).toBe("Sector4");
+                            catalog_page.getSectorFilterDropdownOption(0).click();
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 25");
+                            //filter by industry	
+                            catalog_page.getIndustryFilter().sendKeys("industry");
+                            expect(catalog_page.getIndustryFilterDropdownOption(0).getText()).toBe("Industry3_1");
+                            expect(catalog_page.getIndustryFilterDropdownOption(1).getText()).toBe("Industry3_2");
+                            catalog_page.getIndustryFilterDropdownOption(0).click();
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 13");
+                            //filter by name
+                            catalog_page.getNameFilter().click();
+                            ptor.sleep(1000);
+                            catalog_page.getNameFilter().sendKeys("7");
+                            ptor.sleep(4000);
+                            catalog_page.getStartDateLabel().click(); //click outside filter
+                            ptor.sleep(1000);
+                            //TODO sometimes it fails
+                            //filter by duration
+                            catalog_page.selectDurationFilter(1); //Hasta 1 mes
+                            ptor.sleep(3000);
+                            //filter by volatility
+                            catalog_page.selectVolatilityFilter(1); //Menos de 25%
+                            ptor.sleep(3000);
+                            expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 2");
+                            expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 275 1");
+                            expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 275 2");
+                            expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 287 1");
+                            expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 287 2");
+                        });
+
+                    }); //end go to Estados Unidos Pack
+
+                }); //end pairs tab
+
             }); //end next month packs
 
         });
