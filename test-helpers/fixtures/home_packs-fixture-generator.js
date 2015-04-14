@@ -29,29 +29,6 @@ exports.home_packs_fixture = function() {
                 name: 'Spain'
             }
         },
-/*
-FUTURE    | Futuros                         |          
- INDEX     | Índices                         |          
- ANSA      | Sudeste Asiático                |         1
- CAN       | Canada                          |         0
- CEE       | Suiza + Europa del Este + Rusia |         2
- CHN       | China                           |         1
- GBR       | Reino Unido                     |         2
- GMEI      | Oriente Medio + Magreb          |         2
- HKG-SGP   | Hong Kong + Singapur            |         1
- JPN       | Japón                           |         1
- KOR       | Corea                           |         1
- LATAM     | Latino América                  |         0
- NORDEN    | Paises Nórdicos                 |         2
- OCEANIA   | Australia + Nueva Zelanda       |         1
- SOUTHASIA | India + Pakistan + Sri Lanka    |         1
- TWN       | Taiwan                          |         1
- USA       | Estados Unidos                  |         0
- ZAF       | Sudáfrica                       |         2
- EUR       | Zona EURO                       |         2
-
-*/
-
         {
             type: 'insert',
             table: 'region',
@@ -324,6 +301,15 @@ FUTURE    | Futuros                         |
         },
         {
             type: 'insert',
+            table: 'currency',
+            values: {
+                code: 'FUT',
+                symbol:'FUT',
+                name:'FUT'
+            }
+        },
+        {
+            type: 'insert',
             table: 'exchange',
             values: {
                 symbol: 'EX1',
@@ -423,6 +409,39 @@ FUTURE    | Futuros                         |
         },
         {
             type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EF1',
+                name: 'exchangeFUT1',
+                currency_code: 'FUT',
+                region_code:'FUTURE',
+                sector_group: 'sector_groupFUT1'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EF2',
+                name: 'exchangeFUT2',
+                currency_code: 'FUT',
+                region_code:'FUTURE',
+                sector_group: 'sector_groupFUT2'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EF3',
+                name: 'exchangeFUT3',
+                currency_code: 'FUT',
+                region_code:'FUTURE',
+                sector_group: 'sector_groupFUT3'
+            }
+        },
+        {
+            type: 'insert',
             table: 'free_pack',
             values: {
                 code: '11',
@@ -447,652 +466,7 @@ FUTURE    | Futuros                         |
                 status: 1,
                 country_code: 'ES'
             }
-        },
-
-/*
-        {
-            type: 'insert',
-            table: 'pack',
-            values: {
-                code: 'CAN-P-1',
-                region_code: 'CAN',
-                name: 'Canada Simple 1',
-                product_type: 0,
-                publication_date: '2014-07-04',
-                scope_text: 'Simple Pack 1 text',
-                pattern_type: 1,
-                subname: ' '
-            }
-        },
-        {
-            type: 'insert',
-            table: 'asset',
-            values: {
-                asset_disc: 1,
-                symbol: 'ASSET1',
-                short_name: 'Asset 1',
-                long_name: 'Long name Asset 1',
-                last_quote: 10,
-                last_quote_date: '2014-10-30',
-                price_chart_url: 'www.urlPriceChart.com',
-                volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'sector1 SECTOR CD',
-                industry: 'industry1 CD',
-                expiration_year: null,
-                expiration_month: null,
-                volatility_chart_url: 'www.urlVolatChart.com'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'asset',
-            values: {
-                asset_disc: 1,
-                symbol: 'ASSET2',
-                short_name: 'Asset 2',
-                long_name: 'Long name Asset 2',
-                last_quote: 15,
-                last_quote_date: '2014-10-30',
-                price_chart_url: 'www.urlPriceChart.com',
-                volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'sector1 SECTOR CD',
-                industry: 'industry1 CD',
-                expiration_year: null,
-                expiration_month: null,
-                volatility_chart_url: 'www.urlVolatChart.com'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'pattern',
-            values: {
-                pattern_disc: 1, //simple(1) or pair(2)
-                id: 1,
-                pack_code: 'USA-S-1',
-                pattern_type: 0, //sell or buy
-                win: 14,
-                loss: 1,
-                asset_symbol: 'ASSET1',
-                entry_date: '2014-12-01',
-                exit_date:'2015-01-15',
-                accumulated_return:212.33,
-                average_return:14.16,
-                daily_return:0.08,
-                entry_value:null,
-                effective_entry_date:null,
-                exit_value:null,
-                effective_exit_date:null,
-                pattern_close_chart_url: 'www.chartUrl1.com',
-                pattern_six_years_chart_url:'www.sixYearsChartUrl',
-                week_trend_chart_url:'www.chartWeekUrl',
-                month_trend_chart_url:'monthTrendUrl',
-                duration:173,
-                best_gain:null,
-                best_gain_date: null,
-                worst_loss:null,
-                worst_loss_date:null,
-                last_performance:null,
-                bearish_asset_symbol:null, //pair asset
-                bearish_average_return:null, //bullish y bearish atributos del par
-                bullish_average_return:null,
-                bearish_entry_value:null,
-                bearish_exit_value:null,
-                daily_pair_return: null,
-                pair_volatility:null, //only in pairs
-                last_performance_date: null,
-                drawdown: -27.31,
-                winning_years_mean_rent: 220.41,
-                losing_years_mean_rent:-8.08,
-                product_type:0,
-                bullish_average_win:null,
-                bullish_average_loss:null,
-                bearish_average_win:null,
-                bearish_average_loss:null
-            }
-        },
-        {
-            type: 'insert',
-            table: 'pattern',
-            values: {
-                pattern_disc: 1,
-                id: 2,
-                pack_code: 'USA-S-1',
-                pattern_type: 0,
-                win: 14,
-                loss: 1,
-                asset_symbol: 'ASSET2',
-                entry_date: '2014-12-04',
-                exit_date:'2015-01-20',
-                accumulated_return:212.33,
-                average_return:14.16,
-                daily_return:0.08,
-                entry_value:null,
-                effective_entry_date:null,
-                exit_value:null,
-                effective_exit_date:null,
-                pattern_close_chart_url: 'www.chartUrl1.com',
-                pattern_six_years_chart_url:'www.sixYearsChartUrl',
-                week_trend_chart_url:'www.chartWeekUrl',
-                month_trend_chart_url:'monthTrendUrl',
-                duration:173,
-                best_gain:null,
-                best_gain_date: null,
-                worst_loss:null,
-                worst_loss_date:null,
-                last_performance:null,
-                bearish_asset_symbol:null,
-                bearish_average_return:null,
-                bullish_average_return:null,
-                bearish_entry_value:null,
-                bearish_exit_value:null,
-                daily_pair_return: null,
-                pair_volatility:null,
-                last_performance_date: null,
-                drawdown: -27.31,
-                winning_years_mean_rent: 220.41,
-                losing_years_mean_rent:-8.08,
-                product_type:0,
-                bullish_average_win:null,
-                bullish_average_loss:null,
-                bearish_average_win:null,
-                bearish_average_loss:null
-            }
-        },
-        { //PAIR PACK
-            type: 'insert',
-            table: 'pack',
-            values: {
-                code: 'USA-P-1',
-                region_code: 'USA',
-                name: 'Estados Unidos Pack I',
-                product_type: 0,
-                publication_date: '2014-11-04',
-                scope_text: 'Estados Unidos Pack I text',
-                pattern_type: 1,
-                subname: ' '
-            }
-        },
-        {
-            type: 'insert',
-            table: 'published_packs',
-            values: {
-                pack_code: 'USA-P-1',
-                pack_month: 201411, //date of the month of the pack ALWAYS actual month
-                publication_date: '2014-09-15',
-                num_patterns: 50,
-                letter_from: 'aaa',
-                letter_until: 'zzz'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'asset',
-            values: {
-                asset_disc: 1,
-                symbol: 'ASSET11',
-                short_name: 'Asset Pair 1 1',
-                long_name: 'Long name Asset Pair 1 1',
-                last_quote: 27.9,
-                last_quote_date: '2014-10-30',
-                price_chart_url: 'www.urlPriceChart.com',
-                volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'sector1 SECTOR CD',
-                industry: 'industry1 CD',
-                expiration_year: null,
-                expiration_month: null,
-                volatility_chart_url: 'www.urlVolatChart.com'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'asset',
-            values: {
-                asset_disc: 1,
-                symbol: 'ASSET12',
-                short_name: 'Asset Pair 1 2',
-                long_name: 'Long name Asset Pair 1 2',
-                last_quote: 27.9,
-                last_quote_date: '2014-10-30',
-                price_chart_url: 'www.urlPriceChart.com',
-                volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'sector1 SECTOR CD',
-                industry: 'industry1 CD',
-                expiration_year: null,
-                expiration_month: null,
-                volatility_chart_url: 'www.urlVolatChart.com'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'asset',
-            values: {
-                asset_disc: 1,
-                symbol: 'ASSET21',
-                short_name: 'Asset Pair 2 1',
-                long_name: 'Long name Asset Pair 2 1',
-                last_quote: 27.9,
-                last_quote_date: '2014-10-30',
-                price_chart_url: 'www.urlPriceChart.com',
-                volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'sector1 SECTOR CD',
-                industry: 'industry1 CD',
-                expiration_year: null,
-                expiration_month: null,
-                volatility_chart_url: 'www.urlVolatChart.com'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'asset',
-            values: {
-                asset_disc: 1,
-                symbol: 'ASSET22',
-                short_name: 'Asset Pair 2 2',
-                long_name: 'Long name Asset Pair 2 2',
-                last_quote: 27.9,
-                last_quote_date: '2014-10-30',
-                price_chart_url: 'www.urlPriceChart.com',
-                volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'sector1 SECTOR CD',
-                industry: 'industry1 CD',
-                expiration_year: null,
-                expiration_month: null,
-                volatility_chart_url: 'www.urlVolatChart.com'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'pattern',
-            values: {
-                pattern_disc: 2,
-                id: 3,
-                pack_code: 'USA-P-1',
-                pattern_type: 1,
-                win: 14,
-                loss: 1,
-                asset_symbol: 'ASSET11',
-                entry_date: '2014-12-03',
-                exit_date:'2015-01-15',
-                accumulated_return:212.33,
-                average_return:14.16,
-                daily_return:0.08,
-                entry_value:1,
-                effective_entry_date:'2014-10-24',
-                exit_value:2,
-                effective_exit_date:'2014-10-29',
-                pattern_close_chart_url: 'www.chartUrl1.com',
-                pattern_six_years_chart_url:'www.sixYearsChartUrl',
-                week_trend_chart_url:'www.chartWeekUrl',
-                month_trend_chart_url:'monthTrendUrl',
-                duration:173,
-                best_gain:2,
-                best_gain_date: '2014-10-01',
-                worst_loss:-5,
-                worst_loss_date:'2014-10-02',
-                last_performance:20,
-                bearish_asset_symbol:'ASSET12',
-                bearish_average_return:1,
-                bullish_average_return:2,
-                bearish_entry_value:11,
-                bearish_exit_value:22,
-                daily_pair_return: 12.13,
-                pair_volatility:23,
-                last_performance_date: '2014-10-19',
-                drawdown: -27.31,
-                winning_years_mean_rent: 220.41,
-                losing_years_mean_rent:-8.08,
-                product_type:0,
-                bullish_average_win:14,
-                bullish_average_loss:1,
-                bearish_average_win:13,
-                bearish_average_loss:2
-            }
-        },
-        {
-            type: 'insert',
-            table: 'pattern',
-            values: {
-                pattern_disc: 2,
-                id: 4,
-                pack_code: 'USA-P-1',
-                pattern_type: 1,
-                win: 14,
-                loss: 1,
-                asset_symbol: 'ASSET21',
-                entry_date: '2014-12-03',
-                exit_date:'2015-01-15',
-                accumulated_return:212.33,
-                average_return:14.16,
-                daily_return:0.08,
-                entry_value:1,
-                effective_entry_date:'2014-10-24',
-                exit_value:2,
-                effective_exit_date:'2014-10-29',
-                pattern_close_chart_url: 'www.chartUrl1.com',
-                pattern_six_years_chart_url:'www.sixYearsChartUrl',
-                week_trend_chart_url:'www.chartWeekUrl',
-                month_trend_chart_url:'monthTrendUrl',
-                duration:173,
-                best_gain:2,
-                best_gain_date: '2014-10-01',
-                worst_loss:-5,
-                worst_loss_date:'2014-10-02',
-                last_performance:30,
-                bearish_asset_symbol:'ASSET22',
-                bearish_average_return:1,
-                bullish_average_return:2,
-                bearish_entry_value:11,
-                bearish_exit_value:22,
-                daily_pair_return: 12.13,
-                pair_volatility:23,
-                last_performance_date: '2014-10-19',
-                drawdown: -27.31,
-                winning_years_mean_rent: 220.41,
-                losing_years_mean_rent:-8.08,
-                product_type:0,
-                bullish_average_win:14,
-                bullish_average_loss:1,
-                bearish_average_win:13,
-                bearish_average_loss:2
-            }
-        },
-        //subscriptions
-        {
-            type: 'insert',
-            table: 'subscription',
-            values: {
-                subscription_disc: 1,
-                id: 1,
-                pack_code: 'USA-S-1',
-                user_id: 1,
-                subscription_date: '2013-11-01',
-                start_date: '2013-11-01',
-                subscription_duration: 2,
-                end_date: '2014-12-01',
-                status: 0
-            }
-        },
-        {
-            type: 'insert',
-            table: 'subscription',
-            values: {
-                subscription_disc: 1,
-                id: 2,
-                pack_code: 'USA-P-1',
-                user_id: 1,
-                subscription_date: '2013-11-01',
-                start_date: '2013-11-01',
-                subscription_duration: 2,
-                end_date: '2014-12-01',
-                status: 0
-            }
-        },
-        {
-            type: 'insert',
-            table: 'subscription',
-            values: {
-                subscription_disc: 1,
-                id: 3,
-                pack_code: 'USA-S-1',
-                user_id: 2,
-                subscription_date: '2013-11-01',
-                start_date: '2013-11-01',
-                subscription_duration: 2,
-                end_date: '2014-12-01',
-                status: 0
-            }
-        },
-        {
-            type: 'insert',
-            table: 'subscription',
-            values: {
-                subscription_disc: 1,
-                id: 4,
-                pack_code: 'USA-P-1',
-                user_id: 2,
-                subscription_date: '2013-11-01',
-                start_date: '2013-11-01',
-                subscription_duration: 2,
-                end_date: '2014-12-01',
-                status: 0
-            }
-        },
-        {
-            type: 'insert',
-            table: 'subscription',
-            values: {
-                subscription_disc: 1,
-                id: 5,
-                pack_code: 'USA-S-1',
-                user_id: 3,
-                subscription_date: '2013-11-01',
-                start_date: '2013-11-01',
-                subscription_duration: 2,
-                end_date: '2014-12-01',
-                status: 0
-            }
-        },
-        {
-            type: 'insert',
-            table: 'subscription',
-            values: {
-                subscription_disc: 1,
-                id: 6,
-                pack_code: 'USA-P-1',
-                user_id: 3,
-                subscription_date: '2013-11-01',
-                start_date: '2013-11-01',
-                subscription_duration: 2,
-                end_date: '2014-12-01',
-                status: 0
-            }
-        },
-        //free pack pattern and free_subscription
-        {
-            type: 'insert',
-            table: 'pattern',
-            values: {
-                pattern_disc: 2,
-                id: 5,
-                //pack_code: 'USA-P-1',
-                pattern_type: 1,
-                win: 14,
-                loss: 1,
-                asset_symbol: 'ASSET21',
-                entry_date: '2014-12-03',
-                exit_date:'2015-01-15',
-                accumulated_return:212.33,
-                average_return:14.16,
-                daily_return:0.08,
-                entry_value:1,
-                effective_entry_date:'2014-10-24',
-                exit_value:2,
-                effective_exit_date:'2014-10-29',
-                pattern_close_chart_url: 'www.chartUrl1.com',
-                pattern_six_years_chart_url:'www.sixYearsChartUrl',
-                week_trend_chart_url:'www.chartWeekUrl',
-                month_trend_chart_url:'monthTrendUrl',
-                duration:173,
-                best_gain:2,
-                best_gain_date: '2014-10-01',
-                worst_loss:-5,
-                worst_loss_date:'2014-10-02',
-                last_performance:30, //value compared in alarm
-                bearish_asset_symbol:'ASSET22',
-                bearish_average_return:1,
-                bullish_average_return:2,
-                bearish_entry_value:11,
-                bearish_exit_value:22,
-                daily_pair_return: 12.13,
-                pair_volatility:23,
-                last_performance_date: '2014-10-30',
-                drawdown: -27.31,
-                winning_years_mean_rent: 220.41,
-                losing_years_mean_rent:-8.08,
-                product_type:0,
-                bullish_average_win:14,
-                bullish_average_loss:1,
-                bearish_average_win:13,
-                bearish_average_loss:2
-            }
-        },
-        {
-            type: 'insert',
-            table: 'free_pack_pattern',
-            values: {
-                free_pack_code: '11',
-                pattern_id: 5
-            }
-        },
-        {
-            type: 'insert',
-            table: 'free_subscription',
-            values: {
-                id: 1,
-                free_pack_code: '11',
-                user_id: 4, //Test4 user
-                subscription_date: '2014-11-02',
-                start_date: '2014-11-02 20:00',
-                end_date: '2014-11-16 20:00'
-            }
-        },
-        //expired subscription packs and patterns that are not notified by email when an alarm is set 
-        { //PAIR PACK
-            type: 'insert',
-            table: 'pack',
-            values: {
-                code: 'USA-P-2',
-                region_code: 'USA',
-                name: 'Estados Unidos Pack II',
-                product_type: 0,
-                publication_date: '2014-11-04',
-                scope_text: 'Estados Unidos Pack II text',
-                pattern_type: 1,
-                subname: ' '
-            }
-        },
-        {
-            type: 'insert',
-            table: 'published_packs',
-            values: {
-                pack_code: 'USA-P-2',
-                pack_month: 201411, //date of the month of the pack ALWAYS actual month
-                publication_date: '2014-09-15',
-                num_patterns: 50,
-                letter_from: 'aaa',
-                letter_until: 'zzz'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'asset',
-            values: {
-                asset_disc: 1,
-                symbol: 'ASSET31',
-                short_name: 'Asset Pair 3 1',
-                long_name: 'Long name Asset Pair 3 1',
-                last_quote: 27.9,
-                last_quote_date: '2014-10-30',
-                price_chart_url: 'www.urlPriceChart.com',
-                volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'sector1 SECTOR CD',
-                industry: 'industry1 CD',
-                expiration_year: null,
-                expiration_month: null,
-                volatility_chart_url: 'www.urlVolatChart.com'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'asset',
-            values: {
-                asset_disc: 1,
-                symbol: 'ASSET32',
-                short_name: 'Asset Pair 3 2',
-                long_name: 'Long name Asset Pair 3 2',
-                last_quote: 27.9,
-                last_quote_date: '2014-10-30',
-                price_chart_url: 'www.urlPriceChart.com',
-                volatility: 19.20,
-                exchange_symbol: 'EX1',
-                sector: 'sector1 SECTOR CD',
-                industry: 'industry1 CD',
-                expiration_year: null,
-                expiration_month: null,
-                volatility_chart_url: 'www.urlVolatChart.com'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'pattern',
-            values: {
-                pattern_disc: 2,
-                id: 6,
-                pack_code: 'USA-P-2',
-                pattern_type: 1,
-                win: 14,
-                loss: 1,
-                asset_symbol: 'ASSET31',
-                entry_date: '2014-12-03',
-                exit_date:'2015-01-15',
-                accumulated_return:212.33,
-                average_return:14.16,
-                daily_return:0.08,
-                entry_value:1,
-                effective_entry_date:'2014-10-24',
-                exit_value:2,
-                effective_exit_date:'2014-10-29',
-                pattern_close_chart_url: 'www.chartUrl1.com',
-                pattern_six_years_chart_url:'www.sixYearsChartUrl',
-                week_trend_chart_url:'www.chartWeekUrl',
-                month_trend_chart_url:'monthTrendUrl',
-                duration:173,
-                best_gain:2,
-                best_gain_date: '2014-10-01',
-                worst_loss:-5,
-                worst_loss_date:'2014-10-02',
-                last_performance:20,
-                bearish_asset_symbol:'ASSET32',
-                bearish_average_return:1,
-                bullish_average_return:2,
-                bearish_entry_value:11,
-                bearish_exit_value:22,
-                daily_pair_return: 12.13,
-                pair_volatility:23,
-                last_performance_date: '2014-10-19',
-                drawdown: -27.31,
-                winning_years_mean_rent: 220.41,
-                losing_years_mean_rent:-8.08,
-                product_type:0,
-                bullish_average_win:14,
-                bullish_average_loss:1,
-                bearish_average_win:13,
-                bearish_average_loss:2
-            }
-        },
-        { //expired subscription
-            type: 'insert',
-            table: 'subscription',
-            values: {
-                subscription_disc: 1,
-                id: 7,
-                pack_code: 'USA-P-2',
-                user_id: 4,
-                subscription_date: '2013-11-01',
-                start_date: '2013-10-01',
-                subscription_duration: 2,
-                end_date: '2014-11-01',
-                status: 0
-            }
-        },
-*/
+        }
     ];
 
     // STOCKS =======================================================================================
@@ -1267,7 +641,7 @@ FUTURE    | Futuros                         |
 
     //create stocks patterns for Canada Pack I in December 2014
     var stocks_patterns_fixture_data = { 
-        pack_code: 'CAN-S-1', type: 'stocks', quantity: 50, first_id: 51,
+        pack_code: 'CAN-S-1', type: 'stocks', quantity: 50, first_id: 51, asset_id_digits: 3,
         entry_dates: ['2014-12-01','2014-12-05','2014-12-14','2014-12-15','2014-12-31'],
         exit_dates: ['2014-12-13','2014-12-20','2015-01-05','2015-01-15','2015-02-05'],
         durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
@@ -1581,6 +955,37 @@ FUTURE    | Futuros                         |
     var futures_fixtures = fixture_helper.generate_pack_fixtures(futures_fixture_data,futures_fixture_options);
     fixtures = fixtures.concat(futures_fixtures);
 
+    //create sector and industry filters for FUTURES Pack I
+    var sector_industry_filters_data = {
+        pack_code: 'FUTURE-S-1', type: 'futures', first_sector_id: 25, first_industry_id: 49,
+        months : [201411,201412,201501], region_code: 'FUTURE', exchange_symbol: 'EF1',
+        values: [
+            {name: 'NOT_CLASSIFIED', industries: ['NOT_CLASSIFIED']}
+        ]   
+    };
+    var sector_industry_filters_fixtures = fixture_helper.generate_sector_industry_filters_fixtures(sector_industry_filters_data);
+    fixtures = fixtures.concat(sector_industry_filters_fixtures);
+
+    var sector_industry_filters_data = {
+        pack_code: 'FUTURE-S-1', type: 'futures', first_sector_id: 28, first_industry_id: 52,
+        months : [201411,201412,201501], region_code: 'FUTURE', exchange_symbol: 'EF2',
+        values: [
+            {name: 'NOT_CLASSIFIED', industries: ['NOT_CLASSIFIED']}
+        ]   
+    };
+    var sector_industry_filters_fixtures = fixture_helper.generate_sector_industry_filters_fixtures(sector_industry_filters_data);
+    fixtures = fixtures.concat(sector_industry_filters_fixtures);
+
+    var sector_industry_filters_data = {
+        pack_code: 'FUTURE-S-1', type: 'futures', first_sector_id: 31, first_industry_id: 55,
+        months : [201411,201412,201501], region_code: 'FUTURE', exchange_symbol: 'EF3',
+        values: [
+            {name: 'NOT_CLASSIFIED', industries: ['NOT_CLASSIFIED']}
+        ]   
+    };
+    var sector_industry_filters_fixtures = fixture_helper.generate_sector_industry_filters_fixtures(sector_industry_filters_data);
+    fixtures = fixtures.concat(sector_industry_filters_fixtures);
+
     //create futures patterns for FUTURES Pack I in November 2014
     var futures_patterns_fixture_data = { 
         pack_code: 'FUTURE-S-1', type: 'futures', quantity: 50, first_id: 701,
@@ -1589,7 +994,9 @@ FUTURE    | Futuros                         |
         durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
         volatilities: [19.20, 5.3, 57.9, 104.2], 
         accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
-        exchange_symbols: ['EX1','EX2','EX3']
+        exchange_symbols: ['EF1','EF2','EF3'],
+        sectors: [''],
+        industries: ['']
     };
     var futures_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(futures_patterns_fixture_data);
     fixtures = fixtures.concat(futures_patterns_fixtures);
@@ -1602,7 +1009,9 @@ FUTURE    | Futuros                         |
         durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
         volatilities: [19.20, 5.3, 57.9, 104.2], 
         accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
-        exchange_symbols: ['EX1','EX2','EX3']
+        exchange_symbols: ['EF1','EF2','EF3'],
+        sectors: [''],
+        industries: ['']
     };
     var futures_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(futures_patterns_fixture_data);
     fixtures = fixtures.concat(futures_patterns_fixtures);
@@ -1615,7 +1024,9 @@ FUTURE    | Futuros                         |
         durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
         volatilities: [19.20, 5.3, 57.9, 104.2], 
         accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
-        exchange_symbols: ['EX1','EX2','EX3']
+        exchange_symbols: ['EF1','EF2','EF3'],
+        sectors: [''],
+        industries: ['']
     };
     var futures_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(futures_patterns_fixture_data);
     fixtures = fixtures.concat(futures_patterns_fixtures);

@@ -119,6 +119,10 @@ FixtureHelper.prototype.generate_pattern_and_its_assets_fixtures = function(info
     var bearish_asset_symbol = null;
     var bearish_asset_id = null;
     var asset_id = '' + (info.asset_id || pattern_id);
+    var asset_id_digits = info.asset_id_digits || 0;
+    if (asset_id_digits && asset_id.length < asset_id_digits) {
+       asset_id = Array(asset_id_digits - asset_id.length + 1).join("0") + asset_id;          
+    }
     var include_pair = ((type == 'pairs' || type == 'indices_pairs') ? true : false);
     if (include_pair) {
         bearish_asset_id = asset_id + '_2';
@@ -264,10 +268,12 @@ FixtureHelper.prototype.generate_patterns_and_assets_fixtures = function(info,op
     var sectors = info.sectors || ['sector1'];
     var industries = info.industries || ['industry1'];
     var reverse_pair_assets = info.reverse_pair_assets || false;
+    var asset_id_digits = info.asset_id_digits || 0;
 
     for (var i = 0; i < quantity; i++) {
         var params = { id: first_id + i, 
                        asset_id: first_asset_id + i,
+                       asset_id_digits: asset_id_digits,
                        reverse_pair_assets: reverse_pair_assets,
                        pack_code: pack_code,
                        type: type
