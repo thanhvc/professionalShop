@@ -422,6 +422,7 @@ angular.module('ngMo.my_subscriptions', [
                 $scope.mySubscriptionsTablePacks[2].indicesContent= data.INDICE.INDEX;
                 $scope.mySubscriptionsTablePacks[2].pairsIndicesContent= data.INDICEPAIR.INDEX;
                 $scope.mySubscriptionsTablePacks[3].futuresContent= data.FUTURE.FUTURE;
+                $scope.mySubscriptionsTablePacks[4].forexContent= data.FOREX.FOREX;
 
                 //load the cart items to set the selected option
                 stockItems = ShoppingCartService.obtainCartItems('stocks');
