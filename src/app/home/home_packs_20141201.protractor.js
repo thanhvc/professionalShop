@@ -52,11 +52,6 @@ describe('Home page', function () {
             });
 
             describe("Current month packs", function() {
-                it("table should be present", function() {
-                    ptor.sleep(3000);
-                    expect(home.getCurrentMonthTableCurrentTabContent().isPresent()).toBe(true);
-                });
-
                 describe("stocks tab", function() {
                     beforeEach(function() {
                         ptor.sleep(3000); //wait for stocks tab to load
@@ -190,7 +185,7 @@ describe('Home page', function () {
                             expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Diciembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("Canadá Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 01 Dic. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 051");
@@ -202,8 +197,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternAverageReturn(0).getText()).toBe("14.2");
                             expect(catalog_page.getPatternDuration(0).getText()).toBe("Hasta 1");
                             expect(catalog_page.getPatternVolatility(0).getText()).toBe("19");
-                            expect(catalog_page.getPatternStatus(0,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getPatternStatus(0,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(0,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(0,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(0,'finished').isDisplayed()).toBe(false);
                             //second pattern
                             expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 052");
@@ -497,7 +492,7 @@ describe('Home page', function () {
                             expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Diciembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("Estados Unidos Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 01 Dic. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 251 1");
@@ -512,8 +507,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternAverageReturn(0).getText()).toBe("14.2");
                             expect(catalog_page.getPatternDuration(0).getText()).toBe("Hasta 1");
                             expect(catalog_page.getPatternVolatility(0).getText()).toBe("19");
-                            expect(catalog_page.getPatternStatus(0,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getPatternStatus(0,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(0,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getPatternStatus(0,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(0,'finished').isDisplayed()).toBe(false);
                             //second pattern
                             expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 252 1");
@@ -810,7 +805,7 @@ describe('Home page', function () {
                             expect(true).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Diciembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("INDEX Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 01 Dic. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 451");
@@ -821,8 +816,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternAverageReturn(0).getText()).toBe("14.2");
                             expect(catalog_page.getIndexPatternDuration(0).getText()).toBe("Hasta 1");
                             expect(catalog_page.getIndexPatternVolatility(0).getText()).toBe("19");
-                            expect(catalog_page.getIndexPatternStatus(0,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getIndexPatternStatus(0,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getIndexPatternStatus(0,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getIndexPatternStatus(0,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getIndexPatternStatus(0,'finished').isDisplayed()).toBe(false);
                             //second pattern
                             expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 452");
@@ -980,7 +975,7 @@ describe('Home page', function () {
                             expect(true).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Diciembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("INDEX Pair Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 01 Dic. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 601 1");
@@ -993,8 +988,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternAverageReturn(0).getText()).toBe("14.2");
                             expect(catalog_page.getIndexPatternDuration(0).getText()).toBe("Hasta 1");
                             expect(catalog_page.getIndexPatternVolatility(0).getText()).toBe("19");
-                            expect(catalog_page.getIndexPatternStatus(0,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getIndexPatternStatus(0,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getIndexPatternStatus(0,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getIndexPatternStatus(0,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getIndexPatternStatus(0,'finished').isDisplayed()).toBe(false);
                             //second pattern
                             expect(catalog_page.getPairPatternName(1,0).getText()).toBe("Long name Asset 602 1");
@@ -1206,7 +1201,7 @@ describe('Home page', function () {
                             expect(catalog_page.isCurrentPage()).toBe(true);
                             expect(catalog_page.getStartDateLabel().getText()).toBe("Diciembre 2014");
                             expect(catalog_page.getPackNameLabel().getText()).toBe("FUTURES Pack I");
-                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 15 Nov. (GMT)");
+                            expect(catalog_page.getCurrentDateLabel().getText()).toBe("Date: 01 Dic. (GMT)");
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 50");
                             //first pattern
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 751");
@@ -1217,8 +1212,8 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternAverageReturn(0).getText()).toBe("14.2");
                             expect(catalog_page.getFuturePatternDuration(0).getText()).toBe("Hasta 1");
                             expect(catalog_page.getFuturePatternVolatility(0).getText()).toBe("19");
-                            expect(catalog_page.getFuturePatternStatus(0,'not_started').isDisplayed()).toBe(true);
-                            expect(catalog_page.getFuturePatternStatus(0,'started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getFuturePatternStatus(0,'not_started').isDisplayed()).toBe(false);
+                            expect(catalog_page.getFuturePatternStatus(0,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getFuturePatternStatus(0,'finished').isDisplayed()).toBe(false);
                             //second pattern
                             expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 752");
@@ -1393,7 +1388,7 @@ describe('Home page', function () {
             }); //end current month packs
 
             describe("Next month packs", function() {
-                it("table should be present", function() {
+                it("table should not be present", function() {
                     ptor.sleep(3000);
                     expect(home.getNextMonthTableCurrentTabContent().isPresent()).toBe(false);
                 });
