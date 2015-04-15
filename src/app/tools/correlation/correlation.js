@@ -235,6 +235,9 @@ angular.module('ngMo.correlation', [
             $scope.correlationCaption1 = [];
             $scope.correlationCaption2 = [];
             $scope.correlationList = [];
+
+            $scope.correlationPairCaption1 =[];
+            $scope.correlationPairCaption2 = [];
         };
 
         //restore filters and load page
@@ -338,6 +341,8 @@ angular.module('ngMo.correlation', [
                 $scope.lastUpdateDateCorrelation = data.lastUpdateDateCorrelation;
                 $scope.correlationCaption1 = data.caption1;
                 $scope.correlationCaption2 = data.caption2;
+                $scope.correlationPairCaption1 = data.pairCaption1;
+                $scope.correlationPairCaption2 = data.pairCaption2;
             }
 
         };
@@ -633,6 +638,9 @@ angular.module('ngMo.correlation', [
             emptyData.lastUpdateDateCorrelation=[];
             emptyData.caption1=[];
             emptyData.caption2=[];
+
+            emptyData.correlationPairCaption1 = [];
+            emptyData.correlationPairCaption2 = [];
             updateCorrelationResultListSessionStorage(emptyData);
             $scope.clearResults();
         };
@@ -648,6 +656,9 @@ angular.module('ngMo.correlation', [
                  $scope.lastUpdateDateCorrelation = data.lastUpdateDateCorrelation;
                  $scope.correlationCaption1 = data.caption1;
                  $scope.correlationCaption2 = data.caption2;
+
+                    $scope.correlationPairCaption1 = data.pairCaption1;
+                    $scope.correlationPairCaption2 = data.pairCaption2;
                  updateCorrelationResultListSessionStorage(data); //save data
 
                  });
