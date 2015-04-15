@@ -156,6 +156,7 @@ describe('Home page', function () {
                         expect(home.getCurrentMonthTableEuropePackName(13).getText()).toBe("Zona Euro Pack VI");
                         expect(home.getCurrentMonthTableEuropePackName(14).getText()).toBe("Zona Euro Pack VII");
                         expect(home.getCurrentMonthTableEuropePackName(15).getText()).toBe("Zona Euro Pack VIII");
+                        expect(home.getCurrentMonthTableEuropePackName(16).getText()).toBe("Zzz Additional December Pack I"); //to test different packs depending on month
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(0).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(1).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(2).getText()).toBe("50");
@@ -172,6 +173,7 @@ describe('Home page', function () {
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(13).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(14).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(15).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableEuropePackNumPatterns(16).getText()).toBe("100");
                     });
 
                     describe("go to Canadá Pack I catalog", function() {
@@ -295,12 +297,14 @@ describe('Home page', function () {
                         expect(home.getCurrentMonthTableEuropePackName(3).getText()).toBe("Zona Euro Pack IV");
                         expect(home.getCurrentMonthTableEuropePackName(4).getText()).toBe("Zona Euro Pack V");
                         expect(home.getCurrentMonthTableEuropePackName(5).getText()).toBe("Zona Euro Pack VI");
+                        expect(home.getCurrentMonthTableEuropePackName(6).getText()).toBe("Zzz Additional December Pair Pack I");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(0).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(1).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(2).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(3).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(4).getText()).toBe("50");
                         expect(home.getCurrentMonthTableEuropePackNumPatterns(5).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableEuropePackNumPatterns(6).getText()).toBe("100");
                     });
 
                     describe("go to Estados Unidos Pack I catalog", function() {
@@ -402,13 +406,17 @@ describe('Home page', function () {
                     it("should have the correct packs in Indices", function() {
                         expect(home.getCurrentMonthTableIndicesPackName(0).getText()).toBe("INDEX Pack I");
                         expect(home.getCurrentMonthTableIndicesPackName(1).getText()).toBe("INDEX Pack II");
+                        expect(home.getCurrentMonthTableIndicesPackName(2).getText()).toBe("Zzz Additional December INDEX Pack I");
                         expect(home.getCurrentMonthTableIndicesPackNumPatterns(0).getText()).toBe("50");
                         expect(home.getCurrentMonthTableIndicesPackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableIndicesPackNumPatterns(2).getText()).toBe("100");
                     });
 
                     it("should have the correct packs in Pair Indices", function() {
                         expect(home.getCurrentMonthTablePairIndicesPackName(0).getText()).toBe("INDEX Pair Pack I");
+                        expect(home.getCurrentMonthTablePairIndicesPackName(1).getText()).toBe("Zzz Additional December INDEX Pair Pack I");
                         expect(home.getCurrentMonthTablePairIndicesPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getCurrentMonthTablePairIndicesPackNumPatterns(1).getText()).toBe("100");
                     });
 
                     describe("go to INDEX Pack I catalog", function() {
@@ -570,7 +578,9 @@ describe('Home page', function () {
 
                     it("should have the correct packs in Futures", function() {
                         expect(home.getCurrentMonthTableFuturesPackName(0).getText()).toBe("Energía, Metales, Agrícolas, Carnes, Softs, Divisas, Tipos de Interés, Índices Bursátiles");
+                        expect(home.getCurrentMonthTableFuturesPackName(1).getText()).toBe("Additional December subname");
                         expect(home.getCurrentMonthTableFuturesPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getCurrentMonthTableFuturesPackNumPatterns(1).getText()).toBe("100");
                     });
 
                     describe("go to FUTURES Pack I catalog", function() {
@@ -754,6 +764,7 @@ describe('Home page', function () {
                         expect(home.getNextMonthTableEuropePackName(13).getText()).toBe("Zona Euro Pack VI");
                         expect(home.getNextMonthTableEuropePackName(14).getText()).toBe("Zona Euro Pack VII");
                         expect(home.getNextMonthTableEuropePackName(15).getText()).toBe("Zona Euro Pack VIII");
+                        expect(home.getNextMonthTableEuropePackName(16).getText()).toBe("Zzz Additional January Pack I"); //to test different packs depending on month
                         expect(home.getNextMonthTableEuropePackNumPatterns(0).getText()).toBe("50");
                         expect(home.getNextMonthTableEuropePackNumPatterns(1).getText()).toBe("50");
                         expect(home.getNextMonthTableEuropePackNumPatterns(2).getText()).toBe("50");
@@ -770,6 +781,7 @@ describe('Home page', function () {
                         expect(home.getNextMonthTableEuropePackNumPatterns(13).getText()).toBe("50");
                         expect(home.getNextMonthTableEuropePackNumPatterns(14).getText()).toBe("50");
                         expect(home.getNextMonthTableEuropePackNumPatterns(15).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(16).getText()).toBe("100");
                     });
 
                     describe("go to Canadá Pack I catalog", function() {
@@ -1071,12 +1083,14 @@ describe('Home page', function () {
                         expect(home.getNextMonthTableEuropePackName(3).getText()).toBe("Zona Euro Pack IV");
                         expect(home.getNextMonthTableEuropePackName(4).getText()).toBe("Zona Euro Pack V");
                         expect(home.getNextMonthTableEuropePackName(5).getText()).toBe("Zona Euro Pack VI");
+                        expect(home.getNextMonthTableEuropePackName(6).getText()).toBe("Zzz Additional January Pair Pack I");
                         expect(home.getNextMonthTableEuropePackNumPatterns(0).getText()).toBe("50");
                         expect(home.getNextMonthTableEuropePackNumPatterns(1).getText()).toBe("50");
                         expect(home.getNextMonthTableEuropePackNumPatterns(2).getText()).toBe("50");
                         expect(home.getNextMonthTableEuropePackNumPatterns(3).getText()).toBe("50");
                         expect(home.getNextMonthTableEuropePackNumPatterns(4).getText()).toBe("50");
                         expect(home.getNextMonthTableEuropePackNumPatterns(5).getText()).toBe("50");
+                        expect(home.getNextMonthTableEuropePackNumPatterns(6).getText()).toBe("100");
                     });
 
                     describe("go to Estados Unidos Pack I catalog", function() {
@@ -1380,13 +1394,17 @@ describe('Home page', function () {
                     it("should have the correct packs in Indices", function() {
                         expect(home.getNextMonthTableIndicesPackName(0).getText()).toBe("INDEX Pack I");
                         expect(home.getNextMonthTableIndicesPackName(1).getText()).toBe("INDEX Pack II");
+                        expect(home.getNextMonthTableIndicesPackName(2).getText()).toBe("Zzz Additional January INDEX Pack I");
                         expect(home.getNextMonthTableIndicesPackNumPatterns(0).getText()).toBe("50");
                         expect(home.getNextMonthTableIndicesPackNumPatterns(1).getText()).toBe("50");
+                        expect(home.getNextMonthTableIndicesPackNumPatterns(2).getText()).toBe("100");
                     });
 
                     it("should have the correct packs in Pair Indices", function() {
                         expect(home.getNextMonthTablePairIndicesPackName(0).getText()).toBe("INDEX Pair Pack I");
+                        expect(home.getNextMonthTablePairIndicesPackName(1).getText()).toBe("Zzz Additional January INDEX Pair Pack I");
                         expect(home.getNextMonthTablePairIndicesPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getNextMonthTablePairIndicesPackNumPatterns(1).getText()).toBe("100");
                     });
 
                     describe("go to INDEX Pack I catalog", function() {
@@ -1782,7 +1800,9 @@ describe('Home page', function () {
 
                     it("should have the correct packs in Futures", function() {
                         expect(home.getNextMonthTableFuturesPackName(0).getText()).toBe("Energía, Metales, Agrícolas, Carnes, Softs, Divisas, Tipos de Interés, Índices Bursátiles");
+                        expect(home.getNextMonthTableFuturesPackName(1).getText()).toBe("Additional January subname");
                         expect(home.getNextMonthTableFuturesPackNumPatterns(0).getText()).toBe("50");
+                        expect(home.getNextMonthTableFuturesPackNumPatterns(1).getText()).toBe("100");
                     });
 
                     describe("go to FUTURES Pack I catalog", function() {

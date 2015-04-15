@@ -589,6 +589,43 @@ exports.home_packs_fixture = function() {
     var stocks_fixtures = fixture_helper.generate_pack_fixtures(stocks_fixture_data,stocks_fixture_options);
     fixtures = fixtures.concat(stocks_fixtures);
 
+    //additional packs to test differences on each month
+    var stocks_fixture_data = [
+        { code: 'ZZZ-S-Nov', region_code: 'EUR', name: 'Zzz Additional November Pack I',
+          scope_text: 'Scope text for November' }
+    ];
+    var stocks_fixture_options = { 
+        default_pack_type: 'stocks', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201411] 
+    };
+    var stocks_fixtures = fixture_helper.generate_pack_fixtures(stocks_fixture_data,stocks_fixture_options);
+    fixtures = fixtures.concat(stocks_fixtures);
+
+    var stocks_fixture_data = [
+        { code: 'ZZZ-S-Dec', region_code: 'EUR', name: 'Zzz Additional December Pack I',
+          scope_text: 'Scope text for December' }
+    ];
+    var stocks_fixture_options = { 
+        default_pack_type: 'stocks', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201412] 
+    };
+    var stocks_fixtures = fixture_helper.generate_pack_fixtures(stocks_fixture_data,stocks_fixture_options);
+    fixtures = fixtures.concat(stocks_fixtures);
+
+    var stocks_fixture_data = [
+        { code: 'ZZZ-S-Jan', region_code: 'EUR', name: 'Zzz Additional January Pack I',
+          scope_text: 'Scope text for January' }
+    ];
+    var stocks_fixture_options = { 
+        default_pack_type: 'stocks', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201501] 
+    };
+    var stocks_fixtures = fixture_helper.generate_pack_fixtures(stocks_fixture_data,stocks_fixture_options);
+    fixtures = fixtures.concat(stocks_fixtures);
+
     //create sector and industry filters for Canada Pack I
     var sector_industry_filters_data = {
         pack_code: 'CAN-S-1', type: 'stocks', first_sector_id: 1, first_industry_id: 1,
@@ -735,6 +772,43 @@ exports.home_packs_fixture = function() {
     var pairs_fixtures = fixture_helper.generate_pack_fixtures(pairs_fixture_data,pairs_fixture_options);
     fixtures = fixtures.concat(pairs_fixtures);
 
+    //additional packs to test differences on each month
+    var pairs_fixture_data = [
+        { code: 'ZZZ-P-Nov', region_code: 'EUR', name: 'Zzz Additional November Pair Pack I',
+          scope_text: 'Scope text for November' }
+    ];
+    var pairs_fixture_options = { 
+        default_pack_type: 'pairs', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201411] 
+    };
+    var pairs_fixtures = fixture_helper.generate_pack_fixtures(pairs_fixture_data,pairs_fixture_options);
+    fixtures = fixtures.concat(pairs_fixtures);
+
+    var pairs_fixture_data = [
+        { code: 'ZZZ-P-Dec', region_code: 'EUR', name: 'Zzz Additional December Pair Pack I',
+          scope_text: 'Scope text for December' }
+    ];
+    var pairs_fixture_options = { 
+        default_pack_type: 'pairs', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201412] 
+    };
+    var pairs_fixtures = fixture_helper.generate_pack_fixtures(pairs_fixture_data,pairs_fixture_options);
+    fixtures = fixtures.concat(pairs_fixtures);
+
+    var pairs_fixture_data = [
+        { code: 'ZZZ-P-Jan', region_code: 'EUR', name: 'Zzz Additional January Pair Pack I',
+          scope_text: 'Scope text for January' }
+    ];
+    var pairs_fixture_options = { 
+        default_pack_type: 'pairs', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201501] 
+    };
+    var pairs_fixtures = fixture_helper.generate_pack_fixtures(pairs_fixture_data,pairs_fixture_options);
+    fixtures = fixtures.concat(pairs_fixtures);
+
     //create sector and industry filters for USA Pack I
     var sector_industry_filters_data = {
         pack_code: 'USA-P-1', type: 'pairs', first_sector_id: 13, first_industry_id: 25,
@@ -847,6 +921,43 @@ exports.home_packs_fixture = function() {
     var indices_fixtures = fixture_helper.generate_pack_fixtures(indices_fixture_data,indices_fixture_options);
     fixtures = fixtures.concat(indices_fixtures);
 
+    //additional indices packs to test differences on each month
+    var indices_fixture_data = [
+        { code: 'ZZZ-I-Nov', region_code: 'INDEX', name: 'Zzz Additional November INDEX Pack I',
+          scope_text: 'Bolsa, Financieros y Materias Primas' }
+    ];
+    var indices_fixture_options = { 
+        default_pack_type: 'indices', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201411] 
+    };
+    var indices_fixtures = fixture_helper.generate_pack_fixtures(indices_fixture_data,indices_fixture_options);
+    fixtures = fixtures.concat(indices_fixtures);
+
+    var indices_fixture_data = [
+        { code: 'ZZZ-I-Dec', region_code: 'INDEX', name: 'Zzz Additional December INDEX Pack I',
+          scope_text: 'Bolsa, Financieros y Materias Primas' }
+    ];
+    var indices_fixture_options = { 
+        default_pack_type: 'indices', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201412] 
+    };
+    var indices_fixtures = fixture_helper.generate_pack_fixtures(indices_fixture_data,indices_fixture_options);
+    fixtures = fixtures.concat(indices_fixtures);
+
+    var indices_fixture_data = [
+        { code: 'ZZZ-I-Jan', region_code: 'INDEX', name: 'Zzz Additional January INDEX Pack I',
+          scope_text: 'Bolsa, Financieros y Materias Primas' }
+    ];
+    var indices_fixture_options = { 
+        default_pack_type: 'indices', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201501] 
+    };
+    var indices_fixtures = fixture_helper.generate_pack_fixtures(indices_fixture_data,indices_fixture_options);
+    fixtures = fixtures.concat(indices_fixtures);
+
     //create indices patterns for INDEX Pack I in November 2014
     var indices_patterns_fixture_data = { 
         pack_code: 'INDEX-S-1', type: 'indices', quantity: 50, first_id: 401,
@@ -896,6 +1007,43 @@ exports.home_packs_fixture = function() {
         default_pack_type: 'indices_pairs', default_publication_date: '2014-09-15',
         create_published_packs: 1, default_num_patterns: 50,
         published_packs_months : [201410,201411,201412,201501] 
+    };
+    var indices_pairs_fixtures = fixture_helper.generate_pack_fixtures(indices_pairs_fixture_data,indices_pairs_fixture_options);
+    fixtures = fixtures.concat(indices_pairs_fixtures);
+
+    //additional packs to test differences on each month
+    var indices_pairs_fixture_data = [
+        { code: 'ZZZ-IP-Nov', region_code: 'INDEX', name: 'Zzz Additional November INDEX Pair Pack I',
+          scope_text: 'Bolsa, Financieros y Materias Primas' }
+    ];
+    var indices_pairs_fixture_options = { 
+        default_pack_type: 'indices_pairs', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201411] 
+    };
+    var indices_pairs_fixtures = fixture_helper.generate_pack_fixtures(indices_pairs_fixture_data,indices_pairs_fixture_options);
+    fixtures = fixtures.concat(indices_pairs_fixtures);
+
+    var indices_pairs_fixture_data = [
+        { code: 'ZZZ-IP-Dec', region_code: 'INDEX', name: 'Zzz Additional December INDEX Pair Pack I',
+          scope_text: 'Bolsa, Financieros y Materias Primas' }
+    ];
+    var indices_pairs_fixture_options = { 
+        default_pack_type: 'indices_pairs', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201412] 
+    };
+    var indices_pairs_fixtures = fixture_helper.generate_pack_fixtures(indices_pairs_fixture_data,indices_pairs_fixture_options);
+    fixtures = fixtures.concat(indices_pairs_fixtures);
+
+    var indices_pairs_fixture_data = [
+        { code: 'ZZZ-IP-Jan', region_code: 'INDEX', name: 'Zzz Additional January INDEX Pair Pack I',
+          scope_text: 'Bolsa, Financieros y Materias Primas' }
+    ];
+    var indices_pairs_fixture_options = { 
+        default_pack_type: 'indices_pairs', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201501] 
     };
     var indices_pairs_fixtures = fixture_helper.generate_pack_fixtures(indices_pairs_fixture_data,indices_pairs_fixture_options);
     fixtures = fixtures.concat(indices_pairs_fixtures);
@@ -951,6 +1099,46 @@ exports.home_packs_fixture = function() {
         default_pack_type: 'futures', default_publication_date: '2014-09-15',
         create_published_packs: 1, default_num_patterns: 50,
         published_packs_months : [201410,201411,201412,201501] 
+    };
+    var futures_fixtures = fixture_helper.generate_pack_fixtures(futures_fixture_data,futures_fixture_options);
+    fixtures = fixtures.concat(futures_fixtures);
+
+    //additional futures packs to test differences on each month
+    var futures_fixture_data = [
+        { code: 'ZZZ-FUTURE-S-Nov', region_code: 'FUTURE', name: 'Zzz Additional November FUTURES Pack I',
+          scope_text: 'Additional November scope text',
+          subname: 'Additional November subname' }
+    ];
+    var futures_fixture_options = { 
+        default_pack_type: 'futures', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201411] 
+    };
+    var futures_fixtures = fixture_helper.generate_pack_fixtures(futures_fixture_data,futures_fixture_options);
+    fixtures = fixtures.concat(futures_fixtures);
+
+    var futures_fixture_data = [
+        { code: 'ZZZ-FUTURE-S-Dec', region_code: 'FUTURE', name: 'Zzz Additional December FUTURES Pack I',
+          scope_text: 'Additional December scope text',
+          subname: 'Additional December subname' }
+    ];
+    var futures_fixture_options = { 
+        default_pack_type: 'futures', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201412] 
+    };
+    var futures_fixtures = fixture_helper.generate_pack_fixtures(futures_fixture_data,futures_fixture_options);
+    fixtures = fixtures.concat(futures_fixtures);
+
+    var futures_fixture_data = [
+        { code: 'ZZZ-FUTURE-S-Jan', region_code: 'FUTURE', name: 'Zzz Additional January FUTURES Pack I',
+          scope_text: 'Additional January scope text',
+          subname: 'Additional January subname' }
+    ];
+    var futures_fixture_options = { 
+        default_pack_type: 'futures', default_publication_date: '2014-09-15',
+        create_published_packs: 1, default_num_patterns: 100,
+        published_packs_months : [201501] 
     };
     var futures_fixtures = fixture_helper.generate_pack_fixtures(futures_fixture_data,futures_fixture_options);
     fixtures = fixtures.concat(futures_fixtures);
