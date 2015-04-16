@@ -271,7 +271,7 @@
         </tbody>
     </table>
 
-    <table class="summary-table" ng-if="productType != 'FOREX'">
+    <table class="summary-table" >
         <thead>
             <tr>
                 <th rowspan="2">{{'DETAIL.resume'|translate}}</th>
@@ -315,7 +315,7 @@
         </tbody>
     </table>
 
-    <table class="index-same-period-table" ng-show="infoPattern.samePeriodIndices.length > 0">
+    <table class="index-same-period-table" ng-show="infoPattern.samePeriodIndices.length > 0" ng-if="productType != 'FOREX'">
         <thead>
         <tr>
             <th rowspan="2">

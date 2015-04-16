@@ -1,23 +1,15 @@
 <div class="calendar-filters-container">
+
     <select data-ng-model="filterOptions.filters.selectMonth" class="filter-calendar"  ng-change="goToMonth()"
             ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months">
     </select>
 
-    <select data-ng-model="filterOptions.filters.selectedOperation" class="filter-calendar"
-            ng-options="item.description|translate for item in filterOptions.selectors.indexOperations"
-            ng-change="search();">
-        <option selected value="">- {{'CALENDAR.operation'|translate}} -</option>
-        <!-- <option ng-repeat="operation in filterOptions.selectors.indexOperations"
-                 value="{{operation.id}}">{{operation.description | translate}}</option>-->
-    </select>
     <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();"><label>{{'CALENDAR.favorites'|translate}}</label>
-    <form name="calendarIndex">
-        <input type="text" placeholder="{{'CALENDAR.day'|translate}}" ng-change="search();"
-               data-ng-model="filterOptions.filters.dayDateInput" ng-delay="3000"
-               name="dayInput"
-               ng-class=" {'warning-input':  (calendarIndex.dayInput.$error.pattern && (calendarIndex.dayInput.$dirty))}"
-               ng-pattern="dayPattern" ng-trim="false">
-        <select data-ng-model="filterOptions.filters.order" class="select-order filter-calendar" ng-change="orderSearch();" ng-delay="3000">
+    <form name="calendarStock">
+        <input  name="dayInput" placeholder="{{'CALENDAR.day'|translate}}" data-ng-model="filterOptions.filters.dayDateInput" ng-change="search();" ng-delay="3000"
+                type="text" ng-class=" {'warning-input':  (calendarStock.dayInput.$error.pattern && (calendarStock.dayInput.$dirty))}"
+                ng-pattern="dayPattern" ng-trim="false">
+        <select data-ng-model="filterOptions.filters.order" class="filter-calendar select-order"  class="select-order" ng-change="orderSearch();" ng-delay="3000" >
             <option selected value="0">{{'CALENDAR.sort_entry'|translate}}</option>
             <option value="1">{{'CALENDAR.sort_exit'|translate}}</option>
         </select>
@@ -30,26 +22,27 @@
     <table class="calendar-table">
         <thead>
         <tr>
-            <th>{{'CALENDAR.index'|translate}}</th>
+            <th>{{'CALENDAR.name'|translate}}</th>
             <th ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">{{('CALENDAR.DAYS.'+day.dayOfWeek)|translate}}<br/>{{day.dayOfMonth}}</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="pattern in myData">
             <td ui-sref="detail({patternId:pattern.id})">
-            <span ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH'}" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">
-                <div class="text-limitator-calendar">{{pattern.asset.longName}}
+                <div class="text-limitator-calendar">
+                    <span tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})" class="cursor-help" style="color: black;" >{{pattern.asset.longName | limitTo:25}}</span>
                 </div>
-
-            </span>
             </td>
             <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
-                <!--<span ng-show="pattern.patternType == 'BEARISH'  && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="bearish-year calendar-letter">S</span>
-                <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="bullish-year calendar-letter">L</span>
-                <span ng-show="pattern.patternType == 'BEARISH'  && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="bearish-year calendar-letter">S</span>
-                <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && month.value != {{pattern.exitDate | date: 'MM'}}" class="bullish-year calendar-letter">L</span>-->
+                <!--<span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= filterOptions.filters.dayDateInput  && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} == filterOptions.filters.month.month" class="bearish-year calendar-letter">S</span>
+                <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= filterOptions.filters.dayDateInput && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} == filterOptions.filters.month.month" class="bullish-year calendar-letter">L</span>
+
+                <span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} != filterOptions.filters.month.month" class="bearish-year calendar-letter">S</span>
+                <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} != filterOptions.filters.month.month" class="bullish-year calendar-letter">L</span>
+                -->
                 <span ng-show="pattern.patternType == 'BEARISH' && mustPaint(day,pattern)" class="bearish-year calendar-letter">S</span>
                 <span ng-show="pattern.patternType == 'BULLISH' && mustPaint(day,pattern)" class="bullish-year calendar-letter">L</span>
+
 
             </td>
         </tr>
@@ -72,6 +65,6 @@
 </div>
 
 <div class="calendar-caption">
-    <span class="bullish-year calendar-letter">L: </span> Long ({{'CALENDAR.bullishCaption'|translate}})
-    <span style="margin-left: 14px;" class="bearish-year calendar-letter">S: </span> Short ({{'CALENDAR.bearishCaption'|translate}})
+    <span class="bullish-year calendar-letter">L: </span> Long ({{'CALENDAR.buyCaption'|translate}})
+    <span style="margin-left: 14px;" class="bearish-year calendar-letter">S: </span> Short ({{'CALENDAR.sellCaption'|translate}})
 </div>

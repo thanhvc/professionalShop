@@ -1,35 +1,37 @@
 <div class="black" style="font-size: 12px; ">
-    <table class="volat-table" style="width: 925px" border="0" cellpadding="0" cellspacing="0">
-        <colgroup span="5"></colgroup>
+    <table  class="stocks-table volat-table" border="0" cellpadding="0" cellspacing="0">
         <thead>
-        <tr  class="index-header">
-            <th>
-                <span class="index-header-index">{{'TOOLS.index'|translate}}</span>
-            </th>
-            <th style="width: 100px;">
-                <span class="index-header-date">{{'TOOLS.vol_date'|translate}}</span>
-            </th>
+        <tr class="stocks-header-table">
             <th >
-                <span class="index-header-vol">{{'TOOLS.volatility'|translate}} %</span>
+                <span class="stocks-name ">{{'TOOLS.name'|translate}}</span>
             </th>
             <th  >
-                <span class="index-header-fav" tooltip-html-unsafe="{{'TOOLS.favorite_long'|translate}}">{{'TOOLS.favorite_short'|translate}}</span>
+                <span class="stocks-market ">{{'TOOLS.market'|translate}}</span>
+            </th>
+            <th>
+                <span class="stocks-date">{{'TOOLS.vol_date'|translate}}</span>
+            </th>
+            <th >
+                <span class="stocks-vol">{{'TOOLS.volatility'|translate}} %</span>
+            </th>
+            <th >
+                <span class="stocks-fav" tooltip-html-unsafe="{{'TOOLS.favorite_long'|translate}}">{{'TOOLS.favorite_short'|translate}}</span>
 
             </th>
         </tr>
         </thead>
-        <tbody class="index-tbody">
-
-        <tr ng-repeat="data in myData" ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'">
-            <td  class="index-name-value">
-                <span  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">{{data.name}} ({{data.exchSymbol}})</span>
+        <tbody class="stocks-tbody">
+        <tr ng-repeat="data in myData"    ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style=" font-size:11px;">
+            <td class="green"  >
+                    <span class="stocks-market-value cursor-help" tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                          >{{data.name}}</span>
             </td>
-
-            <td  class="index-date-value" >
-                <span>{{data.lastDate | date: 'dd MMM yyyy'}}</span>
+            <td class="black-font-market" >
+                <span tooltip-html-unsafe="{{data.exchName}}" class="cursor-help">{{data.exchSymbol}}</span>
             </td>
-            <td class="index-vol-value">
-                <a ng-if="data.volat >= 0" ng-click="showSelectedGraphic($event,data.name,data.patTyp,null,false,data.volatChartURL);$event.stopPropagation();">{{data.volat | volatTruncate}}</a>
+            <td class="stocks-date-value">{{data.lastDate | date: 'dd MMM yyyy'}}</td>
+            <td class="stocks-vol-value">
+                <a ng-if="data.volat >= 0" ng-click="showSelectedGraphic($event,data.name,data.patTyp,null,false,data.volatChartURL);$event.stopPropagation();" >{{ data.volat | volatTruncate}}</a>
                 <span ng-if="data.volat < 0">N/A</span>
             </td>
             <td style="width: 62px;" class="table-cell-patterns sub-border-right-table">
@@ -37,6 +39,7 @@
             </td>
         </tr>
         </tbody>
+
     </table>
 </div>
 <!--preload img-->
@@ -45,4 +48,3 @@
         <img src="{{data.volatChartURL}}">
     </div>
 </div>
-

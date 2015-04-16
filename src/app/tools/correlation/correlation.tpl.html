@@ -78,7 +78,7 @@
                 <tbody>
                     <tr ng-repeat="row in correlationData track by $index">
                        <!-- <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column.value >= 80, 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">{{column.value}}</td>-->
-                       <td  ng-repeat="column in row track by $index"  ng-class="{'high-correlation': (column.value >= 88 || column.value <=-88), 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">
+                       <td  ng-repeat="column in row track by $index"  ng-class="{'high-correlation': (column.value >= 88 || column.value <=-88), 'buy-color': column.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': column.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">
                             <span  ng-if="column.name == ''">{{column.value}}</span>
                            <span tooltip-html-unsafe="{{column.name}}"  ng-if="column.name != ''" class="cursor-help">{{column.value}}</span>
                        </td>
@@ -103,8 +103,8 @@
                                 <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
                                       ng-class="{'favourite-added': row.favorite == true}"></div>
                             </td> -->
-                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
-                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.name | limitTo: 35}}</td>
+                            <td  ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.code}}</td>
+                            <td   ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.name | limitTo: 35}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -124,9 +124,9 @@
                                 <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
                                      ng-class="{'favourite-added': row.favorite == true}"></div>
                             </td> -->
-                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
+                            <td ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.code}}</td>
                            <!-- <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.symbol}}</td>-->
-                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.name | limitTo: 35}}</td>
+                            <td ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.name | limitTo: 35}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -150,8 +150,8 @@
                                 <span>/</span><span tooltip-html-unsafe="{{column.name}}"   class="cursor-help sell-color">{{column.value2}}</span>
                             </div>
                             <div ng-if="column.name != '' && column.type == 'empty'"><!--first column-->
-                                <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help buy-color ">{{column.value}}</span>
-                                <span>/</span>
+                                <span tooltip-html-unsafe="{{column.name}}"  class="cursor-help buy-color ">{{column.value}}</span>
+                                <span> / </span>
                                 <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help sell-color ">{{column.value2}}</span>
                             </div>
 

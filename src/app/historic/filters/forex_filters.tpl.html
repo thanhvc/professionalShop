@@ -5,19 +5,20 @@
                 <input ng-keypress="submitName($event)" class="border-filters input-filter" placeholder="{{'HISTORIC.name'|translate}}"
                        ng-model="filterOptions.filters.filterName">
             </td>
-           <!-- <td>
-                <select ng-change="selectIndexType()" ng-model="filterOptions.filters.index_type" class="index-select-orange">
-                    <option value="0">{{'INDICES'|translate}}</option>
-                    <option value="1">{{'INDEX_PAIRS'|translate}}</option>
-                </select>
+            <td>
+
             </td>
-            <td>-->
-                <select ng-change="search()" style="width: 100px;" class="border-filters select-filter"
-                        ng-options="item.description|translate for item in filterOptions.selectors.operationsIndex"
-                        ng-show="filterOptions.filters.index_type == '0'"
-                        data-ng-model="filterOptions.filters.selectedOperation">
-                    <option value="">- {{'HISTORIC.operation'|translate}} -</option>
-                </select>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
             </td>
         </tr>
     </table>
@@ -25,6 +26,7 @@
         <table>
             <tr>
                 <td>
+
                     <span class="filter-label-select">{{'HISTORIC.last_rent'|translate}}</span><br>
                     <select class="border-filters select-filter small-select-filter"
                             ng-options="item.description|translate for item in filterOptions.selectors.comparators"
@@ -44,8 +46,7 @@
                             data-ng-model="filterOptions.filters.selectedAverage">
                         <option value="">- {{'HISTORIC.choose'|translate}} -</option>
                     </select>
-                    <input name="rentAverageInput" class="border-filters input-filter small-input-filter"
-                           placeholder="%"
+                    <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.rentAverageInput.$error.pattern && (rentForm.rentAverageInput.$dirty))}"
                            data-ng-model="filterOptions.filters.rentAverageInput">
@@ -58,8 +59,7 @@
                         <option value="">- {{'HISTORIC.choose'|translate}} -</option>
 
                     </select>
-                    <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%"
-                           placeholder="%"
+                    <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.rentDiaryInput.$error.pattern && (rentForm.rentDiaryInput.$dirty))}"
                            data-ng-model="filterOptions.filters.rentDiaryInput">

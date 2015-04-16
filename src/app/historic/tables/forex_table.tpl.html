@@ -1,14 +1,14 @@
-<table style="width: 955px;" class="table-pattern"  ng-show="myData.length>0">
+<table style="width: 955px;" class="table-pattern" ng-show="myData.length>0">
     <!--HEADER-->
     <tr class="table-header-top-patterns">
         <th class="table-id-header" rowspan="2">
             Id
         </th>
-        <th class="border-right-table patterns-stocks-column-width">
-            {{'HISTORIC.index'|translate}}
+        <th class="border-right-table patterns-stocks-column-width" >
+            {{'HISTORIC.forex'|translate}}
         </th>
-        <th class="border-right-table">
-            {{'HISTORIC.emisor'|translate}}
+        <th  class="border-right-table cursor-help">
+            <span tooltip-html-unsafe="{{'HISTORIC.market_long'|translate}}">{{'HISTORIC.market_short'|translate}}</span>
         </th>
         <th class="border-right-table" colspan="2">
             {{'HISTORIC.entry'|translate}}
@@ -33,11 +33,10 @@
         </th>
     </tr>
     <tr class="table-header-bottom-patterns">
-        <th class="border-right-table">
-            {{'HISTORIC.name'|translate}}
+        <th class="border-right-table" style="width: 340px;">
+            {{'HISTORIC.identifier'|translate}}
         </th>
         <th class="border-right-table">
-
         </th>
         <th class="sub-border-right-table">
             {{'HISTORIC.date'|translate}}
@@ -74,51 +73,51 @@
         <td width="30" class="table-id-orange">
             {{data.id}}
         </td>
-        <td  class="table-cell-patterns border-right-table index-market-historic">
-            <span ng-show="data.patTyp == 'BULLISH'">{{'HISTORIC.bullish'|translate}}</span>
-            <span ng-show="data.patTyp == 'BEARISH'">{{'HISTORIC.bearish'|translate}}</span>
-            <br/>
+        <td style="text-align: left;" class="table-cell-patterns border-right-table">
+             <span class="cursor-help"
+                   tooltip-html-unsafe="{{data.name}}" ></span>
             <div class="text-limitator">
             <span class="cursor-help"
                   tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
-                  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
+                   >
                 {{data.name}}
             </span>
             </div>
         </td>
-        <td class="border-right-table table-cell-patterns ">
-            <span class="cursor-help" tooltip-html-unsafe="{{data.exchName}}">{{data.exchSymbol}}</span>
+        <td class="border-right-table table-cell-patterns" style="text-align: center;">
+            <span class="cursor-help" tooltip="{{data.exchName}}">{{data.exchSymbol}}</span>
         </td>
-        <td
-                class="table-cell-patterns sub-border-right-table index-entryDate-patterns">
+        <td class="table-cell-patterns sub-border-right-table">
             {{data.entryDate | date: 'dd/MMM/yy'}}
         </td>
-        <td class="table-cell-patterns border-right-table index-entryValue-patterns">
+        <td class="table-cell-patterns border-right-table">
             <b>{{data.entryValue | twoDecimals}}</b>
         </td>
-        <td  class="table-cell-patterns border-right-table index-exitDate-patterns">
+        <td class="table-cell-patterns sub-border-right-table">
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
-        <td class="table-cell-patterns border-right-table index-exitValue-patterns " >
+        <td class="table-cell-patterns border-right-table" >
             <b>{{data.exitValue | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns border-right-table index-performance-patterns" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
-            <span><b>{{data.lastPerformance | twoDecimals}}</b></span>
+        <td class="table-cell-patterns border-right-table" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
+            <b>{{data.lastPerformance |  twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns sub-border-right-table index-bestGainDate-patterns">
+        <td class="table-cell-patterns sub-border-right-table">
             <span ng-show="data.bestGain >= 0.01">{{data.bestGainDate | date: 'dd/MMM/yy'}}</span>
         </td>
-        <td class="table-cell-patterns border-right-table index-bestGain-patterns">
-            <b ng-show="data.bestGain >= 0.01" ng-class="{'negative-percent': data.asset.bestGain < 0}">{{data.bestGain | twoDecimals}}</b>
+        <td class="table-cell-patterns border-right-table">
+            <b ng-show="data.bestGain >= 0.01" ng-class="{'negative-percent': data.bestGain < 0}">{{data.bestGain | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns sub-border-right-table index-worstLossDate-patterns">
+        <td class="table-cell-patterns sub-border-right-table">
             <span ng-show="data.worstLoss <= -0.01">{{data.worstLossDate | date: 'dd/MMM/yy'}}</span>
         </td>
         <td class="table-cell-patterns border-right-table">
             <b ng-show="data.worstLoss <= -0.01" ng-class="{'negative-percent': data.worstLoss < 0}">{{data.worstLoss | twoDecimals}}</b>
         </td>
-        <td class="table-cell-patterns sub-border-right-table index-notes-patterns">
+        <td class="table-cell-patterns sub-border-right-table">
             <div class="notes-pattern-icon" ng-if="data.notes.length > 0" ng-click="openNotes(data);$event.stopPropagation();"></div>
         </td>
     </tr>
+
+
 </table>
