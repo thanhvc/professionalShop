@@ -168,6 +168,22 @@ Catalog.prototype =  Object.create({}, {
     }},
     selectVolatilityFilter: {value: function(opt) {
         return this.selectDropdownbyNum(element(by.model("filterOptions.filters.volatilityInterval")),opt);
+    }},
+    //Paginators
+    getPaginatorContainer: {value: function() {
+        return element(by.css("div.pagination-container"));
+    }},
+    getPaginatorElements: {value: function() {
+        return element(by.css("div.pagination-container")).all(by.repeater("page in pages"));
+    }},
+    getPaginatorElement: {value: function(pos) {
+        return this.getPaginatorElements().get(pos);
+    }},
+    getPaginatorFirstPage: {value: function(pos) {
+        return this.getPaginatorElement(0);
+    }},
+    getPaginatorPageNumber: {value: function(page) {
+        return this.getPaginatorElement(page+1).element(by.css("a"));
     }}
 
 });

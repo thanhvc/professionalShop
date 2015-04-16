@@ -241,6 +241,9 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(false);
                             expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
                         });
                         
                         //NOTE: filters for this pack already tested in home_packs_20141201
@@ -384,6 +387,9 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(false);
                             expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
                         });
 
                         //NOTE: filters for this pack already tested in home_packs_20141201
@@ -481,6 +487,9 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternStatus(3,'not_started').isDisplayed()).toBe(false);
                             expect(catalog_page.getIndexPatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getIndexPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
                         });
 
                         //NOTE: filters for this pack already tested in home_packs_20141201
@@ -557,6 +566,9 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternStatus(3,'not_started').isDisplayed()).toBe(false);
                             expect(catalog_page.getIndexPatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getIndexPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
                         });
 
                         //NOTE: filters for this pack already tested in home_packs_20141201
@@ -644,6 +656,9 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternStatus(3,'not_started').isDisplayed()).toBe(false);
                             expect(catalog_page.getFuturePatternStatus(3,'started').isDisplayed()).toBe(true);
                             expect(catalog_page.getFuturePatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
                         });
 
                         //NOTE: filters for this pack already tested in home_packs_20141201
@@ -849,6 +864,28 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(false);
                             expect(catalog_page.getPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
+                        });
+
+                        it("should navigate through pages", function() {
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
+                            //page 5
+                            catalog_page.getPaginatorPageNumber(5).click();
+                            ptor.sleep(2000);
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 141");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 142");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 143");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 144");
+                            //page 3
+                            catalog_page.getPaginatorPageNumber(3).click();
+                            ptor.sleep(2000);
+                            expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 121");
+                            expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 122");
+                            expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 123");
+                            expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 124");
                         });
 
                         it("should filter catalog by asset name", function() {
@@ -861,6 +898,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 124");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 134");
                             expect(catalog_page.getPatternName(4).getText()).toBe("Long name Asset 140");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by sector", function() {
@@ -880,6 +919,9 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternSectorIndustry(2).getText()).toBe("Sector1 / Industry1_1");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 107");
                             expect(catalog_page.getPatternSectorIndustry(3).getText()).toBe("Sector1 / Industry1_2");
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(7); //<< < + 3 pages + > >>
                         });
 
                         it("should filter catalog by sector and industry", function() {
@@ -904,6 +946,9 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternSectorIndustry(2).getText()).toBe("Sector2 / Industry2_2");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 116");
                             expect(catalog_page.getPatternSectorIndustry(3).getText()).toBe("Sector2 / Industry2_2");
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by duration", function() {
@@ -919,6 +964,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternDuration(2).getText()).toBe("Hasta 1");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 110");
                             expect(catalog_page.getPatternDuration(3).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(2); //de 1 a 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
@@ -930,6 +977,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternDuration(2).getText()).toBe("De 1 a 3");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 111");
                             expect(catalog_page.getPatternDuration(3).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(3); //Más de 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 16");
@@ -941,6 +990,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternDuration(2).getText()).toBe("Más de 3");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 112");
                             expect(catalog_page.getPatternDuration(3).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by volatility", function() {
@@ -956,9 +1007,12 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternVolatility(2).getText()).toBe("19");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 106");
                             expect(catalog_page.getPatternVolatility(3).getText()).toBe("5");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(7); //<< < + 3 pages + > >>
                             catalog_page.selectVolatilityFilter(2); //Entre 25% y 50%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 0");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                             catalog_page.selectVolatilityFilter(3); //Entre 50% y 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -970,6 +1024,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternVolatility(2).getText()).toBe("57");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 115");
                             expect(catalog_page.getPatternVolatility(3).getText()).toBe("57");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectVolatilityFilter(4); //Más de 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -981,6 +1037,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternVolatility(2).getText()).toBe("104");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 116");
                             expect(catalog_page.getPatternVolatility(3).getText()).toBe("104");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by all filters at the same time", function() {
@@ -1029,6 +1087,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternStatus(1,'not_started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(1,'started').isDisplayed()).toBe(false);
                             expect(catalog_page.getPatternStatus(1,'finished').isDisplayed()).toBe(false);
+                            //pagination
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                         });
 
                     }); //end go to Canadá Pack I catalog
@@ -1170,6 +1230,9 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternStatus(3,'not_started').isDisplayed()).toBe(true);
                             expect(catalog_page.getPatternStatus(3,'started').isDisplayed()).toBe(false);
                             expect(catalog_page.getPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
                         });
 
                         it("should filter catalog by asset name", function() {
@@ -1186,6 +1249,7 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 317 2");
                             expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 327 1");
                             expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 327 2");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                         });
 
                         it("should filter catalog by sector", function() {
@@ -1209,6 +1273,9 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 305 2");
                             expect(catalog_page.getPairPatternSectorIndustry(2,0).getText()).toBe("Sector1 / Industry1_1");
                             expect(catalog_page.getPairPatternSectorIndustry(2,1).getText()).toBe("Sector1 / Industry1_1");
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(7); //<< < + 3 pages + > >>
                         });
 
                         it("should filter catalog by sector and industry", function() {
@@ -1237,6 +1304,9 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 312 2");
                             expect(catalog_page.getPairPatternSectorIndustry(2,0).getText()).toBe("Sector2 / Industry2_2");
                             expect(catalog_page.getPairPatternSectorIndustry(2,1).getText()).toBe("Sector2 / Industry2_2");
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by duration", function() {
@@ -1256,6 +1326,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 310 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 310 2");
                             expect(catalog_page.getPatternDuration(3).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(2); //de 1 a 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
@@ -1271,6 +1343,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 311 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 311 2");
                             expect(catalog_page.getPatternDuration(3).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(3); //Más de 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 16");
@@ -1286,6 +1360,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 312 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 312 2");
                             expect(catalog_page.getPatternDuration(3).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by volatility", function() {
@@ -1305,9 +1381,12 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 306 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 306 2");
                             expect(catalog_page.getPatternVolatility(3).getText()).toBe("5");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(7); //<< < + 3 pages + > >>
                             catalog_page.selectVolatilityFilter(2); //Entre 25% y 50%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 0");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                             catalog_page.selectVolatilityFilter(3); //Entre 50% y 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -1323,6 +1402,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 315 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 315 2");
                             expect(catalog_page.getPatternVolatility(3).getText()).toBe("57");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectVolatilityFilter(4); //Más de 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -1338,6 +1419,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 316 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 316 2");
                             expect(catalog_page.getPatternVolatility(3).getText()).toBe("104");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by all filters at the same time", function() {
@@ -1374,6 +1457,8 @@ describe('Home page', function () {
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 1");
                             expect(catalog_page.getPairPatternName(0,0).getText()).toBe("Long name Asset 337 1");
                             expect(catalog_page.getPairPatternName(0,1).getText()).toBe("Long name Asset 337 2");
+                            //pagination
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                         });
 
                     }); //end go to Estados Unidos Pack
@@ -1469,6 +1554,9 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternStatus(3,'not_started').isDisplayed()).toBe(true);
                             expect(catalog_page.getIndexPatternStatus(3,'started').isDisplayed()).toBe(false);
                             expect(catalog_page.getIndexPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
                         });
 
                         it("should filter catalog by asset name", function() {
@@ -1481,6 +1569,7 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 527");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 537");
                             expect(catalog_page.getPatternName(4).getText()).toBe("Long name Asset 547");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                         });
 
                         it("should filter catalog by duration", function() {
@@ -1496,6 +1585,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternDuration(2).getText()).toBe("Hasta 1");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 510");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(2); //de 1 a 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
@@ -1507,6 +1598,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternDuration(2).getText()).toBe("De 1 a 3");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 511");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(3); //Más de 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 16");
@@ -1518,6 +1611,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternDuration(2).getText()).toBe("Más de 3");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 512");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by volatility", function() {
@@ -1533,9 +1628,12 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternVolatility(2).getText()).toBe("19");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 506");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("5");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(7); //<< < + 3 pages + > >>
                             catalog_page.selectVolatilityFilter(2); //Entre 25% y 50%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 0");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                             catalog_page.selectVolatilityFilter(3); //Entre 50% y 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -1547,6 +1645,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternVolatility(2).getText()).toBe("57");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 515");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("57");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectVolatilityFilter(4); //Más de 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -1558,6 +1658,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternVolatility(2).getText()).toBe("104");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 516");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("104");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by all filters at the same time", function() {
@@ -1572,6 +1674,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 501");
                             expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 510");
                             expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 513");
+                            //pagination
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                         });
 
                     }); //end go to INDEX Pack I
@@ -1646,6 +1750,9 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternStatus(3,'not_started').isDisplayed()).toBe(true);
                             expect(catalog_page.getIndexPatternStatus(3,'started').isDisplayed()).toBe(false);
                             expect(catalog_page.getIndexPatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
                         });
 
                         it("should filter catalog by asset name", function() {
@@ -1663,6 +1770,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 671 2");
                             expect(catalog_page.getPairPatternName(4,0).getText()).toBe("Long name Asset 672 1");
                             expect(catalog_page.getPairPatternName(4,1).getText()).toBe("Long name Asset 672 2");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by duration", function() {
@@ -1682,6 +1791,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 660 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 660 2");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(2); //de 1 a 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
@@ -1697,6 +1808,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 661 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 661 2");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(3); //Más de 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 16");
@@ -1712,6 +1825,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 662 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 662 2");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by volatility", function() {
@@ -1731,9 +1846,12 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 656 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 656 2");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("5");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(7); //<< < + 3 pages + > >>
                             catalog_page.selectVolatilityFilter(2); //Entre 25% y 50%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 0");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                             catalog_page.selectVolatilityFilter(3); //Entre 50% y 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -1749,6 +1867,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 665 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 665 2");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("57");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectVolatilityFilter(4); //Más de 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -1764,6 +1884,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(3,0).getText()).toBe("Long name Asset 666 1");
                             expect(catalog_page.getPairPatternName(3,1).getText()).toBe("Long name Asset 666 2");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("104");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by all filters at the same time", function() {
@@ -1781,6 +1903,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPairPatternName(1,1).getText()).toBe("Long name Asset 675 2");
                             expect(catalog_page.getPairPatternName(2,0).getText()).toBe("Long name Asset 687 1");
                             expect(catalog_page.getPairPatternName(2,1).getText()).toBe("Long name Asset 687 2");
+                            //pagination
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                         });
 
                     });//end INDEX pair Pack I
@@ -1866,6 +1990,9 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternStatus(3,'not_started').isDisplayed()).toBe(true);
                             expect(catalog_page.getFuturePatternStatus(3,'started').isDisplayed()).toBe(false);
                             expect(catalog_page.getFuturePatternStatus(3,'finished').isDisplayed()).toBe(false);
+                            //paginator
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(9); //<< < + 5 pages + > >>
                         });
 
                         it("should filter catalog by asset name", function() {
@@ -1879,6 +2006,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 830");
                             expect(catalog_page.getPatternName(4).getText()).toBe("Long name Asset 831");
                             expect(catalog_page.getPatternName(5).getText()).toBe("Long name Asset 832");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by group", function() {
@@ -1898,6 +2027,8 @@ describe('Home page', function () {
                             expect(catalog_page.getFuturePatternIssuer(2).getText()).toBe("EF2");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 811");
                             expect(catalog_page.getFuturePatternIssuer(3).getText()).toBe("EF2");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by duration", function() {
@@ -1913,6 +2044,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternDuration(2).getText()).toBe("Hasta 1");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 810");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("Hasta 1");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(2); //de 1 a 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 17");
@@ -1924,6 +2057,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternDuration(2).getText()).toBe("De 1 a 3");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 811");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("De 1 a 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectDurationFilter(3); //Más de 3 meses
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 16");
@@ -1935,6 +2070,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternDuration(2).getText()).toBe("Más de 3");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 812");
                             expect(catalog_page.getIndexPatternDuration(3).getText()).toBe("Más de 3");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
 
                         it("should filter catalog by volatility", function() {
@@ -1950,9 +2087,12 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternVolatility(2).getText()).toBe("19");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 806");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("5");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(7); //<< < + 3 pages + > >>
                             catalog_page.selectVolatilityFilter(2); //Entre 25% y 50%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 0");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                             catalog_page.selectVolatilityFilter(3); //Entre 50% y 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -1964,6 +2104,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternVolatility(2).getText()).toBe("57");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 815");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("57");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                             catalog_page.selectVolatilityFilter(4); //Más de 75%
                             ptor.sleep(2000);
                             expect(catalog_page.getTotalAndFoundPatternsLabel().getText()).toBe("Número total de patrones: 50; Patrones encontrados: 12");
@@ -1975,6 +2117,8 @@ describe('Home page', function () {
                             expect(catalog_page.getIndexPatternVolatility(2).getText()).toBe("104");
                             expect(catalog_page.getPatternName(3).getText()).toBe("Long name Asset 816");
                             expect(catalog_page.getIndexPatternVolatility(3).getText()).toBe("104");
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(true);
+                            expect(catalog_page.getPaginatorElements().count()).toBe(6); //<< < + 2 pages + > >>
                         });
                         
                         it("should filter catalog by all filters at the same time", function() {
@@ -1995,6 +2139,8 @@ describe('Home page', function () {
                             expect(catalog_page.getPatternName(0).getText()).toBe("Long name Asset 813");
                             expect(catalog_page.getPatternName(1).getText()).toBe("Long name Asset 834");
                             expect(catalog_page.getPatternName(2).getText()).toBe("Long name Asset 837");
+                            //pagination
+                            expect(catalog_page.getPaginatorContainer().isDisplayed()).toBe(false);
                         });
                     });
 
