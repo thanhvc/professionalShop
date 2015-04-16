@@ -1,20 +1,24 @@
-<div>
+<div >
     <table>
         <tr>
             <td>
                 <input ng-keypress="submitName($event)" class="border-filters input-filter" placeholder="{{'MY_PATT.name'|translate}}"
                        ng-model="filterOptions.filters.filterName">
             </td>
-
             <td>
 
-                <select ng-show="filterOptions.filters.index_type == '0'"
-                        ng-change="applyFilters()" style="width: 100px;" class="border-filters select-filter"
-                        ng-options="item.description|translate for item in filterOptions.selectors.operationsIndex"
-                        data-ng-model="filterOptions.filters.selectedOperation">
-                    <option value="">- {{'MY_PATT.operation'|translate}} -</option>
+            </td>
+            <td>
 
-                </select>
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
             </td>
         </tr>
     </table>
@@ -23,14 +27,15 @@
             <tr>
                 <td>
 
-
                     <span class="filter-label-select">{{'MY_PATT.acc_rent'|translate}}</span><br>
                     <select class="border-filters select-filter small-select-filter"
+
                             ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedRent">
                         <option value="">- {{'MY_PATT.choose'|translate}} -</option>
 
                     </select>
+
                     <input name="rentInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-class=" {'warning-input':  (rentForm.rentInput.$error.pattern && (rentForm.rentInput.$dirty))}"
                            ng-pattern="rentPattern" ng-trim="false"
@@ -43,10 +48,8 @@
                             ng-options="item.description|translate for item in filterOptions.selectors.comparators"
                             data-ng-model="filterOptions.filters.selectedAverage">
                         <option value="">- {{'MY_PATT.choose'|translate}} -</option>
-
                     </select>
-                    <input name="rentAverageInput" class="border-filters input-filter small-input-filter"
-                           placeholder="%"
+                    <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.rentAverageInput.$error.pattern && (rentForm.rentAverageInput.$dirty))}"
                            data-ng-model="filterOptions.filters.rentAverageInput">
@@ -59,8 +62,7 @@
                         <option value="">- {{'MY_PATT.choose'|translate}} -</option>
 
                     </select>
-                    <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%"
-                           placeholder="%"
+                    <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
                            ng-pattern="rentPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.rentDiaryInput.$error.pattern && (rentForm.rentDiaryInput.$dirty))}"
                            data-ng-model="filterOptions.filters.rentDiaryInput">
@@ -86,8 +88,7 @@
                         <option value="">- {{'MY_PATT.choose'|translate}} -</option>
 
                     </select>
-                    <input name="durationInput" class="border-filters input-filter small-input-filter"
-                           placeholder="{{'MY_PATT.days'|translate}}"
+                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="{{'MY_PATT.days'|translate}}"
                            ng-pattern="daysPattern" ng-trim="false"
                            ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
                            data-ng-model="filterOptions.filters.durationInput">
