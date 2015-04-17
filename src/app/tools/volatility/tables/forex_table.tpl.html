@@ -1,0 +1,50 @@
+<div class="black" style="font-size: 12px; ">
+    <table  class="stocks-table volat-table" border="0" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr class="stocks-header-table">
+            <th >
+                <span class="stocks-name ">{{'TOOLS.name'|translate}}</span>
+            </th>
+            <th  >
+                <span class="stocks-market ">{{'TOOLS.market'|translate}}</span>
+            </th>
+            <th>
+                <span class="stocks-date">{{'TOOLS.vol_date'|translate}}</span>
+            </th>
+            <th >
+                <span class="stocks-vol">{{'TOOLS.volatility'|translate}} %</span>
+            </th>
+            <th >
+                <span class="stocks-fav" tooltip-html-unsafe="{{'TOOLS.favorite_long'|translate}}">{{'TOOLS.favorite_short'|translate}}</span>
+
+            </th>
+        </tr>
+        </thead>
+        <tbody class="stocks-tbody">
+        <tr ng-repeat="data in myData"    ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style=" font-size:11px;">
+            <td class="green"  >
+                    <span class="stocks-market-value cursor-help" tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                          >{{data.name}}</span>
+            </td>
+            <td class="black-font-market" >
+                <span tooltip-html-unsafe="{{data.exchName}}" class="cursor-help">{{data.exchSymbol}}</span>
+            </td>
+            <td class="stocks-date-value">{{data.lastDate | date: 'dd MMM yyyy'}}</td>
+            <td class="stocks-vol-value">
+                <a ng-if="data.volat >= 0" ng-click="showSelectedGraphic($event,data.name,data.patTyp,null,false,data.volatChartURL);$event.stopPropagation();" >{{ data.volat | volatTruncate}}</a>
+                <span ng-if="data.volat < 0">N/A</span>
+            </td>
+            <td style="width: 62px;" class="table-cell-patterns sub-border-right-table">
+                <div tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(data.id,data.name,null,data.fav);$event.stopPropagation();" class="current-favourite"  ng-class="{'favourite-added': data.fav == true}"></div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<!--preload img-->
+<div class="invisible-div">
+    <div data-ng-repeat="data in myData">
+        <img src="{{data.volatChartURL}}">
+    </div>
+</div>

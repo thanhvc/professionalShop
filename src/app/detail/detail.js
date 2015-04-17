@@ -93,6 +93,9 @@ angular.module('ngMo.detail', [
               case 'FUTURE':
                   $scope.productType = "FUTURE";
                   break;
+              case 'FOREX':
+                  $scope.productType = "FOREX";
+                  break;
           }
         };
 

@@ -46,6 +46,8 @@
         "volatility_long":"Volatilidad",
         "volatility_short":"Vol.",
         "worst_rent":"Peor Pérdida",
-        "emisor":"Emisor"
+        "emisor":"Emisor",
+        "forex":"Tipo de Cambio",
+        "identifier": "Identificador"
     }
 }

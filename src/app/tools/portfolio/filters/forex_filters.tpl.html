@@ -1,0 +1,39 @@
+<div>
+    <table>
+        <tr>
+            <td>
+                <input class="border-filters input-filter" ng-change="search();" style="width: 112px;" placeholder="{{'TOOLS.name'|translate}}" ng-delay="2000"
+                       ng-model="filterOptions.filters.filterName">
+            </td>
+            <td>
+                <select class="border-filters select-filter-portfolio"
+                        data-ng-model="filterOptions.filters.selectMonth"
+                        ng-change="goToMonth()"
+                        ng-options="(item.month | translate | uppercase ) +' '+item.year for item in filterOptions.months"
+                        >
+                </select>
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+                <select ng-if="!loadingFilters" ng-model="filterOptions.filters.durationInterval" class="select-filter-portfolio-duration" ng-change="search();">
+                    <option selected="selected" value="">- {{'TOOLS.choose_duration'|translate}} -</option>
+                    <option value="[*/1]">{{'TOOLS.duration_short'|translate}}</option>
+                    <option value="[1/3]">{{'TOOLS.duration_medium'|translate}}</option>
+                    <option value="[3/*]">{{'TOOLS.duration_long'|translate}}</option>
+                </select>
+            </td>
+            <td>
+
+            </td>
+            <td style="text-align: center;">
+                <input type="checkbox" ng-model="filterOptions.filters.favourite" ng-change="search();">
+                <span class="filter-label-select-portfolio">{{'TOOLS.favorites'|translate}}</span>
+            </td>
+        </tr>
+    </table>
+</div>

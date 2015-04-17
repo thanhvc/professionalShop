@@ -100,7 +100,9 @@ angular.module('ngMo.correlation', [
             ],
 
             {"table": 'tools/correlation/tables/futures_table.tpl.html',
-                "filter": 'tools/correlation/filters/futures_filters.tpl.html'}
+                "filter": 'tools/correlation/filters/futures_filters.tpl.html'},
+            {"table": 'tools/correlation/tables/forex_table.tpl.html',
+                "filter": 'tools/correlation/filters/forex_filters.tpl.html'}
         ];
 
 
@@ -185,6 +187,9 @@ angular.module('ngMo.correlation', [
                 case 3:     //futures
                     $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
                     break;
+                case 4: //forex
+                    break;
+
             }
 
         };
@@ -298,6 +303,14 @@ angular.module('ngMo.correlation', [
                         $scope.correlationList = [];
                     }
                     break;
+                case 4://FOREX
+                    if ((typeof $window.sessionStorage.correlationForex !== "undefined") && ($window.sessionStorage.correlationForex !== "undefined")) {
+                        $scope.correlationList = angular.fromJson($window.sessionStorage.correlationForex);
+                    }
+                    else {
+                        $scope.correlationList = [];
+                    }
+                    break;
             }
 
         };
@@ -332,6 +345,11 @@ angular.module('ngMo.correlation', [
                 case 3://FUTURES
                     if ((typeof $window.sessionStorage.correlationFuturesResult !== "undefined") && ($window.sessionStorage.correlationFuturesResult !== "undefined")) {
                         data = angular.fromJson($window.sessionStorage.correlationFuturesResult);
+                    }
+                    break;
+                case 4: //forex
+                    if ((typeof $window.sessionStorage.correlationForexResult !== "undefined") && ($window.sessionStorage.correlationForexResult !== "undefined")) {
+                        data = angular.fromJson($window.sessionStorage.correlationForexResult);
                     }
                     break;
             }
@@ -439,6 +457,13 @@ angular.module('ngMo.correlation', [
                     }
                     $window.sessionStorage.correlationFutures = JSON.stringify(correlationPatterns);
                     break;
+                case 4:
+                    if (typeof $window.sessionStorage.correlationForex === 'undefined'){
+                        $window.sessionStorage.correlationForex = [];
+                        //$scope.pagingOptions.currentPage = 1;
+                    }
+                    $window.sessionStorage.correlationForex = JSON.stringify(correlationPatterns);
+                    break;
             }
         };
 
@@ -481,6 +506,13 @@ angular.module('ngMo.correlation', [
                         //$scope.pagingOptions.currentPage = 1;
                     }
                     $window.sessionStorage.correlationFuturesResult = JSON.stringify(correlationPatterns);
+                    break;
+                case 4:
+                    if (typeof $window.sessionStorage.correlationForexResult === 'undefined'){
+                        $window.sessionStorage.correlationForexResult = [];
+                        //$scope.pagingOptions.currentPage = 1;
+                    }
+                    $window.sessionStorage.correlationForexResult = JSON.stringify(correlationPatterns);
                     break;
             }
         };
@@ -602,6 +634,7 @@ angular.module('ngMo.correlation', [
             $window.sessionStorage.removeItem("correlationIndices");
             $window.sessionStorage.removeItem("correlationIndicePairs");
             $window.sessionStorage.removeItem("correlationFutures");
+            $window.sessionStorage.removeItem("correlationForex");
         };
 
 
@@ -623,6 +656,9 @@ angular.module('ngMo.correlation', [
                     break;
                 case 3:
                     $window.sessionStorage.removeItem("correlationFutures");
+                    break;
+                case 4:
+                    $window.sessionStorage.removeItem("correlationForex");
                     break;
             }
             $scope.correlationData = [];
@@ -730,6 +766,8 @@ angular.module('ngMo.correlation', [
                     break;
                 case 3: //futures ONLY have markets
                     $scope.refreshSelectors(['markets']);
+                    break;
+                case 4: //forex nothing
                     break;
                 default://others doesnt have selectors to refresh
                     break;
@@ -950,6 +988,8 @@ angular.module('ngMo.correlation', [
                     case 3:     //futures
                         $scope.refreshSelectors(['markets']);
                         break;
+                    case 4:  //forex
+                        break;
                 }
             }
         };
@@ -973,6 +1013,9 @@ angular.module('ngMo.correlation', [
                         break;
                     case 3:     //futures
                         productType = "Futuros";
+                        break;
+                    case 4:
+                        productType ="Forex";
                         break;
                 }
                 var filename = "correlation-" + productType + ".pdf";
@@ -1012,6 +1055,9 @@ angular.module('ngMo.correlation', [
                         break;
                     case 3:     //futures
                         productType = "Futuros";
+                        break;
+                    case 4:
+                        productType= "Forex";
                         break;
                 }
                 var filename = "correlation-" + productType + ".xls";

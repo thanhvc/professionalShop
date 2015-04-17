@@ -39,6 +39,8 @@
             "Vi":"Vi",
             "Sa":"Sa",
             "Do":"Do"
-        }
+        },
+        "forex":"Tipo de Cambio",
+        "identifier": "Identificador"
     }
 }

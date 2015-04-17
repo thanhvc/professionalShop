@@ -1,0 +1,76 @@
+<div class="correlation-tools-container">
+
+    <table style="width: 400px;float:left;" class="table-correlation">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>{{'TOOLS.stock'|translate}}</td>
+            <td>{{'TOOLS.market'|translate}}</td>
+            <!--<td><span tooltip="{{'TOOLS.operation'|translate}}" class="cursor-help">{{'TOOLS.operation_short'|translate}}</span></td>-->
+            <td>{{'TOOLS.add'|translate}}</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pattern in myData" ng-class="{'disabled-asset': !pattern.toUse}">
+            <td class="cursor-pointer" ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
+            <td  >
+                <div class="name-pattern-container" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" ><span class="cursor-help">{{pattern.name | limitTo: 25}}</span></div></td>
+            <td><span class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span></td>
+            <!--<td>
+                <span  class="cursor-help" tooltip="{{'TOOLS.buy'|translate}}" ng-if="pattern.patTyp == 'BULLISH'">{{'TOOLS.buy_short'|translate}}</span>
+                <span  class="cursor-help" tooltip="{{'TOOLS.sell'|translate}}" ng-if="pattern.patTyp == 'BEARISH'">{{'TOOLS.sell_short'|translate}}</span>
+            </td>-->
+            <td class="correlation-button"><span ng-class="{'disable-arrow': correlationList.length >= 10 || (!pattern.toUse)}" ng-click="addToCorrelationList(pattern);">>></span></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <div style="padding-top: 20px;">
+                    <div class="loading-div" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>{{'TOOLS.loading_patterns'|translate}}</span></div>
+                    <span ng-if="myData.length == 0 && !loading && appliedFilters">{{'TOOLS.no_patterns_with_condition'|translate}}</span>
+                    <span ng-show="myData.length==0 && !loading && !appliedFilters">{{'TOOLS.no_patterns_in_month'|translate}}</span>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <div style="float:right;">
+        <table style="width: 450px;" class="table-correlation">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>{{'TOOLS.name'|translate}}</td>
+                <td>{{'TOOLS.market'|translate}}</td>
+                <!--<td><span tooltip="{{'TOOLS.operation'|translate}}" class="cursor-help">{{'TOOLS.operation_short'|translate}}</span></td>-->
+                <td><span tooltip="{{'TOOLS.favorite_long'|translate}}" class="cursor-help">{{'TOOLS.favorite_short'|translate}}</span></td>
+                <td>{{'TOOLS.remove'|translate}}</td>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pattern in correlationList">
+                <td class="cursor-pointer" ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
+                <td   class="cursor-help">
+                    <div tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="name-pattern-container"><span class="cursor-help">{{pattern.name | limitTo: 25}}</span></div></td>
+                <td>
+                    <span  class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}
+                    </span>
+                </td>
+                <!--<td>
+                    <span  class="cursor-help" tooltip="{{'TOOLS.buy'|translate}}" ng-if="pattern.patTyp == 'BULLISH'">{{'TOOLS.buy_short'|translate}}</span>
+                    <span  class="cursor-help" tooltip="{{'TOOLS.sell'|translate}}" ng-if="pattern.patTyp == 'BEARISH'">{{'TOOLS.sell_short'|translate}}</span>
+                </td>-->
+                <td style="width: 32px;" class="table-cell-patterns border-right-table">
+                    <div class="current-favourite" tooltip-html-unsafe="{{'TOOLS.favorite_mark'|translate}}" ng-click="toggleFavorite(pattern.id);"
+                         ng-class="{'favourite-added': pattern.fav == true}"></div>
+                </td>
+                <td class="correlation-button"><span ng-click="deleteFromCorrelationList(pattern);"><<</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="width: 450px;float:right;">
+            <span class="correlation-note">{{'TOOLS.correlation_list'|translate}}</span>
+        </div>
+    </div>
+</div>
