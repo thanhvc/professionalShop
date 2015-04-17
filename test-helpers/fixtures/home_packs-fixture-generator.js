@@ -5,6 +5,8 @@
 
 var sha512 = require('sha512')
 var loadFixture = require('../load-fixture.js')
+var FixtureHelperMod = require('../fixture-helper.js');
+var fixture_helper = new FixtureHelperMod.FixtureHelper();
 
 function sleep(ms) {
     var unixtime_ms = new Date().getTime();
@@ -16,119 +18,6 @@ function sleep(ms) {
 var FixtureGenerator = function () {
 
 };
-
-function generate_asset_fixture(info) {
-    var id = (info.id || '1') + '';
-    var symbol = "ASSET" + id;
-    var short_name = 'Asset ' + id.split("_").join(" ");
-    var long_name = 'Long name Asset ' + id.split("_").join(" ");
-    var last_quote = info.last_quote || 10;
-    var last_quote_date = info.last_quote_date || '2014-10-30';
-    var volatility = info.volatility || 19.20;
-    var exchange_symbol = info.exchange_symbol || 'EX1';
-    var sector = info.sector || 'sector1 SECTOR CD';
-    var industry = info.industry || 'industry1 CD';
-    var expiration_year = info.expiration_year || null;
-    var expiration_month = info.expiration_month || null;
-    var fixture = {
-        type: 'insert',
-        table: 'asset',
-        values: {
-            asset_disc: 1,
-            symbol: symbol,
-            short_name: short_name,
-            long_name: long_name,
-            last_quote: last_quote,
-            last_quote_date: last_quote_date,
-            price_chart_url: 'www.urlPriceChart.com',
-            volatility: volatility,
-            exchange_symbol: exchange_symbol,
-            sector: sector,
-            industry: industry,
-            expiration_year: expiration_year,
-            expiration_month: expiration_month,
-            volatility_chart_url: 'www.urlVolatChart.com'
-        }
-    };
-    return fixture;
-}
-
-function generate_pattern_fixtures(info,options) {
-    var info = info || [];
-    var options = options || {};
-    //var product_type_map = { 'stocks': 0, 'pairs': 0, 'indices': 1, 'indices_pairs': 1, 'futures': 2 };
-    //var pattern_type_map = { 'stocks': 0, 'pairs': 1, 'indices': 0, 'indices_pairs': 1, 'futures': 0 };
-    var pattern_dates = published_packs_months = options.published_packs_months || [];
-    var fixtures = [];
-    
-    for (var i=0; i<info.length; i++) {
-        var item = info[i];
-
-        var type = item.type || options.default_pattern_type || 'stocks';
-        //generate asset fixture
-    }
-}
-
-function generate_pack_fixtures(info,options) {
-    var info = info || [];
-    var options = options || {};
-    var product_type_map = { 'stocks': 0, 'pairs': 0, 'indices': 1, 'indices_pairs': 1, 'futures': 2 };
-    var pattern_type_map = { 'stocks': 0, 'pairs': 1, 'indices': 0, 'indices_pairs': 1, 'futures': 0 };
-    var published_packs_months = options.published_packs_months || [];
-    var fixtures = [];
-    
-    for (var i=0; i<info.length; i++) {
-        var item = info[i];
-
-        //generate pack fixture
-        var type = item.type || options.default_pack_type || 'stocks';
-        var product_type = product_type_map[type] || 0;
-        var pattern_type = pattern_type_map[type] || 0;
-        var publication_date = item.publication_date || options.default_publication_date || '2014-09-15';
-        var subname = item.subname || options.default_subname || ' '; 
-        var pack_fixture = {
-            type: 'insert',
-            table: 'pack',
-            values: {
-                code: item.code,
-                region_code: item.region_code,
-                name: item.name,
-                product_type: product_type,
-                publication_date: publication_date,
-                scope_text: item.scope_text,
-                pattern_type: pattern_type,
-                subname: subname                                
-            }
-        };
-        fixtures.push(pack_fixture); //add pack fixture to array of fixtures
-        
-        var num_patterns = item.num_patterns || options.default_num_patterns || 50;
-        var letter_from = item.letter_from || options.default_letter_from || 'aaa';
-        var letter_until = item.letter_until || options.default_letter_until || 'zzz';
-
-        //generate published_packs fixtures when required
-        if (options.create_published_packs && published_packs_months.length > 0) {
-            for (var j=0; j<published_packs_months.length; j++) {
-                var month = published_packs_months[j];
-                var published_packs_fixture = {
-                    type: 'insert',
-                    table: 'published_packs',
-                    values: {
-                        pack_code: item.code,
-                        pack_month: month,
-                        publication_date: publication_date,
-                        num_patterns: num_patterns,
-                        letter_from: letter_from,
-                        letter_until: letter_until                        
-                    }
-                };
-                fixtures.push(published_packs_fixture); //add published pack to array of fixtures
-            }
-        }
-    }
-    
-    return fixtures;
-}
 
 exports.home_packs_fixture = function() {
     var fixtures = [
@@ -440,17 +329,6 @@ FUTURE    | Futuros                         |
             table: 'exchange',
             values: {
                 symbol: 'EX2',
-                name: 'exchangeCAN1',
-                currency_code: 'CU1',
-                region_code:'CAN',
-                sector_group: 'sector_group1'
-            }
-        },
-        {
-            type: 'insert',
-            table: 'exchange',
-            values: {
-                symbol: 'EX3',
                 name: 'exchangeUSA2',
                 currency_code: 'CU1',
                 region_code:'USA',
@@ -461,10 +339,43 @@ FUTURE    | Futuros                         |
             type: 'insert',
             table: 'exchange',
             values: {
-                symbol: 'EX1',
-                name: 'exchangeUSA1',
+                symbol: 'EX3',
+                name: 'exchangeUSA3',
                 currency_code: 'CU1',
                 region_code:'USA',
+                sector_group: 'sector_group1'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EC1',
+                name: 'exchangeCAN1',
+                currency_code: 'CU1',
+                region_code:'CAN',
+                sector_group: 'sector_group1'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EC2',
+                name: 'exchangeCAN2',
+                currency_code: 'CU1',
+                region_code:'CAN',
+                sector_group: 'sector_group1'
+            }
+        },
+        {
+            type: 'insert',
+            table: 'exchange',
+            values: {
+                symbol: 'EC3',
+                name: 'exchangeCAN3',
+                currency_code: 'CU1',
+                region_code:'CAN',
                 sector_group: 'sector_group1'
             }
         },
@@ -555,10 +466,10 @@ FUTURE    | Futuros                         |
             type: 'insert',
             table: 'pattern',
             values: {
-                pattern_disc: 1,
+                pattern_disc: 1, //simple(1) or pair(2)
                 id: 1,
                 pack_code: 'USA-S-1',
-                pattern_type: 0,
+                pattern_type: 0, //sell or buy
                 win: 14,
                 loss: 1,
                 asset_symbol: 'ASSET1',
@@ -581,13 +492,13 @@ FUTURE    | Futuros                         |
                 worst_loss:null,
                 worst_loss_date:null,
                 last_performance:null,
-                bearish_asset_symbol:null,
-                bearish_average_return:null,
+                bearish_asset_symbol:null, //pair asset
+                bearish_average_return:null, //bullish y bearish atributos del par
                 bullish_average_return:null,
                 bearish_entry_value:null,
                 bearish_exit_value:null,
                 daily_pair_return: null,
-                pair_volatility:null,
+                pair_volatility:null, //only in pairs
                 last_performance_date: null,
                 drawdown: -27.31,
                 winning_years_mean_rent: 220.41,
@@ -1142,6 +1053,7 @@ FUTURE    | Futuros                         |
 */
     ];
 
+    // STOCKS =======================================================================================
     var stocks_fixture_data = [
         // ==== América simple packs
         { code: 'USA-S-1', region_code: 'USA', name: 'Estados Unidos Pack I',
@@ -1257,9 +1169,105 @@ FUTURE    | Futuros                         |
         create_published_packs: 1, default_num_patterns: 50,
         published_packs_months : [201410,201411,201412,201501] 
     };
-    var stocks_fixtures = generate_pack_fixtures(stocks_fixture_data,stocks_fixture_options);
+    var stocks_fixtures = fixture_helper.generate_pack_fixtures(stocks_fixture_data,stocks_fixture_options);
     fixtures = fixtures.concat(stocks_fixtures);
 
+    //create sector and industry filters for Canada Pack I
+    var sector_industry_filters_data = {
+        pack_code: 'CAN-S-1', type: 'stocks', first_sector_id: 1, first_industry_id: 1,
+        months : [201411,201501], region_code: 'CAN', exchange_symbol: 'EC1',
+        values: [
+            {name: 'sector1', industries: ['industry1_1','industry1_2']},
+            {name: 'sector2', industries: ['industry2_1','industry2_2']}
+        ]   
+    };
+    var sector_industry_filters_fixtures = fixture_helper.generate_sector_industry_filters_fixtures(sector_industry_filters_data);
+    fixtures = fixtures.concat(sector_industry_filters_fixtures);
+
+    var sector_industry_filters_data = {
+        pack_code: 'CAN-S-1', type: 'stocks', first_sector_id: 5, first_industry_id: 9,
+        months : [201412], region_code: 'CAN', exchange_symbol: 'EC2',
+        values: [
+            {name: 'sector3', industries: ['industry3_1','industry3_2']},
+            {name: 'sector4', industries: ['industry4_1','industry4_2']}
+        ]   
+    };
+    var sector_industry_filters_fixtures = fixture_helper.generate_sector_industry_filters_fixtures(sector_industry_filters_data);
+    fixtures = fixtures.concat(sector_industry_filters_fixtures);
+
+    //create sector and industry filters for USA Pack I
+    var sector_industry_filters_data = {
+        pack_code: 'USA-S-1', type: 'stocks', first_sector_id: 7, first_industry_id: 13,
+        months : [201411,201412,201501], region_code: 'USA', exchange_symbol: 'EX1',
+        values: [
+            {name: 'sector5', industries: ['industry5_1','industry5_2']},
+            {name: 'sector6', industries: ['industry6_1','industry6_2']}
+        ]   
+    };
+    var sector_industry_filters_fixtures = fixture_helper.generate_sector_industry_filters_fixtures(sector_industry_filters_data);
+    fixtures = fixtures.concat(sector_industry_filters_fixtures);
+
+    //create stocks patterns for Canada Pack I in November 2014
+    var stocks_patterns_fixture_data = { 
+        pack_code: 'CAN-S-1', type: 'stocks', quantity: 50, first_id: 1,
+        entry_dates: ['2014-11-01','2014-11-05','2014-11-14','2014-11-15','2014-11-30'],
+        exit_dates: ['2014-11-13','2014-11-20','2014-12-05','2014-12-15','2015-01-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EC1','EC2','EC3'],
+        sectors: ['sector1','sector2'],
+        industries: ['industry1_1','industry2_1','industry1_2','industry2_2']
+    };
+    var stocks_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(stocks_patterns_fixture_data);
+    fixtures = fixtures.concat(stocks_patterns_fixtures);
+
+    //create stocks patterns for Canada Pack I in December 2014
+    var stocks_patterns_fixture_data = { 
+        pack_code: 'CAN-S-1', type: 'stocks', quantity: 50, first_id: 51,
+        entry_dates: ['2014-12-01','2014-12-05','2014-12-14','2014-12-15','2014-12-31'],
+        exit_dates: ['2014-12-13','2014-12-20','2015-01-05','2015-01-15','2015-02-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EC1','EC2','EC3'],
+        sectors: ['sector3','sector4'],
+        industries: ['industry3_1','industry4_1','industry3_2','industry4_2']
+    };
+    var stocks_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(stocks_patterns_fixture_data);
+    fixtures = fixtures.concat(stocks_patterns_fixtures);
+
+    //create stocks patterns for Canada Pack I in January 2015
+    var stocks_patterns_fixture_data = { 
+        pack_code: 'CAN-S-1', type: 'stocks', quantity: 50, first_id: 101,
+        entry_dates: ['2015-01-01','2015-01-05','2015-01-14','2015-01-15','2015-01-31'],
+        exit_dates: ['2015-01-13','2015-01-20','2015-02-05','2015-02-15','2015-03-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EC1','EC2','EC3'],
+        sectors: ['sector1','sector2'],
+        industries: ['industry1_1','industry2_1','industry1_2','industry2_2']
+    };
+    var stocks_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(stocks_patterns_fixture_data);
+    fixtures = fixtures.concat(stocks_patterns_fixtures);
+
+    //create stocks patterns for USA Pack I in November 2014
+    var stocks_patterns_fixture_data = { 
+        pack_code: 'USA-S-1', type: 'stocks', quantity: 50, first_id: 151,
+        entry_dates: ['2014-11-01','2014-11-05','2014-11-14','2014-11-15','2014-11-30'],
+        exit_dates: ['2014-11-13','2014-11-20','2014-12-05','2014-12-15','2015-01-05'],
+        durations: [20,45,120], wins: [14,12,10], losses: [1,3,5], 
+        volatilities: [19.20, 5.3, 57.9, 104.2], 
+        accumulated_returns: [212.33,100.67,500.1], average_returns: [14.16,9.67,27.5],
+        exchange_symbols: ['EX1','EX2','EX3'],
+        sectors: ['sector5','sector6'],
+        industries: ['industry5_1','industry6_1','industry5_2','industry6_2']
+    };
+    var stocks_patterns_fixtures = fixture_helper.generate_patterns_and_assets_fixtures(stocks_patterns_fixture_data);
+    fixtures = fixtures.concat(stocks_patterns_fixtures);
+
+    // PAIRS ========================================================================================
     var pairs_fixture_data = [
         // ==== América pair packs
         { code: 'USA-P-1', region_code: 'USA', name: 'Estados Unidos Pack I',
@@ -1306,7 +1314,7 @@ FUTURE    | Futuros                         |
         create_published_packs: 1, default_num_patterns: 50,
         published_packs_months : [201410,201411,201412,201501] 
     };
-    var pairs_fixtures = generate_pack_fixtures(pairs_fixture_data,pairs_fixture_options);
+    var pairs_fixtures = fixture_helper.generate_pack_fixtures(pairs_fixture_data,pairs_fixture_options);
     fixtures = fixtures.concat(pairs_fixtures);
 
     //indices packs and published packs
@@ -1321,7 +1329,7 @@ FUTURE    | Futuros                         |
         create_published_packs: 1, default_num_patterns: 50,
         published_packs_months : [201410,201411,201412,201501] 
     };
-    var indices_fixtures = generate_pack_fixtures(indices_fixture_data,indices_fixture_options);
+    var indices_fixtures = fixture_helper.generate_pack_fixtures(indices_fixture_data,indices_fixture_options);
     fixtures = fixtures.concat(indices_fixtures);
 
     //indices pairs packs and published packs
@@ -1334,7 +1342,7 @@ FUTURE    | Futuros                         |
         create_published_packs: 1, default_num_patterns: 50,
         published_packs_months : [201410,201411,201412,201501] 
     };
-    var indices_pairs_fixtures = generate_pack_fixtures(indices_pairs_fixture_data,indices_pairs_fixture_options);
+    var indices_pairs_fixtures = fixture_helper.generate_pack_fixtures(indices_pairs_fixture_data,indices_pairs_fixture_options);
     fixtures = fixtures.concat(indices_pairs_fixtures);
 
     //futures packs and published packs
@@ -1348,7 +1356,7 @@ FUTURE    | Futuros                         |
         create_published_packs: 1, default_num_patterns: 50,
         published_packs_months : [201410,201411,201412,201501] 
     };
-    var futures_fixtures = generate_pack_fixtures(futures_fixture_data,futures_fixture_options);
+    var futures_fixtures = fixture_helper.generate_pack_fixtures(futures_fixture_data,futures_fixture_options);
     fixtures = fixtures.concat(futures_fixtures);
 
     return fixtures;
@@ -1356,6 +1364,14 @@ FUTURE    | Futuros                         |
 
 exports.remove_home_packs_fixture = function() {
     return [
+        {
+            type: 'remove',
+            table: 'industry_filter'
+        },
+        {
+            type: 'remove',
+            table: 'sector_filter'
+        },
         {
             type: 'remove',
             table: 'industry'
