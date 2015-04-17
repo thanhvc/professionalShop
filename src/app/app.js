@@ -119,7 +119,7 @@ angular.module('ngMo', [
          * FOREX MODE?
          *
          **/
-        $rootScope.forexMode = true;
+        $rootScope.forexMode = false;
 
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
             $translate.use($translateCookieStorage.get('lang'));
