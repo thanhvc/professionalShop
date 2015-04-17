@@ -78,7 +78,7 @@
                 <tbody>
                     <tr ng-repeat="row in correlationData track by $index">
                        <!-- <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': column.value >= 80, 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">{{column.value}}</td>-->
-                       <td  ng-repeat="column in row track by $index"  ng-class="{'high-correlation': (column.value >= 88 || column.value <=-88), 'buy-color': column.patternType == 'BULLISH', 'sell-color': column.patternType == 'BEARISH'}">
+                       <td  ng-repeat="column in row track by $index"  ng-class="{'high-correlation': (column.value >= 88 || column.value <=-88), 'buy-color': column.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': column.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">
                             <span  ng-if="column.name == ''">{{column.value}}</span>
                            <span tooltip-html-unsafe="{{column.name}}"  ng-if="column.name != ''" class="cursor-help">{{column.value}}</span>
                        </td>
@@ -86,30 +86,7 @@
                 </tbody>
             </table>
 
-            <table class="table-correlation-result" ng-if="filterOptions.filters.active_tab == 1 && pairCorrelationData.length > 2 || (filterOptions.filters.active_tab == 2 && filterOptions.filters.index_type == 1) && pairCorrelationData.length > 2">
-                <thead>
-                <tr>
-                    <th colspan="{{pairCorrelationData.length}}"><span style="float:left;">{{'TOOLS.correlation_pair_result_header'|translate}} </span></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="row in pairCorrelationData track by $index">
-                    <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': (column.value >= 88 || column.value <=-88)}">
-                        <span  ng-if="column.name == ''">{{column.value}}</span>
-                        <div ng-if="column.name != '' && column.type == 'firstRow'"><!--first row-->
-                            <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help buy-color">{{column.value}}</span><br>
-                            <span>/</span><span tooltip-html-unsafe="{{column.name}}"   class="cursor-help sell-color">{{column.value2}}</span>
-                        </div>
-                        <div ng-if="column.name != '' && column.type == 'empty'"><!--first column-->
-                            <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help buy-color ">{{column.value}}</span>
-                            <span>/</span>
-                            <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help sell-color ">{{column.value2}}</span>
-                        </div>
 
-                    </td>
-                </tr>
-                </tbody>
-            </table>
 
             <div style="margin: 0 auto; width: 740px;">
                 <table class="correlation-caption-table" ng-if="correlationCaption1.length > 0">
@@ -117,7 +94,6 @@
                         <tr>
                             <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
                             <th>{{'TOOLS.code'|translate}}</td>
-                            <th>{{'TOOLS.symbol'|translate}}</td>
                             <th>{{'TOOLS.name'|translate}}</td>
                         </tr>
                     </thead>
@@ -127,9 +103,8 @@
                                 <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
                                       ng-class="{'favourite-added': row.favorite == true}"></div>
                             </td> -->
-                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
-                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.symbol}}</td>
-                            <td>{{row.name | limitTo: 35}}</td>
+                            <td  ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.code}}</td>
+                            <td   ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.name | limitTo: 35}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -139,7 +114,7 @@
                     <tr>
                         <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
                         <th>{{'TOOLS.code'|translate}}</td>
-                        <th>{{'TOOLS.symbol'|translate}}</td>
+                       <!-- <th>{{'TOOLS.symbol'|translate}}</td>-->
                         <th>{{'TOOLS.name'|translate}}</td>
                     </tr>
                     </thead>
@@ -149,12 +124,86 @@
                                 <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
                                      ng-class="{'favourite-added': row.favorite == true}"></div>
                             </td> -->
-                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.code}}</td>
-                            <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.symbol}}</td>
-                            <td>{{row.name | limitTo: 35}}</td>
+                            <td ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.code}}</td>
+                           <!-- <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.symbol}}</td>-->
+                            <td ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.name | limitTo: 35}}</td>
                         </tr>
                     </tbody>
                 </table>
+
+
+                <!--PAIRS-->
+                <div style="clear:both; margin-bottom:15px;"></div>
+
+                <table class="table-correlation-result" ng-if="filterOptions.filters.active_tab == 1 && pairCorrelationData.length > 2 || (filterOptions.filters.active_tab == 2 && filterOptions.filters.index_type == 1) && pairCorrelationData.length > 2">
+                    <thead>
+                    <tr>
+                        <th colspan="{{pairCorrelationData.length}}"><span style="float:left;">{{'TOOLS.correlation_pair_result_header'|translate}} </span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in pairCorrelationData track by $index">
+                        <td  ng-repeat="column in row track by $index" ng-class="{'high-correlation': (column.value >= 88 || column.value <=-88)}">
+                            <span  ng-if="column.name == ''">{{column.value}}</span>
+                            <div ng-if="column.name != '' && column.type == 'firstRow'"><!--first row-->
+                                <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help buy-color">{{column.value}}</span><br>
+                                <span>/</span><span tooltip-html-unsafe="{{column.name}}"   class="cursor-help sell-color">{{column.value2}}</span>
+                            </div>
+                            <div ng-if="column.name != '' && column.type == 'empty'"><!--first column-->
+                                <span tooltip-html-unsafe="{{column.name}}"  class="cursor-help buy-color ">{{column.value}}</span>
+                                <span> / </span>
+                                <span tooltip-html-unsafe="{{column.name}}"   class="cursor-help sell-color ">{{column.value2}}</span>
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="clear:both; margin-bottom:15px;"></div>
+
+                <!--caption pair-->
+
+                <table class="correlation-pair-caption-table" ng-if="correlationPairCaption1.length > 0">
+                    <thead>
+                    <tr>
+                        <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
+                        <th>{{'TOOLS.code'|translate}}</td>
+                        <th>{{'TOOLS.namePair'|translate}}</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in correlationPairCaption1 track by $index">
+                        <!--<td>
+                            <div class="current-favourite" tooltip-html-unsafe="Marcar Estrategia Favorita" ng-click="toggleFavorite(row.id);"
+                                  ng-class="{'favourite-added': row.favorite == true}"></div>
+                        </td> -->
+                        <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">
+                            <span class="buy-color">{{row.code1}}</span>/<span class="sell-color">{{row.code2}}</span>
+                        </td>
+                        <td><span class="buy-color">{{row.name1}}</span> / <span class="sell-color">{{row.name2}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+<!--
+                <table class="correlation-caption-table" style="margin-left: 75px;" ng-if="correlationPairCaption2.length > 0">
+                    <thead>
+                    <tr>
+                        <th>{{'TOOLS.code'|translate}}</td>
+                        <th>{{'TOOLS.name'|translate}}</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in correlationPairCaption2 track by $index">
+
+                        <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">
+                            <span class="buy-color">{{row.code1}}</span>/<span class="sell-color">{{row.code2}}</span>
+                        </td>
+                          <td>{{row.name | limitTo: 35}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                -->
+                <div style="clear:both;"> </div>
                 <!--
                 <button style="width: 120px;float:right;" class="mo-button" ng-click="clearCorrelationList();">
                     Aceptar

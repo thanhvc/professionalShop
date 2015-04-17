@@ -325,6 +325,44 @@
   }
 }
 
+
+.correlation-pair-caption-table{
+  font-size: 10px;
+  width: 650px;
+  border-top: 1px solid @silver;
+  border-left: 1px solid @silver;
+  float: none;
+  margin: auto;
+  margin-top:25px;
+  margin-bot:15px;
+  thead{
+    tr{
+      background-color: @black;
+      color: @white;
+      height: 20px;
+      th{
+        border-left: 1px solid @white;
+        text-align: center;
+      }
+    }
+  }
+  tbody{
+    text-align: left;
+    tr{
+      height: 20px;
+      &:nth-child(odd) {
+        background-color: @white;
+      }
+      &:nth-child(even) {
+        background-color: @smokeGrey;
+      }
+      td{
+        padding-left: 3px;
+      }
+    }
+  }
+}
+
 .pdf-correlation-icon{
   background:  url('../assets/img/pdf_icon.png');
   height: 25px;

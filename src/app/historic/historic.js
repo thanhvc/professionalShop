@@ -176,7 +176,9 @@ angular.module('ngMo.historic', [
             ],
 
             {"table": 'historic/tables/futures_table.tpl.html',
-                "filter": 'historic/filters/futures_filters.tpl.html'}
+                "filter": 'historic/filters/futures_filters.tpl.html'},
+            {"table": 'historic/tables/forex_table.tpl.html',
+                "filter": 'historic/filters/forex_filters.tpl.html'}
         ];
 
 
@@ -221,6 +223,8 @@ angular.module('ngMo.historic', [
                     break;
                 case 3:     //futures
                     $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+                    break;
+                case 4://forex
                     break;
             }
 
@@ -822,6 +826,8 @@ angular.module('ngMo.historic', [
                         break;
                     case 3:     //futures
                         $scope.refreshSelectors(['markets'],filters, $scope.callBackRefreshSelectors);
+                        break;
+                    case 4: //forex
                         break;
                 }
             }

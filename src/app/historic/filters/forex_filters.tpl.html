@@ -1,0 +1,101 @@
+<div>
+    <table>
+        <tr>
+            <td>
+                <input ng-keypress="submitName($event)" class="border-filters input-filter" placeholder="{{'HISTORIC.name'|translate}}"
+                       ng-model="filterOptions.filters.filterName">
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    </table>
+    <form name="rentForm">
+        <table>
+            <tr>
+                <td>
+
+                    <span class="filter-label-select">{{'HISTORIC.last_rent'|translate}}</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
+                            data-ng-model="filterOptions.filters.selectedRent">
+                        <option value="">- {{'HISTORIC.choose'|translate}} -</option>
+                    </select>
+                    <input name="rentInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                           ng-class=" {'warning-input':  (rentForm.rentInput.$error.pattern && (rentForm.rentInput.$dirty))}"
+                           ng-pattern="rentPattern" ng-trim="false"
+                           data-ng-model="filterOptions.filters.rentInput">
+
+                </td>
+                <td>
+                    <span class="filter-label-select">{{'HISTORIC.best_rent'|translate}}</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
+                            data-ng-model="filterOptions.filters.selectedAverage">
+                        <option value="">- {{'HISTORIC.choose'|translate}} -</option>
+                    </select>
+                    <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                           ng-pattern="rentPattern" ng-trim="false"
+                           ng-class=" {'warning-input':  (rentForm.rentAverageInput.$error.pattern && (rentForm.rentAverageInput.$dirty))}"
+                           data-ng-model="filterOptions.filters.rentAverageInput">
+                </td>
+                <td>
+                    <span class="filter-label-select">{{'HISTORIC.worst_rent'|translate}}</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
+                            data-ng-model="filterOptions.filters.selectedRentDiary">
+                        <option value="">- {{'HISTORIC.choose'|translate}} -</option>
+
+                    </select>
+                    <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
+                           ng-pattern="rentPattern" ng-trim="false"
+                           ng-class=" {'warning-input':  (rentForm.rentDiaryInput.$error.pattern && (rentForm.rentDiaryInput.$dirty))}"
+                           data-ng-model="filterOptions.filters.rentDiaryInput">
+                </td>
+                <td>
+                    <span class="filter-label-select">{{'HISTORIC.duration'|translate}} ({{'HISTORIC.days'|translate}})</span><br>
+                    <select class="border-filters select-filter small-select-filter"
+                            ng-options="item.description|translate for item in filterOptions.selectors.comparators"
+                            data-ng-model="filterOptions.filters.selectedDuration">
+                        <option value="">- {{'HISTORIC.choose'|translate}} -</option>
+
+                    </select>
+                    <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="{{'HISTORIC.days'|translate}}"
+                           ng-pattern="daysPattern" ng-trim="false"
+                           ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
+                           data-ng-model="filterOptions.filters.durationInput">
+                </td>
+                <td style="width:85px;">
+                    <table style="position: relative; left: -15px;">
+                        <tr>
+                            <td style="text-align: center;">
+
+                                <span class="filter-label-select">{{'HISTORIC.favorites'|translate}}</span><br>
+                                <input type="checkbox" ng-change="search();"
+                                       ng-model="filterOptions.filters.favourite">
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </td>
+                <td style="vertical-align: bottom; text-align: right; width:165px;">
+                    <button class="mo-button" ng-click="search()">{{'HISTORIC.search'|translate}}</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>

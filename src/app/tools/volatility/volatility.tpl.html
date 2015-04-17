@@ -29,10 +29,10 @@
                 <div selected-graphic-volatility ng-show="inVolatilityView && openGraph" style="position: absolute;"></div>
                 <table>
                 <div class="loading-div-container">
-                    <div ng-include="getTemplateTable()" style="width:800px"></div>
-                    <div class="loading-div no-patterns-container loading-volat no-packs-load-volat" ng-show="loading" style="width: 800px;"><img src="assets/img/ajax-loader.gif" class="volat-load"><span>{{'TOOLS.loading_patterns'|translate}}</span></div>
-                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">{{'TOOLS.no_patterns_with_condition'|translate}}</div>
-                    <div style="width:800px" class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">{{'TOOLS.no_patterns_in_month'|translate}}</div>
+                    <div ng-include="getTemplateTable()"  ></div>
+                    <div class="loading-div no-patterns-container loading-volat no-packs-load-volat" ng-show="loading" style="width: 925px;"><img src="assets/img/ajax-loader.gif" class="volat-load"><span>{{'TOOLS.loading_patterns'|translate}}</span></div>
+                    <div style="width:925px" class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">{{'TOOLS.no_patterns_with_condition'|translate}}</div>
+                    <div style="width:925px" class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">{{'TOOLS.no_patterns_in_month'|translate}}</div>
 
                 </div>
                 </table>

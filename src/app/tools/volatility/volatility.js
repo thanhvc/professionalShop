@@ -197,7 +197,9 @@ angular.module('ngMo.volatility', [
             ],
 
             {"table": 'tools/volatility/tables/futures_table.tpl.html',
-                "filter": 'tools/volatility/filters/futures_filters.tpl.html'}
+                "filter": 'tools/volatility/filters/futures_filters.tpl.html'},
+            {"table": 'tools/volatility/tables/forex_table.tpl.html',
+                "filter": 'tools/volatility/filters/forex_filters.tpl.html'}
         ];
 
 
@@ -332,6 +334,8 @@ angular.module('ngMo.volatility', [
                     break;
                 case 3:     //futures
                     $scope.refreshSelectors(['markets'],$scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+                    break;
+                case 4: //forex
                     break;
             }
 
@@ -790,6 +794,8 @@ angular.module('ngMo.volatility', [
                         break;
                     case 3:     //futures
                         $scope.refreshSelectors(['markets'],filters, $scope.callBackRefreshSelectors);
+                        break;
+                    case 4:     //forex
                         break;
                 }
             }

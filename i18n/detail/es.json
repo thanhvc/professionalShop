@@ -41,6 +41,8 @@
         "BEARISH":"BAJISTA",
         "BULLISH":"ALCISTA",
         "FUTURE":"Futuro",
-        "INDEX":"Índice"
+        "INDEX":"Índice",
+        "FOREX": "Forex",
+        "priceForex": "T. Cambio"
     }
 }

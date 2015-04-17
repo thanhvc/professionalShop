@@ -38,7 +38,7 @@ angular.module('ngMo.my_patterns', [
             }
         });
     })
-    .service('TabsService', function () {
+    .service('TabsService', function ($rootScope) {
 
         /**Tabs services for private zone**/
         var tabs = [
@@ -62,7 +62,15 @@ angular.module('ngMo.my_patterns', [
                 active: activeTab === 3,
                 value: 3
             }
+
         ];
+        if ($rootScope.forexMode) {
+            tabs.push({
+                title: 'FOREX',
+                active: activeTab ===4,
+                value: 4
+            });
+        }
 
 
         var portfolioTabs = [
@@ -86,7 +94,15 @@ angular.module('ngMo.my_patterns', [
                 active: activeTab === 3,
                 value: 3
             }
+
         ];
+        if ($rootScope.forexMode){
+            portfolioTabs.push({
+                title: 'FOREX',
+                active: activeTab ===4,
+                value: 4
+            });
+        }
         var indexTypes = [
             {
                 title: "INDICES",
@@ -322,7 +338,9 @@ angular.module('ngMo.my_patterns', [
             ],
 
             {"table": 'my_patterns/tables/futures_table.tpl.html',
-                "filter": 'my_patterns/filters/futures_filters.tpl.html'}
+                "filter": 'my_patterns/filters/futures_filters.tpl.html'},
+            {"table": 'my_patterns/tables/forex_table.tpl.html',
+                "filter": 'my_patterns/filters/forex_filters.tpl.html'}
         ];
 
 
@@ -368,6 +386,8 @@ angular.module('ngMo.my_patterns', [
                         break;
                     case 3:     //futures
                         $scope.refreshSelectors(['markets'], $scope.filterOptions.filters, $scope.callBackRefreshSelectors);
+                        break;
+                    case 4: //forex
                         break;
                 }
             }

@@ -81,7 +81,11 @@ describe('My subscriptions controller', function() {
     }
     var url = '/mysubscriptions?month=' + m +'&year=' + y/*+ '&token=1'*/;
 
-    var response = {STOCK : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, STOCKPAIR : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, INDICE : {INDEX: 'index'}, INDICEPAIR: {INDEX: 'index'},FUTURE : {FUTURE: 'future'}};
+    var response = {STOCK : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'}, STOCKPAIR : {NALA: 'nala', APAC: 'apac', EMEA: 'emea'},
+        INDICE : {INDEX: 'index'},
+        INDICEPAIR: {INDEX: 'index'},
+        FUTURE : {FUTURE: 'future'},
+        FOREX: {FOREX: 'forex'}};
     beforeEach(angular.mock.module("ngMo"));
     beforeEach(angular.mock.module("ngMo.my_subscriptions"));
     beforeEach(angular.mock.module("ngMo.my_patterns"));
@@ -195,6 +199,7 @@ describe('My subscriptions controller', function() {
         var item3 = {duration: 'anual', productType: 'STOCK', patternType: "SIMPLE"};
         var item4 = {duration: 'anual', productType: 'STOCK'};
         var item5 = {duration: 'anual', productType: 'FUTURE'};
+        var item6 = {duration: 'anual', productType: 'FOREX'};
 
         var america = {startDate:  new Date(), code: 1234, toBuy: true};
         var asia = {startDate:  new Date(), code: 1234, toBuy: true};
@@ -205,8 +210,13 @@ describe('My subscriptions controller', function() {
         var americaPair = {startDate:  new Date(), code: 1234, toBuy: true};
         var asiaPair = {startDate:  new Date(), code: 1234, toBuy: true};
         var europePair = {startDate:  new Date(), code: 1234, toBuy: true};
-        var content = {americaContent : [america, america,america], asiaContent: [asia,asia,asia], europeContent : [europe,europe], futuresContent: [futures,futures], pairsIndicesContent: [pairIndices,pairIndices], americaPairContent : [americaPair,americaPair], asiaPairContent:[asiaPair,asiaPair,asiaPair], europePairContent: [europePair,europePair], indicesContent:[indices,indices]};
-        $scope.mySubscriptionsTablePacks = [content, content,content,content];
+        var forex= {startDate:  new Date(), code: 1234, toBuy: true};
+        var content = {americaContent : [america, america,america], asiaContent: [asia,asia,asia], europeContent :
+            [europe,europe], futuresContent: [futures,futures], pairsIndicesContent: [pairIndices,pairIndices],
+            americaPairContent : [americaPair,americaPair], asiaPairContent:[asiaPair,asiaPair,asiaPair],
+            europePairContent: [europePair,europePair], indicesContent:[indices,indices],forexContent:[forex,forex]};
+
+        $scope.mySubscriptionsTablePacks = [content, content,content,content,content];
 
         ShoppingCartService.addItemCart(item);
         ShoppingCartService.addItemCart(item2);

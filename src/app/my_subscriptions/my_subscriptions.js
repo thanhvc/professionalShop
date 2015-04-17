@@ -199,7 +199,19 @@ angular.module('ngMo.my_subscriptions', [
                         content: data.FUTURE,
                         url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
                     }
+
                 ];
+                if ($rootScope.forexMode) {
+                    $scope.myPacksTablePacks.push(
+                        {
+                            title: 'FOREX',
+                            active: ActiveTabService.activeTab() === 4,
+                            value: 4,
+                            content: data.FOREX,
+                            url: 'my_subscriptions/tables_my_packs/forex_table.tpl.html'
+                        }
+                    );
+                }
 
 
                 $scope.loading = false;
@@ -312,7 +324,19 @@ angular.module('ngMo.my_subscriptions', [
                 futuresContent: [],
                 url: 'my_subscriptions/tables_packs/futures_table.tpl.html'
             }
+
         ];
+        if ($rootScope.forexMode) {
+            $scope.mySubscriptionsTablePacks.push(
+                {
+                    title: 'FOREX',
+                    active: ActiveTabService.activeTab() === 4,
+                    value: 4,
+                    forexContent: [],
+                    url: 'my_subscriptions/tables_packs/forex_table.tpl.html'
+                }
+            );
+        }
         $scope.filterOptions = "";
         $scope.loading=true;
         $scope.$on('$stateChangeStart', function (event, toState){
@@ -408,6 +432,7 @@ angular.module('ngMo.my_subscriptions', [
                 $scope.mySubscriptionsTablePacks[2].indicesContent= data.INDICE.INDEX;
                 $scope.mySubscriptionsTablePacks[2].pairsIndicesContent= data.INDICEPAIR.INDEX;
                 $scope.mySubscriptionsTablePacks[3].futuresContent= data.FUTURE.FUTURE;
+                $scope.mySubscriptionsTablePacks[4].forexContent= data.FOREX.FOREX;
 
                 //load the cart items to set the selected option
                 stockItems = ShoppingCartService.obtainCartItems('stocks');

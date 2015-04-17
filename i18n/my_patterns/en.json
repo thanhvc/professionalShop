@@ -59,6 +59,8 @@
         "volatility_short":"Vol.",
         "years_long":"Number of Years",
         "years_short":"Years",
-        "emisor":"Emisor"
+        "emisor":"Emisor",
+        "forex":"Tipo de Cambio",
+        "identifier": "Identificador"
     }
 }

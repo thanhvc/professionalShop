@@ -39,6 +39,8 @@
         "stock_pair":"Par acciones",
         "total_patterns":"Número total de patrones",
         "worst_rent":"Peor Pérdida",
-        "emisor":"Emisor"
+        "emisor":"Emisor",
+        "forex":"Tipo de Cambio",
+        "identifier": "Identificador"
     }
 }
