@@ -38,7 +38,7 @@ angular.module('ngMo.my_patterns', [
             }
         });
     })
-    .service('TabsService', function () {
+    .service('TabsService', function ($rootScope) {
 
         /**Tabs services for private zone**/
         var tabs = [
@@ -61,13 +61,16 @@ angular.module('ngMo.my_patterns', [
                 title: 'FUTURES',
                 active: activeTab === 3,
                 value: 3
-            },
-            {
+            }
+
+        ];
+        if ($rootScope.forexMode) {
+            tabs.push({
                 title: 'FOREX',
                 active: activeTab ===4,
                 value: 4
-            }
-        ];
+            });
+        }
 
 
         var portfolioTabs = [
@@ -90,13 +93,16 @@ angular.module('ngMo.my_patterns', [
                 title: 'INDEX_PAIRS',
                 active: activeTab === 3,
                 value: 3
-            },
-            {
+            }
+
+        ];
+        if ($rootScope.forexMode){
+            portfolioTab.push({
                 title: 'FOREX',
                 active: activeTab ===4,
                 value: 4
-            }
-        ];
+            });
+        }
         var indexTypes = [
             {
                 title: "INDICES",

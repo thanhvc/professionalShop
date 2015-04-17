@@ -186,15 +186,17 @@ angular.module('ngMo.home', [
                         value: 3,
                         futuresContent: $scope.myData.firstTable.FUTURE.FUTURE,
                         url: 'home/tables_packs/futures_table.tpl.html'
-                    },
-                    {
+                    }
+                ];
+                if ($rootScope.forexMode) {
+                    $scope.homeTablePacks.push({
                         title: 'FOREX',
-                        active: ActiveTabService.activeTab() === 4,
+                            active: ActiveTabService.activeTab() === 4,
                         value: 4,
                         forexContent: $scope.myData.firstTable.FOREX.FOREX,
                         url: 'home/tables_packs/forex_table.tpl.html'
-                    }
-                ];
+                    });
+                }
 
 
                 if (typeof $scope.myData.secondTable !== "undefined")
@@ -232,15 +234,18 @@ angular.module('ngMo.home', [
                             value: 3,
                             futuresContent: $scope.myData.secondTable.FUTURE.FUTURE,
                             url: 'home/tables_packs/second_futures_table.tpl.html'
-                        },
-                        {
+                        }
+
+                    ];
+                    if ($rootScope.forexMode) {
+                        $scope.homeTablePacks2.push( {
                             title: 'FOREX',
                             active: SecondActiveTabService.activeTab() === 4,
                             value: 4,
                             futuresContent: $scope.myData.firstTable.FOREX.FOREX,
                             url: 'home/tables_packs/second_forex_table.tpl.html'
-                        }
-                    ];
+                        });
+                    }
                 }
 
                 if (!$scope.$$phase) {

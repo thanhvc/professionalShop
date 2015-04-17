@@ -198,15 +198,20 @@ angular.module('ngMo.my_subscriptions', [
                         value: 3,
                         content: data.FUTURE,
                         url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
-                    },
-                    {
-                        title: 'FOREX',
-                        active: ActiveTabService.activeTab() === 4,
-                        value: 4,
-                        content: data.FOREX,
-                        url: 'my_subscriptions/tables_my_packs/forex_table.tpl.html'
                     }
+
                 ];
+                if ($rootScope.forexMode) {
+                    $scope.myPacksTablePacks.push(
+                        {
+                            title: 'FOREX',
+                            active: ActiveTabService.activeTab() === 4,
+                            value: 4,
+                            content: data.FOREX,
+                            url: 'my_subscriptions/tables_my_packs/forex_table.tpl.html'
+                        }
+                    );
+                }
 
 
                 $scope.loading = false;
@@ -318,15 +323,20 @@ angular.module('ngMo.my_subscriptions', [
                 value: 3,
                 futuresContent: [],
                 url: 'my_subscriptions/tables_packs/futures_table.tpl.html'
-            },
-            {
-                title: 'FOREX',
-                active: ActiveTabService.activeTab() === 4,
-                value: 4,
-                forexContent: [],
-                url: 'my_subscriptions/tables_packs/forex_table.tpl.html'
             }
+
         ];
+        if ($rootScope.forexMode) {
+            $scope.mySubscriptionsTablePacks.push(
+                {
+                    title: 'FOREX',
+                    active: ActiveTabService.activeTab() === 4,
+                    value: 4,
+                    forexContent: [],
+                    url: 'my_subscriptions/tables_packs/forex_table.tpl.html'
+                }
+            );
+        }
         $scope.filterOptions = "";
         $scope.loading=true;
         $scope.$on('$stateChangeStart', function (event, toState){
