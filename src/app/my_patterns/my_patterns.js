@@ -97,7 +97,7 @@ angular.module('ngMo.my_patterns', [
 
         ];
         if ($rootScope.forexMode){
-            portfolioTab.push({
+            portfolioTabs.push({
                 title: 'FOREX',
                 active: activeTab ===4,
                 value: 4
