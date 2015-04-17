@@ -34,6 +34,7 @@
         "market":"Mercado",
         "month":"Mes",
         "name":"Nombre",
+        "namePair":"Nombre Par Acciones",
         "names":"Nombres",
         "no_patterns_in_month":"NO EXISTEN PATRONES PARA EL MES SELECCIONADO",
         "no_patterns_with_condition":"NO EXISTEN PATRONES CON ESTAS CONDICIONES",
