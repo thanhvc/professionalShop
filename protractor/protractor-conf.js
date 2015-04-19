@@ -41,6 +41,9 @@ exports.config = {
         //login:'../src/app/home/login.protractor.js'
         //home:'../src/app/home/home.protractor.js'
         //home_packs_20141114:'../src/app/home/home_packs_20141114.protractor.js'
+        //home_packs_20141115:'../src/app/home/home_packs_20141115.protractor.js'
+        //home_packs_20141201:'../src/app/home/home_packs_20141201.protractor.js'
+        //home_packs_20141215:'../src/app/home/home_packs_20141215.protractor.js'
         // expired_users:'../src/common/services/authentication/authentication_service.protractor.js'
     },
     multiCapabilities: [
