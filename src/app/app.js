@@ -109,14 +109,14 @@ angular.module('ngMo', [
 
     .run(function run($rootScope,$translate,$translateCookieStorage) {
         $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-       //$rootScope.urlService = 'http://localhost:9000';
+        //$rootScope.urlService = 'http://localhost:9000';
 
 
         /**
          * FOREX MODE?
          *
          **/
-        $rootScope.forexMode = false;
+        $rootScope.forexMode = true;
 
         $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
             $translate.use($translateCookieStorage.get('lang'));

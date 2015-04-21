@@ -96,13 +96,7 @@ angular.module('ngMo.my_patterns', [
             }
 
         ];
-        if ($rootScope.forexMode){
-            portfolioTabs.push({
-                title: 'FOREX',
-                active: activeTab ===4,
-                value: 4
-            });
-        }
+
         var indexTypes = [
             {
                 title: "INDICES",
@@ -145,7 +139,7 @@ angular.module('ngMo.my_patterns', [
 
         this.getPortfolioTabs = function () {
             porfolioFlag = true;
-            if (activeTab === 3){
+            if (activeTab === 3 || activeTab === 4){
                 activeTab = 0;
             }else if (activeTab === 2 && activeIndex === 1){
                 activeTab = 3;

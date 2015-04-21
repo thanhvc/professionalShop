@@ -126,14 +126,14 @@
             {{data.exitDate | date: 'dd/MMM/yy'}}
         </td>
 
-        <td class="table-cell-patterns sub-border-right-table last-date-column-width">
+        <td class="table-cell-patterns sub-border-right-table last-date-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             {{data.lastQuoteDate | date: 'dd/MMM/yy'}}
         </td>
-        <td class="table-cell-patterns sub-border-right-table last-price-column-width">
+        <td class="table-cell-patterns sub-border-right-table last-price-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <div class="link" ng-click="loadGraphic($event,data.name,'BULLISH',null,false,data.priceChartURL);$event.stopPropagation();"><b>{{data.lastQuote | twoDecimals}}</b></div>
             <div class="link" ng-click="loadGraphic($event,data.name2,'BEARISH',null,false,data.priceChartURL2);$event.stopPropagation();"><b>{{data.lastQuote2 | twoDecimals}}</b></div>
         </td>
-        <td class="table-cell-patterns border-right-table last-percentage-column-width">
+        <td class="table-cell-patterns border-right-table last-percentage-column-width" ng-class="{'yellow-even': !($index%2), 'yellow-odd': ($index%2)}">
             <b>{{data.lastPerformance | twoDecimals}}</b>
         </td>
 
