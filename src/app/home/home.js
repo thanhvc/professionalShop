@@ -242,7 +242,7 @@ angular.module('ngMo.home', [
                             title: 'FOREX',
                             active: SecondActiveTabService.activeTab() === 4,
                             value: 4,
-                            futuresContent: $scope.myData.firstTable.FOREX.FOREX,
+                            forexContent: $scope.myData.secondTable.FOREX.FOREX,
                             url: 'home/tables_packs/second_forex_table.tpl.html'
                         });
                     }
