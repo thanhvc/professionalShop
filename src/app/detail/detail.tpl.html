@@ -400,7 +400,8 @@
         {{'DETAIL.weekly_graph'|translate}}
     </div>
     <div class="float-right" style="margin-top: 15px;">
-        <div class="price-caption"></div> {{'DETAIL.price'|translate}}
+        <div class="price-caption"></div> <span ng-if="productType != 'FOREX'" >{{'DETAIL.price'|translate}}</span>
+        <span ng-if="productType == 'FOREX'">{{'DETAIL.priceForex'|translate}}</span>
     </div>
 </div>
 <div class="graphic-container">
@@ -415,7 +416,8 @@
         {{'DETAIL.monthly_graph'|translate}}
     </div>
     <div class="float-right" style="margin-top: 15px;">
-        <div class="price-caption"></div> {{'DETAIL.price'|translate}}
+        <div class="price-caption"></div> <span ng-if="productType != 'FOREX'">{{'DETAIL.price'|translate}}</span>
+        <span ng-if="productType == 'FOREX'">{{'DETAIL.priceForex'|translate}}</span>
     </div>
 </div>
 <div class="graphic-container" style="border-bottom: 1px solid #9B9C9E;margin-bottom: 20px;">
