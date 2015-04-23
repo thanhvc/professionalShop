@@ -21,9 +21,9 @@
         </tr>
         </thead>
         <tbody class="stocks-tbody">
-        <tr ng-repeat="data in myData"    ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style=" font-size:11px;">
+        <tr ng-repeat="data in myData" ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style=" font-size:11px;">
             <td class="green"  >
-                    <span class="stocks-market-value cursor-help" tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                    <span class="stocks-market-value cursor-help" style="width: 410px;" tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
                           >{{data.name}}</span>
             </td>
             <td class="black-font-market" >
