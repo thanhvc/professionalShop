@@ -307,24 +307,26 @@ angular.module('ngMo.portfolio', [
 
             var data = PortfolioService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.portfolioList, function (data) {
-                    if (withLoad) {
-                        $scope.loading = false;
-                    }
-                    $scope.myData = data.patterns;//data.page;
-                    if ($scope.myData.length <=0){
-                        $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
-                    }else {
-                        $scope.appliedFilters = false;
-                    }
+                    if (data.productType === parseInt($scope.filterOptions.filters.active_tab, 10)) {
+                        if (withLoad) {
+                            $scope.loading = false;
+                        }
+                        $scope.myData = data.patterns;//data.page;
+                        if ($scope.myData.length <= 0) {
+                            $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                        } else {
+                            $scope.appliedFilters = false;
+                        }
 
                         $scope.portfolioList = data.portfolioPatterns;
-                    updatePortfolioListSessionStorage(data.portfolioPatterns);
-                    $scope.results = data.results;//data.results;
-                    $scope.found = data.found;//data.found;
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
+                        updatePortfolioListSessionStorage(data.portfolioPatterns);
+                        $scope.results = data.results;//data.results;
+                        $scope.found = data.found;//data.found;
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
+                        $scope.checkPortfolioPatterns();
                     }
-                    $scope.checkPortfolioPatterns();
                 });
         };
 

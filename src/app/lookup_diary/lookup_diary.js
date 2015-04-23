@@ -418,18 +418,20 @@ angular.module('ngMo.lookup_diary', [
         $scope.loadPage = function () {
             $scope.loading= true;
             var data = LookupDiaryService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
+                if (data.productType === parseInt($scope.filterOptions.filters.active_tab, 10)) {
                     $scope.myData = data.patterns;//data.page;
-                if ($scope.myData.length <=0){
-                    $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
-                }else{
-                    $scope.appliedFilters = false;
-                }
+                    if ($scope.myData.length <= 0) {
+                        $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                    } else {
+                        $scope.appliedFilters = false;
+                    }
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     $scope.loading = false;
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
+                }
                 }, function(dataError) {
                 //console.log("error");
                 if (dataError.status === 401) {

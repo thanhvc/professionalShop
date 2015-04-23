@@ -199,7 +199,8 @@ angular.module('ngMo.catalog', [
             {url: 'home/catalog/pairs_catalog.tpl.html'},
             {url: 'home/catalog/indices_catalog.tpl.html'},
             {url: 'home/catalog/futures_catalog.tpl.html'},
-            {url: 'home/catalog/pairs_indices_catalog.tpl.html'}
+            {url: 'home/catalog/pairs_indices_catalog.tpl.html'},
+            {url: 'home/catalog/forex_catalog.tpl.html'}
         ];
 
         if (typeof $scope.initialData !== "undefined") {
@@ -215,7 +216,10 @@ angular.module('ngMo.catalog', [
                     } else {
                         $scope.selectedTab = 4;
                     }
-                } else if ($scope.selectedPack.productType === 'FUTURE') {
+                }  else if ($scope.selectedPack.productType === 'FOREX') {
+                    $scope.selectedTab = 5;
+                }
+                else if ($scope.selectedPack.productType === 'FUTURE') {
                     $scope.selectedTab = 3;
                 } else {
                     if ($scope.selectedPack.patternType === "SIMPLE") {
@@ -270,7 +274,9 @@ angular.module('ngMo.catalog', [
                     }
                 } else if ($scope.selectedPack.productType === 'FUTURE') {
                     $scope.selectedTab = 3;
-                } else {
+                } else if ($scope.selectedPack.productType === 'FOREX') {
+                    $scope.selectedTab = 5;
+                } else {//STOCK
                     if ($scope.selectedPack.patternType === "SIMPLE") {
                         $scope.selectedTab = 0;
                     } else {

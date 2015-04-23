@@ -495,15 +495,17 @@ angular.module('ngMo.my_patterns', [
         $scope.loadPage = function () {
            // $scope.loading = true;
             var data = PatternsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
+                if (data.productType === parseInt($scope.filterOptions.filters.active_tab, 10)) {
                     $scope.myData = data.patterns;//data.page;
                     $scope.results = data.results;//data.results;
                     $scope.found = data.found;//data.found;
                     $scope.dataLoaded = true;
-                $scope.loading = false;
-                if ($scope.myData.length <=0){
-                    $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
-                }else{
-                    $scope.appliedFilters = false;
+                    $scope.loading = false;
+                    if ($scope.myData.length <= 0) {
+                        $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                    } else {
+                        $scope.appliedFilters = false;
+                    }
                 }
             }/* if unauthorized, unlog
             , function(dataError) {

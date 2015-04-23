@@ -34,16 +34,7 @@
                 </div>
             </td>
             <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
-                <!--<span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= filterOptions.filters.dayDateInput  && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} == filterOptions.filters.month.month" class="bearish-year calendar-letter">S</span>
-                <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= filterOptions.filters.dayDateInput && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} == filterOptions.filters.month.month" class="bullish-year calendar-letter">L</span>
-
-                <span ng-show="pattern.patternType == 'BEARISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} != filterOptions.filters.month.month" class="bearish-year calendar-letter">S</span>
-                <span ng-show="pattern.patternType == 'BULLISH' && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && {{pattern.exitDate | date:'MM'}} != filterOptions.filters.month.month" class="bullish-year calendar-letter">L</span>
-                -->
-                <span ng-show="pattern.patternType == 'BEARISH' && mustPaint(day,pattern)" class="bearish-year calendar-letter">S</span>
-                <span ng-show="pattern.patternType == 'BULLISH' && mustPaint(day,pattern)" class="bullish-year calendar-letter">L</span>
-
-
+                <span ng-show="mustPaint(day,pattern)" class="pairs-letter calendar-letter">F</span>
             </td>
         </tr>
 
@@ -62,9 +53,4 @@
                 page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
                 next-text="&gt;"
                 first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
-</div>
-
-<div class="calendar-caption">
-    <span class="bullish-year calendar-letter">L: </span> Long ({{'CALENDAR.buyCaption'|translate}})
-    <span style="margin-left: 14px;" class="bearish-year calendar-letter">S: </span> Short ({{'CALENDAR.sellCaption'|translate}})
 </div>

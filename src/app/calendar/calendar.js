@@ -399,25 +399,27 @@ angular.module('ngMo.calendar', [
         $scope.obtainDays = function () {
             var data = CalendarService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, function (data) {
-                    $scope.loading= false;
-                    $scope.myData = data.patterns;//data.page;
+                    if (data.productType === parseInt($scope.filterOptions.filters.active_tab, 10)) {
+                        $scope.loading = false;
+                        $scope.myData = data.patterns;//data.page;
 
-                    if ($scope.myData.length <=0){
-                        $scope.appliedFilters = UserApplyFilters.userAppliedFiltersCalendar($scope.filterOptions.filters);
-                    }else{
-                        $scope.appliedFilters = false;
-                    }
-                    $scope.results = data.results;//data.results;
-                    $scope.found = data.found;//data.found;
-                    $scope.daysOfMonth = [];
-                    for (var i = 1; i <= $scope.lastDayOfMonth; i++) {
-                        $scope.daysOfMonth.push({
-                            dayOfWeek: $scope.getDayOfWeek(i, $scope.lastDayOfMonth),
-                            dayOfMonth: i
-                        });
-                    }
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
+                        if ($scope.myData.length <= 0) {
+                            $scope.appliedFilters = UserApplyFilters.userAppliedFiltersCalendar($scope.filterOptions.filters);
+                        } else {
+                            $scope.appliedFilters = false;
+                        }
+                        $scope.results = data.results;//data.results;
+                        $scope.found = data.found;//data.found;
+                        $scope.daysOfMonth = [];
+                        for (var i = 1; i <= $scope.lastDayOfMonth; i++) {
+                            $scope.daysOfMonth.push({
+                                dayOfWeek: $scope.getDayOfWeek(i, $scope.lastDayOfMonth),
+                                dayOfMonth: i
+                            });
+                        }
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
                     }
                 });
 
@@ -653,6 +655,9 @@ angular.module('ngMo.calendar', [
                         break;
                     case 3:     //futures
                         productType = "Futuros";
+                        break;
+                    case 4:
+                        productType = "Forex";
                         break;
                 }
                 var filename = "calendar-"+productType+".pdf";

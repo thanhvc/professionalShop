@@ -341,19 +341,21 @@ angular.module('ngMo.historic', [
         /* sets the data in the table, and the results/found in the data to be showed in the view*/
         $scope.loadPage = function () {
             var data = HistoricsService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
-                    $scope.myData = data.patterns;//data.page;
-                    if ($scope.myData.length <=0){
-                        $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
-                    }else{
-                        $scope.appliedFilters = false;
-                    }
-                    /*mocked, this info is loaded from data*/
-                    $scope.results = data.results;//data.results;
-                    $scope.found = data.found;//data.found;
-                    $scope.loading = false;
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
-                    }
+                if (data.productType === parseInt($scope.filterOptions.filters.active_tab, 10)) {
+                        $scope.myData = data.patterns;//data.page;
+                        if ($scope.myData.length <= 0) {
+                            $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                        } else {
+                            $scope.appliedFilters = false;
+                        }
+                        /*mocked, this info is loaded from data*/
+                        $scope.results = data.results;//data.results;
+                        $scope.found = data.found;//data.found;
+                        $scope.loading = false;
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
+                }
                 });
         };
 

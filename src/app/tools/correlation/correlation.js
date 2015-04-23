@@ -388,28 +388,30 @@ angular.module('ngMo.correlation', [
             }
             var data = CorrelationService.getPagedDataAsync($scope.pagingOptions.pageSize,
                 $scope.pagingOptions.currentPage, $scope.filterOptions.filters, null, null, $scope.correlationList, function (data) {
-                    $scope.loading = false;
-                    $scope.myData = data.patterns;//data.page;
+                    if (data.productType === parseInt($scope.filterOptions.filters.active_tab, 10)) {
+                        $scope.loading = false;
+                        $scope.myData = data.patterns;//data.page;
 
-                    if ($scope.myData.length <=0){
-                        $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
-                    }else{
-                        $scope.appliedFilters = false;
-                    }
-                    //when the market is changed, we
-                    $scope.refreshRegion();
-                    //$scope.correlationList = data.correlationPatterns; <- correlation patterns is not loaded from server anymore
-                    //updateCorrelationListSessionStorage(data.correlationPatterns);
-                    if ($scope.correlationList.length > 0){
+                        if ($scope.myData.length <= 0) {
+                            $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                        } else {
+                            $scope.appliedFilters = false;
+                        }
+                        //when the market is changed, we
+                        $scope.refreshRegion();
+                        //$scope.correlationList = data.correlationPatterns; <- correlation patterns is not loaded from server anymore
+                        //updateCorrelationListSessionStorage(data.correlationPatterns);
+                        if ($scope.correlationList.length > 0) {
                             $scope.filterOptions.filters.selectedRegion = $scope.correlationList[0].region;//data.selectedRegion;
-                    }
-                    $scope.results = data.results;//data.results;
-                    $scope.found = data.found;//data.found;
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
-                    }
+                        }
+                        $scope.results = data.results;//data.results;
+                        $scope.found = data.found;//data.found;
+                        if (!$scope.$$phase) {
+                            $scope.$apply();
+                        }
 
-                    $scope.checkCorrelationPatterns();
+                        $scope.checkCorrelationPatterns();
+                    }
                 });
         };
 

@@ -383,15 +383,17 @@ angular.module('ngMo.volatility', [
 
        $scope.loadPage = function () {
             var data = VolatilityService.getPagedDataAsync($scope.pagingOptions.currentPage, $scope.filterOptions.filters).then(function (data) {
-                $scope.loading = false;
-                $scope.myData = data.patterns;//data.page;
-                if ($scope.myData.length <=0){
-                    $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
-                }else{
-                    $scope.appliedFilters = false;
+                if (data.productType === parseInt($scope.filterOptions.filters.active_tab, 10)) {
+                    $scope.loading = false;
+                    $scope.myData = data.patterns;//data.page;
+                    if ($scope.myData.length <= 0) {
+                        $scope.appliedFilters = UserApplyFilters.userAppliedFilters($scope.filterOptions.filters);
+                    } else {
+                        $scope.appliedFilters = false;
+                    }
+                    $scope.results = data.results;//data.results;
+                    $scope.found = data.found;//data.found;
                 }
-                $scope.results = data.results;//data.results;
-                $scope.found = data.found;//data.found;
             });
 
 

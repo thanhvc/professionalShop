@@ -1,0 +1,186 @@
+<div>
+    <p class="public-zone-text">
+        <span class="text-block-title">Cat&aacute;logo de Forex</span>
+    </p>
+
+    <p>El siguiente cuadro resume la información del <b>Pack</b> a comprar. Se muestran
+        50 Compa&ntilde;&iacute;as con las mejores Estrategias durante el Mes indicado y un avance de contenidos que permite valorar las ventajas de comprar el Pack:</p>
+    <p>
+    <ul class="public-list-first-level">
+        <li>Nombre de la Compa&ntilde;&iacute;a, Mercado cotizaci&oacute;n y clasificaci&oacute;n Sectorial.</li>
+        <li>N&uacute;mero de a&ntilde;os &ndash;o frecuencia de aciertos y fallos&ndash; en los cuales la estrategia gener&oacute;
+            Beneficios y P&eacute;rdidas.
+        </li>
+        <li>Rentabilidad Acumulada durante 15 a&ntilde;os y Rentabilidad Media de la operaci&oacute;n &ndash;no
+            es rentabilidad anual&ndash;.
+        </li>
+        <li>Duraci&oacute;n de la operaci&oacute;n (<em>Holding days</em>) para planificar la disponibilidad del dinero.</li>
+        <li>Volatilidad hist&oacute;rica indicativa del riesgo.</li>
+        <li>El &ldquo;Estado&rdquo; de la Estrategia se indica mediante un sem&aacute;foro: Color <em>naranja</em> si a d&iacute;a
+            de hoy est&aacute; en curso. Color <em>rojo</em> si ya termin&oacute;. Color <em>verde</em> cuando en la fecha actual todav&iacute;a
+            est&aacute; sin comenzar.
+        </li>
+        <li>Formulario de búsqueda de los datos Fundamentales de una Compa&ntilde;&iacute;a</li>
+    </ul>
+    Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias, las herramientas de evaluaci&oacute;n y toma de decisiones.
+    </p>
+    <div bindonce="startDate" class="start-date-catalog-container">
+        <span bo-text="startDate | date: 'MMMM yyyy'"></span>
+    </div>
+    <div class="region-catalog-container">{{selectedPack.name}}</div>
+    <button id="purchase-button" ng-click="addNewItemCart(selectedPack, startDate,'Anual'); $event.stopPropagation();"
+            class="mo-button purchase-button">Al carro
+    </button>
+    <span class="actual-date-catalog">Date: {{actualDate | date:'dd MMM'}}. (GMT)</span>
+
+    <div class="header-catalog-table">
+        <div class="catalog-filter">
+            <input placeholder="Nombre" class="stocks-catalog-input" ng-model="filterOptions.filters.filterName" ng-change="search();">
+
+
+            <!--<select ng-model="filterOptions.filters.selectedSector" ng-change="selectSector()" >
+                <option value="">- Elegir Sector -</option>
+                <option ng-repeat="item in filterOptions.selectors.sectors" value="{{item.id}}"
+                        ng-selected="{{item.id == filterOptions.filters.selectedSector}}">
+                    {{item.description}}
+                </option>
+            </select>--><!--
+            <div click-anywhere-but-here="blurSector();">
+                <input type="text" ng-model="filterOptions.filters.selectedSector" placeholder="Sector"
+
+                       typeahead="sector as sector.description for sector in filterOptions.selectors.sectors | filter:{description:$viewValue}"
+                       typeahead-on-select="selectSector()"
+                       class="stocks-catalog-input">
+            </div>-->
+
+
+            <!--<select ng-model="filterOptions.filters.selectedIndustry" ng-change="selectIndustry();">
+                <option value="">- Elegir industria -</option>
+                <option ng-repeat="item in filterOptions.selectors.industries" value="{{item.id}}"
+                        ng-selected="{{item.id == filterOptions.filters.selectedIndustry}}">
+                    {{item.description}}
+                </option>
+            </select>--><!--
+            <div click-anywhere-but-here="blurIndustry();" ng-click="blurSector();">
+                <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Industria"
+                       ng-focus="blurSector();"
+                       ng-disabled="isSectorUnSelected"
+                       typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
+                       typeahead-on-select="selectIndustry()"
+                       class="stocks-catalog-input">
+            </div>-->
+            <!--note using the blurIndustry/sector we get that click or tab to next element will check the industry or sector to empty the input-->
+
+            <select ng-model="filterOptions.filters.durationInterval" ng-change="search();" ng-focus="blurIndustry();blurSector();">
+                <option selected="selected" value="">- Elegir duraci&oacute;n -</option>
+                <option value="[*/1]">Hasta 1 mes</option>
+                <option value="[1/3]">De 1 a 3 meses</option>
+                <option value="[3/*]">Más de 3 meses</option>
+            </select>
+            <select ng-model="filterOptions.filters.volatilityInterval" ng-change="search();">
+                <option selected="selected" value="">- Elegir volatilidad -</option>
+                <option value="[*/25]">Menos de 25%</option>
+                <option value="[25/50]">Entre 25% y 50%</option>
+                <option value="[50/75]">Entre 50% y 75%</option>
+                <option value="[75/*]">Más de 75%</option>
+            </select>
+        </div>
+        <div class="number-patterns-catalog">
+            N&uacute;mero total de patrones: {{results}}; Patrones encontrados: {{found}}
+        </div>
+    </div>
+
+    <!-- No result message -->
+    <div class="no-results-catalog-container" ng-show="patterns.length==0">No hay resultados</div>
+
+    <!-- Stocks table -->
+    <table class="patterns-table-catalog" ng-show="patterns.length > 0">
+        <tr>
+            <th class="stock-name-column-catalog">Patr&oacute;n Acciones</th>
+            <th class="stock-market-column-catalog">Mercado</th>
+           <!-- <th class="stock-sector-industry-column-catalog">Sector / Industria</th>-->
+            <th class="stock-year-number-column-catalog" colspan="2">N&uacute;mero de A&ntilde;os</th>
+            <th class="stock-profit-column-catalog" colspan="2">Rentabilidad (%)</th>
+            <th class="stock-duration-column-catalog" style="border-right: 2px solid #6f7072 !important;">Duraci&oacute;n</th>
+            <th class="stock-volatility-column-catalog"><span class="cursor-help" tooltip="Volatilidad">Vol.</span></th>
+            <th class="stock-status-column-catalog" style="border-right: 1px solid #6f7072 !important;">Estado</th>
+        </tr>
+        <tr>
+            <th class="stock-name-column-catalog">Nombre</th>
+            <th class="stock-market-column-catalog">C&oacute;digo</th>
+           <!-- <th class="stock-sector-industry-column-catalog"></th>-->
+            <th class="stock-year-number-gain-column-catalog">Ganancia</th>
+            <th class="index-lost-catalog stock-year-number-loss-column-catalog">Pérdida</th>
+            <th class="stock-profit-accumulated-column-catalog">Acumulada</th>
+            <th class="stock-profit-average-column-catalog">Promedio</th>
+            <th class="stock-duration-column-catalog">Meses</th>
+            <th class="stock-volatility-column-catalog">(%)</th>
+            <th class="stock-status-column-catalog"></th>
+        </tr>
+        <tr ng-repeat="pattern in patterns">
+            <td class="stock-name-column-catalog">
+                <div class="long-name-breaker">
+                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}">{{pattern.name | limitTo: 60}}</span>
+                </div>
+            </td>
+            <td class="stock-market-column-catalog">
+                <span class="cursor-help" tooltip-html-unsafe="{{pattern.exchName}}">{{pattern.exchSymbol}}</span>
+            </td>
+            <!--
+            <td class="stock-sector-industry-column-catalog">
+                <div class="long-name-breaker">
+                    <span tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | sectorName | capitalize}}</span> <span
+                        ng-show="pattern.sector != null && pattern.industry != null && pattern.sector != '' && pattern.industry != ''">/</span>
+                    <span tooltip-html-unsafe="{{pattern.industry | capitalize}}" class="cursor-help">{{pattern.industry | capitalize}}</span>
+                </div>
+            </td>
+            -->
+            <td class="stock-year-number-gain-column-catalog">
+                {{pattern.win | twoDecimals}}
+            </td>
+            <td class="stock-year-number-loss-column-catalog">{{pattern.loss | twoDecimals}}</td>
+            <td class="stock-profit-accumulated-column-catalog">{{pattern.accumulatedReturn | number:0}}</td>
+            <td class="stock-profit-average-column-catalog">{{pattern.averageReturn | oneDecimal}}</td>
+            <td class="stock-duration-column-catalog"><span ng-show="(pattern.duration <31)">Hasta 1</span>
+                <span ng-show="(pattern.duration >30 && pattern.duration <93)">De 1 a 3</span>
+                <span ng-show="(pattern.duration >92)">Más de 3</span></td>
+            <td class="stock-volatility-column-catalog" ng-if="pattern.volatility>=0">{{pattern.volatility | volatTruncate}}</td>
+            <td class="stock-volatility-column-catalog" ng-if="pattern.volatility<0">n.a.</td>
+            <td class="stock-status-column-catalog">
+                <!-- <div tooltip="{{pattern.state}}" class="state-sphere"
+                      ng-class="{'no-started-state': pattern.state == 'Sin Comenzar',  'started-state': pattern.state == 'Comenzado', 'finished-state': pattern.state == 'Finalizado'}"> </div>-->
+
+                <div tooltip="{{'CATALOG.no_started'|translate}}" tooltip-placement="left" class="state-sphere no-started-state cursor-help" ng-show="pattern.statePattern == 'NO_STARTED'"></div>
+                <div tooltip="{{'CATALOG.started'|translate}}" tooltip-placement="left" class="state-sphere started-state cursor-help" ng-show="pattern.statePattern == 'STARTED'"></div>
+                <div tooltip="{{'CATALOG.finished'|translate}}" tooltip-placement="left" class="state-sphere finished-state cursor-help" ng-show="pattern.statePattern == 'FINISHED'"></div>
+
+            </td>
+        </tr>
+    </table>
+    <!--pagination-->
+    <div class="pagination-container" ng-show="found > pagingOptions.pageSize" style="clear:both; margin-bottom:20px;">
+        <pagination boundary-links="true" on-select-page="setPage(page)" total-items="found"
+                    items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                    page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                    next-text="&gt;"
+                    first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+    </div>
+
+
+</div>
+
+<div class="browser-data-catalog">
+    <p class="orange-title">&iquest;Desea informaci&oacute;n sobre los datos Fundamentales de una Compa&ntilde;&iacute;a?</p>
+
+    <p>Introducir Nombre de Compañía  (O Código Numérico para acciones de Asia)</p>
+
+    <div >
+        <input placeholder="Nombre" ng-model="searchExternCatalog">
+        <a ng-href="{{urlSearchCatalog}}" target="searchPat" ng-click="generateSearchUrl('Google', searchExternCatalog)">Buscar en
+            Google<img ng-src="assets/img/home/google-icon.png"></a>
+        <a ng-href="{{urlSearchCatalog}}" target="searchPat" ng-click="generateSearchUrl('Yahoo', searchExternCatalog)">Buscar en
+            Yahoo<img ng-src="assets/img/home/yahoo-icon.png"></a>
+        <a ng-href="{{urlSearchCatalog}}" target="searchPat" ng-click="generateSearchUrl('Bloomberg', searchExternCatalog)">Buscar en
+            Bloomberg<img ng-src="assets/img/home/bloomberg-icon.png"></a>
+    </div>
+</div>

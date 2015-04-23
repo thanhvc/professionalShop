@@ -1,4 +1,4 @@
-<table class="tables-pack-home">
+<table class="tables-pack-home" style="width:950px;">
     <thead>
     <tr class="header-table-pack">
         <td colspan="4">
@@ -7,22 +7,21 @@
     </tr>
     <tr class="subheader-table-pack">
         <td></td>
-        <td>Clase</td>
-        <td>Alcance</td>
-        <td>N&uacute;mero de Patrones</td>
+        <td style="width: 700px;">Foreign Exchange Currency Pairs</td>
+        <td style="width: 119px !Important">N&uacute;mero de Patrones</td>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td class="area-cell" style="border-top: none;" rowspan="{{homeTablePack.forexContent.length + 1}}">{{'FOREX'|translate}}</td>
+        <td class="area-cell" style="border-top: none;" rowspan="{{homeTablePack.forexContent.length + 1}}">FOREX</td>
         <!-- <td colspan="3">
              <table class="table-pack">
                  <tbody>-->
     <tr ng-repeat="pack in homeTablePack.forexContent track by $index"ui-sref="catalog({packCode: pack.code, month: 0})"
         ng-class="{'table-home-odd': !($index%2), 'table-home-even': ($index%2)}">
         <td><span tooltip="{{pack.name}} ({{pack.letterFrom}} - {{pack.letterUntil}})">{{pack.name}}</span></td>
-        <td>{{pack.scopeText}}</td>
-        <td>{{pack.numPatterns}}</td>
+
+        <td style="width:119px !Important;">{{pack.numPatterns}}</td>
     </tr>
     <!--- </tbody>
  </table>-->
