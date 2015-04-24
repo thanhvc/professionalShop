@@ -230,8 +230,9 @@ angular.module('ngMo.my_subscriptions', [
                     template: "<div class=\"modal-confirm-packs\"><div class=\"header-alert-portfolio\">Aviso <img class=\"close-alert-portfolio\" " +
                         " src=\"assets/img/close_modal.png\" ng-click=\"close()\"></div><div class=\"modal-confirm-packs-body\">" +
                         "Está seguro que desea realizar la devolución de la suscripción <br/>{{operationPack.name}} que finaliza en {{operationPack.endDate | date: 'MMMM yyyy'}}" +
-                        "</div> <div class='modal-confirm-container'> <button class='mo-button modal-confirm-packs-acept' ng-click='confirm();'>Confirmar</button>" +
-                        " <button ng-click='close();' class='mo-button modal-confirm-packs-cancel' >Cancelar</button></button></div></div>",
+                        "</div> <div class='modal-confirm-container'> " +
+                        " <button ng-click='close();' class='mo-cancel-button modal-confirm-packs-cancel' style='float:left;' >Cancelar</button></button>" +
+                        "<button class='mo-button modal-confirm-packs-acept' ng-click='confirm();' style='float:right;'>Confirmar</button></div></div>",
                     controller: ModalMyPackstCtrl,
                     resolve: {
                         operationPack: function () {
