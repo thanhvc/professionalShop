@@ -876,7 +876,7 @@ angular.module('ngMo.volatility', [
                 $scope.openGraph = false;
 
 
-                $scope.showSelectedGraphic = function (e, name, type, name2, pair, url) {
+                $scope.showSelectedGraphic = function (e, name, type, name2, pair, url,active_tab) {
                     $scope.animateClose = false;
                     if ($scope.openGraph === true){
                         $timeout( function(){
@@ -891,7 +891,8 @@ angular.module('ngMo.volatility', [
                         type: type,
                         secondIndiceName: name2,
                         isPair: pair,
-                        url:  (typeof url !== "undefined" ? url : "")
+                        url:  (typeof url !== "undefined" ? url : ""),
+                        active_tab: active_tab
                     };
                     if (TabsService.getActiveTab() == 1 || (TabsService.getActiveTab() == 2 && $scope.filterOptions.filters.index_type == 1)) {
                         $scope.myStyle ={'height' : '450px'};

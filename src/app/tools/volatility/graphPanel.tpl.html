@@ -8,8 +8,11 @@
         <span class="buy-color">{{selectedGraphic.indiceName}}</span>
         <span>/</span><span class="sell-color">{{selectedGraphic.secondIndiceName}}</span>
     </div>
-    <div ng-if="!selectedGraphic.isPair">
+    <div ng-if="!selectedGraphic.isPair && selectedGraphic.active_tab != 4">
         <span ng-class="{'buy-color': selectedGraphic.type == 'BULLISH', 'sell-color': selectedGraphic.type == 'BEARISH'}">{{selectedGraphic.indiceName}}</span>
+    </div>
+    <div ng-if="!selectedGraphic.isPair && selectedGraphic.active_tab == 4">
+        <span  >{{selectedGraphic.indiceName}}</span>
     </div>
     <br/>
     <img style='width:700px;height:245px;display:inline-block !important;' class="selected-graphic-image" ng-if="selectedGraphic.url != null"
