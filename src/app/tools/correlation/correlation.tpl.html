@@ -159,7 +159,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div style="clear:both; margin-bottom:15px;"></div>
+                <div ng-if="filterOptions.filters.active_tab == 1 && pairCorrelationData.length > 2 || (filterOptions.filters.active_tab == 2 && filterOptions.filters.index_type == 1) && pairCorrelationData.length > 2" style="clear:both; margin-bottom: 15px;"></div>
 
                 <!--caption pair-->
 
@@ -203,7 +203,7 @@
                     </tbody>
                 </table>
                 -->
-                <div style="clear:both;"> </div>
+                <div style="clear:both; margin-bottom: 15px;"> </div>
                 <!--
                 <button style="width: 120px;float:right;" class="mo-button" ng-click="clearCorrelationList();">
                     Aceptar
