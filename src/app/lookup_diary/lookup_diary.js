@@ -664,10 +664,12 @@ angular.module('ngMo.lookup_diary', [
                 }
 
             } else {
-                if (type === 'BULLISH') {
-                    elemTitle.className = 'buy-color';
-                } else {
-                    elemTitle.className = 'sell-color';
+                if ($scope.filterOptions.filters.active_tab !== 4) {
+                    if (type === 'BULLISH') {
+                        elemTitle.className = 'buy-color';
+                    } else {
+                        elemTitle.className = 'sell-color';
+                    }
                 }
                 containerTitle.appendChild(elemTitle);
             }
