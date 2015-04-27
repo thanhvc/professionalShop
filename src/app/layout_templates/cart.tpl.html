@@ -151,7 +151,7 @@
         <div class="total-cart">Total: {{totalCart | number:2}} EUR</div>
         <div class="buttons-cart-container">
             <button class="mo-cancel-button" ng-click="removeAllItemsCart()">Cancelar</button>
-            <button class="mo-button"  ng-click="addMore();">A&ntilde;adir m&aacute;s</button>
+            <button class="mo-button" ng-if="showShowAddMore"  ng-click="addMore();">A&ntilde;adir m&aacute;s</button>
             <button class="mo-button" ng-click="goToPay()" ng-show="totalCart > 0">Proceder Pago</button>
         </div>
     </div>

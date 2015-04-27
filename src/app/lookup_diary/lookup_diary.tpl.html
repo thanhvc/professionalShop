@@ -135,14 +135,15 @@
                                ng-enter="ok()"
                                focus-me="focusPrice"
                                ng-class=" {'warning-input':  (alertForm.priceInput.$error.pattern && (alertForm.priceInput.$dirty))}"
+                               class="alarm-input"
                                ng-pattern="rentPattern">
                         <br>
                         <span class="warning-text" ng-if="showAlertMessage">Este Patrón ya cumple la condición introducida</span>
                         <span class="warning-text" ng-if="showAlertMessageCorrectValue">Debe introducir un valor correcto</span>
                     </div>
                     <div class="modal-footer">
-                        <button class="mo-button float-right" ng-click="ok()">Aceptar</button>
-                        <button class="mo-cancel-button float-left" ng-click="cancel()">Cancelar</button>
+                        <button class="mo-button float-right" ng-click="ok()" style="margin-right: 70px;">Aceptar</button>
+                        <button class="mo-cancel-button float-left" ng-click="cancel()" style="margin-left: 70px;">Cancelar</button>
                     </div>
                 </form>
             </div>

@@ -1,6 +1,6 @@
 <div class="portfolio-tools-container" style="height: 660px;">
 
-    <table style="width: 450px;float:left;" class="table-portfolio">
+    <table style="width: 450px;float:left;" class="table-portfolio portfolio-table-size-without-operation">
         <thead>
         <tr>
             <td>Id</td>
@@ -15,10 +15,10 @@
             <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
             <td>
                 <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
-                >{{pattern.name | limitTo: 22}}</span>
+                >{{pattern.name | limitTo: 28}}</span>
                 <br>
                     <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
-                            >{{pattern.name2 | limitTo: 22}}</span>
+                            >{{pattern.name2 | limitTo: 28}}</span>
             </td>
             <td>
                 <span  class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span><br>

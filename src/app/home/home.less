@@ -402,7 +402,6 @@
   border: 1px solid @greyLabel;
   tr{
     height: 24px;
-
     &:nth-child(1), &:nth-child(2) {
       height: 20px;
     }
@@ -422,39 +421,59 @@
     td{
       font-size: 10px;
       border-left: 1px solid @greyLabel !important;
-      border-right: 1px solid @greyLabel !important;
+      border-right: 1px solid @greyLabel ;
       &:nth-child(1){
         padding-left:5px;
         text-align: left;
-        //width: 221px;
+        width: 221px;
+        border-right:  2px solid @greyLabel !important;
       }
       &:nth-child(2){
-        // width: 67px;
+        width: 50px;
         border-left: 2px solid @greyLabel  !important;
-        border-right:  2px solid @greyLabel !important;
+        font-family: fontpo-bold;
       }
-      &:nth-child(4){
-        //  width: 223px;
-        border-right:  2px solid @greyLabel !important;
-      }
-      &:nth-child(3), &:nth-child(5), &:nth-child(6), &:nth-child(8) {
+      &:nth-child(3){
+        width: 65px;
+        border-right: 1px solid @greyLabel  !important;
         font-family: fontpo-bold;
       }
       &:nth-child(4) {
+        width:65px;
         font-family: fontpo-bold;
-        border-right:  2px solid @greyLabel !important;
       }
-      &:nth-child(6),&:nth-child(7),&:nth-child(8) {
+      &:nth-child(7), &:nth-child(9) {
+        font-family: fontpo-bold;
+      }
+      &:nth-child(5) {
+        font-family: fontpo-bold;
+        border-right:  1px solid @greyLabel !important;
+      }
+      &:nth-child(7),&:nth-child(8),&:nth-child(9) {
         border-right:  2px solid @greyLabel !important;
       }
     }
     th{
       text-align: center;
-      border-left: 1px solid @greyLabel;
-      border-right: 1px solid @greyLabel;
+      border-left: 1px solid @greyLabel !important;
       padding-left: 4px;
       padding-right: 4px;
-
+      &:nth-child(2){
+        width: 50px;
+        border-left: 2px solid @greyLabel  !important;
+        //  border-right:  2px solid @greyLabel !important;
+      }
+      &:nth-child(3){
+        width: 65px;
+        border-right:  2px solid @greyLabel !important;
+      }
+      &:nth-child(4) {
+        width: 65px;
+        // border-right:  2px solid @greyLabel !important;
+      }
+      &:nth-child(7),&:nth-child(8),&:nth-child(9) {
+        border-right:  2px solid @greyLabel !important;
+      }
     }
   }
 }
@@ -950,6 +969,13 @@
   overflow: hidden;
 }
 
+.future-status-column-catalog{
+  width: 63px;
+  max-width: 63px;
+  min-width: 63px;
+  overflow: hidden;
+}
+
 .index-number-of-years-gain-column-catalog {
   width: 75px;
   max-width: 75px;
@@ -1069,16 +1095,16 @@
 }
 
 .futures-market-column-catalog{
-  width: 90px;
-  max-width: 90px;
-  min-width: 90px;
+  width: 50px;
+  max-width: 50px;
+  min-width: 50px;
   overflow: hidden;
 }
 
 .futures-number-of-years-column-catalog{
-  width: 160px;
-  max-width: 160px;
-  min-width: 160px;
+  width: 100px;
+  max-width: 100px;
+  min-width: 100px;
   overflow: hidden;
 }
 
@@ -1111,16 +1137,16 @@
 }
 
 .futures-number-of-years-gain-column-catalog{
-  width: 75px;
-  max-width: 75px;
-  min-width: 75px;
+  width: 50px;
+  max-width: 50px;
+  min-width: 50px;
   overflow: hidden;
 }
 
 .futures-number-of-years-loss-column-catalog{
-  width: 85px;
-  max-width: 85px;
-  min-width: 85px;
+  width: 50px;
+  max-width: 50px;
+  min-width: 50px;
   overflow: hidden;
 }
 

@@ -107,7 +107,7 @@ angular.module('ngMo', [
         tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale_{{locale}}.js');
     })
 
-    .run(function run($rootScope,$translate,$translateCookieStorage) {
+    .run(function run($rootScope,$translate,$translateCookieStorage,$location) {
         $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
         //$rootScope.urlService = 'http://localhost:9000';
 
@@ -122,6 +122,11 @@ angular.module('ngMo', [
             $translate.use($translateCookieStorage.get('lang'));
             $translate.refresh();
 
+        });
+
+        //in the cart some views (my subscriptions) must not render some buttons
+        $rootScope.$on('$stateChangeSuccess', function() {
+            $rootScope.showShowAddMore = $location.path() !== "/my-subscriptions/my-subscriptions";
         });
 
 
