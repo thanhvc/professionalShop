@@ -94,7 +94,8 @@
                         <tr>
                             <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
                             <th>{{'TOOLS.code'|translate}}</td>
-                            <th>{{'TOOLS.name'|translate}}</td>
+                            <th ng-if="filterOptions.filters.active_tab != 4">{{'TOOLS.name'|translate}}</td>
+                            <th ng-if="filterOptions.filters.active_tab == 4">{{'TOOLS.forexName'|translate}}</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,7 +116,9 @@
                         <!--<th><span tooltip="Favoritos">Fav.</span></th> -->
                         <th>{{'TOOLS.code'|translate}}</td>
                        <!-- <th>{{'TOOLS.symbol'|translate}}</td>-->
-                        <th>{{'TOOLS.name'|translate}}</td>
+
+                        <th ng-if="filterOptions.filters.active_tab != 4">{{'TOOLS.name'|translate}}</td>
+                        <th ng-if="filterOptions.filters.active_tab == 4">{{'TOOLS.forexName'|translate}}</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -126,7 +129,7 @@
                             </td> -->
                             <td ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.code}}</td>
                            <!-- <td ng-class="{'buy-color': row.patternType == 'BULLISH', 'sell-color': row.patternType == 'BEARISH'}">{{row.symbol}}</td>-->
-                            <td ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.name | limitTo: 35}}</td>
+                            <td ng-class="{'buy-color': row.patternType == 'BULLISH' && filterOptions.filters.active_tab != 4, 'sell-color': row.patternType == 'BEARISH' && filterOptions.filters.active_tab != 4}">{{row.name | limitTo: 45}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -172,21 +172,21 @@ angular.module('ngMo.my_subscriptions', [
                 $scope.myPacksTablePacks = [
                     {
                         title: 'STOCKS',
-                        active: ActiveTabService.activeTab() === 0,
+                        active: false,//ActiveTabService.activeTab() === 0,
                         value: 0,
                         content: data.STOCK,
                         url: 'my_subscriptions/tables_my_packs/stock_table.tpl.html'
                     },
                     {
                         title: 'PAIRS',
-                        active: ActiveTabService.activeTab() === 1,
+                        active: false,//ActiveTabService.activeTab() === 1,
                         value: 1,
                         content: data.STOCKPAIR,
                         url: 'my_subscriptions/tables_my_packs/pairs_table.tpl.html'
                     },
                     {
                         title: 'INDICES',
-                        active: ActiveTabService.activeTab() === 2,
+                        active: false,//ActiveTabService.activeTab() === 2,
                         value: 2,
                         content: data.INDICE,
                         pairContent: data.INDICEPAIR,
@@ -194,7 +194,7 @@ angular.module('ngMo.my_subscriptions', [
                     },
                     {
                         title: 'FUTURES',
-                        active: ActiveTabService.activeTab() === 3,
+                        active: false,//ActiveTabService.activeTab() === 3,
                         value: 3,
                         content: data.FUTURE,
                         url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
@@ -205,7 +205,7 @@ angular.module('ngMo.my_subscriptions', [
                     $scope.myPacksTablePacks.push(
                         {
                             title: 'FOREX',
-                            active: ActiveTabService.activeTab() === 4,
+                            active: false,//ActiveTabService.activeTab() === 4,
                             value: 4,
                             content: data.FOREX,
                             url: 'my_subscriptions/tables_my_packs/forex_table.tpl.html'

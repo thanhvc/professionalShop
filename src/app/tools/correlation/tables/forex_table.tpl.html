@@ -14,7 +14,7 @@
         <tr ng-repeat="pattern in myData" ng-class="{'disabled-asset': !pattern.toUse}">
             <td class="cursor-pointer" ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
             <td class="forex-correlation-market" >
-                <div class="name-pattern-container" tooltip="{{pattern.name | forexName}} ({{pattern.exchSymbol}})" ><span class="cursor-help">{{pattern.name | forexName | limitTo: 25}}</span></div></td>
+                <div class="name-pattern-container" tooltip="{{pattern.name | forexName}} ({{pattern.exchSymbol}})" ><span class="cursor-help">{{pattern.name | forexName | limitTo: 33}}</span></div></td>
             <td><span class="cursor-help" tooltip="{{pattern.exchName}}">FX</span></td>
             <!--{{pattern.exchSymbol}}-->
             <!--<td>
@@ -53,7 +53,7 @@
             <tr ng-repeat="pattern in correlationList">
                 <td class="cursor-pointer" ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td   class="cursor-help">
-                    <div tooltip="{{pattern.name | forexName}} ({{pattern.exchSymbol}})" class="name-pattern-container"><span class="cursor-help">{{pattern.name | forexName | limitTo: 25}}</span></div></td>
+                    <div tooltip="{{pattern.name | forexName}} ({{pattern.exchSymbol}})" class="name-pattern-container"><span class="cursor-help">{{pattern.name | forexName | limitTo: 33}}</span></div></td>
                 <td class="forex-correlation-market">
                     <span  class="cursor-help" tooltip="{{pattern.exchName}}">FX
                     </span><!--{{pattern.exchSymbol}}-->
