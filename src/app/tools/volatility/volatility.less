@@ -503,7 +503,7 @@
   text-align: center;
   margin: 5px;
   height: 25px;
-  width: 98px;
+  /*width: 98px;*/
   text-indent: -6px;
   border-right: 1px solid black;
 
@@ -635,6 +635,9 @@
   background-color: black;
   padding-top: 10px;
   border-right: 1px solid @black;
+  th {
+    text-align: center;
+  }
 }
 
 .month-selector-pairs{
@@ -669,19 +672,19 @@
 
 .stocks-market-value{
   text-align: left;
-  width:330px;
+  /*width:330px;*/
   display:inline-block;
 }
 
 .stocks-date-value{
   text-align: center;
-  width:170px;
+  /*width:170px;*/
   color: black;
   border-right: 1px solid black;
 }
 
 .stocks-vol-value{
-  width:160px;
+  /*width:125px;*/
   text-align: center;
   color: @linkColor !important;
   border-right: 1px solid black;
@@ -694,7 +697,6 @@
 }
 
 .pairs-vol-value{
-  width:150px;
   padding-top: 2px;
   text-align: center;
   border-right: 1px solid black;
@@ -707,7 +709,6 @@
 }
 
 .pairs-index-vol-value{
-  width:154px;
   padding-top: 2px;
   text-align: center;
   border-right: 1px solid black;
@@ -725,28 +726,23 @@
 
 .black-font-pairs{
   color:black;
-  width: 110px;
-  text-indent:21px;
+  text-align: center;
   border-right: 1px solid black;
 }
 .pairs-fav-value{
-  width: 50px;
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
 
 .index-name-value{
   text-align: left;
-  width:512px;
   border-right: 1px solid black;
   height:25px;
   padding-left: 5px;
 }
 
 .index-date-value{
-  width:128px;
   border-right: 1px solid black;
-  display:inline-block;
   height:25px;
   text-align: center;
   padding-top: 5px;
@@ -754,7 +750,6 @@
 }
 
 .index-vol-value{
-  width:100px;
   a{
     color: @linkColor !important;
   }
@@ -768,7 +763,6 @@
 }
 
 .index-fav-value{
-  width: 62px;
   display:inline-block;
   height:25px;
   padding-top: 5px;
@@ -791,7 +785,6 @@
 }
 
 .futures-vol-value{
-  width:147px;
   a{
     color: @linkColor !important;
   }
@@ -805,18 +798,13 @@
 
 .futures-date-value{
   text-align: center;
-  width:147px;
   color:black;
 }
 
-.futures-fav-value{
-  width:60px;
-}
 
 .pairs-market-value {
   padding-top: 4px;
   text-align: left;
-  width: 90px;
   padding-left: 5px;
   border-right: 1px solid black;
 }

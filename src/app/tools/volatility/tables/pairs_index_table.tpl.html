@@ -3,20 +3,20 @@
         <colgroup span="5"></colgroup>
         <thead >
         <tr  class="pairs-index-header">
-            <th >
-                <span class="pairs-index-company" >{{'TOOLS.indices'|translate}}</span>
+            <th style="width: 505px;" >
+                 {{'TOOLS.indices'|translate}}
             </th>
-            <th >
-                <span style="padding-left:5px;">{{'TOOLS.volatility'|translate}} (%)</span>
+            <th style="width: 115px;">
+                {{'TOOLS.volatility'|translate}} (%)
             </th>
-            <th >
-                <span class="pairs-index-date">{{'TOOLS.vol_date'|translate}}</span>
+            <th style="width: 130px;">
+                {{'TOOLS.vol_date'|translate}}
             </th>
-            <th >
-                <span class="pairs-index-vol">{{'TOOLS.vol_pair'|translate}} (%)</span>
+            <th style="width: 120px;">
+                {{'TOOLS.vol_pair'|translate}} (%)
             </th>
-            <th  >
-                <span class="pairs-index-fav" tooltip-html-unsafe="{{'TOOLS.favorite_long'|translate}}">{{'TOOLS.favorite_short'|translate}}</span>
+            <th style="width: 60px;" >
+                <span tooltip-html-unsafe="{{'TOOLS.favorite_long'|translate}}">{{'TOOLS.favorite_short'|translate}}</span>
             </th>
         </tr>
         </thead>
@@ -38,10 +38,20 @@
             </td>
 
             <td  class="pairs-vol-value">
-                <a ng-if="data.volat >= 0" ng-click="loadGraphic($event,data.name,'BULLISH',null,false,data.volatChartURL);$event.stopPropagation();" >{{data.volat | volatTruncate}}</a>
-                <span ng-if="data.volat < 0">N/A</span><br/>
-                <a ng-if="data.volat2 >= 0" ng-click="loadGraphic($event,data.name2,'BEARISH',null,false,data.volatChartURL2);$event.stopPropagation();">{{data.volat2 | volatTruncate}}</a>
-                <span ng-if="data.volat2 < 0">N/A</span>
+                <div>
+                <span ng-if="data.volat >= 0">
+                <a ng-click="loadGraphic($event,data.name,'BULLISH',null,false,data.volatChartURL);$event.stopPropagation();">{{data.volat
+                    | volatTruncate}}</a>
+                    </span>
+                    <span ng-if="data.volat < 0">N/A</span>
+                </div>
+                <div>
+                <span ng-if="data.volat2 >= 0">
+                <a ng-click="loadGraphic($event,data.name2,'BEARISH',null,false,data.volatChartURL2);$event.stopPropagation();">{{data.volat2
+                    | volatTruncate}}</a>
+                    </span>
+                    <span ng-if="data.volat2 < 0">N/A</span>
+                </div>
             </td>
             <td class="black-font-pairs" >
                 <span ng-if="data.lastDate2 < data.lastDate">{{data.lastDate2 | date: 'dd MMM yyyy'}}</span>
