@@ -74,13 +74,12 @@
             {{data.id}}
         </td>
         <td style="text-align: left;" class="table-cell-patterns border-right-table">
-             <span class="cursor-help"
-                   tooltip-html-unsafe="{{data.name}}" ></span>
+
             <div class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                  tooltip-html-unsafe="{{data.name | forexName}} ({{data.exchSymbol}})"
                    >
-                {{data.name}}
+                {{data.name | forexName}}
             </span>
             </div>
         </td>

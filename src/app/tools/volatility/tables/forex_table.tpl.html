@@ -3,7 +3,7 @@
         <thead>
         <tr class="stocks-header-table">
             <th >
-                <span class="stocks-name ">{{'TOOLS.name'|translate}}</span>
+                <span class="stocks-name ">{{'TOOLS.forexName'|translate}}</span>
             </th>
             <th  >
                 <span class="stocks-market ">{{'TOOLS.market'|translate}}</span>
@@ -23,8 +23,8 @@
         <tbody class="stocks-tbody">
         <tr ng-repeat="data in myData" ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'" style=" font-size:11px;">
             <td class="green"  >
-                    <span class="stocks-market-value cursor-help" style="width: 410px;" tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
-                          >{{data.name}}</span>
+                    <span class="stocks-market-value cursor-help" style="width: 410px;" tooltip-html-unsafe="{{data.name | forexName}} ({{data.exchSymbol}})"
+                          >{{data.name | forexName}}</span>
             </td>
             <td class="black-font-market" >
                 <span tooltip-html-unsafe="{{data.exchName}}" class="cursor-help">{{data.exchSymbol}}</span>

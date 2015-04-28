@@ -54,6 +54,7 @@
         "symbol":"Símbolo",
         "volatility":"Volatilidad",
         "vol_date":"Fecha Cálculo",
-        "vol_pair":"Volatilidad PAR"
+        "vol_pair":"Volatilidad PAR",
+        "forexName":"Nombre Par"
     }
 }

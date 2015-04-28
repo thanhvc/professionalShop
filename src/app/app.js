@@ -108,7 +108,7 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope,$translate,$translateCookieStorage,$location) {
-        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+        rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
         //$rootScope.urlService = 'http://localhost:9000';
 
 
@@ -201,6 +201,12 @@ angular.module('ngMo', [
                     }
                 }
             }
+        };
+    })
+    .filter('forexName', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
+        return function(n){
+            // 'NAME CROSS-RATE' -> 'NAME'
+            return n.replace(" CROSS-RATE","");
         };
     })
     .filter('twoDecimals', function(){ //TRANSFORM A DECIMAL NUMBER TO STRING WITH 2 DECIMALS
@@ -1243,7 +1249,6 @@ angular.module('ngMo', [
             });
         };
     })
-
     .directive('focusMe', function($timeout, $parse) {
       return {
         //scope: true,   // optionally create a child scope

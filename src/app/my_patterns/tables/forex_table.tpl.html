@@ -86,8 +86,8 @@
 
             <div class="text-limitator forex-line">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name}}" > <!-- ({{data.exchSymbol}})-->
-                {{data.name}}
+                  tooltip-html-unsafe="{{data.name | forexName}}" > <!-- ({{data.exchSymbol}})-->
+                {{data.name | forexName}}
             </span>
             </div>
         </td>

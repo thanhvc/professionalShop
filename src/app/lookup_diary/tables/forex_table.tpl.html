@@ -90,9 +90,9 @@
         <td style="text-align: left; vertical-align: middle;" class="table-cell-patterns border-right-table description-column-width">
             <div class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+                  tooltip-html-unsafe="{{data.name | forexName}} ({{data.exchSymbol}})"
                   >
-                {{data.name}}
+                {{data.name | forexName}}
             </span>
             </div>
         </td>
