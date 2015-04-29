@@ -303,7 +303,7 @@ angular.module('ngMo.my_subscriptions', [
             },
             {
                 title: 'PAIRS',
-                active: ActiveTabService.activeTab() === 1,
+                active: false,//ActiveTabService.activeTab() === 1,
                 value: 1,
                 americaPairContent: [],
                 asiaPairContent: [],
@@ -312,7 +312,7 @@ angular.module('ngMo.my_subscriptions', [
             },
             {
                 title: 'INDICES',
-                active: ActiveTabService.activeTab() === 2,
+                active: false,//ActiveTabService.activeTab() === 2,
                 value: 2,
                 indicesContent: [],
                 pairsIndicesContent: [],
@@ -320,7 +320,7 @@ angular.module('ngMo.my_subscriptions', [
             },
             {
                 title: 'FUTURES',
-                active: ActiveTabService.activeTab() === 3,
+                active: false,//ActiveTabService.activeTab() === 3,
                 value: 3,
                 futuresContent: [],
                 url: 'my_subscriptions/tables_packs/futures_table.tpl.html'
@@ -331,7 +331,7 @@ angular.module('ngMo.my_subscriptions', [
             $scope.mySubscriptionsTablePacks.push(
                 {
                     title: 'FOREX',
-                    active: ActiveTabService.activeTab() === 4,
+                    active: false,//ActiveTabService.activeTab() === 4,
                     value: 4,
                     forexContent: [],
                     url: 'my_subscriptions/tables_packs/forex_table.tpl.html'
