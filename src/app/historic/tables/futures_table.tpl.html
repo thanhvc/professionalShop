@@ -73,9 +73,9 @@
             <span ng-show="data.patTyp == 'BULLISH'">{{'HISTORIC.buy'|translate}}</span>
             <span ng-show="data.patTyp == 'BEARISH'">{{'HISTORIC.sell'|translate}}</span>
             <br/>
-            <div class="text-limitator">
+            <div class="text-limitator" tooltip-html-unsafe="{{data.name}} {{data.asset.expirationYear}} ({{data.asset.exchange.symbol}})">
             <span class="cursor-help futures-market-patterns"
-                  tooltip-html-unsafe="{{data.name}} {{data.asset.expirationYear}} ({{data.asset.exchange.symbol}})"
+
                   ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
                 {{data.name}}
             </span>

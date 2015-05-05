@@ -119,18 +119,24 @@
         </tr>
         <tr ng-repeat="pattern in patterns">
             <td class="stock-name-column-catalog">
-                <div class="long-name-breaker">
-                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}">{{pattern.name | limitTo: 60}}</span>
+                <div class="long-name-breaker" tooltip-html-unsafe="{{pattern.name}}">
+                    <span class="cursor-help" >{{pattern.name }}</span>
                 </div>
             </td>
             <td class="stock-market-column-catalog">
                 <span class="cursor-help" tooltip-html-unsafe="{{pattern.exchName}}">{{pattern.exchSymbol}}</span>
             </td>
             <td class="stock-sector-industry-column-catalog">
-                <div class="long-name-breaker">
+                <div class="long-name-breaker"><!--
                     <span tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | sectorName | capitalize}}</span> <span
                         ng-show="pattern.sector != null && pattern.industry != null && pattern.sector != '' && pattern.industry != ''">/</span>
-                    <span tooltip-html-unsafe="{{pattern.industry | capitalize}}" class="cursor-help">{{pattern.industry | capitalize}}</span>
+                    <span tooltip-html-unsafe="{{pattern.industry | capitalize}}" data-tooltip-placement="left" class="cursor-help">{{pattern.industry | capitalize}}</span>
+
+               -->
+                   <span   tooltip-html-unsafe="{{pattern.sector | capitalize}}" class="cursor-help">{{pattern.sector | sectorName | capitalize}} </span>
+                    <span   ng-show="pattern.sector != null && pattern.industry != null && pattern.sector != '' && pattern.industry != ''">/</span>
+                   <span  tooltip-html-unsafe="{{pattern.industry | capitalize}}"   class="cursor-help">{{pattern.industry | capitalize}}</span>
+
                 </div>
             </td>
             <td class="stock-year-number-gain-column-catalog">

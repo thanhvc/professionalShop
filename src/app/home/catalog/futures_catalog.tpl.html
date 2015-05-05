@@ -147,11 +147,12 @@
         <tr ng-repeat="pattern in patterns">
             <td class="index-name-column-catalog">
                 <div class="long-name-breaker">
-                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}">{{pattern.name | limitTo: 70}}</span>
+                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.name}}">{{pattern.name}}</span>
                 </div>
             </td>
             <td class="border-right-thick-catalog prices-font10 emisor-td-width">
-                <span class="cursor-help" tooltip-html-unsafe="{{pattern.exchName}}">{{pattern.exchSymbol }}</span></td>
+                <div tooltip-html-unsafe="{{pattern.exchName}}" class="long-name-breaker" >
+                <span class="cursor-help" >{{pattern.exchSymbol }}</span></div></td>
             <td class="index-number-of-years-gain-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.win | twoDecimals}}</td>
             <td class="index-number-of-years-loss-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.loss | twoDecimals}}</td>
             <td class="index-profit-accumulated-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.accumulatedReturn | number:0}}</td>

@@ -13,10 +13,12 @@
         <tbody>
         <tr ng-repeat="pattern in myData"  ng-class="{'disabled-asset': !pattern.toUse}">
             <td class="cursor-pointer" ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
-            <td ng-class="{'buy-color': pattern.patType == 'BULLISH', 'sell-color': pattern.patType == 'BEARISH' }"><div class="name-pattern-container" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})">
+            <td ng-class="{'buy-color': pattern.patType == 'BULLISH', 'sell-color': pattern.patType == 'BEARISH' }">
+                <div class="name-pattern-container text-limitator" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})">
                 <!--{{pattern.expYear}}-->
-                <span class="cursor-help">{{pattern.name | limitTo: 25}}</span></div></td>
-            <td><span  class="cursor-help" tooltip="{{pattern..exchName}}">{{pattern.exchSymbol}}</span></td>
+                <span class="cursor-help">{{pattern.name  }}</span></div>
+            </td>
+            <td><span  class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span></td>
             <td>
                 <span  class="cursor-help" tooltip="COMPRA" ng-if="pattern.patType == 'BULLISH'" class="cursor-help">C</span>
                 <span  class="cursor-help" tooltip="VENTA" ng-if="pattern.patType == 'BEARISH'" class="cursor-help">V</span>
@@ -51,10 +53,11 @@
             <tbody>
             <tr ng-repeat="pattern in correlationList">
                 <td class="cursor-pointer" ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
-                <td ng-class="{'buy-color': pattern.patType == 'BULLISH', 'sell-color': pattern.patType == 'BEARISH' }"><div class="name-pattern-container" tooltip="{{pattern.name}} {{pattern.expYear}}">
+                <td ng-class="{'buy-color': pattern.patType == 'BULLISH', 'sell-color': pattern.patType == 'BEARISH' }">
+                    <div class="name-pattern-container text-limitator" tooltip="{{pattern.name}} {{pattern.expYear}}">
                     <!-- ({{pattern.exchSymbol}})-->
-                    <span class="cursor-help">{{pattern.name | limitTo: 25}}</span></div></td>
-                <td><span class="cursor-help" tooltip="{{pattern..exchName}}">{{pattern.exchSymbol}}</span></td>
+                    <span class="cursor-help">{{pattern.name}}</span></div></td>
+                <td><span class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span></td>
                 <td>
                     <span tooltip="COMPRA" ng-if="pattern.patType == 'BULLISH'" class="cursor-help">C</span>
                     <span tooltip="VENTA" ng-if="pattern.patType == 'BEARISH'" class="cursor-help">V</span>

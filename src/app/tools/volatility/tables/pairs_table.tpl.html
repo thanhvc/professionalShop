@@ -27,15 +27,13 @@
         <tbody class="pairs-tbody">
         <tr ng-repeat="data in myData" ng-class-even="'ngRow-odd'" ng-class-odd="'ngRow-even'" style="font-size:10px;">
         <td  class="pairs-market-value">
-            <div class="text-limitator">
-            <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
+            <div class="long-name-breaker" tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
+            <span class="cursor-help buy-color" >
                 {{data.name}}
             </span>
             </div>
-            <div class="text-limitator">
-            <span class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
+            <div class="long-name-breaker" tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
+            <span class="cursor-help sell-color" >
                 {{data.name2}}
             </span>
             </div>

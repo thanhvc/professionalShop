@@ -3,26 +3,24 @@
         <span class="text-block-title">Cat&aacute;logo de Forex</span>
     </p>
 
-    <p>El siguiente cuadro resume la información del <b>Pack</b> a comprar. Se muestran
-        50 Compa&ntilde;&iacute;as con las mejores Estrategias durante el Mes indicado y un avance de contenidos que permite valorar las ventajas de comprar el Pack:</p>
+    <p>El siguiente cuadro resume la información del <b>Pack</b> a comprar.. Se muestran 50 cruces entre
+        Divisas con las mejores Estrategias durante el Mes indicado y un avance de contenidos que permite valorar las ventajas de comprar el Pack:</p>
     <p>
     <ul class="public-list-first-level">
-        <li>Nombre de la Compa&ntilde;&iacute;a, Mercado cotizaci&oacute;n y clasificaci&oacute;n Sectorial.</li>
-        <li>N&uacute;mero de a&ntilde;os &ndash;o frecuencia de aciertos y fallos&ndash; en los cuales la estrategia gener&oacute;
-            Beneficios y P&eacute;rdidas.
+        <li>Identificación del par de Divisas en el mercado Forex.</li>
+        <li>Número de años –o frecuencia de acierto y fallos- en los cuales la estrategia generó Beneficios y Pérdidas.
         </li>
-        <li>Rentabilidad Acumulada durante 15 a&ntilde;os y Rentabilidad Media de la operaci&oacute;n &ndash;no
-            es rentabilidad anual&ndash;.
+        <li>Rentabilidad Acumulada durante 15 años y Rentabilidad Media de la operación.
         </li>
         <li>Duraci&oacute;n de la operaci&oacute;n (<em>Holding days</em>) para planificar la disponibilidad del dinero.</li>
-        <li>Volatilidad hist&oacute;rica indicativa del riesgo.</li>
+        <li>Volatilidad hist&oacute;rica.</li>
         <li>El &ldquo;Estado&rdquo; de la Estrategia se indica mediante un sem&aacute;foro: Color <em>naranja</em> si a d&iacute;a
             de hoy est&aacute; en curso. Color <em>rojo</em> si ya termin&oacute;. Color <em>verde</em> cuando en la fecha actual todav&iacute;a
             est&aacute; sin comenzar.
         </li>
         <li>Formulario de búsqueda de los datos Fundamentales de una Compa&ntilde;&iacute;a</li>
     </ul>
-    Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias, las herramientas de evaluaci&oacute;n y toma de decisiones.
+    Una vez comprado el Pack, como cliente, descubrir&aacute; toda la informaci&oacute;n detallada de las estrategias así herramientas de evaluaci&oacute;n y toma de decisiones.
     </p>
     <div bindonce="startDate" class="start-date-catalog-container">
         <span bo-text="startDate | date: 'MMMM yyyy'"></span>
@@ -119,8 +117,8 @@
         </tr>
         <tr ng-repeat="pattern in patterns">
             <td class="forex-name-column-catalog">
-                <div class="long-name-breaker">
-                    <span class="cursor-help" tooltip-html-unsafe="{{pattern.name | forexName }}">{{pattern.name | forexName | limitTo: 60}}</span>
+                <div class="long-name-breaker" tooltip-html-unsafe="{{pattern.name | forexName }}">
+                    <span class="cursor-help" >{{pattern.name | forexName}}</span>
                 </div>
             </td>
             <td class="stock-market-column-catalog">

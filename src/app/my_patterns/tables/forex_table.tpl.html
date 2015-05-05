@@ -84,10 +84,10 @@
 
         <td style="text-align: left;vertical-align: top;" class="table-cell-patterns border-right-table name-column-my-patterns">
 
-            <div class="text-limitator forex-line">
+            <div class="text-limitator forex-line" tooltip-html-unsafe="{{data.name | forexName}}">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name | forexName}}" > <!-- ({{data.exchSymbol}})-->
-                {{data.name | forexName}}
+                   > <!-- ({{data.exchSymbol}})-->
+                {{data.name | forexName }}
             </span>
             </div>
         </td>

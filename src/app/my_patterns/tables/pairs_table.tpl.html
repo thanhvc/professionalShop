@@ -85,18 +85,18 @@
             {{data.id}}
         </td>
         <td  class="table-cell-patterns border-right-table name-with-sides-column-my-patterns" style="text-align: left">
-            <div class="text-limitator">
+            <div class="text-limitator"  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
                 <span>{{'MY_PATT.buy'|translate}}</span>
             <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
+                 >
                 {{data.name}}
             </span>
             </div>
-            <div class="text-limitator">
+            <div class="text-limitator" tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
             <span>{{'MY_PATT.sell'|translate}}</span>
             <span class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
-                {{data.name2}}
+                  >
+                {{data.name2 }}
             </span>
             </div>
 

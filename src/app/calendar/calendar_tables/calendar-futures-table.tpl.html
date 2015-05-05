@@ -36,8 +36,8 @@
     <tbody>
     <tr ng-repeat="pattern in myData">
         <td ui-sref="detail({patternId:pattern.id})">
-            <div class="text-limitator-calendar">
-            <span ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH'}" tooltip="{{pattern.asset.longName}} {{pattern.asset.expirationYear}} ({{pattern.asset.exchange.symbol}})">{{pattern.asset.longName}}</span>
+            <div class="text-limitator-calendar" tooltip="{{pattern.asset.longName}} {{pattern.asset.expirationYear}} ({{pattern.asset.exchange.symbol}})">
+            <span ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH'}" >{{pattern.asset.longName}}</span>
             </div>
         </td>
         <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">

@@ -21,7 +21,9 @@
 
         <tr ng-repeat="data in myData" ng-class-even="'ngRowVol-odd'" ng-class-odd="'ngRowVol-even'">
             <td  class="index-name-value">
+                <div class="long-name-breaker" tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
                 <span  ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">{{data.name}} ({{data.exchSymbol}})</span>
+                </div>
             </td>
 
             <td  class="index-date-value" >

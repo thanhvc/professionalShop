@@ -47,13 +47,18 @@
           border: 1px solid @white;
           font-size: 8px;
           font-family: fontpo-bold;
-          width: 76px;
+          width: 70px;
+          max-width: 70px;
+          min-width: 70px;
         }
         &:nth-child(2){
           text-align: left;
           text-indent: 1px;
           padding-left: 3px;
           width: 165px;
+          min-width: 165px;
+          max-width: 165px;
+          word-break: break-all;
           .name-pattern-container{
             overflow: hidden;
             height: 12px;
@@ -67,6 +72,206 @@
   }
 }
 
+.table-stock-widths-pick {
+  thead{
+  tr {
+    td {
+      &:nth-child(1) {
+        width: 70px;
+        max-width: 70px;
+        min-width: 70px;
+      }
+      &:nth-child(2) {
+        width: 165px;
+        min-width: 165px;
+        max-width: 165px;
+      }
+      &:nth-child(3) {
+        width: 55px;
+        min-width: 55px;
+        max-width: 55px;
+      }
+      &:nth-child(4) {
+        width: 30px;
+        min-width: 30px;
+        max-width: 30px;
+      }
+      &:nth-child(5) {
+        width: 60px;
+      }
+    }
+
+    }
+  }
+}
+
+.table-stock-widths-selected {
+  thead{
+    tr {
+      td {
+        &:nth-child(1) {
+          width: 70px;
+          max-width: 70px;
+          min-width: 70px;
+        }
+        &:nth-child(2) {
+          width: 155px;
+          min-width: 155px;
+          max-width: 155px;
+        }
+        &:nth-child(3) {
+          width: 55px;
+          min-width: 55px;
+          max-width: 55px;
+        }
+        &:nth-child(4) {
+          width: 30px;
+          min-width: 30px;
+          max-width: 30px;
+        }
+        &:nth-child(5) {
+          width: 10px;
+        }
+        &:nth-child(6) {
+          width: 60px;
+        }
+      }
+
+    }
+  }
+}
+
+.table-pairs-widths-pick {
+  thead{
+    tr {
+      td {
+        &:nth-child(1) {
+          width: 70px;
+          max-width: 70px;
+          min-width: 70px;
+        }
+        &:nth-child(2) {
+          width: 200px;
+          min-width: 200px;
+          max-width: 200px;
+        }
+        &:nth-child(3) {
+          width: 55px;
+          min-width: 55px;
+          max-width: 55px;
+        }
+        &:nth-child(4) {
+          width: 60px;
+        }
+      }
+
+    }
+  }
+}
+
+.table-pairs-widths-selected {
+  thead{
+    tr {
+      td {
+        &:nth-child(1) {
+          width: 70px;
+          max-width: 70px;
+          min-width: 70px;
+        }
+        &:nth-child(2) {
+          width: 200px;
+          min-width: 200px;
+          max-width: 200px;
+        }
+        &:nth-child(3) {
+          width: 55px;
+          min-width: 55px;
+          max-width: 55px;
+        }
+        &:nth-child(4) {
+          width: 10px;
+        }
+        &:nth-child(5) {
+          width: 60px;
+        }
+      }
+
+    }
+  }
+}
+
+
+.table-pairs-index-widths-pick {
+  thead{
+    tr {
+      td {
+        &:nth-child(1) {
+          width: 70px;
+          max-width: 70px;
+          min-width: 70px;
+        }
+        &:nth-child(2) {
+          width: 270px;
+          min-width: 270px;
+          max-width: 270px;
+        }
+        &:nth-child(3) {
+          width: 60px;
+          min-width: 60px;
+          max-width: 60px;
+        }
+      }
+
+    }
+  }
+  tbody{
+    tr{
+      height: 30px;
+    }
+  }
+}
+
+.table-pairs-index-widths-selected {
+  thead{
+    tr {
+      td {
+        &:nth-child(1) {
+          width: 70px;
+          max-width: 70px;
+          min-width: 70px;
+        }
+        &:nth-child(2) {
+          width: 180px;
+          min-width: 180px;
+          max-width: 180px;
+        }
+        &:nth-child(3) {
+          width: 20px;
+          min-width: 20px;
+          max-width: 20px;
+        }
+        &:nth-child(4) {
+          width: 60px;
+          min-width: 60px;
+          max-width: 60px;
+        }
+      }
+
+    }
+  }
+  tbody{
+    tr{
+      height: 30px;
+    }
+  }
+}
+
+.correlation-name-breaker {
+  height: 12px;
+  overflow: hidden;
+  text-align: left !important;
+  padding-right: 5px;
+}
 
 .table-forex-correlation{
   //display: inline-table;

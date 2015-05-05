@@ -29,8 +29,8 @@
         <tbody>
         <tr ng-repeat="pattern in myData">
             <td ui-sref="detail({patternId:pattern.id})">
-                <div class="text-limitator-calendar">
-                    <span tooltip="{{pattern.asset.longName | forexName}} ({{pattern.asset.exchange.symbol}})" class="cursor-help" style="color: black;" >{{pattern.asset.longName | forexName | limitTo:25}}</span>
+                <div class="text-limitator-calendar" tooltip="{{pattern.asset.longName | forexName}} ({{pattern.asset.exchange.symbol}})">
+                    <span  class="cursor-help" style="color: black;" >{{pattern.asset.longName | forexName }}</span>
                 </div>
             </td>
             <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">

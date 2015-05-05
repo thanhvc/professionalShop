@@ -12,11 +12,13 @@
         <tr ng-repeat="pattern in myData"  ng-class="{'disabled-asset': !pattern.toUse}">
             <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
             <td class="pair-index-lenght-table">
-                <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
-                       >{{pattern.name | limitTo: 35}}</span>
-                    <br>
-                <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
-                      >{{pattern.name2 | limitTo: 35}}</span>
+                <div tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="text-limitator">
+                <span class="buy-color cursor-help"
+                       >{{pattern.name}}</span>
+                </div><div tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})" class="text-limitator">
+                <span class="sell-color cursor-help"
+                      >{{pattern.name2}}</span>
+            </div>
             </td>
             <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
             <td class="portfolio-button"><span ng-class="{'disable-arrow': portfolioList.length >= 20|| (!pattern.toUse)}" ng-click="addToPortfolioList(pattern);">>></span></td>
@@ -49,11 +51,12 @@
             <tr ng-repeat="pattern in portfolioList">
                 <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td class="pair-index-lenght-table">
-                    <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
-                              >{{pattern.name | limitTo: 22}}</span>
-                        <br>
-                    <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
-                            >{{pattern.name2 | limitTo: 22}}</span>
+                    <div tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="text-limitator">
+                    <span class="buy-color cursor-help"
+                              >{{pattern.name }}</span>
+                     </div><div tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})" class="text-limitator">
+                    <span class="sell-color cursor-help"
+                            >{{pattern.name2 }}</span></div>
                 </td>
                 <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
                 <td style="width: 32px;" class="table-cell-patterns border-right-table">

@@ -196,6 +196,7 @@ angular.module('ngMo.historic', [
 
         /*loads the default filters --> Filters has filters (inputs) and selectors (array of options to select)*/
         $scope.restartFilter = function (callServer, restartRegion) {
+            $scope.pagingOptions.currentPage = 1;
             var restartMonth = true;
             var restartMonthList = true;
             if ($scope.filterOptions.filters) {

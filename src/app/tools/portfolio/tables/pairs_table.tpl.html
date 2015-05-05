@@ -13,12 +13,13 @@
         <tbody>
         <tr ng-repeat="pattern in myData"  ng-class="{'disabled-asset': !pattern.toUse}">
             <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
-            <td>
-                <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
-                >{{pattern.name | limitTo: 28}}</span>
-                <br>
-                    <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
-                            >{{pattern.name2 | limitTo: 28}}</span>
+            <td><div class="text-limitator" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})">
+                <span class="buy-color cursor-help"  >{{pattern.name | limitTo: 28}}</span>
+            </div>
+                <div  class="text-limitator"  tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})">
+                    <span class="sell-color cursor-help"
+                            >{{pattern.name2}}</span>
+                </div>
             </td>
             <td>
                 <span  class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span><br>
@@ -55,12 +56,12 @@
             <tbody>
             <tr ng-repeat="pattern in portfolioList">
                 <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
-                <td>
-                    <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
-                            >{{pattern.name | limitTo: 22}}</span>
-                        <br>
-                    <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
-                            >{{pattern.name2 | limitTo: 22}}</span>
+                <td><div tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="text-limitator">
+                    <span class="buy-color cursor-help"
+                            >{{pattern.name }}</span>
+                </div><div tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})" class="text-limitator">
+                    <span class="sell-color cursor-help"
+                            >{{pattern.name2}}</span></div>
 
                 </td>
                 <td>

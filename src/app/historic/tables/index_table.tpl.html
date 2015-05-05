@@ -78,11 +78,11 @@
             <span ng-show="data.patTyp == 'BULLISH'">{{'HISTORIC.bullish'|translate}}</span>
             <span ng-show="data.patTyp == 'BEARISH'">{{'HISTORIC.bearish'|translate}}</span>
             <br/>
-            <div class="text-limitator">
+            <div class="text-limitator" tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+
                   ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}">
-                {{data.name}}
+                {{data.name }}
             </span>
             </div>
         </td>

@@ -81,11 +81,13 @@
         <td  class="table-cell-patterns border-right-table operation-column-my-patterns">
             <span ng-if="data.patTyp == 'BULLISH'">{{'MY_PATT.buy'|translate}}</span>
             <span ng-if="data.patTyp == 'BEARISH'">{{'MY_PATT.sell'|translate}}</span><br>
+            <div tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})" class="text-limitator">
             <span class="cursor-help"
-                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})"
+
                   ng-class="{'buy-color': data.patTyp == 'BULLISH', 'sell-color': data.patTyp == 'BEARISH'}"><!-- {{data.expYear}}-->
                 {{data.name}}
             </span>
+            </div>
         </td>
         <!--<td class="table-cell-patterns border-right-table expiration-column-my-patterns">-->
             <!--expiration-->

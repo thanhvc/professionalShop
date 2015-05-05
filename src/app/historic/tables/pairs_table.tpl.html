@@ -74,16 +74,17 @@
             {{data.id}}
         </td>
         <td style="text-align: left;" class="table-cell-patterns border-right-table">
+            <div  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})" class="text-limitator">
             <span>{{'HISTORIC.buy'|translate}}</span>
             <span class="cursor-help buy-color"
-                  tooltip-html-unsafe="{{data.name}} ({{data.exchSymbol}})">
+                 >
                  {{data.name}}
             </span>
-            <br/>
-            <div class="text-limitator">
+            </div>
+            <div class="text-limitator" tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
             <span>{{'HISTORIC.sell'|translate}}</span>
             <span class="cursor-help sell-color"
-                  tooltip-html-unsafe="{{data.name2}} ({{data.exchSymbol2}})">
+                  >
                 {{data.name2}}
             </span>
             </div>

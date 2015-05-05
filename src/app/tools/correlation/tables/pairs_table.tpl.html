@@ -1,6 +1,6 @@
 <div class="correlation-tools-container" style="height: 525px;">
 
-    <table style="width: 400px;float:left;" class="table-correlation correlation-table-size-without-operation">
+    <table style="width: 400px;float:left;" class="table-correlation correlation-table-size-without-operation table-pairs-widths-pick">
         <thead>
         <tr>
             <td>Id</td>
@@ -12,11 +12,11 @@
         <tbody>
         <tr ng-repeat="pattern in myData" ng-class="{'disabled-asset': !pattern.toUse}">
             <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
-            <td>
-                <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
-                        >{{pattern.name | limitTo: 30}}</span><br>
-                <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
-                        >{{pattern.name2 | limitTo: 30}}</span>
+            <td><div class="correlation-name-breaker" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})">
+                <span class="buy-color cursor-help"
+                        >{{pattern.name}}</span></div>
+                <div class="correlation-name-breaker" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"><span class="sell-color cursor-help"
+                        >{{pattern.name2}}</span></div>
             </td>
             <td>
                 <span  class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span><br>
@@ -38,7 +38,7 @@
         </tfoot>
     </table>
     <div style="float:right;">
-        <table style="width: 450px;" class="table-correlation">
+        <table style="width: 450px;" class="table-correlation table-pairs-widths-selected">
             <thead>
             <tr>
                 <td>Id</td>
@@ -52,10 +52,11 @@
             <tr ng-repeat="pattern in correlationList">
                 <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td>
+                    <div class="correlation-name-breaker">
                     <span class="buy-color cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"
-                            >{{pattern.name | limitTo: 22}}</span><br>
-                    <span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
-                            >{{pattern.name2 | limitTo: 22}}</span>
+                            >{{pattern.name}}</span></div>
+                    <div class="correlation-name-breaker"><span class="sell-color cursor-help" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})"
+                            >{{pattern.name2}}</span></div>
                 </td>
                 <td>
                     <span  class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span><br>

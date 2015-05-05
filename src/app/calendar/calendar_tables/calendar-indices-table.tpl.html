@@ -40,11 +40,11 @@
     <tbody>
     <tr ng-repeat="pattern in myData">
         <td ui-sref="detail({patternId:pattern.id})">
-            <span ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH'}" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">
-                <div class="text-limitator-calendar">{{pattern.asset.longName}}
-                    </div>
-
+            <div class="text-limitator-calendar" tooltip="{{pattern.asset.longName}} ({{pattern.asset.exchange.symbol}})">
+            <span ng-class="{'buy-color': pattern.patternType == 'BULLISH', 'sell-color': pattern.patternType == 'BEARISH'}" >
+                {{pattern.asset.longName}}
             </span>
+            </div>
         </td>
         <td ng-repeat="day in daysOfMonth" ng-class="{'weekend' : day.dayOfWeek == 'Sa' || day.dayOfWeek == 'Do'}">
             <!--<span ng-show="pattern.patternType == 'BEARISH'  && day.dayOfMonth >= {{pattern.entryDate | date: 'dd'}} && day.dayOfMonth <= {{pattern.exitDate | date: 'dd'}} && month.value == {{pattern.exitDate | date: 'MM'}}" class="bearish-year calendar-letter">S</span>

@@ -14,7 +14,9 @@
         <tbody>
         <tr ng-repeat="pattern in myData"  ng-class="{'disabled-asset': !pattern.toUse}">
             <td class="cursor-pointer" ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
-            <td ><div class="name-pattern-container" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"><span class="cursor-help">{{pattern.name | limitTo: 25}}</span></div></td>
+            <td ><div class="name-pattern-container text-limitator" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})">
+                <span class="cursor-help">{{pattern.name }}</span></div>
+            </td>
             <td><span class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}</span></td>
             <td class="width-month-table-portfolio"> {{pattern.entryDate | date: 'MMM'}}</td>
            <!-- <td>
@@ -54,7 +56,8 @@
             <tr ng-repeat="pattern in portfolioList">
                 <td class="cursor-pointer" ui-sref="detail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td   class="cursor-help">
-                    <div class="name-pattern-container cursor-help" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})"><span class="cursor-help" >{{pattern.name | limitTo: 25}}</span></div></td>
+                    <div class="name-pattern-container cursor-help text-limitator" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})">
+                        <span class="cursor-help" >{{pattern.name}}</span></div></td>
                 <td>
                     <span  class="cursor-help" tooltip="{{pattern.exchName}}">{{pattern.exchSymbol}}
                     </span>
