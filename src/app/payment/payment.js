@@ -80,8 +80,8 @@ angular.module('ngMo.payment', [  'ui.router'])
 
                 },
                 resolve: {
-                    now:function ($http, $rootScope) {
-                        return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                    now: function ($http, $rootScope) {
+                        return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function (result) {
                             return new Date(result.data.actualDate);
                         });
                     }
@@ -91,7 +91,7 @@ angular.module('ngMo.payment', [  'ui.router'])
     })
 
     //confirm Card this status only is when the cpayment is OK, so always shows OK
-    .controller('ConfirmPaymentCardCtrl', function ($scope, $state,IsLogged, $rootScope,$timeout) {
+    .controller('ConfirmPaymentCardCtrl', function ($scope, $state, IsLogged, $rootScope, $timeout) {
         $scope.status = "OK";
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -101,12 +101,12 @@ angular.module('ngMo.payment', [  'ui.router'])
                 $scope.pageTitle = toState.data.pageTitle + ' | Market Observatory';
             }
         });
-        $timeout(function() {
+        $timeout(function () {
             $state.go('my-patterns');
-        },3000);
+        }, 3000);
     })
     //confirm with expressCheckout
-    .controller('ConfirmPaymentCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http,$stateParams,$timeout) {
+    .controller('ConfirmPaymentCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http, $stateParams, $timeout) {
         $scope.status = "NONE";
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -121,22 +121,22 @@ angular.module('ngMo.payment', [  'ui.router'])
 
         if ($stateParams.token != null && $stateParams.PayerID != null) {
             /*
-            this State is loaded when paypal redirects the payment to our server, so
-            paypal do the payment and redirecto to ourweb/confirm-pay?token=xxxx&PayerId=xxx
-            and we load the params to send to the /confirmPay action.
-            in last case, the paypal payment also loads the price from server and the user will
-            see the prices of the packs when he is going to pay
-            */
+             this State is loaded when paypal redirects the payment to our server, so
+             paypal do the payment and redirecto to ourweb/confirm-pay?token=xxxx&PayerId=xxx
+             and we load the params to send to the /confirmPay action.
+             in last case, the paypal payment also loads the price from server and the user will
+             see the prices of the packs when he is going to pay
+             */
             token = $window.localStorage.token;
             config = {
                 data: {
-                        token: $stateParams.token,
-                        payerId: $stateParams.PayerID
+                    token: $stateParams.token,
+                    payerId: $stateParams.PayerID
                 }
             };
             //status of the payment returned by server
             $scope.status = "NONE";
-            $http.post($rootScope.urlService+"/confirm-pay",config).success( function(data) {
+            $http.post($rootScope.urlService + "/confirm-pay", config).success(function (data) {
                 if (data.status === "OK") {
                     $scope.status = "OK";
                     $rootScope.$broadcast('removeItemsCart');
@@ -144,26 +144,26 @@ angular.module('ngMo.payment', [  'ui.router'])
                     $window.localStorage.expiredUser = false;
                     $rootScope.$broadcast('userStatusChanged');//propagate a change in the status
                     $rootScope.$broadcast('isLog');//event to create the public menu if user active
-                    $timeout($scope.goToPatterns,3000);
+                    $timeout($scope.goToPatterns, 3000);
                 } else {
                     $scope.status = "ERROR";
                 }
-            }).error(function(data) {
-                        $scope.status = "ERROR";
+            }).error(function (data) {
+                $scope.status = "ERROR";
             });
         } else {
             $scope.status = "ERROR";
         }
 
-        $scope.goToPatterns = function() {
+        $scope.goToPatterns = function () {
             $state.go('my-patterns');
         };
     })
 //controller of summary-pay
 
-    .controller('SummaryPayCtrl', function ($scope,$modal, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService) {
+    .controller('SummaryPayCtrl', function ($scope, $modal, $state, IsLogged, $rootScope, $window, $http, PaymentService, MonthSelectorService) {
         $scope.amountOfPacks = 0;
-        $scope.emptySummary= false;
+        $scope.emptySummary = false;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
         });
@@ -174,16 +174,16 @@ angular.module('ngMo.payment', [  'ui.router'])
             }
             IsLogged.isLogged(true);
         });
-        $scope.taxPercent=0;
+        $scope.taxPercent = 0;
         $scope.allBought = false;// if all packs are subscribed already, or
         $scope.someBought = false; // if at least one pack is subscribed
         $scope.doingPayment = false; // to lock the payment button
         $scope.errorPaypal = false;
-        $scope.$on('errorPaypal', function() {
-           $scope.errorPaypal = true;
+        $scope.$on('errorPaypal', function () {
+            $scope.errorPaypal = true;
             $scope.doingPayment = false;
         });
-        $scope.changedPacks= false;//indicates if the server has done some modification in the duration selection
+        $scope.changedPacks = false;//indicates if the server has done some modification in the duration selection
         //packs
         //a pack must have:
         /*
@@ -194,36 +194,39 @@ angular.module('ngMo.payment', [  'ui.router'])
          Price
          */
         $scope.stocks = [];
-        $scope.pairs=[];
-        $scope.index=[];
-        $scope.pairIndex=[];
-        $scope.futures=[];
+        $scope.pairs = [];
+        $scope.index = [];
+        $scope.pairIndex = [];
+        $scope.futures = [];
+        $scope.forex = [];
         //totals and taxes
-        $scope.totalStocks=0;
-        $scope.taxStock=0;
-        $scope.totalPairs=0;
-        $scope.taxPairs=0;
-        $scope.totalIndex=0;
-        $scope.taxIndex=0;
-        $scope.totalpairIndex=0;
-        $scope.taxpairIndex=0;
-        $scope.totalFutures=0;
-        $scope.taxFutures=0;
+        $scope.totalStocks = 0;
+        $scope.taxStock = 0;
+        $scope.totalPairs = 0;
+        $scope.taxPairs = 0;
+        $scope.totalIndex = 0;
+        $scope.taxIndex = 0;
+        $scope.totalpairIndex = 0;
+        $scope.taxpairIndex = 0;
+        $scope.totalFutures = 0;
+        $scope.totalForex = 0;
+        $scope.taxFutures = 0;
+        $scope.taxForex = 0;
         //total
-        $scope.total=0;
-        $scope.totalTaxes=0;
+        $scope.total = 0;
+        $scope.totalTaxes = 0;
 
 
         //payment Selector
         $scope.paymentType = "EXPRESSCHECKOUT";
-        $scope.conditions= false;
-        $scope.errorConditions= false;
+        $scope.conditions = false;
+        $scope.errorConditions = false;
         //IF SOME DURATION IS WRONG; THE SYSTEM WILL CHANGE TO THE SHORTER DURATION
 
         //load the info from server with all the fields of the summary
         $scope.loadPayment = function () {
             $scope.changedPacks = false;
-            PaymentService.getPayments(true,function (data) {
+            PaymentService.getPayments(true, function (data) {
 
                 //this detect if some pack is with price=0, -> already subscribed pack
                 var subscribedPacks = []; //TODO: refactor the change of duration into a new function
@@ -239,7 +242,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                         } else {
                             $scope.allBought = false;
                         }
-                        if ($scope.stocks[i].collition === "error" || $scope.stocks[i].monthError ==="error" || $scope.stocks[i].trimestralError ==="error" ||$scope.stocks[i].yearError ==="error") {
+                        if ($scope.stocks[i].collition === "error" || $scope.stocks[i].monthError === "error" || $scope.stocks[i].trimestralError === "error" || $scope.stocks[i].yearError === "error") {
                             subscribedPacks.push($scope.stocks[i]);
 
                         }
@@ -255,14 +258,14 @@ angular.module('ngMo.payment', [  'ui.router'])
                         } else {
                             $scope.allBought = false;
                         }
-                        if ($scope.pairs[i].collition === "error" || $scope.pairs[i].monthError ==="error" || $scope.pairs[i].trimestralError ==="error" ||$scope.pairs[i].yearError ==="error") {
+                        if ($scope.pairs[i].collition === "error" || $scope.pairs[i].monthError === "error" || $scope.pairs[i].trimestralError === "error" || $scope.pairs[i].yearError === "error") {
                             subscribedPacks.push($scope.pairs[i]);
 
                         }
                     }
                 }
                 $scope.totalPairs = data.total_pairs;
-                $scope.index= data.index;
+                $scope.index = data.index;
                 if (typeof $scope.index !== 'undefined') {
                     for (i = 0; i < $scope.index.length; i++) {
                         $scope.amountOfPacks++;
@@ -271,14 +274,14 @@ angular.module('ngMo.payment', [  'ui.router'])
                         } else {
                             $scope.allBought = false;
                         }
-                        if ($scope.index[i].collition === "error" || $scope.index[i].monthError ==="error" || $scope.index[i].trimestralError ==="error" ||$scope.index[i].yearError ==="error") {
+                        if ($scope.index[i].collition === "error" || $scope.index[i].monthError === "error" || $scope.index[i].trimestralError === "error" || $scope.index[i].yearError === "error") {
                             subscribedPacks.push($scope.index[i]);
 
                         }
                     }
                 }
-                $scope.totalIndex= data.total_index;
-                $scope.pairIndex= data.pairIndex;
+                $scope.totalIndex = data.total_index;
+                $scope.pairIndex = data.pairIndex;
                 if (typeof $scope.pairIndex !== 'undefined') {
                     for (i = 0; i < $scope.pairIndex.length; i++) {
                         $scope.amountOfPacks++;
@@ -287,13 +290,13 @@ angular.module('ngMo.payment', [  'ui.router'])
                         } else {
                             $scope.allBought = false;
                         }
-                        if ($scope.pairIndex[i].collition === "error" || $scope.pairIndex[i].monthError ==="error" || $scope.pairIndex[i].trimestralError ==="error" ||$scope.pairIndex[i].yearError ==="error") {
+                        if ($scope.pairIndex[i].collition === "error" || $scope.pairIndex[i].monthError === "error" || $scope.pairIndex[i].trimestralError === "error" || $scope.pairIndex[i].yearError === "error") {
                             subscribedPacks.push($scope.pairIndex[i]);
 
                         }
                     }
                 }
-                $scope.totalpairIndex= data.total_pairIndex;
+                $scope.totalpairIndex = data.total_pairIndex;
 
                 $scope.futures = data.futures;
                 if (typeof $scope.futures !== 'undefined') {
@@ -304,20 +307,37 @@ angular.module('ngMo.payment', [  'ui.router'])
                         } else {
                             $scope.allBought = false;
                         }
-                        if ($scope.futures[i].collition === "error" || $scope.futures[i].monthError ==="error" || $scope.futures[i].trimestralError ==="error" ||$scope.futures[i].yearError ==="error") {
+                        if ($scope.futures[i].collition === "error" || $scope.futures[i].monthError === "error" || $scope.futures[i].trimestralError === "error" || $scope.futures[i].yearError === "error") {
                             subscribedPacks.push($scope.futures[i]);
 
                         }
                     }
                 }
-                $scope.totalFutures=data.total_futures;
-                $scope.total=data.total;
+                $scope.totalFutures = data.total_futures;
+
+                $scope.forex = data.forex;
+                if (typeof $scope.forex !== 'undefined') {
+                    for (i = 0; i < $scope.forex.length; i++) {
+                        $scope.amountOfPacks++;
+                        if ($scope.forex[i].price === 0) {
+                            $scope.someBought = true;
+                        } else {
+                            $scope.allBought = false;
+                        }
+                        if ($scope.forex[i].collition === "error" || $scope.forex[i].monthError === "error" || $scope.forex[i].trimestralError === "error" || $scope.forex[i].yearError === "error") {
+                            subscribedPacks.push($scope.forex[i]);
+
+                        }
+                    }
+                }
+                $scope.totalForex = data.total_forex;
+                $scope.total = data.total;
                 if (subscribedPacks.length > 0) {
                     //there are packs that have price 0, so we need check it in the cart. Launch an event to ask to the cart
-                    $rootScope.$broadcast('updateSubscribedPacks',subscribedPacks);
+                    $rootScope.$broadcast('updateSubscribedPacks', subscribedPacks);
                 }
 
-                if ($scope.stocks.length > 0 || $scope.pairs.length >0 || $scope.index.length > 0 || $scope.pairIndex.length > 0 || $scope.futures.length > 0  ) {
+                if ($scope.stocks.length > 0 || $scope.pairs.length > 0 || $scope.index.length > 0 || $scope.pairIndex.length > 0 || $scope.futures.length > 0 || $scope.forex.length > 0) {
                     $scope.emptySummary = false;
                 } else {
                     $scope.emptySummary = true;
@@ -326,46 +346,46 @@ angular.module('ngMo.payment', [  'ui.router'])
         };
 
         //date must be a object with fields: month: M and year: YYYY, return the string with monthName YYYY
-        $scope.getMonthShortName = function(date) {
+        $scope.getMonthShortName = function (date) {
             month = MonthSelectorService.getMonthName(date);
-            month = month.substring(0,3); //format MMM YYYY
-            return month+" "+date.year;
+            month = month.substring(0, 3); //format MMM YYYY
+            return month + " " + date.year;
         };
 
         //transform 0,1,2 to legible names of durations
-        $scope.translateDuration = function(id) {
+        $scope.translateDuration = function (id) {
             return PaymentService.getDurationFromId(id);
         };
 
 
         //cancel the pay and cart
-        $scope.cancelPay = function()  {
+        $scope.cancelPay = function () {
             $rootScope.$broadcast('removeItemsCart');
             $state.go('home');
         };
         //start the payment
-        $scope.doPayment = function() {
+        $scope.doPayment = function () {
             //the terms and conditions must be accepted by user
             if ($scope.conditions) {
-                $scope.errorConditions= false;
+                $scope.errorConditions = false;
                 $scope.errorPaypal = false;
                 $scope.doingPayment = true;
-                 $rootScope.$broadcast('submitCart', $scope.paymentType);
+                $rootScope.$broadcast('submitCart', $scope.paymentType);
 
-            } else{
-                $scope.errorConditions= true;
+            } else {
+                $scope.errorConditions = true;
             }
 
         };
 
 
-        $scope.openModalInstanceTerms = function(url) {
+        $scope.openModalInstanceTerms = function (url) {
             $modal.open({
                 templateUrl: 'home/modalPayment.tpl.html',
                 controller: ModalInstanceTermsCtrl,
                 resolve: {
                     infoSelected: function () {
-                        return url+".tpl.html";
+                        return url + ".tpl.html";
                     }
                 }
             });
@@ -376,7 +396,7 @@ angular.module('ngMo.payment', [  'ui.router'])
 
 
     })
-    .controller('CreditPayCtrl',function($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService,MonthSelectorService, ProfileService,SignUpService,now){
+    .controller('CreditPayCtrl', function ($scope, $state, IsLogged, $rootScope, $window, $http, PaymentService, MonthSelectorService, ProfileService, SignUpService, now) {
         $scope.formSubmited = false;
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -388,31 +408,34 @@ angular.module('ngMo.payment', [  'ui.router'])
             IsLogged.isLogged(true);
         });
 
-        $scope.status="NONE";
+        $scope.status = "NONE";
 
         $scope.stocks = [];
-        $scope.pairs=[];
-        $scope.index=[];
-        $scope.pairIndex=[];
-        $scope.futures=[];
+        $scope.pairs = [];
+        $scope.index = [];
+        $scope.pairIndex = [];
+        $scope.futures = [];
+        $scope.forex = [];
         //totals and taxes
-        $scope.totalStocks=0;
-        $scope.taxStock=0;
-        $scope.totalPairs=0;
-        $scope.taxPairs=0;
-        $scope.totalIndex=0;
-        $scope.taxIndex=0;
-        $scope.totalpairIndex=0;
-        $scope.taxpairIndex=0;
-        $scope.totalFutures=0;
-        $scope.taxFutures=0;
+        $scope.totalStocks = 0;
+        $scope.taxStock = 0;
+        $scope.totalPairs = 0;
+        $scope.taxPairs = 0;
+        $scope.totalIndex = 0;
+        $scope.taxIndex = 0;
+        $scope.totalpairIndex = 0;
+        $scope.taxpairIndex = 0;
+        $scope.totalFutures = 0;
+        $scope.totalForex = 0;
+        $scope.taxFutures = 0;
+        $scope.taxForex = 0;
         //total
-        $scope.total=0;
-        $scope.totalTaxes=0;
+        $scope.total = 0;
+        $scope.totalTaxes = 0;
         $scope.items = [];
 
         //user data
-        $scope.user =  {
+        $scope.user = {
             name: "",
             surname: "",
             address: "",
@@ -421,7 +444,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             country: "",
             state: ""
         };
-        $scope.countries= [];
+        $scope.countries = [];
 
 
         $scope.creditCards = [
@@ -446,54 +469,64 @@ angular.module('ngMo.payment', [  'ui.router'])
                 name: "Maestro"
             }
         ];
-        $scope.selectedCard= $scope.creditCards[0];
-        $scope.months = [{
-            id:1,
-            description:"01"
-        },
+        $scope.selectedCard = $scope.creditCards[0];
+        $scope.months = [
             {
-                id:2,
-                description:"02"
+                id: 1,
+                description: "01"
             },
             {
-                id:3,
-                description:"03"
-            },{
-                id:4,
-                description:"04"
-            },{
-                id:5,
-                description:"05"
-            },{
-                id:6,
-                description:"06"
-            },{
-                id:7,
-                description:"07"
-            },{
-                id:8,
-                description:"08"
-            },{
-                id:9,
-                description:"09"
-            },{
-                id:10,
-                description:"10"
-            },{
-                id:11,
-                description:"11"
+                id: 2,
+                description: "02"
             },
             {
-                id:12,
-                description:"12"
-            }];
+                id: 3,
+                description: "03"
+            },
+            {
+                id: 4,
+                description: "04"
+            },
+            {
+                id: 5,
+                description: "05"
+            },
+            {
+                id: 6,
+                description: "06"
+            },
+            {
+                id: 7,
+                description: "07"
+            },
+            {
+                id: 8,
+                description: "08"
+            },
+            {
+                id: 9,
+                description: "09"
+            },
+            {
+                id: 10,
+                description: "10"
+            },
+            {
+                id: 11,
+                description: "11"
+            },
+            {
+                id: 12,
+                description: "12"
+            }
+        ];
         $scope.nextYears = [];
         $scope.previousYears = [];//for maestro card
-            //fill 20 years in the selector
+        //fill 20 years in the selector
         var date = now;//new Date();
         var nextYear = date.getFullYear();
         var previousYear = date.getFullYear();
-        for (var i = 0; i<20; i++) {
+        for (var i = 0; i < 20; i++) {
             $scope.nextYears.push(nextYear);
             $scope.previousYears.push(previousYear);
             nextYear++;
@@ -501,12 +534,12 @@ angular.module('ngMo.payment', [  'ui.router'])
         }
         $scope.expirationMonth = $scope.months[0];
         $scope.startMonth = $scope.months[0];
-        $scope.expirationYear= $scope.nextYears[0];
+        $scope.expirationYear = $scope.nextYears[0];
         $scope.startYear = $scope.previousYears[0];
-        $scope.number= "";
-        $scope.cvv="";
-        $scope.issue="";//only for maestro
-        $scope.editData= false;//if change userdata..
+        $scope.number = "";
+        $scope.cvv = "";
+        $scope.issue = "";//only for maestro
+        $scope.editData = false;//if change userdata..
         //lload user data for the bill
         $scope.loadUser = function () {
             ProfileService.loadUser(function (data, status) {
@@ -522,55 +555,61 @@ angular.module('ngMo.payment', [  'ui.router'])
             });
         };
 
-        $scope.maestro= function(){
+        $scope.maestro = function () {
             //console.log("a");
         };
 
-        SignUpService.getCountries(function(data) {
-            if (data.length>0) {
+        SignUpService.getCountries(function (data) {
+            if (data.length > 0) {
                 $scope.countries = data;
             }
         });
 
 
         //load the summary of payment, is the same call to SUMMARY
-        $scope.loadSummary = function(){
-            PaymentService.getPayments(false,function (data) {
+        $scope.loadSummary = function () {
+            PaymentService.getPayments(false, function (data) {
 
                 $scope.stocks = data.stocks;
                 $scope.totalStocks = data.total_stocks;
                 $scope.pairs = data.pairs;
                 $scope.totalPairs = data.total_pairs;
-                $scope.index= data.index;
-                $scope.totalIndex= data.total_index;
-                $scope.pairIndex= data.pairIndex;
-                $scope.totalpairIndex= data.total_pairIndex;
-                $scope.futures=data.futures;
-                $scope.totalFutures=data.total_futures;
-                $scope.total=data.total;
+                $scope.index = data.index;
+                $scope.totalIndex = data.total_index;
+                $scope.pairIndex = data.pairIndex;
+                $scope.totalpairIndex = data.total_pairIndex;
+                $scope.futures = data.futures;
+                $scope.forex = data.forex;
+                $scope.totalFutures = data.total_futures;
+                $scope.totalForex = data.total_forex;
+                $scope.total = data.total;
 
                 //we put them all in one array
-                $scope.items =[];
-                var i=0; //types are 0= simple 1=pair for view
-                for (i=0;i<$scope.stocks.length;i++) {
-                    $scope.stocks[i].type= 0;//for the row type
+                $scope.items = [];
+                var i = 0; //types are 0= simple 1=pair for view
+                for (i = 0; i < $scope.stocks.length; i++) {
+                    $scope.stocks[i].type = 0;//for the row type
                     $scope.items.push($scope.stocks[i]);
                 }
-                for (i=0;i<$scope.pairs.length;i++) {
-                    $scope.pairs[i].type= 1;//for the row type
+                for (i = 0; i < $scope.pairs.length; i++) {
+                    $scope.pairs[i].type = 1;//for the row type
                     $scope.items.push($scope.pairs[i]);
                 }
-                for (i=0;i<$scope.index.length;i++) {
-                    $scope.index[i].type= 0;//for the row type
+                for (i = 0; i < $scope.index.length; i++) {
+                    $scope.index[i].type = 0;//for the row type
                     $scope.items.push($scope.index[i]);
                 }
-                for (i=0;i<$scope.pairIndex.length;i++) {
-                    $scope.pairIndex[i].type= 1;//for the row type
+                for (i = 0; i < $scope.pairIndex.length; i++) {
+                    $scope.pairIndex[i].type = 1;//for the row type
                     $scope.items.push($scope.pairIndex[i]);
                 }
-                for (i=0;i<$scope.futures.length;i++) {
-                    $scope.futures[i].type= 0;//for the row type
+                for (i = 0; i < $scope.futures.length; i++) {
+                    $scope.futures[i].type = 0;//for the row type
                     $scope.items.push($scope.futures[i]);
+                }
+                for (i = 0; i < $scope.forex.length; i++) {
+                    $scope.forex[i].type = 0;//for the row type
+                    $scope.items.push($scope.forex[i]);
                 }
             });
         };
@@ -580,20 +619,20 @@ angular.module('ngMo.payment', [  'ui.router'])
 
         //do the payment with the card, recopile the info and send to server
         $scope.payWithCard = function () {
-            $scope.status="NONE";
+            $scope.status = "NONE";
             $scope.formSubmited = true;
             if (!$scope.payForm.$valid) {
                 return;
             }
             $scope.doingPayment = true;
-            dataCart= [];
+            dataCart = [];
             token = $window.localStorage.token;
             config = {
                 data: {
                     packs: [],//list of packs
                     info: {
                         cardType: $scope.selectedCard.code,
-                        number:$scope.number,
+                        number: $scope.number,
                         cvv: $scope.cvv,
                         issue: $scope.issue,
                         startYear: $scope.startYear,
@@ -616,8 +655,8 @@ angular.module('ngMo.payment', [  'ui.router'])
             }
 
             //this code is like the card, just take the items from the service
-            if ($scope.stockItems.length >0) {
-                for (i=0;i<$scope.stockItems.length;i++) {
+            if ($scope.stockItems.length > 0) {
+                for (i = 0; i < $scope.stockItems.length; i++) {
                     item = {
                         duration: $scope.stockItems[i].duration,
                         code: $scope.stockItems[i].code,
@@ -627,8 +666,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 }
             }
 
-            if ($scope.pairsItems.length >0) {
-                for (i=0;i<$scope.pairsItems.length;i++) {
+            if ($scope.pairsItems.length > 0) {
+                for (i = 0; i < $scope.pairsItems.length; i++) {
                     item = {
                         duration: $scope.pairsItems[i].duration,
                         code: $scope.pairsItems[i].code,
@@ -638,8 +677,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 }
             }
 
-            if ($scope.indicesItems.length >0) {
-                for (i=0;i<$scope.indicesItems.length;i++) {
+            if ($scope.indicesItems.length > 0) {
+                for (i = 0; i < $scope.indicesItems.length; i++) {
                     item = {
                         duration: $scope.indicesItems[i].duration,
                         code: $scope.indicesItems[i].code,
@@ -649,8 +688,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 }
             }
 
-            if ($scope.pairsIndicesItems.length >0) {
-                for (i=0;i<$scope.pairsIndicesItems.length;i++) {
+            if ($scope.pairsIndicesItems.length > 0) {
+                for (i = 0; i < $scope.pairsIndicesItems.length; i++) {
                     item = {
                         duration: $scope.pairsIndicesItems[i].duration,
                         code: $scope.pairsIndicesItems[i].code,
@@ -660,8 +699,8 @@ angular.module('ngMo.payment', [  'ui.router'])
                 }
             }
 
-            if ($scope.futuresItems.length >0) {
-                for (i=0;i<$scope.futuresItems.length;i++) {
+            if ($scope.futuresItems.length > 0) {
+                for (i = 0; i < $scope.futuresItems.length; i++) {
                     item = {
                         duration: $scope.futuresItems[i].duration,
                         code: $scope.futuresItems[i].code,
@@ -670,8 +709,18 @@ angular.module('ngMo.payment', [  'ui.router'])
                     dataCart.push(item);
                 }
             }
-            config.data.packs= dataCart;
-            $http.post($rootScope.urlService+"/pay-card",config).success( function(data) {
+            if ($scope.forexItems.length > 0) {
+                for (i = 0; i < $scope.forexItems.length; i++) {
+                    item = {
+                        duration: $scope.forexItems[i].duration,
+                        code: $scope.forexItems[i].code,
+                        start: $scope.forexItems[i].date
+                    };
+                    dataCart.push(item);
+                }
+            }
+            config.data.packs = dataCart;
+            $http.post($rootScope.urlService + "/pay-card", config).success(function (data) {
                 if (data.status === "OK") {
                     $scope.status = "OK";
                     $rootScope.$broadcast('removeItemsCart');
@@ -683,7 +732,7 @@ angular.module('ngMo.payment', [  'ui.router'])
                     $scope.status = "ERROR";
                 }
                 $scope.doingPayment = false;
-            }).error(function(data) {
+            }).error(function (data) {
                 $scope.status = "ERROR";
                 $scope.doingPayment = false;
             });
@@ -692,10 +741,10 @@ angular.module('ngMo.payment', [  'ui.router'])
         };
 
     })
-    .factory('PaymentService', function ($http,$rootScope,$window,ShoppingCartService ) {
+    .factory('PaymentService', function ($http, $rootScope, $window, ShoppingCartService) {
         var actualDate = {};
-        var typesShopService= ["stocks","pairs","indices","pairIndices","futures"];//types in shoppingCartService
-        var typesPayService = ["stocks","pairs","index","pairIndex","futures"];
+        var typesShopService = ["stocks", "pairs", "indices", "pairIndices", "futures", "forex"];//types in shoppingCartService
+        var typesPayService = ["stocks", "pairs", "index", "pairIndex", "futures", "forex"];
         return {
             /**
              * getPayments get the summary of the pay with the data sent to the server
@@ -706,7 +755,8 @@ angular.module('ngMo.payment', [  'ui.router'])
              *      pairs: [Pack],
              *      index:[Pack],
              *      pairIndex:[Pack],
-             *      futures:[Pack]
+             *      futures:[Pack],
+             *      forex:[Pack]
              *
              *      where Pack is: {
              *          code: code of the pack
@@ -724,7 +774,8 @@ angular.module('ngMo.payment', [  'ui.router'])
              *      pairs: [Pack],
              *      index:[Pack],
              *      pairIndex:[Pack],
-             *      futures:[Pack]
+             *      futures:[Pack],
+             *      forex:[Pack]
              *      where Pack contains:
              *      name: pack
              *      code: codePack
@@ -738,6 +789,7 @@ angular.module('ngMo.payment', [  'ui.router'])
              *      total_pairs: X
              *      total_pairIndex: X
              *      total_futures: X
+             *      total_forex: X
              *      total: Z
              *      X is a double with the subtotals
              *      Z is the total. the taxes needs to be implemented
@@ -746,28 +798,30 @@ angular.module('ngMo.payment', [  'ui.router'])
 
                 packs = {
                     stocks: [],
-                    pairs:[],
-                    index:[],
-                    pairIndex:[],
-                    futures:[]
+                    pairs: [],
+                    index: [],
+                    pairIndex: [],
+                    futures: [],
+                    forex: []
                 };
-                 //get Payments load from service of cart the items to send them to the server
+                //get Payments load from service of cart the items to send them to the server
                 //server calculates the price and load the packs (is a check..) and return the correct data for the summary
-                packsCart= [
+                packsCart = [
                     ShoppingCartService.obtainCartItems('stocks'),
                     ShoppingCartService.obtainCartItems('pairs'),
                     ShoppingCartService.obtainCartItems('indices'),
                     ShoppingCartService.obtainCartItems('pairsIndices'),
-                    ShoppingCartService.obtainCartItems('futures')
+                    ShoppingCartService.obtainCartItems('futures'),
+                    ShoppingCartService.obtainCartItems('forex')
                 ];
-                listToSend=[];//the list to send to server
+                listToSend = [];//the list to send to server
                 //create the specific json item for each list
-                for (j=0; j<packsCart.length;j++) {
+                for (j = 0; j < packsCart.length; j++) {
                     sublist = packsCart[j];
                     newList = [];
                     for (i = 0; i < sublist.length; i++) {
                         actualItem = sublist[i];
-                            startDate = actualItem.date.split("/");
+                        startDate = actualItem.date.split("/");
                         startDate = startDate[1] + "_" + startDate[2];
                         //the startDate is sent in format M_YYYY
                         //the duration is 0,1,2 (month,3months or year)
@@ -785,40 +839,39 @@ angular.module('ngMo.payment', [  'ui.router'])
                         }
 
                         item = {
-                                startDate: startDate,
-                                code: actualItem.code,
-                                duration: duration
-                            };
+                            startDate: startDate,
+                            code: actualItem.code,
+                            duration: duration
+                        };
                         newList.push(item);
 
-                        }
-                    listToSend.push(newList); //the final structure is [[it1,it2,it3],[it1,it2,it3]]... the order is
-                                            //stocks,pairs,index,pairIndex,futures
                     }
-                    //concatenate all the lists to send
+                    listToSend.push(newList); //the final structure is [[it1,it2,it3],[it1,it2,it3]]... the order is
+                    //stocks,pairs,index,pairIndex,futures
+                }
+                //concatenate all the lists to send
 
-                    packs.stocks= listToSend[0];
-                    packs.pairs= listToSend[1];
-                    packs.index= listToSend[2];
-                    packs.pairIndex= listToSend[3];
-                    packs.futures= listToSend[4];
-
-
+                packs.stocks = listToSend[0];
+                packs.pairs = listToSend[1];
+                packs.index = listToSend[2];
+                packs.pairIndex = listToSend[3];
+                packs.futures = listToSend[4];
+                packs.forex= listToSend[5];
 
                 token = $window.localStorage.token;
                 config = {
                     data: packs,
                     active_packs: withActive
                 };
-                $http.post($rootScope.urlService+"/summary-pay",config)
+                $http.post($rootScope.urlService + "/summary-pay", config)
                     .success(callback)
                     .error(callback);
             },
             /*
-            translate 0,1,2 positions in the enum of the server to String with the text of the duration...
+             translate 0,1,2 positions in the enum of the server to String with the text of the duration...
              */
-            getDurationFromId: function(id) {
-                durations = ["Mensual","Trimestral","Anual"];
+            getDurationFromId: function (id) {
+                durations = ["Mensual", "Trimestral", "Anual"];
                 return durations[id];
             },
 
@@ -826,8 +879,8 @@ angular.module('ngMo.payment', [  'ui.router'])
             /**
              * Ask to the server for the items from cart and update the items by a event sent to the cart in the broadcast
              * */
-            checkCart : function() {
-                this.getPayments(true,function (data) {
+            checkCart: function () {
+                this.getPayments(true, function (data) {
 
                     //this detect if some pack is with price=0, -> already subscribed pack
                     var subscribedPacks = [];
@@ -909,6 +962,22 @@ angular.module('ngMo.payment', [  'ui.router'])
                         }
                     }
                     totalFutures = data.total_futures;
+
+                    forex = data.forex;
+                    if (typeof forex !== 'undefined') {
+                        for (i = 0; i < forex.length; i++) {
+                            amountOfPacks++;
+                            if (forex[i].price === 0) {
+                                someBought = true;
+                            } else {
+                                allBought = false;
+                            }
+                            if (forex[i].collition === "error" || forex[i].monthError === "error" || forex[i].trimestralError === "error" || forex[i].yearError === "error") {
+                                subscribedPacks.push(forex[i]);
+                            }
+                        }
+                    }
+                    totalForex = data.total_forex;
                     total = data.total;
                     if (subscribedPacks.length > 0) {
                         //there are packs that have price 0, so we need check it in the cart. Launch an event to ask to the cart
@@ -918,7 +987,7 @@ angular.module('ngMo.payment', [  'ui.router'])
             }
         };
     });
-var ModalInstanceTermsCtrl = function ($scope, $modalInstance,$timeout, infoSelected) {
+var ModalInstanceTermsCtrl = function ($scope, $modalInstance, $timeout, infoSelected) {
     $scope.infoSelected = infoSelected;
     $scope.opened = true;
     $scope.close = function () {
@@ -927,10 +996,10 @@ var ModalInstanceTermsCtrl = function ($scope, $modalInstance,$timeout, infoSele
             $scope.opened = false;
         }
     };
-    $timeout(function() { //the body click event will be in a 1sec timeout, the modal will be shown minimun 1 second
-        $scope.$on("body-click",function(){
+    $timeout(function () { //the body click event will be in a 1sec timeout, the modal will be shown minimun 1 second
+        $scope.$on("body-click", function () {
             $scope.close();
-        },1000);
+        }, 1000);
     });
 
 };

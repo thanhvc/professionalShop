@@ -143,12 +143,12 @@ text-align: center;
             <div class="summary-subtotal-format summary-subtotal-ammount">
                 {{totalPairs | twoDecimals | number:2}} EUR
             </div>
-           <!-- <div class="summary-subtotal summary-subtotal-format">
-                Impuestos (0.0 %):
-            </div>
-            <div class="summary-subtotal-format summary-subtotal-ammount">
-                0,00 EUR
-            </div>-->
+            <!-- <div class="summary-subtotal summary-subtotal-format">
+                 Impuestos (0.0 %):
+             </div>
+             <div class="summary-subtotal-format summary-subtotal-ammount">
+                 0,00 EUR
+             </div>-->
         </div>
 
     </div>
@@ -216,12 +216,12 @@ text-align: center;
             <div class="summary-subtotal-format summary-subtotal-ammount">
                 {{totalIndex | twoDecimals | number:2}} EUR
             </div>
-           <!-- <div class="summary-subtotal summary-subtotal-format">
-                Impuestos (0.0 %):
-            </div>
-            <div class="summary-subtotal-format summary-subtotal-ammount">
-                0,00 EUR
-            </div>-->
+            <!-- <div class="summary-subtotal summary-subtotal-format">
+                 Impuestos (0.0 %):
+             </div>
+             <div class="summary-subtotal-format summary-subtotal-ammount">
+                 0,00 EUR
+             </div>-->
         </div>
 
     </div>
@@ -289,12 +289,12 @@ text-align: center;
             <div class="summary-subtotal-format summary-subtotal-ammount">
                 {{totalpairIndex | twoDecimals | number:2}} EUR
             </div>
-           <!-- <div class="summary-subtotal summary-subtotal-format">
-                Impuestos (0.0 %):
-            </div>
-            <div class="summary-subtotal-format summary-subtotal-ammount">
-                0,00 EUR
-            </div>-->
+            <!-- <div class="summary-subtotal summary-subtotal-format">
+                 Impuestos (0.0 %):
+             </div>
+             <div class="summary-subtotal-format summary-subtotal-ammount">
+                 0,00 EUR
+             </div>-->
         </div>
 
     </div>
@@ -362,17 +362,88 @@ text-align: center;
             <div class="summary-subtotal-format summary-subtotal-ammount">
                 {{totalFutures | twoDecimals | number:2}} EUR
             </div>
-           <!-- <div class="summary-subtotal summary-subtotal-format">
-                Impuestos (0.0 %):
-            </div>
-            <div class="summary-subtotal-format summary-subtotal-ammount">
-                0,00 EUR
-            </div>-->
+            <!-- <div class="summary-subtotal summary-subtotal-format">
+                 Impuestos (0.0 %):
+             </div>
+             <div class="summary-subtotal-format summary-subtotal-ammount">
+                 0,00 EUR
+             </div>-->
         </div>
 
     </div>
 </div>
+
+
+<!--forex-->
+
+<div class="container-table-summary-pay" ng-if="forex.length >0">
+    <div class="tab-table-summary">
+        Forex
+    </div>
+    <div class="orange-separator-summary"></div>
+    <table class="table-summary-pay">
+        <thead>
+        <tr>
+            <td>
+                Región
+            </td>
+
+            <td>
+                Mes Inicio
+            </td>
+
+            <td>
+                Mes Expiración
+            </td>
+
+            <td>
+                Duración
+            </td>
+
+            <td>
+                Precio
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in forex">
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{getMonthShortName(data.startDate )}}
+            </td>
+            <td>
+                {{getMonthShortName(data.endDate )}}
+            </td>
+            <td>
+                {{translateDuration(data.duration)}}
+            </td>
+            <td>
+                {{data.price | twoDecimals | number:2}}
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <!--sub total the taxes are 0% by now-->
+
+        <div
+                class="summary-subtotal-container">
+
+            <div class="summary-subtotal-format summary-subtotal">
+                Subtotal:
+            </div>
+            <div class="summary-subtotal-format summary-subtotal-ammount">
+                {{totalForex | twoDecimals | number:2}} EUR
+            </div>
+        </div>
+
+    </div>
 </div>
+
 <div>
     <!--total-->
     <div id="idTotales" style="clear: both; width: 900px; margin: 0 auto; " ng-show="!emptySummary">
@@ -391,24 +462,29 @@ text-align: center;
 <!--payment-->
 <div class="summary-payment-container" ng-show="!emptySummary">
     <div style="height: 20px;">
-    <div id="noAceptaCondicionesCamp" style="color: red; font-size: 11px; font-family: fontpo; display: block;" ng-show="errorConditions">Debe aceptar las condiciones del servicio</div>
+        <div id="noAceptaCondicionesCamp" style="color: red; font-size: 11px; font-family: fontpo; display: block;"
+             ng-show="errorConditions">Debe aceptar las condiciones del servicio
+        </div>
     </div>
     <form id="paymentForm" name="paymentForm">
         <div class="summary-payment-button-container">
 
             <input class="mo-cancel-button pay-summary-button" name="cancel-pay" ng-click="cancelPay()"
                    value="Cancelar" style="margin-left: 10px !important;" type="button">
-            <input class="mo-button pay-summary-button" name="pay-button" ng-click="doPayment()" value="Pagar" ng-disabled="doingPayment"
+            <input class="mo-button pay-summary-button" name="pay-button" ng-click="doPayment()" value="Pagar"
+                   ng-disabled="doingPayment"
                    ng-show="!allBought"
                    type="button">
         </div>
         <div class="div-terms">
-            <input  type="checkbox" name="conditions" id="conditions" ng-model="conditions" required="true"
-                    style="margin-right:5px !important;">
+            <input type="checkbox" name="conditions" id="conditions" ng-model="conditions" required="true"
+                   style="margin-right:5px !important;">
             Debe aceptar las
-            <div id="terms-conditions-link" ng-click="openModalInstanceTerms('sign_up/terms-and-conditions');"  style="display: inline; "><span
+            <div id="terms-conditions-link" ng-click="openModalInstanceTerms('sign_up/terms-and-conditions');"
+                 style="display: inline; "><span
                     class="link" style="text-decoration: none;">Condiciones de Uso</span>
-            </div> del servicio
+            </div>
+            del servicio
             *
         </div>
     </form>
@@ -433,7 +509,7 @@ text-align: center;
                 </tr>
                 </tbody>
             </table>
-            <table   class="selector-pay-table">
+            <table class="selector-pay-table">
                 <tbody>
                 <tr>
                     <td>
@@ -459,7 +535,6 @@ text-align: center;
         </div>
 
 
-
         <div class="doing-payment" ng-show="doingPayment">
 
             <img src="assets/img/ajax-loader.gif"><span>Transfiriéndole a la pasarela de pago, por favor espere...</span>
@@ -467,7 +542,7 @@ text-align: center;
         <div class="doing-payment error-paypal" ng-show="errorPaypal">
             error en la conexión a Paypal
         </div>
-         </form>
+    </form>
     <div ng-show="allBought && !doingPayment" class="bought-packs-message">
         <span style="color:red" ng-show="amountOfPacks ==1">Usted ya está susbcrito a este pack</span>
         <span style="color:red" ng-show="amountOfPacks >1">Usted ya está susbcrito a estos packs</span>

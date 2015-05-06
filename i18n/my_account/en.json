@@ -1,5 +1,12 @@
 {
     "MYACCOUNT":{
+        "STOCKS":"Stocks",
+        "STOCKS_PAIRS":"Pairs",
+        "PAIRS":"Pairs",
+        "INDICES":"Index",
+        "INDEX_PAIRS":"Pair Index",
+        "FUTURES":"Futures",
+        "FOREX": "Forex",
         "personal_data":"Personal Data",
         "access_data":"Access & security",
         "orders":"Orders",

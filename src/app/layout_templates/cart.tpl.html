@@ -147,6 +147,35 @@
                     <td></td>
                 </tr>
             </table>
+            <table class="cart-summary-table"  ng-show="forexItems.length > 0">
+                <tr>
+                    <th>Forex</th>
+                    <th>Inicio</th>
+                    <th>Duraci&oacute;n</th>
+                    <th>Precio</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="forexItem in forexItems track by $index">
+                    <td>{{forexItem.packName}}</td>
+                    <td>{{forexItem.startDate}}</td>
+                    <td>
+                        <select class="duration-selector" class="duration-selector" ng-click=" $event.stopPropagation();"  ng-change="changeDurationFromCart(forexItem,forexItem.code,5)"  ng-model="forexItem.duration">
+                            <option ng-if="forexItem.prices[0] !== 0" value="Mensual">Mensual</option>
+                            <option ng-if="forexItem.prices[1] !== 0" value="Trimestral">Trimestral</option>
+                            <option ng-if="forexItem.prices[2] !== 0" value="Anual">Anual</option>
+                        </select>
+                    </td>
+                    <td>{{forexItem.price | number:2}} EUR</td>
+                    <td><div class="delete-item-cart-button" ng-click="removeItemFromCart('forex', forexItem);$event.stopPropagation();"></div></td>
+                </tr>
+                <tr class="subtotal-cart">
+                    <td></td>
+                    <td></td>
+                    <td>Subtotal</td>
+                    <td>{{subtotalForex | number:2}} EUR</td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
         <div class="total-cart">Total: {{totalCart | number:2}} EUR</div>
         <div class="buttons-cart-container">

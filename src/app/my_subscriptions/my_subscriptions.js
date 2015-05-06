@@ -198,20 +198,16 @@ angular.module('ngMo.my_subscriptions', [
                         value: 3,
                         content: data.FUTURE,
                         url: 'my_subscriptions/tables_my_packs/futures_table.tpl.html'
+                    },
+                    {
+                        title: 'FOREX',
+                        active: false,//ActiveTabService.activeTab() === 4,
+                        value: 4,
+                        content: data.FOREX,
+                        url: 'my_subscriptions/tables_my_packs/forex_table.tpl.html'
                     }
 
                 ];
-                if ($rootScope.forexMode) {
-                    $scope.myPacksTablePacks.push(
-                        {
-                            title: 'FOREX',
-                            active: false,//ActiveTabService.activeTab() === 4,
-                            value: 4,
-                            content: data.FOREX,
-                            url: 'my_subscriptions/tables_my_packs/forex_table.tpl.html'
-                        }
-                    );
-                }
 
 
                 $scope.loading = false;
@@ -324,20 +320,16 @@ angular.module('ngMo.my_subscriptions', [
                 value: 3,
                 futuresContent: [],
                 url: 'my_subscriptions/tables_packs/futures_table.tpl.html'
+            },
+            {
+                title: 'FOREX',
+                active: false,//ActiveTabService.activeTab() === 4,
+                value: 4,
+                forexContent: [],
+                url: 'my_subscriptions/tables_packs/forex_table.tpl.html'
             }
 
         ];
-        if ($rootScope.forexMode) {
-            $scope.mySubscriptionsTablePacks.push(
-                {
-                    title: 'FOREX',
-                    active: false,//ActiveTabService.activeTab() === 4,
-                    value: 4,
-                    forexContent: [],
-                    url: 'my_subscriptions/tables_packs/forex_table.tpl.html'
-                }
-            );
-        }
         $scope.filterOptions = "";
         $scope.loading=true;
         $scope.$on('$stateChangeStart', function (event, toState){
@@ -441,6 +433,7 @@ angular.module('ngMo.my_subscriptions', [
                 indicesItems = ShoppingCartService.obtainCartItems('indices');
                 pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
                 futuresItems = ShoppingCartService.obtainCartItems('futures');
+                forexItems = ShoppingCartService.obtainCartItems('forex');
                 for (i=0; i< stockItems.length;i++) {
                     for (j=0;j<$scope.mySubscriptionsTablePacks[0].americaContent.length;j++) {
                         if (stockItems[i].code == $scope.mySubscriptionsTablePacks[0].americaContent[j].code) {
@@ -548,6 +541,18 @@ angular.module('ngMo.my_subscriptions', [
                             if (futuresItems[i].startDate === startDateItem) {
                                 $scope.mySubscriptionsTablePacks[3].futuresContent[j].toBuy = true;
                                 $scope.mySubscriptionsTablePacks[3].futuresContent[j].duration = $scope.convertDuration(futuresItems[i].duration);
+                            }
+                        }
+                    }
+                }
+                for (i=0; i< forexItems.length;i++) {
+                    for (j=0;j<$scope.mySubscriptionsTablePacks[4].forexContent.length;j++) {
+                        if (forexItems[i].code == $scope.mySubscriptionsTablePacks[4].forexContent[j].code) {
+                            //the item exists in the cart
+                            startDateItem = $filter('date')($scope.mySubscriptionsTablePacks[4].forexContent[j].startDate, 'MMMM yyyy');
+                            if (forexItems[i].startDate === startDateItem) {
+                                $scope.mySubscriptionsTablePacks[4].forexContent[j].toBuy = true;
+                                $scope.mySubscriptionsTablePacks[4].forexContent[j].duration = $scope.convertDuration(forexItems[i].duration);
                             }
                         }
                     }
@@ -752,6 +757,14 @@ angular.module('ngMo.my_subscriptions', [
                     }
                 }
             }
+            for (j=0;j<$scope.mySubscriptionsTablePacks[4].forexContent.length;j++) {
+                if ((item.code == $scope.mySubscriptionsTablePacks[4].forexContent[j].code) && ($scope.mySubscriptionsTablePacks[4].forexContent[j].toBuy)) {
+                    //the item exists in the cart
+                    if (item.startDate === $filter('date')($scope.mySubscriptionsTablePacks[4].forexContent[j].startDate, 'MMMM yyyy')) {
+                        $scope.mySubscriptionsTablePacks[4].forexContent[j].toBuy = false;
+                    }
+                }
+            }
         });
 
         //remove all items from cart, all items with toBuy to false;
@@ -794,10 +807,12 @@ angular.module('ngMo.my_subscriptions', [
                 $scope.mySubscriptionsTablePacks[3].futuresContent[j].toBuy = false;
 
             }
-        });
-    })
+            for (j=0;j<$scope.mySubscriptionsTablePacks[4].forexContent.length;j++) {
+                $scope.mySubscriptionsTablePacks[4].forexContent[j].toBuy = false;
 
-;
+            }
+        });
+    });
 
 
 var ModalMyPackstCtrl = function ($scope, $modalInstance,$state,$stateParams, operationPack) {

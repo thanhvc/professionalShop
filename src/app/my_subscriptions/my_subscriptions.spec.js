@@ -117,8 +117,12 @@ describe('My subscriptions controller', function() {
     });
 
     it("should be able to success when duration changes", function () {
-        var content = {americaContent : ['america', 'mexico'], asiaContent: ['china', 'japan'], europeContent : ['england', 'spain'], futuresContent: ['futures'], pairsIndicesContent: ['pairs'], americaPairContent : ['am'], asiaPairContent:['asia'], europePairContent: ['euro'], indicesContent:['index']};
-        $scope.mySubscriptionsTablePacks = [content, content,content,content];
+        var content = {americaContent : ['america', 'mexico'], asiaContent: ['china', 'japan'], europeContent : ['england', 'spain'],
+            futuresContent: ['futures'], pairsIndicesContent: ['pairs'], americaPairContent : ['am'], asiaPairContent:['asia'],
+            europePairContent: ['euro'], indicesContent:['index'],
+            forexContent: ['forex']
+        };
+        $scope.mySubscriptionsTablePacks = [content, content,content,content,content];
         $scope.$broadcast('changeDurationFromCart',[null,$state]);
     });
 
@@ -135,15 +139,22 @@ describe('My subscriptions controller', function() {
         var americaPair = {startDate:  new Date(), code: 1234, toBuy: true};
         var asiaPair = {startDate:  new Date(), code: 1234, toBuy: true};
         var europePair = {startDate:  new Date(), code: 1234, toBuy: true};
-        var content = {americaContent : [america, america,america], asiaContent: [asia,asia,asia], europeContent : [europe,europe], futuresContent: [futures,futures], pairsIndicesContent: [pairIndices,pairIndices], americaPairContent : [americaPair,americaPair], asiaPairContent:[asiaPair,asiaPair], europePairContent: [europePair,europePair], indicesContent:[indices,indices]};
-        $scope.mySubscriptionsTablePacks = [content, content,content,content];
+        var forex = {startDate: new Date(),code:1234, toBuy: true};
+        var content = {americaContent : [america, america,america], asiaContent: [asia,asia,asia], europeContent : [europe,europe],
+            futuresContent: [futures,futures], pairsIndicesContent: [pairIndices,pairIndices], americaPairContent : [americaPair,americaPair],
+            asiaPairContent:[asiaPair,asiaPair], europePairContent: [europePair,europePair], indicesContent:[indices,indices],
+            forexContent:[forex,forex]
+        };
+        $scope.mySubscriptionsTablePacks = [content, content,content,content,content];
 
         $scope.$broadcast('removeItemFromCart',item);
     });
 
     it("should let the user remove all item from the cart", function () {
-        var content = {americaContent : ['america', 'mexico'], asiaContent: ['china', 'japan'], europeContent : ['england', 'spain'], futuresContent: ['futures'], pairsIndicesContent: ['pairs'], americaPairContent : ['am'], asiaPairContent:['asia'], europePairContent: ['euro'], indicesContent:['index']};
-        $scope.mySubscriptionsTablePacks = [content, content,content,content];
+        var content = {americaContent : ['america', 'mexico'], asiaContent: ['china', 'japan'], europeContent : ['england', 'spain'],
+            futuresContent: ['futures'], pairsIndicesContent: ['pairs'], americaPairContent : ['am'],
+            asiaPairContent:['asia'], europePairContent: ['euro'], indicesContent:['index'], forexContent:['forex']};
+        $scope.mySubscriptionsTablePacks = [content, content,content,content,content];
         $scope.$broadcast('removeAllItemsFromCart');
     });
 
@@ -214,7 +225,7 @@ describe('My subscriptions controller', function() {
         var content = {americaContent : [america, america,america], asiaContent: [asia,asia,asia], europeContent :
             [europe,europe], futuresContent: [futures,futures], pairsIndicesContent: [pairIndices,pairIndices],
             americaPairContent : [americaPair,americaPair], asiaPairContent:[asiaPair,asiaPair,asiaPair],
-            europePairContent: [europePair,europePair], indicesContent:[indices,indices],forexContent:[forex,forex]};
+            europePairContent: [europePair,europePair], indicesContent:[indices,indices], forexContent:[forex,forex]};
 
         $scope.mySubscriptionsTablePacks = [content, content,content,content,content];
 

@@ -338,6 +338,7 @@ angular.module('ngMo', [
 
         var pairsIndicesItems = [] ;
         var futuresItems =  [];
+        var forexItems = [];
 
         var numItemsCart = 0;
         var totalCart = 0;
@@ -346,6 +347,7 @@ angular.module('ngMo', [
         var indicesSubtotal = 0;
         var pairsIndicesSubtotal = 0;
         var futuresSubtotal = 0;
+        var forexSubtotal = 0;
 
 
         //ask to the server if the actual user has the actual pack already
@@ -728,12 +730,83 @@ angular.module('ngMo', [
                     }
                 }
                 itemsToDelete=[];
+                for (i = 0; i < forexItems.length; i++) {
+                    if (forexItems[i].code === packs[j].code) {
+                        itemDate = forexItems[i].date;
+                        itemDate = itemDate.split("/");
+                        month = parseInt(itemDate[1],10);
+                        year = parseInt(itemDate[2],10);
+                        if ((startDate.month  === month) && (startDate.year  === year)) {
+                            //check the price in the option
+                            prices = forexItems[i].prices.slice();
+                            if (packs[j].collition === "error") {
+                                forexItems[i].price = 0;
+                                forexItems[i].prices = [0,0,0];
+                                //delete item
+                                itemsToDelete.push(forexItems[i]);
+                            } else {
+                                if (packs[j].monthError === "error") {
+                                    prices[0] = 0;
+                                }
+                                if (packs[j].trimestralError === "error") {
+                                    prices[1] = 0;
+                                }
+                                if (packs[j].yearError === "error") {
+                                    prices[2] = 0;
+                                }
+                                forexItems[i].prices = prices.slice();
+                                switch (forexItems[i].duration) {
+                                    case "Mensual":
+                                        if (packs[j].monthError) {
+                                            if (!packs[j].trimestralError) {
+                                                forexItems[i].price = forexItems[i].prices[1];
+                                                forexItems[i].duration = "Trimestral";
+                                            } else {
+                                                forexItems[i].price = forexItems[i].prices[2];
+                                                forexItems[i].duration = "Anual";
+                                            }
+                                        }
+                                        break;
+                                    case "Trimestral":
+                                        if (packs[j].trimestralError) {
+                                            if (!packs[j].monthError) {
+                                                forexItems[i].price = forexItems[i].prices[0];
+                                                forexItems[i].duration = "Mensual";
+                                            } else {
+                                                forexItems[i].price = forexItems[i].prices[2];
+                                                forexItems[i].duration = "Anual";
+                                            }
+                                        }
+                                        break;
+                                    case "Anual":
+                                        if (packs[j].yearError) {
+                                            if (!packs[j].monthError) {
+                                                forexItems[i].price = forexItems[i].prices[0];
+                                                forexItems[i].duration = "Mensual";
+                                            } else {
+                                                forexItems[i].price = forexItems[i].prices[1];
+                                                forexItems[i].duration = "Trimestral";
+                                            }
+                                        }
+                                        break;
+                                }
+                            }
+
+                        }
+                    }
+                }
+                if (itemsToDelete.length>0) {
+                    for (i = 0; i< itemsToDelete.length; i++) {
+                        this.removeItemCart("forex",itemsToDelete[i]);
+                    }
+                }
                 totalCart = 0;
                 stockSubtotal = 0;
                 pairsSubtotal = 0;
                 indicesSubtotal = 0;
                 pairsIndicesSubtotal = 0;
                 futuresSubtotal = 0;
+                forexSubtotal = 0;
                 for (i=0;i<stockItems.length;i++) {
                     totalCart += stockItems[i].price;
                     stockSubtotal += stockItems[i].price;
@@ -754,6 +827,10 @@ angular.module('ngMo', [
                     totalCart += futuresItems[i].price;
                     futuresSubtotal+=futuresItems[i].price;
                 }
+                for (i=0;i<forexItems.length;i++) {
+                    totalCart += forexItems[i].price;
+                    forexSubtotal+=forexItems[i].price;
+                }
             }
         };
 
@@ -768,11 +845,13 @@ angular.module('ngMo', [
             sessioncart.indicesItems = indicesItems;
             sessioncart.pairsIndicesItems = pairsIndicesItems;
             sessioncart.futuresItems = futuresItems;
+            sessioncart.forexItems = forexItems;
             sessioncart.stockSubtotal = stockSubtotal;
             sessioncart.pairsSubtotal = pairsSubtotal;
             sessioncart.indicesSubtotal = indicesSubtotal;
             sessioncart.pairsIndicesSubtotal = pairsIndicesSubtotal;
             sessioncart.futuresSubtotal = futuresSubtotal;
+            sessioncart.forexSubtotal = forexSubtotal;
             sessioncart.totalCart = totalCart;
             sessioncart.numItemsCart = numItemsCart;
             $window.sessionStorage.cart = JSON.stringify(sessioncart);
@@ -815,6 +894,9 @@ angular.module('ngMo', [
                     return pairsIndicesItems;
                 case 'futures':
                     return futuresItems;
+                case 'forex':
+                    return forexItems;
+
             }
         };
 
@@ -842,6 +924,11 @@ angular.module('ngMo', [
                 case 'FUTURE':
                     futuresItems.push(item);
                     futuresSubtotal += item.price;
+                    break;
+                case 'FOREX':
+                    forexItems.push(item);
+                    forexSubtotal += item.price;
+                    break;
             }
             showCart = true;
             numItemsCart++;
@@ -861,6 +948,8 @@ angular.module('ngMo', [
                     return pairsIndicesSubtotal;
                 case 'futures':
                     return futuresSubtotal;
+                case 'forex':
+                    return forexSubtotal;
             }
         };
 
@@ -891,6 +980,11 @@ angular.module('ngMo', [
                     index = futuresItems.indexOf(item);
                     futuresItems.splice(index,1);
                     futuresSubtotal -= item.price;
+                    break;
+                case 'forex':
+                    index = forexItems.indexOf(item);
+                    forexItems.splice(index,1);
+                    forexSubtotal -= item.price;
                     break;
             }
             numItemsCart--;
@@ -959,6 +1053,16 @@ angular.module('ngMo', [
                         }
                     }
                     break;
+                case 5:
+                    for (i=0;i<forexItems.length;i++) {
+                        if (item.code === forexItems[i].code) {
+                            if (item.startDate === forexItems[i].startDate) {
+                                forexItems[i] = item;
+                                break;
+                            }
+                        }
+                    }
+                    break;
             }
             //update prices
             totalCart = 0;
@@ -967,6 +1071,7 @@ angular.module('ngMo', [
             indicesSubtotal = 0;
             pairsIndicesSubtotal = 0;
             futuresSubtotal = 0;
+            forexSubtotal = 0;
             for (i=0;i<stockItems.length;i++) {
                 totalCart += stockItems[i].price;
                 stockSubtotal += stockItems[i].price;
@@ -987,6 +1092,10 @@ angular.module('ngMo', [
                 totalCart += futuresItems[i].price;
                 futuresSubtotal+=futuresItems[i].price;
             }
+            for (i=0;i<forexItems.length;i++) {
+                totalCart += forexItems[i].price;
+                forexSubtotal+=forexItems[i].price;
+            }
 
 
             this.saveSessionCart();
@@ -998,11 +1107,13 @@ angular.module('ngMo', [
             indicesItems = [];//indicesItems.splice(0, pairsItems.length);
             pairsIndicesItems = [];//pairsIndicesItems.splice(0, pairsItems.length);
             futuresItems = [];//futuresItems.splice(0, pairsItems.length);
+            forexItems = [];
             stockSubtotal = 0;
             pairsSubtotal = 0;
             indicesSubtotal = 0;
             pairsIndicesSubtotal = 0;
             futuresSubtotal = 0;
+            forexSubtotal = 0;
             totalCart = 0;
             numItemsCart = 0;
             $rootScope.$broadcast("removeAllItemsFromCart");
@@ -1032,11 +1143,13 @@ angular.module('ngMo', [
             indicesItems=cartSession.indicesItems;
             pairsIndicesItems = cartSession.pairsIndicesItems;
             futuresItems = cartSession.futuresItems;
+            forexItems = cartSession.forexItems;
             stockSubtotal = cartSession.stockSubtotal;
             pairsSubtotal = cartSession.pairsSubtotal;
             indicesSubtotal =cartSession.indicesSubtotal;
             pairsIndicesSubtotal = cartSession.pairsIndicesSubtotal;
             futuresSubtotal = cartSession.futuresSubtotal;
+            forexSubtotal = cartSession.forexSubtotal;
             totalCart = cartSession.totalCart;
             numItemsCart = cartSession.numItemsCart;
         };
@@ -1048,11 +1161,13 @@ angular.module('ngMo', [
                 indicesItems : [],
                 pairsIndicesItems : [],
                 futuresItems : [],
+                forexItems : [],
                 stockSubtotal : 0,
                 pairsSubtotal : 0,
                 indicesSubtotal : 0,
                 pairsIndicesSubtotal : 0,
                 futuresSubtotal : 0,
+                forexSubtotal: 0,
                 totalCart : 0,
                 numItemsCart : 0
             };
@@ -1115,6 +1230,9 @@ angular.module('ngMo', [
                 }
                 else if (toParams.packCode.search(/.*-P-.*/)!=-1){
                     $scope.description=toState.name + "_pair_desc";
+                }
+                else if (toParams.packCode.search(/.*FOREX.*/) != -1) {
+                    $scope.descrition = toState.name +"_forex_desc";
                 }
                 else {
                     $scope.description=toState.name + "_stock_desc";
@@ -1565,6 +1683,11 @@ angular.module('ngMo', [
                         case 'FUTURE':
                             typeItem="futures";
                             typeItemNum = 4;
+                            break;
+                        case 'FOREX':
+                            typeItem="forex";
+                            typeItemNum= 5;
+                            break;
                     }
 
 
@@ -1618,6 +1741,12 @@ angular.module('ngMo', [
                         case 'FUTURE':
                             typeItem="futures";
                             typeItemNum = 4;
+                            break;
+                        case 'FOREX':
+                            typeItem="forex";
+                            typeItemNum=5;
+                            break;
+
                     }
                     item =$scope.changeDurationItem(pack,duration);
                     $scope.changeDurationCart(item,typeItemNum);
@@ -1638,6 +1767,7 @@ angular.module('ngMo', [
                     $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
                     $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
                     $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                    $scope.forexItems = ShoppingCartService.obtainCartItems('forex');
                     $scope.totalCart = ShoppingCartService.obtainTotalCart();
                     $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
                     $scope.subtotalStock = ShoppingCartService.obtainSubtotal('stocks');
@@ -1645,6 +1775,7 @@ angular.module('ngMo', [
                     $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                     $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                    $scope.subtotalForex = ShoppingCartService.obtainSubtotal('forex');
                 };
 
 
@@ -1687,6 +1818,7 @@ angular.module('ngMo', [
                 $scope.subtotalIndices = 0;
                 $scope.subtotalPairsIndices = 0;
                 $scope.subtotalFutures = 0;
+                $scope.subtotalForex = 0;
 
 
                 //By default we are going to load the cart from sessionStorage
@@ -1696,6 +1828,7 @@ angular.module('ngMo', [
                 $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
                 $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
                 $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                $scope.forexItems = ShoppingCartService.obtainCartItems('forex');
 
                 $scope.totalCart = ShoppingCartService.obtainTotalCart();
                 $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
@@ -1704,6 +1837,7 @@ angular.module('ngMo', [
                 $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                 $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                 $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                $scope.subtotalForex = ShoppingCartService.obtainSubtotal('forex');
 
                 //services from cart to my subscriptions
 
@@ -1713,7 +1847,8 @@ angular.module('ngMo', [
                         pairs: $scope.pairsItems,
                         index: $scope.indicesItems,
                         pairs_index: $scope.pairsIndicesItems,
-                        futures: $scope.futuresItems
+                        futures: $scope.futuresItems,
+                        forex: $scope.forexItems
                     };
                 };
                 //the param pack is already in the cart? then return it
@@ -1760,6 +1895,15 @@ angular.module('ngMo', [
                             if (pack.code === $scope.futuresItems[i].code) {
                                 if (startDate === $scope.futuresItems[i].startDate) {
                                     return $scope.futuresItems[i];
+                                }
+                            }
+                        }
+                    }
+                    if ((typeof $scope.forexItems != "undefined")) {
+                        for (i=0;i<$scope.forexItems.length;i++) {
+                            if (pack.code === $scope.forexItems[i].code) {
+                                if (startDate === $scope.forexItems[i].startDate) {
+                                    return $scope.forexItems[i];
                                 }
                             }
                         }
@@ -1821,6 +1965,16 @@ angular.module('ngMo', [
                             }
                         }
                     }
+                    if ((typeof $scope.forexItems != "undefined")) {
+                        for (i=0;i<$scope.forexItems.length;i++) {
+                            if (pack.code === $scope.forexItems[i].code) {
+                                if (startDate === $scope.forexItems[i].startDate) {
+                                    $scope.forexItems[i].duration = duration;
+                                    item = $scope.forexItems[i];
+                                }
+                            }
+                        }
+                    }
                     return item;
                 };
 
@@ -1872,11 +2026,13 @@ angular.module('ngMo', [
                     $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                     $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                    $scope.subtotalForex = ShoppingCartService.obtainSubtotal('forex');
                     $scope.stockItems = ShoppingCartService.obtainCartItems('stocks');
                     $scope.pairsItems = ShoppingCartService.obtainCartItems('pairs');
                     $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
                     $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
                     $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                    $scope.forexItems = ShoppingCartService.obtainCartItems('forex');
                     $scope.totalCart = ShoppingCartService.obtainTotalCart();
                     /*test
                     $scope.subtotalStock -= item.price;
@@ -1932,6 +2088,15 @@ angular.module('ngMo', [
                             //the item found is the same code, but not same startDate, check if the two packs are monthly
                             if (!(item.duration === "Mensual" && ($scope.futuresItems[i].duration === "Mensual"))) {
                                 $scope.removeItemFromCart('futures', $scope.futuresItems[i]);
+                            }
+                        }
+                    }
+                    //forex
+                    for (i=0;i<$scope.forexItems.length;i++) {
+                        if (($scope.forexItems[i].code == code) && (startDate != $scope.forexItems[i].startDate)) {
+                            //the item found is the same code, but not same startDate, check if the two packs are monthly
+                            if (!(item.duration === "Mensual" && ($scope.forexItems[i].duration === "Mensual"))) {
+                                $scope.removeItemFromCart('forex', $scope.forexItems[i]);
                             }
                         }
                     }
@@ -2050,6 +2215,26 @@ angular.module('ngMo', [
                                 }
                             }
                             break;
+                        case 5://forex
+                            for (i=0;i<$scope.forexItems.length;i++) {
+                                if (($scope.forexItems[i].code == code) && ($scope.forexItems[i].startDate == startDate)) {
+                                    item = $scope.forexItems[i];
+                                    switch ($scope.forexItems[i].duration) {
+                                        case "Mensual":
+                                            $scope.forexItems[i].price = $scope.forexItems[i].prices[0];
+                                            break;
+                                        case "Trimestral":
+                                            $scope.forexItems[i].price = $scope.forexItems[i].prices[1];
+                                            break;
+                                        case "Anual":
+                                            $scope.forexItems[i].price = $scope.forexItems[i].prices[2];
+                                            break;
+                                    }
+                                    ShoppingCartService.changeDuration($scope.forexItems[i],type);
+                                    break;
+                                }
+                            }
+                            break;
                         default :
                             break;
                     }
@@ -2059,6 +2244,7 @@ angular.module('ngMo', [
                     $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                     $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                    $scope.subtotalForex = ShoppingCartService.obtainSubtotal('forex');
                     $scope.deleteMultiplePacks(item);
 
                 };
@@ -2115,6 +2301,9 @@ angular.module('ngMo', [
                     }
                     if ((typeof $scope.futuresItems != "undefined")) {
                         totalList = totalList.concat($scope.futuresItems);
+                    }
+                    if ((typeof $scope.forexItems != "undefined")) {
+                        totalList = totalList.concat($scope.forexItems);
                     }
 
                     //if the item isnt in the cart add
@@ -2211,6 +2400,7 @@ angular.module('ngMo', [
                                     $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
                                     $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
                                     $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                                    $scope.forexItems = ShoppingCartService.obtainCartItems('forex');
                                     $scope.openCart();
                                     $scope.totalCart = ShoppingCartService.obtainTotalCart();
                                     $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
@@ -2219,6 +2409,7 @@ angular.module('ngMo', [
                                     $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                                     $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                                     $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                                    $scope.subtotalForex= ShoppingCartService.obtainSubtotal('forex');
                                     $scope.deleteMultiplePacks(item);//check that other pack is not here
 
                                     //save the cart into session
@@ -2236,6 +2427,7 @@ angular.module('ngMo', [
                             $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
                             $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
                             $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                            $scope.forexItems = ShoppingCartService.obtainCartItems('forex');
                             $scope.openCart();
                             $scope.totalCart = ShoppingCartService.obtainTotalCart();
                             $scope.numItemsCart = ShoppingCartService.obtainNumItemsCart();
@@ -2244,6 +2436,7 @@ angular.module('ngMo', [
                             $scope.subtotalIndices = ShoppingCartService.obtainSubtotal('indices');
                             $scope.subtotalPairsIndices = ShoppingCartService.obtainSubtotal('pairsIndices');
                             $scope.subtotalFutures = ShoppingCartService.obtainSubtotal('futures');
+                            $scope.subtotalForex = ShoppingCartService.obtainSubtotal('forex');
                             $scope.deleteMultiplePacks(item);//check that other pack is not here
 
                             //save the cart into session
@@ -2261,6 +2454,7 @@ angular.module('ngMo', [
                     $scope.indicesItems = ShoppingCartService.obtainCartItems('indices');
                     $scope.pairsIndicesItems = ShoppingCartService.obtainCartItems('pairsIndices');
                     $scope.futuresItems = ShoppingCartService.obtainCartItems('futures');
+                    $scope.forexItems = ShoppingCartService.obtainCartItems('forex');
                     $scope.totalCart = 0;
                     $scope.numItemsCart = 0;
                     $scope.subtotalStock = 0;
@@ -2339,6 +2533,16 @@ angular.module('ngMo', [
                                 dataCart.push(item);
                             }
                         }
+                        if ($scope.forexItems.length >0) {
+                            for (i=0;i<$scope.forexItems.length;i++) {
+                                item = {
+                                    duration: $scope.forexItems[i].duration,
+                                    code: $scope.forexItems[i].code,
+                                    start: $scope.forexItems[i].date
+                                };
+                                dataCart.push(item);
+                            }
+                        }
 
                         config = {
                             data: dataCart
@@ -2371,6 +2575,7 @@ angular.module('ngMo', [
                 $scope.$watch('indicesItems', function(){});
                 $scope.$watch('pairsIndicesItems', function(){});
                 $scope.$watch('futuresItems', function(){});
+                $scope.$watch('forexItems',function(){});
                 $scope.$watch('showCart', function(){});
                 $scope.$watch('numItemsCart', function(){});
                 $scope.$watch('totalCart', function(){});
