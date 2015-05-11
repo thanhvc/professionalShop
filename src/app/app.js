@@ -34,7 +34,8 @@ angular.module('ngMo', [
         'ngMo.renew',
         'tmh.dynamicLocale',
         'ngMo.changePassword',
-        'ngMo.faq'
+        'ngMo.faq',
+        'ngMo.Unsubscribe'
 ])
 
  .config(function config($locationProvider, $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
