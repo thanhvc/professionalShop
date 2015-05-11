@@ -134,11 +134,19 @@ angular.module('ngMo.my_profile', [
             $scope.emailPattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
             $scope.countries = [];
+            $scope.languages = [];
             SignUpService.getCountries(function(data) {
                 if (data.length>0) {
                     $scope.countries = data;
                 }
             });
+
+            ProfileService.getLanguages(function(data) {
+                if (data.length>0) {
+                    $scope.languages = data;
+                }
+            });
+            $scope.suscribed = false;
 
             $scope.actualPassword = "";
             $scope.passwordUser = "";
@@ -175,6 +183,7 @@ angular.module('ngMo.my_profile', [
                 ProfileService.loadUser(function (data, status) {
                     if (status === 200) {
                         $scope.user = data;
+                        $scope.suscribed= data.suscribed;
                         $scope.internalError = false;
                     } else {
                         $scope.internalError = true;
@@ -237,6 +246,25 @@ angular.module('ngMo.my_profile', [
                 });
 
 
+            };
+
+            $scope.changeSuscribed = function() {
+                ProfileService.changeSuscribed($scope.suscribed,function(data,status) {
+                    if (status == 200) {
+                        if (data.result == "ok") {
+                            $scope.userSaved = true;
+                            $timeout(function () {
+                                $scope.userSaved = false;
+                            }, 800);
+                            $scope.modalMessage("Se ha modificado su suscripción a correos con éxito","success");
+                            return;
+                        }
+                    }
+                    //error
+                    $scope.suscribedError = true;
+                    $scope.modalMessage("Ha ocurrido un error modificando su suscripción","error");
+
+                });
             };
 
             $scope.saveEmail = function () {
@@ -365,6 +393,21 @@ angular.module('ngMo.my_profile', [
                     callback(data, status);
                 });
         };
+
+        profileService.changeSuscribed = function (newValue, callback) {
+            //data = user;
+            token = $window.localStorage.token;
+            config = {
+                data: newValue
+            };
+            return $http.post($rootScope.urlService+'/user-suscription', config)
+                .success(function (data, status) {
+                    callback(data, status);
+                })
+                .error(function (data, status) {
+                    callback(data, status);
+                });
+        };
         profileService.editEmail = function (email, callback) {
             //data = user;
             token = $window.localStorage.token;
@@ -378,6 +421,14 @@ angular.module('ngMo.my_profile', [
                 .error(function (data, status) {
                     callback(data, status);
                 });
+        };
+
+        profileService.getLanguages = function(callback) {
+            return $http.get($rootScope.urlService+'/languages').success(function(data,status) {
+               callback(data);
+            }).error(function(data,status) {
+                callback(data);
+            });
         };
 
         return profileService;

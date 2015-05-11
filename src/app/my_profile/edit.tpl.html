@@ -1,6 +1,22 @@
 <div ng-controller="ProfileCtrl">
     <div class="orange-title" style="float: none;margin: 20px;">Acceso y seguridad</div>
 
+    <form name="suscribedForm" method="POST">
+        <table class="profile-table">
+            <tbody>
+            <tr><td colspan="4"><strong>Suscripción a emails</strong></td></tr>
+            <tr>
+                <td>
+                    Suscrito a emails:
+                </td>
+                <td>
+                    <input type="checkbox" ng-model="suscribed" ng-change="changeSuscribed();" />
+                </td>
+            </tr>
+            </tbody>
+            </table>
+    </form>
+
     <form name="passwordForm" method="POST" autocomplete="on">
     <table class="profile-table">
         <tbody>

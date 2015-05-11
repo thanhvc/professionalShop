@@ -96,6 +96,22 @@
                 </select>
             </td>
         </tr>
+        <tr class="accountRowHeight">
+            <td class="red-color-form">*</td>
+            <td class="width-first-td"><span class="grey-label">Idioma</span></td>
+            <td>
+                <select class="signup-select" name="language" size="1"
+                        ng-model="user.language"
+                        required="true"
+                        ng-class="{'warning-input': (profileForm.language.$error.required)}">
+                    <option ng-repeat="item in languages" value="{{item.value}}"
+                            ng-selected="{{item.value == user.language}}" ><!---->
+                        {{item.name}}
+                    </option>
+
+                </select>
+            </td>
+        </tr>
         <tr>
             <td colspan="2" style="padding-top: 13px;"><input class="mo-button"
                                                               name="confirmEdit"
