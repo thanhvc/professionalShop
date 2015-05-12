@@ -282,7 +282,7 @@ angular.module('ngMo.correlation', [
                     }
                     break;
                 case 2://INDEX
-                    if ($scope.filterOptions.filters.index_type === "0") {//SIMPLE INDEX
+                    if ($scope.filterOptions.filters.index_type === "0" || $scope.filterOptions.filters.index_type === 0) {//SIMPLE INDEX
                         if ((typeof $window.sessionStorage.correlationIndices !== "undefined") && ($window.sessionStorage.correlationIndices !== "undefined")) {
                             $scope.correlationList = angular.fromJson($window.sessionStorage.correlationIndices);
                         }else {
@@ -333,7 +333,7 @@ angular.module('ngMo.correlation', [
                     }
                     break;
                 case 2://INDEX
-                    if ($scope.filterOptions.filters.index_type === "0") {//SIMPLE INDEX
+                    if ($scope.filterOptions.filters.index_type === "0" ||  $scope.filterOptions.filters.index_type === 0) {//SIMPLE INDEX
                         if ((typeof $window.sessionStorage.correlationIndicesResult !== "undefined") && ($window.sessionStorage.correlationIndicesResult !== "undefined")) {
                             data = angular.fromJson($window.sessionStorage.correlationIndicesResult);
                         }
@@ -439,7 +439,7 @@ angular.module('ngMo.correlation', [
                     }
                     break;
                 case 2:
-                    if ($scope.filterOptions.filters.index_type === "0"){
+                    if ($scope.filterOptions.filters.index_type === "0" || $scope.filterOptions.filters.index_type === 0){
                         if (typeof $window.sessionStorage.correlationIndices === 'undefined'){
                             $window.sessionStorage.correlationIndices = [];
                            // $scope.pagingOptions.currentPage = 1;
@@ -489,7 +489,7 @@ angular.module('ngMo.correlation', [
 
                     break;
                 case 2:
-                    if ($scope.filterOptions.filters.index_type === "0"){
+                    if ($scope.filterOptions.filters.index_type === "0" || $scope.filterOptions.filters.index_type === 0){
                         if (typeof $window.sessionStorage.correlationIndicesResult === 'undefined'){
                             $window.sessionStorage.correlationIndicesResult = [];
                             // $scope.pagingOptions.currentPage = 1;
@@ -651,7 +651,7 @@ angular.module('ngMo.correlation', [
                     $window.sessionStorage.removeItem("correlationStockPairs");
                     break;
                 case 2:
-                    if ($scope.filterOptions.filters.index_type === "0"){
+                    if ($scope.filterOptions.filters.index_type === "0" || $scope.filterOptions.filters.index_type === 0){
                         $window.sessionStorage.removeItem("correlationIndices");
                     }else{
                         $window.sessionStorage.removeItem("correlationIndicePairs");
