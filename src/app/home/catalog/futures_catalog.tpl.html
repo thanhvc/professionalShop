@@ -41,7 +41,7 @@
                 </option>
             </select>-->
 
-            <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Grupo"
+            <input type="text" ng-model="filterOptions.filters.selectedIndustry" placeholder="Mercado"
                    typeahead="industry as industry.description for industry in filterOptions.selectors.industries | filter:{description:$viewValue}"
                    typeahead-on-select="selectIndustry()"
                    class="stocks-catalog-input">
@@ -151,7 +151,7 @@
                 </div>
             </td>
             <td class="border-right-thick-catalog prices-font10 emisor-td-width">
-                <div tooltip-html-unsafe="{{pattern.exchName}}" class="long-name-breaker" >
+                <div tooltip-html-unsafe="{{pattern.exchName}}" class="long-name-breaker" style="text-align:center;" >
                 <span class="cursor-help" >{{pattern.exchSymbol }}</span></div></td>
             <td class="index-number-of-years-gain-column-catalog border-right-fine-catalog prices-font10-bold">{{pattern.win | twoDecimals}}</td>
             <td class="index-number-of-years-loss-column-catalog border-right-thick-catalog prices-font10-bold">{{pattern.loss | twoDecimals}}</td>
