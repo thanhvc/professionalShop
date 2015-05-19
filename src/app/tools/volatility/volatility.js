@@ -409,6 +409,11 @@ angular.module('ngMo.volatility', [
         };
 
         $scope.callBackRefreshSelectors =  function (data) {
+            if (typeof data.active_tab != 'undefined') {
+                if (parseInt(data.active_tab,10) !== $scope.filterOptions.filters.active_tab) {
+                    return;//the active_tab of the request is not the actual active_tab
+                }
+            }
             //checks the data received, when a selector is refreshed, the value selected is also cleaned
             if (data.hasOwnProperty("regions")) {
                 $scope.filterOptions.selectors.regions = data.regions;
@@ -1039,7 +1044,8 @@ angular.module('ngMo.volatility', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'view': viewName
+                    'view': viewName,
+                    'active_tab': filtering.active_tab
                 }
             };
 

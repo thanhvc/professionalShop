@@ -711,6 +711,11 @@ angular.module('ngMo.correlation', [
         $scope.refreshSelectors = function (selectors) {
             $scope.loadingFilters = true;
             CorrelationService.getSelectors($scope.filterOptions.filters, selectors, function (data) {
+                if (typeof data.active_tab != 'undefined') {
+                    if (parseInt(data.active_tab,10) !== $scope.filterOptions.filters.active_tab) {
+                        return;//the active_tab of the request is not the actual active_tab
+                    }
+                }
                 //checks the data received, when a selector is refreshed, the value selected is also cleaned
                 if (data.hasOwnProperty("markets")) {
                     $scope.filterOptions.selectors.markets = data.markets;
@@ -1228,7 +1233,8 @@ angular.module('ngMo.correlation', [
                     'indexType': indexType,
                     'month': filtering.month.month,
                     'year': filtering.month.year,
-                    'view': location.hash.replace("#/","").substring(0, (location.hash.indexOf("?")-2))
+                    'view': location.hash.replace("#/","").substring(0, (location.hash.indexOf("?")-2)),
+                    'active_tab':filtering.active_tab
                 }
             };
 
