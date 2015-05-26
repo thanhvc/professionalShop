@@ -193,7 +193,7 @@ angular.module('ngMo.my_patterns', [
         };
 
     })
-    .controller('PatternsCtrl', function PatternsCtrl(now,$timeout,$window,$q,$filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate,$translateCookieStorage) {
+    .controller('PatternsCtrl', function PatternsCtrl(LangService,now,$timeout,$window,$q,$filter,$scope, $http, $state, $stateParams, $location, TabsService, ActualDateService, PatternsService, MonthSelectorService, IsLogged, /*myPatternsData,*/ SelectedMonthService, ExpirationYearFromPatternName, UserApplyFilters, $rootScope, $translatePartialLoader, $translate,$translateCookieStorage) {
         $scope.tabs = TabsService.getTabs();
         $scope.dataLoaded = false;
         $scope.loading = true;//loading patterns
@@ -1072,7 +1072,8 @@ angular.module('ngMo.my_patterns', [
                     'volatilityInput': filtering.volatilityInput,
                     'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
                     'durationInput': filtering.durationInput,
-                    'favourites': filtering.favourite
+                    'favourites': filtering.favourite,
+                    'lang': LangService.getLang()
                 }
             };
 

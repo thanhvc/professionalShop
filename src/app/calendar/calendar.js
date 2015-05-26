@@ -685,7 +685,7 @@ angular.module('ngMo.calendar', [
         };
     })
 
-    .service("CalendarService", function ($http, $window, $rootScope, $q) {
+    .service("CalendarService", function (LangService,$http, $window, $rootScope, $q) {
 
         /*make the string with the params for all the properties of the filter*/
         this.createParamsFromFilter = function (filtering) {
@@ -727,7 +727,8 @@ angular.module('ngMo.calendar', [
                     'region': filtering.selectedRegion,
                     'market': filtering.selectedMarket,
                     'operation': (filtering.selectedOperation  ? filtering.selectedOperation.id : ""),
-                    'favourites': filtering.favourite
+                    'favourites': filtering.favourite,
+                    'lang': LangService.getLang()
                 }
             };
 
@@ -817,7 +818,8 @@ angular.module('ngMo.calendar', [
                     'market': filtering.selectedMarket,
                     'region': filtering.selectedRegion,
                     'operation': filtering.selectedOperation,
-                    'fav': filtering.favourite
+                    'fav': filtering.favourite,
+                    'lang': LangService.getLang()
                 }
             };
 

@@ -41,7 +41,7 @@ angular.module('ngMo.historic', [
     .run(function run() {
     })
 
-    .controller('HistoricCtrl', function ($modal,$timeout,$q,$filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
+    .controller('HistoricCtrl', function (LangService,$modal,$timeout,$q,$filter,$scope, $rootScope, $http, $state, $stateParams, $location, TabsService, ActualDateService,
                                           MonthSelectorHistoricService, IsLogged, HistoricsService,SelectedMonthHistoricService, ExpirationYearFromPatternName,UserApplyFilters,$translatePartialLoader,now) {
         $scope.$on('$stateChangeStart', function (event, toState) {
             IsLogged.isLogged(true);
@@ -894,7 +894,8 @@ angular.module('ngMo.historic', [
                     'volatilityInput': filtering.volatilityInput,
                     'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
                     'durationInput': filtering.durationInput,
-                    'favourites': filtering.favourite
+                    'favourites': filtering.favourite,
+                    'lang': LangService.getLang()
                 }
             };
 

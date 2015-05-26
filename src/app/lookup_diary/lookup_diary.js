@@ -41,7 +41,7 @@ angular.module('ngMo.lookup_diary', [
     .run(function run() {
     })
 
-    .controller('LookupDiaryCtrl', function ($q,$filter,$scope, IsLogged, TabsService, ActualDateService, MonthSelectorDiaryService,$timeout,
+    .controller('LookupDiaryCtrl', function (LangService,$q,$filter,$scope, IsLogged, TabsService, ActualDateService, MonthSelectorDiaryService,$timeout,
                                              LookupDiaryService, $http, $state, $stateParams, $location,
                                              $modal,SelectedMonthDiaryService,PatternsService, ExpirationYearFromPatternName,UserApplyFilters, $rootScope, $translatePartialLoader,now) {
         $scope.$on('$stateChangeStart', function (event, toState) {
@@ -1058,7 +1058,8 @@ angular.module('ngMo.lookup_diary', [
                     'volatilityInput': filtering.volatilityInput,
                     'duration':  (filtering.selectedDuration  ? filtering.selectedDuration.id : ""),
                     'durationInput': filtering.durationInput,
-                    'favourites': filtering.favourite
+                    'favourites': filtering.favourite,
+                    'lang': LangService.getLang()
                 }
             };
 

@@ -252,7 +252,7 @@ angular.module('ngMo.detail', [
 
     })
 
-    .service("DetailService", function ($http, $window, $rootScope, $q) {
+    .service("DetailService", function ($http, $window, $rootScope, $q,LangService) {
 
         /*Function to load info from server, receives the pageSize, number of page, and the filter object (that have all the filters inside)*/
         this.getPagedDataAsync = function (patternId) {
@@ -279,7 +279,8 @@ angular.module('ngMo.detail', [
             config = {
                 headers: {
                     'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'lang': LangService.getLang()
+                    /*'token': $window.localStorage.token*/
                 }
             };
 
@@ -298,7 +299,8 @@ angular.module('ngMo.detail', [
             config = {
                 headers: {
                     'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'lang': LangService.getLang()
+                    /*'token': $window.localStorage.token*/
                 }
             };
 
@@ -316,7 +318,8 @@ angular.module('ngMo.detail', [
             config = {
                 headers: {
                     'patternId': patternId,
-                    'token': $window.localStorage.token
+                    'lang': LangService.getLang()
+                    /*'token': $window.localStorage.token*/
                 }
             };
 
