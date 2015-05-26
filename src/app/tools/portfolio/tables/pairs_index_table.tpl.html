@@ -3,7 +3,7 @@
         <thead>
         <tr>
             <td>Id</td>
-            <td>{{'TOOLS.name'|translate}}</td>
+            <td>{{'TOOLS.name_indexes'|translate}}</td>
             <td>{{'TOOLS.month'|translate}}</td>
             <td>{{'TOOLS.remove'|translate}}</td>
         </tr>
@@ -12,10 +12,10 @@
         <tr ng-repeat="pattern in myData"  ng-class="{'disabled-asset': !pattern.toUse}">
             <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
             <td class="pair-index-lenght-table">
-                <div tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="text-limitator">
+                <div style="text-align: left;" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="text-limitator">
                 <span class="buy-color cursor-help"
                        >{{pattern.name}}</span>
-                </div><div tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})" class="text-limitator">
+                </div><div style="text-align: left;" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})" class="text-limitator">
                 <span class="sell-color cursor-help"
                       >{{pattern.name2}}</span>
             </div>
@@ -41,7 +41,7 @@
             <thead>
             <tr>
                 <td>Id</td>
-                <td>{{'TOOLS.name'|translate}}</td>
+                <td>{{'TOOLS.name_indexes'|translate}}</td>
                 <td>{{'TOOLS.month'|translate}}</td>
                 <td><span tooltip="{{'TOOLS.favorite_long'|translate}}" class="cursor-help">{{'TOOLS.favorite_short'|translate}}</span></td>
                 <td>{{'TOOLS.remove'|translate}}</td>
@@ -51,10 +51,10 @@
             <tr ng-repeat="pattern in portfolioList">
                 <td class="cursor-pointer" ui-sref="pairDetail({patternId:pattern.id})">{{pattern.id}}</td>
                 <td class="pair-index-lenght-table">
-                    <div tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="text-limitator">
+                    <div style="text-align: left;" tooltip="{{pattern.name}} ({{pattern.exchSymbol}})" class="text-limitator">
                     <span class="buy-color cursor-help"
                               >{{pattern.name }}</span>
-                     </div><div tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})" class="text-limitator">
+                     </div><div style="text-align: left;" tooltip="{{pattern.name2}} ({{pattern.exchSymbol2}})" class="text-limitator">
                     <span class="sell-color cursor-help"
                             >{{pattern.name2 }}</span></div>
                 </td>
