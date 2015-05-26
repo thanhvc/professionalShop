@@ -2,6 +2,8 @@
     "CALENDAR":{
         "buyCaption": "Long or buy",
         "sellCaption": "Short or sell",
+        "bearishCaption": "Short or Bearish",
+        "bullishCaption": "Long or Bullish",
         "accept":"Accept",
         "bearish":"Bearish",
         "bullish":"Bullish",
