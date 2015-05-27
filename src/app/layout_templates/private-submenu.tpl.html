@@ -1,4 +1,25 @@
 <!-- SubMenu que se muestra en la parte privada cuando el usuario está logueado -->
+<ul id="submenuProf" class="private-submenu"
+    ng-class="{'display-block': actualSubmenu == 'submenuProf' || selectSubmenu == 'submenuProf', 'display-none': actualSubmenu != 'submenuProf' || selectSubmenu!= 'submenuProf'}">
+    <li id="search-nav"
+        ng-click="onClickSubmenu('search-nav')"
+        ng-mouseenter="onMouseEnterSubmenu('prof-nav','submenuProf','search-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="search"
+           ng-class="{'item-nav-hover': selectItemSubmenu == 'search-nav' || actualItemSubmenu == 'search-nav'}">
+            Buscador
+        </a>
+    <li id="correlation-nav"
+        ng-click="onClickSubmenu()"
+        ng-mouseenter="onMouseEnterSubmenu('prof-nav','submenuProf','correlation-nav')"
+        ng-mouseleave="onMouseLeaveSubmenu()">
+        <a ui-sref="correlation"  ng-class="{'item-nav-hover': selectItemSubmenu == 'correlation-nav'
+            || actualItemSubmenu == 'correlation-nav'}">
+            Buscador Patrones
+        </a>
+    </li>
+
+</ul>
 
 <ul id="submenu1" class="private-submenu"
     ng-class="{'display-block': actualSubmenu == 'submenu1' || selectSubmenu == 'submenu1', 'display-none': actualSubmenu != 'submenu1' || selectSubmenu!= 'submenu1'}">
