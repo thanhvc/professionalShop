@@ -1,0 +1,72 @@
+<div class="content">
+    <div class="super-border private-black-title">
+        Buscador de Patrones
+    </div>
+
+    <div style="clear: both;">
+
+
+        <tabset>
+            <tab ng-click="changeTab(ctab.value);" ng-repeat="ctab in tabs"  heading="{{ctab.title | translate}}"
+                 active="ctab.active" ><!--heading="{{ctab.title| translate}}"-->
+                <div class="black-head header-month-filter">
+                    <div class="blue-month-selector" ng-click="previousMonth()" ng-show="canMove(-1)"><<</div>
+                    <div style="float:left; text-transform:uppercase;">{{filters.selected_month.monthString | translate}}{{ " " + filters.selected_month.year}}</div>
+                    <div ng-click="nextMonth()" class="blue-month-selector" ng-show="canMove(1)">>></div>
+
+                    <div>
+                        <select class="border-filters select-filter month-filter" style="float: right"
+                                data-ng-model="filters.selected_month"
+                                ng-change="goToMonth()"
+                                ng-options="(item.monthString | translate| uppercase ) +' '+item.year for item in months"
+                                > <!-- | translate-->
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-container">
+                    <!--filters-->
+                    <div ng-include="getTemplateFilter()"></div>
+                </div>
+                <div class="loading-div-container">
+                    <div ng-include="getTemplateTable()"></div>
+                    <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>{{ 'loading_patters' | translate}}</span></div>
+                    <div class="no-patterns-container" ng-show="patterns.length==0 && !loading && appliedFilters">{{ 'MY_PATT.no_patterns_with_condition' | translate}}</div>
+                    <!--<div class="no-patterns-container" ng-show="patterns.length==0 && !loading && !appliedFilters">{{ 'MY_PATT.no_patterns_in_month' | translate}}</div>-->
+
+
+
+                    <!--footer-->
+                    <div class="footer-table-private">
+                        <div class="total-patterns">
+                            <span>Total:</span>
+                            <span>{{results}}</span>
+                        </div>
+                        <div class="found-patterns">
+                            <span>Encontrados:</span>
+                            <span>{{found}}</span>
+                        </div>
+                        <button style="float:right; position: relative; top: -2px;" class="mo-button"
+                                ng-click="restoreData()">Mostrar Todos
+                        </button>
+                    </div>
+                </div>
+                <div class="copyright">
+                    Copyright &copy; {{actualDate | date: 'yyyy'}} Market Observatory
+                </div>
+
+            </tab>
+        </tabset>
+
+        <!--pagination-->
+        <div class="pagination-container" ng-show="found > pagingOptions.pageSize" style="margin-top:72px; clear:both; margin-bottom:20px;">
+            <pagination boundary-links="true" on-select-page="setPage(page);" total-items="found"
+                        items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                        page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                        next-text="&gt;"
+                        first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+        </div>
+
+    </div>
+
+</div>
+

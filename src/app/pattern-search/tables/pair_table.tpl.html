@@ -1,0 +1,119 @@
+<div>
+
+
+    <table   class="table-pattern-no-hover search-table-widths" ng-show="patterns.length>0" cellspacing="0">
+        <!--HEADER-->
+        <thead>
+        <tr class="table-header-top-patterns">
+            <th class="border-right-heavy">
+                Icono
+            </th>
+            <th class="border-right-heavy">
+                Accion
+            </th>
+            <th class="border-right-heavy">
+                Merc.
+            </th>
+            <th colspan="2" class="border-right-heavy">
+                fechas
+            </th>
+            <th colspan="2" class="border-right-heavy">
+                Rentabilidad(%)
+            </th>
+
+            <th class="border-right-heavy">
+                P.Per.
+            </th>
+            <th class="border-right-heavy">
+                Fallos
+            </th>
+            <th class="border-right-heavy">
+                DW
+            </th>
+            <th>
+                Dur.
+            </th>
+
+        </tr>
+        <tr class="table-header-bottom-patterns">
+            <th class="border-right-heavy">
+
+            </th>
+            <th class="border-right-heavy">
+                Nombre
+            </th>
+            <th class="border-right-heavy">
+
+            </th>
+            <th class="border-right-light">
+                entrada
+            </th>
+            <th class="border-right-heavy">
+                salida
+            </th>
+            <th class="border-right-light">
+                Acum.
+            </th>
+            <th class="border-right-heavy">
+                Dia.
+            </th>
+
+            <th class="border-right-heavy">
+                P.Per.
+            </th>
+            <th class="border-right-heavy">
+                Fallos
+            </th>
+            <th class="border-right-heavy">
+                DW
+            </th>
+            <th>
+                Dias
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-show="dataLoaded" ng-repeat="data in patterns" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'"
+            ui-sref="detail({patternId:data.id})">
+            <td class="border-right-heavy">
+                {{data.symbol}}
+            </td>
+
+            <td class="border-right-heavy" style="text-align: left;">
+                <span>{{'buy' | translate}} </span><span class="buy-color">{{data.name}}</span><br>
+                <span>{{'sell' | translate}} </span><span class="sell-color">{{data.name2}}</span>
+            </td>
+            <td class="border-right-heavy">
+                <span class="buy-color">{{data.exchange}}</span><br>
+                <span class="sell-color">{{data.exchange2}}</span>
+            </td>
+            <td class="border-right-light">
+                {{data.entry}}
+            </td>
+            <td class="border-right-heavy">
+                {{data.exit}}
+            </td>
+            <td class="border-right-light">
+                {{data.acum}}
+            </td>
+            <td class="border-right-heavy">
+                {{data.daily}}
+            </td>
+            <td class="border-right-heavy">
+                {{data.loss}}
+            </td>
+            <td class="border-right-heavy">
+                {{data.fails}}
+            </td>
+            <td class="border-right-heavy">
+                {{data.dw}}
+            </td>
+            <td>{{data.duration}}
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>

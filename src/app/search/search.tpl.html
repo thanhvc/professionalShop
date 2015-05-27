@@ -1,0 +1,62 @@
+<div class="content">
+    <div class="super-border private-black-title">
+        Buscador
+    </div>
+
+    <div style="clear: both;">
+        <div style="margin-bottom: 20px; padding-top:20px; padding-left:5px;">
+            <input ng-model="filters.name" ng-enter="search()">
+            <button class="mo-button" ng-click="search()">Buscar</button>
+        </div>
+
+        <tabset>
+            <tab ng-click="changeTab(ctab.value);" ng-repeat="ctab in tabs"  heading="{{ctab.title | translate}} {{getCounterTab(ctab.value)}}"
+                 active="ctab.active" ><!--heading="{{ctab.title| translate}}"-->
+
+                <div class="filter-container">
+                    <!--filters-->
+                    <div style="height: 40px;" ng-include="getTemplateFilter()"></div>
+                </div>
+                <div class="loading-div-container">
+                    <div ng-include="getTemplateTable()"></div>
+                    <div class="loading-div no-patterns-container" ng-show="loading"><img src="assets/img/ajax-loader.gif"><span>{{ 'MY_PATT.loading_patters' | translate}}</span></div>
+                    <div class="no-patterns-container" ng-show="myData.length==0 && !loading && appliedFilters">{{ 'MY_PATT.no_patterns_with_condition' | translate}}</div>
+                    <!--<div class="no-patterns-container" ng-show="myData.length==0 && !loading && !appliedFilters">{{ 'MY_PATT.no_patterns_in_month' | translate}}</div>-->
+
+
+
+                    <!--footer-->
+                    <div class="footer-table-private">
+                        <div class="total-patterns">
+                            <span>Total:</span>
+                            <span>{{results}}</span>
+                        </div>
+                        <div class="found-patterns">
+                            <span>Encontrados:</span>
+                            <span>{{found}}</span>
+                        </div>
+                        <!--<button style="float:right; position: relative; top: -2px;" class="mo-button"
+                                ng-click="restoreData()">Mostrar Todos
+                        </button>-->
+                    </div>
+                </div>
+                <div class="copyright">
+                    Copyright &copy; {{actualDate | date: 'yyyy'}} Market Observatory
+                </div>
+
+            </tab>
+        </tabset>
+
+        <!--pagination-->
+        <div class="pagination-container" ng-show="found > pagingOptions.pageSize" style="margin-top:72px; clear:both; margin-bottom:20px;">
+            <pagination boundary-links="true" on-select-page="setPage(page);" total-items="found"
+                        items-per-page="pagingOptions.pageSize" max-size="pagingOptions.pageSize"
+                        page="pagingOptions.currentPage" class="pagination-sm" previous-text="&lt;"
+                        next-text="&gt;"
+                        first-text="&lt;&lt;" last-text="&gt;&gt;"></pagination>
+        </div>
+
+    </div>
+
+</div>
+

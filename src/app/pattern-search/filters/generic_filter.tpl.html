@@ -1,0 +1,201 @@
+<div >
+<table class="filter-container-pattern-type">
+    <tr>
+        <td>
+            <input ng-keypress="submitName($event)" style="margin-top:16px;" class="border-filters input-filter" placeholder="Nombre"
+                   ng-model="filters.name">
+        </td>
+        <td style="width: 80px;">
+            <select ng-change="selectType()" ng-model="filters.pattern_type" class="orange-select">
+                <option value="0">{{'SIMPLES'|translate}}</option>
+                <option value="1">{{'PAIRS'|translate}}</option>
+            </select>
+        </td>
+        <td>
+            <select ng-change="selectMarket()" class="border-filters select-filter" ng-if="!loadingFilters"
+                    data-ng-model="filters.selectedMarket"
+                    style="margin-top:16px; margin-right: 0px;"
+                    ng-disabled="selectors.markets.length <= 0">
+                <option value="">- {{'market' | translate}} -</option>
+                <option ng-repeat="item in selectors.markets | orderBy:['ordering']" value="{{item.id}}"
+                        ng-selected="{{item.id == filters.selected_market}}">
+                    {{item.description}}
+                </option>
+            </select>
+            <select class="border-filters select-filter" ng-if="loadingFilters" disabled="true">
+                <option value="">- {{ 'LOADING'}} -</option>
+            </select>
+        </td>
+        <!--<td>
+            <select ng-disabled="selectors.sectors.length <= 0" ng-change="selectSector()" class="border-filters select-filter" ng-if="!loadingFilters"
+                    data-ng-model="filters.selectedSector">
+                <option value="">- {{'MY_PATT.sector'|translate}} -</option>
+                <option ng-repeat="item in selectors.sectors | orderBy:['ordering']" value="{{item.id}}"
+                        ng-selected="{{item.id == filters.selectedSector}}">
+                    {{item.id | sectorNameFromId |translate}}
+                </option>
+            </select>
+            <select  class="border-filters select-filter" ng-if="loadingFilters" disabled="true"
+                    >
+                <option value="">- {{ 'LOADING'|translate}} -</option>
+            </select>
+        </td>-->
+        <!-- <td>
+             <select ng-disabled="selectors.industries.length <= 0" ng-change="selectIndustry()" class="border-filters select-filter" ng-if="!loadingFilters"
+                     data-ng-model="filters.selectedIndustry">
+                 <option value="">- {{'MY_PATT.industry'|translate}} -</option>
+                 <option ng-repeat="item in selectors.industries | orderBy:['ordering']" value="{{item.id}}"
+                         ng-selected="{{item.id == filters.selectedIndustry}}" >
+                     {{item.id | industryNameFromId |translate}}
+                 </option>
+             </select>
+             <select  class="border-filters select-filter" ng-if="loadingFilters" disabled="true"
+                     >
+                 <option value="">- {{ 'LOADING'|translate}} -</option>
+             </select>
+        </td>-->
+        <td >
+            <span class="filter-label-select">Entrada</span><br>
+            <select class="border-filters select-filter small-select-filter"
+                    ng-options="item.description|translate for item in selectors.comparators"
+                    data-ng-model="filters.entry_date_op">
+                <option value="">- {{'select' | translate}} -</option>
+
+            </select>
+            <input name="entryInput" class="border-filters input-filter small-input-filter" placeholder=""
+                   style="width:50px;"
+                   ng-pattern="daysPattern" ng-trim="false"
+                   ng-class=" {'warning-input':  (rentForm.entryInput.$error.pattern && (rentForm.entryInput.$dirty))}"
+                   data-ng-model="filters.entry_date">
+        </td>
+
+        <td >
+            <span class="filter-label-select">Salida</span><br>
+            <select class="border-filters select-filter small-select-filter"
+                    ng-options="item.description|translate for item in selectors.comparators"
+                    data-ng-model="filters.exit_date_op">
+                <option value="">- {{'select' | translate}} -</option>
+
+            </select>
+            <input name="exitInput" class="border-filters input-filter small-input-filter" placeholder=""
+                   ng-pattern="daysPattern" ng-trim="false" style="width:50px;"
+                   ng-class=" {'warning-input':  (rentForm.exitInput.$error.pattern && (rentForm.exitInput.$dirty))}"
+                   data-ng-model="filters.exit_date">
+        </td>
+        <td >
+            <span class="filter-label-select">DrawDown</span><br>
+            <select class="border-filters select-filter small-select-filter"
+                    ng-options="item.description|translate for item in selectors.comparators"
+                    data-ng-model="filters.drawdown_op">
+                <option value="">- {{'select' | translate}} -</option>
+
+            </select>
+            <input name="entryInput" class="border-filters input-filter small-input-filter" placeholder=""
+                   style="width:50px;"
+                   ng-pattern="daysPattern" ng-trim="false"
+                   ng-class=" {'warning-input':  (rentForm.entryInput.$error.pattern && (rentForm.entryInput.$dirty))}"
+                   data-ng-model="filters.drawdown">
+        </td>
+        <td>
+            <select ng-change="search()" style="width: 100px; margin-top:16px; margin-right: 5px;" class="border-filters select-filter"
+                    ng-options="item.description|translate for item in selectors.operations"
+
+                    data-ng-model="filters.operation">
+                <option value="">- {{'operation' | translate}} -</option>
+            </select>
+        </td>
+    </tr>
+</table>
+<form name="rentForm">
+    <table>
+        <tr>
+            <td>
+
+                <span class="filter-label-select">Renta Acumulada</span><br>
+                <select class="border-filters select-filter small-select-filter"
+
+                        ng-options="item.description|translate for item in selectors.comparators"
+                        data-ng-model="filters.accumulated_op">
+                    <option value="">- {{'select' | translate}} -</option>
+
+                </select>
+
+                <input name="rentInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                       ng-class=" {'warning-input':  (rentForm.rentInput.$error.pattern && (rentForm.rentInput.$dirty))}"
+                       ng-pattern="rentPattern" ng-trim="false"
+                       data-ng-model="filters.accumulated">
+
+            </td>
+
+            <td>
+                <span class="filter-label-select">Renta Diaria</span><br>
+                <select class="border-filters select-filter small-select-filter"
+                        ng-options="item.description|translate for item in selectors.comparators"
+                        data-ng-model="filters.daily_op">
+                    <option value="">- {{'select' | translate}} -</option>
+
+                </select>
+                <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
+                       ng-pattern="rentPattern" ng-trim="false"
+                       ng-class=" {'warning-input':  (rentForm.rentDiaryInput.$error.pattern && (rentForm.rentDiaryInput.$dirty))}"
+                       data-ng-model="filters.daily">
+            </td>
+            <td>
+                <span class="filter-label-select">Peor pérdida</span><br>
+                <select class="border-filters select-filter small-select-filter"
+                        ng-options="item.description|translate for item in selectors.comparators"
+                        data-ng-model="filters.loss_op">
+                    <option value="">- {{'select' | translate}} -</option>
+                </select>
+                <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                       ng-pattern="rentPattern" ng-trim="false"
+                       ng-class=" {'warning-input':  (rentForm.rentAverageInput.$error.pattern && (rentForm.rentAverageInput.$dirty))}"
+                       data-ng-model="filters.loss">
+            </td>
+            <td>
+                <span class="filter-label-select">Fallos</span><br>
+                <select class="border-filters select-filter small-select-filter"
+                        ng-options="item.description|translate for item in selectors.comparators"
+                        data-ng-model="filters.fail_op">
+                    <option value="">- {{'select' | translate}} -</option>
+
+                </select>
+                <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
+                       ng-pattern="rentPattern" ng-trim="false"
+                       ng-class=" {'warning-input':  (rentForm.volatilityInput.$error.pattern && (rentForm.volatilityInput.$dirty))}"
+                       data-ng-model="filters.fail">
+            </td>
+            <td>
+                <span class="filter-label-select">Duracion (dias)</span><br>
+                <select class="border-filters select-filter small-select-filter"
+                        ng-options="item.description|translate for item in selectors.comparators"
+                        data-ng-model="filters.duration_op">
+                    <option value="">- {{'select' | translate}} -</option>
+
+                </select>
+                <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="dias"
+                       ng-pattern="daysPattern" ng-trim="false"
+                       ng-class=" {'warning-input':  (rentForm.durationInput.$error.pattern && (rentForm.durationInput.$dirty))}"
+                       data-ng-model="filters.duration">
+            </td>
+            <td>
+                <table style="position: relative; left: -15px;">
+                    <tr>
+                        <!--  <td style="text-align: center;"><span class="filter-label-select">{{'MY_PATT.favorite_long'|translate}}</span><br>
+                              <input type="checkbox" ng-change="search();"
+                                     ng-model="filters.favourite">
+                          </td>-->
+
+                        <td style="vertical-align: bottom; text-align: center;">
+                            <button class="mo-button" ng-click="search()">Buscar</button>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </td>
+        </tr>
+
+    </table>
+</form>
+</div>

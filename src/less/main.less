@@ -456,7 +456,19 @@ b , strong {
   }
 }
 
-
+/*borders*/
+.border-right-light {
+  border-right: 1px solid @greyLabel;
+}
+.border-right-heavy {
+  border-right: 2px solid @greyLabel;
+}
+.border-right-black-light {
+  border-right: 1px solid @black;
+}
+.border-right-black-heavy {
+  border-right: 2px solid @black;
+}
 .item-nav-hover {
   background-color: @orangeColor;
   color: @white;
@@ -2655,3 +2667,4 @@ color: @darkBlue2;
 @import '../app/payment/payment.less';
 @import '../app/historic/historic.less';
 @import '../app/market_observatory/market_observatory.less';
+@import '../app/search/search.less';

@@ -1,0 +1,38 @@
+<div>
+
+
+    <table   class="table-pattern-no-hover search-table-widths" ng-show="myData.length>0" cellspacing="0">
+        <!--HEADER-->
+        <thead>
+        <tr class="table-black-header">
+            <th class="border-right-black-light">
+                Symbol
+            </th>
+            <th class="border-right-black-light">
+                Nombre Largo
+            </th>
+            <th >
+                Mercado
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-show="dataLoaded" ng-repeat="data in myData" ng-class-even="'ngRow-even'" ng-class-odd="'ngRow-odd'"
+            ui-sref="detail({patternId:data.id})">
+            <td class="border-right-black-light">
+                {{data.symbol}}
+            </td>
+
+            <td class="border-right-black-light">
+                {{data.name}}
+            </td>
+            <td>
+                {{data.exchange}}
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>

@@ -255,6 +255,7 @@
 }
 
 .table-pattern {
+  width: 100%;
   /*- for firefox -*/
   margin-top: 3px;
   border-collapse: separate;
@@ -275,6 +276,32 @@
     }
 
 
+  }
+}
+
+.table-pattern-no-hover {
+  /*- for firefox -*/
+  /*margin-top: 3px;
+  /*border-collapse: separate;*/
+  width: 100%;
+  thead {
+    tr{
+      border-left: 1px solid @greyLabel;
+      border-right: 1px solid @greyLabel;
+    }
+  }
+  tbody{
+    position: relative;
+    tr{
+      border-left: 1px solid @greyLabel;
+      border-right: 1px solid @greyLabel;
+      td{
+        padding: 0 5px;
+        text-align: center;
+        font-family: fontpo;
+        font-size: 10px;
+      }
+    }
   }
 }
 

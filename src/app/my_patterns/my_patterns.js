@@ -38,9 +38,9 @@ angular.module('ngMo.my_patterns', [
             }
         });
     })
-    .service('TabsService', function ($rootScope) {
+    /*.service('TabsService', function ($rootScope) {
 
-        /**Tabs services for private zone**/
+
         var tabs = [
             {
                 title: 'STOCKS',
@@ -163,7 +163,7 @@ angular.module('ngMo.my_patterns', [
             }
             activeTab = active;
         };
-    })
+    })*/
 
     .service("UserApplyFilters", function () {
 

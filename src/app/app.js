@@ -35,7 +35,10 @@ angular.module('ngMo', [
         'tmh.dynamicLocale',
         'ngMo.changePassword',
         'ngMo.faq',
-        'ngMo.Unsubscribe'
+        'ngMo.Unsubscribe',
+        'ngPF.patternSearch',
+    'ngPF.search'
+
 ])
 
  .config(function config($locationProvider, $stateProvider, $urlRouterProvider,$translateProvider,$translatePartialLoaderProvider,tmhDynamicLocaleProvider) {
@@ -109,8 +112,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope,$translate,$translateCookieStorage,$location) {
-        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-        //$rootScope.urlService = 'http://localhost:9000';
+        //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+        $rootScope.urlService = 'http://localhost:9000';
 
 
         /**
@@ -132,7 +135,183 @@ angular.module('ngMo', [
 
 
     })
+    .service('LangService', function() {
+        var selectedLang = "es";
+        this.setLang = function(lang) {
+            selectedLang = lang;
+        };
+        this.getLang =function() {
+            return selectedLang;
+        };
 
+    })
+    .service('TabsService', function ($rootScope) {
+
+        /**Tabs services for private zone**/
+        var tabs = [
+            {
+                title: 'STOCKS',
+                active: activeTab === 0,
+                value: 0
+            },
+            {
+                title: 'PAIRS',
+                active: activeTab === 1,
+                value: 1
+            },
+            {
+                title: 'INDICES',
+                active: activeTab === 2,
+                value: 2
+            },
+            {
+                title: 'FUTURES',
+                active: activeTab === 3,
+                value: 3
+            },
+            {
+                title: 'FOREX',
+                active: activeTab ===4,
+                value: 4
+            }];
+
+        var searchTabs = [
+            {
+                title: 'STOCKS',
+                active: activeTab === 0,
+                value: 0
+            },
+            {
+                title: 'INDICES',
+                active: activeTab === 1,
+                value: 1
+            },
+            {
+                title: 'FUTURES',
+                active: activeTab === 2,
+                value: 2
+            },
+            {
+                title: 'FOREX',
+                active: activeTab === 3,
+                value: 3
+            }];
+
+
+
+        var searchPatternTabs = [
+            {
+                title: 'STOCKS',
+                active: activeTab === 0,
+                value: 0
+            },
+            {
+                title: 'PAIRS',
+                active: activeTab === 1,
+                value: 1
+            },
+            {
+                title: 'INDICES',
+                active: activeTab === 2,
+                value: 2
+            },
+            {
+                title: 'FUTURES',
+                active: activeTab === 3,
+                value: 3
+            },
+            {
+                title: 'FOREX',
+                active: activeTab === 4,
+                value: 4
+            }
+
+        ];
+
+        var indexTypes = [
+            {
+                title: "INDICES",
+                active: activeIndex === 0,
+                value: 0
+            },
+            {
+                title: "INDEX_PAIRS",
+                active: activeIndex === 1,
+                value: 1
+
+            }
+        ];
+
+        var activeTab = 0;
+        var activeSearchTab=0;
+        var activeIndex = 0;
+        var porfolioFlag = false;
+
+        this.getIndexType = function () {
+            return indexTypes;
+        };
+
+        this.getActiveIndexType = function () {
+            return activeIndex;
+        };
+
+        this.changeActiveIndexType = function (active) {
+            activeIndex = active;
+        };
+
+        this.getTabs = function () {
+            if (porfolioFlag) {
+                if (activeTab === 3){
+                    activeTab = 2;
+                }
+                porfolioFlag = false;
+            }
+            return tabs;
+        };
+
+        this.getPortfolioTabs = function () {
+            porfolioFlag = true;
+            if (activeTab === 3 || activeTab === 4){
+                activeTab = 0;
+            }else if (activeTab === 2 && activeIndex === 1){
+                activeTab = 3;
+            }
+            return portfolioTabs;
+        };
+
+        this.getSearchTabs = function () {
+            return searchTabs;
+        };
+
+        this.getActiveTab = function () {
+            return activeTab;
+        };
+
+        this.getActiveSearchTab = function () {
+            return activeSearchTab;
+        };
+
+        this.changeActiveTab = function (active) {
+            activeTab = active;
+        };
+
+        this.changeActiveSearchTab = function (active) {
+            activeSearchTab = active;
+        };
+
+        this.getPatternSearchTabs = function() {
+            return searchPatternTabs;
+        };
+
+        this.changePortfolioActiveTab = function (active) {
+            if (active === 3){
+                this.changeActiveIndexType(1);
+            }else{
+                this.changeActiveIndexType(0);
+            }
+            activeTab = active;
+        };
+    })
     .service('ActiveTabService', function (){
         var activeTab = 0;
         this.activeTab = function (){
@@ -2622,7 +2801,141 @@ angular.module('ngMo', [
             }
         };
     }])
+    .factory('DateService', function ($http,$rootScope,$q) {
+        var actualDate = {};
+        var savedNow = null;
 
+        return {
+            getMonthName: function (date) {
+
+                var monthString = "";
+                switch (date.month) {
+                    case 1:
+                        monthString = "JANUARY";
+                        break;
+                    case 2:
+                        monthString = "FEBRUARY";
+                        break;
+                    case 3:
+                        monthString = "MARCH";
+                        break;
+                    case 4:
+                        monthString = "APRIL";
+                        break;
+                    case 5:
+                        monthString = "MAY";
+                        break;
+                    case 6:
+                        monthString = "JUNE";
+                        break;
+                    case 7:
+                        monthString = "JULY";
+                        break;
+                    case 8:
+                        monthString = "AUGUST";
+                        break;
+                    case 9:
+                        monthString = "SEPTEMBER";
+                        break;
+                    case 10:
+                        monthString = "OCTOBER";
+                        break;
+                    case 11:
+                        monthString = "NOVEMBER";
+                        break;
+                    case 12:
+                        monthString = "DECEMBER";
+                        break;
+                    default :
+                        monthString = "notFound";
+                        break;
+
+                }
+                return monthString;
+            },
+            getActualData: function(){
+                /*var deferred = $q.defer();
+                 $http.get($rootScope.urlService+"/actualdate").then(function(result) {
+                 deferred.resolve(result);
+                 });
+                 $rootScope.$apply();
+                 return deferred.promise;*/
+            },
+            restartDate: function (now) {
+                savedNow = new Date(now.getTime());
+                var today = new Date(savedNow.getTime());
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+                actualDate = {
+                    month: mm,
+                    year: yyyy,
+                    monthString: "",
+                    value: mm + "_" + yyyy
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            //set Date param: Date date
+            //return {month,year,monthString,value: mm_yyyy}
+            setDate: function (date) {
+                var mm = date.getMonth() + 1; //January is 0!
+                var yyyy = date.getFullYear();
+                actualDate = {
+                    month: mm,
+                    year: yyyy,
+                    monthString: "",
+                    value: mm + "_" + yyyy
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            //params: months to add
+            //date where the months are added
+            addMonths: function (months, date) { /*add Months accepts months in positive (to add) or negative (to substract)*/
+                var d = new Date(date.year, date.month - 1, 1);
+                d.setMonth(d.getMonth() + months);
+                actualDate = {
+                    month: d.getMonth() + 1,
+                    year: d.getFullYear(),
+                    monthString: "",
+                    value: (d.getMonth() + 1) + "_" + d.getFullYear()
+                };
+                actualDate.monthString = this.getMonthName(actualDate);
+                return actualDate;
+            },
+            getListMonths: function (/*diaryMode*/) {
+                var today = new Date(savedNow.getTime());//new Date();
+                var monthList = [];
+                //the list is 10 last months + actual month + next month if today is <=15, if not
+                //is 11 last months + actual month
+                if (today.getDate() > 14) {
+                    months = 10;
+                } else {
+                    months = 11;
+                }
+
+                var d = new Date(today.getFullYear(), today.getMonth() - months, 1);
+                for (i = 0; i < 12; i++) {
+                    var d_act = (this.setDate(d));
+                    monthList.push({
+                        id: i,
+                        value: d_act.value,
+                        name: d_act.monthString + " " + d_act.year,
+                        month: d_act.month,
+                        year: d_act.year,
+                        monthString: d_act.monthString
+                    });
+
+                    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+                }
+                return monthList;
+
+            }
+
+
+        };
+
+    })
     .service("ExpirationYearFromPatternName", function() {
         this.getExpirationYearFromPatternName = function(patternSymbol, entryDate) {
             var symbolYearMap = {};
