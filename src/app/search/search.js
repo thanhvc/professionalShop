@@ -29,7 +29,24 @@ angular.module('ngPF.search', [
                     templateUrl: 'search/search.tpl.html'
                 }
             },
-            data: { pageTitle: 'Search' }
+            data: {
+                pageTitle: 'Buscador',
+                selectMenu: 'prof-nav',
+                selectSubmenu: 'submenuProf',
+                selectItemSubmenu: 'search-nav',
+                moMenuType: 'privateMenu'
+            },
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                },
+                now:function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                        return new Date(result.data.actualDate);
+                    });
+                }
+            }
         });
     })
 

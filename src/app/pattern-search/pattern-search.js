@@ -15,7 +15,24 @@ angular.module('ngPF.patternSearch', [
                     templateUrl: 'pattern-search/pattern-search.tpl.html'
                 }
             },
-            data: { pageTitle: 'Pattern Search' }
+            data: {
+                pageTitle: 'Patrones',
+                selectMenu: 'prof-nav',
+                selectSubmenu: 'submenuProf',
+                selectItemSubmenu: 'pattern-search-nav',
+                moMenuType: 'privateMenu'
+            },
+            resolve: {
+                IsLogged: "IsLogged",
+                logged: function(IsLogged) {
+                    IsLogged.isLogged();
+                },
+                now:function ($http, $rootScope) {
+                    return $http({method: 'GET', url: $rootScope.urlService + '/actualdate'}).then(function(result) {
+                        return new Date(result.data.actualDate);
+                    });
+                }
+            }
         });
     })
 
