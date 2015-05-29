@@ -23,6 +23,9 @@
     "SIN CLASIFICAR": "SIN CLASIFICAR",
     "NOT_CLASSIFIED": "SIN CLASIFICAR",
     "Not_classified": "SIN CLASIFICAR",
+    "select": "Elegir",
+    "grater_than": "Mayor que",
+    "less_than": "Menor que",
     "REGIONS": {
         "OCEANIA": "Australia + Nueva Zelanda",
         "CEE": "Suiza + Europa del Este + Rusia",

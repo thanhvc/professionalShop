@@ -496,6 +496,8 @@ angular.module('ngPF.patternSearch', [
         $scope.loadFakeData = function () {
             $scope.dataLoaded = true;
             $scope.loading = false;
+            $scope.found= 2;
+            $scope.results = 2;
             $scope.patterns = [
                 {
                     operation:'sell',
