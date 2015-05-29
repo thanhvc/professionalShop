@@ -112,8 +112,8 @@ angular.module('ngMo', [
     })
 
     .run(function run($rootScope,$translate,$translateCookieStorage,$location) {
-        //$rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
-        $rootScope.urlService = 'http://localhost:9000';
+        $rootScope.urlService = 'http://api.mo.devel.edosoftfactory.com';
+        //$rootScope.urlService = 'http://localhost:9000';
 
 
         /**

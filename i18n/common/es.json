@@ -6,6 +6,7 @@
     "INDEX_PAIRS": "Par Índices",
     "FUTURES": "Futuros",
     "FOREX":"Forex",
+    "SIMPLES":"Simples",
 
     "JANUARY": "Enero",
     "FEBRUARY": "Febrero",
@@ -90,6 +91,8 @@
     "shopping_guide_desc": "Los distintos Pack de contenidos de estrategias se ponen en práctica con diferentes instrumentos acciones, bonos, ETF, CFD, Fondos de Inversión, Pensiones o Futuros",
     "job_desc":"Trabaja con nosotros",
     "business_desc":"Todos los Patrones optimizados en rentabilidad y recurrencia datos objetivos de activos y bolsas del mundo, outrights, pairs, spreads para profesionales, fondos, hedge funds, mercados de capitales",
-    "LOADING":"Cargando"
+    "LOADING":"Cargando",
+    "market":"Mercado",
+    "choose":"Elegir"
     
 }

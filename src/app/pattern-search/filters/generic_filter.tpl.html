@@ -1,12 +1,12 @@
 <div >
-<table class="filter-container-pattern-type">
+<table class="filter-container-pattern-type width-tables-filters">
     <tr>
         <td>
             <input ng-keypress="submitName($event)" style="margin-top:16px;" class="border-filters input-filter" placeholder="Nombre"
                    ng-model="filters.name">
         </td>
-        <td style="width: 80px;">
-            <select ng-change="selectType()" ng-model="filters.pattern_type" class="orange-select">
+        <td  >
+            <select ng-change="selectType()" ng-model="filters.pattern_type" class="index-select-orange">
                 <option value="0">{{'SIMPLES'|translate}}</option>
                 <option value="1">{{'PAIRS'|translate}}</option>
             </select>
@@ -16,7 +16,7 @@
                     data-ng-model="filters.selectedMarket"
                     style="margin-top:16px; margin-right: 0px;"
                     ng-disabled="selectors.markets.length <= 0">
-                <option value="">- {{'market' | translate}} -</option>
+                <option value="">- {{'MY_PATT.market' | translate}} -</option>
                 <option ng-repeat="item in selectors.markets | orderBy:['ordering']" value="{{item.id}}"
                         ng-selected="{{item.id == filters.selected_market}}">
                     {{item.description}}
@@ -59,7 +59,7 @@
             <select class="border-filters select-filter small-select-filter"
                     ng-options="item.description|translate for item in selectors.comparators"
                     data-ng-model="filters.entry_date_op">
-                <option value="">- {{'select' | translate}} -</option>
+                <option value="">- {{'MY_PATT.choose' | translate}} -</option>
 
             </select>
             <input name="entryInput" class="border-filters input-filter small-input-filter" placeholder=""
@@ -74,7 +74,7 @@
             <select class="border-filters select-filter small-select-filter"
                     ng-options="item.description|translate for item in selectors.comparators"
                     data-ng-model="filters.exit_date_op">
-                <option value="">- {{'select' | translate}} -</option>
+                <option value="">- {{'MY_PATT.choose' | translate}} -</option>
 
             </select>
             <input name="exitInput" class="border-filters input-filter small-input-filter" placeholder=""
@@ -87,7 +87,7 @@
             <select class="border-filters select-filter small-select-filter"
                     ng-options="item.description|translate for item in selectors.comparators"
                     data-ng-model="filters.drawdown_op">
-                <option value="">- {{'select' | translate}} -</option>
+                <option value="">- {{'MY_PATT.choose' | translate}} -</option>
 
             </select>
             <input name="entryInput" class="border-filters input-filter small-input-filter" placeholder=""
@@ -107,7 +107,7 @@
     </tr>
 </table>
 <form name="rentForm">
-    <table>
+    <table class="width-second-tables-filters">
         <tr>
             <td>
 
@@ -116,7 +116,7 @@
 
                         ng-options="item.description|translate for item in selectors.comparators"
                         data-ng-model="filters.accumulated_op">
-                    <option value="">- {{'select' | translate}} -</option>
+                    <option value="">- {{'MY_PATT.choose' | translate}} -</option>
 
                 </select>
 
@@ -132,7 +132,7 @@
                 <select class="border-filters select-filter small-select-filter"
                         ng-options="item.description|translate for item in selectors.comparators"
                         data-ng-model="filters.daily_op">
-                    <option value="">- {{'select' | translate}} -</option>
+                    <option value="">- {{'MY_PATT.choose' | translate}} -</option>
 
                 </select>
                 <input name="rentDiaryInput" class="border-filters input-filter small-input-filter" placeholder="%" placeholder="%"
@@ -145,7 +145,7 @@
                 <select class="border-filters select-filter small-select-filter"
                         ng-options="item.description|translate for item in selectors.comparators"
                         data-ng-model="filters.loss_op">
-                    <option value="">- {{'select' | translate}} -</option>
+                    <option value="">- {{'MY_PATT.choose' | translate}} -</option>
                 </select>
                 <input name="rentAverageInput" class="border-filters input-filter small-input-filter" placeholder="%"
                        ng-pattern="rentPattern" ng-trim="false"
@@ -157,7 +157,7 @@
                 <select class="border-filters select-filter small-select-filter"
                         ng-options="item.description|translate for item in selectors.comparators"
                         data-ng-model="filters.fail_op">
-                    <option value="">- {{'select' | translate}} -</option>
+                    <option value="">- {{'MY_PATT.choose' | translate}} -</option>
 
                 </select>
                 <input name="volatilityInput" class="border-filters input-filter small-input-filter" placeholder="%"
@@ -170,7 +170,7 @@
                 <select class="border-filters select-filter small-select-filter"
                         ng-options="item.description|translate for item in selectors.comparators"
                         data-ng-model="filters.duration_op">
-                    <option value="">- {{'select' | translate}} -</option>
+                    <option value="">- {{'MY_PATT.choose' | translate}} -</option>
 
                 </select>
                 <input name="durationInput" class="border-filters input-filter small-input-filter" placeholder="dias"
@@ -179,7 +179,7 @@
                        data-ng-model="filters.duration">
             </td>
             <td>
-                <table style="position: relative; left: -15px;">
+                <table style="position: relative; ">
                     <tr>
                         <!--  <td style="text-align: center;"><span class="filter-label-select">{{'MY_PATT.favorite_long'|translate}}</span><br>
                               <input type="checkbox" ng-change="search();"

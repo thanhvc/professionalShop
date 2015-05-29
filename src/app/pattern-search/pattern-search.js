@@ -153,8 +153,8 @@ angular.module('ngPF.patternSearch', [
             {
                 "simple": {"table": 'pattern-search/tables/stock_table.tpl.html',
                     "filter": 'pattern-search/filters/generic_filter.tpl.html'},
-                "pair": {"table": 'pattern-search/tables/generic_filter.tpl.html',
-                    "filter": 'pattern-search/filters/pair_table.tpl.html'}
+                "pair": {"table": 'pattern-search/tables/pair_table.tpl.html',
+                    "filter": 'pattern-search/filters/generic_filter.tpl.html'}
             }
         ];
 
