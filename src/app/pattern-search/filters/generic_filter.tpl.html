@@ -16,7 +16,7 @@
                     data-ng-model="filters.selectedMarket"
                     style="margin-top:16px; margin-right: 0px;"
                     ng-disabled="selectors.markets.length <= 0">
-                <option value="">- {{'MY_PATT.market' | translate}} -</option>
+                <option value="">- {{'market' | translate}} -</option>
                 <option ng-repeat="item in selectors.markets | orderBy:['ordering']" value="{{item.id}}"
                         ng-selected="{{item.id == filters.selected_market}}">
                     {{item.description}}

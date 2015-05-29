@@ -41,6 +41,7 @@ angular.module('ngPF.patternSearch', [
  */
     .controller('PatternSearchCtrl', function SearchController($scope, TabsService, $location, DateService, SelectedMonthService, $translatePartialLoader) {
         $translatePartialLoader.addPart("pattern_search");
+        $translatePartialLoader.addPart("my_patterns");
 
         $scope.filters = {
             //each filter 'xxxx' that has a selector 'greater_than', 'less_than' has the option in the 'xxxx_op' filter

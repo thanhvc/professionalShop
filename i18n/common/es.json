@@ -93,6 +93,9 @@
     "business_desc":"Todos los Patrones optimizados en rentabilidad y recurrencia datos objetivos de activos y bolsas del mundo, outrights, pairs, spreads para profesionales, fondos, hedge funds, mercados de capitales",
     "LOADING":"Cargando",
     "market":"Mercado",
-    "choose":"Elegir"
+    "choose":"Elegir",
+    "operation":"Operación",
+    "buy": "Comprar",
+    "sell": "Vender"
     
 }
